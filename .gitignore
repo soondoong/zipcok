@@ -21,7 +21,7 @@ local.properties
 .classpath
 target/
 */target/*
-.mf
+*.manifest
 # External tool builders
 .externalToolBuilders/
 
