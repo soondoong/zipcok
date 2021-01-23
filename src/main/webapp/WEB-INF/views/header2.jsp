@@ -9,7 +9,7 @@
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav class="nav-menu d-none d-lg-block">
-        <ul>
+        <ul >
           <li class="drop-down infoLi"><a href="#">소개</a>
           	<ul>
               <li><a href="#">집콕헬스 소개</a></li>
@@ -33,15 +33,15 @@
               <li><a href="#">코치등록안내</a></li>
             </ul>
           </li>
+          <li class="masterLi"><a href="#">관리자페이지</a></li> 
           
-
           <li class="loginLi"><a href="#">로그인</a></li>
-          <li class="signLi"><a href="#">회원가입</a></li>   
-        </ul><!-- mainmenu -->
-        
-        
-          
+          <li class="signLi"><a href="#">회원가입</a></li> 
+      
       </nav><!-- .nav-menu -->
+
+        </ul><!-- mainmenu -->
+
 
     </div>
   </header><!-- End Header -->
