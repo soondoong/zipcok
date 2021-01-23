@@ -23,10 +23,22 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  
+  <style>
+  .intro{margin-top:100px;}
+  </style>
 </head>
 <body>
 <%@include file="header2.jsp" %>
 
-
+<!--jumbotron 부분-->
+   <div class="container intro">
+      <div class="jumbotron">
+        <h1 class="text-center">여러분의 홈짐을 공유하세요.</h1>
+        <p class="text-center">운동공간을 공유하고 원하는 운동에 맞는 코치님을 만날 수 있습니다.</p>
+        <p class="text-center"><a class="btn btn-primary btn-lg" href="#" role="button">코치 매칭으로</a></p>
+      </div>
+    </div>
+<!--jumbotron 끝-->
 </body>
 </html>
