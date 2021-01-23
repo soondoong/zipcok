@@ -89,6 +89,8 @@ target/
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+
+jdbc.properties
 # Package Files #
 *.jar
 *.war
