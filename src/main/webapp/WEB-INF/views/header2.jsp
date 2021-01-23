@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center">
+    <div class="container d-flex align-items-center headerContainer">
 
       <h1 class="logo"><a href="#">집콕헬스</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
