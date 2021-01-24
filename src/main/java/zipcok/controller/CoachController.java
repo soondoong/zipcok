@@ -7,19 +7,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class CoachController {
 	
-	@RequestMapping("coachMatchingInfo.do")
-	public String gotoInfo() {
-		return "coach/matchingInfoView";
-	}
-		
 	
 	@RequestMapping("findCoachList.do")
 		public ModelAndView gotoCoachList() {
 		
 		ModelAndView mav=new ModelAndView();
+		mav.setViewName("coach/coachListView");
 		return mav;
 	}
 	
+	
+	@RequestMapping("coachMatchingInfo.do")
+	public String coachMatchingInfo() {
+		return "coach/matchingInfoView";
+	}
+		
+	
+	
+	@RequestMapping("coachSignInfo.do")
+	public String coachSignInfo() {
+		return "coach/coachSignInfoView";
+	}
+		
+
 	
 
 		

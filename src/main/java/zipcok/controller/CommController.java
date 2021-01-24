@@ -10,5 +10,10 @@ public class CommController {
 	public String mainView() {
 		return "comm/commMainView";
 	}
+	
+	@RequestMapping("commDailyList.do")
+	public String dailyList() {
+		return "comm/commDailyList";
+	}
 
 }

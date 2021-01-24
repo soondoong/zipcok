@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <meta http-equiv="Cache-Control" content="no-cache">
+
     <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -30,9 +32,9 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul >
-          <li class="drop-down infoLi"><a href="#">소개</a>
+          <li class="drop-down infoLi"><a href="zipcokView.do">소개</a>
           	<ul>
-              <li><a href="#">집콕헬스 소개</a></li>
+              <li><a href="zipcokView.do">집콕헬스 소개</a></li>
               <li><a href="noticeList.do">공지사항</a></li>
               <li><a href="#">F&A/고객센터</a></li>
             </ul>
@@ -50,7 +52,7 @@
             <ul>
               <li><a href="findCoachList.do">코치검색</a></li>
               <li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>
-              <li><a href="coachSignInfo.do">코치등록안내</a></li>
+              <li><a href="coachSignInfo.do">코치로 등록하기</a></li>
             </ul>
           </li>
           
@@ -63,9 +65,8 @@
           <li class="masterLi"><a href="#">관리자페이지</a></li> 
           
           <li class="loginLi"><a href="#">로그인</a></li>
-          <li class="signLi"><a href="memberJoin.do">일반회원가입</a></li> 
-          <li class="signLi"><a href="coachJoin.do">코치회원가입</a></li> 
-      
+          <li class="signLi"><a href="memberJoin.do">회원가입</a></li> 
+
         </ul><!-- mainmenu -->
       </nav><!-- .nav-menu -->
 
