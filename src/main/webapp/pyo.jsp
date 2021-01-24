@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>나는 홍승표입니다</h1>
-<h2>ㅏㅁㄴ아ㅓㅁ마ㅓ마ㅓ마ㅓ</h2>
+모병구 바보
 </body>
 </html>
