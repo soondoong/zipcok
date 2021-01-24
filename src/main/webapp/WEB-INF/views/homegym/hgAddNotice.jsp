@@ -8,8 +8,7 @@
 </head>
 <body>
 <%@include file="../header2.jsp" %>
-<h1>홈짐 예약하기 화면</h1>
-<input type = "button" value = "홈짐 예약하기" onclick = "javascript:location.href='HomeGymReservation.do'">
-
+<h1>홈짐 등록 안내</h1>
+<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:location.href='HomeGymAdd.do'">
 </body>
 </html>

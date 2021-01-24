@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>홈짐 소개 화면</h1>
+<%@include file="../header2.jsp" %>
+<h1>홈짐 이용 안내 화면</h1>
 </body>
 </html>

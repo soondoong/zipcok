@@ -24,7 +24,7 @@
   <header id="header">
     <div class="container d-flex align-items-center headerContainer">
 
-      <h1 class="logo"><a href="#">집콕헬스</a></h1>
+      <h1 class="logo"><a href="index.do">집콕헬스</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo mr-auto"><img src="assets/img/logo.png" alt=""></a>-->
 
@@ -41,8 +41,8 @@
           <li class="drop-down"><a href="HomeGymList.do">홈짐찾기</a>
             <ul>
               <li><a href="HomeGymList.do">홈짐검색</a></li>
-              <li><a href="">홈짐이용안내</a></li>
-              <li><a href="#">홈짐등록안내</a></li>
+              <li><a href="HomeGymUseNotice.do">홈짐이용안내</a></li>
+              <li><a href="HomeGymAddNotice.do">홈짐등록안내</a></li>
             </ul>
           </li>
           
@@ -66,10 +66,8 @@
           <li class="signLi"><a href="memberJoin.do">일반회원가입</a></li> 
           <li class="signLi"><a href="coachJoin.do">코치회원가입</a></li> 
       
-      </nav><!-- .nav-menu -->
-
         </ul><!-- mainmenu -->
-
+      </nav><!-- .nav-menu -->
 
     </div>
   </header><!-- End Header -->
