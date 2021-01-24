@@ -132,5 +132,8 @@ $RECYCLE.BIN/
 # MANIFEST
 *.MF
 
+# pom.properties
+pom.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,eclipse
 /build/
