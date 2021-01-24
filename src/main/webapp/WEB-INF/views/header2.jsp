@@ -30,9 +30,9 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul >
-          <li class="drop-down infoLi"><a href="#">소개</a>
+          <li class="drop-down infoLi"><a href="zipcokView.do">소개</a>
           	<ul>
-              <li><a href="#">집콕헬스 소개</a></li>
+              <li><a href="zipcokView.do">집콕헬스 소개</a></li>
               <li><a href="noticeList.do">공지사항</a></li>
               <li><a href="#">F&A/고객센터</a></li>
             </ul>
