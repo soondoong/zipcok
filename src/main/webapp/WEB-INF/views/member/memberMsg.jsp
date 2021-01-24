@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="../header2.jsp" %>
 ${msg }
 <input type="button" value="로그인">
 </body>
