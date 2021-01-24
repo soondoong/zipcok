@@ -18,9 +18,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   
-  
-  
-  
+
   
 <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
@@ -55,6 +53,13 @@
               <li><a href="#">코치등록안내</a></li>
             </ul>
           </li>
+          
+            <li class="drop-down"><a href="">커뮤니티</a>
+            <ul>
+              <li><a href="#">내 커뮤니티보기</a></li>
+            </ul>
+          </li>
+          
           <li class="masterLi"><a href="#">관리자페이지</a></li> 
           
           <li class="loginLi"><a href="#">로그인</a></li>
