@@ -3,11 +3,14 @@ package zipcok.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import zipcok.notice.model.NoticeDAO;
 import zipcok.notice.model.NoticeDTO;
 
+import java.util.*;
 @Controller
 public class NoticeController {
 	
@@ -15,9 +18,18 @@ public class NoticeController {
 	private NoticeDAO noticeDao;
 
 	@RequestMapping("noticeList.do")
-	public ModelAndView goNoticeList() {
+	public ModelAndView goNoticeList(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		int totalCnt=noticeDao.getTotalCnt();
+		int listSize=10;
+		int pageSize=10;
+		String pageStr=zipcok.page.PageModule.makePage("noticeList.do", totalCnt, cp, listSize, pageSize);
 		
+		List list = noticeDao.noticeAllList(cp, listSize);
 		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("pageStr",pageStr);
+		mav.addObject("list",list);
 		mav.setViewName("notice/noticeList");
 		return mav;
 	}

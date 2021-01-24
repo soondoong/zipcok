@@ -25,4 +25,21 @@ public class NoticeDAOImple implements NoticeDAO {
 	}
 	
 
+	public List noticeAllList(int cp, int ls) {
+		
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("start", start);
+		map.put("end", end);
+		      List list=sqlMap.selectList("noticeAllListSQL", map);
+		      return list;
+	}
+	
+	public int getTotalCnt() {
+		int count=sqlMap.selectOne("noticeTotalCnt");
+		return count==0?1:count;
+	}
+	
+
 }

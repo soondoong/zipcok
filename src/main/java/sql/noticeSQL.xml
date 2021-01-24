@@ -7,16 +7,30 @@
   	insert into
   	zipcok_bbs
   	values(bbs_idx.nextval,
-  	공지사항,
-  	#{bbs_category_key},
+  	'공지사항',
+  	#{bbs_category},
   	#{bbs_subject},
   	#{bbs_content},
-  	#{bbs_writer},
-  	#{bbs_readnum},
+  	'관리자',
+  	0,
   	sysdate,
   	0,
   	0,
   	0
   	)
   </insert>
+  <select id="noticeAllListSQL" parameterType="Map" resultType="zipcok.notice.model.NoticeDTO">
+  	select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_bbs where bbs_key='공지사항' order by bbs_idx desc) a) b
+		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+  </select>
+  
+   	<select id="noticeTotalCnt" resultType="Integer">
+  		select
+  			count(*)
+  		from
+  			zipcok_bbs
+  		where bbs_key='공지사항'
+  	</select>
   </mapper>
