@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="yong.bbs">
+  	<insert id="bbsInsert" parameterType="yong.bbs.model.BbsDTO">
+  		insert into
+  			jsp_bbs
+  		values(jsp_bbs_idx.nextval,
+  		#{writer},
+  		#{pwd},
+  		#{subject},
+  		#{content},
+  		sysdate,
+  		0,
+  		0,
+  		0,
+  		0
+  		)
+  	</insert>
+  	
+  	<select id="bbsAllList" parameterType="Map" resultType="yong.bbs.model.BbsDTO">
+  		select * from 
+  		(select rownum as rnum,a.* from(select * from jsp_bbs order by idx desc)a)b
+  		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+  	</select>
+
+	<select id="bbsContent" parameterType="Integer" resultType="yong.bbs.model.BbsDTO">
+		select * from 
+		jsp_bbs 
+		where idx=
+		#{idx}
+  	</select>
+  	
+  	<select id="bbsTotalCnt" resultType="Integer">
+  		select count(*) from jsp_bbs
+  	</select>
+  	</mapper>

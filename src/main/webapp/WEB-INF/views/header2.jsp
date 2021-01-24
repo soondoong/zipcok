@@ -21,7 +21,7 @@
 
   
 <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
+  <header id="header">
     <div class="container d-flex align-items-center headerContainer">
 
       <h1 class="logo"><a href="#">집콕헬스</a></h1>
@@ -48,9 +48,9 @@
           
             <li class="drop-down"><a href="">코치찾기</a>
             <ul>
-              <li><a href="#">코치검색</a></li>
-              <li><a href="#">코치매칭이용안내</a></li>
-              <li><a href="#">코치등록안내</a></li>
+              <li><a href="findCoachList.do">코치검색</a></li>
+              <li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>
+              <li><a href="coachSignInfo.do">코치등록안내</a></li>
             </ul>
           </li>
           
