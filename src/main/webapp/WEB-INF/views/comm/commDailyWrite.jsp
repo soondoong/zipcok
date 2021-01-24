@@ -9,9 +9,6 @@
 <body>
 <%@include file="../header2.jsp" %>
 <%@include file="./commSideMenu.jsp" %>
-<h1>커뮤니티 메인</h1>
-<h3>코치 : ??? 코치</h3>
-달력
-<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
+<h1>일일 운동 게시판 글쓰기</h1>
 </body>
 </html>
