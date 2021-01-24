@@ -50,12 +50,12 @@ function check_pwd(){
 <body>
 <%@include file="../header2.jsp" %>
 <br><br><br>
-<h1>회원가입</h1>
+<h2>회원가입</h2>
 <hr>
 <br>
 <h6>기본 정보 입력</h6>
 <hr>
-<form>
+<form action="memberJoin.do">
 <ul>
 	<li><input type="text" name="mem_name" placeholder="이름"></li>
 	<li><input type="text" name="mem_birth" placeholder="생년월일 / 예)19940811"></li>
@@ -86,7 +86,7 @@ function check_pwd(){
    <li>
    <input type="text" name="mem_faddr" placeholder="주소"><input type="button" value="주소찾기">
    <br>
-   <input type="text" name="mem_faddr" placeholder="상세주소">
+   <input type="text" name="mem_saddr" placeholder="상세주소">
    </li>
    <li>
    <input type="radio" name="mem_sex" value="남자" checked="checked">남자 &nbsp;
@@ -104,6 +104,7 @@ function check_pwd(){
 	<input type="text" name="telok"><input type="button" value="인증">
 	</li>
 </ul>
+<input type="submit" value="회원가입">
 </form>
 </body>
 </html>

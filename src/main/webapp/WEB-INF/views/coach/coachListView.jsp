@@ -19,11 +19,18 @@ line-height: 1;
 }
 
 
-
-.listWrap{
+.contentsWrap{
 margin-top:40px;
 padding:0px 30px;
 }
+.listWrap{
+width:230px;
+display: flex;
+}
+.oneperson{
+margin:0 20px 0 20px;
+}
+
 .image-container img{
 width:350px;
 }
@@ -32,10 +39,21 @@ width:350px;
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 200px;
+   width: 230px;
    height:300px;
 }
-
+.extype{
+text-align:center;
+display:inline-block;
+width:50px;
+background-color: gray;
+color:white;
+border-radius: 20%;
+font-size: 0.8rem;
+}
+.category{
+font-size: 0.8rem;
+}
 </style>
 </head>
 <body>
@@ -69,21 +87,52 @@ width:350px;
 <!-- 리스트 영역  -->
 
 <section>
-	<article>
+	<article class="contentsWrap">
+		<h3 class=" mt-5">나도 몸짱! 고강도 전신운동</h3>
+		
 	<div class="listWrap">
-		<h3>나도 몸짱! 고강도 전신운동</h3>
-
+		<div class="oneperson">
 			<div class="image-container">
 		        <img src="img/coach/324f.jpg" alt="">
 		    </div>
 		    
+		    <div>
+		    <span class="category">퍼스널트레이닝</span>&nbsp; <span>박병창</span> 
+		    </div>
+		    
+		     <div>
+		    <span><a href="#">한 달만에 핫바디만드는, 고강도 전신 근력 트레이닝</a></span>
+		    </div>
+		    
+		    <div>
+		    	<span class="extype">대면</span>&nbsp; <span>5.0</span>
+		    </div>
+		  </div>  
+		  
+		  	<div class="oneperson">
+			<div class="image-container">
+		        <img src="img/coach/324f.jpg" alt="">
+		    </div>
+		    
+		    <div>
+		    <span class="category">퍼스널트레이닝</span>&nbsp; <span>박병창</span> 
+		    </div>
+		    
+		     <div>
+		    <span>한 달만에 핫바디만드는, 고강도 전신 근력 트레이닝</span>
+		    </div>
+		    
+		    <div>
+		    	<span class="extype">대면</span>&nbsp; <span>5.0</span>
+		    </div>
+		  </div> 
 	</div>
-	</article>
+
 	
-	
-	<article>
-	<div>
-		<h3>나를 위한, 힐링의 시간</h3>
+	<h3 class="mt-5">나를 위한, 힐링의 시간</h3>
+
+	<div class="listWrap2">
+		
 		
 	</div>
 	</article>

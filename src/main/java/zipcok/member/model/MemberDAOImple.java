@@ -8,15 +8,15 @@ public class MemberDAOImple implements MemberDAO {
 	
 	private SqlSessionTemplate sqlMap;
 	
-	public MemberDAOImple() {
+	public MemberDAOImple(SqlSessionTemplate sqlMap) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.sqlMap = sqlMap;
 	}
 	
 	@Override
 	public int memberJoinSubmit(MemberDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		int count=sqlMap.insert("memberJoin", dto);
+		return count;
 	}
 	
 	
