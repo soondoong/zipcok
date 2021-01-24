@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.notice">
+  <insert id="noticeWriteSQL" parameterType="zipcok.notice.model.NoticeDTO">
+  	insert into
+  	zipcok_bbs
+  	values(bbs_idx.nextval,
+  	공지사항,
+  	#{bbs_category_key},
+  	#{bbs_subject},
+  	#{bbs_content},
+  	#{bbs_writer},
+  	#{bbs_readnum},
+  	sysdate,
+  	0,
+  	0,
+  	0
+  	)
+  </insert>
+  </mapper>
