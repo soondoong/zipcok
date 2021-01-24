@@ -50,7 +50,7 @@
             <ul>
               <li><a href="findCoachList.do">코치검색</a></li>
               <li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>
-              <li><a href="coachSignInfo.do">코치등록안내</a></li>
+              <li><a href="coachSignInfo.do">코치로 등록하기</a></li>
             </ul>
           </li>
           
@@ -63,8 +63,7 @@
           <li class="masterLi"><a href="#">관리자페이지</a></li> 
           
           <li class="loginLi"><a href="#">로그인</a></li>
-          <li class="signLi"><a href="memberJoin.do">일반회원가입</a></li> 
-          <li class="signLi"><a href="coachJoin.do">코치회원가입</a></li> 
+          <li class="signLi"><a href="memberJoin.do">회원가입</a></li> 
       
       </nav><!-- .nav-menu -->
 
