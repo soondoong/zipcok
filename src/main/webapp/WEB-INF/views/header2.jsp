@@ -38,10 +38,10 @@
             </ul>
           </li>
  
-          <li class="drop-down"><a href="">홈짐찾기</a>
+          <li class="drop-down"><a href="HomeGymList.do">홈짐찾기</a>
             <ul>
-              <li><a href="#">홈짐검색</a></li>
-              <li><a href="#">홈짐이용안내</a></li>
+              <li><a href="HomeGymList.do">홈짐검색</a></li>
+              <li><a href="">홈짐이용안내</a></li>
               <li><a href="#">홈짐등록안내</a></li>
             </ul>
           </li>
