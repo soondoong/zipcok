@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <meta http-equiv="Cache-Control" content="no-cache">
+
     <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -67,7 +69,7 @@
       
       </nav><!-- .nav-menu -->
 
-        </ul><!-- mainmenu -->
+   </ul><!-- mainmenu -->
 
 
     </div>
