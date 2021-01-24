@@ -28,5 +28,12 @@
 
 
 
+	<!-- service ByeongMo Start -->
+	<bean id="MemberDao" class="zipcok.member.model.MemberDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate"/>
+		</constructor-arg>
+	</bean>
+	<!-- service ByeongMo End -->
 
 </beans>
