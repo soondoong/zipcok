@@ -56,7 +56,7 @@
           
             <li class="drop-down"><a href="">커뮤니티</a>
             <ul>
-              <li><a href="#">내 커뮤니티보기</a></li>
+              <li><a href="commMain.do">내 커뮤니티보기</a></li>
             </ul>
           </li>
           
