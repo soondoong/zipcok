@@ -58,7 +58,8 @@
           <li class="masterLi"><a href="#">관리자페이지</a></li> 
           
           <li class="loginLi"><a href="#">로그인</a></li>
-          <li class="signLi"><a href="#">회원가입</a></li> 
+          <li class="signLi"><a href="memberJoin.do">일반회원가입</a></li> 
+          <li class="signLi"><a href="coachJoin.do">코치회원가입</a></li> 
       
       </nav><!-- .nav-menu -->
 
