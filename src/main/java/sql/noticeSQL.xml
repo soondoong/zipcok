@@ -52,6 +52,12 @@
   	</select>
   	<update id="noticeUpdateSQL" parameterType="zipcok.notice.model.NoticeDTO">
   		update
-  		
+  		zipcok_bbs
+  		set
+  		bbs_category=#{bbs_category},
+  		bbs_subject=#{bbs_subject},
+  		bbs_content=#{bbs_content}
+  		where
+  		bbs_key='공지사항' and bbs_idx=#{bbs_idx}
   	</update>
   </mapper>

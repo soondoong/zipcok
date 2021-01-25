@@ -62,4 +62,10 @@ public class NoticeDAOImple implements NoticeDAO {
 			List list=sqlMap.selectList("noticeSearchListSQL", map);
 			return list;
 	}
+	
+	
+	public int noticeUpdate(NoticeDTO dto) {
+		int count=sqlMap.update("noticeUpdateSQL", dto);
+		return count;
+	}
 }

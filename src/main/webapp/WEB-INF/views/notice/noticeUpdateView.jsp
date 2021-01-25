@@ -11,7 +11,6 @@
 function golist(){
 	location.href='noticeList.do';
 }
-
 </script>
 </head>
 <body>
@@ -27,6 +26,7 @@ function golist(){
 		</select></td>
 	</tr>
 	<tr>
+		<td><input type="hidden" name="bbs_idx" value="${dto.bbs_idx}"></td>
 		<th>제목</th>
 		<td><input type="text" name="bbs_subject" value="${dto.bbs_subject}"></td>
 	</tr>

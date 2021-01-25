@@ -88,4 +88,18 @@ public class NoticeController {
 		mav.setViewName("notice/noticeUpdateView");
 		return mav;
 	}
+	
+	@RequestMapping("noticeUpdate.do")
+	public ModelAndView goNoticeUpdate(NoticeDTO dto) {
+			
+			int result=noticeDao.noticeUpdate(dto);
+			String msg=result>0?"글 수정 성공":"글 수정 실패";
+			
+			ModelAndView mav=new ModelAndView();
+			mav.addObject("msg",msg);
+			mav.addObject("gopage","noticeList.do");
+			mav.setViewName("notice/noticeMsg");
+			return mav;
+			
+	}
 }
