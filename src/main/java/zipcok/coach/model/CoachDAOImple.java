@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
 
 @Service
 public class CoachDAOImple implements CoachDAO {
@@ -24,5 +26,13 @@ public class CoachDAOImple implements CoachDAO {
 		map.put("yoga", yogaList);
 		return map ;
 	}
+	
+	@Override
+	public List<MainCoachDTO> searchCoachList(HashMap<String, String> keys) {
+		List<MainCoachDTO> searchList=sqlMap.selectList("searchCoachByKey",keys);
+		
+		return searchList;
+	}
+	
 
 }

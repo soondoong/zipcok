@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,20 +55,6 @@ font-size: 0.8rem;
 font-size: 0.8rem;
 }
 </style>
-
-<script>
-function search(){
-	
-	var location=document.getElementById("location").value;
-	var extype=document.getElementById("extype").value;
-	var category=document.getElementById("category").value;
-	var params="location="+location+"extype="+extype+"category="+category;
-	sendRequest('searchCoachAjax.do',params,showResult,'GET');
-	
-}
-
-
-</script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
@@ -112,11 +98,12 @@ function search(){
 
 <section>
 	<article class="contentsWrap">
-		<h3 class=" mt-5">나도 몸짱! 고강도 전신운동</h3>
-		
+		<h3 class=" mt-5">검색된 리스트</h3>
+
+		<h5>${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
 <div class="listWrap">
 
-<c:forEach var="dto" items="${map.pt }">
+<c:forEach var="dto" items="${list}">
 
 		<div class="oneperson">
 		
@@ -141,36 +128,6 @@ function search(){
 </c:forEach>
 </div> 
 
-
-	
-	<h3 class="mt-5">나를 위한, 힐링의 시간</h3>
-
-	<div class="listWrap2">
-		<c:forEach var="dto2" items="${map.yoga }">
-
-		<div class="oneperson">
-		
-			<div class="image-container">
-		        <img src="img/coach/${dto2.mfile_upload }" alt="">
-		    </div>
-		    
-		    <div>
-		    <span class="category">${dto2.cate_name }</span>&nbsp; <span>${dto2.mem_name }</span> 
-		    </div>
-		    
-		     <div>
-		    <span><a href="#">${dto2.coach_intro_sub}</a></span>
-		    </div>
-		    
-		    <div>
-		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; <span>5.0</span>
-		    </div>
-		  </div>  
-		  
-
-</c:forEach> 
-		
-	</div>
 	</article>
 </section>
 

@@ -5,29 +5,57 @@
   <mapper namespace="zipcok.coach">
     <select id="findCategoryCoachPT" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
 select 
-m.mem_name,a.* 
-from zipcok_member m,
+m.mem_name,f.mfile_upload,a.*  
+from zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
 where c.coach_mem_id = g.cate_mem_id)a
 where 
 m.mem_id=a.coach_mem_id 
+and
+m.mem_id=mfile_mem_id
+and
+mfile_key='코치' 
 and 
 a.cate_name='퍼스널트레이닝' 
-
 	</select>
 	
 	
 	<select id="findCategoryCoachYoga" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
 select 
-m.mem_name,a.* 
-from zipcok_member m,
+m.mem_name,f.mfile_upload,a.*  
+from zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
 where c.coach_mem_id = g.cate_mem_id)a
 where 
 m.mem_id=a.coach_mem_id 
+and
+m.mem_id=mfile_mem_id
+and
+mfile_key='코치' 
 and 
 a.cate_name='요가' 
-
 	</select>
+	
+	
+	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
+	select 
+m.mem_name,f.mfile_upload,a.*  
+from zipcok_member m,member_file f, 
+(select * from coach_regist c,coach_category g 
+where c.coach_mem_id = g.cate_mem_id)a
+where
+a.coach_floc like '%${location}%'
+and
+a.coach_ex_type like '%${extype}%'
+and
+a.cate_name like '%${category}%' 
+and 
+m.mem_id=a.coach_mem_id 
+and
+m.mem_id=mfile_mem_id
+and
+mfile_key='코치' 
+	</select>
+	
 	
   </mapper>

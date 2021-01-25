@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MainCoachDTO {
 	
 	private String mem_name;
+	private String mfile_upload;
 	private String coach_mem_id;
 	private String coach_intro_sub;
 	private String coach_intro_cont;
@@ -29,6 +30,14 @@ public String getMem_name() {
 
 public void setMem_name(String mem_name) {
 	this.mem_name = mem_name;
+}
+
+public String getMfile_upload() {
+	return mfile_upload;
+}
+
+public void setMfile_upload(String mfile_upload) {
+	this.mfile_upload = mfile_upload;
 }
 
 public String getCoach_mem_id() {
@@ -135,11 +144,12 @@ public void setCate_name(String cate_name) {
 	this.cate_name = cate_name;
 }
 
-public MainCoachDTO(String mem_name, String coach_mem_id, String coach_intro_sub, String coach_intro_cont,
-		int coach_year, String coach_floc, String coach_sloc, String coach_ex_type, String coach_mat,
-		Date coach_joindate, Date coach_change, int cate_idx, String cate_mem_id, String cate_name) {
+public MainCoachDTO(String mem_name, String mfile_upload, String coach_mem_id, String coach_intro_sub,
+		String coach_intro_cont, int coach_year, String coach_floc, String coach_sloc, String coach_ex_type,
+		String coach_mat, Date coach_joindate, Date coach_change, int cate_idx, String cate_mem_id, String cate_name) {
 	super();
 	this.mem_name = mem_name;
+	this.mfile_upload = mfile_upload;
 	this.coach_mem_id = coach_mem_id;
 	this.coach_intro_sub = coach_intro_sub;
 	this.coach_intro_cont = coach_intro_cont;
@@ -154,6 +164,7 @@ public MainCoachDTO(String mem_name, String coach_mem_id, String coach_intro_sub
 	this.cate_mem_id = cate_mem_id;
 	this.cate_name = cate_name;
 }
+
 
 
 	
