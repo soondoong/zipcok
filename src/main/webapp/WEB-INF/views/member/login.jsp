@@ -10,7 +10,7 @@
 <%@include file="../header2.jsp" %>
 <br><br><br>
 	<h2>로그인</h2>
-	<form>
+	<form action="login.do">
 		<div>
 			<div>
 				<input type="text" name="mem_id" placeholder="ID">
@@ -20,7 +20,7 @@
 			</div>
 			<div>
 				<input type="checkbox"> ID Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="로그인">
+				<input type="submit" value="로그인">
 			</div>
 			<div>
 				<a href="#">ID Find</a> / <a href="#">Pwd Find</a>

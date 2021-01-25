@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 
+import java.util.*;
+
 @Controller
 public class MemberController {
 
@@ -46,26 +48,45 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/login.do")
-	public ModelAndView loginCheck(
+	public ModelAndView loginCheck(MemberDTO dto,
 			@RequestParam("mem_id")String mem_id,
 			@RequestParam("mem_pwd")String mem_pwd,
 			HttpSession session) {
 		
-		int result=mdao.loginCheck(mem_id);
-		
 		ModelAndView mav=new ModelAndView();
 		
-		if(result==1||result==2) {
+		int result=mdao.loginCheck(dto);
+		
+		if(result>0) {
+			if(dto.getMem_id().equals(mem_id)) {
+				if(dto.getMem_pwd().equals(mem_pwd)) {
+					
+					mav.addObject("msg", mem_id+"님 환영합니다");
+					mav.setViewName("member/login_ok");
+					session.setAttribute("sid", mem_id);
+				}
+			}else {
+				mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
+				mav.addObject("gourl", "loginForm.do");
+				mav.setViewName("member/loginMsg");
+			}
+			
+		}else {
 			mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
 			mav.addObject("gourl", "loginForm.do");
-			mav.setViewName("member/memberMsg");
-		}else if(result==3) {
-			mav.addObject("msg", mem_id+"님 환영합니다");
-			mav.setViewName("member/login_ok");
-			session.setAttribute("sid", mem_id);
+			mav.setViewName("member/loginMsg");
 		}
 		return mav;
 	}
+
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 }

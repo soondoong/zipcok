@@ -20,9 +20,15 @@ public class MemberDAOImple implements MemberDAO {
 	}
 
 	@Override
-	public int loginCheck(String mem_id) {
-		int count = sqlMap.selectOne("loginCheck", mem_id);
+	public int loginCheck(MemberDTO dto) {
+		
+		int count = sqlMap.selectOne("idCheck", dto);
+	
 		return count;
-	}
-
+		}
+		
+	
+	
 }
+
+
