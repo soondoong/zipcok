@@ -23,10 +23,16 @@
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
 		select * from
 		(select rownum as rnum,a.* from
-		(select * from jsp_bbs order by idx desc) a) b
+		(select * from exer_bbs order by ex_idx desc) a) b
 		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 	</select>
 	
+	<select id="bbsContentSQL" parameterType="Integer" resultType="zipcok.comm.model.ExBbsDTO">
+		select * from 
+			exer_bbs
+		where
+			ex_idx=#{ex_idx}
+	</select>
 	
 	<select id="getTotalCntSQL" resultType="Integer">
 		select
@@ -34,4 +40,16 @@
 		from
 			exer_bbs	
 	</select>
+	
+	<update id="bbsUpdateSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+		update
+			exer_bbs
+		set
+			ex_subject=#{ex_subject},
+			ex_content={ex_content},
+			ex_cal=#{ex_cal},
+			ex_name=#{ex_name}
+		where
+			ex_idx=#{ex_idx}		
+	</update>
 </mapper>
