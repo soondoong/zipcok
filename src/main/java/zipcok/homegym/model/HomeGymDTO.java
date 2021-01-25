@@ -122,6 +122,9 @@ public class HomeGymDTO {
 	public void setHg_status(String hg_status) {
 		this.hg_status = hg_status;
 	}
+	public HomeGymDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
 			String hg_comeinfo, int hg_person_count, String hg_info, Date hg_start_date, Date hg_end_date,
 			String hg_not_date, int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check,

@@ -59,6 +59,9 @@ public class HomeGymReservationDTO {
 	public void setReser_status(String reser_status) {
 		this.reser_status = reser_status;
 	}
+	public HomeGymReservationDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public HomeGymReservationDTO(int reser_idx, String mem_id, String reser_hg_id, Date reser_date, int reser_time,
 			int reser_person_count, Date reser_now, String reser_status) {
 		super();

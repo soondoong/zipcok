@@ -22,28 +22,29 @@
 <body>
 	<%@include file="../header2.jsp"%>
 	<h1>홈짐 등록하기</h1>
-	<form name="HomeGymAddForm">
+	<form name="HomeGymAddForm" method="post" action = "HomeGymAdd.do">
 		<h5>기본 정보</h5>
 		<ul>
 					<li>
 			<label class="HomeGymAddLabel">홈짐 아이디</label>
-			<input type="text" name="hg_mem_id"placeholder="최대 10글자">
+			<input type="text" name="hg_mem_id" placeholder="최대 10글자">
+			<input type="text" name="eq_mem_id" placeholder="최대 10글자">
 			</li>
 			<li>
 			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
-			<input type="text" name="hg_nickname" readonly="readonly" placeholder="최대 10글자">
+			<input type="text" name="hg_nickname" placeholder="최대 10글자">
 			<input type="button" value="중복 확인">
 			<input type="hidden" id = "nickname_overlap" value="0">
 			</li>
 			<li><label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
 			<li>
 			<label class="HomeGymAddLabel">홈짐 주소</label>
-			<input type = "text" name = "hg_faddr" readonly="readonly">
+			<input type = "text" name = "hg_faddr">
 			<input type = "button" value = "주소 검색">
 			</li>
 			<li>
 			<label class="HomeGymAddLabel">상세주소</label>
-			<input type = "text" name = "hg_saddr" readonly="readonly">
+			<input type = "text" name = "hg_saddr">
 			</li>
 			<li>
 			<label class="HomeGymAddLabel"></label>

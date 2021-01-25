@@ -23,14 +23,18 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 
 	@Override
-	public int HomeGymAdd(HomeGymDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int HomeGymAdd(HomeGymDTO dto, HomeGymEquipmentDTO dto2) {
+		System.out.println("test2");
+		int hg_result = sqlMap.insert("hgAddSQL", dto);
+		System.out.println("test3");
+		int eq_result = sqlMap.insert("hgEqAddSQL", dto2);
+		System.out.println("test4");
+		return hg_result>0&&eq_result>0?1:0;
 	}
 
 	@Override
 	public List<HomeGymDTO> HomeGymList() {
-		// TODO Auto-generated method stub
+		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL");
 		return null;
 	}
 

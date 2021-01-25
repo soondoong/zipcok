@@ -37,6 +37,9 @@ public class PaymentDTO {
 	public void setPa_username(String pa_username) {
 		this.pa_username = pa_username;
 	}
+	public PaymentDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public PaymentDTO(int pa_idx, String hg_mem_id, String pa_bankname, String pa_no, String pa_username) {
 		super();
 		this.pa_idx = pa_idx;
