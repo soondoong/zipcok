@@ -8,7 +8,9 @@
 		insert into homegym values(
 		#{hg_mem_id}, #{hg_nickname}, #{hg_person_count}, #{hg_price},
 		#{hg_info}, '1', #{hg_faddr}, #{hg_saddr}, #{hg_station}, #{hg_comeinfo},
-		#{hg_start_date}, #{hg_end_date}, #{hg_not_date}, #{hg_start_time},
+		#{hg_start_date_year}, #{hg_start_date_month}, #{hg_start_date_day}, 
+		#{hg_end_date_year}, #{hg_end_date_month}, #{hg_end_date_day}, 
+		#{hg_not_date}, #{hg_start_time},
 		#{hg_end_time},
 		sysdate, sysdate, '1')
 	</insert>

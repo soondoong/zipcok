@@ -31,7 +31,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	@Override
 	public List<HomeGymDTO> HomeGymList() {
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL");
-		return null;
+		return list;
 	}
 
 }
