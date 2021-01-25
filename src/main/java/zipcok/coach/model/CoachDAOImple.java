@@ -27,8 +27,23 @@ public class CoachDAOImple implements CoachDAO {
 		return map ;
 	}
 	
+	/*총 갯수 가져오기*/
 	@Override
-	public List<MainCoachDTO> searchCoachList(HashMap<String, String> keys) {
+	public int getTotalCnt(HashMap map) {
+		int count=sqlMap.selectOne("totalCnt",map);
+		//총게시물수가 0이면오류나니까 
+		return count==0?1:count;
+	}
+	
+
+	@Override
+	public List<MainCoachDTO> searchCoachList(HashMap<String, Object> keys,int cp, int ls) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		keys.put("start",start);
+		keys.put("end",end);
+		
 		List<MainCoachDTO> searchList=sqlMap.selectList("searchCoachByKey",keys);
 		
 		return searchList;

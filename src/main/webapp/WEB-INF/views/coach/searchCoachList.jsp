@@ -128,9 +128,14 @@ font-size: 0.8rem;
 </c:forEach>
 </div> 
 
+	<div>
+	${pageStr}
+	</div>
+
 	</article>
 </section>
 
 <!-- 리스트 영역  -->
+
 </body>
 </html>
