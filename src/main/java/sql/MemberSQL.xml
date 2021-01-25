@@ -27,9 +27,16 @@
 			)
 	</insert>
 	
-	<select id="loginCheck" resultType="zipcok.member.model.MemberDTO">
-		select * from zipcok_member where mem_id = #{mem_id} and mem_pwd = #{mem_pwd}
+	<select id="idCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>
 
+	<select id="pwdCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+		select mem_pwd from zipcok_member where mem_pwd = #{mem_pwd} 
+	</select>
+	
+	<select id="getMemberName" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+		select mem_name from zipcok_member where mem_id = #{mem_id}
+	</select>
 	
 </mapper>
