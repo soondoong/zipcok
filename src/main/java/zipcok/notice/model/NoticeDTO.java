@@ -1,11 +1,11 @@
 package zipcok.notice.model;
-import java.util.*;
+import java.sql.*;
 
 public class NoticeDTO {
 
 	private int bbs_idx;
 	private String bbs_key;
-	private String bbs_category_key;
+	private String bbs_category;
 	private String bbs_subject;
 	private String bbs_content;
 	private String bbs_writer;
@@ -17,12 +17,12 @@ public class NoticeDTO {
 	public NoticeDTO() {
 		super();
 	}
-	public NoticeDTO(int bbs_idx, String bbs_key, String bbs_category_key, String bbs_subject, String bbs_content,
+	public NoticeDTO(int bbs_idx, String bbs_key, String bbs_category, String bbs_subject, String bbs_content,
 			String bbs_writer, int bbs_readnum, Date bbs_writedate, int bbs_ref, int bbs_lev, int bbs_sunbun) {
 		super();
 		this.bbs_idx = bbs_idx;
 		this.bbs_key = bbs_key;
-		this.bbs_category_key = bbs_category_key;
+		this.bbs_category = bbs_category;
 		this.bbs_subject = bbs_subject;
 		this.bbs_content = bbs_content;
 		this.bbs_writer = bbs_writer;
@@ -44,11 +44,11 @@ public class NoticeDTO {
 	public void setBbs_key(String bbs_key) {
 		this.bbs_key = bbs_key;
 	}
-	public String getBbs_category_key() {
-		return bbs_category_key;
+	public String getBbs_category() {
+		return bbs_category;
 	}
-	public void setBbs_category_key(String bbs_category_key) {
-		this.bbs_category_key = bbs_category_key;
+	public void setBbs_category(String bbs_category) {
+		this.bbs_category = bbs_category;
 	}
 	public String getBbs_subject() {
 		return bbs_subject;

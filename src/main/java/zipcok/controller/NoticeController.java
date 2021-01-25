@@ -50,4 +50,30 @@ public class NoticeController {
 		mav.setViewName("notice/noticeMsg");
 		return mav;
 	}
+	
+	@RequestMapping("noticeContent.do")
+	public ModelAndView goNoticeContent(
+			@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
+		NoticeDTO dto=noticeDao.noticeContent(bbs_idx);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto",dto);
+		mav.setViewName("notice/noticeContent");
+		return mav;
+	}
+	
+	@RequestMapping("noticeSearchList.do")
+	public ModelAndView goNoticeSearchList(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		int totalCnt=noticeDao.getTotalCnt();
+		int listSize=10;
+		int pageSize=10;
+		String pageStr=zipcok.page.PageModule.makePage("noticeList.do", totalCnt, cp, listSize, pageSize);
+		List list=noticeDao.noticeSearchList(cp, listSize);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr",pageStr);
+		mav.addObject("list",list);
+		mav.setViewName("notice/noticeList");
+		return mav;
+	}
 }

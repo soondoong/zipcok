@@ -33,4 +33,21 @@
   			zipcok_bbs
   		where bbs_key='공지사항'
   	</select>
+  	
+  	<select id="noticeContentSQL" parameterType="Integer" resultType="zipcok.notice.model.NoticeDTO">
+  		select
+  		*
+  		from
+  		zipcok_bbs
+  		where
+  		bbs_key='공지사항'
+  		and
+  		bbs_idx=#{bbs_idx}
+  	</select>
+  	<select id="noticeSearchListSQL" resultType="zipcok.notice.model.NoticeDTO">
+  		select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_bbs where bbs_key='공지사항' and bbs_category=#{bbs_category} order by bbs_idx desc) a) b
+		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+  	</select>
   </mapper>

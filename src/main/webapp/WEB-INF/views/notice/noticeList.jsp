@@ -7,6 +7,14 @@
 <meta charset="UTF-8">
 <title>집콕헬스 공지사항</title>
 <%@include file="../header2.jsp" %>
+
+<script>
+function show(){
+var nowcategory=document.getElementById("select").value;
+	
+}
+
+</script>
 </head>
 <body>
 <h1>공지사항</h1>
@@ -15,7 +23,7 @@
 	<thead>
 	<tr>
 		<th>카테고리 유형</th>
-		<td> <select >
+		<td> <select name="bbs_category" onchange="show()" id="select">
 			<option selected="selected">전체</option>
 			<option>홈짐</option>
 			<option>코치 매칭</option>
@@ -41,7 +49,10 @@
 	<c:forEach var="dto" items="${list}">
 		<tr>
 			<td>${dto.bbs_idx }</td>
-			<td>${dto.bbs_subject}</td>
+			<c:url var="contentUrl" value="noticeContent.do">
+            <c:param name="bbs_idx">${dto.bbs_idx}</c:param>
+        	</c:url>
+			<td><a href="noticeContent.do?bbs_idx=${dto.bbs_idx }">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
 			<td>${dto.bbs_writer}</td>
 			<td>${dto.bbs_readnum}</td>
 			<td>${dto.bbs_writedate}</td>

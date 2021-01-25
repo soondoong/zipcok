@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@include file="../header2.jsp" %>
+<script>
+function golist(){
+	location.href='noticeList.do';
+}
+</script>
 </head>
 <body>
 
@@ -29,9 +34,8 @@
 		<td>사진</td>
 	</tr>
 	<tr>
-		<td colspan="6" align="center">
-			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요">
-			</textarea>
+		<td colspan="2">
+			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요"></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -39,7 +43,7 @@
 		<td>
 		<input type="submit" value="글쓰기">
 		<input type="reset" value="다시작성">
-		<input type="button" value="목록보기">
+		<input type="button" value="목록보기" onclick="javascript:golist()">
 		</td>
 	</tr>
 </table>
