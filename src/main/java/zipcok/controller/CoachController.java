@@ -44,15 +44,26 @@ public class CoachController {
 
 	@RequestMapping("searchCoach.do")
 	public ModelAndView searchCoach(@RequestParam(value="location")String location,
-			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category	) {
+			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
 
-		HashMap<String,String> keywordMap=new HashMap<String, String>();
+		/*페이지설정*/
+		String tablename="coach_regist";
+		HashMap tablemap=new HashMap();
+		tablemap.put("tablename",tablename);
+		int totalCnt=dao.getTotalCnt(tablemap); //테이블명써주기
+		int listSize=3;
+		int pageSize=5;
+		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize);
+		
+		
+		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
 	
 		keywordMap.put("location",location);
 		keywordMap.put("extype",extype);
 		keywordMap.put("category",category);
 		
-		HashMap<String,String> map=new HashMap<String, String>();
+		HashMap<String,Object> map=new HashMap<String, Object>();
 		
 		if(location.equals("전체지역")) {
 			location="";
@@ -61,17 +72,16 @@ public class CoachController {
 		if(category.equals("모든카테고리")) {
 			category="";
 		}
-		if(extype.equals("모든유형")) {
-			extype="면";
-		}
+	
 		map.put("location",location);
 		map.put("extype",extype);
 		map.put("category",category);
 		
-		List<MainCoachDTO> list=dao.searchCoachList(map);
+		List<MainCoachDTO> list=dao.searchCoachList(map, cp, listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("list", list);	
 		mav.addObject("keyword", keywordMap);
+		mav.addObject("pageStr",pageStr);//페이지
 		//mav.setViewName("jsonView");
 		mav.setViewName("coach/searchCoachList");
 		return mav;

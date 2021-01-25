@@ -8,6 +8,6 @@ import com.sun.javafx.collections.MappingChange.Map;
 public interface CoachDAO {
 	
 	public HashMap<String, List<MainCoachDTO>> mainCoachList();
-	public List<MainCoachDTO> searchCoachList(HashMap<String, String> keys);
-
+	public List<MainCoachDTO> searchCoachList(HashMap<String, Object> keys,int cp, int ls);
+	public int getTotalCnt(HashMap map);
 }
