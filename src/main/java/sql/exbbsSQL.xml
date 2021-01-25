@@ -3,21 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zipcok.comm">
-<insert id="dailyWriteSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+
+	<insert id="dailyWriteSQL" parameterType="zipcok.comm.model.ExBbsDTO">
 		insert into
 			exer_bbs
 		values(exer_bbs_idx.nextval,
-				?,
-				#{id},
-				#{subject},
-				#{content},
-				#{cal},
+				'?',
+				'한슬',
+				#{ex_subject},
+				#{ex_content},
+				#{ex_cal},
 				sysdate,
 				sysdate,
-				#{head},
+				'말머리',
 				0,
-				#{name})
+				#{ex_name})
 	</insert>
+	
+	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
+		select * from
+		(select rownum as rnum,a.* from
+		(select * from jsp_bbs order by idx desc) a) b
+		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+	</select>
 	
 	
 	<select id="getTotalCntSQL" resultType="Integer">

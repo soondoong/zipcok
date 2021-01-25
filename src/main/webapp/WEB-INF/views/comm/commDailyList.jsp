@@ -24,7 +24,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="3" align="center">page</td>
-			<td><a href="#">글쓰기</a></td>
+			<td><a href="commDailyWrite.do">글쓰기</a></td>
 		</tr>
 	</tfoot>
 </table>
