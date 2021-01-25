@@ -8,5 +8,5 @@ public interface NoticeDAO {
 	public List noticeAllList(int cp,int ls);
 	public int getTotalCnt();
 	public NoticeDTO noticeContent(int bbs_idx);
-	public List noticeSearchList(int cp,int ls);
+	public List noticeSearchList(int cp,int ls, String bbs_category);
 }

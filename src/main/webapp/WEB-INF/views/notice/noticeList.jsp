@@ -9,8 +9,16 @@
 <%@include file="../header2.jsp" %>
 
 <script>
-function show(){
-var nowcategory=document.getElementById("select").value;
+
+function goCategory(){
+	var bbs_category=document.getElementById("select").value;
+	if(bbs_category=='전체'){
+		location.href='noticeList.do';
+	}
+	if(bbs_category!='전체'){
+	location.href='noticeSearchList.do?bbs_category='+bbs_category;
+	document.getElementById('select').option.innerHTML=selected;
+	}
 	
 }
 
@@ -23,8 +31,8 @@ var nowcategory=document.getElementById("select").value;
 	<thead>
 	<tr>
 		<th>카테고리 유형</th>
-		<td> <select name="bbs_category" onchange="show()" id="select">
-			<option selected="selected">전체</option>
+		<td> <select onchange="javascript:goCategory()" id="select">
+			<option >전체</option>
 			<option>홈짐</option>
 			<option>코치 매칭</option>
 			<option>결제</option>

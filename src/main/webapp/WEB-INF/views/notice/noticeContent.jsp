@@ -7,6 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function golist(){
+	location.href='noticeList.do';
+}
+function goUpdateView(){
+	location.href='noticeUpdateView.do?bbs_idx='+${dto.bbs_idx};
+}
+</script>
 </head>
 <body>
 
@@ -39,8 +47,8 @@
 		<tr>
 			<td>
 				<input type="button" value="삭제" onclick="#">
-				<input type="button" value="수정" onclick="#">
-				<input type="button" value="목록보기" onclick="#">
+				<input type="button" value="수정" onclick="javascript:goUpdateView()">
+				<input type="button" value="목록보기" onclick="javascript:golist()">
 			</td>
 		</tr>
 	</tfoot>
