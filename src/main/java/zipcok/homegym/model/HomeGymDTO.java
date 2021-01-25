@@ -11,8 +11,12 @@ public class HomeGymDTO {
 	private String hg_comeinfo;
 	private int hg_person_count;
 	private String hg_info;
-	private java.sql.Date hg_start_date;
-	private java.sql.Date hg_end_date;
+	private String hg_start_date_year;
+	private String hg_start_date_month;
+	private String hg_start_date_day;
+	private String hg_end_date_year;
+	private String hg_end_date_month;
+	private String hg_end_date_day;
 	private String hg_not_date;
 	private int hg_start_time;
 	private int hg_end_time;
@@ -20,6 +24,40 @@ public class HomeGymDTO {
 	private String hg_approved_check;
 	private java.sql.Date hg_approved_date;
 	private String hg_status;
+	
+	public HomeGymDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
+			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date_year,
+			String hg_start_date_month, String hg_start_date_day, String hg_end_date_year, String hg_end_date_month,
+			String hg_end_date_day, String hg_not_date, int hg_start_time, int hg_end_time, int hg_price,
+			String hg_approved_check, Date hg_approved_date, String hg_status) {
+		super();
+		this.hg_mem_id = hg_mem_id;
+		this.hg_nickname = hg_nickname;
+		this.hg_faddr = hg_faddr;
+		this.hg_saddr = hg_saddr;
+		this.hg_station = hg_station;
+		this.hg_comeinfo = hg_comeinfo;
+		this.hg_person_count = hg_person_count;
+		this.hg_info = hg_info;
+		this.hg_start_date_year = hg_start_date_year;
+		this.hg_start_date_month = hg_start_date_month;
+		this.hg_start_date_day = hg_start_date_day;
+		this.hg_end_date_year = hg_end_date_year;
+		this.hg_end_date_month = hg_end_date_month;
+		this.hg_end_date_day = hg_end_date_day;
+		this.hg_not_date = hg_not_date;
+		this.hg_start_time = hg_start_time;
+		this.hg_end_time = hg_end_time;
+		this.hg_price = hg_price;
+		this.hg_approved_check = hg_approved_check;
+		this.hg_approved_date = hg_approved_date;
+		this.hg_status = hg_status;
+	}
+
 	public String getHg_mem_id() {
 		return hg_mem_id;
 	}
@@ -68,17 +106,41 @@ public class HomeGymDTO {
 	public void setHg_info(String hg_info) {
 		this.hg_info = hg_info;
 	}
-	public java.sql.Date getHg_start_date() {
-		return hg_start_date;
+	public String getHg_start_date_year() {
+		return hg_start_date_year;
 	}
-	public void setHg_start_date(java.sql.Date hg_start_date) {
-		this.hg_start_date = hg_start_date;
+	public void setHg_start_date_year(String hg_start_date_year) {
+		this.hg_start_date_year = hg_start_date_year;
 	}
-	public java.sql.Date getHg_end_date() {
-		return hg_end_date;
+	public String getHg_start_date_month() {
+		return hg_start_date_month;
 	}
-	public void setHg_end_date(java.sql.Date hg_end_date) {
-		this.hg_end_date = hg_end_date;
+	public void setHg_start_date_month(String hg_start_date_month) {
+		this.hg_start_date_month = hg_start_date_month;
+	}
+	public String getHg_start_date_day() {
+		return hg_start_date_day;
+	}
+	public void setHg_start_date_day(String hg_start_date_day) {
+		this.hg_start_date_day = hg_start_date_day;
+	}
+	public String getHg_end_date_year() {
+		return hg_end_date_year;
+	}
+	public void setHg_end_date_year(String hg_end_date_year) {
+		this.hg_end_date_year = hg_end_date_year;
+	}
+	public String getHg_end_date_month() {
+		return hg_end_date_month;
+	}
+	public void setHg_end_date_month(String hg_end_date_month) {
+		this.hg_end_date_month = hg_end_date_month;
+	}
+	public String getHg_end_date_day() {
+		return hg_end_date_day;
+	}
+	public void setHg_end_date_day(String hg_end_date_day) {
+		this.hg_end_date_day = hg_end_date_day;
 	}
 	public String getHg_not_date() {
 		return hg_not_date;
@@ -120,32 +182,6 @@ public class HomeGymDTO {
 		return hg_status;
 	}
 	public void setHg_status(String hg_status) {
-		this.hg_status = hg_status;
-	}
-	public HomeGymDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
-			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date, String hg_end_date,
-			String hg_not_date, int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check,
-			Date hg_approved_date, String hg_status) {
-		super();
-		this.hg_mem_id = hg_mem_id;
-		this.hg_nickname = hg_nickname + "님의 홈짐";
-		this.hg_faddr = hg_faddr;
-		this.hg_saddr = hg_saddr;
-		this.hg_station = hg_station;
-		this.hg_comeinfo = hg_comeinfo;
-		this.hg_person_count = hg_person_count;
-		this.hg_info = hg_info;
-		this.hg_start_date = java.sql.Date.valueOf(hg_start_date);
-		this.hg_end_date = java.sql.Date.valueOf(hg_end_date);
-		this.hg_not_date = hg_not_date;
-		this.hg_start_time = hg_start_time;
-		this.hg_end_time = hg_end_time;
-		this.hg_price = hg_price;
-		this.hg_approved_check = hg_approved_check;
-		this.hg_approved_date = hg_approved_date;
 		this.hg_status = hg_status;
 	}
 	
