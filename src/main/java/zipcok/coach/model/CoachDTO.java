@@ -1,6 +1,6 @@
 package zipcok.coach.model;
 
-import java.util.Date;
+import java.sql.*;
 
 public class CoachDTO {
 

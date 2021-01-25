@@ -3,4 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.coach">
+    <select id="findCategoryCoachPT" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
+select 
+m.mem_name,a.* 
+from zipcok_member m,
+(select * from coach_regist c,coach_category g 
+where c.coach_mem_id = g.cate_mem_id)a
+where 
+m.mem_id=a.coach_mem_id 
+and 
+a.cate_name='퍼스널트레이닝' 
+
+	</select>
+	
+	
+	<select id="findCategoryCoachYoga" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
+select 
+m.mem_name,a.* 
+from zipcok_member m,
+(select * from coach_regist c,coach_category g 
+where c.coach_mem_id = g.cate_mem_id)a
+where 
+m.mem_id=a.coach_mem_id 
+and 
+a.cate_name='요가' 
+
+	</select>
+	
   </mapper>

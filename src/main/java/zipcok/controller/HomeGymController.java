@@ -1,14 +1,30 @@
 package zipcok.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import zipcok.homegym.model.HomeGymDAO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 
 @Controller
 public class HomeGymController {
+	
+	@Autowired
+	private HomeGymDAO homegymDAO;
 
 	@RequestMapping("HomeGymList.do")
-	public String HomeGymList() {
-		return "homegym/hgList";
+	public ModelAndView HomeGymList() {
+		List<HomeGymDTO> list = homegymDAO.HomeGymList();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("HomeGymList", list);
+		mav.setViewName("homegym/hgList");
+		return mav;
 	}
 	
 	@RequestMapping("HomeGymContent.do")
@@ -31,9 +47,21 @@ public class HomeGymController {
 		return "homegym/hgAddNotice";
 	}
 	
-	@RequestMapping("HomeGymAdd.do")
+	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.GET)
 	public String HomeGymAddForm() {
 		return "homegym/hgAddView";
+	}
+	
+	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
+	public ModelAndView HomeGymAdd(HomeGymDTO dto, HomeGymEquipmentDTO dto2) {
+		System.out.println("test1");
+		int result = homegymDAO.HomeGymAdd(dto,dto2);
+		ModelAndView mav = new ModelAndView();
+		String msg = result>0?"홈짐 등록이 정상적으로 처리되었습니다.":"등록에 실패하였습니다.";
+		mav.addObject("msg", msg);
+		mav.addObject("goPage", "HomeGymList.do");
+		mav.setViewName("homegym/hgMsg");
+		return mav;
 	}
 	
 	@RequestMapping("HomeGymCardAdd.do")

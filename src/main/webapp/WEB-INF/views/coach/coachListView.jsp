@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +18,6 @@ height: 190px;
 text-align:center;
 line-height: 1;
 }
-
-
 .contentsWrap{
 margin-top:40px;
 padding:0px 30px;
@@ -29,6 +28,7 @@ display: flex;
 }
 .oneperson{
 margin:0 20px 0 20px;
+float:left;
 }
 
 .image-container img{
@@ -90,49 +90,61 @@ font-size: 0.8rem;
 	<article class="contentsWrap">
 		<h3 class=" mt-5">나도 몸짱! 고강도 전신운동</h3>
 		
-	<div class="listWrap">
+<div class="listWrap">
+
+<c:forEach var="dto" items="${map.pt }">
+
 		<div class="oneperson">
+		
 			<div class="image-container">
 		        <img src="img/coach/324f.jpg" alt="">
 		    </div>
 		    
 		    <div>
-		    <span class="category">퍼스널트레이닝</span>&nbsp; <span>박병창</span> 
+		    <span class="category">${dto.cate_name }</span>&nbsp; <span>${dto.mem_name }</span> 
 		    </div>
 		    
 		     <div>
-		    <span><a href="#">한 달만에 핫바디만드는, 고강도 전신 근력 트레이닝</a></span>
+		    <span><a href="#">${dto.coach_intro_sub}</a></span>
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">대면</span>&nbsp; <span>5.0</span>
+		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>5.0</span>
 		    </div>
 		  </div>  
 		  
-		  	<div class="oneperson">
-			<div class="image-container">
-		        <img src="img/coach/324f.jpg" alt="">
-		    </div>
-		    
-		    <div>
-		    <span class="category">퍼스널트레이닝</span>&nbsp; <span>박병창</span> 
-		    </div>
-		    
-		     <div>
-		    <span>한 달만에 핫바디만드는, 고강도 전신 근력 트레이닝</span>
-		    </div>
-		    
-		    <div>
-		    	<span class="extype">대면</span>&nbsp; <span>5.0</span>
-		    </div>
-		  </div> 
-	</div>
+
+</c:forEach>
+</div> 
+
 
 	
 	<h3 class="mt-5">나를 위한, 힐링의 시간</h3>
 
 	<div class="listWrap2">
+		<c:forEach var="dto2" items="${map.yoga }">
+
+		<div class="oneperson">
 		
+			<div class="image-container">
+		        <img src="img/coach/4a86ce986.jpg" alt="">
+		    </div>
+		    
+		    <div>
+		    <span class="category">${dto2.cate_name }</span>&nbsp; <span>${dto2.mem_name }</span> 
+		    </div>
+		    
+		     <div>
+		    <span><a href="#">${dto2.coach_intro_sub}</a></span>
+		    </div>
+		    
+		    <div>
+		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; <span>5.0</span>
+		    </div>
+		  </div>  
+		  
+
+</c:forEach> 
 		
 	</div>
 	</article>
