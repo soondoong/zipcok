@@ -8,6 +8,6 @@ public interface ExBbsDAO {
 	public List dailyList(int cp,int ls);
 	public int getTotalCnt();
 	public ExBbsDTO dailyContent(int idx);
-	public int dailyUpdate(ExBbsDTO dto, int idx);
+	public int dailyUpdate(ExBbsDTO dto);
 
 }

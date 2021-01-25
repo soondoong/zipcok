@@ -10,7 +10,8 @@
 <%@include file="../header2.jsp" %>
 <%@include file="./commSideMenu.jsp" %>
 <h1>일일 운동 게시판 글수정</h1>
-<form name="dailyWrite" action="commDailyWrite.do" method="post">
+<form name="dailyUpdate" action="commDailyUpdate.do" method="post">
+	<input type="hidden" name="ex_idx" value="${dto.ex_idx}">
 	<table>
 		<tr>
 			<td>제목</td>
@@ -38,7 +39,7 @@
 		</tr>
 		<tr>
 			<td><input type="reset" value="처음부터 쓰기"></td>
-			<td><input type="submit" value="글쓰기"></td>
+			<td><input type="submit" value="수정"></td>
 		</tr>
 	</table>
 	</form>

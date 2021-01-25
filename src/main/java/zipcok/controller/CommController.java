@@ -29,7 +29,7 @@ public class CommController {
 		int totalCnt=exBbsDao.getTotalCnt();
 		int listSize=5;
 		int pageSize=5;
-		String pageStr=zipcok.page.PageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
+		String pageStr=zipcok.page.CommPageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
 		List list=exBbsDao.dailyList(cp, listSize);
 		
 		ModelAndView mav=new ModelAndView();
@@ -73,14 +73,15 @@ public class CommController {
 	}
 	
 	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.POST)
-	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, int ex_idx) {
-		int result=exBbsDao.dailyUpdate(dto, ex_idx);
-		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
+	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, @RequestParam(value="ex_idx")String idx_s) {
+		int ex_idx=Integer.parseInt(idx_s);
+		dto.setEx_idx(ex_idx);
+		int result=exBbsDao.dailyUpdate(dto);
+		String msg=result>0?"글수정 성공!":"글수정 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
-	
 
 }
