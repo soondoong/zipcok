@@ -25,6 +25,10 @@
 	<form name="HomeGymAddForm">
 		<h5>기본 정보</h5>
 		<ul>
+					<li>
+			<label class="HomeGymAddLabel">홈짐 아이디</label>
+			<input type="text" name="hg_mem_id"placeholder="최대 10글자">
+			</li>
 			<li>
 			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
 			<input type="text" name="hg_nickname" readonly="readonly" placeholder="최대 10글자">
