@@ -2,17 +2,14 @@ package zipcok.comm.model;
 
 import java.util.*;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ExBbsDAOImple implements ExBbsDAO {
 	
+	@Autowired
 	private SqlSessionTemplate sqlMap;
-	
-	public SqlSessionTemplate getSqlMap() {
-		return sqlMap;
-	}
-	public void setSqlMap(SqlSessionTemplate sqlMap) {
-		this.sqlMap = sqlMap;
-	}
 	
 	@Override
 	public int dailyWrite(ExBbsDTO dto) {
@@ -20,8 +17,16 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
-	
-	
+	@Override
+	public List dailyList(int cp, int ls) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashMap();
+		map.put("start", start);
+		map.put("end", end);
+		List list=sqlMap.selectList("dailyListSQL",map);
+		return list;
+	}
 	
 	@Override
 	public int getTotalCnt() {
