@@ -46,10 +46,10 @@
 			exer_bbs
 		set
 			ex_subject=#{ex_subject},
-			ex_content={ex_content},
+			ex_content=#{ex_content},
 			ex_cal=#{ex_cal},
 			ex_name=#{ex_name}
 		where
-			ex_idx=#{ex_idx}		
+			ex_idx=#{ex_idx}
 	</update>
 </mapper>
