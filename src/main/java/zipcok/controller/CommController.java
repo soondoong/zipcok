@@ -25,11 +25,6 @@ public class CommController {
 	}
 	
 	@RequestMapping("commDailyList.do")
-	public String dailyList() {
-		return "comm/commDailyList";
-	}
-	
-	@RequestMapping("commDailyList.do")
 	public ModelAndView dailyList(@RequestParam(value="cp",defaultValue = "1")int cp) {
 		int totalCnt=exBbsDao.getTotalCnt();
 		int listSize=5;
@@ -58,5 +53,34 @@ public class CommController {
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
+	
+	@RequestMapping("commDailyContent.do")
+	public ModelAndView dailyContent(int ex_idx) {
+		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("comm/commDailyContent");
+		return mav;
+	}
+	
+	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.GET)
+	public ModelAndView dailyUpdateForm(int ex_idx) {
+		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto", dto);
+		mav.setViewName("comm/commDailyUpdate");
+		return mav;
+	}
+	
+	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.POST)
+	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, int ex_idx) {
+		int result=exBbsDao.dailyUpdate(dto, ex_idx);
+		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName("comm/commDailyMsg");
+		return mav;
+	}
+	
 
 }
