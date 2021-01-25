@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
 .exWrap img{
 width:500px;
 }
@@ -26,9 +27,13 @@ float:left
 clear:both
 }
 .sunseo,.sunseo2,.sunseo3{
-width:60%;
+text-align:left;
 margin:0 auto;
 margin-top:50px;
+}
+.allWrap{
+width:65vw;
+margin: 0 auto;
 }
 </style>
 </head>
@@ -37,7 +42,7 @@ margin-top:50px;
 <section>
 	<article class="exWrap">
 		<h2 class="text-center mt-4" style=" font-weight: 600;">부담없이 편한 장소에서 <br>운동을 시작해보세요</h1>
-		
+		<div class="allWrap"> 
 		<div class="sunseo">
 			<img src="img/coach/pic_start01.jpg" >
 			<div class="divText">
@@ -74,7 +79,7 @@ margin-top:50px;
 		
 		<div class="sdiv">
 		</div>
-		
+		</div>
 	</article>
 </section>
 </body>

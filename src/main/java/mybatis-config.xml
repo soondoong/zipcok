@@ -7,6 +7,6 @@
 
     <mapper resource="sql/noticeSQL.xml"/>
     <mapper resource="sql/MemberSQL.xml"/>
-
+	<mapper resource="sql/coachSQL.xml"/>
   </mappers>
 </configuration>
