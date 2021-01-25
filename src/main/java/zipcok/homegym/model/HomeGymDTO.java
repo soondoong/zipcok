@@ -126,20 +126,20 @@ public class HomeGymDTO {
 		// TODO Auto-generated constructor stub
 	}
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
-			String hg_comeinfo, int hg_person_count, String hg_info, Date hg_start_date, Date hg_end_date,
+			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date, String hg_end_date,
 			String hg_not_date, int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check,
 			Date hg_approved_date, String hg_status) {
 		super();
 		this.hg_mem_id = hg_mem_id;
-		this.hg_nickname = hg_nickname;
+		this.hg_nickname = hg_nickname + "님의 홈짐";
 		this.hg_faddr = hg_faddr;
 		this.hg_saddr = hg_saddr;
 		this.hg_station = hg_station;
 		this.hg_comeinfo = hg_comeinfo;
 		this.hg_person_count = hg_person_count;
 		this.hg_info = hg_info;
-		this.hg_start_date = hg_start_date;
-		this.hg_end_date = hg_end_date;
+		this.hg_start_date = java.sql.Date.valueOf(hg_start_date);
+		this.hg_end_date = java.sql.Date.valueOf(hg_end_date);
 		this.hg_not_date = hg_not_date;
 		this.hg_start_time = hg_start_time;
 		this.hg_end_time = hg_end_time;

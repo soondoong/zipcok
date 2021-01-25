@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface HomeGymDAO {
 	public boolean HomeGymCheck(String id);
-	public int HomeGymAdd(HomeGymDTO dto, HomeGymEquipmentDTO dto2);
+	public int HomeGymAdd(HomeGymDTO dto);
 	public List<HomeGymDTO> HomeGymList();
 	
 }

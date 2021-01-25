@@ -22,7 +22,7 @@
 <body>
 	<%@include file="../header2.jsp"%>
 	<h1>홈짐 등록하기</h1>
-	<form name="HomeGymAddForm" method="post" action = "HomeGymAdd.do">
+	<form name="HomeGymAddForm" action="HomeGymAdd.do" method="post">
 		<h5>기본 정보</h5>
 		<ul>
 					<li>
