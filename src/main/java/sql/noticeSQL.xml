@@ -50,4 +50,8 @@
 		(select * from zipcok_bbs where bbs_key='공지사항' and bbs_category=#{bbs_category} order by bbs_idx desc) a) b
 		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
   	</select>
+  	<update id="noticeUpdateSQL" parameterType="zipcok.notice.model.NoticeDTO">
+  		update
+  		
+  	</update>
   </mapper>

@@ -52,12 +52,13 @@ public class NoticeDAOImple implements NoticeDAO {
 	}
 	
 	
-	public List noticeSearchList(int cp, int ls) {
+	public List noticeSearchList(int cp, int ls,String bbs_category) {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
 		Map map=new HashedMap();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("bbs_category", bbs_category);
 			List list=sqlMap.selectList("noticeSearchListSQL", map);
 			return list;
 	}

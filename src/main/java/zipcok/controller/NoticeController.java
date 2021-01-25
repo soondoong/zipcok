@@ -1,6 +1,7 @@
 package zipcok.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,17 +64,28 @@ public class NoticeController {
 	
 	@RequestMapping("noticeSearchList.do")
 	public ModelAndView goNoticeSearchList(
+			@RequestParam(value="bbs_category",required = false)String bbs_category,
 			@RequestParam(value="cp",defaultValue = "1")int cp) {
 		int totalCnt=noticeDao.getTotalCnt();
 		int listSize=10;
 		int pageSize=10;
-		String pageStr=zipcok.page.PageModule.makePage("noticeList.do", totalCnt, cp, listSize, pageSize);
-		List list=noticeDao.noticeSearchList(cp, listSize);
+		String pageStr=zipcok.page.PageModule.makePage("noticeSearchList.do", totalCnt, cp, listSize, pageSize);
+		List list=noticeDao.noticeSearchList(cp, listSize, bbs_category);
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr",pageStr);
 		mav.addObject("list",list);
 		mav.setViewName("notice/noticeList");
+		return mav;
+	}
+	
+	@RequestMapping("noticeUpdateView.do")
+	public ModelAndView goNoticeUpdateView(
+		@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
+		NoticeDTO dto=noticeDao.noticeContent(bbs_idx);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("dto",dto);
+		mav.setViewName("notice/noticeUpdateView");
 		return mav;
 	}
 }
