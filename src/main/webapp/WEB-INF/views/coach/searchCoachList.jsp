@@ -66,23 +66,23 @@ font-size: 0.8rem;
 	
 		<div class="searchDiv">
 		 	<select id="location" name="location">
-		 		<option selected="selected">전체지역</option>
-		 		<option>강서구</option>
-		 		<option>마포구</option>
-		 		<option>서대문구</option>
+		 		<option <c:if test="${keyword.location=='전체지역'}">selected="selected"</c:if>>전체지역</option>
+		 		<option <c:if test="${keyword.location=='강서구'}">selected="selected"</c:if>>강서구</option>
+		 		<option <c:if test="${keyword.location=='마포구'}">selected="selected"</c:if>>마포구</option>
+		 		<option <c:if test="${keyword.location=='서대문구'}">selected="selected"</c:if>>서대문구</option>
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
-		 		<option selected="selected">대면</option>
-		 		<option>비대면</option>
-		 		<option>모든유형</option>
+		 		<option <c:if test="${keyword.extype=='대면'}">selected="selected"</c:if>>대면</option>
+		 		<option <c:if test="${keyword.extype=='비대면'}">selected="selected"</c:if>>비대면</option>
+		 		<option <c:if test="${keyword.extype=='모든유형'}">selected="selected"</c:if>>모든유형</option>
 		 	</select>
 		 	
 		 		<select id="category" name="category">
-		 		<option selected="selected">모든카테고리</option>
-		 		<option>퍼스널트레이닝</option>
-		 		<option>필라테스</option>
-		 		<option>요가</option>
+		 		<option <c:if test="${keyword.category=='모든카테고리'}">selected="selected"</c:if>>모든카테고리</option>
+		 		<option <c:if test="${keyword.category=='퍼스널트레이닝'}">selected="selected"</c:if>>퍼스널트레이닝</option>
+		 		<option <c:if test="${keyword.category=='필라테스'}">selected="selected"</c:if>>필라테스</option>
+		 		<option <c:if test="${keyword.category=='요가'}">selected="selected"</c:if>>요가</option>
 		 	</select>
 		 	
 		 	<input type="submit" value="검색하기">

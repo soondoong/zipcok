@@ -69,10 +69,10 @@
 				<li class="masterLi"><a href="#">관리자페이지</a></li>
 
 				<c:if test="${empty sessionScope.sid }">
-					<ul>
+				
 						<li class="loginLi"><a href="loginForm.do">로그인</a></li>
 						<li class="signLi"><a href="memberJoinForm.do">회원가입</a></li>
-					</ul>
+			
 				</c:if>
 				<c:if test="${!empty sessionScope.sid }">
 					<div>
