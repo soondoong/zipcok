@@ -1,8 +1,11 @@
 package zipcok.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.member.model.MemberDAO;
@@ -19,6 +22,13 @@ public class MemberController {
 		return "member/memberJoin";
 	}
 	
+	
+	//memberJoinTest 보류
+	//@RequestMapping("/memberJoinForm2.do")
+	//public String memberJoinForm2() {
+		//return "member/memberJoinTest";
+	//}
+	
 	@RequestMapping("/memberJoin.do")
 	public ModelAndView memberJoinSubmit(MemberDTO dto) {
 		int result=mdao.memberJoinSubmit(dto);
@@ -29,7 +39,33 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping("/loginForm.do")
+	public String loginForm() {
+		
+		return "member/login";
+	}
 	
+	@RequestMapping("/login.do")
+	public ModelAndView loginCheck(
+			@RequestParam("mem_id")String mem_id,
+			@RequestParam("mem_pwd")String mem_pwd,
+			HttpSession session) {
+		
+		int result=mdao.loginCheck(mem_id);
+		
+		ModelAndView mav=new ModelAndView();
+		
+		if(result==1||result==2) {
+			mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
+			mav.addObject("gourl", "loginForm.do");
+			mav.setViewName("member/memberMsg");
+		}else if(result==3) {
+			mav.addObject("msg", mem_id+"님 환영합니다");
+			mav.setViewName("member/login_ok");
+			session.setAttribute("sid", mem_id);
+		}
+		return mav;
+	}
 	
 	
 }

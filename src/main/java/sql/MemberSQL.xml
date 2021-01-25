@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mo.member">
+
 	<insert id="memberJoin" parameterType="zipcok.member.model.MemberDTO">
 		insert into
 			zipcok_member
@@ -25,4 +26,9 @@
 			'일반회원'
 			)
 	</insert>
+	
+	<select id="loginCheck" resultType="zipcok.member.model.MemberDTO">
+		select mem_pwd from zipcok_member where id = #{mem_id}
+	</select>
+	
 </mapper>
