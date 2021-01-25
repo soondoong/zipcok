@@ -28,7 +28,8 @@
 	</insert>
 	
 	<select id="loginCheck" resultType="zipcok.member.model.MemberDTO">
-		select mem_pwd from zipcok_member where id = #{mem_id}
+		select * from zipcok_member where mem_id = #{mem_id} and mem_pwd = #{mem_pwd}
 	</select>
+
 	
 </mapper>
