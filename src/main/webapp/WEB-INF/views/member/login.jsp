@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,13 +14,14 @@
 	<form action="login.do">
 		<div>
 			<div>
-				<input type="text" name="mem_id" placeholder="ID">
+				<input type="text" name="mem_id" value="${cookie.saveid.value}" placeholder="ID">
 			</div>
 			<div>
 				<input type="password" name="mem_pwd" placeholder="Password">
 			</div>
 			<div>
-				<input type="checkbox"> ID Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" name="saveid" value="on" ${empty cookie.saveid.value?'':'checked' }>
+				 ID Save &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="submit" value="로그인">
 			</div>
 			<div>

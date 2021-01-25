@@ -1,5 +1,8 @@
 package zipcok.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,38 +51,58 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/login.do")
-	public ModelAndView loginCheck(MemberDTO dto,
+	public ModelAndView loginCheck(
+			HttpServletRequest req, HttpServletResponse resp,
 			@RequestParam("mem_id")String mem_id,
 			@RequestParam("mem_pwd")String mem_pwd,
 			HttpSession session) {
 		
 		ModelAndView mav=new ModelAndView();
 		
-		int result=mdao.loginCheck(dto);
+		String str=mdao.idCheck(mem_id);
+		String str2=mdao.pwdCheck(mem_pwd);
 		
-		if(result>0) {
-			if(dto.getMem_id().equals(mem_id)) {
-				if(dto.getMem_pwd().equals(mem_pwd)) {
-					
-					mav.addObject("msg", mem_id+"님 환영합니다");
-					mav.setViewName("member/login_ok");
-					session.setAttribute("sid", mem_id);
+		//String gourl="";
+		//String msg="";
+		
+		if(str!=null) {
+			if(str2.equals(mem_pwd)) {
+				String dbname=mdao.getMemberName(mem_id);
+				mav.addObject("msg", dbname+"님 환영합니다");
+				mav.setViewName("member/login_ok");
+				session.setAttribute("sid", mem_id);
+				session.setAttribute("sname", dbname);
+				String saveid=req.getParameter("saveid");
+				if(saveid==null) {
+					Cookie ck=new Cookie("saveid", mem_id);
+					ck.setMaxAge(0);
+					resp.addCookie(ck);
+				}else {
+					Cookie ck=new Cookie("saveid", mem_id);
+					ck.setMaxAge(60*60*24*30);
+					resp.addCookie(ck);
 				}
 			}else {
 				mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
 				mav.addObject("gourl", "loginForm.do");
 				mav.setViewName("member/loginMsg");
 			}
-			
 		}else {
 			mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
 			mav.addObject("gourl", "loginForm.do");
 			mav.setViewName("member/loginMsg");
 		}
+		
 		return mav;
 	}
 
-	
+	@RequestMapping("/logout.do")
+	public String logout(HttpServletRequest req) {
+		
+		HttpSession session=req.getSession();
+		session.invalidate();
+		return "redirect:/index.do";
+	}
 	
 	
 	

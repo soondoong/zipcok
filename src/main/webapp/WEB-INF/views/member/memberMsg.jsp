@@ -6,10 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function show(){
+	location.href='loginForm.do';
+}
+</script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
 ${msg }
-<input type="button" value="로그인">
+<input type="button" value="로그인" onclick="show()">
 </body>
 </html>
