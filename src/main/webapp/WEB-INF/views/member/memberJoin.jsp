@@ -6,13 +6,29 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
+
+<script type="text/javascript" src="js/httpRequest.js"></script>
 <script type="text/javascript">
+
+function show(){
+	var mem_id=document.memberJoin.mem_id.value;
+	var params='mem_id='+mem_id;
+	sendRequest('idCheck.do',params,showResult,'GET');
+}
+function showResult(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data=XHR.responseText;
+			var spanNode=document.all.idCheckMsg;
+			spanNode.innerHTML=data;
+		}
+	}
+}
 
 //모든 공백 체크 정규식
 var empJ = /\s/g;
@@ -36,57 +52,8 @@ var address = $('#mem_detailaddress');
 
 $(document).ready(function() {
    var address = $('#mem_detailaddress');
+   
 
-   //아이디 중복확인
-      $("#mem_id").blur(function() {
-          if($('#mem_id').val()==''){
-             $('#id_check').text('아이디를 입력하세요.');
-             $('#id_check').css('color', 'red');                     
-      
-             } else if(idJ.test($('#mem_id').val())!=true){
-                $('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
-                $('#id_check').css('color', 'red');
-             } else if($('#mem_id').val()!=''){
-                
-               var mem_id=$('#mem_id').val();
-                 $.ajax({
-                     async : true,
-                        type : 'POST',
-                      data : mem_id,//mem_id라는 이름으로 mem_id라는 데이터를 @WebServlet("/idsearch.do")에 보내겠다
-                      url : 'idcheck.do',
-                        dateType: 'json',
-                        contentType: "application/json; charset=UTF-8",
-                        success : function(data) {
-
-             if(data.cnt > 0){
-                $('#id_check').text('중복된 아이디 입니다.');
-                      $('#id_check').css('color', 'red');
-                      $("#usercheck").attr("disabled", true);
-             }else{
-                if(idJ.test(mem_id)){
-                   $('#id_check').text('사용가능한 아이디 입니다.');
-                   $('#id_check').css('color', 'blue');
-                   $("#usercheck").attr("disabled", false);
-                }
-                else if(mem_id==''){
-                $('#id_check').text('아이디를 입력해주세요.');
-                      $('#id_check').css('color', 'red');
-                      $("#usercheck").attr("disabled", true);
-                }
-                else{
-                   $('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다.");
-                   $('#id_check').css('color', 'red');
-                   $("#usercheck").attr("disabled", true);
-                }
-             }
-
-           }
-
-                });//ajax/// 
-             }//else if
-           
-    });//blur
-    
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
          if (idJ.test($('#mem_id').val())) {
@@ -97,8 +64,8 @@ $(document).ready(function() {
             return false;
          }
          // 비밀번호가 같은 경우 && 비밀번호 정규식
-         if (($('#mem_pw').val() == ($('#mem_pw2').val()))
-               && pwJ.test($('#mem_pw').val())) {
+         if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
+               && pwJ.test($('#mem_pwd').val())) {
             inval_Arr[1] = true;
          } else {
             inval_Arr[1] = false;
@@ -141,7 +108,7 @@ $(document).ready(function() {
             return false;
          }
          //성별 확인
-          if(member.mem_gender[0].checked==false&&member.mem_gender[1].checked==false){
+          if(mem_gender[0].checked==false&&mem_gender[1].checked==false){
                  inval_Arr[6] = false;
                alert('성별을 확인하세요.');
                return false;
@@ -158,33 +125,22 @@ $(document).ready(function() {
          }else
             inval_Arr[7] = true;
       
-         //전체 유효성 검사
-         var validAll = true;
-         for(var i = 0; i < inval_Arr.length; i++){
-            if(inval_Arr[i] == false){
-               validAll = false;
-            }
-         }
-         if(validAll == true){ // 유효성 모두 통과
-            alert('NANALAND 가족이 되어주셔 감사합니다.');      
-         } else{
-            alert('정보를 다시 확인하세요.')
-         }
        });
 
 
-   $('#mem_id').blur(function() {
-      if (idJ.test($('#mem_id').val())) {
-         console.log('true');
-         $('#id_check').text('');
-      } else {
-         console.log('false');
-         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.');
-         $('#id_check').css('color', 'red');
-      }
-   });
-   $('#mem_pw').blur(function() {
-      if (pwJ.test($('#mem_pw').val())) {
+//   $('#mem_id').blur(function() {
+//      if (idJ.test($('#mem_id').val())) {
+//         console.log('true');
+//         $('#id_check').text('');
+//      } else {
+//         console.log('false');
+//         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능');	
+//         $('#id_check').css('color', 'red');
+//      }
+//   });
+
+   $('#mem_pwd').blur(function() {
+      if (pwJ.test($('#mem_pwd').val())) {
          console.log('true');
          $('#pw_check').text('');
       } else {
@@ -195,8 +151,8 @@ $(document).ready(function() {
    });
 
    //1~2 패스워드 일치 확인
-   $('#mem_pw2').blur(function() {
-      if ($('#mem_pw').val() != $(this).val()) {
+   $('#mem_pwd2').blur(function() {
+      if ($('#mem_pwd').val() != $(this).val()) {
          $('#pw2_check').text('비밀번호가 일치하지 않습니다.');
          $('#pw2_check').css('color', 'red');
       } else {
@@ -343,12 +299,14 @@ function execPostCode() {
      }).open();
  }
 
+
 </script>
+
 </head>
 <body>
 	<%@include file="../header2.jsp"%>
 	<article>
-	<form action="memberJoin.do">
+	<form name="memberJoin" action="memberJoin.do">
 	<br>
 	<br>
 	<br>
@@ -376,18 +334,20 @@ function execPostCode() {
 			<div class="form-group">
 				<label for="id">아이디</label> <input type="text" class="form-control"
 					id="mem_id" name="mem_id" placeholder="ID">
+					<input type="button" value="중복확인" onclick="show()">
+					<span id="idCheckMsg"></span>
 				<div class="eheck_font" id="id_check"></div>
 			</div>
 
 			<div class="form-group">
 				<label for="pw">비밀번호</label> <input type="password"
-					class="form-control" id="mem_pw" name="mem_pw"
+					class="form-control" id="mem_pwd" name="mem_pwd"
 					placeholder="PASSWORD">
 				<div class="eheck_font" id="pw_check"></div>
 			</div>
 			<div class="form-group">
 				<label for="pw2">비밀번호 확인</label> <input type="password"
-					class="form-control" id="mem_pw2" name="mem_pw2"
+					class="form-control" id="mem_pwd2" name="mem_pwd2"
 					placeholder="Confirm Password">
 				<div class="eheck_font" id="pw2_check"></div>
 			</div>
@@ -411,7 +371,8 @@ function execPostCode() {
 				<input class="form-control" style="width: 40%; display: inline;"
 					placeholder="우편번호" name="mem_oaddress" id="mem_oaddress"
 					type="text" readonly="readonly">
-				<button type="button" class="btn btn-default"
+				<button type="button" class="btn btn-default" style="background-color : cornflowerblue; color : white;
+				line-height : 1.20;"
 					onclick="execPostCode();">
 					<i class="fa fa-search"></i> 우편번호 찾기
 				</button>

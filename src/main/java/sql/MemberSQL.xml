@@ -13,11 +13,11 @@
 			#{mem_id},
 			#{mem_pwd},
 			#{mem_email},
-			#{mem_email2},
-			#{mem_faddr},
-			#{mem_saddr},
-			#{mem_sex},
-			#{mem_tel},
+			#{mem_oaddress},
+			#{mem_address},
+			#{mem_detailaddress},
+			#{mem_gender},
+			#{mem_phone},
 			sysdate,
 			sysdate,
 			'온라인',
@@ -37,6 +37,10 @@
 	
 	<select id="getMemberName" resultType="String" parameterType="zipcok.member.model.MemberDTO">
 		select mem_name from zipcok_member where mem_id = #{mem_id}
+	</select>
+	
+	<select id="idTwoCheck" resultType="boolean" parameterType="zipcok.member.model.MemberDTO">
+		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>
 	
 </mapper>
