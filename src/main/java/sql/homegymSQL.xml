@@ -6,10 +6,13 @@
 	<insert id="hgAddSQL"
 		parameterType="zipcok.homegym.model.HomeGymDTO">
 		insert into homegym values(
-		#{hg_mem_id}, #{hg_nickname}, #{hg_person_count}, #{hg_price},
-		#{hg_info}, '1', #{hg_faddr}, #{hg_saddr}, #{hg_station}, #{hg_comeinfo},
-		#{hg_start_date_year}, #{hg_start_date_month}, #{hg_start_date_day}, 
-		#{hg_end_date_year}, #{hg_end_date_month}, #{hg_end_date_day}, 
+		#{hg_mem_id}, #{hg_nickname},
+		#{hg_person_count}, #{hg_price},
+		#{hg_info}, '1', #{hg_faddr},
+		#{hg_saddr}, #{hg_station}, #{hg_comeinfo},
+		#{hg_start_date_year},
+		#{hg_start_date_month}, #{hg_start_date_day},
+		#{hg_end_date_year}, #{hg_end_date_month}, #{hg_end_date_day},
 		#{hg_not_date}, #{hg_start_time},
 		#{hg_end_time},
 		sysdate, sysdate, '1')
@@ -17,11 +20,29 @@
 	<insert id="hgEqAddSQL"
 		parameterType="zipcok.homegym.model.HomeGymEquipmentDTO">
 		insert into homegym_equipment values(
-		eq_idx.nextval, #{eq_mem_id}, #{eq_name}, #{eq_count})
+		eq_idx.nextval,
+		#{eq_mem_id}, #{eq_name}, #{eq_count})
+	</insert>
+	<insert id="hgImgAddSQL"
+		parameterType="zipcok.coach.model.CoachFileDTO">
+		insert into
+		member_file
+		values(
+		member_file_mfile_idx.nextval,
+		#{mfile_key},
+		#{mfile_mem_id},
+		#{mfile_upload},
+		#{mfile_size},
+		#{mfile_orig},
+		#{mfile_path},
+		#{mfile_type}
+		)
+
 	</insert>
 	<select id="hgListSQL"
 		resultType="zipcok.homegym.model.HomeGymDTO">
-		select * from homegym where hg_approved_check = '1' and hg_status = '1'
+		select * from homegym where hg_approved_check = '1' and
+		hg_status = '1'
 		order by hg_regist_date desc
 	</select>
 </mapper>
