@@ -1,17 +1,26 @@
 package zipcok.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.coach.*;
 import zipcok.coach.model.CoachDAO;
+import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.MainCoachDTO;
 
 @Controller
@@ -83,19 +92,73 @@ public class CoachController {
 	
 	/*코치가입하기 기능*/
 	@RequestMapping("coachJoin.do")
-	public ModelAndView coachJoin(MainCoachDTO dto) {
-		ModelAndView mav=new ModelAndView();
-		if(dto.getCoach_mat().equals("")) {
-			dto.setCoach_mat("없음");
+	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list) {
+		ArrayList<CoachFileDTO> fileArr=new ArrayList<CoachFileDTO>();
+		/*파일복사및저장하기*/
+		for(int i=0;i<list.size();i++) {		
+			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
+			String mfile_upload=copyInto( list.get(i));
+			String mfile_orig=list.get(i).getOriginalFilename();
+			String mfile_key="코치";
+			String mfile_mem_id=dto.getCoach_mem_id();
+			int mfile_size=(int)(list.get(i).getSize());
+			String mfile_path="c:/sooyeon/upload/coachinfo/";
+			String mfile_type=list.get(i).getContentType();
+			CoachFileDTO cdto=new CoachFileDTO(0, mfile_key, mfile_mem_id, mfile_upload, mfile_size, mfile_orig, mfile_path, mfile_type);
+			
+			fileArr.add(cdto);
 		}
 		
+		
+		ModelAndView mav=new ModelAndView();
 		int result=dao.coachJoin(dto);
+		
+		int count=dao.coachInfoFileUpload(fileArr);
+		if(count==fileArr.size()) {
+			System.out.println("사진등록성공");
+		}
+		
 		String msg=result>0?"코치로 등록되었습니다":"코치 등록실패";
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "index.do");
 		mav.setViewName("coach/joinMsg");
 		return mav;
 	}
+	
+	
+	
+	/*실제파일복사관련 메서드*/
+	private String copyInto(MultipartFile upload) {
 		
+		try {
+			
+			 /*파일이름중복없도록*/
+	        Calendar cal = Calendar.getInstance()  ;
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmSS");
+	        String time = dateFormat.format(cal.getTime());
+	        String random=RandomStringUtils.randomAlphabetic(8);
+	        String uploadName=time+random+upload.getOriginalFilename();
+	        //현재시간+랜덤문자열+원본파일명을 더한 새로운 파일이름생성
+	        
+	      //System.out.println("writer:"+writer);
+			System.out.println("파일새로운이름:"+uploadName);
+	       
+			byte bytes[]=upload.getBytes(); //복사할원본
+			File outFile=new File("c:/sooyeon/upload/coachinfo/"+uploadName); //빈종이
+			//이렇게하면 파일 덮어쓰기되서 나중에중복이름처리 생각해야댐 
+			//Stream = 1바이트체계  Reader=2바이트체계
+			
+			FileOutputStream fos=new FileOutputStream(outFile);
+			fos.write(bytes);//복사성공
+			fos.close();
+			
+			return uploadName;  //디비저장용
+		} catch (IOException e) {
+			System.out.println("파일존재하지않음");
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 	
 }

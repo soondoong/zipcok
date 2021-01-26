@@ -1,5 +1,6 @@
 package zipcok.coach.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,9 +59,21 @@ public class CoachDAOImple implements CoachDAO {
 	@Override
 	public int coachJoin(MainCoachDTO dto) {
 	    int count=sqlMap.insert("coachRegist",dto);
-		count=sqlMap.insert("insertCategory",dto);
+	    count=sqlMap.insert("insertCategory",dto);
 		return count;
 	}
+	
+	/*코치 소개사진등록하기*/
+	@Override
+	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr) {
+		int count=0;
+		
+		for(int i=0; i<fileArr.size(); i++) {
+		count+=sqlMap.insert("insertCoachInfoFile",fileArr.get(i));
+		}
+		return count;
+	}
+	
 	
 	
 

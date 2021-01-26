@@ -135,4 +135,19 @@ coach_category_cate_idx.nextval,
 
 </insert>
 
+<insert id="insertCoachInfoFile" parameterType="zipcok.coach.model.CoachFileDTO">
+insert into 
+ member_file
+values(
+member_file_mfile_idx.nextval,
+#{mfile_key},
+#{mfile_mem_id},
+#{mfile_upload},
+#{mfile_size},
+#{mfile_orig},
+#{mfile_path},
+#{mfile_type}
+)
+
+</insert>
  </mapper>
