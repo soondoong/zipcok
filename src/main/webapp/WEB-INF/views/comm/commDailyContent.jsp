@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,15 +33,24 @@
 		<tr height="250">
 			<td colspan="8" align="left" valign="top">${dto.ex_content }</td>
 		</tr>
+		<c:if test="${empty list}">
+			<tr>
+				<td colspan="8" align="center">
+					등록된 댓글이 없습니다.
+				</td>
+			</tr>
+		</c:if>
+		<c:forEach var="dto2" items="${list}">
 		<tr>
-			<td>댓글작성자</td>
-			<td colspan="6" align="center">댓글내용</td>
+			<td>${dto2.re_id}</td>
+			<td colspan="6" align="center">${dto2.re_content}</td>
 			<td><input type="button" value="삭제"></td>
 		</tr>
+		</c:forEach>
 		<tr>
 			<td>댓글작성자</td>
 			<td colspan="6"><input type="text"></td>
-			<td><input type="button" value="댓글달기"></td>
+			<td><input type="button" value="댓글달기" onclick="location.href='commDailyReWrite.do?ex_idx=${dto.ex_idx}'"></td>
 		</tr>
 		<tr>
 			<td>이전글</td>
@@ -55,7 +65,7 @@
 		<tr>
 			<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
 			<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
-			<td><input type="button" value="목록보기"></td>
+			<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
 		</tr>
 	</table>
 </body>

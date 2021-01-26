@@ -12,6 +12,7 @@ public interface ExBbsDAO {
 	public int dailyDelete(int ex_idx);
 	public int dailyReadnum(int ex_idx);
 	public int dailyGetMaxSunbun(int re_idx);
-	public int dailyReWrite(ExReBbsDTO dto,int ex_idx, String ex_id);
+	public int dailyReWrite(ExReBbsDTO dto,int ex_idx, String ex_id, int max);
+	public List dailyReList(int re_bbs_idx);
 
 }

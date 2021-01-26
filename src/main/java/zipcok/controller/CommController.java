@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.comm.model.ExBbsDAO;
 import zipcok.comm.model.ExBbsDTO;
+import zipcok.comm.model.ExReBbsDTO;
 
 
 @Controller
@@ -56,10 +57,12 @@ public class CommController {
 	
 	@RequestMapping("commDailyContent.do")
 	public ModelAndView dailyContent(int ex_idx) {
-		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
 		int result=exBbsDao.dailyReadnum(ex_idx);
+		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
+		List list=exBbsDao.dailyReList(ex_idx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto", dto);
+		mav.addObject("list", list);
 		mav.setViewName("comm/commDailyContent");
 		return mav;
 	}
@@ -90,6 +93,17 @@ public class CommController {
 		int ex_idx2=Integer.parseInt(ex_idx);
 		int result=exBbsDao.dailyDelete(ex_idx2);
 		String msg=result>0?"글삭제 성공!":"글삭제 실패!";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName("comm/commDailyMsg");
+		return mav;	
+	}
+	
+	@RequestMapping("commDailyReWrite.do")
+	public ModelAndView dailyReWrite(int re_idx, ExReBbsDTO dto, int ex_idx, String ex_id) {
+		int max=exBbsDao.dailyGetMaxSunbun(re_idx);
+		int result=exBbsDao.dailyReWrite(dto, ex_idx, ex_id, max);
+		String msg=result>0?"댓글 작성 성공!":"댓글 작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commDailyMsg");

@@ -65,12 +65,21 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	}
 	
 	@Override
-	public int dailyReWrite(ExReBbsDTO dto, int ex_idx, String ex_id) {
+	public int dailyReWrite(ExReBbsDTO dto, int ex_idx, String ex_id, int max) {
 		Map map=new HashMap();
 		map.put("re_bbs_idx", ex_idx);
 		map.put("re_id", ex_id);
+		map.put("max", max);
 		int count=sqlMap.insert("bbsReWriteSQL",map);
 		return count;
 	}
+	
+	@Override
+	public List dailyReList(int re_bbs_idx) {
+		List list=sqlMap.selectList("dailyReListSQL",re_bbs_idx);
+		return list;
+	}
+	
+	
 
 }

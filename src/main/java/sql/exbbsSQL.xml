@@ -69,6 +69,15 @@
 			ex_idx=#{ex_idx}
 	</update>
 	
+	<select id="dailyGetMaxSunbunSQL" resultType="Integer">
+		select
+			max(re_sunbun)
+		from 
+			bbs_rebbs
+		where
+			re_idx=#{re_idx}	
+	</select>
+	
 	<insert id="bbsReWriteSQL" parameterType="zipcok.comm.model.ExReBbsDTO">
 		insert into
 			bbs_rebbs
@@ -82,5 +91,16 @@
 				?,
 				#{re_bbs_idx})
 	</insert>
+	
+	<select id="dailyReListSQL" parameterType="Integer" resultType="zipcok.comm.model.ExReBbsDTO">
+		select
+			*
+		from
+			bbs_rebbs
+		where
+			re_bbs_idx=#{re_bbs_idx}
+		order by
+			re_sunbun asc
+	</select>
 	
 </mapper>
