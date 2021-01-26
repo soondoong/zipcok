@@ -1,10 +1,13 @@
 package zipcok.homegym.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import zipcok.coach.model.CoachFileDTO;
 @Service
 public class HomeGymDAOImple implements HomeGymDAO {
 
@@ -32,6 +35,15 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	public List<HomeGymDTO> HomeGymList() {
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL");
 		return list;
+	}
+	
+@Override
+	public int HomeGymImgUpload(ArrayList<CoachFileDTO> list) {
+		int result = 0;
+		for(int i = 0 ; i < list.size() ; i ++) {
+			result += sqlMap.insert("hgImgAddSQL", list.get(i));
+		}
+		return result;
 	}
 
 }

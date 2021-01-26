@@ -67,6 +67,10 @@ textarea {
 		document.getElementById('eq_List').appendChild(eq_div);
 		count++;		
 	}
+	function plus(){
+		var Li=document.getElementById('imgItem');
+		Li.innerHTML += '<br><input type="file" name="upload">';		
+	}
 	
 	function ListItemDelete(count){
 		document.getElementById(count).remove();
@@ -99,7 +103,7 @@ textarea {
 <body>
 	<h1>홈짐 등록하기</h1>
 	<form name="HomeGymAddForm" id="addForm" action="HomeGymAdd.do"
-		method="post">
+		method="post" enctype="multipart/form-data">
 		<h5>기본 정보</h5>
 		<ul>
 			<li><label class="HomeGymAddLabel">홈짐 아이디</label>
@@ -180,10 +184,13 @@ textarea {
 		</ul>
 		<h5>소개 사진 등록</h5>
 		<ul>
-			<li><label class="HomeGymAddLabel">사진 등록하기</label> <input
-				type="file" name="upload" multiple="multiple"></li>
+			<li id = "imgItem"><label class="HomeGymAddLabel">사진 등록하기</label><br>
+			<input type="file" name="upload">
+			</li>
 			<li>
-				<div id="HomeGymAddImgDiv"></div>
+				<div id="HomeGymAddImgDiv">
+				<input type="button" value="파일추가" onclick="plus();">
+				</div>
 			</li>
 		</ul>
 		<h5>예약 날짜</h5>
