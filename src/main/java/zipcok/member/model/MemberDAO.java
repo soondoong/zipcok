@@ -8,5 +8,5 @@ public interface MemberDAO {
 	public String idCheck(String mem_id);
 	public String pwdCheck(String mem_pwd);
 	public String getMemberName(String mem_id);
-	public boolean idTwoCheck(String mem_id);
+	public boolean idCheckDo(String mem_id);
 }

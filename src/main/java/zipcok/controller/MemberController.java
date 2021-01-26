@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -99,23 +100,19 @@ public class MemberController {
 		return "redirect:/index.do";
 	}
 	
+
 	@RequestMapping("/idCheck.do")
-	public ModelAndView idCheck(@RequestParam("mem_id")String mem_id) {
-		boolean check = mdao.idTwoCheck(mem_id);
-		ModelAndView mav = new ModelAndView();
-		if(check) {
+	public ModelAndView idCheckSubmit(@RequestParam("mem_id") String mem_id) {
+		boolean result=mdao.idCheckDo(mem_id);
+		ModelAndView mav=new ModelAndView();
+		if(result) {
 			mav.addObject("msg", mem_id+"는 이미 가입되어있는 아이디입니다.");
 		}else {
 			mav.addObject("msg", mem_id+"는 사용가능한 아이디입니다.");
 		}
 		mav.setViewName("member/idCheck_ok");
-		
 		return mav;
 	}
-	
-	
-	
-	
 
 	
 	

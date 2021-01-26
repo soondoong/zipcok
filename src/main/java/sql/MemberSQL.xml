@@ -39,7 +39,7 @@
 		select mem_name from zipcok_member where mem_id = #{mem_id}
 	</select>
 	
-	<select id="idTwoCheck" resultType="boolean" parameterType="zipcok.member.model.MemberDTO">
+	<select id="idCheckDo" resultType="boolean" parameterType="zipcok.member.model.MemberDTO">
 		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>
 	
