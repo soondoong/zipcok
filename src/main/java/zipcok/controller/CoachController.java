@@ -46,38 +46,25 @@ public class CoachController {
 	public ModelAndView searchCoach(@RequestParam(value="location")String location,
 			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
-
-		/*페이지설정*/
-		String tablename="coach_regist";
-		HashMap tablemap=new HashMap();
-		tablemap.put("tablename",tablename);
-		int totalCnt=dao.getTotalCnt(tablemap); //테이블명써주기
-		int listSize=3;
-		int pageSize=5;
-		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize);
-		
-		
+		/*키워드 담기*/
 		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
-	
+		
 		keywordMap.put("location",location);
 		keywordMap.put("extype",extype);
 		keywordMap.put("category",category);
 		
-		HashMap<String,Object> map=new HashMap<String, Object>();
 		
-		if(location.equals("전체지역")) {
-			location="";
-		}
 		
-		if(category.equals("모든카테고리")) {
-			category="";
-		}
-	
-		map.put("location",location);
-		map.put("extype",extype);
-		map.put("category",category);
+		/*페이지설정*/
+		int totalCnt=dao.getTotalCnt(keywordMap); //테이블명써주기
+		int listSize=4;
+		int pageSize=5;
+		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize,keywords);
 		
-		List<MainCoachDTO> list=dao.searchCoachList(map, cp, listSize);
+		
+		
+		List<MainCoachDTO> list=dao.searchCoachList(keywordMap, cp, listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("list", list);	
 		mav.addObject("keyword", keywordMap);
