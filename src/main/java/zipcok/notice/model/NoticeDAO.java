@@ -12,6 +12,7 @@ public interface NoticeDAO {
 	public int noticeUpdate(NoticeDTO dto);
 	public int noticeDelete(int bbs_idx);
 	public int noticeReadnum(int bbs_idx);
+	
 	public int findRownum(int bbs_idx);
 	public NoticeDTO noticePrevNext(int rnum);
 }

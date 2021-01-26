@@ -61,8 +61,16 @@ public class NoticeController {
 			@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
 		NoticeDTO dto=noticeDao.noticeContent(bbs_idx);
 		noticeDao.noticeReadnum(bbs_idx);//조회수+1해주는 sql 실행
+		
+		int rnum=noticeDao.findRownum(bbs_idx);
+//		NoticeDTO prev=noticeDao.noticePrevNext(rnum-1);
+//		NoticeDTO next=noticeDao.noticePrevNext(rnum+1);
+		
+		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto",dto);
+//		mav.addObject("prev", prev);
+//		mav.addObject("next",next);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
@@ -121,18 +129,5 @@ public class NoticeController {
 	      mav.addObject("gopage", "noticeList.do");
 	      mav.setViewName("notice/noticeMsg");
 	      return mav;
-	}
-	
-	public ModelAndView goNoticePrevNext(int bbs_idx) {
-		int rnum=noticeDao.findRownum(bbs_idx);
-		NoticeDTO prev=noticeDao.noticePrevNext(rnum-1);
-		NoticeDTO next=noticeDao.noticePrevNext(rnum+1);
-		
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("prev", prev);
-		mav.addObject("next",next);
-		mav.setViewName("notice/noticeContent");
-		return mav;
-		
 	}
 }

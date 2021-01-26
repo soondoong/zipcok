@@ -88,9 +88,12 @@ public class NoticeDAOImple implements NoticeDAO {
 		int result=sqlMap.selectOne("findrownumSQL",bbs_idx);
 		return result;
 	}
+
+	//이전글 다음글
 	@Override
 	public NoticeDTO noticePrevNext(int rnum) {
 		NoticeDTO dto=sqlMap.selectOne("prevnextSQL", rnum);
 		return dto;
 	}
+
 }
