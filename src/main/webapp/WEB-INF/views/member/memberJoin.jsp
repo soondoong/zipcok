@@ -6,19 +6,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
-
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script type="text/javascript">
+
 
 function show(){
 	var mem_id=document.memberJoin.mem_id.value;
 	var params='mem_id='+mem_id;
-	sendRequest('idCheck.do',params,showResult,'GET');
+	sendRequest('idCheckDo.do',params,showResult,'GET');
 }
 function showResult(){
 	if(XHR.readyState==4){
@@ -29,6 +30,7 @@ function showResult(){
 		}
 	}
 }
+
 
 //모든 공백 체크 정규식
 var empJ = /\s/g;
@@ -306,106 +308,107 @@ function execPostCode() {
 <body>
 	<%@include file="../header2.jsp"%>
 	<article>
-	<form name="memberJoin" action="memberJoin.do">
-	<br>
-	<br>
-	<br>
-	<h2>회원가입</h2>
-	<hr>
-	<br>
-	<h6>기본 정보 입력</h6>
-	<hr>
-		<div class="col-sm-3 col-md-offset-3">
-			<div class="form-group">
-				<label for="mem_name">이름</label> <input type="text"
-					class="form-control" id="mem_name" name="mem_name"
-					placeholder="Name">
-				<div class="eheck_font" id="name_check"></div>
+		<form name="memberJoin" action="memberJoin.do">
+			<br> <br> <br>
+			<h2>회원가입</h2>
+			<hr>
+			<br>
+			<h6>기본 정보 입력</h6>
+			<hr>
+			<div class="col-sm-3 col-md-offset-3">
+				<div class="form-group">
+					<label for="mem_name">이름</label> <input type="text"
+						class="form-control" id="mem_name" name="mem_name"
+						placeholder="Name">
+					<div class="eheck_font" id="name_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="mem_birth">생년월일</label> <input type="tel"
+						class="form-control" id="mem_birth" name="mem_birth"
+						placeholder="ex) 19990101">
+					<div class="eheck_font" id="birth_check"></div>
+				</div>
+
+
+				<div class="form-group">
+					<label for="id">아이디</label> <input type="text" class="form-control"
+						id="mem_id" name="mem_id" placeholder="ID"> <input
+						type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						value="중복확인" onclick="show()">
+						<span id="idCheckMsg"></span>
+					<!--  <div class="eheck_font" id="id_check"></div> -->
+				</div>
+
+				<div class="form-group">
+					<label for="pw">비밀번호</label> <input type="password"
+						class="form-control" id="mem_pwd" name="mem_pwd"
+						placeholder="PASSWORD">
+					<div class="eheck_font" id="pw_check"></div>
+				</div>
+				<div class="form-group">
+					<label for="pw2">비밀번호 확인</label> <input type="password"
+						class="form-control" id="mem_pwd2" name="mem_pwd2"
+						placeholder="Confirm Password">
+					<div class="eheck_font" id="pw2_check"></div>
+				</div>
+
+
+
+
+
+				<div class="form-group">
+					<label for="mem_email">이메일 주소</label> <input type="email"
+						class="form-control" id="mem_email" name="mem_email"
+						placeholder="E-mail">
+					<div class="eheck_font" id="email_check"></div>
+				</div>
+
+
+
+
+
+				<div class="form-group">
+					<input class="form-control" style="width: 40%; display: inline;"
+						placeholder="우편번호" name="mem_oaddress" id="mem_oaddress"
+						type="text" readonly="readonly">
+					<button type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						onclick="execPostCode();">
+						<i class="fa fa-search"></i> 우편번호 찾기
+					</button>
+				</div>
+
+				<div class="form-group">
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
+						name="mem_address" id="mem_address" type="text"
+						readonly="readonly" />
+				</div>
+
+				<div class="form-group">
+					<input class="form-control" placeholder="상세주소"
+						name="mem_detailaddress" id="mem_detailaddress" type="text" />
+				</div>
+
+				<div class="form-group">
+					<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
+						type="tel" class="form-control" id="mem_phone" name="mem_phone"
+						placeholder="Phone Number">
+					<div class="eheck_font" id="phone_check"></div>
+				</div>
+
+				<div class="form-group">
+					<label for="mem_gender">성별 </label> <input type="checkbox"
+						id="mem_gender" name="mem_gender" value="남">남 <input
+						type="checkbox" id="mem_gender" name="mem_gender" value="여">여
+				</div>
+
+
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary">회원가입</button>
+				</div>
 			</div>
-
-			<div class="form-group">
-				<label for="mem_birth">생년월일</label> <input type="tel"
-					class="form-control" id="mem_birth" name="mem_birth"
-					placeholder="ex) 19990101">
-				<div class="eheck_font" id="birth_check"></div>
-			</div>
-
-
-			<div class="form-group">
-				<label for="id">아이디</label> <input type="text" class="form-control"
-					id="mem_id" name="mem_id" placeholder="ID">
-					<input type="button" value="중복확인" onclick="show()">
-					<span id="idCheckMsg"></span>
-				<div class="eheck_font" id="id_check"></div>
-			</div>
-
-			<div class="form-group">
-				<label for="pw">비밀번호</label> <input type="password"
-					class="form-control" id="mem_pwd" name="mem_pwd"
-					placeholder="PASSWORD">
-				<div class="eheck_font" id="pw_check"></div>
-			</div>
-			<div class="form-group">
-				<label for="pw2">비밀번호 확인</label> <input type="password"
-					class="form-control" id="mem_pwd2" name="mem_pwd2"
-					placeholder="Confirm Password">
-				<div class="eheck_font" id="pw2_check"></div>
-			</div>
-
-
-
-
-
-			<div class="form-group">
-				<label for="mem_email">이메일 주소</label> <input type="email"
-					class="form-control" id="mem_email" name="mem_email"
-					placeholder="E-mail">
-				<div class="eheck_font" id="email_check"></div>
-			</div>
-
-
-
-
-
-			<div class="form-group">
-				<input class="form-control" style="width: 40%; display: inline;"
-					placeholder="우편번호" name="mem_oaddress" id="mem_oaddress"
-					type="text" readonly="readonly">
-				<button type="button" class="btn btn-default" style="background-color : cornflowerblue; color : white;
-				line-height : 1.20;"
-					onclick="execPostCode();">
-					<i class="fa fa-search"></i> 우편번호 찾기
-				</button>
-			</div>
-
-			<div class="form-group">
-				<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
-					name="mem_address" id="mem_address" type="text" readonly="readonly" />
-			</div>
-
-			<div class="form-group">
-				<input class="form-control" placeholder="상세주소"
-					name="mem_detailaddress" id="mem_detailaddress" type="text" />
-			</div>
-
-			<div class="form-group">
-				<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
-					type="tel" class="form-control" id="mem_phone" name="mem_phone"
-					placeholder="Phone Number">
-				<div class="eheck_font" id="phone_check"></div>
-			</div>
-
-			<div class="form-group">
-				<label for="mem_gender">성별 </label> <input type="checkbox"
-					id="mem_gender" name="mem_gender" value="남">남 <input
-					type="checkbox" id="mem_gender" name="mem_gender" value="여">여
-			</div>
-
-
-			<div class="form-group text-center">
-				<button type="submit" class="btn btn-primary">회원가입</button>
-			</div>
-		</div>
 		</form>
 	</article>
 </body>
