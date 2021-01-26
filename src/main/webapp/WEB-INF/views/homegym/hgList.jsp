@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src = "js/calendar.js"></script>
 </head>
 <body>
 	<%@include file="../header2.jsp"%>
