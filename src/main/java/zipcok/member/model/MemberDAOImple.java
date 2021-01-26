@@ -26,8 +26,8 @@ public class MemberDAOImple implements MemberDAO {
 	}
 	
 	@Override
-	public String pwdCheck(String mem_pwd) {
-		String str = sqlMap.selectOne("pwdCheck", mem_pwd);
+	public String pwdCheck(String mem_id) {
+		String str = sqlMap.selectOne("pwdCheck", mem_id);
 		return str;
 	}
 		
@@ -38,8 +38,8 @@ public class MemberDAOImple implements MemberDAO {
 	}
 	
 	@Override
-	public boolean idCheckDo(String mem_id) {
-		boolean count = sqlMap.selectOne("idCheckDo", mem_id);
+	public int idCheckDo(String mem_id) {
+		int count = sqlMap.selectOne("idCheckDo", mem_id);
 		return count;
 	}
 	
