@@ -9,7 +9,7 @@
 <body>
 <%@include file="../header2.jsp" %>
 <article class="p-5">
-<form action="coachJoin.do">
+<form action="coachJoin.do" method="post" enctype="multipart/form-data">
 <div class="col-sm-3 col-md-offset-3">
 <h3>코치정보 등록</h3>
 <hr>
@@ -65,10 +65,27 @@
 	  	</select>
 	</div>
 	
+	<div class="form-group">
+		<label>사진등록</label>
+		<ul id="fileUl">
+			<li>올릴파일:<input type="file"  name="upload"></li>
+		</ul>
+		<div><input type="button" value="파일추가" onclick="plus();"></div>
+		<div class="eheck_font"></div>
+	</div>
+	<script>
+	//사진파일계속추가
+	function plus(){
+		var wrapul=document.getElementById("fileUl");	
+		var newLi=document.createElement("li");
+		newLi.innerHTML='올릴파일:<input type="file" name="upload">';
+		wrapul.appendChild(newLi);
+		
+	}
+   </script>
 
-	
 	<!-- 코치 정보 입력하기 -->
-	<input type="submit" value="코치로 가입하기">
+	<div><input type="submit" value="코치로 가입하기" class="btn btn-lg btn-primary"></div>
 
 </div>
 
