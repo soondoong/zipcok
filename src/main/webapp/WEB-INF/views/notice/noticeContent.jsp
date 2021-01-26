@@ -24,6 +24,7 @@ function goUpdateView(){
 <table>
 	<thead>
 		<tr>
+		<td><input type="hidden" name="bbs_idx" value="${dto.bbs_idx}"></td>
 			<th>제목 : ${dto.bbs_subject}</th>
 			<th>조회수 : ${dto.bbs_readnum}</th>
 			<th>작성일 : ${dto.bbs_writedate}</th>
@@ -41,14 +42,30 @@ function goUpdateView(){
 		</tr>
 	</tbody>
 	<tfoot>
-	<c:set var="prev" value="${prev}"></c:set>
-	<c:set var="next" value="${next}"></c:set>
+	<c:choose>
+		<c:when test="${empty prev}">
 		<tr>
-			<td><a href="noticeContent.do?bbs_idx=${prev.bbs_idx}"></a></td>
+			<td>이전글이 없습니다.</td>
 		</tr>
+		</c:when>
+		<c:otherwise>
 		<tr>
-			<td><a href="noticeContent.do?bbs_idx="${next.bbs_idx}></a></td>
+			<td><a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">이전글</a></td>
 		</tr>
+		</c:otherwise>
+	</c:choose>
+	<c:choose>
+		<c:when test="${empty next}">
+		<tr>
+			<td>다음글이 없습니다.</td>
+		</tr>
+		</c:when>
+		<c:otherwise>
+		<tr>
+			<td><a href="noticeContent.do?bbs_idx="${next.bbs_idx}>다음글</a></td>
+		</tr>
+		</c:otherwise>
+	</c:choose>
 		<tr>
 			<td>
 				<input type="button" value="삭제" onclick="javascript:goDelete()">
