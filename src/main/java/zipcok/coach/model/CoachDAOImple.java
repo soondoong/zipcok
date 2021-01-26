@@ -17,15 +17,62 @@ public class CoachDAOImple implements CoachDAO {
 	@Autowired
 	private SqlSessionTemplate sqlMap;
 	
+	/*코치카테고리정보 찾기*/
+	@Override
+	public ArrayList<CategoryDTO> findCategory(String id){
+		
+		ArrayList<CategoryDTO> arr=new ArrayList<CategoryDTO>();
+		List list=sqlMap.selectList("findCategories", id);
+		arr=(ArrayList<CategoryDTO>)list; //형변환
+		return arr;
+	}
+	
+	
 	/*카테고리별 전체코치리스트 불러오기*/
 	@Override
 	public HashMap<String, List<MainCoachDTO>> mainCoachList() {
 		HashMap<String, List<MainCoachDTO>> map=new HashMap<String, List<MainCoachDTO>>();
 		List<MainCoachDTO> ptList=sqlMap.selectList("findCategoryCoachPT");
-		map.put("pt", ptList);
+		
+		for(int i=0;i<ptList.size();i++) {
+			String cateName="";
+			/*코치카테고리정보 담기*/
+		ArrayList<CategoryDTO> arr=findCategory(ptList.get(i).getCoach_mem_id());
+		if(arr.size()==1) { //카테고리 1개일때
+			cateName=arr.get(0).getCate_name();
+		}else {
+			cateName=arr.get(0).getCate_name()+"/"+arr.get(1).getCate_name();	
+		}
+		
+		ptList.get(i).setCate_name(cateName); //ex)필라테스/다이어트 or 다이어트
+		
+	}
+				
+		map.put("pt", ptList); //새로 셋팅된 카테고리 네임을 넣어서 보내기
+		
+		
+		
+		
+		
 		
 		List<MainCoachDTO> yogaList=sqlMap.selectList("findCategoryCoachYoga");
+		
+		for(int i=0;i<yogaList.size();i++) {
+			String cateName="";
+			/*코치카테고리정보 담기*/
+			ArrayList<CategoryDTO> arr=findCategory(yogaList.get(i).getCoach_mem_id());
+			if(arr.size()==1) { //카테고리 1개일때
+				cateName=arr.get(0).getCate_name();
+			}else {
+				cateName=arr.get(0).getCate_name()+"/"+arr.get(1).getCate_name();	
+			}
+			
+		yogaList.get(i).setCate_name(cateName); //ex)필라테스/다이어트 or 다이어트
+		
+		}
+		
 		map.put("yoga", yogaList);
+		
 		return map ;
 	}
 	
@@ -40,6 +87,21 @@ public class CoachDAOImple implements CoachDAO {
 		keys.put("end",end);
 		
 		List<MainCoachDTO> searchList=sqlMap.selectList("searchCoachByKey",keys);
+		
+		for(int i=0;i<searchList.size();i++) {
+			String cateName="";
+			/*코치카테고리정보 담기*/
+			ArrayList<CategoryDTO> arr=findCategory(searchList.get(i).getCoach_mem_id());
+			if(arr.size()==1) { //카테고리 1개일때
+				cateName=arr.get(0).getCate_name();
+			}else {
+				cateName=arr.get(0).getCate_name()+"/"+arr.get(1).getCate_name();	
+			}
+			
+			searchList.get(i).setCate_name(cateName); //ex)필라테스/다이어트 or 다이어트
+		
+		}
+		
 		
 		return searchList;
 	}
@@ -57,9 +119,13 @@ public class CoachDAOImple implements CoachDAO {
 	
 	/*코치등록하기*/
 	@Override
-	public int coachJoin(MainCoachDTO dto) {
-	    int count=sqlMap.insert("coachRegist",dto);
-	    count=sqlMap.insert("insertCategory",dto);
+	public int coachJoin(HashMap<String, Object> map) {
+	    int count=sqlMap.insert("coachRegist",map.get("dto"));
+	  ArrayList<CategoryDTO> cateArr=( ArrayList<CategoryDTO>) map.get("cateArr");
+	    for(int i=0; i<cateArr.size(); i++) {
+	    	 count+=sqlMap.insert("insertCategory",cateArr.get(i));
+	    	 System.out.println("카테고리갯수:"+cateArr.size()+"카테고리명:"+cateArr.get(i).getCate_name());
+	    }
 		return count;
 	}
 	

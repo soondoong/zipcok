@@ -54,13 +54,12 @@ public class MemberController {
 		
 		ModelAndView mav=new ModelAndView();
 		
-		String str=mdao.idCheck(mem_id);
-		String str2=mdao.pwdCheck(mem_pwd);
-		
+		String str=mdao.idCheck(mem_id);		
 		//String gourl="";
 		//String msg="";
 		
 		if(str!=null) {
+			String str2=mdao.pwdCheck(mem_id);
 			if(str2.equals(mem_pwd)) {
 				String dbname=mdao.getMemberName(mem_id);
 				mav.addObject("msg", dbname+"님 환영합니다");

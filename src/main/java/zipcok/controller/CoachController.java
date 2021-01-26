@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.coach.*;
+import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.MainCoachDTO;
@@ -105,7 +107,27 @@ public class CoachController {
 	
 	/*코치가입하기 기능*/
 	@RequestMapping("coachJoin.do")
-	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list) {
+	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list,
+			HttpServletRequest request) {
+		
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		
+		ArrayList<CategoryDTO> categoryArr=new ArrayList<CategoryDTO>();
+		/*체크박스 카테고리값*/
+		String[] cateArr = request.getParameterValues("cate_name");
+		for(int i=0;i<cateArr.length;i++) {		
+			String cate_mem_id=dto.getCoach_mem_id();
+			String cate_name=cateArr[i];
+			CategoryDTO cateDto=new CategoryDTO(0, cate_mem_id, cate_name);
+			categoryArr.add(cateDto);
+		}
+		
+		map.put("cateArr", categoryArr);
+		map.put("dto",dto);
+		int result=dao.coachJoin(map);
+		
+		
 		ArrayList<CoachFileDTO> fileArr=new ArrayList<CoachFileDTO>();
 		/*파일복사및저장하기*/
 		for(int i=0;i<list.size();i++) {		
@@ -124,8 +146,6 @@ public class CoachController {
 		}
 		
 		
-		ModelAndView mav=new ModelAndView();
-		int result=dao.coachJoin(dto);
 		
 		int count=dao.coachInfoFileUpload(fileArr);
 		if(count==fileArr.size()) {
@@ -133,6 +153,8 @@ public class CoachController {
 		}
 		
 		String msg=result>0?"코치로 등록되었습니다":"코치 등록실패";
+		
+		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "index.do");
 		mav.setViewName("coach/joinMsg");

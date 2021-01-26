@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.coach">
     <select id="findCategoryCoachPT" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
-select 
+select DISTINCT
 m.mem_name,f.mfile_upload,a.*  
 from zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
@@ -21,7 +21,7 @@ a.cate_name='퍼스널트레이닝'
 	
 	
 	<select id="findCategoryCoachYoga" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
-select 
+select DISTINCT
 m.mem_name,f.mfile_upload,a.*  
 from zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
@@ -36,56 +36,80 @@ and
 a.cate_name='요가' 
 	</select>
 	
+	<select id="findCategories" parameterType="String" resultType="zipcok.coach.model.CategoryDTO">
+	select * from
+	coach_category
+	where
+	cate_mem_id= #{id}
+	
+	</select>
+	
 	
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
-select * from
-(select rownum as rnum, 
-m.mem_name,f.mfile_upload,a.*  
-from zipcok_member m,member_file f, 
-(select * from coach_regist c,coach_category g 
-where c.coach_mem_id = g.cate_mem_id)a
-where
-a.coach_floc 
+	
+select
+ * from 
+(select rownum as rnum,zm.mem_name,
+cr.*,mf.mfile_upload
+from 
+(select c.coach_mem_id
+from coach_regist c,coach_category g
+where 
+c.coach_mem_id = g.cate_mem_id
+and
+c.coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-a.coach_ex_type 
+c.coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
 </choose> 
 and
-a.cate_name
+cate_name
 <choose>
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-and 
-m.mem_id=a.coach_mem_id 
+group by c.coach_mem_id
+)a,coach_regist cr,member_file mf,zipcok_member zm
+where
+a.coach_mem_id = cr.coach_mem_id
 and
-m.mem_id=mfile_mem_id
+a.coach_mem_id = mf.mfile_mem_id
 and
-mfile_key='회원프로필' )b
+a.coach_mem_id = zm.mem_id
+and
+mf.mfile_key='회원프로필')b
 where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+
 
 </select>
 	
+	
+	
 <select id="totalCnt" parameterType="Hashmap" resultType="Integer">
-select count(*) 
+
+select 
+count(*)
+from
+(select
+mem_idx
 from 
 zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
 where c.coach_mem_id = g.cate_mem_id)a
 where
-a.coach_floc 
+a.coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-a.coach_ex_type 
+a.coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
@@ -102,7 +126,8 @@ and
 m.mem_id=mfile_mem_id
 and
 mfile_key='회원프로필'
-  		
+group by m.mem_idx)c
+
 </select>
 
 
@@ -124,12 +149,12 @@ sysdate
 
 </insert>
 
-<insert id="insertCategory" parameterType="zipcok.coach.model.MainCoachDTO">
+<insert id="insertCategory" parameterType="zipcok.coach.model.CategoryDTO">
 insert into 
  coach_category
 values(
 coach_category_cate_idx.nextval,
-#{coach_mem_id},
+#{cate_mem_id},
 #{cate_name}
 )
 

@@ -75,9 +75,8 @@
 			
 				</c:if>
 				<c:if test="${!empty sessionScope.sid }">
-					<div>
-						${sessionScope.sname }님 로그인중... / <a href="logout.do">로그아웃</a>
-					</div>
+					<li>	${sessionScope.sname }님 로그인중...</li>
+					<li><a href="logout.do">로그아웃</a></li>	
 				</c:if>
 			</ul>
 			<!-- mainmenu -->

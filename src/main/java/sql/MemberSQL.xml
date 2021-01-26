@@ -32,7 +32,7 @@
 	</select>
 
 	<select id="pwdCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_pwd from zipcok_member where mem_pwd = #{mem_pwd} 
+		select mem_pwd from zipcok_member where mem_id = #{mem_id} 
 	</select>
 	
 	<select id="getMemberName" resultType="String" parameterType="zipcok.member.model.MemberDTO">

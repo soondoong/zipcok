@@ -19,6 +19,7 @@ text-align:center;
 line-height: 1;
 }
 .contentsWrap{
+magin:0 auto;
 margin-top:40px;
 padding:0px 30px;
 }
@@ -32,7 +33,10 @@ float:left;
 }
 
 .image-container img{
-width:350px;
+width:250px;
+height:270px;
+object-fit: cover;
+
 }
 .image-container{
    overflow: hidden;
@@ -40,7 +44,8 @@ width:350px;
    align-items: center;
    justify-content: center;
    width: 230px;
-   height:300px;
+   height:270px;
+   margin-bottom:15px;
 }
 .extype{
 text-align:center;
@@ -53,6 +58,17 @@ font-size: 0.8rem;
 }
 .category{
 font-size: 0.8rem;
+}
+.h5search{
+margin-bottom: 30px;
+}
+.paging{
+position: relative;
+left:50%;
+}
+.paging a{
+font-size:1.6rem;
+padding-right:20px;
 }
 </style>
 </head>
@@ -84,6 +100,7 @@ font-size: 0.8rem;
 		 		<option <c:if test="${keyword.category=='퍼스널트레이닝'}">selected="selected"</c:if>>퍼스널트레이닝</option>
 		 		<option <c:if test="${keyword.category=='필라테스'}">selected="selected"</c:if>>필라테스</option>
 		 		<option <c:if test="${keyword.category=='요가'}">selected="selected"</c:if>>요가</option>
+		 		<option <c:if test="${keyword.category=='다이어트'}">selected="selected"</c:if>>다이어트</option>
 		 	</select>
 		 	
 		 	<input type="submit" value="검색하기">
@@ -101,7 +118,7 @@ font-size: 0.8rem;
 	<article class="contentsWrap">
 		<h3 class=" mt-5">검색된 리스트</h3>
 
-		<h5>${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
+		<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
 <div class="listWrap">
 
 <c:forEach var="dto" items="${list}">
@@ -129,7 +146,7 @@ font-size: 0.8rem;
 </c:forEach>
 </div> 
 
-	<div>
+	<div class="paging">
 	${pageStr}
 	</div>
 
