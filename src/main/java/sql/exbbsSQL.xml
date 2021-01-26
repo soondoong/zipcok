@@ -52,4 +52,12 @@
 		where
 			ex_idx=#{ex_idx}
 	</update>
+	
+	<delete id="bbsDeleteSQL">
+	
+	</delete>
+	
+	<update id="bbsReadnumSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+	
+	</update>
 </mapper>

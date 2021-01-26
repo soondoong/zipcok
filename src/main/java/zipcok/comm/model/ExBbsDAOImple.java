@@ -45,5 +45,17 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		int count=sqlMap.update("bbsUpdateSQL",dto);
 		return count;
 	}
+	
+	@Override
+	public int dailyDelete(int ex_idx) {
+		int count=sqlMap.delete("bbsDeleteSQL",ex_idx);
+		return count;
+	}
+	
+	@Override
+	public int dailyReadnum(int ex_idx) {
+		int count=sqlMap.update("bbsReadnumSQL",ex_idx);
+		return count;
+	}
 
 }
