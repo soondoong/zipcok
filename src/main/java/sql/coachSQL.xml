@@ -45,7 +45,11 @@ from zipcok_member m,member_file f,
 (select * from coach_regist c,coach_category g 
 where c.coach_mem_id = g.cate_mem_id)a
 where
-a.coach_floc like '%${location}%'
+a.coach_floc 
+<choose>
+        <when test="location == '전체지역'">like '%%'</when>
+        <when test="location != '전체지역'">like '%${location}%' </when>
+</choose>
 and
 a.coach_ex_type 
 <choose>
@@ -53,7 +57,11 @@ a.coach_ex_type
         <when test="extype != '모든유형'"> = '${extype}'</when>
 </choose> 
 and
-a.cate_name like '%${category}%' 
+a.cate_name
+<choose>
+        <when test="category == '모든카테고리'">like '%%'</when>
+        <when test="category != '모든카테고리'">like '%${category}%' </when>
+</choose>
 and 
 m.mem_id=a.coach_mem_id 
 and
@@ -62,10 +70,38 @@ and
 mfile_key='코치' )b
 where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 
-	</select>
+</select>
 	
-	<select id="totalCnt" parameterType="Hashmap" resultType="Integer">
-  		select count(*) from 
-  		${tablename}
-  	</select>
-  </mapper>
+<select id="totalCnt" parameterType="Hashmap" resultType="Integer">
+select count(*) 
+from 
+zipcok_member m,member_file f, 
+(select * from coach_regist c,coach_category g 
+where c.coach_mem_id = g.cate_mem_id)a
+where
+a.coach_floc 
+<choose>
+        <when test="location == '전체지역'">like '%%'</when>
+        <when test="location != '전체지역'">like '%${location}%' </when>
+</choose>
+and
+a.coach_ex_type 
+<choose>
+        <when test="extype == '모든유형'">like '%%'</when>
+        <when test="extype != '모든유형'"> = '${extype}'</when>
+</choose> 
+and
+a.cate_name
+<choose>
+        <when test="category == '모든카테고리'">like '%%'</when>
+        <when test="category != '모든카테고리'">like '%${category}%' </when>
+</choose>
+and 
+m.mem_id=a.coach_mem_id 
+and
+m.mem_id=mfile_mem_id
+and
+mfile_key='코치'
+  		
+</select>
+ </mapper>

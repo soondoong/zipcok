@@ -32,6 +32,7 @@ public class CoachDAOImple implements CoachDAO {
 	public int getTotalCnt(HashMap map) {
 		int count=sqlMap.selectOne("totalCnt",map);
 		//총게시물수가 0이면오류나니까 
+		System.out.println("총검색된수"+count);
 		return count==0?1:count;
 	}
 	
