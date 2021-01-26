@@ -100,8 +100,13 @@ public class MemberController {
 		return "redirect:/index.do";
 	}
 	
+	@RequestMapping("/idCheckForm.do")
+	public String idCheckForm() {
+		
+		return "member/idCheck";
+	}
 
-	@RequestMapping("/idCheck.do")
+	@RequestMapping("/idCheckDo.do")
 	public ModelAndView idCheckSubmit(@RequestParam("mem_id") String mem_id) {
 		boolean result=mdao.idCheckDo(mem_id);
 		ModelAndView mav=new ModelAndView();

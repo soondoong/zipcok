@@ -13,9 +13,9 @@
 			#{mem_id},
 			#{mem_pwd},
 			#{mem_email},
-			#{mem_oaddress},
-			#{mem_address},
-			#{mem_detailaddress},
+			#{mem_zipcode},
+			#{mem_addr},
+			#{mem_detailaddr},
 			#{mem_gender},
 			#{mem_phone},
 			sysdate,
@@ -39,7 +39,7 @@
 		select mem_name from zipcok_member where mem_id = #{mem_id}
 	</select>
 	
-	<select id="idCheckDo" resultType="boolean" parameterType="zipcok.member.model.MemberDTO">
+	<select id="idCheckDo" resultType="zipcok.member.model.MemberDTO">
 		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>
 	
