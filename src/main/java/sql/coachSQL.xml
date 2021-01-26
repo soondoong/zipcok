@@ -53,8 +53,8 @@ a.coach_floc
 and
 a.coach_ex_type 
 <choose>
-        <when test="extype == '모든유형'">like '%%'</when>
-        <when test="extype != '모든유형'"> = '${extype}'</when>
+        <when test="extype == '전체'">like '%%'</when>
+        <when test="extype != '전체'"> = '${extype}'</when>
 </choose> 
 and
 a.cate_name
@@ -87,8 +87,8 @@ a.coach_floc
 and
 a.coach_ex_type 
 <choose>
-        <when test="extype == '모든유형'">like '%%'</when>
-        <when test="extype != '모든유형'"> = '${extype}'</when>
+        <when test="extype == '전체'">like '%%'</when>
+        <when test="extype != '전체'"> = '${extype}'</when>
 </choose> 
 and
 a.cate_name
@@ -104,4 +104,35 @@ and
 mfile_key='코치'
   		
 </select>
+
+
+<insert id="coachRegist" parameterType="zipcok.coach.model.MainCoachDTO">
+insert into 
+coach_regist
+values(
+#{coach_mem_id},
+#{coach_intro_sub},
+#{coach_intro_cont},
+#{coach_year},
+#{coach_floc},
+#{coach_sloc},
+#{coach_ex_type},
+'없음',
+sysdate,
+sysdate
+)
+
+</insert>
+
+<insert id="insertCategory" parameterType="zipcok.coach.model.MainCoachDTO">
+insert into 
+ coach_category
+values(
+coach_category_cate_idx.nextval,
+#{coach_mem_id},
+#{cate_name}
+)
+
+</insert>
+
  </mapper>
