@@ -54,10 +54,33 @@
 	</update>
 	
 	<delete id="bbsDeleteSQL">
-	
+		delete from
+			exer_bbs
+		where
+			ex_idx=#{ex_idx}
 	</delete>
 	
 	<update id="bbsReadnumSQL" parameterType="zipcok.comm.model.ExBbsDTO">
-	
+		update
+			exer_bbs
+		set
+			ex_readnum=ex_readnum+1 
+		where
+			ex_idx=#{ex_idx}
 	</update>
+	
+	<insert id="bbsReWriteSQL" parameterType="zipcok.comm.model.ExReBbsDTO">
+		insert into
+			bbs_rebbs
+		values(bbs_rebbs_idx.nextval,
+				1,
+				1,
+				'한슬',
+				#{re_content},
+				sysdate,
+				1,
+				?,
+				#{re_bbs_idx})
+	</insert>
+	
 </mapper>

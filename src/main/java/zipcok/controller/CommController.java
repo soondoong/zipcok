@@ -57,6 +57,7 @@ public class CommController {
 	@RequestMapping("commDailyContent.do")
 	public ModelAndView dailyContent(int ex_idx) {
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
+		int result=exBbsDao.dailyReadnum(ex_idx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto", dto);
 		mav.setViewName("comm/commDailyContent");
@@ -82,6 +83,17 @@ public class CommController {
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
+	}
+	
+	@RequestMapping("commDailyDelete.do")
+	public ModelAndView dailyDelete(String ex_idx) {
+		int ex_idx2=Integer.parseInt(ex_idx);
+		int result=exBbsDao.dailyDelete(ex_idx2);
+		String msg=result>0?"글삭제 성공!":"글삭제 실패!";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName("comm/commDailyMsg");
+		return mav;	
 	}
 
 }
