@@ -10,9 +10,9 @@ public class MemberDTO {
 	private String mem_id;
 	private String mem_pwd;
 	private String mem_email;
-	private String mem_oaddress;
-	private String mem_address;
-	private String mem_detailaddress;
+	private String mem_zipcode;
+	private String mem_addr;
+	private String mem_detailaddr;
 	private String mem_gender;
 	private String mem_phone;
 	private Date mem_joindate;
@@ -26,10 +26,10 @@ public class MemberDTO {
 	public MemberDTO() {
 		super();
 	}
-
-
+	
+	
 	public MemberDTO(int mem_idx, String mem_name, String mem_birth, String mem_id, String mem_pwd, String mem_email,
-			String mem_oaddress, String mem_address, String mem_detailaddress, String mem_gender, String mem_phone,
+			String mem_zipcode, String mem_addr, String mem_detailaddr, String mem_gender, String mem_phone,
 			Date mem_joindate, Date mem_change, String mem_joinway, int mem_out, Date mem_outdate, String mem_type) {
 		super();
 		this.mem_idx = mem_idx;
@@ -38,9 +38,9 @@ public class MemberDTO {
 		this.mem_id = mem_id;
 		this.mem_pwd = mem_pwd;
 		this.mem_email = mem_email;
-		this.mem_oaddress = mem_oaddress;
-		this.mem_address = mem_address;
-		this.mem_detailaddress = mem_detailaddress;
+		this.mem_zipcode = mem_zipcode;
+		this.mem_addr = mem_addr;
+		this.mem_detailaddr = mem_detailaddr;
 		this.mem_gender = mem_gender;
 		this.mem_phone = mem_phone;
 		this.mem_joindate = mem_joindate;
@@ -112,33 +112,33 @@ public class MemberDTO {
 	}
 
 
-	public String getMem_oaddress() {
-		return mem_oaddress;
+	public String getMem_zipcode() {
+		return mem_zipcode;
 	}
 
 
-	public void setMem_oaddress(String mem_oaddress) {
-		this.mem_oaddress = mem_oaddress;
+	public void setMem_zipcode(String mem_zipcode) {
+		this.mem_zipcode = mem_zipcode;
 	}
 
 
-	public String getMem_address() {
-		return mem_address;
+	public String getMem_addr() {
+		return mem_addr;
 	}
 
 
-	public void setMem_address(String mem_address) {
-		this.mem_address = mem_address;
+	public void setMem_addr(String mem_addr) {
+		this.mem_addr = mem_addr;
 	}
 
 
-	public String getMem_detailaddress() {
-		return mem_detailaddress;
+	public String getMem_detailaddr() {
+		return mem_detailaddr;
 	}
 
 
-	public void setMem_detailaddress(String mem_detailaddress) {
-		this.mem_detailaddress = mem_detailaddress;
+	public void setMem_detailaddr(String mem_detailaddr) {
+		this.mem_detailaddr = mem_detailaddr;
 	}
 
 
@@ -220,8 +220,6 @@ public class MemberDTO {
 	public void setMem_type(String mem_type) {
 		this.mem_type = mem_type;
 	}
-	
-
 	
 
 	

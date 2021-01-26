@@ -12,25 +12,11 @@
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
-<script type="text/javascript" src="js/httpRequest.js"></script>
 <script type="text/javascript">
 
-
 function show(){
-	var mem_id=document.memberJoin.mem_id.value;
-	var params='mem_id='+mem_id;
-	sendRequest('idCheckDo.do',params,showResult,'GET');
+	window.open('idCheckForm.do','idCheck','width=500,height=250,top=100,left=100');
 }
-function showResult(){
-	if(XHR.readyState==4){
-		if(XHR.status==200){
-			var data=XHR.responseText;
-			var spanNode=document.all.idCheckMsg;
-			spanNode.innerHTML=data;
-		}
-	}
-}
-
 
 //모든 공백 체크 정규식
 var empJ = /\s/g;
@@ -50,10 +36,10 @@ var phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 
 var birthJ = false;
 
-var address = $('#mem_detailaddress');
+var address = $('#mem_detailaddr');
 
 $(document).ready(function() {
-   var address = $('#mem_detailaddress');
+   var address = $('#mem_detailaddr');
    
 
      $('form').on('submit',function(){
@@ -290,13 +276,13 @@ function execPostCode() {
             }   */
             
             
-            $("[name=mem_oaddress]").val(data.zonecode);
-            $("[name=mem_address]").val(fullRoadAddr);
+            $("[name=mem_zipcode]").val(data.zonecode);
+            $("[name=mem_addr]").val(fullRoadAddr);
             
-            document.getElementById('mem_oaddress').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('mem_address').value = fullRoadAddr;
+            document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('mem_addr').value = fullRoadAddr;
 
-            //document.getElementById('mem_detailaddress').value = data.jibunAddress; 
+            //document.getElementById('mem_detailaddr').value = data.jibunAddress; 
         }
      }).open();
  }
@@ -315,13 +301,17 @@ function execPostCode() {
 			<br>
 			<h6>기본 정보 입력</h6>
 			<hr>
+
 			<div class="col-sm-3 col-md-offset-3">
+			
+			
 				<div class="form-group">
 					<label for="mem_name">이름</label> <input type="text"
 						class="form-control" id="mem_name" name="mem_name"
 						placeholder="Name">
 					<div class="eheck_font" id="name_check"></div>
 				</div>
+
 
 				<div class="form-group">
 					<label for="mem_birth">생년월일</label> <input type="tel"
@@ -333,13 +323,14 @@ function execPostCode() {
 
 				<div class="form-group">
 					<label for="id">아이디</label> <input type="text" class="form-control"
-						id="mem_id" name="mem_id" placeholder="ID"> <input
-						type="button" class="btn btn-default"
+						id="mem_id" name="mem_id" placeholder="ID">
+						<span id="idCheckMsg"></span> <input type="button"
+						class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
 						value="중복확인" onclick="show()">
-						<span id="idCheckMsg"></span>
 					<!--  <div class="eheck_font" id="id_check"></div> -->
 				</div>
+
 
 				<div class="form-group">
 					<label for="pw">비밀번호</label> <input type="password"
@@ -347,15 +338,14 @@ function execPostCode() {
 						placeholder="PASSWORD">
 					<div class="eheck_font" id="pw_check"></div>
 				</div>
+				
+				
 				<div class="form-group">
 					<label for="pw2">비밀번호 확인</label> <input type="password"
 						class="form-control" id="mem_pwd2" name="mem_pwd2"
 						placeholder="Confirm Password">
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
-
-
-
 
 
 				<div class="form-group">
@@ -366,13 +356,10 @@ function execPostCode() {
 				</div>
 
 
-
-
-
 				<div class="form-group">
 					<input class="form-control" style="width: 40%; display: inline;"
-						placeholder="우편번호" name="mem_oaddress" id="mem_oaddress"
-						type="text" readonly="readonly">
+						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
+						readonly="readonly">
 					<button type="button" class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
 						onclick="execPostCode();">
@@ -380,26 +367,38 @@ function execPostCode() {
 					</button>
 				</div>
 
+
 				<div class="form-group">
 					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
-						name="mem_address" id="mem_address" type="text"
-						readonly="readonly" />
+						name="mem_addr" id="mem_addr" type="text" readonly="readonly" />
 				</div>
+
 
 				<div class="form-group">
 					<input class="form-control" placeholder="상세주소"
-						name="mem_detailaddress" id="mem_detailaddress" type="text" />
+						name="mem_detailaddr" id="mem_detailaddr" type="text" />
 				</div>
+
 
 				<div class="form-group">
 					<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
 						type="tel" class="form-control" id="mem_phone" name="mem_phone"
 						placeholder="Phone Number">
 					<div class="eheck_font" id="phone_check"></div>
+						<input type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						value="인증번호전송"><br>
+						
+						<input class="form-control" style="width: 40%; display: inline;"
+						placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
+						<input type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						value="인증">
 				</div>
 
+
 				<div class="form-group">
-					<label for="mem_gender">성별 </label> <input type="checkbox"
+					<label for="mem_gender">성별 </label>&nbsp; <input type="checkbox"
 						id="mem_gender" name="mem_gender" value="남">남 <input
 						type="checkbox" id="mem_gender" name="mem_gender" value="여">여
 				</div>
