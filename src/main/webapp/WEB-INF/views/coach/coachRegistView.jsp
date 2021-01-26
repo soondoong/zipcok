@@ -51,7 +51,7 @@
 	  	<select name="coach_ex_type">
 	  	<option selected="selected">대면</option>
 	  	<option>비대면</option>
-	  	<option>모든유형</option>
+	  	<option>둘다</option>
 	  	</select>
 	</div>
 	
