@@ -72,4 +72,8 @@ public class HomeGymController {
 	public String HomeGymCardAddForm() {
 		return "homegym/hgCardAddView";
 	}
+	@RequestMapping("HomeGymAddrPopup.do")
+	public String HomeGymAddrPopup() {
+		return "homegym/hgAddrPopup";
+	}
 }
