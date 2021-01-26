@@ -20,7 +20,7 @@ public class PageModule {
 			 			sb.append(pagename);
 			 			sb.append("?cp=");
 			 			int temp=(userGroup-1)*pageSize+pageSize;
-			 			sb.append(temp);
+			 			sb.append(temp);		 			
 			 			sb.append("'>&laquo;</a>");
 			 		}
 			
