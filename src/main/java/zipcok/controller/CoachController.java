@@ -57,10 +57,10 @@ public class CoachController {
 		
 		/*페이지설정*/
 		int totalCnt=dao.getTotalCnt(keywordMap); //테이블명써주기
-		int listSize=3;
+		int listSize=4;
 		int pageSize=5;
-		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize);
-		
+		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize,keywords);
 		
 		
 		

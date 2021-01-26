@@ -2,7 +2,7 @@ package zipcok.page;
 
 public class CoachPageModule {
 	
-	 public static String makePage(String pagename, int totalcount,int cp, int listSize,int pageSize) {
+	 public static String makePage(String pagename, int totalcount,int cp, int listSize,int pageSize,String keywords) {
 		 
 		 StringBuffer sb=new StringBuffer(); //string조작많이하면 쓰레기데이터쌓여서 조작많이할꺼면이거써야됨
 	
@@ -20,6 +20,7 @@ public class CoachPageModule {
 		 			sb.append("?cp=");
 		 			int temp=(userGroup-1)*pageSize+pageSize;
 		 			sb.append(temp);
+		 			sb.append(keywords);   //&extype=비대면 이런거
 		 			sb.append("'>&laquo;</a>");
 		 		}
 		
@@ -32,6 +33,7 @@ public class CoachPageModule {
 		 					sb.append(pagename);
 		 					sb.append("?cp=");
 		 					sb.append(i);
+		 					sb.append(keywords);   //&extype=비대면 이런거
 		 					sb.append("'>");
 		 					sb.append(i);
 		 					sb.append("</a>");
@@ -51,6 +53,7 @@ public class CoachPageModule {
 		 			sb.append("?cp=");
 		 			int temp=(userGroup+1)*pageSize+1;
 		 			sb.append(temp);
+		 			sb.append(keywords);   //&extype=비대면 이런거
 		 			sb.append("'>&raquo;</a>");	 			
 		 	
 		 			}
