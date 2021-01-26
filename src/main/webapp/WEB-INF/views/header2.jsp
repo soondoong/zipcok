@@ -58,7 +58,7 @@
 					<ul>
 						<li><a href="findCoachList.do">코치검색</a></li>
 						<li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>
-						<li><a href="coachSignInfo.do">코치로 등록하기</a></li>
+						<li><a href="coachRegistInfoView.do">코치로 등록하기</a></li>
 					</ul></li>
 
 				<li class="drop-down"><a href="">커뮤니티</a>

@@ -10,4 +10,5 @@ public interface CoachDAO {
 	public HashMap<String, List<MainCoachDTO>> mainCoachList();
 	public List<MainCoachDTO> searchCoachList(HashMap<String, Object> keys,int cp, int ls);
 	public int getTotalCnt(HashMap map);
+	public int coachJoin(MainCoachDTO dto);
 }

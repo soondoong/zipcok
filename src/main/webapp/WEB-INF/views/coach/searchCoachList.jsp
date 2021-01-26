@@ -73,6 +73,7 @@ font-size: 0.8rem;
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
+		 		<option <c:if test="${keyword.extype=='전체'}">selected="selected"</c:if>>전체</option>
 		 		<option <c:if test="${keyword.extype=='대면'}">selected="selected"</c:if>>대면</option>
 		 		<option <c:if test="${keyword.extype=='비대면'}">selected="selected"</c:if>>비대면</option>
 		 		<option <c:if test="${keyword.extype=='모든유형'}">selected="selected"</c:if>>모든유형</option>

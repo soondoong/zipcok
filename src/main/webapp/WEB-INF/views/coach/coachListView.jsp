@@ -87,7 +87,8 @@ function search(){
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
-		 		<option selected="selected">대면</option>
+		 		<option selected="selected">전체</option>
+				<option>대면</option>
 		 		<option>비대면</option>
 		 		<option>모든유형</option>
 		 	</select>
