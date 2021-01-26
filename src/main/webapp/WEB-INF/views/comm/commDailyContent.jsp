@@ -53,7 +53,7 @@
 			<td colspan="6"><a href="#">다음글</a></td>
 		</tr>
 		<tr>
-			<td><input type="button" value="삭제"></td>
+			<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
 			<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
 			<td><input type="button" value="목록보기"></td>
 		</tr>
