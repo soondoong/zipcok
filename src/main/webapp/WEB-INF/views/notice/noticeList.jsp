@@ -60,7 +60,7 @@ function goCategory(){
 			<c:url var="contentUrl" value="noticeContent.do">
             <c:param name="bbs_idx">${dto.bbs_idx}</c:param>
         	</c:url>
-			<td><a href="noticeContent.do?bbs_idx=${dto.bbs_idx }">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
+			<td><a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
 			<td>${dto.bbs_writer}</td>
 			<td>${dto.bbs_readnum}</td>
 			<td>${dto.bbs_writedate}</td>
