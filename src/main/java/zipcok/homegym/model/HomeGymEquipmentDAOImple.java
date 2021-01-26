@@ -1,6 +1,7 @@
 package zipcok.homegym.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,8 @@ public class HomeGymEquipmentDAOImple implements HomeGymEquipmentDAO {
 	}
 
 	@Override
-	public int HomeGymEquipmentAdd(HomeGymEquipmentDTO dto) {
-		int eq_result = sqlMap.insert("hgEqAddSQL", dto);
+	public int HomeGymEquipmentAdd(Map<String, Object> map) {
+		int eq_result = sqlMap.insert("hgEqAddSQL", map);
 		return eq_result;
 	}
 

@@ -36,6 +36,41 @@ textarea {
 }
 </style>
 <script>
+	var count = 0;
+	function addEq(){
+		
+		var eq_name = document.getElementById('eq_name_temp').value; 
+		var eq_count = document.getElementById('eq_count_temp').value;
+		var eq_div = document.createElement('div');
+		eq_div.setAttribute("id", count);
+		var eq_text = document.createTextNode(eq_name + ":" + eq_count);
+		var eq_name_check = document.createElement('input');
+		eq_name_check.setAttribute('type', 'checkbox');
+		eq_name_check.setAttribute('name', 'eq_name');
+		eq_name_check.setAttribute('value', eq_name);
+		eq_name_check.setAttribute('checked', true);
+		eq_name_check.setAttribute('style', 'display:none;')
+		var eq_count_check = document.createElement('input');
+		eq_count_check.setAttribute('type', 'checkbox');
+		eq_count_check.setAttribute('name', 'eq_count');
+		eq_count_check.setAttribute('value', eq_count);
+		eq_count_check.setAttribute('checked', true);
+		eq_count_check.setAttribute('style', 'display:none;')
+		var eq_delete_bt = document.createElement('input');
+		eq_delete_bt.setAttribute('type','button');
+		eq_delete_bt.setAttribute('value','-');
+		eq_delete_bt.setAttribute('onclick','javascript:ListItemDelete('+count+')');
+		eq_div.appendChild(eq_text);
+		eq_div.appendChild(eq_name_check);
+		eq_div.appendChild(eq_count_check);
+		eq_div.appendChild(eq_delete_bt);
+		document.getElementById('eq_List').appendChild(eq_div);
+		count++;		
+	}
+	
+	function ListItemDelete(count){
+		document.getElementById(count).remove();
+	}
 	function addrPopupOpen(){
 		window.open('HomeGymAddrPopup.do', 'addrPopup', 'width=300, height=400, left=30%, top=30%');
 	}
@@ -54,7 +89,9 @@ textarea {
 		document.getElementById('end_year').value = end_year;
 		document.getElementById('end_month').value = end_month;
 		document.getElementById('end_day').value = end_day;
-
+		var hg_nickname = document.getElementById('hg_nickname').value;
+		hg_nickname = hg_nickname + ' 님의 홈짐';
+		
 		document.getElementById('addForm').submit();
 	}
 </script>
@@ -71,7 +108,7 @@ textarea {
 			</li>
 			<li>
 			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
-			<input type="text" name="hg_nickname" placeholder="최대 10글자">
+			<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
 			<input type="button" value="중복 확인">
 			<input type="hidden" id="nickname_overlap" value="0">
 			</li>
@@ -79,54 +116,65 @@ textarea {
 			<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
 			<li>
 			<label class="HomeGymAddLabel">홈짐 주소</label>
-			<input type="text" name="hg_faddr">
+			<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
 			<input type="button"value="주소 검색" onclick="javascript:addrPopupOpen();">
 			</li>
 			<li>
 			<label class="HomeGymAddLabel">상세주소</label>
-			<input type="text" name="hg_saddr">
+			<input type="text" name="hg_saddr"id = "saddr" readonly="readonly">
 			</li>
 			<li><label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야</li>
-			<li><label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.
-			</li>
-			<li><label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자
-				페이지에서 확인 가능합니다.</li>
-			<li><label class="HomeGymAddLabel">가까운 역</label> <select
-				name="hg_station">
+			<li><label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.</li>
+			<li><label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.</li>
+			<li>
+			<label class="HomeGymAddLabel">가까운 역</label>
+			<select	name="hg_station">
 					<option value="역 1">역 1</option>
 					<option value="역 2">역 2</option>
 					<option value="역 3">역 3</option>
 					<option value="역 4">역 4</option>
-			</select></li>
-			<li><label class="HomeGymAddLabel">오시는 길</label> <textarea
-					rows="5" cols="20" name="hg_comeinfo"></textarea></li>
-			<li><label class="HomeGymAddLabel">수용 인원</label> <select
-				name="hg_person_count">
+			</select>
+			</li>
+			<li>
+			<label class="HomeGymAddLabel">오시는 길</label>
+			<textarea rows="5" cols="20" name="hg_comeinfo"></textarea>
+			</li>
+			<li>
+			<label class="HomeGymAddLabel">수용 인원</label>
+			<select	name="hg_person_count">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
 					<option value="5">5</option>
-			</select></li>
+			</select>
+			</li>
 		</ul>
 		<h5>보유 기구</h5>
 		<ul>
-			<li><label class="HomeGymAddLabel">보유 운동 기구</label> <select
-				name="eq_name">
+			<li>
+			<label class="HomeGymAddLabel">보유 운동 기구</label>
+			<select	name="eq_name_temp" id = "eq_name_temp">
 					<option value="기구 1">기구 1</option>
 					<option value="기구 2">기구 2</option>
 					<option value="기구 3">기구 3</option>
 					<option value="기구 4">기구 4</option>
 					<option value="기구 5">기구 5</option>
-			</select> <label class="HomeGymAddLabel">보유 수</label> <select name="eq_count">
+			</select>
+			<label class="HomeGymAddLabel">보유 수</label>
+			<select name="eq_count_temp" id = "eq_count_temp">
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
 					<option value="5">5</option>
-			</select> <input type="button" value="+"></li>
-			<li><label class="HomeGymAddLabel"></label> <span>운동기구
-					리스트 들어갈 영역</span></li>
+			</select>
+			<input type="button" value="+" onclick = "javascript:addEq();">
+			</li>
+			<li>
+			<label class="HomeGymAddLabel"></label>
+			<div id = "eq_List">보유중인 운동 기구를 추가해주세요.</div>
+			</li>
 			<li><label class="HomeGymAddLabel">기타 설명</label> <textarea
 					rows="5" cols="20" name="hg_info"></textarea></li>
 		</ul>

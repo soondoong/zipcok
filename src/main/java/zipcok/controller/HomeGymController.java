@@ -1,6 +1,8 @@
 package zipcok.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,9 +59,17 @@ public class HomeGymController {
 	}
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
-	public ModelAndView HomeGymAdd(HomeGymDTO dto, HomeGymEquipmentDTO dto2) {
+	public ModelAndView HomeGymAdd(HomeGymDTO dto, String eq_name[], int eq_count[], String eq_mem_id) {
 		int hg_result = homegymDAO.HomeGymAdd(dto);
-		int eq_result = homegymeqDAO.HomeGymEquipmentAdd(dto2);
+		int eq_result = 0;
+		for(int i = 0 ; i < eq_name.length; i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("eq_mem_id", eq_mem_id);
+			map.put("eq_name", eq_name[i]);
+			map.put("eq_count", eq_count[i]);
+			eq_result = homegymeqDAO.HomeGymEquipmentAdd(map);
+		}
+
 		ModelAndView mav = new ModelAndView();
 		String msg = hg_result>0&&eq_result>0?"홈짐 등록이 정상적으로 처리되었습니다.":"등록에 실패하였습니다.";
 		mav.addObject("msg", msg);
