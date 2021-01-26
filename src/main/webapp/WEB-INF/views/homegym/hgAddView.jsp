@@ -4,7 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script>
+	$(function() {
+		$("#start_date").datepicker({
+			dateFormat : "yy-mm-dd"
+		});
+
+	});
+	$(function() {
+		$("#end_date").datepicker({
+			dateFormat : "yy-mm-dd"
+		});
+	});
+</script>
 <style>
 .HomeGymAddLabel {
 	width: 200px;
@@ -21,45 +36,56 @@ textarea {
 }
 </style>
 <script>
-	function addSubmit(){
+	function addrPopupOpen(){
+		window.open('HomeGymAddrPopup.do', 'addrPopup', 'width=300, height=400, left=30%, top=30%');
+	}
+	function addSubmit() {
 		var start_date = document.getElementById('start_date').value;
-		var start_year = start_date.slice(0,4);
-		var start_month = start_date.slice(5,7);
-		var start_day = start_date.slice(8,10);
+		var start_year = start_date.slice(0, 4);
+		var start_month = start_date.slice(5, 7);
+		var start_day = start_date.slice(8, 10);
 		document.getElementById('start_year').value = start_year;
 		document.getElementById('start_month').value = start_month;
 		document.getElementById('start_day').value = start_day;
 		var end_date = document.getElementById('end_date').value;
-		var end_year = end_date.slice(0,4);
-		var end_month = end_date.slice(5,7);
-		var end_day = end_date.slice(8,10);
+		var end_year = end_date.slice(0, 4);
+		var end_month = end_date.slice(5, 7);
+		var end_day = end_date.slice(8, 10);
 		document.getElementById('end_year').value = end_year;
 		document.getElementById('end_month').value = end_month;
 		document.getElementById('end_day').value = end_day;
-		
+
 		document.getElementById('addForm').submit();
 	}
 </script>
 </head>
 <body>
-	<%@include file="../header2.jsp"%>
 	<h1>홈짐 등록하기</h1>
-	<form name="HomeGymAddForm" id = "addForm" action="HomeGymAdd.do" method="post">
+	<form name="HomeGymAddForm" id="addForm" action="HomeGymAdd.do"
+		method="post">
 		<h5>기본 정보</h5>
 		<ul>
-			<li><label class="HomeGymAddLabel">홈짐 아이디</label> <input
-				type="text" name="hg_mem_id" placeholder="최대 10글자"> <input
-				type="text" name="eq_mem_id" placeholder="최대 10글자"></li>
-			<li><label class="HomeGymAddLabel">홈짐 공유자 닉네임</label> <input
-				type="text" name="hg_nickname" placeholder="최대 10글자"> <input
-				type="button" value="중복 확인"> <input type="hidden"
-				id="nickname_overlap" value="0"></li>
-			<li><label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
-			<li><label class="HomeGymAddLabel">홈짐 주소</label> <input
-				type="text" name="hg_faddr"> <input type="button"
-				value="주소 검색"></li>
-			<li><label class="HomeGymAddLabel">상세주소</label> <input
-				type="text" name="hg_saddr"></li>
+			<li><label class="HomeGymAddLabel">홈짐 아이디</label>
+			<input type="text" name="hg_mem_id" placeholder="최대 10글자">
+			<input type="text" name="eq_mem_id" placeholder="최대 10글자">
+			</li>
+			<li>
+			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
+			<input type="text" name="hg_nickname" placeholder="최대 10글자">
+			<input type="button" value="중복 확인">
+			<input type="hidden" id="nickname_overlap" value="0">
+			</li>
+			<li>
+			<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
+			<li>
+			<label class="HomeGymAddLabel">홈짐 주소</label>
+			<input type="text" name="hg_faddr">
+			<input type="button"value="주소 검색" onclick="javascript:addrPopupOpen();">
+			</li>
+			<li>
+			<label class="HomeGymAddLabel">상세주소</label>
+			<input type="text" name="hg_saddr">
+			</li>
 			<li><label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야</li>
 			<li><label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.
 			</li>
@@ -116,16 +142,17 @@ textarea {
 		<table>
 			<tr>
 				<th>시작일</th>
-				<td><input type="text" id="start_date" name="hg_start_date">
-					<input type="hidden" id="start_year" name="hg_start_date_year">
-					<input type="hidden" id="start_month" name="hg_start_date_month">
-					<input type="hidden" id="start_day" name="hg_start_date_day">
-				</td>
+				<td><input type="text" id="start_date" name="hg_start_date"
+					readonly="readonly"> <input type="hidden" id="start_year"
+					name="hg_start_date_year"> <input type="hidden"
+					id="start_month" name="hg_start_date_month"> <input
+					type="hidden" id="start_day" name="hg_start_date_day"></td>
 				<th>마감일</th>
-				<td><input type="text" id="end_date" name="hg_end_date">
-					<input type="hidden" id="end_year" name="hg_end_date_year">
-					<input type="hidden" id="end_month" name="hg_end_date_month">
-					<input type="hidden" id="end_day" name="hg_end_date_day"></td>
+				<td><input type="text" id="end_date" name="hg_end_date"
+					readonly="readonly"> <input type="hidden" id="end_year"
+					name="hg_end_date_year"> <input type="hidden"
+					id="end_month" name="hg_end_date_month"> <input
+					type="hidden" id="end_day" name="hg_end_date_day"></td>
 			</tr>
 
 			<tr>
