@@ -90,7 +90,7 @@ function search(){
 		 		<option selected="selected">전체</option>
 				<option>대면</option>
 		 		<option>비대면</option>
-		 		<option>모든유형</option>
+		 		<option>둘다</option>
 		 	</select>
 		 	
 		 		<select id="category" name="category">
@@ -118,11 +118,10 @@ function search(){
 <div class="listWrap">
 
 <c:forEach var="dto" items="${map.pt }">
-
 		<div class="oneperson">
-		
 			<div class="image-container">
-		        <img src="img/coach/${dto.mfile_upload }" alt="">
+		        <img src="/zipcok/upload/coach/${dto.mfile_upload}" alt="">
+		       
 		    </div>
 		    
 		    <div>

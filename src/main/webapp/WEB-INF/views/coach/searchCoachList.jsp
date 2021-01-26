@@ -76,7 +76,7 @@ font-size: 0.8rem;
 		 		<option <c:if test="${keyword.extype=='전체'}">selected="selected"</c:if>>전체</option>
 		 		<option <c:if test="${keyword.extype=='대면'}">selected="selected"</c:if>>대면</option>
 		 		<option <c:if test="${keyword.extype=='비대면'}">selected="selected"</c:if>>비대면</option>
-		 		<option <c:if test="${keyword.extype=='모든유형'}">selected="selected"</c:if>>모든유형</option>
+		 		<option <c:if test="${keyword.extype=='둘다'}">selected="selected"</c:if>>둘다</option>
 		 	</select>
 		 	
 		 		<select id="category" name="category">
@@ -109,7 +109,7 @@ font-size: 0.8rem;
 		<div class="oneperson">
 		
 			<div class="image-container">
-		        <img src="img/coach/${dto.mfile_upload }" alt="">
+		        <img src="/zipcok/upload/coach/${dto.mfile_upload}" alt="">		  
 		    </div>
 		    
 		    <div>

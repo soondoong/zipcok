@@ -14,7 +14,7 @@ m.mem_id=a.coach_mem_id
 and
 m.mem_id=mfile_mem_id
 and
-mfile_key='코치' 
+mfile_key='회원프로필' 
 and 
 a.cate_name='퍼스널트레이닝' 
 	</select>
@@ -31,7 +31,7 @@ m.mem_id=a.coach_mem_id
 and
 m.mem_id=mfile_mem_id
 and
-mfile_key='코치' 
+mfile_key='회원프로필' 
 and 
 a.cate_name='요가' 
 	</select>
@@ -67,7 +67,7 @@ m.mem_id=a.coach_mem_id
 and
 m.mem_id=mfile_mem_id
 and
-mfile_key='코치' )b
+mfile_key='회원프로필' )b
 where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 
 </select>
@@ -101,7 +101,7 @@ m.mem_id=a.coach_mem_id
 and
 m.mem_id=mfile_mem_id
 and
-mfile_key='코치'
+mfile_key='회원프로필'
   		
 </select>
 
