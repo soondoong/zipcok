@@ -9,5 +9,7 @@ public interface ExBbsDAO {
 	public int getTotalCnt();
 	public ExBbsDTO dailyContent(int idx);
 	public int dailyUpdate(ExBbsDTO dto);
+	public int dailyDelete(int ex_idx);
+	public int dailyReadnum(int ex_idx);
 
 }
