@@ -44,6 +44,16 @@
   		and
   		bbs_idx=#{bbs_idx}
   	</select>
+  	<update id="noticeReadnumSQL" parameterType="zipcok.notice.model.NoticeDTO">
+      update
+         zipcok_bbs
+      set
+         bbs_readnum=bbs_readnum+1 
+      where
+      	 bbs_key='공지사항'
+  		 and
+         bbs_idx=#{bbs_idx}
+   </update>
   	<select id="noticeSearchListSQL" resultType="zipcok.notice.model.NoticeDTO">
   		select * from
 		(select rownum as rnum,a.* from
@@ -60,4 +70,32 @@
   		where
   		bbs_key='공지사항' and bbs_idx=#{bbs_idx}
   	</update>
+  	<delete id="noticeDeleteSQL">
+  		delete from
+  		zipcok_bbs
+  		where
+  		bbs_key='공지사항'
+  		and
+  		bbs_idx=#{bbs_idx}
+  	</delete>
+  	<select id="findrownumSQL" resultType="Integer">
+  	select * 
+  	from
+  	(select rownum as rnum,a.* 
+  	from 
+  	( select * from zipcok_bbs where bbs_key='공지사항' order by bbs_idx)a)b 
+  	where 
+  	bbs_key='공지사항' 
+  	and
+  	bbs_idx=#{bbs_idx}
+  	</select>
+  	<select id="prevnextSQL" resultType="zipcok.notice.model.NoticeDTO">
+  	select * 
+  	from 
+  	(select rownum as rnum,a.* 
+  	from 
+  	( select * from zipcok_bbs where bbs_key='공지사항' order by bbs_idx)a)b
+  	where 
+  	rnum=#{rnum}
+  	</select>
   </mapper>

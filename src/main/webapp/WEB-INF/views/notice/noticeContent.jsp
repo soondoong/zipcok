@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
+function goDelete(){
+	location.href='noticeDelete.do?bbs_idx='+${dto.bbs_idx};
+}
 function golist(){
 	location.href='noticeList.do';
 }
@@ -38,15 +41,17 @@ function goUpdateView(){
 		</tr>
 	</tbody>
 	<tfoot>
+	<c:set var="prev" value="${prev}"></c:set>
+	<c:set var="next" value="${next}"></c:set>
 		<tr>
-			<td>이전글</td>
+			<td><a href="noticeContent.do?bbs_idx=${prev.bbs_idx}"></a></td>
 		</tr>
 		<tr>
-			<td>다음글</td>
+			<td><a href="noticeContent.do?bbs_idx="${next.bbs_idx}></a></td>
 		</tr>
 		<tr>
 			<td>
-				<input type="button" value="삭제" onclick="#">
+				<input type="button" value="삭제" onclick="javascript:goDelete()">
 				<input type="button" value="수정" onclick="javascript:goUpdateView()">
 				<input type="button" value="목록보기" onclick="javascript:golist()">
 			</td>
