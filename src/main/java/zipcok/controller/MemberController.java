@@ -28,12 +28,6 @@ public class MemberController {
 	}
 	
 	
-	//memberJoinTest 보류
-	@RequestMapping("/memberJoinForm2.do")
-	public String memberJoinForm2() {
-		return "member/memberJoinTest";
-	}
-	
 	@RequestMapping("/memberJoin.do")
 	public ModelAndView memberJoinSubmit(MemberDTO dto) {
 		int result=mdao.memberJoinSubmit(dto);
@@ -105,7 +99,19 @@ public class MemberController {
 		return "redirect:/index.do";
 	}
 	
-	
+	@RequestMapping("/idCheck.do")
+	public ModelAndView idCheck(@RequestParam("mem_id")String mem_id) {
+		boolean check = mdao.idTwoCheck(mem_id);
+		ModelAndView mav = new ModelAndView();
+		if(check) {
+			mav.addObject("msg", mem_id+"는 이미 가입되어있는 아이디입니다.");
+		}else {
+			mav.addObject("msg", mem_id+"는 사용가능한 아이디입니다.");
+		}
+		mav.setViewName("member/idCheck_ok");
+		
+		return mav;
+	}
 	
 	
 	

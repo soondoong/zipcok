@@ -10,11 +10,11 @@ public class MemberDTO {
 	private String mem_id;
 	private String mem_pwd;
 	private String mem_email;
-	private String mem_email2;
-	private String mem_faddr;
-	private String mem_saddr;
-	private String mem_sex;
-	private String mem_tel;
+	private String mem_oaddress;
+	private String mem_address;
+	private String mem_detailaddress;
+	private String mem_gender;
+	private String mem_phone;
 	private Date mem_joindate;
 	private Date mem_change;
 	private String mem_joinway;
@@ -29,8 +29,8 @@ public class MemberDTO {
 
 
 	public MemberDTO(int mem_idx, String mem_name, String mem_birth, String mem_id, String mem_pwd, String mem_email,
-			String mem_email2, String mem_faddr, String mem_saddr, String mem_sex, String mem_tel, Date mem_joindate,
-			Date mem_change, String mem_joinway, int mem_out, Date mem_outdate, String mem_type) {
+			String mem_oaddress, String mem_address, String mem_detailaddress, String mem_gender, String mem_phone,
+			Date mem_joindate, Date mem_change, String mem_joinway, int mem_out, Date mem_outdate, String mem_type) {
 		super();
 		this.mem_idx = mem_idx;
 		this.mem_name = mem_name;
@@ -38,11 +38,11 @@ public class MemberDTO {
 		this.mem_id = mem_id;
 		this.mem_pwd = mem_pwd;
 		this.mem_email = mem_email;
-		this.mem_email2 = mem_email2;
-		this.mem_faddr = mem_faddr;
-		this.mem_saddr = mem_saddr;
-		this.mem_sex = mem_sex;
-		this.mem_tel = mem_tel;
+		this.mem_oaddress = mem_oaddress;
+		this.mem_address = mem_address;
+		this.mem_detailaddress = mem_detailaddress;
+		this.mem_gender = mem_gender;
+		this.mem_phone = mem_phone;
 		this.mem_joindate = mem_joindate;
 		this.mem_change = mem_change;
 		this.mem_joinway = mem_joinway;
@@ -112,53 +112,53 @@ public class MemberDTO {
 	}
 
 
-	public String getMem_email2() {
-		return mem_email2;
+	public String getMem_oaddress() {
+		return mem_oaddress;
 	}
 
 
-	public void setMem_email2(String mem_email2) {
-		this.mem_email2 = mem_email2;
+	public void setMem_oaddress(String mem_oaddress) {
+		this.mem_oaddress = mem_oaddress;
 	}
 
 
-	public String getMem_faddr() {
-		return mem_faddr;
+	public String getMem_address() {
+		return mem_address;
 	}
 
 
-	public void setMem_faddr(String mem_faddr) {
-		this.mem_faddr = mem_faddr;
+	public void setMem_address(String mem_address) {
+		this.mem_address = mem_address;
 	}
 
 
-	public String getMem_saddr() {
-		return mem_saddr;
+	public String getMem_detailaddress() {
+		return mem_detailaddress;
 	}
 
 
-	public void setMem_saddr(String mem_saddr) {
-		this.mem_saddr = mem_saddr;
+	public void setMem_detailaddress(String mem_detailaddress) {
+		this.mem_detailaddress = mem_detailaddress;
 	}
 
 
-	public String getMem_sex() {
-		return mem_sex;
+	public String getMem_gender() {
+		return mem_gender;
 	}
 
 
-	public void setMem_sex(String mem_sex) {
-		this.mem_sex = mem_sex;
+	public void setMem_gender(String mem_gender) {
+		this.mem_gender = mem_gender;
 	}
 
 
-	public String getMem_tel() {
-		return mem_tel;
+	public String getMem_phone() {
+		return mem_phone;
 	}
 
 
-	public void setMem_tel(String mem_tel) {
-		this.mem_tel = mem_tel;
+	public void setMem_phone(String mem_phone) {
+		this.mem_phone = mem_phone;
 	}
 
 
@@ -220,6 +220,9 @@ public class MemberDTO {
 	public void setMem_type(String mem_type) {
 		this.mem_type = mem_type;
 	}
+	
+
+	
 
 	
 	

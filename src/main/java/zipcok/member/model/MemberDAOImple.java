@@ -37,6 +37,12 @@ public class MemberDAOImple implements MemberDAO {
 		return str;
 	}
 	
+	@Override
+	public boolean idTwoCheck(String mem_id) {
+		boolean check = sqlMap.selectOne("idTwoCheck", mem_id);
+		return check;
+	}
+	
 }
 
 
