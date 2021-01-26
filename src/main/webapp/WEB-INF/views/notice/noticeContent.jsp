@@ -42,6 +42,7 @@ function goUpdateView(){
 		</tr>
 	</tbody>
 	<tfoot>
+
 	<c:choose>
 		<c:when test="${empty prev}">
 		<tr>
@@ -49,8 +50,9 @@ function goUpdateView(){
 		</tr>
 		</c:when>
 		<c:otherwise>
+		<hr>
 		<tr>
-			<td><a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">이전글</a></td>
+			<td>이전 글<a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">${prev.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
@@ -62,7 +64,8 @@ function goUpdateView(){
 		</c:when>
 		<c:otherwise>
 		<tr>
-			<td><a href="noticeContent.do?bbs_idx="${next.bbs_idx}>다음글</a></td>
+		<hr>
+			<td>다음 글<a href="noticeContent.do?bbs_idx=${next.bbs_idx}">${next.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
