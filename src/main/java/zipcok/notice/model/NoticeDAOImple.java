@@ -45,13 +45,13 @@ public class NoticeDAOImple implements NoticeDAO {
 		return count==0?1:count;
 	}
 	
-	
+	//본문보기 메서드
 	public NoticeDTO noticeContent(int bbs_idx) {
 		NoticeDTO dto=sqlMap.selectOne("noticeContentSQL",bbs_idx);
 		return dto;
 	}
 	
-	
+	//카테고리 검색 리스트 메서드
 	public List noticeSearchList(int cp, int ls,String bbs_category) {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
@@ -63,9 +63,34 @@ public class NoticeDAOImple implements NoticeDAO {
 			return list;
 	}
 	
-	
+	//업데이트 메서드
 	public int noticeUpdate(NoticeDTO dto) {
 		int count=sqlMap.update("noticeUpdateSQL", dto);
 		return count;
+	}
+	
+	//본문 삭제 메서드
+	public int noticeDelete(int bbs_idx) {
+		int count=sqlMap.delete("noticeDeleteSQL", bbs_idx);
+		return count;
+	}
+	
+	//조회수 메서드
+	@Override
+	public int noticeReadnum(int bbs_idx) {
+		int count=sqlMap.update("noticeReadnumSQL",bbs_idx);
+		return count;
+	}
+	
+	//rownum찾기
+	@Override
+	public int findRownum(int bbs_idx) {
+		int result=sqlMap.selectOne("findrownumSQL",bbs_idx);
+		return result;
+	}
+	@Override
+	public NoticeDTO noticePrevNext(int rnum) {
+		NoticeDTO dto=sqlMap.selectOne("prevnextSQL", rnum);
+		return dto;
 	}
 }

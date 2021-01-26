@@ -10,4 +10,8 @@ public interface NoticeDAO {
 	public NoticeDTO noticeContent(int bbs_idx);
 	public List noticeSearchList(int cp,int ls, String bbs_category);
 	public int noticeUpdate(NoticeDTO dto);
+	public int noticeDelete(int bbs_idx);
+	public int noticeReadnum(int bbs_idx);
+	public int findRownum(int bbs_idx);
+	public NoticeDTO noticePrevNext(int rnum);
 }
