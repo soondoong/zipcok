@@ -63,14 +63,14 @@ public class NoticeController {
 		noticeDao.noticeReadnum(bbs_idx);//조회수+1해주는 sql 실행
 		
 		int rnum=noticeDao.findRownum(bbs_idx);
-//		NoticeDTO prev=noticeDao.noticePrevNext(rnum-1);
-//		NoticeDTO next=noticeDao.noticePrevNext(rnum+1);
+		NoticeDTO prev=noticeDao.noticePrevNext(rnum-1);
+		NoticeDTO next=noticeDao.noticePrevNext(rnum+1);
 		
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto",dto);
-//		mav.addObject("prev", prev);
-//		mav.addObject("next",next);
+		mav.addObject("prev", prev);
+		mav.addObject("next",next);
 		mav.setViewName("notice/noticeContent");
 		return mav;
 	}
