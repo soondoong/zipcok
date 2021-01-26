@@ -29,10 +29,10 @@ public class MemberController {
 	
 	
 	//memberJoinTest 보류
-	//@RequestMapping("/memberJoinForm2.do")
-	//public String memberJoinForm2() {
-		//return "member/memberJoinTest";
-	//}
+	@RequestMapping("/memberJoinForm2.do")
+	public String memberJoinForm2() {
+		return "member/memberJoinTest";
+	}
 	
 	@RequestMapping("/memberJoin.do")
 	public ModelAndView memberJoinSubmit(MemberDTO dto) {
@@ -69,7 +69,8 @@ public class MemberController {
 			if(str2.equals(mem_pwd)) {
 				String dbname=mdao.getMemberName(mem_id);
 				mav.addObject("msg", dbname+"님 환영합니다");
-				mav.setViewName("member/login_ok");
+				mav.addObject("gourl", "index.do");
+				mav.setViewName("member/loginMsg");
 				session.setAttribute("sid", mem_id);
 				session.setAttribute("sname", dbname);
 				String saveid=req.getParameter("saveid");
@@ -90,7 +91,7 @@ public class MemberController {
 		}else {
 			mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
 			mav.addObject("gourl", "loginForm.do");
-			mav.setViewName("member/loginMsg");
+			mav.setViewName("member/loginMsg");	
 		}
 		
 		return mav;
