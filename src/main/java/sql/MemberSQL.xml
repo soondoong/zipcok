@@ -27,6 +27,23 @@
 			)
 	</insert>
 	
+	<insert id="insertMemberInfoFile" parameterType="zipcok.coach.model.CoachFileDTO">
+	insert into 
+	 member_file
+	values(
+	member_file_mfile_idx.nextval,
+	#{mfile_key},
+	#{mfile_mem_id},
+	#{mfile_upload},
+	#{mfile_size},
+	#{mfile_orig},
+	#{mfile_path},
+	#{mfile_type}
+	)
+		
+	</insert>
+	
+	
 	<select id="idCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
 		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>

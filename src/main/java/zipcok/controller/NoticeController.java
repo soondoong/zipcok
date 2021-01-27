@@ -89,6 +89,7 @@ public class NoticeController {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("pageStr",pageStr);
 		mav.addObject("list",list);
+		mav.addObject("category", bbs_category);
 		mav.setViewName("notice/noticeList");
 		return mav;
 	}

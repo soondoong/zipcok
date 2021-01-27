@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.coach">
-    <select id="findCategoryCoachPT" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
-select DISTINCT
+    <select id="findCategoryCoach" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
+select 
 m.mem_name,f.mfile_upload,a.*  
 from zipcok_member m,member_file f, 
 (select * from coach_regist c,coach_category g 
@@ -16,25 +16,10 @@ m.mem_id=mfile_mem_id
 and
 mfile_key='회원프로필' 
 and 
-a.cate_name='퍼스널트레이닝' 
+a.cate_name=#{category} 
 	</select>
 	
 	
-	<select id="findCategoryCoachYoga" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
-select DISTINCT
-m.mem_name,f.mfile_upload,a.*  
-from zipcok_member m,member_file f, 
-(select * from coach_regist c,coach_category g 
-where c.coach_mem_id = g.cate_mem_id)a
-where 
-m.mem_id=a.coach_mem_id 
-and
-m.mem_id=mfile_mem_id
-and
-mfile_key='회원프로필' 
-and 
-a.cate_name='요가' 
-	</select>
 	
 	<select id="findCategories" parameterType="String" resultType="zipcok.coach.model.CategoryDTO">
 	select * from

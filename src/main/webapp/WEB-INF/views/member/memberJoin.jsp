@@ -295,7 +295,7 @@ function execPostCode() {
 <body>
 	<%@include file="../header2.jsp"%>
 	<article>
-		<form name="memberJoin" action="memberJoin.do">
+		<form name="memberJoin" action="memberJoin.do" method="post" enctype="multipart/form-data">
 			<br> <br> <br>
 			<h2>회원가입</h2>
 			<hr>
@@ -413,6 +413,14 @@ function execPostCode() {
 						id="mem_gender" name="mem_gender" value="남">남 <input
 						type="checkbox" id="mem_gender" name="mem_gender" value="여">여
 				</div>
+				
+				
+				
+				<div class="form-group">
+					<label>프로필사진등록</label><br>
+						<span>올릴파일:<input type="file"  name="upload"></span>
+				</div>
+
 
 
 				<div class="form-group text-center">

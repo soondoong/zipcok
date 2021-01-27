@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import zipcok.coach.model.CoachFileDTO;
+
 public class MemberDAOImple implements MemberDAO {
 
 	private SqlSessionTemplate sqlMap;
@@ -14,10 +16,19 @@ public class MemberDAOImple implements MemberDAO {
 	}
 
 	@Override
-	public int memberJoinSubmit(MemberDTO dto) {
-		int count = sqlMap.insert("memberJoin", dto);
-		return count;
+	public int memberJoinSubmit(HashMap<String,Object> map) {
+		int count = sqlMap.insert("memberJoin", map.get("memberDTO"));
+		
+		int fileCount=0;
+		ArrayList<CoachFileDTO> arr=(ArrayList<CoachFileDTO>)map.get("fileArr");
+		for(int i=0; i<arr.size(); i++) {
+			fileCount+=sqlMap.insert("insertMemberInfoFile",arr.get(i));
+		}
+			
+		return count+fileCount;
 	}
+	
+	
 
 	@Override
 	public String idCheck(String mem_id) {
