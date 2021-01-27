@@ -216,16 +216,17 @@ public class MemberController {
 	public ModelAndView pwdFindSubmit(
 			@RequestParam("code1") String code1,
 			@RequestParam("code2") String code2,
-			@RequestParam("mem_id") String mem_id) {
+			@RequestParam("mem_id") String mem_id,
+			HttpSession session) {
 		
 		ModelAndView mav = new ModelAndView();
-		String str = mdao.pwdFind(mem_id);
+		String str = mdao.idCheck(mem_id);
 		
 		if(str!=null) {
 			if(code1.equals(code2)) {
+				mav.addObject("mem_id", mem_id);
 				mav.addObject("msg","인증이 완료 되었습니다");
-				mav.addObject("gourl","pwdUpdate.do");
-				mav.setViewName("member/pwdFind_ok");
+				mav.setViewName("member/pwdUpdate");
 			}else {
 				mav.addObject("msg","인증번호가 잘못되었습니다.");
 				mav.addObject("gourl", "index.do");
@@ -237,6 +238,27 @@ public class MemberController {
 			mav.setViewName("member/pwdFind_ok");	
 		}
 		
+		return mav;
+	}
+	
+	@RequestMapping("/pwdUpdate.do")
+	public ModelAndView pwdUpdate(
+			@RequestParam("mem_pwd")String mem_pwd,
+			@RequestParam("mem_pwd2")String mem_pwd2,
+			@RequestParam("mem_id")String mem_id) {
+		
+		ModelAndView mav=new ModelAndView();
+
+		if(mem_pwd.equals(mem_pwd2)) {
+			int result=mdao.pwdUpdate(mem_id);
+			mav.addObject("msg", "비밀번호 수정 완료!");
+			mav.addObject("gourl", "loginForm.do");
+			mav.setViewName("member/pwdUpdate_ok");
+		}else {
+			mav.addObject("msg", "비밀번호를 확인해주세요");
+			mav.addObject("gourl", "loginForm.do");
+			mav.setViewName("member/pwdUpdate_ok");
+		}
 		return mav;
 	}
 	

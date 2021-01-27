@@ -14,10 +14,6 @@
 
 <script type="text/javascript">
 
-function show(){
-	window.open('idCheckForm.do','idCheck','width=500,height=250,top=100,left=100');
-}
-
 //모든 공백 체크 정규식
 var empJ = /\s/g;
 //아이디 정규식

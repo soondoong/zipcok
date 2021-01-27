@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 
+window.alert('${msg}');
 
 // 비밀번호 정규식
 var pwJ = /^[A-Za-z0-9]{4,12}$/;
@@ -53,33 +55,42 @@ $(document).ready(function() {
       }
    });
 
-}
+});
 
 
 </script>
 
 </head>
 <body>
-	<%@include file="../header2.jsp"%>
+<%@include file="../header2.jsp"%>
+<br>
+<br>
 	<article>
-<form>
-<div class="col-sm-3 col-md-offset-3">
-<div class="form-group">
-					<label for="pw">비밀번호</label> <input type="password"
+	<h2>비밀번호 수정</h2>
+	<br>
+		<form action="pwdUpdate.do">
+		<c:set var="id" value="${mem_id }"></c:set>
+			<input type="hidden" name="mem_id" value="${id }">
+			<div class="col-sm-3 col-md-offset-3">
+				<div class="form-group">
+					<label for="pw">새 비밀번호</label> <input type="password"
 						class="form-control" id="mem_pwd" name="mem_pwd"
 						placeholder="PASSWORD">
 					<div class="eheck_font" id="pw_check"></div>
 				</div>
-				
-				
+
+
 				<div class="form-group">
-					<label for="pw2">비밀번호 확인</label> <input type="password"
+					<label for="pw2">새 비밀번호 확인</label> <input type="password"
 						class="form-control" id="mem_pwd2" name="mem_pwd2"
 						placeholder="Confirm Password">
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
-</div>
-</form>
-</article>
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary">변경하기</button>
+				</div>
+			</div>
+		</form>
+	</article>
 </body>
 </html>
