@@ -137,7 +137,7 @@ function search(){
 <c:forEach var="dto" items="${map.pt }">
 		<div class="oneperson">
 			<div class="image-container">
-		        <img src="/zipcok/upload/coach/${dto.mfile_upload}" alt="">
+		        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
 		       
 		    </div>
 		    
@@ -168,7 +168,7 @@ function search(){
 		<div class="oneperson">
 		
 			<div class="image-container">
-		        <img src="/zipcok/upload/coach/${dto2.mfile_upload}" alt="">
+		        <img src="/zipcok/upload/member/${dto2.mfile_upload}" alt="">
 		    </div>
 		    
 		    <div>

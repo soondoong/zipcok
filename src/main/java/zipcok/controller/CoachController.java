@@ -50,8 +50,6 @@ public class CoachController {
 		HashMap<String, List<MainCoachDTO>> map=dao.mainCoachList(categoryMap);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("map",map);
-		String path=c.getRealPath("/upload/coach/");
-		mav.addObject("path", path);
 		mav.setViewName("coach/coachListView");
 		return mav;
 	}
@@ -75,7 +73,6 @@ public class CoachController {
 		keywordMap.put("category",category);
 		
 		
-		
 		/*페이지설정*/
 		int totalCnt=dao.getTotalCnt(keywordMap); //테이블명써주기
 		int listSize=4;
@@ -88,14 +85,55 @@ public class CoachController {
 		List<MainCoachDTO> list=dao.searchCoachList(keywordMap, cp, listSize);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("list", list);
-		String path=c.getRealPath("/upload/coach/"); //사진경로
-		mav.addObject("path", path);
 		mav.addObject("keyword", keywordMap);
 		mav.addObject("pageStr",pageStr);//페이지
 		//mav.setViewName("jsonView");
 		mav.setViewName("coach/searchCoachList");
 		return mav;
 	}
+	
+	
+	
+	/*Ajax 필터로 추가검색*/
+	@RequestMapping(value="searchAjax.do")
+	public ModelAndView coachListAjax(@RequestParam(value="gender")String gender,
+			@RequestParam(value="starVal")String starVal, @RequestParam(value="location")String location,
+			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
+		/*키워드 담기*/
+		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
+		
+		keywordMap.put("location",location);
+		keywordMap.put("extype",extype);
+		keywordMap.put("category",category);
+		keywordMap.put("gender",gender);
+		keywordMap.put("starVal",starVal);
+		
+
+		/*페이지설정*/
+		int totalCnt=dao.getAjaxTotalCnt(keywordMap); //테이블명써주기
+		System.out.println("tcnt검색된수:"+totalCnt);
+		int listSize=4;
+		int pageSize=5;
+		String params="gender="+gender+"&"+"starVal="+starVal;
+		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize,params+keywords);
+		
+		
+		List<MainCoachDTO> list=dao.ajaxSearchCoachList(keywordMap, cp, listSize);
+		System.out.println("ajax리스트"); 
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("listAjax", list);
+		mav.addObject("keyword", keywordMap);
+		mav.addObject("pageStrAjax",pageStr);//페이지
+		//mav.setViewName("jsonView");
+		mav.setViewName("jsonView");
+		return mav;
+
+	}
+	
+	
 	
 	/*코치등록안내 이동*/
 	@RequestMapping("coachRegistInfoView.do")
