@@ -110,11 +110,21 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	}
 	
 	@Override
-	public void dailyReUpdate(int re_idx, int re_sunbun) {
+	public void dailyReUpdate(int ex_idx, int re_sunbun) {
 		Map map=new HashMap();
-		map.put("re_idx", re_idx);
+		map.put("ex_idx", ex_idx);
 		map.put("re_sunbun", re_sunbun);
 		int result=sqlMap.update("dailyReUpdateSQL", map);
+	}
+	
+	@Override
+	public int dailyReReWrite(ExReBbsDTO dto,int re_bbs_idx,int re_idx) {
+		Map map=new HashMap();
+		map.put("dto", dto);
+		map.put("re_bbs_idx", re_bbs_idx);
+		map.put("re_idx", re_idx);
+		int count=sqlMap.insert("dailyReReWriteSQL",map);
+		return count;
 	}
 
 }
