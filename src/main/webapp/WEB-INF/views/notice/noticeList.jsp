@@ -32,11 +32,13 @@ function goCategory(){
 	<tr>
 		<th>카테고리 유형</th>
 		<td> <select onchange="javascript:goCategory()" id="select">
+
 			<option  <c:if test="${category=='전체'}">selected="selected"</c:if> >전체</option>
 			<option <c:if test="${category=='홈짐'}">selected="selected"</c:if>  >홈짐</option>
 			<option <c:if test="${category=='코치 매칭'}">selected="selected"</c:if> >코치 매칭</option>
 			<option <c:if test="${category=='결제'}">selected="selected"</c:if>  >결제</option>
 			<option  <c:if test="${category=='기타'}">selected="selected"</c:if>>기타</option>
+
 		</select></td>
 	</tr>
 		<tr>
