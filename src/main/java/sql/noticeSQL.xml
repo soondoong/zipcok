@@ -26,12 +26,24 @@
 		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
   </select>
   
+  	<select id="noticeCateTotalCnt" resultType="Integer">
+  		select count(*) 
+  		from 
+  		(select * from zipcok_bbs where bbs_key='공지사항' 
+  		and 
+  		bbs_category=#{bbs_category} 
+  		order by 
+  		bbs_idx 
+  		desc) a
+  	</select>
    	<select id="noticeTotalCnt" resultType="Integer">
   		select
   			count(*)
   		from
   			zipcok_bbs
   		where bbs_key='공지사항'
+  		
+  		
   	</select>
   	
   	<select id="noticeContentSQL" parameterType="Integer" resultType="zipcok.notice.model.NoticeDTO">
@@ -96,4 +108,29 @@
   	where 
   	rnum=#{rnum}
   	</select>
+  	
+  	<insert id="insertNoticeInfoFile" parameterType="zipcok.notice.model.ZipcokFileDTO">
+	insert into 
+	 zipcok_file
+	values(
+	zipcok_file_zfile_idx.nextval,
+	#{bbs_idx},
+	#{mem_id},
+	'공지사항',
+	#{zfile_upload},
+	#{zfile_size},
+	#{zfile_orig},
+	#{zfile_path},
+	#{zfile_type}
+	)
+
+</insert>
+<select id = "maxIdx" resultType="Integer">
+select max(bbs_idx) from zipcok_bbs where bbs_key='공지사항'
+</select>
+<select id="zfileSelect" parameterType="Integer" resultType="zipcok.notice.model.ZipcokFileDTO">
+select *
+from zipcok_file
+where bbs_idx=#{bbs_idx}
+</select>
   </mapper>

@@ -1,5 +1,6 @@
 package zipcok.notice.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import zipcok.coach.model.CoachFileDTO;
 
 @Service
 public class NoticeDAOImple implements NoticeDAO {
@@ -42,6 +45,11 @@ public class NoticeDAOImple implements NoticeDAO {
 	//총 게시물 수 메서드
 	public int getTotalCnt() {
 		int count=sqlMap.selectOne("noticeTotalCnt");
+		return count==0?1:count;
+	}
+	//카테고리별 게시물 수 메서드
+	public int getCateTotalCnt(String bbs_category) {
+		int count=sqlMap.selectOne("noticeCateTotalCnt",bbs_category);
 		return count==0?1:count;
 	}
 	
@@ -95,5 +103,27 @@ public class NoticeDAOImple implements NoticeDAO {
 		NoticeDTO dto=sqlMap.selectOne("prevnextSQL", rnum);
 		return dto;
 	}
+	
+	
+	//파일 업로드
+	@Override
+	public int noticeFileUpload(ArrayList<ZipcokFileDTO> fileArr) {
+		int count=0;
+		
+		for(int i=0; i<fileArr.size(); i++) {
+		count+=sqlMap.insert("insertNoticeInfoFile",fileArr.get(i));
+		}
+		return count;
+	}
+	@Override
+	public int noticeMaxIdx() {
+		int maxIdx = sqlMap.selectOne("maxIdx");
+		return maxIdx;
+	}
 
+	@Override
+	public List<ZipcokFileDTO> zfileSelect(int bbs_idx) {
+		List<ZipcokFileDTO> list=sqlMap.selectList("zfileSelect", bbs_idx);
+		return list;
+	}
 }

@@ -14,7 +14,7 @@ function golist(){
 </head>
 <body>
 
-<form action="noticeWrite.do">
+<form action="noticeWrite.do" method="post" enctype="multipart/form-data">
 <table>
 	<tr>
 		<th>카테고리 유형</th>
@@ -39,7 +39,7 @@ function golist(){
 		</td>
 	</tr>
 	<tr>
-		<td><input type="button" value="파일첨부"></td>
+		<td><input type="file" name="upload" value="파일첨부"></td>
 		<td>
 		<input type="submit" value="글쓰기">
 		<input type="reset" value="다시작성">

@@ -23,8 +23,8 @@ function goUpdateView(){
 
 <table>
 	<thead>
+	<input type="hidden" name="bbs_idx" value="${dto.bbs_idx}">
 		<tr>
-		<td><input type="hidden" name="bbs_idx" value="${dto.bbs_idx}"></td>
 			<th>제목 : ${dto.bbs_subject}</th>
 			<th>조회수 : ${dto.bbs_readnum}</th>
 			<th>작성일 : ${dto.bbs_writedate}</th>
@@ -34,11 +34,22 @@ function goUpdateView(){
 		<tr>
 			<td colspan="3">이미지</td>
 		</tr>
+		<c:if test="${empty list}">
+		<tr>
+			<th colspan="3">등록된 사진이 없습니다.</th>
+		</tr>
+		</c:if>
+		<c:forEach var="List" items="${list}">
+		
+		<tr>
+			<td colspan="3">
+				<img alt="${List.zfile_upload }" src="upload/zipcok/notice/${List.zfile_upload}" width="500" height="500">
+			</td>
+		</tr>
+
+		</c:forEach>
 		<tr>
 			<td colspan="3">${dto.bbs_content}</td>
-		</tr>
-		<tr>
-			<td>동영상(파일)</td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -52,7 +63,7 @@ function goUpdateView(){
 		<c:otherwise>
 		<hr>
 		<tr>
-			<td>이전 글<a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">[${prev.bbs_category}]${prev.bbs_subject}</a></td>
+			<td>이전 글 <a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">[${prev.bbs_category}] ${prev.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
@@ -65,12 +76,12 @@ function goUpdateView(){
 		<c:otherwise>
 		<tr>
 		<hr>
-			<td>다음 글<a href="noticeContent.do?bbs_idx=${next.bbs_idx}">[${next.bbs_category}]${next.bbs_subject}</a></td>
+			<td>다음 글 <a href="noticeContent.do?bbs_idx=${next.bbs_idx}">[${next.bbs_category}] ${next.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
 		<tr>
-			<td>
+			<td colspan="3" align="right">
 				<input type="button" value="삭제" onclick="javascript:goDelete()">
 				<input type="button" value="수정" onclick="javascript:goUpdateView()">
 				<input type="button" value="목록보기" onclick="javascript:golist()">

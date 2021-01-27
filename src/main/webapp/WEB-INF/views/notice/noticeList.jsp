@@ -23,6 +23,11 @@ function goCategory(){
 }
 
 </script>
+<style type="text/css">
+.paging a{
+	padding-right: 20px;
+}
+</style>
 </head>
 <body>
 <h1>공지사항</h1>
@@ -32,7 +37,6 @@ function goCategory(){
 	<tr>
 		<th>카테고리 유형</th>
 		<td> <select onchange="javascript:goCategory()" id="select">
-
 			<option  <c:if test="${category=='전체'}">selected="selected"</c:if> >전체</option>
 			<option <c:if test="${category=='홈짐'}">selected="selected"</c:if>  >홈짐</option>
 			<option <c:if test="${category=='코치 매칭'}">selected="selected"</c:if> >코치 매칭</option>
@@ -72,8 +76,10 @@ function goCategory(){
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="4">${pageStr}</td>
-			<td><input type="submit" value="글쓰기"></td>
+			<td colspan="4" align="center" class="paging">${pageStr}   </td>
+		</tr>
+		<tr>
+			<td colspan="4" align="right"><input type="submit" value="글쓰기"></td>
 		</tr>
 	</tfoot>
 </table>
