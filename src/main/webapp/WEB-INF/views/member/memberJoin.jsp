@@ -328,10 +328,11 @@ function execPostCode() {
 						<span id="idCheckMsg"></span> <input type="button"
 						class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						value="중복확인">
-						
+						value="중복확인">		
 					<!--  <div class="eheck_font" id="id_check"></div> -->
 				</div>
+				
+				
 		<!-- 		<div class="form-group">
 					<label for="id">아이디</label> <input type="text" class="form-control"
 						id="mem_id" name="mem_id" placeholder="ID">
