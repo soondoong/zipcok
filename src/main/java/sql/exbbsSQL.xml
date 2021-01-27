@@ -149,6 +149,27 @@
 	
 	<update id="dailyReUpdateSQL">
 		update
+			bbs_rebbs
+		set
+			re_sunbun+1
+		where
+			ex_idx=#{ex_idx}
+		and
+			re_sunbun>=#{re_sunbun}
 	</update>
+	
+	<insert id="dailyReReWriteSQL" parameterType="zipcok.comm.model.ExReBbsDTO">
+		insert into
+			bbs_rebbs
+		values(bbs_rebbs_idx.nextval,
+				1,
+				1,
+				'한슬',
+				#{re_content},
+				sysdate,
+				2,
+				#{re_sunbun}+1,
+				#{re_bbs_idx})
+	</insert>
 	
 </mapper>
