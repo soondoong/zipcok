@@ -56,12 +56,6 @@ public class MemberDAOImple implements MemberDAO {
 		return str;
 	}
 	
-	@Override
-	public String pwdFind(String mem_id) {
-		String str = sqlMap.selectOne("pwdFind", mem_id);
-		return str;
-	}
-	
 	
 	@Override
 	public int pwdUpdate(String mem_id) {
