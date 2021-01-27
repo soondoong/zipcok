@@ -12,7 +12,7 @@ public interface CoachDAO {
 	public List<MainCoachDTO> searchCoachList(HashMap<String, Object> keys,int cp, int ls);
 	public List<MainCoachDTO> 	ajaxSearchCoachList(HashMap<String, Object> keys,int cp, int ls);
 	public int getTotalCnt(HashMap map);
-	public int getAjaxTotalCnt(HashMap map);
+	public int getAjaxTotalCnt(HashMap<String,Object> map);
 	public int coachJoin( HashMap<String, Object> map);
 	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr);
 	public ArrayList<CategoryDTO> findCategory(String id);
