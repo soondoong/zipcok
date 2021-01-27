@@ -39,9 +39,15 @@ public class HomeGymController {
 	ServletContext c;
 
 	@RequestMapping("HomeGymList.do")
-	public ModelAndView HomeGymList() {
-		List<HomeGymDTO> list = homegymDAO.HomeGymList();
+	public ModelAndView HomeGymList(
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		int totalCnt = homegymDAO.HomeGymTotalCnt();
+		int listSize = 10;
+		int pageSize = 10;
+		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);
+		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pageStr", pageStr);
 		mav.addObject("HomeGymList", list);
 		mav.setViewName("homegym/hgList");
 		return mav;
@@ -83,6 +89,15 @@ public class HomeGymController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	@RequestMapping(value = "avgPrice.do")
+	public ModelAndView HomeGymAvgPrice() {
+		int result = homegymDAO.HomeGymAddPrice();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("avgPrice", result);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymAdd(	
@@ -142,15 +157,6 @@ public class HomeGymController {
 			e.printStackTrace();
 			return null;
 		}	
-	}
-	
-	@RequestMapping(value = "avgPrice.do")
-	public ModelAndView HomeGymAvgPrice() {
-		int result = homegymDAO.HomeGymAddPrice();
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("avgPrice", result);
-		mav.setViewName("jsonView");
-		return mav;
 	}
 	
 	@RequestMapping("HomeGymCardAdd.do")
