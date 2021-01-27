@@ -131,11 +131,24 @@
 	
 	<select id="dailyGetSunbun_pSQL" resultType="Integer">
 		select
-			ex_sunbun
+			re_sunbun
 		from
 			bbs_rebbs
 		where
 			ex_idx=#{ex_idx}
 	</select>
+	
+	<select id="dailyGetLevSQL" resultType="Integer">
+		select
+			re_lev
+		from
+			bbs_rebbs
+		where
+			ex_idx=#{ex_idx}
+	</select>
+	
+	<update id="dailyReUpdateSQL">
+		update
+	</update>
 	
 </mapper>
