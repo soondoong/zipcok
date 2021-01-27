@@ -10,4 +10,6 @@ public interface HomeGymDAO {
 	public int HomeGymAdd(HomeGymDTO dto);
 	public List<HomeGymDTO> HomeGymList();
 	public int HomeGymImgUpload(ArrayList<CoachFileDTO> list);
+	public String HomeGymNickNameCheck(String hg_nickname);
+	public int HomeGymAddPrice();
 }

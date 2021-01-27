@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="js/httpRequest.js"></script>
 <style>
 .HomeGymAddLabel {
 	width: 200px;
@@ -23,9 +24,20 @@ textarea {
 }
 #date_div {
 width:600px;
+height:300;
+z-index: 1;
 }
 .ui-datepicker {
 width:600px;
+height:270px;
+top:30px;
+z-index: 2;
+}
+#block_data_div{
+position: absolute;
+height:270px;
+width : 600px;
+
 }
 </style>
 <script>
@@ -103,8 +115,11 @@ width:600px;
 		document.getElementById('end_month').value = end_month;
 		document.getElementById('end_day').value = end_day;
 		var hg_nickname = document.getElementById('hg_nickname').value;
-		hg_nickname = hg_nickname + ' 님의 홈짐';
-		
+		var nicknameCheck = document.getElementById('nickname_overlap').value;
+		if(nicknameCheck=='0'){
+			window.alert('닉네임 중복 체크를 해주세요.');
+			return;
+		}
 		document.getElementById('addForm').submit();
 	}
 	function start_change(){
@@ -115,7 +130,56 @@ width:600px;
 		var result = document.getElementById('end_date').value;
 		$("#date_div").datepicker( "option", "maxDate", result );
 	}
+	function not_change(){
+		var result = document.getElementById('not_date').value;
+		$("#date_div").datepicker( "option", "beforeShowDay", disableSomeDay );
 
+		function disableSomeDay(date){
+			var noWeekend = jQuery.datepicker.noWeekends(date);
+			if(result=='0'){
+				return [true];
+			}else if(result=='1'){
+				return noWeekend[0] ? [false]:[true];
+			}else if(result=='2'){
+				return noWeekend[0] ? [true]:noWeekend;
+			}
+		}
+	}
+	function nicknameCheck(){
+		var hg_nickname = document.getElementById('hg_nickname').value;
+		var params = 'hg_nickname='+hg_nickname;
+		sendRequest('HomeGymNickNameCheck.do', params, nicknameCheck_rq, 'GET');
+	}
+	function nicknameCheck_rq(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+				var data = XHR.responseText;
+				data = eval('('+data+')');
+				data = data.hg_NickNameCheck;
+				var checkText = document.getElementById('nicknameCheckText');
+				if(data=='1'){
+					checkText.innerHTML = '이미 있는 닉네임입니다.';
+					document.getElementById('nickname_overlap').value = '0';
+				}else if(data=='0'){
+					checkText.innerHTML = '사용 가능한 닉네임입니다.';
+					document.getElementById('nickname_overlap').value = '1';
+				}
+			}
+		}
+	}
+	function avgPrice(){
+		sendRequest('avgPrice.do', null, avgPrice_rq, 'GET');
+	}
+	function avgPrice_rq(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+				var data = XHR.responseText;
+				data = eval('('+data+')');
+				data = data.avgPrice;
+				document.getElementById('price').innerText = data;
+			}
+		}
+	}
 </script>
 </head>
 <body>
@@ -131,7 +195,8 @@ width:600px;
 			<li>
 			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
 			<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
-			<input type="button" value="중복 확인">
+			<input type="button" value="중복 확인" onclick = "javascript:nicknameCheck();">
+			<br><span id = "nicknameCheckText"></span>
 			<input type="hidden" id="nickname_overlap" value="0">
 			</li>
 			<li>
@@ -236,29 +301,38 @@ width:600px;
 						<option value="0" selected>없음</option>
 						<option value="1">평일</option>
 						<option value="2">주말</option>
-				</select></td>
+				</select>
+				</td>
 				<td colspan="2"></td>
 			</tr>
 		</table>
-		<div id = "date_div"></div>
+		<div id = "date_div">
+		<div id = "block_data_div"></div><!-- 달력 클릭 못하게 덮는 용도 -->
+		</div>
+		
 		<ul>
-			<li><label class="HomeGymAddLabel">예약 가능 시간</label> <select
-				name="hg_start_time">
+			<li>
+			<label class="HomeGymAddLabel">예약 가능 시간</label>
+			<select name="hg_start_time">
 					<option value="9">09</option>
 					<option value="10">10</option>
 					<option value="11">11</option>
-			</select> <label>부터</label> <select name="hg_end_time">
+			</select>
+			<label>부터</label>
+			<select name="hg_end_time">
 					<option value="18">18</option>
 					<option value="19">19</option>
 					<option value="20">20</option>
-			</select></li>
-			<li><label class="HomeGymAddLabel">요금 설정/시간</label> <input
-				type="text" name="hg_price"> <input type="button"
-				value="평균 요금 확인하기"> <label class="HomeGymAddLabel">
-					평균 요금 : ----원</label></li>
+			</select>
+			</li>
+			<li>
+			<label class="HomeGymAddLabel">요금 설정/시간</label>
+			<input type="text" name="hg_price">
+			<input type="button" value="평균 요금 확인하기" onclick = "javascript:avgPrice();">
+			<label class="HomeGymAddLabel">평균 요금 : <span id = "price">----</span>원</label>
+			</li>
 		</ul>
-		<input type="button" value="홈짐 등록 신청"
-			onclick="javascript:addSubmit();">
+		<input type="button" value="홈짐 등록 신청" onclick="javascript:addSubmit();">
 	</form>
 </body>
 </html>

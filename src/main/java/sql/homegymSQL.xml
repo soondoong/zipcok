@@ -31,7 +31,7 @@
 		member_file
 		values(
 		member_file_mfile_idx.nextval,
-		#{mfile_key},	
+		#{mfile_key},
 		#{mfile_mem_id},
 		#{mfile_upload},
 		#{mfile_size},
@@ -39,8 +39,14 @@
 		#{mfile_path},
 		#{mfile_type}
 		)
-
 	</insert>
+<select id="hgNickNameCheckSQL" parameterType="String"
+		resultType="String">
+		select hg_nickname from homegym where hg_nickname = #{hg_nickname}
+	</select>
+	<select id = "hgAvgPriceSQL" resultType="Integer">
+		select avg(hg_price) from homegym
+	</select>
 	<select id="hgListSQL"
 		resultType="zipcok.homegym.model.HomeGymDTO">
 		select * from homegym where hg_approved_check = '1' and
