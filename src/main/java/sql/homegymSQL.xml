@@ -47,10 +47,14 @@
 	<select id = "hgAvgPriceSQL" resultType="Integer">
 		select avg(hg_price) from homegym
 	</select>
-	<select id="hgListSQL"
+	<select id="hgListSQL" parameterType="hashMap"
 		resultType="zipcok.homegym.model.HomeGymDTO">
-		select * from homegym where hg_approved_check = '1' and
-		hg_status = '1'
-		order by hg_regist_date desc
+		select * from
+		(select rownum as rnum, a.* from
+		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
+		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
+	<select id="homegymTotalCnt" resultType="Integer">
+	select count(*) from homegym
 	</select>
 </mapper>
