@@ -10,6 +10,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/httpRequest.js"></script>
 <style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .blueBackground{
 background-color:   #3978df;
 width:100%;
@@ -26,13 +32,19 @@ line-height: 1;
 }
 .contentsWrap{
 position: relative;
-magin:0 auto;
+width:83%;
 margin-top:40px;
-padding:0px 30px;
+margin:0 auto;
+float:left;
 }
-.listWrap{
-width:230px;
-display: flex;
+.secondWrap{
+position: relative;
+margin:0 auto;
+}
+.listWrap::after{
+content:"";
+display: block;
+clear: both;
 }
 .oneperson{
 margin:0 20px 0 20px;
@@ -69,13 +81,13 @@ font-size: 0.8rem;
 .h5search{
 margin-bottom: 30px;
 }
-.paging{
+.paging,.nomalpaging{
 position:relative;
-width:400px;
-left:30vw;
-margin:40px 0 0 0;
+width:100px;
+margin:0 auto;
 }
-.paging a{
+
+.paging a,.nomalpaging a{
 font-size:1.6rem;
 padding-right:20px;
 }
@@ -83,7 +95,46 @@ padding-right:20px;
 position: relative;
 z-index:30;
 }
+
+.leftFilterDIV{
+	margin: 0 60px 0 0;
+    padding: 30px;
+    width:240px;
+    height:500px;
+    position:relative;
+    float: left;
+    top:30px;
+    left:30px;
+}
+.leftWall{
+    width:17%;
+    height: 100%;
+    position:relative;
+    float: left;
+    top:0px;
+    left:0px;
+    background-color: white;
+}
+
+.fp{
+	font-family: "nanumsquare-b";
+    font-size: 18px;
+    font-weight:bold;
+    line-height: 16px;
+    color: #444444;
+}
+#starRange{
+position: relative;
+z-index:30;
+}
+
+.ajaxDIV{     /*ajax 사용시 보이게함*/
+display:none;
+}
 </style>
+
+
+
 </head>
 <body>
 <%@include file="../header2.jsp" %>
@@ -122,49 +173,46 @@ z-index:30;
 </div>
 </form>
 <!-- 상단 검색바 영역  -->
-<style>
-.leftFilterDIV{
-	margin: 0 60px 0 0;
-    padding: 30px;
-    width:240px;
-    height:500px;
-    position:relative;
-    float: left;
-    top:30px;
-    left:30px;
-}
-.fp{
-	font-family: "nanumsquare-b";
-    font-size: 18px;
-    font-weight:bold;
-    line-height: 16px;
-    color: #444444;
-}
-#starRange{
-position: relative;
-z-index:30;
-}
-</style>
+
 <!-- 좌측검색필터  -->
-<div class="card  leftFilterDIV">
-<h4>검색필터</h4><br>
-	<hr>
-	<div class="m-3 gender"> 
-	<p class="fp">성별</p>
-	<button type="button" class="btn btn-outline-primary sexBtn sexBtn1 " onclick="showList()">남자</button>
-    <button type="button" class="btn btn-outline-primary sexBtn sexBtn2" onclick="showList()">여자</button>
-	</div>
+
+<div class="leftWall">
+	<div class="card leftFilterDIV">
+	<h4>검색필터</h4><br>
 		<hr>
-	<div class="m-3"> 
-	<p class="fp">별점</p>
-	<label>1점 ~ </label><label id="starVal">3</label>점
-	<br>
-	 <input type="range" min="1" max="5" id="starRange" onmouseup ="starValue(this);" onchange="showList()">
-	</div>
-	
+		<div class="m-3 gender"> 
+		<p class="fp">성별</p>
+		<button type="button" class="btn btn-outline-primary sexBtn sexBtn1">남자</button>
+	    <button type="button" class="btn btn-outline-primary sexBtn sexBtn2" >여자</button>
+		</div>
+			<hr>
+		<div class="m-3"> 
+		<p class="fp">별점</p>
+		<label id="starVal">3</label>점 이상
+		<br>
+		 <input type="range" min="1" max="5" id="starRange" onmouseup ="starValue(this);" onchange="showList()">
+		</div>
+	</div>	
 	
 </div>
+
+<!-- 좌측검색필터  -->
 <script>
+
+
+/*버튼 클릭하면 active됨*/
+$('.sexBtn').click(function(){
+
+  if( $(this).hasClass('active') ){
+  	$(this).removeClass('active');
+  }else{
+  	 $(this).addClass('active');
+  }
+  showList();
+});
+
+
+
 
 	/*별점 드래그한대로 숫자들어감*/
 	function starValue(t){
@@ -172,28 +220,18 @@ z-index:30;
 	starVal.innerText = t.value;
 	}
 
-	
-	/*버튼 클릭하면 active됨*/
-	  $('.sexBtn').click(function(){
 
-	    if( $(this).hasClass('active') ){
-	    	$(this).removeClass('active');
-	    }else{
-	    	 $(this).addClass('active');
-	    }
-	    
-	  });
-	
 	
 	  /*필터검색에따라 ajax통신*/
 	  function showList(){
-		 
-		  /*성별값 정의*/
-		  var gender='전체';
+		/*성별값 정의*/
+		var gender;
 		if(  $('.sexBtn1').hasClass('active') && !$('.sexBtn2').hasClass('active') ){ //남자만 클릭되어잇다면
-			 gender='남자';
-		}else if(  $('.sexBtn2').hasClass('active') && !$('.sexBtn1').hasClass('active')){ //남자만 클릭되어잇다면
-			 gender='여자';
+			 gender='남';
+		}else if(  $('.sexBtn2').hasClass('active') && !$('.sexBtn1').hasClass('active')){ //여자만 클릭되어잇다면
+			 gender='여';
+		}else{
+			 gender='전체';
 		}
 		
 		 /*별점값 정의*/
@@ -201,7 +239,7 @@ z-index:30;
 		 	
 		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}';
 		  var params='gender='+gender+"&"+'starVal='+starVal+"&"+keywords; //보낼파라미터
-		  alert(params);
+		 // alert(params);
 	  	sendRequest("searchAjax.do",params,shwR,'GET');
 	  }
 
@@ -213,20 +251,24 @@ z-index:30;
 	  				data=eval('('+data+')');
 	  				var cList=data.listAjax;
 	  				var str='총 코치수'+cList.length+'명\n';
-	  				alert(str);
+	  				//alert(str);
+	  				$('.secondWrap').css('display','none');
 	  				$('.ajaxDIV').html('');
-	  				for(var i=0;i<cList.length;i++){
+	  		 	for(var i=0;i<cList.length;i++){
+	  		 	
 	  					var dto=cList[i];
-	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload'></div>');
-	  					
-	$('.ajaxDIV').append('<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>');
-	$('.ajaxDIV').append('<div><span><a href="#">'+dto.coach_intro_sub+'</a></span></div>');
-	$('.ajaxDIV').append(' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span>'+dto.avg+'</span></div>');						    
+	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload+'"></div>'+	  					
+								'<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>'+
+									'<div><span><a href="#">'+dto.coach_intro_sub+'</a></span></div>'+
+										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span>'+dto.avg+'</span></div></div>');						    
 
-	$(.ajacDIV).css('display','');
+	$('.ajaxDIV').css('display','block');
 	  					
 	  				}
-	  		
+	  		 	
+	  		 	/*페이징추가*/
+	  			var cpage=data.pageStrAjax;
+	  			$('.ajaxDIV').append('<div class="paging">'+cpage+'</div>');
 	  		}
 	  	}
 	  	
@@ -234,22 +276,19 @@ z-index:30;
 	  }
 
 
+
 </script>
-
-<!-- 좌측검색필터  -->
-
 <!-- 리스트 영역  -->
 
-<section class="section1">
-	<article class="contentsWrap">
+<div class="contentsWrap">
+
 		<h3 class=" mt-5">검색된 리스트</h3>
-
 		<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
-<div class="listWrap">
+	
+<div class="secondWrap">
+	<c:forEach var="dto" items="${list}">
 
-<c:forEach var="dto" items="${list}">
-
-		<div class="oneperson">
+	<div class="oneperson">
 		
 			<div class="image-container">
 		        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">		  
@@ -268,32 +307,23 @@ z-index:30;
 		    </div>
 	</div>  
 		  
-</c:forEach>
+	</c:forEach>
 		
-				<div class="paging">
+				<div class="nomalpaging">
 				${pageStr}
 				</div>
+				
+				
+	</div>			
 </div>
 
-
-<style>
-.ajacDIV{
-display:none;
-}
-</style>
 <!-- ajax검색된 리스트영역 -->
-	<div class="ajaxDIV">
-	
-	
-</div>
-
+	<div class="ajaxDIV">    
+    </div>
 <!-- ajax검색된 리스트영역 -->
 
 
 
-
-	</article>
-</section>
 
 <!-- 리스트 영역  -->
 
