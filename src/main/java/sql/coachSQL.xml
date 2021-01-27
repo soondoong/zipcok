@@ -34,9 +34,11 @@ a.cate_name=#{category}
 	
 select
  * from 
-(select rownum as rnum,zm.mem_name,
-cr.*,mf.mfile_upload
-from 
+ (select rownum as rnum,zm.mem_name,
+cr.*,mf.mfile_upload,b.avg
+from
+(select rev_target_id,trunc(avg(rev_star),1) as avg
+from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
 where 
@@ -59,59 +61,198 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id
-)a,coach_regist cr,member_file mf,zipcok_member zm
+group by c.coach_mem_id)a,star_review
+where a.coach_mem_id = rev_target_id 
+group by
+rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-a.coach_mem_id = cr.coach_mem_id
+b.rev_target_id = cr.coach_mem_id
 and
-a.coach_mem_id = mf.mfile_mem_id
+b.rev_target_id = mf.mfile_mem_id
 and
-a.coach_mem_id = zm.mem_id
+b.rev_target_id = zm.mem_id
 and
-mf.mfile_key='회원프로필')b
-where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+mf.mfile_key='회원프로필'
 
+)c
 
+where 
+rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+	
+	
 </select>
-	
-	
-	
-<select id="totalCnt" parameterType="Hashmap" resultType="Integer">
 
-select 
-count(*)
+
+
+	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
+	
+select
+ * from 
+ (select rownum as rnum,zm.mem_name,
+cr.*,mf.mfile_upload,b.avg
 from
-(select
-mem_idx
-from 
-zipcok_member m,member_file f, 
-(select * from coach_regist c,coach_category g 
-where c.coach_mem_id = g.cate_mem_id)a
-where
-a.coach_floc
+(select rev_target_id,trunc(avg(rev_star),1) as avg
+from
+(select c.coach_mem_id
+from coach_regist c,coach_category g
+where 
+c.coach_mem_id = g.cate_mem_id
+and
+c.coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-a.coach_ex_type
+c.coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
 </choose> 
 and
-a.cate_name
+cate_name
 <choose>
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-and 
-m.mem_id=a.coach_mem_id 
+group by c.coach_mem_id)a,star_review
+where a.coach_mem_id = rev_target_id 
+group by
+rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+where
+b.rev_target_id = cr.coach_mem_id
 and
-m.mem_id=mfile_mem_id
+b.rev_target_id = mf.mfile_mem_id
 and
-mfile_key='회원프로필'
-group by m.mem_idx)c
+b.rev_target_id = zm.mem_id
+and
+mf.mfile_key='회원프로필'
+
+and
+zm.mem_gender
+<choose>
+        <when test="gender == '전체'">like '%%'</when>
+        <when test="gender != '전체'"> like '${gender}%' </when>
+</choose>
+
+)c
+
+where 
+c.avg <![CDATA[>=]]> #{starValue}
+and
+rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+	
+	
+</select>
+	
+	
+<select id="totalCnt" parameterType="Hashmap" resultType="Integer">
+
+select
+ count(*) from 
+ (select rownum as rnum,zm.mem_name,
+cr.*,mf.mfile_upload,b.avg
+from
+(select rev_target_id,trunc(avg(rev_star),1) as avg
+from
+(select c.coach_mem_id
+from coach_regist c,coach_category g
+where 
+c.coach_mem_id = g.cate_mem_id
+and
+c.coach_floc
+<choose>
+        <when test="location == '전체지역'">like '%%'</when>
+        <when test="location != '전체지역'">like '%${location}%' </when>
+</choose>
+and
+c.coach_ex_type
+<choose>
+        <when test="extype == '전체'">like '%%'</when>
+        <when test="extype != '전체'"> = '${extype}'</when>
+</choose> 
+and
+cate_name
+<choose>
+        <when test="category == '모든카테고리'">like '%%'</when>
+        <when test="category != '모든카테고리'">like '%${category}%' </when>
+</choose>
+group by c.coach_mem_id)a,star_review
+where a.coach_mem_id = rev_target_id 
+group by
+rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+where
+b.rev_target_id = cr.coach_mem_id
+and
+b.rev_target_id = mf.mfile_mem_id
+and
+b.rev_target_id = zm.mem_id
+and
+mf.mfile_key='회원프로필'
+)c
+
+
+</select>	
+	
+	
+	
+	
+<select id="ajaxTotalCnt" parameterType="Hashmap" resultType="Integer">
+
+select
+ count(*) from 
+ (select rownum as rnum,zm.mem_name,
+cr.*,mf.mfile_upload,b.avg
+from
+(select rev_target_id,trunc(avg(rev_star),1) as avg
+from
+(select c.coach_mem_id
+from coach_regist c,coach_category g
+where 
+c.coach_mem_id = g.cate_mem_id
+and
+c.coach_floc
+<choose>
+        <when test="location == '전체지역'">like '%%'</when>
+        <when test="location != '전체지역'">like '%${location}%' </when>
+</choose>
+and
+c.coach_ex_type
+<choose>
+        <when test="extype == '전체'">like '%%'</when>
+        <when test="extype != '전체'"> = '${extype}'</when>
+</choose> 
+and
+cate_name
+<choose>
+        <when test="category == '모든카테고리'">like '%%'</when>
+        <when test="category != '모든카테고리'">like '%${category}%' </when>
+</choose>
+group by c.coach_mem_id)a,star_review
+where a.coach_mem_id = rev_target_id 
+group by
+rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+where
+b.rev_target_id = cr.coach_mem_id
+and
+b.rev_target_id = mf.mfile_mem_id
+and
+b.rev_target_id = zm.mem_id
+and
+mf.mfile_key='회원프로필'
+
+and
+zm.mem_gender
+<choose>
+        <when test="gender == '전체'">like '%%'</when>
+        <when test="gender != '전체'"> like '${gender}%' </when>
+</choose>
+
+)c
+
+where 
+c.avg <![CDATA[>=]]> #{starValue}
+
 
 </select>
 
@@ -160,4 +301,15 @@ member_file_mfile_idx.nextval,
 )
 
 </insert>
+
+
+<update id="memberTypeUpdate" parameterType="zipcok.coach.model.MainCoachDTO">
+update 
+zipcok_member
+set 
+mem_type = '코치회원'
+where
+mem_id=#{coach_mem_id} 
+
+</update>
  </mapper>
