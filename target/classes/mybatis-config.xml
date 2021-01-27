@@ -10,7 +10,6 @@
     <mapper resource="sql/exbbsSQL.xml"/>
      <mapper resource="sql/coachSQL.xml"/>
     <mapper resource="sql/homegymSQL.xml"/>
-
-
+    
   </mappers>
 </configuration>
