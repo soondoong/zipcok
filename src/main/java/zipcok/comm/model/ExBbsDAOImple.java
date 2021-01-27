@@ -103,6 +103,18 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return result;
 	}
 	
+	@Override
+	public int dailyGetLev(int re_idx) {
+		int result=sqlMap.selectOne("dailyGetLevSQL", re_idx);
+		return result;
+	}
 	
+	@Override
+	public void dailyReUpdate(int re_idx, int re_sunbun) {
+		Map map=new HashMap();
+		map.put("re_idx", re_idx);
+		map.put("re_sunbun", re_sunbun);
+		int result=sqlMap.update("dailyReUpdateSQL", map);
+	}
 
 }
