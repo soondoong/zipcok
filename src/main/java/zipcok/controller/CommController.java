@@ -31,8 +31,12 @@ public class CommController {
 		int listSize=5;
 		int pageSize=5;
 		String pageStr=zipcok.page.CommPageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
-		List list=exBbsDao.dailyList(cp, listSize);
-		
+		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize);
+		for(int i=0;i<list.size();i++) {
+			int idx=list.get(i).getEx_idx();
+			int recnt=exBbsDao.dailyGetTotalRe(idx);
+			int count=exBbsDao.dailySetTotalRe(recnt, idx);
+		}
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("list", list);
 		mav.addObject("pageStr", pageStr);
@@ -60,9 +64,11 @@ public class CommController {
 		int result=exBbsDao.dailyReadnum(ex_idx);
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
 		List list=exBbsDao.dailyReList(ex_idx);
+		int recnt=exBbsDao.dailyGetTotalRe(ex_idx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto", dto);
 		mav.addObject("list", list);
+		mav.addObject("recnt", recnt);
 		mav.setViewName("comm/commDailyContent");
 		return mav;
 	}
@@ -101,15 +107,19 @@ public class CommController {
 	
 	@RequestMapping("commDailyReWrite.do")
 	public ModelAndView dailyReWrite(int re_idx, int ex_idx, ExReBbsDTO dto) {
-		int max=exBbsDao.dailyGetMaxSunbun(re_idx);
-		dto.setRe_sunbun(max);
+		if(re_idx==0) {
+			dto.setRe_sunbun(1);
+		}else {
+			int max=exBbsDao.dailyGetMaxSunbun(re_idx);
+			dto.setRe_sunbun(max);
+		}
 		dto.setRe_bbs_idx(ex_idx);
 		int result=exBbsDao.dailyReWrite(dto);
 		String msg=result>0?"댓글 작성 성공!":"댓글 작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commDailyMsg");
-		return mav;	
+		return mav;
 	}
 	
 	@RequestMapping("commDailyReDelete.do")

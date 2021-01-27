@@ -15,5 +15,9 @@ public interface ExBbsDAO {
 	public int dailyReWrite(ExReBbsDTO dto);
 	public int dailyReDelete(int re_idx);
 	public List dailyReList(int re_bbs_idx);
+	public int dailyGetTotalRe(int re_bbs_idx);
+	public int dailySetTotalRe(int ex_recnt,int ex_idx);
+	public int dailyGetSunbun_p(int re_idx);
+	
 
 }

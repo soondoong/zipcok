@@ -82,6 +82,27 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return list;
 	}
 	
+	@Override
+	public int dailyGetTotalRe(int re_bbs_idx) {
+		int count=sqlMap.selectOne("dailyGetTotalReSQL",re_bbs_idx);
+		return count;
+	}
+	
+	@Override
+	public int dailySetTotalRe(int ex_recnt, int ex_idx) {
+		Map map=new HashMap();
+		map.put("ex_recnt", ex_recnt);
+		map.put("ex_idx", ex_idx);
+		int count=sqlMap.update("dailySetTotalReSQL", map);
+		return count;
+	}
+	
+	@Override
+	public int dailyGetSunbun_p(int re_idx) {
+		int result=sqlMap.selectOne("dailyGetSunbun_pSQL", re_idx);
+		return result;
+	}
+	
 	
 
 }

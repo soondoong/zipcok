@@ -17,7 +17,8 @@
 				sysdate,
 				'말머리',
 				0,
-				#{ex_name})
+				#{ex_name},
+				0)
 	</insert>
 	
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
@@ -108,6 +109,33 @@
 			re_bbs_idx=#{re_bbs_idx}
 		order by
 			re_sunbun asc
+	</select>
+	
+	<select id="dailyGetTotalReSQL" resultType="Integer">
+		select
+			count(*)
+		from
+			bbs_rebbs
+		where
+			re_bbs_idx=#{re_bbs_idx}
+	</select>
+	
+	<insert id="dailySetTotalReSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+		update
+			exer_bbs
+		set
+			ex_recnt=#{ex_recnt}
+		where
+			ex_idx=#{ex_idx}
+	</insert>
+	
+	<select id="dailyGetSunbun_pSQL" resultType="Integer">
+		select
+			ex_sunbun
+		from
+			bbs_rebbs
+		where
+			ex_idx=#{ex_idx}
 	</select>
 	
 </mapper>

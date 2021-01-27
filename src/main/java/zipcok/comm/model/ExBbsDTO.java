@@ -15,6 +15,7 @@ public class ExBbsDTO {
 	private String ex_head;
 	private int ex_readnum;
 	private String ex_name;
+	private int ex_recnt;
 	
 	public ExBbsDTO() {
 		super();
@@ -22,7 +23,7 @@ public class ExBbsDTO {
 	}
 
 	public ExBbsDTO(int ex_idx, String ex_comm_idx, String ex_id, String ex_subject, String ex_content, String ex_cal,
-			Date ex_writedate, Date ex_moddate, String ex_head, int ex_readnum, String ex_name) {
+			Date ex_writedate, Date ex_moddate, String ex_head, int ex_readnum, String ex_name, int ex_recnt) {
 		super();
 		this.ex_idx = ex_idx;
 		this.ex_comm_idx = ex_comm_idx;
@@ -35,6 +36,7 @@ public class ExBbsDTO {
 		this.ex_head = ex_head;
 		this.ex_readnum = ex_readnum;
 		this.ex_name = ex_name;
+		this.ex_recnt = ex_recnt;
 	}
 
 	public int getEx_idx() {
@@ -123,6 +125,14 @@ public class ExBbsDTO {
 
 	public void setEx_name(String ex_name) {
 		this.ex_name = ex_name;
+	}
+
+	public int getEx_recnt() {
+		return ex_recnt;
+	}
+
+	public void setEx_recnt(int ex_recnt) {
+		this.ex_recnt = ex_recnt;
 	}
 	
 	
