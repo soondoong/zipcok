@@ -54,7 +54,9 @@ public class MemberController {
 		
 		ModelAndView mav=new ModelAndView();
 		
-		String str=mdao.idCheck(mem_id);		
+
+		String str=mdao.idCheck(mem_id);
+		
 		//String gourl="";
 		//String msg="";
 		
@@ -106,10 +108,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("/idCheckDo.do")
-	public ModelAndView idCheckSubmit(@RequestParam("mem_id") String mem_id) {
-		boolean result=mdao.idCheckDo(mem_id);
+	public ModelAndView idCheckDo(@RequestParam("mem_id") String mem_id) {
+		int count = mdao.idCheckDo(mem_id);
 		ModelAndView mav=new ModelAndView();
-		if(result) {
+		if(count>0) {
 			mav.addObject("msg", mem_id+"는 이미 가입되어있는 아이디입니다.");
 		}else {
 			mav.addObject("msg", mem_id+"는 사용가능한 아이디입니다.");
