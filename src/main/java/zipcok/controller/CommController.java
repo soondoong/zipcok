@@ -100,14 +100,26 @@ public class CommController {
 	}
 	
 	@RequestMapping("commDailyReWrite.do")
-	public ModelAndView dailyReWrite(int re_idx, ExReBbsDTO dto, int ex_idx, String ex_id) {
+	public ModelAndView dailyReWrite(int re_idx, int ex_idx, ExReBbsDTO dto) {
 		int max=exBbsDao.dailyGetMaxSunbun(re_idx);
-		int result=exBbsDao.dailyReWrite(dto, ex_idx, ex_id, max);
+		dto.setRe_sunbun(max);
+		dto.setRe_bbs_idx(ex_idx);
+		int result=exBbsDao.dailyReWrite(dto);
 		String msg=result>0?"댓글 작성 성공!":"댓글 작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;	
+	}
+	
+	@RequestMapping("commDailyReDelete.do")
+	public ModelAndView dailyReDelete(int re_idx) {
+		int result=exBbsDao.dailyReDelete(re_idx);
+		String msg=result>0?"댓글삭제 성공!":"댓글삭제 실패!";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName("comm/commDailyMsg");
+		return mav;
 	}
 
 }
