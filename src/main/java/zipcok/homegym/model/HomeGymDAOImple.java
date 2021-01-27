@@ -24,6 +24,17 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public String HomeGymNickNameCheck(String hg_nickname) {
+		String nickname = sqlMap.selectOne("hgNickNameCheckSQL", hg_nickname);
+		return nickname;
+	}
+	
+	@Override
+	public int HomeGymAddPrice() {
+		int avgPrice = sqlMap.selectOne("hgAvgPriceSQL");
+		return avgPrice;
+	}
 
 	@Override
 	public int HomeGymAdd(HomeGymDTO dto) {

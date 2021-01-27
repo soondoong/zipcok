@@ -72,6 +72,18 @@ public class HomeGymController {
 		return "homegym/hgAddView";
 	}
 	
+	@RequestMapping(value = "HomeGymNickNameCheck.do")
+	public ModelAndView HomeGymNicNameCheck(@RequestParam("hg_nickname")String hg_nickname) {
+		String nickname = homegymDAO.HomeGymNickNameCheck(hg_nickname);
+		String msg = "";
+		if(nickname==null) msg = "0";
+		else msg = "1";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hg_NickNameCheck", msg);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymAdd(	
 			HomeGymDTO dto,
@@ -131,6 +143,16 @@ public class HomeGymController {
 			return null;
 		}	
 	}
+	
+	@RequestMapping(value = "avgPrice.do")
+	public ModelAndView HomeGymAvgPrice() {
+		int result = homegymDAO.HomeGymAddPrice();
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("avgPrice", result);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
 	@RequestMapping("HomeGymCardAdd.do")
 	public String HomeGymCardAddForm() {
 		return "homegym/hgCardAddView";
