@@ -214,12 +214,19 @@ z-index:30;
 	  				var cList=data.listAjax;
 	  				var str='총 코치수'+cList.length+'명\n';
 	  				alert(str);
-	  				for(var i=0;i<empList.length;i++){
-	  					var dto=empList[i];
-	  					str+='사원번호:'+dto.idx+'/이름:'+dto.name+'/부서명:'+dto.dept+"\n";
+	  				$('.ajaxDIV').html('');
+	  				for(var i=0;i<cList.length;i++){
+	  					var dto=cList[i];
+	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload'></div>');
+	  					
+	$('.ajaxDIV').append('<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>');
+	$('.ajaxDIV').append('<div><span><a href="#">'+dto.coach_intro_sub+'</a></span></div>');
+	$('.ajaxDIV').append(' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span>'+dto.avg+'</span></div>');						    
+
+	$(.ajacDIV).css('display','');
 	  					
 	  				}
-	  				alert(str);	
+	  		
 	  		}
 	  	}
 	  	
@@ -259,20 +266,37 @@ z-index:30;
 		    <div>
 		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>${dto.avg }</span>
 		    </div>
-		  </div>  
+	</div>  
 		  
-
 </c:forEach>
-</div> 
+		
+				<div class="paging">
+				${pageStr}
+				</div>
+</div>
 
-	<div class="paging">
-	${pageStr}
-	</div>
+
+<style>
+.ajacDIV{
+display:none;
+}
+</style>
+<!-- ajax검색된 리스트영역 -->
+	<div class="ajaxDIV">
+	
+	
+</div>
+
+<!-- ajax검색된 리스트영역 -->
+
+
+
 
 	</article>
 </section>
 
 <!-- 리스트 영역  -->
+
 
 </body>
 </html>

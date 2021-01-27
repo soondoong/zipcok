@@ -145,10 +145,12 @@ public class CoachDAOImple implements CoachDAO {
 	
 	/*Ajax 검색된 코치 총 갯수 가져오기*/
 	@Override
-	public int getAjaxTotalCnt(HashMap map) {
+	public int getAjaxTotalCnt(HashMap<String,Object> map) {
+		
+		System.out.println("ajax총검색된수진입");
 		int count=sqlMap.selectOne("ajaxTotalCnt",map);
 		//총게시물수가 0이면오류나니까 
-		System.out.println("총검색된수"+count);
+		System.out.println("ajax총검색된수"+count);
 		return count==0?1:count;
 	}
 	

@@ -127,7 +127,6 @@ and
 b.rev_target_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
-
 and
 zm.mem_gender
 <choose>
@@ -137,7 +136,7 @@ zm.mem_gender
 )c
 
 where 
-c.avg <![CDATA[>=]]> #{starValue}
+c.avg <![CDATA[>=]]> #{starVal}
 and
 rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 	
@@ -195,17 +194,17 @@ mf.mfile_key='회원프로필'
 	
 	
 	
-	
-<select id="ajaxTotalCnt" parameterType="Hashmap" resultType="Integer">
+ <select id="ajaxTotalCnt" parameterType="Hashmap" resultType="Integer">
 
 select
- count(*) from 
- (select rownum as rnum,zm.mem_name,
+count(*) from 
+(select rownum as rnum,zm.mem_name,
 cr.*,mf.mfile_upload,b.avg
 from
 (select rev_target_id,trunc(avg(rev_star),1) as avg
 from
-(select c.coach_mem_id
+(select 
+c.coach_mem_id
 from coach_regist c,coach_category g
 where 
 c.coach_mem_id = g.cate_mem_id
@@ -227,10 +226,9 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id)a,star_review
+group by c.coach_mem_id)a, star_review
 where a.coach_mem_id = rev_target_id 
-group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+group by rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
 b.rev_target_id = cr.coach_mem_id
 and
@@ -239,18 +237,15 @@ and
 b.rev_target_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
-
 and
 zm.mem_gender
 <choose>
         <when test="gender == '전체'">like '%%'</when>
-        <when test="gender != '전체'"> like '${gender}%' </when>
+        <when test="gender != '전체'"> like '%${gender}%' </when>
 </choose>
-
 )c
-
 where 
-c.avg <![CDATA[>=]]> #{starValue}
+c.avg <![CDATA[>=]]> #{starVal}
 
 
 </select>
