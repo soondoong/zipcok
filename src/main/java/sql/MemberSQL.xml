@@ -64,7 +64,7 @@
 		select mem_id from zipcok_member where mem_id = #{mem_id} 
 	</select>
 	
-	<update id="pwdUpdate" parameterMap="zipcok.member.model.MemberDTO">
+	<update id="pwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
 	</update>
 

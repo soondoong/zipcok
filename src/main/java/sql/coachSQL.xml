@@ -134,7 +134,6 @@ zm.mem_gender
         <when test="gender == '전체'">like '%%'</when>
         <when test="gender != '전체'"> like '${gender}%' </when>
 </choose>
-
 )c
 
 where 

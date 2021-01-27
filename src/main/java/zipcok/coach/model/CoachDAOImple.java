@@ -65,8 +65,7 @@ public class CoachDAOImple implements CoachDAO {
 			
 		yogaList.get(i).setCate_name(cateName); //ex)필라테스/다이어트 or 다이어트
 		
-		}
-		
+		}	
 		map.put("yoga", yogaList);
 		
 		return map ;
@@ -84,7 +83,7 @@ public class CoachDAOImple implements CoachDAO {
 		keys.put("end",end);
 		
 		List<MainCoachDTO> searchList=sqlMap.selectList("ajaxSearchCoachByKey",keys);
-		
+		System.out.println("여기됴");
 		for(int i=0;i<searchList.size();i++) {
 			String cateName="";
 			/*코치카테고리정보 담기*/
