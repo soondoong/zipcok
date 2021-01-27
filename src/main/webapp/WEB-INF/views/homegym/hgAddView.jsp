@@ -7,19 +7,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script>
-	$(function() {
-		$("#start_date").datepicker({
-			dateFormat : "yy-mm-dd"
-		});
-
-	});
-	$(function() {
-		$("#end_date").datepicker({
-			dateFormat : "yy-mm-dd"
-		});
-	});
-</script>
 <style>
 .HomeGymAddLabel {
 	width: 200px;
@@ -34,8 +21,30 @@ ul {
 textarea {
 	resize: none;
 }
+#date_div {
+width:600px;
+}
+.ui-datepicker {
+width:600px;
+}
 </style>
 <script>
+	$(function() {
+		$('#date_div').datepicker({
+			dateFormat: 'yy-mm-dd',
+//			prevText: '이전 달',
+//			nextText: '다음 달',
+//			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+//			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+//			dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+//			dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+//			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+//			showMonthAfterYear: true,
+//			changeMonth:true,
+//			changeYear:true,
+//			yearSuffix:'년'
+		});
+	});
 	var count = 0;
 	function addEq(){
 		
@@ -98,6 +107,15 @@ textarea {
 		
 		document.getElementById('addForm').submit();
 	}
+	function start_change(){
+		var result = document.getElementById('start_date').value;
+		$("#date_div").datepicker( "option", "minDate", result );
+	}
+	function end_change(){
+		var result = document.getElementById('end_date').value;
+		$("#date_div").datepicker( "option", "maxDate", result );
+	}
+
 </script>
 </head>
 <body>
@@ -197,76 +215,32 @@ textarea {
 		<table>
 			<tr>
 				<th>시작일</th>
-				<td><input type="text" id="start_date" name="hg_start_date"
-					readonly="readonly"> <input type="hidden" id="start_year"
-					name="hg_start_date_year"> <input type="hidden"
-					id="start_month" name="hg_start_date_month"> <input
-					type="hidden" id="start_day" name="hg_start_date_day"></td>
+				<td>
+				<input type="date" id="start_date" name="hg_start_date" onchange="javascript:start_change();">
+				<input type="hidden" id="start_year" name="hg_start_date_year">
+				<input type="hidden" id="start_month" name="hg_start_date_month">
+				<input type="hidden" id="start_day" name="hg_start_date_day">
+				</td>
 				<th>마감일</th>
-				<td><input type="text" id="end_date" name="hg_end_date"
-					readonly="readonly"> <input type="hidden" id="end_year"
-					name="hg_end_date_year"> <input type="hidden"
-					id="end_month" name="hg_end_date_month"> <input
-					type="hidden" id="end_day" name="hg_end_date_day"></td>
+				<td>
+				<input type="date" id="end_date" name="hg_end_date" onchange="javascript:end_change();">
+				<input type="hidden" id="end_year" name="hg_end_date_year">
+				<input type="hidden" id="end_month" name="hg_end_date_month">
+				<input type="hidden" id="end_day" name="hg_end_date_day">
+				</td>
 			</tr>
 
 			<tr>
 				<th>불가능한 날짜</th>
-				<td><select name="hg_not_date">
-						<option value="평일">평일</option>
-						<option value="주말">주말</option>
-						<option value="없음">없음</option>
+				<td><select name="hg_not_date" id = "not_date" onchange = "not_change();">
+						<option value="0" selected>없음</option>
+						<option value="1">평일</option>
+						<option value="2">주말</option>
 				</select></td>
 				<td colspan="2"></td>
 			</tr>
 		</table>
-		<table border="1" width="800" height="400">
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+		<div id = "date_div"></div>
 		<ul>
 			<li><label class="HomeGymAddLabel">예약 가능 시간</label> <select
 				name="hg_start_time">
