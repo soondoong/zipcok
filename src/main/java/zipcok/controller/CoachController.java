@@ -42,7 +42,12 @@ public class CoachController {
 	/*메인검색페이지 이동*/
 	@RequestMapping("findCoachList.do")  
 		public ModelAndView gotoCoachList() {
-		HashMap<String, List<MainCoachDTO>> map=dao.mainCoachList();
+		HashMap<String,String> categoryMap = new HashMap<String, String>();
+		categoryMap.put("pt", "퍼스널트레이닝");
+		categoryMap.put("yoga", "요가");
+		
+		
+		HashMap<String, List<MainCoachDTO>> map=dao.mainCoachList(categoryMap);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("map",map);
 		String path=c.getRealPath("/upload/coach/");
@@ -105,6 +110,8 @@ public class CoachController {
 		return "coach/coachRegistView";
 	}
 	
+	
+	
 	/*코치가입하기 기능*/
 	@RequestMapping("coachJoin.do")
 	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list,
@@ -127,6 +134,8 @@ public class CoachController {
 		map.put("dto",dto);
 		int result=dao.coachJoin(map);
 		
+	/*다중파일첨부 시 필요*/	
+		
 		
 		ArrayList<CoachFileDTO> fileArr=new ArrayList<CoachFileDTO>();
 		/*파일복사및저장하기*/
@@ -145,7 +154,7 @@ public class CoachController {
 			fileArr.add(cdto);
 		}
 		
-		
+		/*다중파일첨부 시 필요*/		
 		
 		int count=dao.coachInfoFileUpload(fileArr);
 		if(count==fileArr.size()) {

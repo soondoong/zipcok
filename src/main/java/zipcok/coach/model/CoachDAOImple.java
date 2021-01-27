@@ -30,9 +30,9 @@ public class CoachDAOImple implements CoachDAO {
 	
 	/*카테고리별 전체코치리스트 불러오기*/
 	@Override
-	public HashMap<String, List<MainCoachDTO>> mainCoachList() {
+	public HashMap<String, List<MainCoachDTO>> mainCoachList(HashMap<String,String> categoryMap) {
 		HashMap<String, List<MainCoachDTO>> map=new HashMap<String, List<MainCoachDTO>>();
-		List<MainCoachDTO> ptList=sqlMap.selectList("findCategoryCoachPT");
+		List<MainCoachDTO> ptList=sqlMap.selectList("findCategoryCoach",categoryMap.get("pt"));
 		
 		for(int i=0;i<ptList.size();i++) {
 			String cateName="";
@@ -52,10 +52,9 @@ public class CoachDAOImple implements CoachDAO {
 		
 		
 		
+
 		
-		
-		
-		List<MainCoachDTO> yogaList=sqlMap.selectList("findCategoryCoachYoga");
+		List<MainCoachDTO> yogaList=sqlMap.selectList("findCategoryCoach",categoryMap.get("yoga"));
 		
 		for(int i=0;i<yogaList.size();i++) {
 			String cateName="";
