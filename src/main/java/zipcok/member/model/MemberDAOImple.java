@@ -48,11 +48,6 @@ public class MemberDAOImple implements MemberDAO {
 		return str;
 	}
 	
-	@Override
-	public int idCheckDo(String mem_id) {
-		int count = sqlMap.selectOne("idCheckDo", mem_id);
-		return count;
-	}
 	
 }
 

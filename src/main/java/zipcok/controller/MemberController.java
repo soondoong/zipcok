@@ -188,19 +188,6 @@ public class MemberController {
 		return "member/idCheck";
 	}
 
-	@RequestMapping("/idCheckDo.do")
-	public ModelAndView idCheckSubmit(@RequestParam("mem_id") String mem_id) {
-		boolean result=mdao.idCheckDo(mem_id);
-		ModelAndView mav=new ModelAndView();
-		if(result) {
-			mav.addObject("msg", mem_id+"는 이미 가입되어있는 아이디입니다.");
-		}else {
-			mav.addObject("msg", mem_id+"는 사용가능한 아이디입니다.");
-		}
-		mav.setViewName("member/idCheck_ok");
-		return mav;
-	}
 
-	
 	
 }
