@@ -60,17 +60,19 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	@Override
 	public int dailyGetMaxSunbun(int re_idx) {
-		int count=sqlMap.selectOne("dailyGetMaxSunbunSQL");
+		int count=sqlMap.selectOne("dailyGetMaxSunbunSQL",re_idx);
 		return count;
 	}
 	
 	@Override
-	public int dailyReWrite(ExReBbsDTO dto, int ex_idx, String ex_id, int max) {
-		Map map=new HashMap();
-		map.put("re_bbs_idx", ex_idx);
-		map.put("re_id", ex_id);
-		map.put("max", max);
-		int count=sqlMap.insert("bbsReWriteSQL",map);
+	public int dailyReWrite(ExReBbsDTO dto) {
+		int count=sqlMap.insert("bbsReWriteSQL",dto);
+		return count;
+	}
+	
+	@Override
+	public int dailyReDelete(int re_idx) {
+		int count=sqlMap.delete("bbsReDeleteSQL",re_idx);
 		return count;
 	}
 	

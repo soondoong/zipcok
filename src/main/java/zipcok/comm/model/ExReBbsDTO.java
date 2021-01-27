@@ -10,8 +10,8 @@ public class ExReBbsDTO {
 	private String re_id;
 	private String re_content;
 	private Date re_writedate;
-	private int lev;
-	private int sunbun;
+	private int re_lev;
+	private int re_sunbun;
 	private int re_bbs_idx;
 	
 	public ExReBbsDTO() {
@@ -20,7 +20,7 @@ public class ExReBbsDTO {
 	}
 
 	public ExReBbsDTO(int re_idx, int re_bbs, int re_comm_idx, String re_id, String re_content, Date re_writedate,
-			int lev, int sunbun, int re_bbs_idx) {
+			int re_lev, int re_sunbun, int re_bbs_idx) {
 		super();
 		this.re_idx = re_idx;
 		this.re_bbs = re_bbs;
@@ -28,8 +28,8 @@ public class ExReBbsDTO {
 		this.re_id = re_id;
 		this.re_content = re_content;
 		this.re_writedate = re_writedate;
-		this.lev = lev;
-		this.sunbun = sunbun;
+		this.re_lev = re_lev;
+		this.re_sunbun = re_sunbun;
 		this.re_bbs_idx = re_bbs_idx;
 	}
 
@@ -81,20 +81,20 @@ public class ExReBbsDTO {
 		this.re_writedate = re_writedate;
 	}
 
-	public int getLev() {
-		return lev;
+	public int getRe_lev() {
+		return re_lev;
 	}
 
-	public void setLev(int lev) {
-		this.lev = lev;
+	public void setRe_lev(int re_lev) {
+		this.re_lev = re_lev;
 	}
 
-	public int getSunbun() {
-		return sunbun;
+	public int getRe_sunbun() {
+		return re_sunbun;
 	}
 
-	public void setSunbun(int sunbun) {
-		this.sunbun = sunbun;
+	public void setRe_sunbun(int re_sunbun) {
+		this.re_sunbun = re_sunbun;
 	}
 
 	public int getRe_bbs_idx() {
@@ -104,7 +104,6 @@ public class ExReBbsDTO {
 	public void setRe_bbs_idx(int re_bbs_idx) {
 		this.re_bbs_idx = re_bbs_idx;
 	}
-	
 	
 	
 	

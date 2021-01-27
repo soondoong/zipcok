@@ -33,40 +33,57 @@
 		<tr height="250">
 			<td colspan="8" align="left" valign="top">${dto.ex_content }</td>
 		</tr>
-		<c:if test="${empty list}">
-			<tr>
-				<td colspan="8" align="center">
-					등록된 댓글이 없습니다.
-				</td>
-			</tr>
-		</c:if>
-		<c:forEach var="dto2" items="${list}">
-		<tr>
-			<td>${dto2.re_id}</td>
-			<td colspan="6" align="center">${dto2.re_content}</td>
-			<td><input type="button" value="삭제"></td>
-		</tr>
-		</c:forEach>
-		<tr>
-			<td>댓글작성자</td>
-			<td colspan="6"><input type="text"></td>
-			<td><input type="button" value="댓글달기" onclick="location.href='commDailyReWrite.do?ex_idx=${dto.ex_idx}'"></td>
-		</tr>
-		<tr>
-			<td>이전글</td>
-			<td>위화살표</td>
-			<td colspan="6"><a href="#">이전글</a></td>
-		</tr>
-		<tr>
-			<td>다음글</td>
-			<td>아래화살표</td>
-			<td colspan="6"><a href="#">다음글</a></td>
-		</tr>
-		<tr>
-			<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
-			<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
-			<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
-		</tr>
 	</table>
+	<form name="replyform" action="commDailyReWrite.do">
+		<table border="1">
+			<c:if test="${empty list}">
+				<tr>
+					<td colspan="8" align="center">
+						등록된 댓글이 없습니다.
+					</td>
+				</tr>
+			</c:if>
+			<c:forEach var="dto2" items="${list}" varStatus="i">
+			<tr>
+				<td>${dto2.re_id}</td>
+				<td colspan="6" align="center">${dto2.re_content}</td>
+				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_idx=${dto2.re_idx}'"></td>
+			</tr>
+			<tr>
+				<td>대댓글</td>
+				<td>대댓글작성자</td>
+				<td><input type="text" name="rere_content"></td>
+				<td><input type="button" value="댓글달기"></td>
+			</tr>
+			<c:if test="${i.last}">
+			<c:set var="re_idx" value="${dto2.re_idx}"></c:set>
+			<input type="hidden" name="ex_idx" value="${dto.ex_idx}">
+			<input type="hidden" name="re_idx" value="${re_idx}">
+			</c:if>
+			</c:forEach>
+			<tr>
+				<td>댓글작성자</td>
+				<td colspan="6"><input type="text" name="re_content"></td>
+				<td><input type="submit" value="댓글달기"></td>
+			</tr>
+			</table>
+			<table>
+			<tr>
+				<td>이전글</td>
+				<td>위화살표</td>
+				<td colspan="6"><a href="#">이전글</a></td>
+			</tr>
+			<tr>
+				<td>다음글</td>
+				<td>아래화살표</td>
+				<td colspan="6"><a href="#">다음글</a></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
+				<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
+				<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>

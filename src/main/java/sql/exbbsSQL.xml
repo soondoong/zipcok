@@ -75,7 +75,7 @@
 		from 
 			bbs_rebbs
 		where
-			re_idx=#{re_idx}	
+			re_idx=#{re_idx}
 	</select>
 	
 	<insert id="bbsReWriteSQL" parameterType="zipcok.comm.model.ExReBbsDTO">
@@ -88,9 +88,16 @@
 				#{re_content},
 				sysdate,
 				1,
-				?,
+				#{re_sunbun}+1,
 				#{re_bbs_idx})
 	</insert>
+	
+	<delete id="bbsReDeleteSQL">
+		delete from
+			bbs_rebbs
+		where
+			re_idx=#{re_idx}
+	</delete>
 	
 	<select id="dailyReListSQL" parameterType="Integer" resultType="zipcok.comm.model.ExReBbsDTO">
 		select
