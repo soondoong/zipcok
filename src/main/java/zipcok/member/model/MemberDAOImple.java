@@ -2,6 +2,8 @@ package zipcok.member.model;
 
 import java.util.*;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import zipcok.coach.model.CoachFileDTO;
@@ -47,6 +49,26 @@ public class MemberDAOImple implements MemberDAO {
 		String str = sqlMap.selectOne("getMemberName", mem_id);
 		return str;
 	}
+	
+	@Override
+	public String idFind(String mem_email) {
+		String str = sqlMap.selectOne("idFind", mem_email);
+		return str;
+	}
+	
+	@Override
+	public String pwdFind(String mem_id) {
+		String str = sqlMap.selectOne("pwdFind", mem_id);
+		return str;
+	}
+	
+	
+	@Override
+	public int pwdUpdate(String mem_id) {
+		int count = sqlMap.update("pwdUpdate", mem_id);
+		return count;
+	}
+	
 	
 	
 }

@@ -29,7 +29,7 @@
 					type="submit" value="로그인" style="background-color: cornflowerblue; color: white; line-height: 1.80;">
 			</div>
 			<div>
-				<a href="#">ID Find</a> / <a href="#">Pwd Find</a>
+				<a href="idFindForm.do">ID Find</a> / <a href="pwdFindForm.do">Pwd Find</a> <a href="nansooTest.do">난수 테스트</a>
 			</div>
 		</div>
 	</form>

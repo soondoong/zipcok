@@ -182,12 +182,71 @@ public class MemberController {
 		return "redirect:/index.do";
 	}
 	
-	@RequestMapping("/idCheckForm.do")
-	public String idCheckForm() {
+	@RequestMapping("/idFindForm.do")
+	public String idFindForm() {
+		return "member/idFind";
+	}
+	
+	@RequestMapping("/idFind.do")
+	public ModelAndView idFind(@RequestParam("mem_email")String mem_email) {
 		
-		return "member/idCheck";
+		String mem_id=mdao.idFind(mem_email);
+		ModelAndView mav=new ModelAndView();
+		
+		if(mem_id==null) {
+			mav.addObject("msg", "해당 이메일로 가입하신 ID가 존재하지 않습니다.");
+			mav.setViewName("member/idFind_ok");
+		}else {
+			mav.addObject("mem_id", mem_id);
+			mav.addObject("msg", "찾으신 ID는 "+mem_id+" 입니다.");
+			mav.setViewName("member/idFind_ok");
+		}
+		return mav;
+	}
+	
+	@RequestMapping("/pwdFindForm.do")
+	public String pwdFindForm() {
+		
+		return "member/pwdFindForm";
+	}
+	
+	
+	
+	@RequestMapping("/pwdFind.do")
+	public ModelAndView pwdFindSubmit(
+			@RequestParam("code1") String code1,
+			@RequestParam("code2") String code2,
+			@RequestParam("mem_id") String mem_id) {
+		
+		ModelAndView mav = new ModelAndView();
+		String str = mdao.pwdFind(mem_id);
+		
+		if(str!=null) {
+			if(code1.equals(code2)) {
+				mav.addObject("msg","인증이 완료 되었습니다");
+				mav.addObject("gourl","pwdUpdate.do");
+				mav.setViewName("member/pwdFind_ok");
+			}else {
+				mav.addObject("msg","인증번호가 잘못되었습니다.");
+				mav.addObject("gourl", "index.do");
+				mav.setViewName("member/pwdFind_ok");	
+			}
+		}else {
+			mav.addObject("msg","해당 아이디는 존재하지 않습니다.");
+			mav.addObject("gourl", "index.do");
+			mav.setViewName("member/pwdFind_ok");	
+		}
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping("/nansooTest.do")
+	public String nansooTest() {
+		return "member/nansooTest";
 	}
 
-
+	
+	
 	
 }
