@@ -6,6 +6,29 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+function bbsReWrite(re_idx,ex_idx){
+	re_content=document.getElementById("re_content").value;
+	url="commDailyReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&re_content="+re_content;
+	location.href=url;
+}
+function bbsRereWrite(re_idx,ex_idx){
+	rere_content=document.getElementById("rere_content").value;
+	url="commDailyReReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&rere_content="+rere_content;
+	location.href=url;
+}
+function bbsReReOpen(re_idx){
+	url=location.href;
+	url+="&re_idx="+re_idx;
+	location.href=url;
+	var tr1=document.getElementById("reple");
+	tr1.style.display="table-row";
+}
+function bbsReReClose(){
+	var tr1=document.getElementById("reple");
+	tr1.style.display="none";
+}
+</script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
@@ -14,7 +37,7 @@
 <table border="1" cellspacing="0" width="550">
 		<tr>
 			<th>제목</th>
-			<td>${dto.ex_subject}</td>
+			<td>${dto.ex_subject}(${dto.ex_recnt})</td>
 			<th>조회수</th>
 			<td>${dto.ex_readnum}</td>
 			<th>작성날짜</th>
@@ -36,12 +59,18 @@
 	</table>
 	<form name="replyform" action="commDailyReWrite.do">
 		<table border="1">
+			<tr>
+				<td>총 댓글 수</td>
+				<td>${dto.ex_recnt}</td>
+			</tr>
 			<c:if test="${empty list}">
 				<tr>
 					<td colspan="8" align="center">
 						등록된 댓글이 없습니다.
 					</td>
 				</tr>
+				<c:set var="re_idx" value="0"></c:set>
+				<c:set var="ex_idx" value="${dto.ex_idx}"></c:set>
 			</c:if>
 			<c:forEach var="dto2" items="${list}" varStatus="i">
 			<tr>
@@ -49,22 +78,21 @@
 				<td colspan="6" align="center">${dto2.re_content}</td>
 				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_idx=${dto2.re_idx}'"></td>
 			</tr>
-			<tr>
-				<td>대댓글</td>
-				<td>대댓글작성자</td>
-				<td><input type="text" name="rere_content"></td>
-				<td><input type="button" value="댓글달기"></td>
-			</tr>
 			<c:if test="${i.last}">
 			<c:set var="re_idx" value="${dto2.re_idx}"></c:set>
-			<input type="hidden" name="ex_idx" value="${dto.ex_idx}">
-			<input type="hidden" name="re_idx" value="${re_idx}">
+			<c:set var="ex_idx" value="${dto.ex_idx}"></c:set>
 			</c:if>
+			<tr>
+				<td>대댓글</td>
+				<td><input type="text" name="rere_content" id="rere_content"></td>
+				<td><input type="button" value="대댓글달기" onclick="bbsRereWrite(${dto2.re_idx},${dto.ex_idx})"></td>
+				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_idx=${dto2.re_idx}'"></td>
+			</tr>
 			</c:forEach>
 			<tr>
 				<td>댓글작성자</td>
-				<td colspan="6"><input type="text" name="re_content"></td>
-				<td><input type="submit" value="댓글달기"></td>
+				<td colspan="6"><input type="text" name="re_content" id="re_content"></td>
+				<td><input type="button" value="댓글달기" onclick="bbsReWrite(${re_idx},${ex_idx})"></td>
 			</tr>
 			</table>
 			<table>
