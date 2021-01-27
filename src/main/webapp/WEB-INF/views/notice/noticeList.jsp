@@ -32,7 +32,7 @@ function goCategory(){
 	<tr>
 		<th>카테고리 유형</th>
 		<td> <select onchange="javascript:goCategory()" id="select">
-			<option >전체</option>
+			<option>전체</option>
 			<option>홈짐</option>
 			<option>코치 매칭</option>
 			<option>결제</option>

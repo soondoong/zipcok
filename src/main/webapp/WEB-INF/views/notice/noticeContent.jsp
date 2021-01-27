@@ -52,7 +52,7 @@ function goUpdateView(){
 		<c:otherwise>
 		<hr>
 		<tr>
-			<td>이전 글<a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">${prev.bbs_subject}</a></td>
+			<td>이전 글<a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">[${prev.bbs_category}]${prev.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
@@ -65,7 +65,7 @@ function goUpdateView(){
 		<c:otherwise>
 		<tr>
 		<hr>
-			<td>다음 글<a href="noticeContent.do?bbs_idx=${next.bbs_idx}">${next.bbs_subject}</a></td>
+			<td>다음 글<a href="noticeContent.do?bbs_idx=${next.bbs_idx}">[${next.bbs_category}]${next.bbs_subject}</a></td>
 		</tr>
 		</c:otherwise>
 	</c:choose>
