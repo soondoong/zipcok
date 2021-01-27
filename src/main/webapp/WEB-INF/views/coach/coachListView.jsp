@@ -19,6 +19,7 @@ text-align:center;
 line-height: 1;
 }
 .contentsWrap{
+magin:0 auto;
 margin-top:40px;
 padding:0px 30px;
 }
@@ -32,7 +33,10 @@ float:left;
 }
 
 .image-container img{
-width:350px;
+width:250px;
+height:270px;
+object-fit: cover;
+
 }
 .image-container{
    overflow: hidden;
@@ -40,7 +44,8 @@ width:350px;
    align-items: center;
    justify-content: center;
    width: 230px;
-   height:300px;
+   height:270px;
+   margin-bottom:15px;
 }
 .extype{
 text-align:center;
@@ -53,6 +58,17 @@ font-size: 0.8rem;
 }
 .category{
 font-size: 0.8rem;
+}
+.h5search{
+margin-bottom: 30px;
+}
+.paging{
+position: relative;
+left:50%;
+}
+.paging a{
+font-size:1.6rem;
+padding-right:20px;
 }
 </style>
 
@@ -98,6 +114,7 @@ function search(){
 		 		<option>퍼스널트레이닝</option>
 		 		<option>필라테스</option>
 		 		<option>요가</option>
+		 		<option>다이어트</option>
 		 	</select>
 		 	
 		 	<input type="submit" value="검색하기">
@@ -151,7 +168,7 @@ function search(){
 		<div class="oneperson">
 		
 			<div class="image-container">
-		        <img src="img/coach/${dto2.mfile_upload }" alt="">
+		        <img src="/zipcok/upload/coach/${dto2.mfile_upload}" alt="">
 		    </div>
 		    
 		    <div>

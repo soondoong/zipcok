@@ -41,16 +41,17 @@ var address = $('#mem_detailaddr');
 $(document).ready(function() {
    var address = $('#mem_detailaddr');
    
-
+ 
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
-         if (idJ.test($('#mem_id').val())) {
+        
+         /*if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
          } else {
             inval_Arr[0] = false;
             alert('아이디를  확인하세요.');
             return false;
-         }
+         } */
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
                && pwJ.test($('#mem_pwd').val())) {
@@ -327,10 +328,20 @@ function execPostCode() {
 						<span id="idCheckMsg"></span> <input type="button"
 						class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						value="중복확인" onclick="show()">
+						value="중복확인">
+						
 					<!--  <div class="eheck_font" id="id_check"></div> -->
 				</div>
-
+		<!-- 		<div class="form-group">
+					<label for="id">아이디</label> <input type="text" class="form-control"
+						id="mem_id" name="mem_id" placeholder="ID">
+						<span id="idCheckMsg"></span> <input type="button"
+						class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						value="중복확인" onclick="show()">
+					 <div class="eheck_font" id="id_check"></div>
+				</div>
+ -->
 
 				<div class="form-group">
 					<label for="pw">비밀번호</label> <input type="password"

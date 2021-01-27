@@ -5,9 +5,68 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- daum 도로명주소 찾기 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+//우편번호 찾기 버튼 클릭시 발생 이벤트
+function execPostCode() {
+     new daum.Postcode({
+         oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+            if(fullRoadAddr !== ''){
+                fullRoadAddr += extraRoadAddr;
+            }
+         
+            document.getElementById('coach_floc').value = fullRoadAddr;
+
+            //document.getElementById('mem_detailaddr').value = data.jibunAddress; 
+        }
+     }).open();
+ }
+ 
+ /*체크박스 두개만 가능하게하기*/
+$(function(){
+
+  $('.cate').click(function(){
+  if($(".cate:checked").length >2){  alert('최대 두 가지 선택가능합니다.'); $(this).prop('checked', false); }
+  });
+});
+
+
+</script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
+
+<c:if test="${empty sessionScope.sid }">
+<script>
+alert('로그인 후 이용가능 합니다!');
+location.href='index.do';
+</script>
+</c:if>
+
 <article class="p-5">
 <form action="coachJoin.do" method="post" enctype="multipart/form-data">
 <div class="col-sm-3 col-md-offset-3">
@@ -15,7 +74,8 @@
 <hr>
 	<div class="form-group">
 		<label>아이디</label> 
-		<input type="text" class="form-control" id="coach_mem_id" name="coach_mem_id">
+		<input type="text" class="form-control" id="coach_mem_id" name="coach_mem_id"
+		value="${sessionScope.sid }" readonly="readonly">
 		<div class="eheck_font"></div>
 	</div>
 	
@@ -31,7 +91,12 @@
 	<div class="form-group">
 	<label>활동지역</label> 
 		<input class="form-control" style="top: 5px;" placeholder="활동지역 주소"
-			name="coach_floc" id="coach_floc" type="text" />
+			name="coach_floc" id="coach_floc" type="text" readonly="readonly"/>
+					<button type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						onclick="execPostCode();">
+						<i class="fa fa-search"></i> 주소 찾기
+					</button>
 	</div>
 
 	<div class="form-group">
@@ -57,13 +122,30 @@
 	
 	<div class="form-group">
 	  <label for="cate_name">카테고리</label> 
-	  <select name="cate_name">
-	  	<option  selected="selected">퍼스널트레이닝</option>
-	  	<option>필라테스</option>
-	  	<option>요가</option>
-	  	<option>다이어트</option>
-	  	</select>
+	  	<div>
+	    <div class="form-check form-check-inline">
+		  <input class="form-check-input cate" class="cate"
+		   name="cate_name" type="checkbox" value="퍼스널트레이닝">
+		  <label class="form-check-label" for="inlineCheckbox1">퍼스널트레이닝</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input cate" 
+		   name="cate_name" type="checkbox" value="필라테스">
+		  <label class="form-check-label" >필라테스</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input cate"  
+		  name="cate_name" type="checkbox" value="다이어트">
+		  <label class="form-check-label">다이어트</label>
+		</div>
+		<div class="form-check form-check-inline">
+		  <input class="form-check-input cate" 
+		  name="cate_name" type="checkbox" value="요가">
+		  <label class="form-check-label">요가</label>
+		</div>
 	</div>
+</div>
+	
 	
 	<div class="form-group">
 		<label>사진등록</label>

@@ -54,6 +54,7 @@ public class MemberController {
 		
 		ModelAndView mav=new ModelAndView();
 		
+
 		String str=mdao.idCheck(mem_id);
 		
 		//String gourl="";
