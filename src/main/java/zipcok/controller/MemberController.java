@@ -1,4 +1,3 @@
-
 package zipcok.controller;
 
 import javax.servlet.ServletContext;
@@ -242,7 +241,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/pwdUpdate.do")
-	public ModelAndView pwdUpdate(
+	public ModelAndView pwdUpdate(MemberDTO dto,
 			@RequestParam("mem_pwd")String mem_pwd,
 			@RequestParam("mem_pwd2")String mem_pwd2,
 			@RequestParam("mem_id")String mem_id) {
@@ -250,12 +249,12 @@ public class MemberController {
 		ModelAndView mav=new ModelAndView();
 
 		if(mem_pwd.equals(mem_pwd2)) {
-			int result=mdao.pwdUpdate(mem_id);
+			int result=mdao.pwdUpdate(dto);
 			mav.addObject("msg", "비밀번호 수정 완료!");
 			mav.addObject("gourl", "loginForm.do");
 			mav.setViewName("member/pwdUpdate_ok");
 		}else {
-			mav.addObject("msg", "비밀번호를 확인해주세요");
+			mav.addObject("msg", "잘못된 정보입니다 고객센터에 문의해주세요.");
 			mav.addObject("gourl", "loginForm.do");
 			mav.setViewName("member/pwdUpdate_ok");
 		}
