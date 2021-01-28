@@ -6,9 +6,9 @@
     <select id="findCategoryCoach" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
     
 select rownum as rnum,zm.mem_name,
-cr.*,mf.mfile_upload,b.avg
+cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
 from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
@@ -19,9 +19,11 @@ c.coach_floc like '%%'
 and
 c.coach_ex_type like '%%'
 and
-cate_name = #{category} 
+cate_name = #{category}
 group by c.coach_mem_id)a,star_review
 where a.coach_mem_id = rev_target_id 
+and
+rev_key = '회원이코치'
 group by
 rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -32,6 +34,7 @@ and
 b.rev_target_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
+
 
 </select>
 	
@@ -74,34 +77,16 @@ mf.mfile_key='회원프로필'
 	</select>
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
 	
 select
  * from 
  (select rownum as rnum,zm.mem_name,
-cr.*,mf.mfile_upload,b.avg
+cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
 from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
@@ -127,6 +112,8 @@ cate_name
 </choose>
 group by c.coach_mem_id)a,star_review
 where a.coach_mem_id = rev_target_id 
+and
+rev_key = '회원이코치'
 group by
 rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -153,9 +140,9 @@ rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 select
  * from 
  (select rownum as rnum,zm.mem_name,
-cr.*,mf.mfile_upload,b.avg
+cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
 from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
@@ -180,7 +167,9 @@ cate_name
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
 group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id 
+where a.coach_mem_id = rev_target_id
+and
+rev_key = '회원이코치' 
 group by
 rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -200,7 +189,7 @@ zm.mem_gender
 )c
 
 where 
-c.avg <![CDATA[>=]]> #{starVal}
+coach_year between 0 and #{yearVal}
 and
 rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 	
@@ -309,7 +298,7 @@ zm.mem_gender
 </choose>
 )c
 where 
-c.avg <![CDATA[>=]]> #{starVal}
+coach_year between 0 and #{yearVal}
 
 
 </select>

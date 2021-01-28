@@ -20,6 +20,7 @@ public class MainCoachDTO {
 	private String cate_mem_id;
 	private String cate_name;
 	private double avg;
+	private int starcnt;
 	
 public MainCoachDTO() {
 	// TODO Auto-generated constructor stub
@@ -153,10 +154,18 @@ public void setAvg(double avg) {
 	this.avg = avg;
 }
 
+public int getStarcnt() {
+	return starcnt;
+}
+
+public void setStarcnt(int starcnt) {
+	this.starcnt = starcnt;
+}
+
 public MainCoachDTO(String mem_name, String mfile_upload, String coach_mem_id, String coach_intro_sub,
 		String coach_intro_cont, int coach_year, String coach_floc, String coach_sloc, String coach_ex_type,
 		String coach_mat, Date coach_joindate, Date coach_change, int cate_idx, String cate_mem_id, String cate_name,
-		double avg) {
+		double avg, int starcnt) {
 	super();
 	this.mem_name = mem_name;
 	this.mfile_upload = mfile_upload;
@@ -174,6 +183,7 @@ public MainCoachDTO(String mem_name, String mfile_upload, String coach_mem_id, S
 	this.cate_mem_id = cate_mem_id;
 	this.cate_name = cate_name;
 	this.avg = avg;
+	this.starcnt = starcnt;
 }
 
 

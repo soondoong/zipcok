@@ -98,10 +98,10 @@ public class CoachController {
 	/*Ajax 필터로 추가검색*/
 	@RequestMapping(value="searchAjax.do")
 	public ModelAndView coachListAjax(@RequestParam(value="gender")String gender,
-			@RequestParam(value="starVal")String starVal, @RequestParam(value="location")String location,
+			@RequestParam(value="yearVal")String yearVal, @RequestParam(value="location")String location,
 			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
-		System.out.println(location+"/"+extype+"/"+category+"/"+gender+"/"+starVal); 
+		System.out.println(location+"/"+extype+"/"+category+"/"+gender+"/"+yearVal); 
 		/*키워드 담기*/
 		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
 		
@@ -109,7 +109,7 @@ public class CoachController {
 		keywordMap.put("extype",extype);
 		keywordMap.put("category",category);
 		keywordMap.put("gender",gender);
-		keywordMap.put("starVal",starVal);
+		keywordMap.put("yearVal",yearVal);
 		
 
 		/*페이지설정*/
@@ -117,7 +117,7 @@ public class CoachController {
 		System.out.println("tcnt검색된수:"+totalCnt);
 		int listSize=4;
 		int pageSize=5;
-		String params="&gender="+gender+"&"+"starVal="+starVal;
+		String params="&gender="+gender+"&"+"yearVal="+yearVal;
 		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
 		String pageStr=zipcok.page.AjaxCoachPageModule.makePage(totalCnt, cp, listSize, pageSize);
 		
