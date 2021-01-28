@@ -44,7 +44,7 @@
 					<ul>
 						<li><a href="zipcokView.do">집콕헬스 소개</a></li>
 						<li><a href="noticeList.do">공지사항</a></li>
-						<li><a href="#">F&A/고객센터</a></li>
+						<li><a href="csList.do">F&A/고객센터</a></li>
 					</ul></li>
 
 				<li class="drop-down"><a href="HomeGymList.do">홈짐찾기</a>
