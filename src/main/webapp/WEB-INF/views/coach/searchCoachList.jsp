@@ -193,7 +193,7 @@ display:none;
 		<p class="fp">경력</p>
 		<label>0 ~ </label><label id="yearVal">3</label>년
 		<br>
-		 <input type="range" min="1" max="5" id="starRange" onmouseup ="yearValue(this);" onchange="showList()">
+		 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
 		</div>
 	</div>	
 	
@@ -242,8 +242,8 @@ $('.sexBtn').click(function(){
 			 gender='전체';
 		}
 		
-		 /*별점값 정의*/
-		 var yearVal=document.getElementById("starRange").value; 
+		 /*경력값 정의*/
+		 var yearVal=document.getElementById("yearRange").value; 
 		 	
 		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}';
 		  var params='gender='+gender+"&"+'yearVal='+yearVal+"&"+'cp='+cp+"&"+keywords; //보낼파라미터

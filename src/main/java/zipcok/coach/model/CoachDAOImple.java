@@ -81,7 +81,7 @@ public class CoachDAOImple implements CoachDAO {
 		
 		keys.put("start",start);
 		keys.put("end",end);
-		
+		System.out.println("gender:"+keys.get("gender")+"/"+keys.get("start")+"/"+keys.get("end"));
 		List<MainCoachDTO> searchList=sqlMap.selectList("ajaxSearchCoachByKey",keys);
 		System.out.println("ajax검색된코치수"+searchList.size());
 		for(int i=0;i<searchList.size();i++) {

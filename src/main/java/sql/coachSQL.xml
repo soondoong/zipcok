@@ -135,8 +135,8 @@ rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 
 
 
+
 	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
-	
 select
  * from 
  (select rownum as rnum,zm.mem_name,
@@ -184,17 +184,18 @@ and
 zm.mem_gender
 <choose>
         <when test="gender == '전체'">like '%%'</when>
-        <when test="gender != '전체'"> like '${gender}%' </when>
+        <when test="gender != '전체'"> like '%${gender}%' </when>
 </choose>
 )c
-
 where 
-coach_year between 0 and #{yearVal}
+c.coach_year between 0 and #{yearVal}
 and
-rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
-	
-	
+rnum <![CDATA[>=]]>#{start} and rnum  <![CDATA[<=]]> #{end}
+
 </select>
+	
+	
+	
 	
 	
 <select id="totalCnt" parameterType="Hashmap" resultType="Integer">
