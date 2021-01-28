@@ -6,7 +6,7 @@ public class CurriDTO {
 	private String curri_mem_id;
 	private String curri_catename;
 	private int curri_order;
-	private String name;
+	private String curri_name;
 	private String curri_content;
 	
 	public CurriDTO() {
@@ -45,12 +45,12 @@ public class CurriDTO {
 		this.curri_order = curri_order;
 	}
 
-	public String getName() {
-		return name;
+	public String getCurri_name() {
+		return curri_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCurri_name(String curri_name) {
+		this.curri_name = curri_name;
 	}
 
 	public String getCurri_content() {
@@ -61,17 +61,16 @@ public class CurriDTO {
 		this.curri_content = curri_content;
 	}
 
-	public CurriDTO(int curri_idx, String curri_mem_id, String curri_catename, int curri_order, String name,
+	public CurriDTO(int curri_idx, String curri_mem_id, String curri_catename, int curri_order, String curri_name,
 			String curri_content) {
 		super();
 		this.curri_idx = curri_idx;
 		this.curri_mem_id = curri_mem_id;
 		this.curri_catename = curri_catename;
 		this.curri_order = curri_order;
-		this.name = name;
+		this.curri_name = curri_name;
 		this.curri_content = curri_content;
 	}
-	
-	
 
+	
 }

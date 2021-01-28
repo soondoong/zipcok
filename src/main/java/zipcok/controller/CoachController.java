@@ -27,6 +27,7 @@ import zipcok.coach.*;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.CurriDTO;
 import zipcok.coach.model.MainCoachDTO;
 
 @Controller
@@ -244,10 +245,38 @@ public class CoachController {
 	
 	@RequestMapping("coachProfile.do")
 	public ModelAndView showCoachProfile(@RequestParam("id")String id) {
+		ModelAndView mav= new ModelAndView();
 		
 		HashMap<String, Object> resultMap = dao.coachProfile(id);
+		//커리큘럼 2개면 분할해서 보내주기
+	if(resultMap.get("curriList") !=null ) {   //등록한 커리큘럼이 있다면
+		List<CurriDTO> cr=(List<CurriDTO>)resultMap.get("curriList");
 		
-		ModelAndView mav= new ModelAndView();
+		if(cr !=null && cr.size() > 0) {   //등록한 커리큘럼이 있다면
+		String one= cr.get(0).getCurri_catename(); //카테고리구분값
+
+		List<CurriDTO> oneCurri=new ArrayList<CurriDTO>();
+		List<CurriDTO> twoCurri=new ArrayList<CurriDTO>();
+				for( int i=0; i<cr.size(); i++){
+					String catename=cr.get(i).getCurri_catename();
+					if(one.equals(catename)) {
+						
+						oneCurri.add(cr.get(i)); //curri dto 넣기
+						System.out.println("카테하나임");
+					}else if(! one.equals(catename)) {
+											
+						twoCurri.add(cr.get(i)); //curri dto 넣기
+						System.out.println("카테두개임");
+					}
+				}
+				mav.addObject("oneCurriList",oneCurri);
+				if(twoCurri != null && twoCurri.size() >0) { //다른카테고리가 존재한다면
+				mav.addObject("twoCurriList",twoCurri);			
+				}
+				
+		}
+		
+	}
 		mav.addObject("resultMap", resultMap);
 		mav.setViewName("coach/coachProfileView");
 		return mav;

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReviewDTO {
 
 	private int rev_idx;
-	private int rev_key;
+	private String rev_key;
 	private String rev_mem_id;
 	private String rev_target_id;
 	private int rev_star;
@@ -26,11 +26,11 @@ public class ReviewDTO {
 		this.rev_idx = rev_idx;
 	}
 
-	public int getRev_key() {
+	public String getRev_key() {
 		return rev_key;
 	}
 
-	public void setRev_key(int rev_key) {
+	public void setRev_key(String rev_key) {
 		this.rev_key = rev_key;
 	}
 
@@ -90,7 +90,7 @@ public class ReviewDTO {
 		this.rev_rewritedate = rev_rewritedate;
 	}
 
-	public ReviewDTO(int rev_idx, int rev_key, String rev_mem_id, String rev_target_id, int rev_star, String rev_sub,
+	public ReviewDTO(int rev_idx, String rev_key, String rev_mem_id, String rev_target_id, int rev_star, String rev_sub,
 			String rev_cont, Date rev_writedate, Date rev_rewritedate) {
 		super();
 		this.rev_idx = rev_idx;
@@ -103,7 +103,7 @@ public class ReviewDTO {
 		this.rev_writedate = rev_writedate;
 		this.rev_rewritedate = rev_rewritedate;
 	}
-	
+
 	
 	
 	
