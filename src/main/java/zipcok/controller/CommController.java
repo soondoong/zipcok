@@ -55,6 +55,7 @@ public class CommController {
 		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyList.do");
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
@@ -90,6 +91,7 @@ public class CommController {
 		String msg=result>0?"글수정 성공!":"글수정 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
@@ -101,6 +103,7 @@ public class CommController {
 		String msg=result>0?"글삭제 성공!":"글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyList.do");
 		mav.setViewName("comm/commDailyMsg");
 		return mav;	
 	}
@@ -118,23 +121,40 @@ public class CommController {
 		String msg=result>0?"댓글 작성 성공!":"댓글 작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
 	
 	@RequestMapping("commDailyReDelete.do")
-	public ModelAndView dailyReDelete(int re_idx) {
-		int result=exBbsDao.dailyReDelete(re_idx);
+	public ModelAndView dailyReDelete(int re_lev,int ex_idx, int re_group, int re_idx) {
+		int result=0;
+		int re_lev_p=re_lev;
+		if(re_lev_p==1) {
+			result=exBbsDao.dailyReDelete(re_group);
+		}else if(re_lev_p==2) {
+			result=exBbsDao.dailyReReDelete(re_idx);
+		}
 		String msg=result>0?"댓글삭제 성공!":"댓글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
 	
-	@RequestMapping("commdailyReReWrite.do")
-	public ModelAndView dailyReReWrite() {
-		int result=exBbsDao.daily
+	@RequestMapping("commDailyReReWrite.do")
+	public ModelAndView dailyReReWrite(ExReBbsDTO dto, int re_group,int re_bbs_idx,int ex_idx) {
+		int re_sunbun_p=exBbsDao.dailyGetSunbun_p(re_group);
+		exBbsDao.dailyReUpdate(re_bbs_idx, re_sunbun_p+1);
+		dto.setRe_sunbun(re_sunbun_p+1);
+		int result=exBbsDao.dailyReReWrite(dto);
+		String msg=result>0?"대댓글작성 성공!":"대댓글작성 실패!";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
+		mav.setViewName("comm/commDailyMsg");
+		return mav;
 	}
 
 }

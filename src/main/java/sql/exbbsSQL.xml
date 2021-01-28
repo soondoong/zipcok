@@ -90,10 +90,18 @@
 				sysdate,
 				1,
 				#{re_sunbun}+1,
-				#{re_bbs_idx})
+				#{re_bbs_idx},
+				bbs_rebbs_group.nextval)
 	</insert>
 	
 	<delete id="bbsReDeleteSQL">
+		delete from
+			bbs_rebbs
+		where
+			re_group=#{re_group}
+	</delete>
+	
+	<delete id="bbsReReDeleteSQL">
 		delete from
 			bbs_rebbs
 		where
@@ -131,11 +139,11 @@
 	
 	<select id="dailyGetSunbun_pSQL" resultType="Integer">
 		select
-			re_sunbun
+			max(re_sunbun)
 		from
 			bbs_rebbs
 		where
-			ex_idx=#{ex_idx}
+			re_group=#{re_group}			
 	</select>
 	
 	<select id="dailyGetLevSQL" resultType="Integer">
@@ -144,16 +152,16 @@
 		from
 			bbs_rebbs
 		where
-			ex_idx=#{ex_idx}
+			re_idx=#{re_idx}
 	</select>
 	
 	<update id="dailyReUpdateSQL">
 		update
 			bbs_rebbs
 		set
-			re_sunbun+1
+			re_sunbun=re_sunbun+1
 		where
-			ex_idx=#{ex_idx}
+			re_bbs_idx=#{re_bbs_idx}
 		and
 			re_sunbun>=#{re_sunbun}
 	</update>
@@ -168,8 +176,9 @@
 				#{re_content},
 				sysdate,
 				2,
-				#{re_sunbun}+1,
-				#{re_bbs_idx})
+				#{re_sunbun},
+				#{re_bbs_idx},
+				#{re_group})
 	</insert>
 	
 </mapper>

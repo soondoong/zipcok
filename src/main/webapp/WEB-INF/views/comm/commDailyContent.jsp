@@ -12,9 +12,9 @@ function bbsReWrite(re_idx,ex_idx){
 	url="commDailyReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&re_content="+re_content;
 	location.href=url;
 }
-function bbsRereWrite(re_idx,ex_idx){
-	rere_content=document.getElementById("rere_content").value;
-	url="commDailyReReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&rere_content="+rere_content;
+function bbsRereWrite(re_group,re_bbs_idx,index){
+	re_content=document.getElementById("rere_content"+index).value;
+	url="commDailyReReWrite.do?ex_idx="+re_bbs_idx+"&re_group="+re_group+"&re_bbs_idx="+re_bbs_idx+"&re_content="+re_content;
 	location.href=url;
 }
 function bbsReReOpen(re_idx){
@@ -76,7 +76,7 @@ function bbsReReClose(){
 			<tr>
 				<td>${dto2.re_id}</td>
 				<td colspan="6" align="center">${dto2.re_content}</td>
-				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_idx=${dto2.re_idx}'"></td>
+				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'"></td>
 			</tr>
 			<c:if test="${i.last}">
 			<c:set var="re_idx" value="${dto2.re_idx}"></c:set>
@@ -84,13 +84,12 @@ function bbsReReClose(){
 			</c:if>
 			<tr>
 				<td>대댓글</td>
-				<td><input type="text" name="rere_content" id="rere_content"></td>
-				<td><input type="button" value="대댓글달기" onclick="bbsRereWrite(${dto2.re_idx},${dto.ex_idx})"></td>
-				<td><input type="button" value="삭제" onclick="location.href='commDailyReDelete.do?re_idx=${dto2.re_idx}'"></td>
+				<td><input type="text" name="re_content" id="rere_content${i.index}"></td>
+				<td><input type="button" value="대댓글달기" onclick="bbsRereWrite(${dto2.re_group},${dto2.re_bbs_idx},${i.index})"></td>
 			</tr>
 			</c:forEach>
 			<tr>
-				<td>댓글작성자</td>
+				<td>${sessionScope.sname}</td>
 				<td colspan="6"><input type="text" name="re_content" id="re_content"></td>
 				<td><input type="button" value="댓글달기" onclick="bbsReWrite(${re_idx},${ex_idx})"></td>
 			</tr>

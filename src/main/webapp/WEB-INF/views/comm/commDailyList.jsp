@@ -47,7 +47,7 @@
 				<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 				</c:choose>
 				<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
-				<td>${dto.ex_cal}</td>
+				<td>${dto.ex_cal}kcal</td>
 				<td>${dto.ex_id}</td>
 				<td>${dto.ex_readnum}</td>
 				<td>${dto.ex_writedate}</td>

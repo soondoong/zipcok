@@ -71,8 +71,14 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	}
 	
 	@Override
-	public int dailyReDelete(int re_idx) {
-		int count=sqlMap.delete("bbsReDeleteSQL",re_idx);
+	public int dailyReDelete(int re_group) {
+		int count=sqlMap.delete("bbsReDeleteSQL",re_group);
+		return count;
+	}
+	
+	@Override
+	public int dailyReReDelete(int re_idx) {
+		int count=sqlMap.delete("bbsReReDeleteSQL",re_idx);
 		return count;
 	}
 	
@@ -98,8 +104,8 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	}
 	
 	@Override
-	public int dailyGetSunbun_p(int re_idx) {
-		int result=sqlMap.selectOne("dailyGetSunbun_pSQL", re_idx);
+	public int dailyGetSunbun_p(int re_group) {
+		int result=sqlMap.selectOne("dailyGetSunbun_pSQL", re_group);
 		return result;
 	}
 	
@@ -110,20 +116,16 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	}
 	
 	@Override
-	public void dailyReUpdate(int ex_idx, int re_sunbun) {
+	public void dailyReUpdate(int re_bbs_idx, int re_sunbun) {
 		Map map=new HashMap();
-		map.put("ex_idx", ex_idx);
+		map.put("re_bbs_idx", re_bbs_idx);
 		map.put("re_sunbun", re_sunbun);
 		int result=sqlMap.update("dailyReUpdateSQL", map);
 	}
 	
 	@Override
-	public int dailyReReWrite(ExReBbsDTO dto,int re_bbs_idx,int re_idx) {
-		Map map=new HashMap();
-		map.put("dto", dto);
-		map.put("re_bbs_idx", re_bbs_idx);
-		map.put("re_idx", re_idx);
-		int count=sqlMap.insert("dailyReReWriteSQL",map);
+	public int dailyReReWrite(ExReBbsDTO dto) {
+		int count=sqlMap.insert("dailyReReWriteSQL",dto);
 		return count;
 	}
 
