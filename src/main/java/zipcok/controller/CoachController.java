@@ -101,6 +101,8 @@ public class CoachController {
 			@RequestParam(value="yearVal")String yearVal, @RequestParam(value="location")String location,
 			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
+		System.out.println("------------------------------------------------------");
 		System.out.println(location+"/"+extype+"/"+category+"/"+gender+"/"+yearVal); 
 		/*키워드 담기*/
 		HashMap<String,Object> keywordMap=new HashMap<String,Object>();

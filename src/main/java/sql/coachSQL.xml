@@ -138,8 +138,8 @@ rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 
 	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
 select
- * from 
- (select rownum as rnum,zm.mem_name,
+ rownum,c.* from 
+ (select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
 (select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
@@ -188,9 +188,9 @@ zm.mem_gender
 </choose>
 )c
 where 
-c.coach_year between 0 and #{yearVal}
+c.coach_year  <![CDATA[>=]]> #{yearVal}
 and
-rnum <![CDATA[>=]]>#{start} and rnum  <![CDATA[<=]]> #{end}
+rownum  between #{start} and #{end}
 
 </select>
 	
@@ -299,7 +299,7 @@ zm.mem_gender
 </choose>
 )c
 where 
-coach_year between 0 and #{yearVal}
+c.coach_year  <![CDATA[>=]]> #{yearVal}
 
 
 </select>

@@ -191,7 +191,7 @@ display:none;
 			<hr>
 		<div class="m-3"> 
 		<p class="fp">경력</p>
-		<label>0 ~ </label><label id="yearVal">3</label>년
+		<label>0 ~ </label><label id="yearVal">3</label>년 이상
 		<br>
 		 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
 		</div>
