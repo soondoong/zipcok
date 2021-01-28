@@ -116,9 +116,9 @@ public class CoachController {
 		System.out.println("tcnt검색된수:"+totalCnt);
 		int listSize=4;
 		int pageSize=5;
-		String params="gender="+gender+"&"+"starVal="+starVal;
+		String params="&gender="+gender+"&"+"starVal="+starVal;
 		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
-		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize,params+keywords);
+		String pageStr=zipcok.page.AjaxCoachPageModule.makePage(totalCnt, cp, listSize, pageSize);
 		
 		
 		List<MainCoachDTO> list=dao.ajaxSearchCoachList(keywordMap, cp, listSize);
@@ -127,7 +127,6 @@ public class CoachController {
 		mav.addObject("listAjax", list);
 		mav.addObject("keyword", keywordMap);
 		mav.addObject("pageStrAjax",pageStr);//페이지
-		//mav.setViewName("jsonView");
 		mav.setViewName("jsonView");
 		return mav;
 
