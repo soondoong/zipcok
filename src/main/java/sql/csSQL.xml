@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.cs">
+  <select id="csAllListSQL" parameterType="Map" resultType="zipcok.cs.model.CsDTO">
+  	select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_bbs where bbs_key='고객센터' and bbs_mem_id=#{bbs_mem_id} order by bbs_idx desc) a) b
+		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+  </select>
+  <select id="csTotalCnt" resultType="Integer">
+  		select
+  			count(*)
+  		from
+  			zipcok_bbs
+  		where bbs_key='고객센터'
+  	</select>
+  	<insert id="csWriteSQL" parameterType="zipcok.cs.model.CsDTO">
+  	insert into
+  	zipcok_bbs
+  	values(bbs_idx.nextval,
+  	'고객센터',
+  	#{bbs_category},
+  	#{bbs_subject},
+  	#{bbs_content},
+  	#{bbs_mem_id},
+  	0,
+  	sysdate,
+  	0,
+  	0,
+  	0
+  	)
+  </insert>
+  </mapper>

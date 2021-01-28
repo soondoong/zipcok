@@ -1,7 +1,7 @@
-package zipcok.notice.model;
-import java.sql.*;
+package zipcok.cs.model;
 
-public class NoticeDTO {
+import java.sql.*;
+public class CsDTO {
 
 	private int bbs_idx;
 	private String bbs_key;
@@ -14,10 +14,10 @@ public class NoticeDTO {
 	private int bbs_ref;
 	private int bbs_lev;
 	private int bbs_sunbun;
-	public NoticeDTO() {
+	public CsDTO() {
 		super();
 	}
-	public NoticeDTO(int bbs_idx, String bbs_key, String bbs_category, String bbs_subject, String bbs_content,
+	public CsDTO(int bbs_idx, String bbs_key, String bbs_category, String bbs_subject, String bbs_content,
 			String bbs_mem_id, int bbs_readnum, Date bbs_writedate, int bbs_ref, int bbs_lev, int bbs_sunbun) {
 		super();
 		this.bbs_idx = bbs_idx;

@@ -67,7 +67,7 @@ function goCategory(){
             <c:param name="bbs_idx">${dto.bbs_idx}</c:param>
         	</c:url>
 			<td><a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
-			<td>${dto.bbs_writer}</td>
+			<td>${dto.bbs_mem_id}</td>
 			<td>${dto.bbs_readnum}</td>
 			<td>${dto.bbs_writedate}</td>
 		</tr>
