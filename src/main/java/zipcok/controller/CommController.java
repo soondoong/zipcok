@@ -132,9 +132,9 @@ public class CommController {
 		return mav;
 	}
 	
-	@RequestMapping("commdailyReReWrite.do")
-	public ModelAndView dailyReReWrite() {
-		int result=exBbsDao.daily
-	}
+	/*
+	 * @RequestMapping("commdailyReReWrite.do") public ModelAndView dailyReReWrite()
+	 * { int result=exBbsDao.daily }
+	 */
 
 }
