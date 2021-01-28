@@ -65,8 +65,19 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public int HomeGymTotalCnt() {
-		int result = sqlMap.selectOne("homegymTotalCnt");
+	public int HomeGymTotalCnt(String location, String year, String month, String day) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("location", location);
+		map.put("year", year);
+		map.put("month", month);
+		map.put("day", day);
+		int result = 0;
+		if(location.equals("전체")&&year.equals("0"))	{
+			result = sqlMap.selectOne("homegymTotalCnt");
+		}else {
+			
+		}
+		
 		return result;
 	}
 

@@ -13,6 +13,7 @@ public class ExReBbsDTO {
 	private int re_lev;
 	private int re_sunbun;
 	private int re_bbs_idx;
+	private int re_group;
 	
 	public ExReBbsDTO() {
 		super();
@@ -20,7 +21,7 @@ public class ExReBbsDTO {
 	}
 
 	public ExReBbsDTO(int re_idx, int re_bbs, int re_comm_idx, String re_id, String re_content, Date re_writedate,
-			int re_lev, int re_sunbun, int re_bbs_idx) {
+			int re_lev, int re_sunbun, int re_bbs_idx, int re_group) {
 		super();
 		this.re_idx = re_idx;
 		this.re_bbs = re_bbs;
@@ -31,6 +32,7 @@ public class ExReBbsDTO {
 		this.re_lev = re_lev;
 		this.re_sunbun = re_sunbun;
 		this.re_bbs_idx = re_bbs_idx;
+		this.re_group = re_group;
 	}
 
 	public int getRe_idx() {
@@ -103,6 +105,14 @@ public class ExReBbsDTO {
 
 	public void setRe_bbs_idx(int re_bbs_idx) {
 		this.re_bbs_idx = re_bbs_idx;
+	}
+
+	public int getRe_group() {
+		return re_group;
+	}
+
+	public void setRe_group(int re_group) {
+		this.re_group = re_group;
 	}
 	
 	

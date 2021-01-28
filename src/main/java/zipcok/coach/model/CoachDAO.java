@@ -16,5 +16,5 @@ public interface CoachDAO {
 	public int coachJoin( HashMap<String, Object> map);
 	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr);
 	public ArrayList<CategoryDTO> findCategory(String id);
-
+	public HashMap<String,Object> coachProfile(String id);
 }

@@ -13,13 +13,14 @@ public interface ExBbsDAO {
 	public int dailyReadnum(int ex_idx);
 	public int dailyGetMaxSunbun(int re_idx);
 	public int dailyReWrite(ExReBbsDTO dto);
-	public int dailyReDelete(int re_idx);
+	public int dailyReDelete(int re_group);
+	public int dailyReReDelete(int re_idx);
 	public List dailyReList(int re_bbs_idx);
 	public int dailyGetTotalRe(int re_bbs_idx);
 	public int dailySetTotalRe(int ex_recnt,int ex_idx);
 	public int dailyGetSunbun_p(int re_idx);
 	public int dailyGetLev(int re_idx);
 	public void dailyReUpdate(int ex_idx, int re_sunbun);
-	public int dailyReReWrite(ExReBbsDTO dto,int re_bbs_idx,int re_idx);
+	public int dailyReReWrite(ExReBbsDTO dto);
 
 }
