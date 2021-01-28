@@ -150,35 +150,8 @@ padding:0 10px 0 10px;
 		
 		
 			<!-- 후기테이블 영역 -->
-			<p style="font-size:1.8rem; font-weight: 600;">후기</p>
-			
-			<c:if test="${empty review}">
-			<div>작성 된 후기가 없습니다.</div>
-			</c:if>
-			
-			<c:if test="${!empty review}">
-			<table border="1" width="800px" cellspacing="0">
-				<c:forEach var="r" items="${ review }">
-					
-				<tr>
-				<td>${r.rev_mem_id }</td>
-				</tr>
-				<tr>
-				<td><span>${r.rev_star }</span><span>${r.rev_writedate}</span></td>
-				</tr>
-				<tr>
-				<td>${r.rev_sub }</td>
-				</tr>
-				<tr>
-				<td>${r.rev_cont }</td>
-				</tr>
-				
-				</c:forEach>
-			</table>
-			</c:if>
-		
-			
-			
+			<%@include file="./reviewView.jsp" %>
+						
 			<!-- 후기테이블 영역 -->	
 	</article>
 </section>
