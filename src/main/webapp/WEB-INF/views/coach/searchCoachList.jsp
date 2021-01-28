@@ -32,7 +32,7 @@ line-height: 1;
 }
 .contentsWrap{
 position: relative;
-width:83%;
+width:80%;
 margin-top:40px;
 margin:0 auto;
 float:left;
@@ -99,7 +99,7 @@ z-index:30;
 .leftFilterDIV{
 	margin: 0 60px 0 0;
     padding: 30px;
-    width:240px;
+    width:270px;
     height:500px;
     position:relative;
     float: left;
@@ -107,7 +107,7 @@ z-index:30;
     left:30px;
 }
 .leftWall{
-    width:17%;
+    width:20%;
     height: 100%;
     position:relative;
     float: left;
@@ -127,7 +127,10 @@ z-index:30;
 position: relative;
 z-index:30;
 }
-
+.starIMG{
+ width:29px;
+padding:0 8px 0 4px;
+ }
 .ajaxDIV{     /*ajax 사용시 보이게함*/
 display:none;
 }
@@ -223,7 +226,14 @@ $('.sexBtn').click(function(){
 
 	
 	  /*필터검색에따라 ajax통신*/
-	  function showList(){
+	  function showList(str){
+		  
+		  /*cp정의*/
+		  var cp=str;
+		  if(str==null || str == ''){
+			  cp=1;
+		  }
+		  
 		/*성별값 정의*/
 		var gender;
 		if(  $('.sexBtn1').hasClass('active') && !$('.sexBtn2').hasClass('active') ){ //남자만 클릭되어잇다면
@@ -238,7 +248,7 @@ $('.sexBtn').click(function(){
 		 var starVal=document.getElementById("starRange").value; 
 		 	
 		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}';
-		  var params='gender='+gender+"&"+'starVal='+starVal+"&"+keywords; //보낼파라미터
+		  var params='gender='+gender+"&"+'starVal='+starVal+"&"+'cp='+cp+"&"+keywords; //보낼파라미터
 		 // alert(params);
 	  	sendRequest("searchAjax.do",params,shwR,'GET');
 	  }
@@ -260,7 +270,7 @@ $('.sexBtn').click(function(){
 	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload+'"></div>'+	  					
 								'<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>'+
 									'<div><span><a href="#">'+dto.coach_intro_sub+'</a></span></div>'+
-										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span>'+dto.avg+'</span></div></div>');						    
+										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">'+dto.avg+'</span></div></div>');						    
 
 	$('.ajaxDIV').css('display','block');
 	  					
@@ -275,7 +285,12 @@ $('.sexBtn').click(function(){
 	  	
 	  }
 
-
+	  
+	  /*ajax로검색된 div내의 페이지를 클릭하면 호출되는 함수*/
+	  function pageclick(temp){  //temp는 cp값
+	
+		  showList(temp);
+	  } 
 
 </script>
 <!-- 리스트 영역  -->
@@ -303,10 +318,10 @@ $('.sexBtn').click(function(){
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>${dto.avg }</span>
+		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
 		    </div>
-	</div>  
-		  
+	</div>  <!-- oneperson -->
+		
 	</c:forEach>
 		
 				<div class="nomalpaging">
@@ -314,14 +329,15 @@ $('.sexBtn').click(function(){
 				</div>
 				
 				
-	</div>			
-</div>
+	</div><!-- secondWrap -->			
+
 
 <!-- ajax검색된 리스트영역 -->
 	<div class="ajaxDIV">    
     </div>
 <!-- ajax검색된 리스트영역 -->
 
+</div><!-- contentsWrap -->
 
 
 

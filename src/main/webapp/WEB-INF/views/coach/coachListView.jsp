@@ -70,6 +70,14 @@ left:50%;
 font-size:1.6rem;
 padding-right:20px;
 }
+.starIMG{
+ width:29px;
+padding:0 8px 0 4px;
+ }
+ .contentsWrap h3{
+ margin-bottom:40px;
+ font-weight: 600;
+ }
 </style>
 
 <script>
@@ -150,7 +158,7 @@ function search(){
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>5.0</span>
+		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
 		    </div>
 		  </div>  
 		  
@@ -180,7 +188,7 @@ function search(){
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; <span>5.0</span>
+		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
 		    </div>
 		  </div>  
 		  
