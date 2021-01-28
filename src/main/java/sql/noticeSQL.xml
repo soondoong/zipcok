@@ -114,8 +114,8 @@
 	 zipcok_file
 	values(
 	zipcok_file_zfile_idx.nextval,
-	#{bbs_idx},
-	#{mem_id},
+	#{zfile_bbs_idx},
+	#{zfile_mem_id},
 	'공지사항',
 	#{zfile_upload},
 	#{zfile_size},
@@ -125,12 +125,19 @@
 	)
 
 </insert>
+<delete id="deleteNoticeInfoFile" parameterType="zipcok.notice.model.ZipcokFileDTO">
+	delete from zipcok_file
+	where 
+	zfile_bbs_idx=#{bbs_idx}
+</delete>
 <select id = "maxIdx" resultType="Integer">
 select max(bbs_idx) from zipcok_bbs where bbs_key='공지사항'
 </select>
+
+
 <select id="zfileSelect" parameterType="Integer" resultType="zipcok.notice.model.ZipcokFileDTO">
 select *
 from zipcok_file
-where bbs_idx=#{bbs_idx}
+where zfile_bbs_idx=#{bbs_idx}
 </select>
   </mapper>

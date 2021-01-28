@@ -126,4 +126,10 @@ public class NoticeDAOImple implements NoticeDAO {
 		List<ZipcokFileDTO> list=sqlMap.selectList("zfileSelect", bbs_idx);
 		return list;
 	}
+	
+	@Override
+	public int deleteFile(int bbs_idx) {
+		int result=sqlMap.delete("deleteNoticeInfoFile", bbs_idx);
+		return result;
+	}
 }

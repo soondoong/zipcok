@@ -3,9 +3,9 @@ package zipcok.notice.model;
 public class ZipcokFileDTO {
 
 	private int zfile_idx;
-	private int bbs_idx;
-	private String mem_id;
-	private String bbs_key;
+	private int zfile_bbs_idx;
+	private String zfile_mem_id;
+	private String zfile_bbs_key;
 	private String zfile_upload;
 	private int zfile_size;
 	private String zfile_orig;
@@ -14,13 +14,13 @@ public class ZipcokFileDTO {
 	public ZipcokFileDTO() {
 		super();
 	}
-	public ZipcokFileDTO(int zfile_idx, int bbs_idx, String mem_id, String bbs_key, String zfile_upload, int zfile_size,
-			String zfile_orig, String zfile_path, String zfile_type) {
+	public ZipcokFileDTO(int zfile_idx, int zfile_bbs_idx, String zfile_mem_id, String zfile_bbs_key,
+			String zfile_upload, int zfile_size, String zfile_orig, String zfile_path, String zfile_type) {
 		super();
 		this.zfile_idx = zfile_idx;
-		this.bbs_idx = bbs_idx;
-		this.mem_id = mem_id;
-		this.bbs_key = bbs_key;
+		this.zfile_bbs_idx = zfile_bbs_idx;
+		this.zfile_mem_id = zfile_mem_id;
+		this.zfile_bbs_key = zfile_bbs_key;
 		this.zfile_upload = zfile_upload;
 		this.zfile_size = zfile_size;
 		this.zfile_orig = zfile_orig;
@@ -33,23 +33,23 @@ public class ZipcokFileDTO {
 	public void setZfile_idx(int zfile_idx) {
 		this.zfile_idx = zfile_idx;
 	}
-	public int getBbs_idx() {
-		return bbs_idx;
+	public int getZfile_bbs_idx() {
+		return zfile_bbs_idx;
 	}
-	public void setBbs_idx(int bbs_idx) {
-		this.bbs_idx = bbs_idx;
+	public void setZfile_bbs_idx(int zfile_bbs_idx) {
+		this.zfile_bbs_idx = zfile_bbs_idx;
 	}
-	public String getMem_id() {
-		return mem_id;
+	public String getZfile_mem_id() {
+		return zfile_mem_id;
 	}
-	public void setMem_id(String mem_id) {
-		this.mem_id = mem_id;
+	public void setZfile_mem_id(String zfile_mem_id) {
+		this.zfile_mem_id = zfile_mem_id;
 	}
-	public String getBbs_key() {
-		return bbs_key;
+	public String getZfile_bbs_key() {
+		return zfile_bbs_key;
 	}
-	public void setBbs_key(String bbs_key) {
-		this.bbs_key = bbs_key;
+	public void setZfile_bbs_key(String zfile_bbs_key) {
+		this.zfile_bbs_key = zfile_bbs_key;
 	}
 	public String getZfile_upload() {
 		return zfile_upload;
@@ -81,5 +81,6 @@ public class ZipcokFileDTO {
 	public void setZfile_type(String zfile_type) {
 		this.zfile_type = zfile_type;
 	}
+	
 	
 }
