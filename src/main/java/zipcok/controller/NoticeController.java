@@ -78,14 +78,14 @@ public class NoticeController {
 		/*파일복사및저장하기*/
 		for(int i=0;i<list.size();i++) {		
 			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
-			int bbs_idx=maxIdx;
+			int zfile_bbs_idx=maxIdx;
 			String zfile_path=c.getRealPath("/upload/zipcok/notice/"); //저장되는 경로
 			String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 			String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
-			String mem_id = "admin";
+			String zfile_mem_id = "admin";
 			String zfile_type = list.get(i).getContentType();
 			int zfile_size=(int)(list.get(i).getSize());
-			ZipcokFileDTO cdto=new ZipcokFileDTO(0, bbs_idx, mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type);
+			ZipcokFileDTO cdto=new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type);
 			
 			fileArr.add(cdto);
 		}
@@ -194,7 +194,11 @@ public class NoticeController {
 	public ModelAndView goNoticeUpdateeViw(
 		@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
 		NoticeDTO dto=noticeDao.noticeContent(bbs_idx);
+		
+		List<ZipcokFileDTO> list=noticeDao.zfileSelect(bbs_idx);
 		ModelAndView mav=new ModelAndView();
+		
+		mav.addObject("list",list);
 		mav.addObject("dto",dto);
 		mav.setViewName("notice/noticeUpdateView");
 		return mav;
@@ -227,6 +231,21 @@ public class NoticeController {
 	      ModelAndView mav=new ModelAndView();
 	      mav.addObject("msg",msg);
 	      mav.addObject("gopage", "noticeList.do");
+	      mav.setViewName("notice/noticeMsg");
+	      return mav;
+	}
+	
+	//파일 삭제하기
+	@RequestMapping("deleteFile.do")
+	public ModelAndView deleteFile(
+			@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
+		int result=noticeDao.deleteFile(bbs_idx);
+		String msg=result>0?"파일삭제성공":"파일삭제실패";
+		String gopage="noticeUpdateView.do";
+		
+		ModelAndView mav=new ModelAndView();
+	      mav.addObject("msg",msg);
+	      mav.addObject("gopage", gopage);
 	      mav.setViewName("notice/noticeMsg");
 	      return mav;
 	}
