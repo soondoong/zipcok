@@ -215,8 +215,6 @@ $('.sexBtn').click(function(){
 });
 
 
-
-
 	/*별점 드래그한대로 숫자들어감*/
 	function starValue(t){
 	var starVal=document.getElementById("starVal");
@@ -269,7 +267,7 @@ $('.sexBtn').click(function(){
 	  					var dto=cList[i];
 	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload+'"></div>'+	  					
 								'<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>'+
-									'<div><span><a href="#">'+dto.coach_intro_sub+'</a></span></div>'+
+									'<div><span><a href="coachProfile.do?id='+dto.coach_mem_id+'">'+dto.coach_intro_sub+'</a></span></div>'+
 										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">'+dto.avg+'</span></div></div>');						    
 
 	$('.ajaxDIV').css('display','block');
@@ -314,7 +312,7 @@ $('.sexBtn').click(function(){
 		    </div>
 		    
 		     <div>
-		    <span><a href="#">${dto.coach_intro_sub}</a></span>
+		    <span><a href="coachProfile.do?id=${dto.coach_mem_id}">${dto.coach_intro_sub}</a></span>
 		    </div>
 		    
 		    <div>

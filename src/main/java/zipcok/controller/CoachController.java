@@ -241,4 +241,18 @@ public class CoachController {
 		
 	}
 	
+	
+	@RequestMapping("coachProfile.do")
+	public ModelAndView showCoachProfile(@RequestParam("id")String id) {
+		
+		HashMap<String, Object> resultMap = dao.coachProfile(id);
+		
+		ModelAndView mav= new ModelAndView();
+		mav.addObject("resultMap", resultMap);
+		mav.setViewName("coach/coachProfileView");
+		return mav;
+	}
+	
+	
+	
 }
