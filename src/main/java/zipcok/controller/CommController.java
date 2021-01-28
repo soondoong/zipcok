@@ -134,7 +134,7 @@ public class CommController {
 	
 	@RequestMapping("commdailyReReWrite.do")
 	public ModelAndView dailyReReWrite() {
-		
+		int result=exBbsDao.daily
 	}
 
 }
