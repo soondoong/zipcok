@@ -131,5 +131,10 @@ public class CommController {
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
+	
+	@RequestMapping("commdailyReReWrite.do")
+	public ModelAndView dailyReReWrite() {
+		int result=exBbsDao.daily
+	}
 
 }
