@@ -34,6 +34,11 @@
 			<ref bean="sqlSessionTemplate"/>
 		</constructor-arg>
 	</bean>
+	<bean id="MypageDao" class="zipcok.mypage.model.MypageDAOImple">
+		<constructor-arg>
+			<ref bean="sqlSessionTemplate"/>
+		</constructor-arg>
+	</bean>
 	<!-- service ByeongMo End -->
 
 </beans>

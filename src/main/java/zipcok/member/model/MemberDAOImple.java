@@ -58,8 +58,8 @@ public class MemberDAOImple implements MemberDAO {
 	
 	
 	@Override
-	public int pwdUpdate(String mem_id) {
-		int count = sqlMap.update("pwdUpdate", mem_id);
+	public int pwdUpdate(MemberDTO dto) {
+		int count = sqlMap.update("pwdUpdate", dto);
 		return count;
 	}
 	
