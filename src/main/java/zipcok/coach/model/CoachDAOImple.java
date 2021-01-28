@@ -180,6 +180,53 @@ public class CoachDAOImple implements CoachDAO {
 	}
 	
 	
-	
+	/*코치 프로필정보 갖고오기*/
+	@Override
+	public HashMap<String, Object> coachProfile(String id) {
+		
+		
+		//1단계. 기본 코치정보가져오기 
+		MainCoachDTO dto= sqlMap.selectOne("findCoachInfo", id );
+		
+		//2단계. 카테고리이름 합친거넣어주기
+			String cateName="";
+			/*코치카테고리정보 담기*/
+			ArrayList<CategoryDTO> arr=findCategory(dto.getCoach_mem_id());
+			if(arr.size()==1) { //카테고리 1개일때
+				cateName=arr.get(0).getCate_name();
+			}else {
+				cateName=arr.get(0).getCate_name()+"/"+arr.get(1).getCate_name();	
+			}
+			dto.setCate_name(cateName); //ex)필라테스/다이어트 or 다이어트
+		
+		
+		//3단계 등록한소개사진 가져오기
+			HashMap<String, Object> filemap = new HashMap<String, Object>();
+			filemap.put("id", id);
+			filemap.put("fileKey","코치");
+		
+			List<CoachFileDTO> coachFileList=sqlMap.selectList("selectCoachFiles", filemap);
+			
+		//4단계.커리큘럼가져오기
+			List<CurriDTO> curriList = sqlMap.selectList("selectCurri", id);
+		
+		//5단계.후기가져오기
+			HashMap<String, Object> reviewmap = new HashMap<String, Object>();
+			 reviewmap.put("id", id);
+			 reviewmap.put("reviewKey","회원이코치");
+		
+			 List<ReviewDTO> reviewList= sqlMap.selectList("selectStarReview", reviewmap);
+			 System.out.println("후기몇개?"+reviewList.size());
+		//6단계. 전체정보 맵에 담아 보내기
+			 HashMap<String, Object> resultMap = new HashMap<String, Object>();
+			 
+			 resultMap.put("coachDTO",dto);
+			 resultMap.put("coachFileList", coachFileList);
+			 resultMap.put("curriList",curriList);
+			 resultMap.put("reviewList", reviewList);
+			 
+			 
+		return resultMap;
+	}
 
 }

@@ -46,6 +46,54 @@ mf.mfile_key='회원프로필'
 	</select>
 	
 	
+	<select id="findCoachInfo" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
+select zm.mem_name,
+cr.*,mf.mfile_upload,b.avg
+from
+(select rev_target_id,trunc(avg(rev_star),1) as avg
+from
+(select c.coach_mem_id
+from coach_regist c,coach_category g
+where 
+c.coach_mem_id = g.cate_mem_id 
+and
+c.coach_mem_id = #{ id }
+group by c.coach_mem_id)a,star_review
+where a.coach_mem_id = rev_target_id 
+group by
+rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+where
+b.rev_target_id = cr.coach_mem_id
+and
+b.rev_target_id = mf.mfile_mem_id
+and
+b.rev_target_id = zm.mem_id
+and
+mf.mfile_key='회원프로필'
+	
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
 	
 select
@@ -296,6 +344,24 @@ coach_category_cate_idx.nextval,
 
 </insert>
 
+
+<select id="selectCurri" parameterType="String"  resultType="zipcok.coach.model.CurriDTO">
+select * from coach_curriculum
+where
+curri_mem_id =#{id}
+order by curri_order asc
+</select>
+
+<select id="selectStarReview" parameterType="HashMap"  resultType="zipcok.coach.model.ReviewDTO" >
+select * from star_review
+where
+rev_target_id = #{ id }
+and
+rev_key = #{reviewKey}
+order by rev_writedate asc
+</select>
+
+
 <insert id="insertCoachInfoFile" parameterType="zipcok.coach.model.CoachFileDTO">
 insert into 
  member_file
@@ -312,6 +378,15 @@ member_file_mfile_idx.nextval,
 
 </insert>
 
+<select id="selectCoachFiles" parameterType="HashMap"  resultType="zipcok.coach.model.CoachFileDTO">
+select 
+*
+from member_file
+where
+mfile_mem_id = #{ id }
+and
+mfile_key = #{ fileKey}
+</select>
 
 <update id="memberTypeUpdate" parameterType="zipcok.coach.model.MainCoachDTO">
 update 

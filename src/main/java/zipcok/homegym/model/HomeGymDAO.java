@@ -12,5 +12,5 @@ public interface HomeGymDAO {
 	public int HomeGymImgUpload(ArrayList<CoachFileDTO> list);
 	public String HomeGymNickNameCheck(String hg_nickname);
 	public int HomeGymAddPrice();
-	public int HomeGymTotalCnt();
+	public int HomeGymTotalCnt(String location, String year, String month, String day);
 }

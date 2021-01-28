@@ -40,8 +40,15 @@ public class HomeGymController {
 
 	@RequestMapping("HomeGymList.do")
 	public ModelAndView HomeGymList(
-			@RequestParam(value="cp",defaultValue = "1")int cp) {
-		int totalCnt = homegymDAO.HomeGymTotalCnt();
+			@RequestParam(value="cp",defaultValue = "1")int cp,
+			@RequestParam(value="year", defaultValue = "0")String year,
+			@RequestParam(value="month", defaultValue = "0")String month,
+			@RequestParam(value="day", defaultValue = "0")String day,
+			@RequestParam(value="location", defaultValue = "전체")String location
+			) {
+		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day);
+
+		
 		int listSize = 10;
 		int pageSize = 10;
 		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);

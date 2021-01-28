@@ -143,6 +143,7 @@ public class CommController {
 		return mav;
 	}
 	
+
 	@RequestMapping("commDailyReReWrite.do")
 	public ModelAndView dailyReReWrite(ExReBbsDTO dto, int re_group,int re_bbs_idx,int ex_idx) {
 		int re_sunbun_p=exBbsDao.dailyGetSunbun_p(re_group);
