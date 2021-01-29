@@ -14,6 +14,12 @@ function mypagePwdUpdate(){
 function mypageAddrUpdate(){
 	window.open('mypageAddrUpdateForm.do?mem_id=${sessionScope.sid}','addrUpdate','width=550,height=300');
 }
+function mypageEmailUpdate(){
+	window.open('mypageEmailUpdateForm.do?mem_id=${sessionScope.sid}','emailUpdate','width=550,height=300');
+}
+function mypagePhoneUpdate(){
+	window.open('mypagePhoneUpdateForm.do?mem_id=${sessionScope.sid}','emailUpdate','width=550,height=300');
+}
 </script>
 
 </head>
@@ -23,10 +29,10 @@ function mypageAddrUpdate(){
 	<br>
 	<div>
 		<div>
-			<a href="memberProfileForm.do">내 프로필</a>
+			<a href="memberProfileForm.do?mem_id=${sessionScope.sid}">내 프로필</a>
 		</div>
 		<div>
-			<a href="#">좋아요 목록</a>
+			<a href="mypageLikeList.do?mem_id=${sessionScope.sid}">좋아요 목록</a>
 		</div>
 		<div>
 			<a href="#">결제내역</a>
@@ -69,18 +75,18 @@ function mypageAddrUpdate(){
 				<input type="hidden" name="mem_zipcode" value="${dto.mem_zipcode }">
 				<input type="hidden" name="mem_addr" value="${dto.mem_addr }">
 				<input type="hidden" name="mem_detailaddr"value="${dto.mem_detailaddr }">
-				<input type="button"value="수정하기" onclick="mypageAddrUpdate()">
 			</label>
+			<input type="button"value="수정하기" onclick="mypageAddrUpdate()">
 		</div>
 		<div>
 			<label>이메일 : ${dto.mem_email } <input type="hidden"
 				name="mem_email" value="${dto.mem_email }"></label> <input
-				type="button" value="수정하기">
+				type="button" value="수정하기" onclick="mypageEmailUpdate()">
 		</div>
 		<div>
 			<label>전화번호 : ${dto.mem_phone } <input type="hidden"
 				name="mem_phone" value="${dto.mem_phone }"></label> <input
-				type="button" value="수정하기">
+				type="button" value="수정하기" onclick="mypagePhoneUpdate()">
 		</div>
 	</c:forEach>
 </body>

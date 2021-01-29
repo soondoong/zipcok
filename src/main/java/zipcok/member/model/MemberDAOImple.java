@@ -69,6 +69,12 @@ public class MemberDAOImple implements MemberDAO {
 		return str;
 	}
 	
+	@Override
+	public int idConfirm(String mem_id) {
+		int count = sqlMap.selectOne("idConfirm", mem_id);
+		return count;
+	}
+	
 	
 }
 

@@ -11,6 +11,12 @@
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
+<script>
+function popupClose(){
+	window.self.close();
+}
+</script>
+
 <script type="text/javascript">
 var address = $('#mem_detailaddr');
 
@@ -118,7 +124,8 @@ function execPostCode() {
 				</div>
 
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="submit" class="btn btn-primary">수정하기</button>
+					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 				</div>
 			</div>
 		</form>
