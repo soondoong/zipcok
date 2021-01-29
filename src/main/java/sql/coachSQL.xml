@@ -387,4 +387,23 @@ where
 mem_id=#{coach_mem_id} 
 
 </update>
+
+
+<insert id="addRequestTable" parameterType="zipcok.coach.model.RequestFormDTO">
+insert into
+request_form
+values(
+request_form_idx.nextval,
+#{req_mem_id},
+#{req_receive_id},
+#{req_type},
+#{req_category},
+#{req_startdate},
+#{req_cont},
+sysdate 
+)
+</insert>
+
+
+
  </mapper>
