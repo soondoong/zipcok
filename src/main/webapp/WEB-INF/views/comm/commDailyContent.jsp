@@ -36,7 +36,7 @@ function bbsReReClose(){
 <h1>일일 운동 게시판 글보기</h1>
 <table border="1" cellspacing="0" width="550">
 		<tr>
-			<th>제목</th>
+			<th>제목</th> 
 			<td>${dto.ex_subject}(${dto.ex_recnt})</td>
 			<th>조회수</th>
 			<td>${dto.ex_readnum}</td>
