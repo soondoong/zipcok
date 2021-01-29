@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
 
 public class MypageDAOImple implements MypageDAO {
@@ -36,5 +37,22 @@ public class MypageDAOImple implements MypageDAO {
 		return count;
 	}
 	
+	@Override
+	public int mypageEmailUpdate(MemberDTO dto) {
+		int count = sqlMap.update("mypageEmailUpdate", dto);
+		return count;
+	}
+	
+	@Override
+	public int mypagePhoneUpdate(MemberDTO dto) {
+		int count = sqlMap.update("mypagePhoneUpdate", dto);
+		return count;
+	}
+	
+	@Override
+	public List memberProfilePhoto(String mfile_mem_id) {
+		List list = sqlMap.selectList("memberProfilePhoto", mfile_mem_id);
+		return list;
+	}
 	
 }

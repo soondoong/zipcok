@@ -37,17 +37,71 @@ var address = $('#mem_detailaddr');
 $(document).ready(function() {
    var address = $('#mem_detailaddr');
    
+   //아이디 중복확인
+   /*
+   $("#mem_id").blur(function() {
+       if($('#mem_id').val()==''){
+          $('#id_check').text('아이디를 입력하세요.');
+          $('#id_check').css('color', 'red');                     
+   
+          } else if(idJ.test($('#mem_id').val())!=true){
+             $('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
+             $('#id_check').css('color', 'red');
+          } else if($('#mem_id').val()!=''){
+             
+            var mem_id=$('#mem_id').val();
+              $.ajax({
+                  async : true,
+                     type : 'POST',
+                   data : mem_id,//mem_id라는 이름으로 mem_id라는 데이터를 @WebServlet("/idConfirm.do")에 보내겠다
+                   url : 'idConfirm.do',
+                     dateType: 'json',
+                     contentType: "application/json; charset=UTF-8",
+                     success : function(data) {
+
+          if(data.cnt > 0){
+             $('#id_check').text('중복된 아이디 입니다.');
+                   $('#id_check').css('color', 'red');
+                   $("#usercheck").attr("disabled", true);
+          }else{
+             if(idJ.test(mem_id)){
+                $('#id_check').text('사용가능한 아이디 입니다.');
+                $('#id_check').css('color', 'blue');
+                $("#usercheck").attr("disabled", false);
+             }
+             else if(mem_id==''){
+             $('#id_check').text('아이디를 입력해주세요.');
+                   $('#id_check').css('color', 'red');
+                   $("#usercheck").attr("disabled", true);
+             }
+             else{
+                $('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다.");
+                $('#id_check').css('color', 'red');
+                $("#usercheck").attr("disabled", true);
+             }
+          }
+
+        }
+
+             });//ajax/// 
+          }//else if
+        
+ });//blur
+ */
  
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
         
-         /*if (idJ.test($('#mem_id').val())) {
+         /*
+         if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
          } else {
             inval_Arr[0] = false;
             alert('아이디를  확인하세요.');
             return false;
-         } */
+         } 
+         */
+         
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
                && pwJ.test($('#mem_pwd').val())) {
@@ -321,24 +375,10 @@ function execPostCode() {
 				<div class="form-group">
 					<label for="id">아이디</label> <input type="text" class="form-control"
 						id="mem_id" name="mem_id" placeholder="ID">
-						<span id="idCheckMsg"></span> <input type="button"
-						class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						value="중복확인">		
-					<!--  <div class="eheck_font" id="id_check"></div> -->
+					
+				<div class="eheck_font" id="id_check"></div>
 				</div>
 				
-				
-		<!-- 		<div class="form-group">
-					<label for="id">아이디</label> <input type="text" class="form-control"
-						id="mem_id" name="mem_id" placeholder="ID">
-						<span id="idCheckMsg"></span> <input type="button"
-						class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						value="중복확인" onclick="show()">
-					 <div class="eheck_font" id="id_check"></div>
-				</div>
- -->
 
 				<div class="form-group">
 					<label for="pw">비밀번호</label> <input type="password"
@@ -406,9 +446,9 @@ function execPostCode() {
 
 
 				<div class="form-group">
-					<label for="mem_gender">성별 </label>&nbsp; <input type="checkbox"
+					<label for="mem_gender">성별 </label>&nbsp; <input type="radio"
 						id="mem_gender" name="mem_gender" value="남">남 <input
-						type="checkbox" id="mem_gender" name="mem_gender" value="여">여
+						type="radio" id="mem_gender" name="mem_gender" value="여">여
 				</div>
 				
 				

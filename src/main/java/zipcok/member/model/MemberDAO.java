@@ -11,5 +11,6 @@ public interface MemberDAO {
 	public String idFind(String mem_email);
 	public int pwdUpdate(MemberDTO dto);
 	public String typeCheck(String mem_id);
+	public int idConfirm(String mem_id);
 	
 }

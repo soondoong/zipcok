@@ -8,6 +8,7 @@
     <mapper resource="sql/noticeSQL.xml"/>
     <mapper resource="sql/MemberSQL.xml"/>
     <mapper resource="sql/MypageSQL.xml"/>
+    <mapper resource="sql/CoachMypageSQL.xml"/>
     <mapper resource="sql/exbbsSQL.xml"/>
     <mapper resource="sql/coachSQL.xml"/>
     <mapper resource="sql/homegymSQL.xml"/>

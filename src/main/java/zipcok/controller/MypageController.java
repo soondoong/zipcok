@@ -26,7 +26,8 @@ public class MypageController {
 	ServletContext c;
 	
 	@RequestMapping("/memberProfileForm.do")
-	public ModelAndView memberProfileForm(HttpSession session) {
+	public ModelAndView memberProfileForm(
+			HttpSession session) {
 		ModelAndView mav= new ModelAndView();
 		List list=dao.memberProfile((String)session.getAttribute("sid"));
 		mav.addObject("list", list);
@@ -82,6 +83,58 @@ public class MypageController {
 		mav.addObject("gourl", "memberProfileForm.do");
 		mav.setViewName("mypage/mypagePopupMsg");
 		return mav;
+	}
+	
+	@RequestMapping("/mypageEmailUpdateForm.do")
+	public String mypageEmailUpdateForm() {
+		
+		return "mypage/mypageEmailUpdate";
+	}
+	
+	@RequestMapping("/mypageEmailUpdate.do")
+	public ModelAndView mypageEmailUpdate(
+			MemberDTO dto,
+			HttpSession session,
+			@RequestParam("mem_email") String mem_email) {
+		
+		ModelAndView mav= new ModelAndView();
+		dto.setMem_id((String)session.getAttribute("sid"));
+		int result = dao.mypageEmailUpdate(dto);
+		String msg=result>0?"이메일 변경 성공!":"이메일 변경 실패!";
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "memberProfileForm.do");
+		mav.setViewName("mypage/mypagePopupMsg");
+		return mav;
+		
+	}
+	
+	@RequestMapping("/mypagePhoneUpdateForm.do")
+	public String mypagePhoneUpdateForm() {
+		
+		return "mypage/mypagePhoneUpdate";
+	}
+	
+	@RequestMapping("/mypagePhonUpdate.do")
+	public ModelAndView mypagePhoneUpdate(
+			MemberDTO dto,
+			HttpSession session,
+			@RequestParam("mem_phone") String mem_phone) {
+		
+		ModelAndView mav= new ModelAndView();
+		dto.setMem_id((String)session.getAttribute("sid"));
+		int result = dao.mypagePhoneUpdate(dto);
+		String msg=result>0?"전화번호 변경 성공!":"전화번호 변경 실패!";
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "memberProfileForm.do");
+		mav.setViewName("mypage/mypagePopupMsg");
+		return mav;
+		
+	}
+	
+	@RequestMapping("mypageLikeList.do")
+	public String mypageLikeList() {
+		
+		return "mypage/mypageLikeList";
 	}
 	
 	

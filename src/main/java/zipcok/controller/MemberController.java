@@ -282,12 +282,15 @@ public class MemberController {
 		return mav;
 	}
 	
-	
-	@RequestMapping("/nansooTest.do")
-	public String nansooTest() {
-		return "member/nansooTest";
+	@RequestMapping("/idConfirm.do")
+	public ModelAndView idConfirm(@RequestParam("mem_id")String mem_id) {
+		
+		ModelAndView mav = new ModelAndView();
+		int result = mdao.idConfirm(mem_id);
+		mav.addObject(result);
+		mav.setViewName("member/memberJoin");
+		return mav;
 	}
-
 	
 	
 	
