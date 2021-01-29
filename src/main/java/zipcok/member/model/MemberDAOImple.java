@@ -63,6 +63,11 @@ public class MemberDAOImple implements MemberDAO {
 		return count;
 	}
 	
+	@Override
+	public String typeCheck(String mem_id) {
+		String str = sqlMap.selectOne("typeCheck", mem_id);
+		return str;
+	}
 	
 	
 }

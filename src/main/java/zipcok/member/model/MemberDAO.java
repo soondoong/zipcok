@@ -10,5 +10,6 @@ public interface MemberDAO {
 	public String getMemberName(String mem_id);
 	public String idFind(String mem_email);
 	public int pwdUpdate(MemberDTO dto);
+	public String typeCheck(String mem_id);
 	
 }

@@ -8,4 +8,5 @@ public interface MypageDAO {
 
 	public List memberProfile(String mem_id);
 	public int mypagePwdUpdate(MemberDTO dto);
+	public int mypageAddrUpdate(MemberDTO dto);
 }

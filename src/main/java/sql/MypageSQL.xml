@@ -11,5 +11,13 @@
 	<update id="mypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
 	</update>
+	
+	<update id="mypageAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
+		update zipcok_member set
+			mem_zipcode=#{mem_zipcode},
+			mem_addr=#{mem_addr},
+			mem_detailaddr=#{mem_detailaddr}
+			where mem_id=#{mem_id}
+	</update>
 
 </mapper>

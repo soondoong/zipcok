@@ -52,13 +52,35 @@ public class MypageController {
 			int result=dao.mypagePwdUpdate(dto);
 			mav.addObject("mem_id", mem_id);
 			mav.addObject("msg", "비밀번호 수정 완료!");
-			mav.addObject("gourl", "index.do");
+			mav.addObject("gourl", "memberProfileForm.do");
 			mav.setViewName("mypage/mypageMsg");
 		}else {
 			mav.addObject("msg", "잘못된 정보입니다 고객센터에 문의해주세요.");
-			mav.addObject("gourl", "index.do");
+			mav.addObject("gourl", "memberProfileForm.do");
 			mav.setViewName("mypage/mypageMsg");
 		}
+		return mav;
+	}
+	
+	@RequestMapping("/mypageAddrUpdateForm.do")
+	public String mypageAddrUpdateForm() {
+		
+		return "mypage/mypageAddrUpdate";
+	}
+	
+	@RequestMapping("/mypageAddrUpdate.do")
+	public ModelAndView mypageAddrUpdate(MemberDTO dto,
+			HttpSession session,
+			@RequestParam("mem_zipcode")String mem_zipcode,
+			@RequestParam("mem_addr")String mem_addr,
+			@RequestParam("mem_detailaddr")String mem_detailaddr) {
+		ModelAndView mav = new ModelAndView();
+		dto.setMem_id((String)session.getAttribute("sid"));
+		int result = dao.mypageAddrUpdate(dto);
+		String msg=result>0?"주소변경 성공!":"주소변경 실패!";
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "memberProfileForm.do");
+		mav.setViewName("mypage/mypagePopupMsg");
 		return mav;
 	}
 	

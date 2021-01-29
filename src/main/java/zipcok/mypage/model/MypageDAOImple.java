@@ -30,5 +30,11 @@ public class MypageDAOImple implements MypageDAO {
 		return count;
 	}
 	
+	@Override
+	public int mypageAddrUpdate(MemberDTO dto) {
+		int count = sqlMap.update("mypageAddrUpdate", dto);
+		return count;
+	}
+	
 	
 }
