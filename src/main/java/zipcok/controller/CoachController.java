@@ -34,7 +34,7 @@ import zipcok.coach.model.RequestFormDTO;
 @Controller
 public class CoachController {
 	@Autowired
-	CoachDAO dao;
+	private CoachDAO dao;
 	
 	@Autowired
 	ServletContext c;
@@ -69,6 +69,8 @@ public class CoachController {
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
 		/*키워드 담기*/
 		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
+		
+		keywordMap.put("methodKey","searchCoach");
 		
 		keywordMap.put("location",location);
 		keywordMap.put("extype",extype);
@@ -243,7 +245,7 @@ public class CoachController {
 		
 	}
 	
-	
+	/*코치프로필정보가져오기기능*/
 	@RequestMapping("coachProfile.do")
 	public ModelAndView showCoachProfile(@RequestParam("id")String id) {
 		ModelAndView mav= new ModelAndView();
@@ -286,7 +288,12 @@ public class CoachController {
 	/*상담요청서보내기*/
 	@RequestMapping("sendRequestForm.do")
 	public ModelAndView  sendRequestForm(RequestFormDTO dto) {
-		System.out.println("-----요청컨트롤러진입------");
+		/*
+		 * String newStartDate=dto.getReq_start_date().replace("-", "");
+		 * dto.setReq_start_date(newStartDate);
+		 */
+	
+		System.out.println("-----요청컨트롤러진입------"+dto.getReq_start_date());
 		int result=dao.sendRequestForm(dto);
 		String msg=result>0?"상담요청서가 전송되었습니다":"전송실패";
 		System.out.println("-----기능수행------");

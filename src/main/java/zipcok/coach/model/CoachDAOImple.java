@@ -137,14 +137,28 @@ public class CoachDAOImple implements CoachDAO {
 	}
 	
 	
-	/*검색된 코치 총 갯수 가져오기*/
+	
 	@Override
 	public int getTotalCnt(HashMap map) {
-		int count=sqlMap.selectOne("totalCnt",map);
-		//총게시물수가 0이면오류나니까 
-		System.out.println("일반검색 토탈카운트"+count);
-		return count==0?1:count;
+		
+		String sqlKey=(String)(map.get("methodKey"));
+		int count=0;
+		 switch (sqlKey) {
+         case "searchCoach": count=sqlMap.selectOne("searchCoachtotalCnt",map); ;
+                  break;
+         case "checkRequest":count=sqlMap.selectOne("requestListTotalCnt",map); ;
+                  break;
+  
+     }
+		
+	
+		
+		System.out.println("일반검색 토탈카운트:"+count);
+		return count==0?1:count; //총게시물수가 0이면오류나니까 
 	}
+	
+	
+	
 	
 	/*Ajax 검색된 코치 총 갯수 가져오기*/
 	@Override
@@ -243,6 +257,24 @@ public class CoachDAOImple implements CoachDAO {
 		return count;
 	}
 	
+	
+	
+	/*상담요청서 목록가져오기*/
+	@Override
+	public List<RequestFormDTO> searchRequestList(HashMap<String, Object> keys, int cp, int ls) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		keys.put("start",start);
+		keys.put("end",end);	
+		
+		
+		List<RequestFormDTO> list=sqlMap.selectList("searchRequestList", keys);
+		
+		return list;
+	}
+
+
 	
 	
 }

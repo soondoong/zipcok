@@ -198,7 +198,7 @@ rownum  between #{start} and #{end}
 	
 	
 	
-<select id="totalCnt" parameterType="Hashmap" resultType="Integer">
+<select id="searchCoachtotalCnt" parameterType="Hashmap" resultType="Integer">
 
 select
  count(*) from 
@@ -398,12 +398,21 @@ request_form_idx.nextval,
 #{req_receive_id},
 #{req_type},
 #{req_category},
-#{req_startdate},
+#{req_start_date},
 #{req_cont},
-sysdate 
+to_char(sysdate,'yyyy-mm-dd')
 )
 </insert>
 
+
+<select id="requestListTotalCnt" parameterType="Hashmap" resultType="Integer">
+select
+ count(*) from 
+ request_form
+ where 
+ req_receive_id = #{id}
+
+</select>	
 
 
  </mapper>

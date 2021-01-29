@@ -12,10 +12,16 @@
 <style>
 html, body {
     margin: 0;
-    width: 100%;
-    height: 100%;
 }
-
+.leftWall{
+    width:20%;
+    height: 100vh;
+    position:relative;
+    float: left;
+    top:0px;
+    left:0px;
+    background-color:white;
+}
 .blueBackground{
 background-color:   #3978df;
 width:100%;
@@ -103,17 +109,8 @@ z-index:30;
     height:500px;
     position:relative;
     float: left;
-    top:30px;
-    left:30px;
-}
-.leftWall{
-    width:20%;
-    height: 100%;
-    position:relative;
-    float: left;
-    top:0px;
-    left:0px;
-    background-color: white;
+    top:40px;
+    left:50px;
 }
 
 .fp{

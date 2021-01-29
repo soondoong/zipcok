@@ -132,6 +132,9 @@ function lengthLimit(){
 			<!-- 상담요청서폼 -->
 			
 <script>
+
+/*상담요청서 작성폼 띄우기*/
+
 function showForm(){
 	
 	$('.requestDiv').css('display','block');
@@ -141,7 +144,59 @@ function close(){
 	$('.requestDiv').css('display','none');
 }
 
+/*---------------------------------------------------*/
 
+/*yyyy-mm-dd 포맷날짜가져오기*/
+
+function getTimeStamp() {
+
+    var d = new Date();
+    var s =
+        leadingZeros(d.getFullYear(), 4) + '-' +
+        leadingZeros(d.getMonth() + 1, 2) + '-' +
+        leadingZeros(d.getDate(), 2);
+
+    return s;
+}
+
+function leadingZeros(n, digits) {
+
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+        for (i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
+
+var today = getTimeStamp() ;
+$( '#startDate' ).attr('min', today);
+$( '#startDate' ).val(today);
+
+/*-----------------------------------------------------*/
+
+
+/*null값전송막기*/
+   $('#requestForm').on('submit',function(){
+      
+         if ( !$( 'input[name="req_category"]:checked' ).val() ) {
+      
+            alert('카테고리를 체크해주세요');
+            $( 'input[name="req_category"]:checked' ).focus();
+            return false;
+         } 
+         
+         if ( $( '#startDate' ).val() =='' ) {
+             
+             alert('희망 시작일을 선택해주세요');
+             $( '#startDate' ).focus();
+             return false;
+          } 
+         
+   });
+ /*-----------------------------------------------------*/
 
 </script>
 			

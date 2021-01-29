@@ -1,6 +1,5 @@
 package zipcok.coach.model;
 
-import java.sql.Date;
 
 public class RequestFormDTO {
 	
@@ -9,9 +8,9 @@ public class RequestFormDTO {
 	private String req_receive_id;
 	private String req_type;
 	private String req_category;
-	private String req_start_date;
+	private String req_start_date; 
 	private String req_cont;
-	private Date req_date;
+	private String req_date;
 	
 	public RequestFormDTO() {
 		// TODO Auto-generated constructor stub
@@ -57,11 +56,11 @@ public class RequestFormDTO {
 		this.req_category = req_category;
 	}
 
-	public Date getreq_start_date() {
+	public String getReq_start_date() {
 		return req_start_date;
 	}
 
-	public void setreq_start_date(Date req_start_date) {
+	public void setReq_start_date(String req_start_date) {
 		this.req_start_date = req_start_date;
 	}
 
@@ -73,16 +72,16 @@ public class RequestFormDTO {
 		this.req_cont = req_cont;
 	}
 
-	public Date getReq_date() {
+	public String getReq_date() {
 		return req_date;
 	}
 
-	public void setReq_date(Date req_date) {
+	public void setReq_date(String req_date) {
 		this.req_date = req_date;
 	}
 
 	public RequestFormDTO(int req_idx, String req_mem_id, String req_receive_id, String req_type, String req_category,
-			Date req_start_date, String req_cont, Date req_date) {
+			String req_start_date, String req_cont, String req_date) {
 		super();
 		this.req_idx = req_idx;
 		this.req_mem_id = req_mem_id;
@@ -94,7 +93,5 @@ public class RequestFormDTO {
 		this.req_date = req_date;
 	}
 
-
-	
 	
 }
