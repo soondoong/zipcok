@@ -190,10 +190,10 @@ display:none;
 		</div>
 			<hr>
 		<div class="m-3"> 
-		<p class="fp">별점</p>
-		<label id="starVal">3</label>점 이상
+		<p class="fp">경력</p>
+		<label>0 ~ </label><label id="yearVal">3</label>년 이상
 		<br>
-		 <input type="range" min="1" max="5" id="starRange" onmouseup ="starValue(this);" onchange="showList()">
+		 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
 		</div>
 	</div>	
 	
@@ -216,9 +216,9 @@ $('.sexBtn').click(function(){
 
 
 	/*별점 드래그한대로 숫자들어감*/
-	function starValue(t){
-	var starVal=document.getElementById("starVal");
-	starVal.innerText = t.value;
+	function yearValue(t){
+	var yearVal=document.getElementById("yearVal");
+	yearVal.innerText = t.value;
 	}
 
 
@@ -242,11 +242,11 @@ $('.sexBtn').click(function(){
 			 gender='전체';
 		}
 		
-		 /*별점값 정의*/
-		 var starVal=document.getElementById("starRange").value; 
+		 /*경력값 정의*/
+		 var yearVal=document.getElementById("yearRange").value; 
 		 	
 		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}';
-		  var params='gender='+gender+"&"+'starVal='+starVal+"&"+'cp='+cp+"&"+keywords; //보낼파라미터
+		  var params='gender='+gender+"&"+'yearVal='+yearVal+"&"+'cp='+cp+"&"+keywords; //보낼파라미터
 		 // alert(params);
 	  	sendRequest("searchAjax.do",params,shwR,'GET');
 	  }
@@ -268,7 +268,8 @@ $('.sexBtn').click(function(){
 	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload+'"></div>'+	  					
 								'<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>'+
 									'<div><span><a href="coachProfile.do?id='+dto.coach_mem_id+'">'+dto.coach_intro_sub+'</a></span></div>'+
-										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">'+dto.avg+'</span></div></div>');						    
+										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">'+dto.avg+'</span>'+
+										'&nbsp; <span>('+dto.starcnt+'명 참여)</span></div></div>');						    
 
 	$('.ajaxDIV').css('display','block');
 	  					
@@ -316,7 +317,8 @@ $('.sexBtn').click(function(){
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
+		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>
+		    	<img src="img/coach/star.png" class="starIMG">${dto.avg }</span>&nbsp; <span>(${dto.starcnt }명 참여)</span>
 		    </div>
 	</div>  <!-- oneperson -->
 		

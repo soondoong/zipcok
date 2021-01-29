@@ -154,7 +154,7 @@ function search(){
 		    </div>
 		    
 		     <div>
-		    <span><a href="#">${dto.coach_intro_sub}</a></span>
+		    <span><a href="coachProfile.do?id=${ dto.coach_mem_id }">${dto.coach_intro_sub}</a></span>
 		    </div>
 		    
 		    <div>
@@ -184,11 +184,12 @@ function search(){
 		    </div>
 		    
 		     <div>
-		    <span><a href="#">${dto2.coach_intro_sub}</a></span>
+		    <span><a href="coachProfile.do?id=${ dto2.coach_mem_id }">${dto2.coach_intro_sub}</a></span>
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
+		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; 
+		    	<span><img src="img/coach/star.png" class="starIMG">${dto2.avg }</span>&nbsp; <span>(${dto2.starcnt }명 참여)</span>
 		    </div>
 		  </div>  
 		  

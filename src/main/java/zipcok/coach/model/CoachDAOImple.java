@@ -81,9 +81,12 @@ public class CoachDAOImple implements CoachDAO {
 		
 		keys.put("start",start);
 		keys.put("end",end);
-		
+		System.out.println("지역:"+keys.get("location")+"/"+"수업유형:"+keys.get("extype")+"/"+"카테고리:"+keys.get("category"));
+		System.out.println("성별:"+keys.get("gender")+"/"+"경력:"+keys.get("yearVal"));
+		System.out.println("start:"+start+"/end:"+end);
 		List<MainCoachDTO> searchList=sqlMap.selectList("ajaxSearchCoachByKey",keys);
 		System.out.println("ajax검색된코치수"+searchList.size());
+		System.out.println("------------------------------------------------------");
 		for(int i=0;i<searchList.size();i++) {
 			String cateName="";
 			/*코치카테고리정보 담기*/
@@ -149,6 +152,7 @@ public class CoachDAOImple implements CoachDAO {
 		
 		int count=sqlMap.selectOne("ajaxTotalCnt",map);
 		//총게시물수가 0이면오류나니까 
+		
 		System.out.println("ajax 토탈카운트"+count);
 		return count==0?1:count;
 	}

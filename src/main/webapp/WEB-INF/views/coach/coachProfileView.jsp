@@ -51,6 +51,7 @@ padding:0 10px 0 10px;
 <c:set var="review" value="${resultMap.reviewList }"/>
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>
+
 <section>
 	<article class="secondWrap">
 				
@@ -58,18 +59,18 @@ padding:0 10px 0 10px;
 			<table  >
 			<tr>
 				<td rowspan="3" class="maintd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-				<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>	
-				<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>				
+				<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></td>	
+				<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></td>		
 			</tr>
 			
 			<tr>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
+			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[2].mfile_upload?'noimage.png' : file[2].mfile_upload }"></td>	
+			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[3].mfile_upload?'noimage.png' : file[3].mfile_upload }"></td>		
 			</tr>
 			
 			<tr>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
+			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[4].mfile_upload?'noimage.png' : file[4].mfile_upload }"></td>	
+			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[5].mfile_upload?'noimage.png' : file[5].mfile_upload }"></td>		
 			</tr>
 			</table>
 		<!-- 코치사진영역 -->
@@ -150,35 +151,8 @@ padding:0 10px 0 10px;
 		
 		
 			<!-- 후기테이블 영역 -->
-			<p style="font-size:1.8rem; font-weight: 600;">후기</p>
-			
-			<c:if test="${empty review}">
-			<div>작성 된 후기가 없습니다.</div>
-			</c:if>
-			
-			<c:if test="${!empty review}">
-			<table border="1" width="800px" cellspacing="0">
-				<c:forEach var="r" items="${ review }">
-					
-				<tr>
-				<td>${r.rev_mem_id }</td>
-				</tr>
-				<tr>
-				<td><span>${r.rev_star }</span><span>${r.rev_writedate}</span></td>
-				</tr>
-				<tr>
-				<td>${r.rev_sub }</td>
-				</tr>
-				<tr>
-				<td>${r.rev_cont }</td>
-				</tr>
-				
-				</c:forEach>
-			</table>
-			</c:if>
-		
-			
-			
+			<%@include file="./reviewView.jsp" %>
+						
 			<!-- 후기테이블 영역 -->	
 	</article>
 </section>
