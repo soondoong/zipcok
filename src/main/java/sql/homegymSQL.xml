@@ -53,29 +53,46 @@
 	<select id="hgListSQL" parameterType="hashMap"
 		resultType="zipcok.homegym.model.HomeGymDTO">
 		select * from
-		(select rownum as rnum, a.* from
+		(select rownum as rnum,
+         to_date(hg_start_date_year||hg_start_date_month||hg_start_date_day,'yyyy-mm-dd') as hg_start_date,
+         to_date(hg_end_date_year||hg_end_date_month||hg_end_date_day,'yyyy-mm-dd') as hg_end_date,
+         a.* from
 		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
-		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
-	</select>
-	
-	<select id="homegymTotalCnt" parameterType="Hashmap" resultType="Integer">
-		select count(*) from homegym
-		where
-		hg_saddr
+		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end} and 		hg_faddr
 		<choose>
 			<when test = "location == '전체'">like '%%'</when>
 			<when test = "location != '전체'">like '%${location}%'</when>
 		</choose>
-		and
 		<choose>
-			<when test = "year == 0">hg_start_date_year <![CDATA[>=]]> 0 and hg_end_date_year<![CDATA[<=]]>10000</when>
-			<when test = "year != 0">
-				hg_start_date_year <![CDATA[>=]]> ${year} and 
-				hg_end_date_year <![CDATA[<=]]> ${year} and 
-				hg_start_date_month <![CDATA[>=]]> ${month} and 
-				hg_end_date_month <![CDATA[<=]]> ${month} and 
-				hg_start_date_day <![CDATA[>=]]> ${day} and 
-				hg_end_date_day <![CDATA[<=]]> ${day}
+			<when test = "select_date == '1900-01-01'"></when>
+			<when test = "select_date != '1900-01-01'">
+			and
+			hg_start_date <![CDATA[<=]]> '${select_date_date}' and 
+			hg_end_date <![CDATA[>=]]> '${select_date_date}'
+			</when>
+		</choose>
+	</select>
+
+	<select id="homegymTotalCnt" parameterType="Hashmap" resultType="Integer">
+		select count(*) from
+		(select rownum as rnum,
+         to_date(hg_start_date_year||hg_start_date_month||hg_start_date_day,'yyyy-mm-dd') as hg_start_date,
+         to_date(hg_end_date_year||hg_end_date_month||hg_end_date_day,'yyyy-mm-dd') as hg_end_date,
+         a.* from
+		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
+		where
+		hg_faddr
+		<choose>
+			<when test = "location == '전체'">like '%%'</when>
+			<when test = "location != '전체'">like '%${location}%'</when>
+		</choose>
+
+		<choose>
+			<when test = "select_date == '1900-01-01'"></when>
+			<when test = "select_date != '1900-01-01'">
+			and			
+			hg_start_date <![CDATA[<=]]> '${select_date_date}' and 
+			hg_end_date <![CDATA[>=]]> '${select_date_date}'
 			</when>
 		</choose>
 	</select>

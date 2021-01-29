@@ -31,20 +31,6 @@ height:30px;
 		showList();
 	});
 	*/
-	function top_option(){
-		var choice_location = document.getElementById('top_option_location').value;
-		window.alert(choice_location);
-		var choice_date = document.getElementById('top_option_date').value;
-		if(choice_date=='') choice_date='0-0-0';
-		window.alert(choice_date);
-		var year = choice_date.slice(0, 4);
-		var month = choice_date.slice(5, 7);
-		var day = choice_date.slice(8, 10);
-		var params = 'location='+choice_location+'&year='+year+'&month='+month+'&day='+day;
-		var top_option_fm = document.getElementById('top_option_fm');
-		top_option_fm.action = 'HomeGymList.do?'+params;
-		top_option_fm.submit();
-	}
 	function showPrice(){
 		var price_span = document.getElementById('price').value;
 		document.getElementById('price_value').innerText=price_span;
@@ -64,20 +50,20 @@ height:30px;
 <body>
 <%@include file="../header2.jsp" %>
 	<!-- 상단 조건바 -->
-	<form id = "top_option_fm" action = "HomeGymList.do">
+	<form id = "top_option_fm" action = "HomeGymList.do" method = "post">
 		<div id = "top_option">
 			<h1>어떤 홈짐을 찾고 계신가요?</h1>
-			<select id="top_option_location">
-				<option value="전체" selected>----</option>
-				<option value="강남구">강남구</option>
-				<option value="강동구">강동구</option>
-				<option value="강북구">강북구</option>
-				<option value="강서구">강서구</option>
-				<option value="관악구">관악구</option>
-				<option value="영등포구">영등포구</option>
+			<select name="top_option_location">
+				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected="selected"</c:if>>----</option>
+				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected="selected"</c:if>>강남구</option>
+				<option value="강동구" <c:if test="${keywordMap.location=='강동구'}">selected="selected"</c:if>>강동구</option>
+				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected="selected"</c:if>>강북구</option>
+				<option value="강서구" <c:if test="${keywordMap.location=='강서구'}">selected="selected"</c:if>>강서구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='관악구'}">selected="selected"</c:if>>관악구</option>
+				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected="selected"</c:if>>영등포구</option>
 			</select>
-			<input type="date" id="top_option_date">
-			<input type="button" value="검색하기" onclick = "javascript:top_option();">
+			<input type="date" name="top_option_date" value="${keywordMap.date }">
+			<input type="submit" value="검색하기">
 		</div>
 	</form>
 			<hr>
@@ -109,10 +95,21 @@ height:30px;
 			<hr>
 			<h6>수용 인원</h6>
 			<div>
+			<select id = "person_count">
+				<option value = "1">1</option>
+				<option value = "2">2</option>
+				<option value = "3">3</option>
+				<option value = "4">4</option>
+				<option value = "5">5</option>
+				<option value = "6">6</option>
+			</select><label>명 이상</label>
 			</div>
+			<hr>
 		</div>
 
 	<div>
+		<h6>게시글 수 : ${totalCnt }</h6>
+		<hr>
 		<c:set var="HomeGymList" value="${HomeGymList }" />
 		<c:choose>
 			<c:when test="${empty HomeGymList }">
@@ -123,7 +120,11 @@ height:30px;
 					<div class="ListItem">
 					시작일:${dto.hg_start_date_year }-${dto.hg_start_date_month }-${dto.hg_start_date_day }
 					<br>종료일:${dto.hg_end_date_year }-${dto.hg_end_date_month }-${dto.hg_end_date_day }
-					<br>${dto.hg_mem_id } / ${dto.hg_faddr }</div>
+					<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
+					<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
+					<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
+					<br>장비 리스트 : 					
+					</div>
 					<hr>
 				</c:forEach>
 			</c:otherwise>

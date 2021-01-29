@@ -11,12 +11,12 @@ public class HomeGymDTO {
 	private String hg_comeinfo;
 	private int hg_person_count;
 	private String hg_info;
-	private int hg_start_date_year;
-	private int hg_start_date_month;
-	private int hg_start_date_day;
-	private int hg_end_date_year;
-	private int hg_end_date_month;
-	private int hg_end_date_day;
+	private String hg_start_date_year;
+	private String hg_start_date_month;
+	private String hg_start_date_day;
+	private String hg_end_date_year;
+	private String hg_end_date_month;
+	private String hg_end_date_day;
 	private String hg_not_date;
 	private int hg_start_time;
 	private int hg_end_time;
@@ -93,51 +93,51 @@ public class HomeGymDTO {
 		this.hg_info = hg_info;
 	}
 
-	public int getHg_start_date_year() {
+	public String getHg_start_date_year() {
 		return hg_start_date_year;
 	}
 
-	public void setHg_start_date_year(int hg_start_date_year) {
+	public void setHg_start_date_year(String hg_start_date_year) {
 		this.hg_start_date_year = hg_start_date_year;
 	}
 
-	public int getHg_start_date_month() {
+	public String getHg_start_date_month() {
 		return hg_start_date_month;
 	}
 
-	public void setHg_start_date_month(int hg_start_date_month) {
+	public void setHg_start_date_month(String hg_start_date_month) {
 		this.hg_start_date_month = hg_start_date_month;
 	}
 
-	public int getHg_start_date_day() {
+	public String getHg_start_date_day() {
 		return hg_start_date_day;
 	}
 
-	public void setHg_start_date_day(int hg_start_date_day) {
+	public void setHg_start_date_day(String hg_start_date_day) {
 		this.hg_start_date_day = hg_start_date_day;
 	}
 
-	public int getHg_end_date_year() {
+	public String getHg_end_date_year() {
 		return hg_end_date_year;
 	}
 
-	public void setHg_end_date_year(int hg_end_date_year) {
+	public void setHg_end_date_year(String hg_end_date_year) {
 		this.hg_end_date_year = hg_end_date_year;
 	}
 
-	public int getHg_end_date_month() {
+	public String getHg_end_date_month() {
 		return hg_end_date_month;
 	}
 
-	public void setHg_end_date_month(int hg_end_date_month) {
+	public void setHg_end_date_month(String hg_end_date_month) {
 		this.hg_end_date_month = hg_end_date_month;
 	}
 
-	public int getHg_end_date_day() {
+	public String getHg_end_date_day() {
 		return hg_end_date_day;
 	}
 
-	public void setHg_end_date_day(int hg_end_date_day) {
+	public void setHg_end_date_day(String hg_end_date_day) {
 		this.hg_end_date_day = hg_end_date_day;
 	}
 
@@ -198,10 +198,10 @@ public class HomeGymDTO {
 	}
 
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
-			String hg_comeinfo, int hg_person_count, String hg_info, int hg_start_date_year, int hg_start_date_month,
-			int hg_start_date_day, int hg_end_date_year, int hg_end_date_month, int hg_end_date_day, String hg_not_date,
-			int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check, Date hg_approved_date,
-			String hg_status) {
+			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date_year,
+			String hg_start_date_month, String hg_start_date_day, String hg_end_date_year, String hg_end_date_month,
+			String hg_end_date_day, String hg_not_date, int hg_start_time, int hg_end_time, int hg_price,
+			String hg_approved_check, Date hg_approved_date, String hg_status) {
 		super();
 		this.hg_mem_id = hg_mem_id;
 		this.hg_nickname = hg_nickname;
@@ -225,6 +225,5 @@ public class HomeGymDTO {
 		this.hg_approved_date = hg_approved_date;
 		this.hg_status = hg_status;
 	}
-
 	
 }

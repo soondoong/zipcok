@@ -28,16 +28,16 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 
 	@Override
-	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, int year, int month, int day) {
+	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, String year, String month, String day) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
 		map.put("start", start);
 		map.put("end", end);
 		map.put("location", location);
-		map.put("year", year);
-		map.put("month", month);
-		map.put("day", day);
+		String select_date = year+'-'+month+'-'+day;
+		map.put("select_date", select_date);
+		map.put("select_date_date", java.sql.Date.valueOf(select_date));
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL", map);
 		return list;
 	}
@@ -69,14 +69,14 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public int HomeGymTotalCnt(String location, int year, int month, int day) {
+	public int HomeGymTotalCnt(String location, String year, String month, String day) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("location", location);
-		map.put("year", year);
-		map.put("month", month);
-		map.put("day", day);
+		String select_date = year+'-'+month+'-'+day;		
+		map.put("select_date", select_date);
+		map.put("select_date_date", java.sql.Date.valueOf(select_date));
 		int result = sqlMap.selectOne("homegymTotalCnt", map);
-		return result;
+		return result==0?1:result;
 	}
 
 }
