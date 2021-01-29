@@ -40,18 +40,43 @@
 		#{mfile_type}
 		)
 	</insert>
-<select id="hgNickNameCheckSQL" parameterType="String"
+	
+	<select id="hgNickNameCheckSQL" parameterType="String"
 		resultType="String">
 		select hg_nickname from homegym where hg_nickname = #{hg_nickname}
 	</select>
+	
 	<select id = "hgAvgPriceSQL" resultType="Integer">
 		select avg(hg_price) from homegym
 	</select>
+	
 	<select id="hgListSQL" parameterType="hashMap"
 		resultType="zipcok.homegym.model.HomeGymDTO">
 		select * from
 		(select rownum as rnum, a.* from
 		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
 		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
+	
+	<select id="homegymTotalCnt" parameterType="Hashmap" resultType="Integer">
+		select count(*) from homegym
+		where
+		hg_saddr
+		<choose>
+			<when test = "location == '전체'">like '%%'</when>
+			<when test = "location != '전체'">like '%${location}%'</when>
+		</choose>
+		and
+		<choose>
+			<when test = "year == 0">hg_start_date_year <![CDATA[>=]]> 0 and hg_end_date_year<![CDATA[<=]]>10000</when>
+			<when test = "year != 0">
+				hg_start_date_year <![CDATA[>=]]> ${year} and 
+				hg_end_date_year <![CDATA[<=]]> ${year} and 
+				hg_start_date_month <![CDATA[>=]]> ${month} and 
+				hg_end_date_month <![CDATA[<=]]> ${month} and 
+				hg_start_date_day <![CDATA[>=]]> ${day} and 
+				hg_end_date_day <![CDATA[<=]]> ${day}
+			</when>
+		</choose>
 	</select>
 </mapper>

@@ -120,7 +120,10 @@ height:30px;
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="dto" items="${HomeGymList }">
-					<div class="ListItem">${dto.hg_mem_id } / ${dto.hg_faddr }</div>
+					<div class="ListItem">
+					시작일:${dto.hg_start_date_year }-${dto.hg_start_date_month }-${dto.hg_start_date_day }
+					<br>종료일:${dto.hg_end_date_year }-${dto.hg_end_date_month }-${dto.hg_end_date_day }
+					<br>${dto.hg_mem_id } / ${dto.hg_faddr }</div>
 					<hr>
 				</c:forEach>
 			</c:otherwise>
