@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,13 @@
 </head>
 <body>
 <h1>고객센터</h1>
+<c:if test="${empty sessionScope.sid }">
+	<form action="csPlzLogin.do">
+</c:if>
+<c:if test="${!empty sessionScope.sid}">
 <form action="csWriteView.do">
-<table>
+</c:if>
+<table border="1" >
 	<thead>
 		<tr>
 			<th>글번호</th>
@@ -48,10 +54,10 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="4" align="center" class="paging">${pageStr}   </td>
+			<td colspan="5" align="center" class="paging">${pageStr}   </td>
 		</tr>
 		<tr>
-			<td colspan="4" align="right"><input type="submit" value="1:1 문의하기"></td>
+			<td colspan="5" align="right"><input type="submit" value="1:1 문의하기"></td>
 		</tr>
 	</tfoot>
 </table>

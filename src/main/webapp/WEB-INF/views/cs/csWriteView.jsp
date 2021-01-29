@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +19,7 @@
 			<option>기타</option>
 		</select></td>
 	</tr>
+	<input type="hidden" name="bbs_mem_id" value="${sessionScope.sid}">
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="bbs_subject"></td>

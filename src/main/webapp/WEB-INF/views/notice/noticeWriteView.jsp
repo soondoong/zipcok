@@ -15,24 +15,20 @@ function golist(){
 <body>
 
 <form action="noticeWrite.do" method="post" enctype="multipart/form-data">
-<table>
+<table border="1" style="width: 500px; height: 400px; align-content: center;">
 	<tr>
-		<th>카테고리 유형</th>
-		<td> <select name="bbs_category">
+		<th colspan="2">카테고리 유형
+		 <select name="bbs_category">
 			<option selected="selected">홈짐</option>
 			<option>코치 매칭</option>
 			<option>결제</option>
 			<option>기타</option>
-		</select></td>
+		</select></th>
 	</tr>
 	<tr>
-		<th>제목</th>
-		<td><input type="text" name="bbs_subject"></td>
+		<th colspan="2">제목 <input type="text" name="bbs_subject"></th>
 	</tr>
 	<hr>
-	<tr>
-		<td>사진</td>
-	</tr>
 	<tr>
 		<td colspan="2">
 			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요"></textarea>
