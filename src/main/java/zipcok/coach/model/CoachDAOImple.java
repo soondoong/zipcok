@@ -233,4 +233,16 @@ public class CoachDAOImple implements CoachDAO {
 		return resultMap;
 	}
 
+	
+	/*상담요청서 보내기*/
+	@Override
+	public int sendRequestForm(RequestFormDTO dto) {
+		//1단계. 요청서테이블에 데이터넣기
+		int count=sqlMap.insert("addRequestTable",dto);
+		
+		return count;
+	}
+	
+	
+	
 }

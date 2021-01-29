@@ -29,6 +29,7 @@ import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 import zipcok.coach.model.MainCoachDTO;
+import zipcok.coach.model.RequestFormDTO;
 
 @Controller
 public class CoachController {
@@ -282,6 +283,19 @@ public class CoachController {
 		return mav;
 	}
 	
-	
+	/*상담요청서보내기*/
+	@RequestMapping("sendRequestForm.do")
+	public ModelAndView  sendRequestForm(RequestFormDTO dto) {
+		System.out.println("-----요청컨트롤러진입------");
+		int result=dao.sendRequestForm(dto);
+		String msg=result>0?"상담요청서가 전송되었습니다":"전송실패";
+		System.out.println("-----기능수행------");
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("gopage", "coachProfile.do?id="+dto.getReq_receive_id());
+		mav.setViewName("coach/joinMsg");
+		
+		return mav;
+	}
 	
 }

@@ -17,4 +17,5 @@ public interface CoachDAO {
 	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr);
 	public ArrayList<CategoryDTO> findCategory(String id);
 	public HashMap<String,Object> coachProfile(String id);
+	public int sendRequestForm(RequestFormDTO dto);
 }

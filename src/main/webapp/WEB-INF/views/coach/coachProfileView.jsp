@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 body{
 width:100%;
@@ -40,8 +42,64 @@ object-fit: cover;
  width:40px;
 padding:0 10px 0 10px;
 }
-</style>
 
+#sidebox { 
+ position:absolute; 
+ width:280px; 
+ height: 200px;
+ top:100px;
+ right:200px;
+ padding: 3px 10px 
+ }
+.requestDiv{
+ position:absolute; 
+ margin:0 auto;
+top:100px;
+left:30%;
+width:400px;
+height:550px;
+display: none;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	// 기존 css에서 div 위치(top)값을 가져와 저장한다.
+	var floatPosition = parseInt($("#sidebox").css('top'));
+	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+	$(window).scroll(function() {
+		// 현재 스크롤 위치를 가져온다.
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+
+		
+		 $("#sidebox").css('top', newPosition);
+	
+
+		 
+			/* 애니메이션
+		$("#sidebox").stop().animate({
+			"top" : newPosition
+		}, 500);	 */
+
+	}).scroll();
+
+});
+
+
+
+
+/*상담요청서 글자수 제한*/
+function lengthLimit(){
+    var content = $('#requestText').val();
+
+    if (content.length > 60){
+        alert("최대 60자까지 입력 가능합니다.");
+        $('#requestText').val(content.substring(0, 60));
+    }
+}
+</script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
@@ -54,6 +112,42 @@ padding:0 10px 0 10px;
 
 <section>
 	<article class="secondWrap">
+			
+			
+			<!-- 견적요청 div -->
+			<div class="card" id="sidebox" >
+			<div class="card-body"> 
+		 	 <p class="card-text">${dto.mem_name} 코치님에게 상담을 요청하여 서비스를 이용해보세요!</p>
+			<input type="button" class="btn btn-primary" value="상담요청하기" onclick="showForm()">
+			</div>
+			</div>
+
+			<!-- 견적요청 div -->
+			
+			
+			<!-- 상담요청서폼 -->
+			<div class="requestDiv" id="requestDiv">
+			<%@include file="./chat/requestForm.jsp" %>
+			</div>
+			<!-- 상담요청서폼 -->
+			
+<script>
+function showForm(){
+	
+	$('.requestDiv').css('display','block');
+}	
+
+function close(){
+	$('.requestDiv').css('display','none');
+}
+
+
+
+</script>
+			
+			
+			
+			
 				
 		<!-- 코치사진영역 -->		
 			<table  >
@@ -154,6 +248,8 @@ padding:0 10px 0 10px;
 			<%@include file="./reviewView.jsp" %>
 						
 			<!-- 후기테이블 영역 -->	
+			
+		
 	</article>
 </section>
 </body>
