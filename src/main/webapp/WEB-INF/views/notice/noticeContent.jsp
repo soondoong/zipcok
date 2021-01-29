@@ -43,7 +43,7 @@ function goUpdateView(){
 		
 		<tr>
 			<td colspan="3">
-				<img alt="${List.zfile_upload }" src="upload/zipcok/notice/${List.zfile_upload}" width="500" height="500">
+				<img alt="${List.zfile_upload }" src="/zipcok/upload/notice/${List.zfile_upload}" width="500" height="500">
 			</td>
 		</tr>
 

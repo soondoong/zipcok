@@ -11,11 +11,13 @@ public class ZipcokFileDTO {
 	private String zfile_orig;
 	private String zfile_path;
 	private String zfile_type;
+	private String del_yn;
 	public ZipcokFileDTO() {
 		super();
 	}
 	public ZipcokFileDTO(int zfile_idx, int zfile_bbs_idx, String zfile_mem_id, String zfile_bbs_key,
-			String zfile_upload, int zfile_size, String zfile_orig, String zfile_path, String zfile_type) {
+			String zfile_upload, int zfile_size, String zfile_orig, String zfile_path, String zfile_type,
+			String del_yn) {
 		super();
 		this.zfile_idx = zfile_idx;
 		this.zfile_bbs_idx = zfile_bbs_idx;
@@ -26,6 +28,7 @@ public class ZipcokFileDTO {
 		this.zfile_orig = zfile_orig;
 		this.zfile_path = zfile_path;
 		this.zfile_type = zfile_type;
+		this.del_yn = del_yn;
 	}
 	public int getZfile_idx() {
 		return zfile_idx;
@@ -81,6 +84,13 @@ public class ZipcokFileDTO {
 	public void setZfile_type(String zfile_type) {
 		this.zfile_type = zfile_type;
 	}
+	public String getDel_yn() {
+		return del_yn;
+	}
+	public void setDel_yn(String del_yn) {
+		this.del_yn = del_yn;
+	}
+	
 	
 	
 }

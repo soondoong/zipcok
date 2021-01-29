@@ -12,7 +12,7 @@ function golist(){
 	location.href='noticeList.do';
 }
 function deletefile(){
-	location.href='deleteFile.do';
+	window.alert(document.getElementById("noticeImg").value);
 }
 </script>
 </head>
@@ -47,14 +47,14 @@ function deletefile(){
 		<c:forEach var="List" items="${list}">
 		
 		<tr>
-			<td colspan="3">
-				<img alt="${List.zfile_upload }" src="upload/zipcok/notice/${List.zfile_upload}" width="500" height="500">
+			<td colspan="3" class="imgtd">
+				<img id="noticeImg" alt="${List.zfile_upload }" src="/zipcok/upload/notice/${List.zfile_upload}" width="500" height="500">
 			</td>
 		</tr>
 
 		</c:forEach>
 	<tr>
-		<td colspan="2">
+		<td colspan="3">
 			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요">${dto.bbs_content }</textarea>
 		</td>
 	</tr>
