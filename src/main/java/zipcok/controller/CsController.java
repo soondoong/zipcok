@@ -21,6 +21,15 @@ public class CsController {
 	@Autowired
 	ServletContext c;
 	
+	@RequestMapping("csPlzLogin.do")
+	public ModelAndView csPlzLogin() {
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg","로그인 후 이용 가능합니다");
+		mav.addObject("gopage","csList.do");
+		mav.setViewName("cs/csMsg");
+		return mav;
+	}
+	
 	@RequestMapping("csList.do")
 	public ModelAndView csList(
 			@RequestParam(value="cp",defaultValue = "1")int cp) {
