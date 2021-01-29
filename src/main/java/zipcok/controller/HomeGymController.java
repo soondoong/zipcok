@@ -41,21 +41,27 @@ public class HomeGymController {
 	@RequestMapping("HomeGymList.do")
 	public ModelAndView HomeGymList(
 			@RequestParam(value="cp",defaultValue = "1")int cp,
-			@RequestParam(value="year", defaultValue = "0")int year,
-			@RequestParam(value="month", defaultValue = "0")int month,
-			@RequestParam(value="day", defaultValue = "0")int day,
-			@RequestParam(value="location", defaultValue = "전체")String location
+			@RequestParam(value="top_option_date", defaultValue = "1900-01-01")String date,
+			@RequestParam(value="top_option_location", defaultValue = "전체")String location
 			) {
+		
+		String year = date.substring(0, 4);
+		String month = date.substring(5, 7);
+		String day = date.substring(8, 10);
 		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day);
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("location", location);
+		if(!date.equals("1900-01-01"))map.put("date", date);
 		
 		int listSize = 5;
 		int pageSize = 5;
 		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("HomeGymList", list);
+		mav.addObject("keywordMap", map);
 		mav.setViewName("homegym/hgList");
 		return mav;
 	}
