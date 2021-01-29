@@ -69,14 +69,19 @@
 				<li class="masterLi"><a href="#">관리자페이지</a></li>
 
 				<c:if test="${empty sessionScope.sid }">
-				
 						<li class="loginLi"><a href="loginForm.do">로그인</a></li>
 						<li class="signLi"><a href="memberJoinForm.do">회원가입</a></li>
-			
 				</c:if>
+				
 				<c:if test="${!empty sessionScope.sid }">
 					<li>	${sessionScope.sname }님 환영합니다!</li>
 					<li><a href="memberProfileForm.do?mem_id=${sessionScope.sid }">마이페이지</a></li>
+					<li><a href="logout.do">로그아웃</a></li>	
+				</c:if>
+				
+				<c:if test="${!empty sessionScope.coachId }">
+					<li>	${sessionScope.sname }님 환영합니다!</li>
+					<li><a href="coachProfileForm.do?mem_id=${sessionScope.coachid }">코치마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>	
 				</c:if>
 			</ul>

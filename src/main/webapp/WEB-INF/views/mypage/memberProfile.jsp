@@ -6,11 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <script>
 function mypagePwdUpdate(){
 	location.href='mypagePwdUpdateForm.do';
 }
+function mypageAddrUpdate(){
+	window.open('mypageAddrUpdateForm.do?mem_id=${sessionScope.sid}','addrUpdate','width=550,height=300');
+}
 </script>
+
 </head>
 <body>
 	<%@include file="../header2.jsp"%>
@@ -40,7 +45,7 @@ function mypagePwdUpdate(){
 	<h3>${sessionScope.sname }님의 프로필</h3>
 
 	<div>
-		<label><a href="#">프로필사진 들어갈 부분</a></label>
+		<label><a href="#">프로필사진 해야함</a></label>
 	</div>
 	<c:forEach var="dto" items="${list }">
 		<div>
@@ -60,12 +65,11 @@ function mypagePwdUpdate(){
 				value="${dto.mem_pwd }"></label> <input type="button" value="수정하기" onclick="mypagePwdUpdate()">
 		</div>
 		<div>
-			<label>주소 : ${dto.mem_addr } ${dto.mem_detailaddr } <input
-				type="hidden" name="mem_zipcode" value="${dto.mem_zipcode }">
+			<label>주소 : ${dto.mem_addr } ${dto.mem_detailaddr }
+				<input type="hidden" name="mem_zipcode" value="${dto.mem_zipcode }">
 				<input type="hidden" name="mem_addr" value="${dto.mem_addr }">
-				<input type="hidden" name="mem_detailaddr"
-				value="${dto.mem_detailaddr }"> <input type="button"
-				value="수정하기">
+				<input type="hidden" name="mem_detailaddr"value="${dto.mem_detailaddr }">
+				<input type="button"value="수정하기" onclick="mypageAddrUpdate()">
 			</label>
 		</div>
 		<div>

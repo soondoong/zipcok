@@ -128,7 +128,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/login.do")
-	public ModelAndView loginCheck(
+	public ModelAndView loginCheck(MemberDTO dto,
 			HttpServletRequest req, HttpServletResponse resp,
 			@RequestParam("mem_id")String mem_id,
 			@RequestParam("mem_pwd")String mem_pwd,
@@ -142,22 +142,43 @@ public class MemberController {
 		
 		if(str!=null) {
 			String str2=mdao.pwdCheck(mem_id);
+			
 			if(str2.equals(mem_pwd)) {
-				String dbname=mdao.getMemberName(mem_id);
-				mav.addObject("msg", dbname+"님 환영합니다");
-				mav.addObject("gourl", "index.do");
-				mav.setViewName("member/loginMsg");
-				session.setAttribute("sid", mem_id);
-				session.setAttribute("sname", dbname);
-				String saveid=req.getParameter("saveid");
-				if(saveid==null) {
-					Cookie ck=new Cookie("saveid", mem_id);
-					ck.setMaxAge(0);
-					resp.addCookie(ck);
-				}else {
-					Cookie ck=new Cookie("saveid", mem_id);
-					ck.setMaxAge(60*60*24*30);
-					resp.addCookie(ck);
+				String type=mdao.typeCheck(mem_id);
+				if(type.equals("일반회원")) {
+					String dbname=mdao.getMemberName(mem_id);
+					mav.addObject("msg", dbname+"님 환영합니다");
+					mav.addObject("gourl", "index.do");
+					mav.setViewName("member/loginMsg");
+					session.setAttribute("sid", mem_id);
+					session.setAttribute("sname", dbname);
+					String saveid=req.getParameter("saveid");
+					if(saveid==null) {
+						Cookie ck=new Cookie("saveid", mem_id);
+						ck.setMaxAge(0);
+						resp.addCookie(ck);
+					}else {
+						Cookie ck=new Cookie("saveid", mem_id);
+						ck.setMaxAge(60*60*24*30);
+						resp.addCookie(ck);
+					}
+				}else if(type.equals("코치회원")){
+					String dbname=mdao.getMemberName(mem_id);
+					mav.addObject("msg", dbname+"님 환영합니다");
+					mav.addObject("gourl", "index.do");
+					mav.setViewName("member/loginMsg");
+					session.setAttribute("coachId", mem_id);
+					session.setAttribute("sname", dbname);
+					String saveid=req.getParameter("saveid");
+					if(saveid==null) {
+						Cookie ck=new Cookie("saveid", mem_id);
+						ck.setMaxAge(0);
+						resp.addCookie(ck);
+					}else {
+						Cookie ck=new Cookie("saveid", mem_id);
+						ck.setMaxAge(60*60*24*30);
+						resp.addCookie(ck);
+					}
 				}
 			}else {
 				mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");

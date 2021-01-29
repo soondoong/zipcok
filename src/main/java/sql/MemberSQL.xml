@@ -60,6 +60,10 @@
 		select mem_id from zipcok_member where mem_email = #{mem_email}
 	</select>
 	
+	<select id="typeCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+		select mem_type from zipcok_member where mem_id = #{mem_id}
+	</select>
+	
 	<update id="pwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
 	</update>
