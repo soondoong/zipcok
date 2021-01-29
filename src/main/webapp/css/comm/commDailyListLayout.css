@@ -1,0 +1,143 @@
+@charset "EUC-KR";
+
+div.content{
+	margin-left: 200px;
+	padding: 1px 16px;
+}
+
+table.bbs {
+   border-collapse: collapse;
+   text-align: left;
+   line-height: 1.5;
+   margin: 0px 95px 0px 95px;
+}
+
+table.bbs thead th {
+   padding: 10px;
+   font-weight: bold;
+   vertical-align: top;
+   color: #369;
+   border-bottom: 3px solid #036;
+}
+
+table.bbs thead th#idx{
+	width: 7%;
+}
+
+table.bbs thead th#head{
+	width: 7%;
+}
+
+table.bbs thead th#subject{
+	width: 30%;
+}
+
+table.bbs thead th#writer{
+	width: 10%;
+}
+
+table.bbs thead th#date{
+	width: 9%;
+}
+
+table.bbs thead th#readnum{
+	width: 1%;
+}
+table.bbs tbody th {
+   width: 150px;
+   padding: 10px;
+   font-weight: bold;
+   vertical-align: top;
+   border-bottom: 1px solid #ccc;
+   background: #f3f6f7;
+}
+
+table.bbs td {
+   padding: 10px;
+   vertical-align: top;
+   border-bottom: 1px solid #ccc;
+}
+
+.search table {
+	margin: auto;
+}
+
+.page {
+	display: table;
+	margin: 0px auto;
+}
+#selectsl{
+	display: inline-block;
+    position: relative;
+    padding: 0;
+    background: white;
+    box-sizing: border-box;
+}
+
+#button {
+    width:100px;
+    background-color: #22162f;
+    border: none;
+    color:#fff;
+    padding: 13px 0;
+    text-align: center;s
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+#button:hover {
+    background-color: gray;
+}
+#but1{
+    width: 100px;
+    background-color: #22162f;
+    border: none;
+    color: #fff;
+    padding: 5px 0px 7px 0px;
+    text-align: center;
+    s: ;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+#but1:hover {
+    background-color: #bf3b97;
+}
+.rightloca{
+   text-align: right;
+    margin: 27px 32px 1px 0px;
+}
+
+h2{
+	text-align: left;
+    margin: 27px 32px 1px 0px;	
+    position: relative;
+    top: -95px;
+    left: 15px;
+    color: white;
+    font-size: 40px;
+}
+
+a:link{
+	text-decoration: none;
+	color: black; 
+}
+
+a:visited{
+	text-decoration: none;
+	color: black; 
+}
+
+a:active{
+	text-decoration: none;
+	color: black; 
+}
+
+a:hover{
+	text-decoration: none;
+	color: black; 
+}

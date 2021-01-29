@@ -1,0 +1,164 @@
+@charset "EUC-KR";
+
+div.content{
+	margin-left: 200px;
+	padding: 1px 16px;
+}
+
+table.content {
+	table-layout: fixed;
+   border-collapse: collapse;
+   line-height: 1.5;
+   margin:auto;
+   width: 60%;
+
+}
+table.content thead th {
+	width:25%;
+	padding: 9px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid black;
+}
+table.content tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+table.content td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+#rereple{
+	display: none;
+}
+
+ul.reple{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#writer{
+	float: left;
+}
+
+#content{
+	float: left;
+	margin: 0px 0px 0px 20px;
+}
+
+#date{
+	float: right;
+}
+
+div.replediv1_2{
+	margin: 10px 0 0 0;
+}
+
+ul.reple2{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#delete{
+	float: right;
+}
+
+#rereply{
+	float: right;
+}
+
+#replyarrowimg{
+    width: 25px;
+    height: 17px;
+}
+
+ul.replewrite{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.replewrite li{
+	float: left;
+}
+
+
+#button td{
+   text-align: right;
+}
+
+ul.rereple{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.rereple li{
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+ul.rereple2{
+	list-style: none;
+	margin: 0;
+	padding: 0
+}
+
+ul.rereple2 li{
+	float: right;
+}
+
+#button td{
+	text-align: right;
+}
+
+.button {
+    width:100px;
+    background-color: #22162f;
+    border: none;
+    color:#fff;
+    padding: 13px 0;
+    text-align: center;s
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: gray;
+}
+
+.button2 {
+    width:60px;
+    height: 35px;
+    background-color: #22162f;
+    border: none;
+    color:#fff;
+    padding: 0px 0;
+    text-align: center;s
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+.button2:hover {
+    background-color: gray;
+}
+
+#replyarrowimg{
+	width: 35px;
+	position: relative;
+    left: -10px;
+}

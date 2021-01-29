@@ -1,0 +1,76 @@
+@charset "EUC-KR";
+
+div.content{
+	margin-left: 200px;
+	padding: 1px 16px;
+}
+
+table.content {
+	table-layout: fixed;
+   border-collapse: collapse;
+   line-height: 1.5;
+   margin:auto;
+   width: 60%;
+
+}
+table.content thead th {
+	width:25%;
+	padding: 9px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid black;
+}
+table.content tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+table.content td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+#button td{
+	text-align: right;
+}
+
+.button {
+    width:100px;
+    background-color: #22162f;
+    border: none;
+    color:#fff;
+    padding: 13px 0;
+    text-align: center;s
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+.button:hover {
+    background-color: gray;
+}
+
+.button2 {
+    width:60px;
+    height: 35px;
+    background-color: #22162f;
+    border: none;
+    color:#fff;
+    padding: 0px 0;
+    text-align: center;s
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px;
+    cursor: pointer;
+}
+.button2:hover {
+    background-color: gray;
+}
