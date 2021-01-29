@@ -184,7 +184,7 @@ function search(){
 		    </div>
 		    
 		     <div>
-		    <span><a href="#">${dto2.coach_intro_sub}</a></span>
+		    <span><a href="coachProfile.do?id=${ dto2.coach_mem_id }">${dto2.coach_intro_sub}</a></span>
 		    </div>
 		    
 		    <div>

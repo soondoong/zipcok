@@ -11,7 +11,7 @@
 <%@include file="./commSideMenu.jsp"%>
 <h1>일일 운동 게시판 글쓰기</h1>
 <form name="dailyWrite" action="commDailyWrite.do" method="post">
-	<table>
+	<table border="1">
 		<tr>
 			<td>제목</td>
 			<td colspan="2"><input type="text" name="ex_subject"></td>

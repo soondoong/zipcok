@@ -51,6 +51,7 @@ padding:0 10px 0 10px;
 <c:set var="review" value="${resultMap.reviewList }"/>
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>
+
 <section>
 	<article class="secondWrap">
 				
@@ -58,18 +59,18 @@ padding:0 10px 0 10px;
 			<table  >
 			<tr>
 				<td rowspan="3" class="maintd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-				<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>	
-				<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>				
+				<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></td>	
+				<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></td>		
 			</tr>
 			
 			<tr>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
+			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[2].mfile_upload?'noimage.png' : file[2].mfile_upload }"></td>	
+			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[3].mfile_upload?'noimage.png' : file[3].mfile_upload }"></td>		
 			</tr>
 			
 			<tr>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-			<td class="smalltd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
+			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[4].mfile_upload?'noimage.png' : file[4].mfile_upload }"></td>	
+			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[5].mfile_upload?'noimage.png' : file[5].mfile_upload }"></td>		
 			</tr>
 			</table>
 		<!-- 코치사진영역 -->
