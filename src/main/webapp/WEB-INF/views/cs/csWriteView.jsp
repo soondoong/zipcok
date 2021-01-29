@@ -6,8 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<c:if test="${empty sessionScope.sid } || ${empty sessionScope.coachid }">
+<script>
+window.alert('로그인 후 이용가능 합니다!');
+location.href='csList.do';
+</script>
+</c:if>
+<script>
+function goCsList(){
+	location.href='csList.do';
+}
+</script>
 </head>
 <body>
+
 <form action="csWrite.do" method="post" enctype="multipart/form-data">
 <table>
 	<tr>
@@ -20,14 +32,12 @@
 		</select></td>
 	</tr>
 	<input type="hidden" name="bbs_mem_id" value="${sessionScope.sid}">
+	<input type="hidden" name="bbs_mem_id" value="${sessionScope.coachid}">
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="bbs_subject"></td>
 	</tr>
 	<hr>
-	<tr>
-		<td>사진</td>
-	</tr>
 	<tr>
 		<td colspan="2">
 			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요"></textarea>
@@ -38,7 +48,7 @@
 		<td>
 		<input type="submit" value="글쓰기">
 		<input type="reset" value="다시작성">
-		<input type="button" value="목록보기" onclick="javascript:golist()">
+		<input type="button" value="목록보기" onclick="javascript:goCsList()">
 		</td>
 	</tr>
 </table>

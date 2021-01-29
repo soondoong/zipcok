@@ -56,12 +56,7 @@ public class NoticeController {
 	public String goNoticeWriteView() {
 		return "notice/noticeWriteView";
 	}
-	
-	
-	
-	
-	
-	
+
 	
 	
 	//공지사항 글쓰기
@@ -79,13 +74,14 @@ public class NoticeController {
 		for(int i=0;i<list.size();i++) {		
 			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 			int zfile_bbs_idx=maxIdx;
-			String zfile_path=c.getRealPath("/upload/zipcok/notice/"); //저장되는 경로
+			String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
 			String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 			String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
 			String zfile_mem_id = "admin";
 			String zfile_type = list.get(i).getContentType();
 			int zfile_size=(int)(list.get(i).getSize());
-			ZipcokFileDTO cdto=new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type);
+			String del_yn="N";
+			ZipcokFileDTO cdto=new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,del_yn);
 			
 			fileArr.add(cdto);
 		}

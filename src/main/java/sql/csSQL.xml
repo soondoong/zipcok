@@ -4,10 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.cs">
   <select id="csAllListSQL" parameterType="Map" resultType="zipcok.cs.model.CsDTO">
-  	select * from
-		(select rownum as rnum,a.* from
-		(select * from zipcok_bbs where bbs_key='고객센터' and bbs_mem_id=#{bbs_mem_id} order by bbs_idx desc) a) b
-		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end}
+		select b.* from
+		(select rownum,a.* from
+		(select * from zipcok_bbs where bbs_key='고객센터' order by bbs_idx desc) a) b
+		where rownum <![CDATA[>=]]> #{start} and rownum <![CDATA[<=]]> #{end}
   </select>
   <select id="csTotalCnt" resultType="Integer">
   		select

@@ -15,13 +15,9 @@
 </head>
 <body>
 <h1>고객센터</h1>
-<c:if test="${empty sessionScope.sid }">
-	<form action="csPlzLogin.do">
-</c:if>
-<c:if test="${!empty sessionScope.sid}">
 <form action="csWriteView.do">
-</c:if>
-<table border="1" >
+
+<table border="1" style="width: 500px; height: 400px;">
 	<thead>
 		<tr>
 			<th>글번호</th>
@@ -62,5 +58,6 @@
 	</tfoot>
 </table>
 </form>
+
 </body>
 </html>
