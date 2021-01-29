@@ -136,11 +136,11 @@ width : 600px;
 
 		function disableSomeDay(date){
 			var noWeekend = jQuery.datepicker.noWeekends(date);
-			if(result=='0'){
+			if(result=='없음'){
 				return [true];
-			}else if(result=='1'){
+			}else if(result=='평일'){
 				return noWeekend[0] ? [false]:[true];
-			}else if(result=='2'){
+			}else if(result=='주말'){
 				return noWeekend[0] ? [true]:noWeekend;
 			}
 		}
@@ -298,9 +298,9 @@ width : 600px;
 			<tr>
 				<th>불가능한 날짜</th>
 				<td><select name="hg_not_date" id = "not_date" onchange = "not_change();">
-						<option value="0" selected>없음</option>
-						<option value="1">평일</option>
-						<option value="2">주말</option>
+						<option value="없음" selected>없음</option>
+						<option value="평일">평일</option>
+						<option value="주말">주말</option>
 				</select>
 				</td>
 				<td colspan="2"></td>
