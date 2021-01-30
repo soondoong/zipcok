@@ -30,7 +30,7 @@
 
 <!-- ======= Header ======= -->
 <header id="header">
-	<div class="container d-flex align-items-center headerContainer">
+	<div class="d-flex align-items-center headerContainer">
 
 		<h1 class="logo">
 			<a href="index.do">집콕헬스</a>
@@ -68,7 +68,15 @@
 
 				<li class="masterLi"><a href="#">관리자페이지</a></li>
 
-				<c:if test="${empty sessionScope.sid }">
+			</ul>
+			<!-- mainmenu -->
+		</nav>
+		<!-- .nav-menu -->
+		
+		<!-- login-menu -->
+		<nav class="nav-menu d-none d-lg-block" style="position: absolute; right:60px;">
+			<ul>
+				<c:if test="${empty sessionScope.sid && empty sessionScope.coachId }">
 						<li class="loginLi"><a href="loginForm.do">로그인</a></li>
 						<li class="signLi"><a href="memberJoinForm.do">회원가입</a></li>
 				</c:if>
@@ -84,11 +92,10 @@
 					<li><a href="coachMyPage.do?id=${sessionScope.coachId }">코치마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>	
 				</c:if>
-			</ul>
-			<!-- mainmenu -->
+			</ul>		
 		</nav>
-		<!-- .nav-menu -->
-
+		
+	<!-- login-menu -->
 	</div>
 </header>
 <!-- End Header -->
