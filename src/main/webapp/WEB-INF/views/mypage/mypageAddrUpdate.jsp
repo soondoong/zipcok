@@ -124,7 +124,7 @@ function execPostCode() {
 				</div>
 
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">수정하기</button>
+					<button type="submit" class="btn btn-primary">변경하기</button>
 					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 				</div>
 			</div>
