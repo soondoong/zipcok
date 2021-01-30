@@ -63,9 +63,9 @@ $(document).ready(function() {
 </head>
 <body>
 <%@include file="../header2.jsp"%>
+<%@include file="./mypageSideMenu.jsp" %>
 <br>
-<br>
-	<article>
+	<div style="margin-left: 200px; padding: 1px 16px;">
 	<h2>비밀번호 수정</h2>
 	<br>
 		<form action="mypagePwdUpdate.do">
@@ -86,11 +86,11 @@ $(document).ready(function() {
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">수정하기</button>
+					<button type="submit" class="btn btn-primary">변경하기</button>
 					<input type="button" class="btn btn-primary" value="돌아가기" onclick="backPage()">
 				</div>
 			</div>
 		</form>
-	</article>
+</div>
 </body>
 </html>

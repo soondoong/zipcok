@@ -49,10 +49,5 @@ public class MypageDAOImple implements MypageDAO {
 		return count;
 	}
 	
-	@Override
-	public List memberProfilePhoto(String mfile_mem_id) {
-		List list = sqlMap.selectList("memberProfilePhoto", mfile_mem_id);
-		return list;
-	}
 	
 }

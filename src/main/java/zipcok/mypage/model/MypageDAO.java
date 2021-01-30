@@ -12,6 +12,5 @@ public interface MypageDAO {
 	public int mypageAddrUpdate(MemberDTO dto);
 	public int mypageEmailUpdate(MemberDTO dto);
 	public int mypagePhoneUpdate(MemberDTO dto);
-	public List memberProfilePhoto(String mfile_mem_id);
 	
 }

@@ -8,29 +8,10 @@
 </head>
 <body>
 <%@include file="../header2.jsp"%>
+<%@include file="./mypageSideMenu.jsp" %>
+<div style="margin-left: 200px; padding: 1px 16px;">
 	<br>
-	<br>
-	<div>
-		<div>
-			<a href="memberProfileForm.do?mem_id=${sessionScope.sid}">내 프로필</a>
-		</div>
-		<div>
-			<a href="mypageLikeList.do?mem_id=${sessionScope.sid}">좋아요 목록</a>
-		</div>
-		<div>
-			<a href="#">결제내역</a>
-		</div>
-		<div>
-			<a href="#">채팅방</a>
-		</div>
-		<div>
-			<a href="#">내 홈짐보기</a>
-		</div>
-		<div>
-			<a href="#">작성글관리</a>
-		</div>
-	</div>
-	<hr>
 	<h3>${sessionScope.sname }님의 좋아요 목록</h3>
+</div>
 </body>
 </html>
