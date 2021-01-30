@@ -1,0 +1,128 @@
+@charset "utf-8";
+
+.mb5 {margin-bottom: 5px !important;}
+.mb10 {margin-bottom: 10px !important;}
+.mb15 {margin-bottom: 15px !important;}
+.mb20 {margin-bottom: 20px !important;}
+.mb25 {margin-bottom: 25px !important;}
+.mb30 {margin-bottom: 30px !important;}
+.mb35 {margin-bottom: 35px !important;}
+.mb40 {margin-bottom: 40px !important;}
+.mb45 {margin-bottom: 45px !important;}
+.mb50 {margin-bottom: 50px !important;}
+.mb55 {margin-bottom: 55px !important;}
+.mb60 {margin-bottom: 60px !important;}
+.mb65 {margin-bottom: 65px !important;}
+.mb70 {margin-bottom: 70px !important;}
+.mb75 {margin-bottom: 75px !important;}
+
+.mt5 {margin-top: 5px !important;}
+.mt10 {margin-top: 10px !important;}
+.mt15 {margin-top: 15px !important;}
+.mt20 {margin-top: 20px !important;}
+.mt25 {margin-top: 25px !important;}
+.mt30 {margin-top: 30px !important;}
+.mt35 {margin-top: 35px !important;}
+.mt40 {margin-top: 40px !important;}
+.mt45 {margin-top: 45px !important;}
+.mt50 {margin-top: 50px !important;}
+.mt55 {margin-top: 55px !important;}
+.mt60 {margin-top: 60px !important;}
+.mt65 {margin-top: 65px !important;}
+.mt70 {margin-top: 70px !important;}
+.mt75 {margin-top: 75px !important;}
+
+._motion {opacity:0; transition-property:all; transition-duration: 600ms;}
+
+._delay100 {transition-delay:0.1s;}
+._delay200 {transition-delay:0.2s;}
+._delay300 {transition-delay:0.3s;}
+._delay400 {transition-delay:0.4s;}
+._delay500 {transition-delay:0.5s;}
+._delay600 {transition-delay:0.6s;}
+._delay700 {transition-delay:0.7s;}
+._delay800 {transition-delay:0.8s;}
+._delay900 {transition-delay:0.9s;}
+
+._motion._left {transform:translateX(-50px);}
+._motion._right {transform:translateX(50px);}
+._motion._top {transform:translateY(-50px);}
+._motion._bottom {transform:translateY(50px);}
+._motion._spin {transform:rotate(180deg);}
+
+._motion._visible {filter:alpha(opacity=100); opacity:1;}
+
+._motion._left._visible {transform:translateX(0);}
+._motion._right._visible {transform:translateX(0);}
+._motion._top._visible {transform:translateY(0);}
+._motion._bottom._visible {transform:translateY(0);}
+._motion._spin._visible {transform:rotate(0deg);}
+
+/* Layout Style */
+#wrap {overflow: hidden; position: relative; min-width: 1024px; min-height: 100vh;}
+
+#container {min-height: calc(100vh - 255px); padding: 30px 30px 100px; width: 1024px; margin: 0 auto;}
+
+#contents {padding: 50px 0 0;}
+
+#newHeader {width: 100%; background: #ffffff; position: relative; z-index: 1000;}
+#newHeader .header_inner {position: relative; width: 1024px; height: 92px; margin: 0 auto;}
+#newHeader .logo {position: absolute; top: 16px; left: 20px;}
+#newHeader .logo a {display: block; width: 140px; height: 60px; background: #3978df; font-size: 32px; line-height: 60px; color: #ffffff; text-align: center; font-family: 'Roboto'; font-weight: 700;}
+#newHeader .gnb {position: absolute; top: 0; left: 200px;}
+#newHeader .gnb > ul > li {float: left; position: relative; padding: 20px 0;}
+#newHeader .gnb > ul > li:not(:first-child) {margin-left: 20px;}
+#newHeader .gnb > ul > li > a {display: block; position: relative; padding: 0 10px; font-weight: 700; font-size: 20px; line-height: 52px;}
+#newHeader .gnb > ul > li > a:after {display: block; content: ''; position: absolute; left: 0; bottom: 0; background: #3978df; height: 2px; width: 100%; transform: scaleX(0); transform-origin: 0 0; transition: all 300ms;}
+#newHeader .gnb > ul > li:hover > a:after {transform: scaleX(1);}
+#newHeader .gnb > ul > li > ul {position: absolute; top: -9999px; left: 0; padding: 16px 0; background: #ffffff; border-radius: 5px; opacity: 0; transition: transform 300ms, opacity 300ms; transform: translateY(20px);}
+#newHeader .gnb > ul > li:hover > ul {top: 76px; opacity: 1; transform: translateY(0);}
+#newHeader .gnb > ul > li > ul > li {}
+#newHeader .gnb > ul > li > ul > li > a {display: block; white-space: nowrap; padding: 0 20px; font-size: 16px; line-height: 30px;}
+#newHeader .gnb > ul > li > ul > li > a:hover {color: #3978df;}
+#newHeader .util_menu {position: absolute; top: 31px; right: 20px;}
+#newHeader .util_menu li {float: left;}
+#newHeader .util_menu li:not(:first-child) {margin-left: 12px;}
+#newHeader .util_menu li a {display: block; font-size: 14px; line-height: 30px; color: #333333;}
+#newHeader .util_menu li a:hover {color: #3978df;}
+
+#footer {border-top: 1px solid #dddddd; background: #f7f7f7;}
+#footer .footer_inner {width: 1024px; margin: 0 auto; padding: 50px 0; text-align: center;}
+#footer dl {display: inline-block; margin: 0;}
+#footer dl dt {float: left; margin: 0;}
+#footer dl dd {float: left; margin: 0 0 0 10px;}
+#footer .copyright {margin: 24px 0 0; font-size: 12px;}
+
+/* NoticeList.jsp 참고할 것 */
+/* 페이지 상단 남색 영역 (페이지 타이틀) */
+.page_top_visual {margin: -30px -100% 0; padding: 70px 100% 0; height: 200px; background: navy;}
+.page_top_visual .common_page_title {margin-bottom: 12px;}
+.page_top_visual .common_page_title .page_title {font-weight: 700; font-size: 32px; color: #ffffff;}
+.page_top_visual .common_page_title .page_text {font-size: 14px; color: #ffffff;}
+
+/* 테이블 리스트 상단 데이터 정렬 */
+.table_list_sorting {}
+.table_list_sorting dl {display: flex;}
+.table_list_sorting dt {flex: 0 0 160px; font-weight: 700; font-size: 14px; line-height: 40px;}
+.table_list_sorting dd {flex: 1 1 auto; height: 40px;}
+
+/* 리스트형 테이블 01 (추가하고싶으면 table_list_02 처럼 숫자 바꿔서 더 만들것 */
+.table_list_01 {}
+.table_list_01 table {border-top: 1px solid #333333;}
+.table_list_01 table thead tr th {height: 50px; background: #f7f7f7; font-weight: 700; text-align: center;}
+.table_list_01 table tbody tr td {height: 40px; padding: 3px 5px; text-align: center; border-bottom: 1px solid #dddddd;}
+
+/* 리스트 하단 페이징 및 버튼 영역 */
+.table_list_bottom {position: relative; height: 40px; margin-top: 50px; text-align: center;}
+.table_list_bottom .pagination {display: inline-block; padding: 5px 0;}
+.table_list_bottom .pagination a {display: block; float: left; width: 30px; height: 30px; background: #f7f7f7; text-align: center; font-size: 14px; line-height: 30px;}
+.table_list_bottom .pagination a:not(:first-child) {margin-left: 5px;}
+
+.table_list_bottom .btn_left_box {position: absolute; top: 0; left: 0;}
+.table_list_bottom .btn_right_box {position: absolute; top: 0; right: 0;}
+.table_list_bottom .btn_right_box > * {float: left; margin-left: 12px;}
+
+/* 버튼 가이드 */
+.btn1 {display: block; position: relative; width: 120px; height: 40px; font-weight: 700; font-size: 16px; line-height: 38px; -webkit-appearance: none; cursor: pointer;}
+.btn1.c1 {border: 1px solid #333333; background: #333333; color: #ffffff;}
+.btn1.c2 {border: 1px solid #333333; background: #ffffff; color: #333333;}
