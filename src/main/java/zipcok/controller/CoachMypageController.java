@@ -14,6 +14,7 @@ import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CurriDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
 
 @Controller
@@ -21,7 +22,8 @@ public class CoachMypageController {
 
 	@Autowired
 	private CoachMypageDAO cdao;
-	
+	@Autowired
+	private MypageDAO mdao;
 	@Autowired
 	private CoachDAO dao;
 	@Autowired
@@ -74,6 +76,9 @@ ServletContext c;
 	@RequestMapping("checkRequest.do")
 	public ModelAndView checkRequest(@RequestParam("id")String id,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		
+		ModelAndView mav=new ModelAndView();
+		
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("methodKey","checkRequest");
@@ -86,12 +91,20 @@ ServletContext c;
 		String pageStr=zipcok.page.CoachPageModule.makePage("checkRequest.do", totalCnt, cp, listSize, pageSize,keywords);
 		
 			
-		List<RequestFormDTO> list=	dao.searchRequestList(map, cp,listSize);
-		ModelAndView mav=new ModelAndView();
+		List<RequestFormDTO> list=	dao.searchRequestList(map, cp,listSize); //받은요청서목록정보
+		mav.addObject("requestList", list);
+	
 		mav.setViewName("coachMyPage/checkRequestList");
 		return mav;		
 	}
 	
 	
+	/*받은요청서 선택삭제하기*/
+	@RequestMapping("requestDelete.do")
+	public ModelAndView requestDelete(@RequestParam("req_idx")int req_idx) {
 		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("coachMyPage/checkRequestList");
+		return mav;
+	}
 }

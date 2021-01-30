@@ -15,6 +15,10 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		this.sqlMap = sqlMap;
 	}
 	
-	
+	@Override
+	public int requestDelete(int req_idx) {
+		int count=sqlMap.delete("requestDelete",req_idx);
+		return count;
+	}
 	
 }

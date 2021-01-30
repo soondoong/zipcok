@@ -343,7 +343,8 @@ order by curri_order asc
 </select>
 
 <select id="selectStarReview" parameterType="HashMap"  resultType="zipcok.coach.model.ReviewDTO" >
-select * from star_review
+select * from 
+star_review
 where
 rev_target_id = #{ id }
 and

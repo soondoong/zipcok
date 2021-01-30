@@ -56,7 +56,7 @@ function mypagePhoneUpdate(){
 	<div>
 		<label><a href="#">프로필사진 해야함</a></label>
 	</div>
-	<c:forEach var="dto" items="${list }">
+	
 		<div>
 			<label>이름 : ${dto.mem_name }<input type="hidden"
 				name="mem_name" value="${dto.mem_name }"></label>
@@ -91,6 +91,6 @@ function mypagePhoneUpdate(){
 				name="mem_phone" value="${dto.mem_phone }"></label> <input
 				type="button" value="수정하기" onclick="mypagePhoneUpdate()">
 		</div>
-	</c:forEach>
+	
 </body>
 </html>

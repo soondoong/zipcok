@@ -29,8 +29,8 @@ public class MypageController {
 	public ModelAndView memberProfileForm(
 			HttpSession session) {
 		ModelAndView mav= new ModelAndView();
-		List list=dao.memberProfile((String)session.getAttribute("sid"));
-		mav.addObject("list", list);
+		MemberDTO dto=dao.memberProfile((String)session.getAttribute("sid"));
+		mav.addObject("dto", dto);
 		mav.setViewName("mypage/memberProfile");
 		return mav;
 	}

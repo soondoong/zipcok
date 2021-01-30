@@ -54,7 +54,7 @@
 						<li><a href="HomeGymAddNotice.do">홈짐등록안내</a></li>
 					</ul></li>
 
-				<li class="drop-down"><a href="">코치찾기</a>
+				<li class="drop-down"><a href="findCoachList.do">코치찾기</a>
 					<ul>
 						<li><a href="findCoachList.do">코치검색</a></li>
 						<li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>

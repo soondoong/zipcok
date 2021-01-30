@@ -5,17 +5,27 @@
   <mapper namespace="mo.coachmypage">
   
   <select id="searchRequestList" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
- select 
- rownum,a.*
- from
-(select
-* from
-request_form
+select
+rownum,a.*,m.mem_name,m.mem_addr,m.mem_birth 
+from
+zipcok_member m,
+(select 
+r.* from
+request_form r
 where
-req_receive_id='mo')a
+req_receive_id= #{id} )a
 where
+m.mem_id= a.req_mem_id
+and
 rownum between #{start} and #{end}
 
-   </select>
+ </select>
+ 
+ <delete id="requestDelete">
+		delete from
+			request_form
+		where
+			req_idx = #{req_idx}
+	</delete>
   
   </mapper>
