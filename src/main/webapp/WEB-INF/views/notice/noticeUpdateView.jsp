@@ -12,7 +12,7 @@ function golist(){
 	location.href='noticeList.do';
 }
 function deletefile(){
-	window.alert(document.getElementById("noticeImg").value);
+	window.alert(document.getElementById("noticeImg"));
 }
 </script>
 </head>
