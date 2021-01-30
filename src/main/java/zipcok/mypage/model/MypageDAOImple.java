@@ -18,11 +18,11 @@ public class MypageDAOImple implements MypageDAO {
 	
 	
 	@Override
-	public List memberProfile(String mem_id) {
+	public MemberDTO memberProfile(String mem_id) {   //이거어차피한명인데 왜 리스트로 받아오는겨?-수연
 		
-		List list = sqlMap.selectList("memberProfile", mem_id);
+		MemberDTO dto= sqlMap.selectOne("memberProfile", mem_id);
 		
-		return list;
+		return dto;
 	}
 	
 	@Override

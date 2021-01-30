@@ -54,7 +54,7 @@
 						<li><a href="HomeGymAddNotice.do">홈짐등록안내</a></li>
 					</ul></li>
 
-				<li class="drop-down"><a href="">코치찾기</a>
+				<li class="drop-down"><a href="findCoachList.do">코치찾기</a>
 					<ul>
 						<li><a href="findCoachList.do">코치검색</a></li>
 						<li><a href="coachMatchingInfo.do">코치매칭이용안내</a></li>
@@ -81,7 +81,7 @@
 				
 				<c:if test="${!empty sessionScope.coachId }">
 					<li>	${sessionScope.sname }님 환영합니다!</li>
-					<li><a href="coachProfileForm.do?mem_id=${sessionScope.coachid }">코치마이페이지</a></li>
+					<li><a href="coachMyPage.do?id=${sessionScope.coachId }">코치마이페이지</a></li>
 					<li><a href="logout.do">로그아웃</a></li>	
 				</c:if>
 			</ul>

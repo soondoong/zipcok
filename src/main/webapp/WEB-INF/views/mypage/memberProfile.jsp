@@ -32,19 +32,22 @@ function mypagePhoneUpdate(){
 			<a href="memberProfileForm.do?mem_id=${sessionScope.sid}">내 프로필</a>
 		</div>
 		<div>
-			<a href="mypageLikeList.do?mem_id=${sessionScope.sid}">좋아요 목록</a>
+			<a href="#">내 홈짐보기</a>
 		</div>
 		<div>
-			<a href="#">결제내역</a>
+			<a href="#">받은 견적 보기</a>
 		</div>
 		<div>
 			<a href="#">채팅방</a>
 		</div>
 		<div>
-			<a href="#">내 홈짐보기</a>
-		</div>
+			<a href="mypageLikeList.do?mem_id=${sessionScope.sid}">좋아요 목록</a>
+		</div>	
 		<div>
 			<a href="#">작성글관리</a>
+		</div>
+		<div>
+			<a href="#">결제내역</a>
 		</div>
 	</div>
 	<hr>
@@ -53,7 +56,7 @@ function mypagePhoneUpdate(){
 	<div>
 		<label><a href="#">프로필사진 해야함</a></label>
 	</div>
-	<c:forEach var="dto" items="${list }">
+	
 		<div>
 			<label>이름 : ${dto.mem_name }<input type="hidden"
 				name="mem_name" value="${dto.mem_name }"></label>
@@ -88,6 +91,6 @@ function mypagePhoneUpdate(){
 				name="mem_phone" value="${dto.mem_phone }"></label> <input
 				type="button" value="수정하기" onclick="mypagePhoneUpdate()">
 		</div>
-	</c:forEach>
+	
 </body>
 </html>

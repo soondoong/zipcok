@@ -21,7 +21,7 @@ left:340px;
 
 </style> 
 
-			<form name="requestForm" action="sendRequestForm.do"  method = "get" >
+			<form name="requestForm" id="requestForm" action="sendRequestForm.do"  method = "get" >
 			<div id="showDiv" class="showdiv card" > 
 				<div class="card-body">
 				<input type="hidden" name="req_mem_id" value="${sessionScope.sid }">
@@ -38,7 +38,7 @@ left:340px;
 		            
 		            <div style="display: flex;">  
 				            <div class="form-check">
-							  <input class="form-check-input" type="radio" name="req_category" id="cate1" value="필라테스" >
+							  <input class="form-check-input" type="radio" name="req_category" id="cate1" value="필라테스" checked>
 							  <label class="form-check-label" for="cate1">
 							   필라테스
 							  </label>
@@ -55,12 +55,13 @@ left:340px;
 	           
 	            <div>
 	            <label>희망 시작일을 선택해주세요</label>
-	          	 <input type="date" name="req_start_date">
+	          	 <input type="date" name="req_start_date" id="startDate" min="">
 	            </div>
 	            
 	            <div>
 	           <label>문의 내용을 간단히 적어주세요(최대 60자)</label>
-	           	<textarea rows="5" cols="30" id="requestText" onkeyup="lengthLimit();" name="req_cont"></textarea>
+	           	<textarea rows="5" cols="30" id="requestText" 
+	           	onkeyup="lengthLimit();" name="req_cont" required="required"></textarea>
 	            </div>
 	            
 	             <div >
