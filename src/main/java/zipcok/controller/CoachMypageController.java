@@ -100,15 +100,15 @@ ServletContext c;
 	
 	/*받은요청서 선택삭제하기*/
 	@RequestMapping("requestDelete.do")
-	public ModelAndView requestDelete(@RequestParam("req_idx")int req_idx) {
+	public ModelAndView requestDelete(@RequestParam("req_idx")int req_idx,@RequestParam("id")String id) {
 		
 		int result=cdao.requestDelete(req_idx);
 		String msg=result>0?"상담요청서가 삭제되었습니다":"삭제실패";
 		System.out.println("-----기능수행------");
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
-		mav.addObject("gopage", "coachProfile.do?id=");
-		mav.setViewName("coachMyPage/checkRequestList");
+		mav.addObject("gopage", "checkRequest.do?id="+id);
+		mav.setViewName("coach/joinMsg");
 		return mav;
 	}
 }
