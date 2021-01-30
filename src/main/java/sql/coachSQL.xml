@@ -82,9 +82,10 @@ mf.mfile_key='회원프로필'
 
 	
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
-	
-select
-rownum,c.*
+
+select d.* from
+(select
+rownum as rnum,c.*
 from 
  (select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
@@ -129,9 +130,10 @@ and
 b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
-)c
+order by coach_joindate desc
+)c )d
 where 
-rownum between #{start} and  #{end}	
+rnum between #{start} and  #{end}	
 
 	
 </select>
@@ -141,9 +143,9 @@ rownum between #{start} and  #{end}
 
 	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
 
-
-select
- rownum,c.* from 
+select d.* from
+(select
+ rownum as rnum,c.* from 
  (select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
@@ -187,16 +189,18 @@ b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 and
+cr.coach_year  <![CDATA[>=]]> #{yearVal}
+and
 zm.mem_gender
 <choose>
         <when test="gender == '전체'">like '%%'</when>
         <when test="gender != '전체'"> like '%${gender}%' </when>
 </choose>
-)c
+order by coach_joindate desc
+)c )d
 where 
-c.coach_year  <![CDATA[>=]]> #{yearVal}
-and
-rownum  between #{start} and #{end}
+
+rnum  between #{start} and #{end}
 
 
 </select>
