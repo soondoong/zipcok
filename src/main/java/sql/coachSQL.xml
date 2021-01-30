@@ -56,13 +56,13 @@ cr.*,mf.mfile_upload,b.avg
 from
 (select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg
 from
-(select c.coach_mem_id
-from coach_regist c,coach_category g
+(select coach_mem_id
+from coach_regist,coach_category
 where 
-c.coach_mem_id = g.cate_mem_id 
+coach_mem_id = cate_mem_id 
 and
-c.coach_mem_id = #{ id } 
-group by c.coach_mem_id)a left outer join star_review
+coach_mem_id = #{ id } 
+group by coach_mem_id)a left outer join star_review
 on a.coach_mem_id = rev_target_id(+)
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
@@ -154,13 +154,13 @@ from coach_regist,coach_category
 where 
 coach_mem_id = cate_mem_id
 and
-c.coach_floc
+coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-c.coach_ex_type
+coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
@@ -219,13 +219,13 @@ from coach_regist,coach_category
 where 
 coach_mem_id = cate_mem_id
 and
-c.coach_floc
+coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-c.coach_ex_type
+coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
@@ -279,7 +279,7 @@ coach_floc
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-c.coach_ex_type
+coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
