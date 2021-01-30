@@ -8,7 +8,7 @@
 select rownum as rnum,zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
 from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
@@ -20,18 +20,19 @@ and
 c.coach_ex_type like '%%'
 and
 cate_name = #{category}
-group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id 
+group by c.coach_mem_id)a left outer join star_review
+on
+a.coach_mem_id = rev_target_id(+) 
 and
 rev_key = '회원이코치'
 group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 
@@ -53,26 +54,27 @@ mf.mfile_key='회원프로필'
 select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg
 from
 (select c.coach_mem_id
 from coach_regist c,coach_category g
 where 
 c.coach_mem_id = g.cate_mem_id 
 and
-c.coach_mem_id = #{ id }
-group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id 
+c.coach_mem_id = #{ id } 
+group by c.coach_mem_id)a left outer join star_review
+on a.coach_mem_id = rev_target_id(+)
 group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
+	
 	
 	</select>
 	
@@ -82,24 +84,25 @@ mf.mfile_key='회원프로필'
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
 	
 select
- * from 
- (select rownum as rnum,zm.mem_name,
+rownum,c.*
+from 
+ (select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
 from
-(select c.coach_mem_id
-from coach_regist c,coach_category g
+(select coach_mem_id
+from coach_regist,coach_category
 where 
-c.coach_mem_id = g.cate_mem_id
+coach_mem_id = cate_mem_id
 and
-c.coach_floc
+coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
 </choose>
 and
-c.coach_ex_type
+coach_ex_type
 <choose>
         <when test="extype == '전체'">like '%%'</when>
         <when test="extype != '전체'"> = '${extype}'</when>
@@ -110,26 +113,26 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id 
+group by coach_mem_id)a left outer join star_review
+on
+a.coach_mem_id = rev_target_id(+)
 and
 rev_key = '회원이코치'
 group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
+
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
-
 )c
-
 where 
-rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
-	
+rownum between #{start} and  #{end}	
+
 	
 </select>
 
@@ -137,17 +140,19 @@ rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 
 
 	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
+
+
 select
  rownum,c.* from 
  (select zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg,count(rev_mem_id) as starcnt
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
 from
-(select c.coach_mem_id
-from coach_regist c,coach_category g
+(select coach_mem_id
+from coach_regist,coach_category
 where 
-c.coach_mem_id = g.cate_mem_id
+coach_mem_id = cate_mem_id
 and
 c.coach_floc
 <choose>
@@ -166,18 +171,19 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id
+group by coach_mem_id)a left outer join star_review
+on
+a.coach_mem_id = rev_target_id(+)
 and
-rev_key = '회원이코치' 
+rev_key = '회원이코치'
 group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 and
@@ -192,6 +198,7 @@ c.coach_year  <![CDATA[>=]]> #{yearVal}
 and
 rownum  between #{start} and #{end}
 
+
 </select>
 	
 	
@@ -205,12 +212,12 @@ select
  (select rownum as rnum,zm.mem_name,
 cr.*,mf.mfile_upload,b.avg
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
 from
-(select c.coach_mem_id
-from coach_regist c,coach_category g
+(select coach_mem_id
+from coach_regist,coach_category
 where 
-c.coach_mem_id = g.cate_mem_id
+coach_mem_id = cate_mem_id
 and
 c.coach_floc
 <choose>
@@ -229,16 +236,19 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id)a,star_review
-where a.coach_mem_id = rev_target_id 
+group by coach_mem_id)a left outer join star_review
+on
+a.coach_mem_id = rev_target_id(+)
+and
+rev_key = '회원이코치'
 group by
-rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 )c
@@ -250,20 +260,20 @@ mf.mfile_key='회원프로필'
 	
  <select id="ajaxTotalCnt" parameterType="Hashmap" resultType="Integer">
 
+
 select
-count(*) from 
-(select rownum as rnum,zm.mem_name,
-cr.*,mf.mfile_upload,b.avg
+ count(*) from 
+ (select zm.mem_name,
+cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
-(select rev_target_id,trunc(avg(rev_star),1) as avg
+(select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
 from
-(select 
-c.coach_mem_id
-from coach_regist c,coach_category g
+(select coach_mem_id
+from coach_regist,coach_category
 where 
-c.coach_mem_id = g.cate_mem_id
+coach_mem_id = cate_mem_id
 and
-c.coach_floc
+coach_floc
 <choose>
         <when test="location == '전체지역'">like '%%'</when>
         <when test="location != '전체지역'">like '%${location}%' </when>
@@ -280,15 +290,19 @@ cate_name
         <when test="category == '모든카테고리'">like '%%'</when>
         <when test="category != '모든카테고리'">like '%${category}%' </when>
 </choose>
-group by c.coach_mem_id)a, star_review
-where a.coach_mem_id = rev_target_id 
-group by rev_target_id)b, coach_regist cr,member_file mf,zipcok_member zm
+group by coach_mem_id)a left outer join star_review
+on
+a.coach_mem_id = rev_target_id(+)
+and
+rev_key = '회원이코치'
+group by
+a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
-b.rev_target_id = cr.coach_mem_id
+b.coach_mem_id = cr.coach_mem_id
 and
-b.rev_target_id = mf.mfile_mem_id
+b.coach_mem_id = mf.mfile_mem_id
 and
-b.rev_target_id = zm.mem_id
+b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 and
@@ -300,7 +314,6 @@ zm.mem_gender
 )c
 where 
 c.coach_year  <![CDATA[>=]]> #{yearVal}
-
 
 </select>
 

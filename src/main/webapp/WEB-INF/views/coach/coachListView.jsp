@@ -158,7 +158,9 @@ function search(){
 		    </div>
 		    
 		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
+		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; 
+		    	<span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
+		    	&nbsp; <span>(${dto.starcnt }명 참여)</span>
 		    </div>
 		  </div>  
 		  
