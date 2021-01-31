@@ -50,8 +50,6 @@
 				</tbody>
 			</table>
 		</div>
-		</form>
-		
 		<div class="table_list_bottom">
 			<div class="btn_left_box">
 				<a href="noticeList.do" class="btn1 c2">목록보기</a>
@@ -61,6 +59,7 @@
 				<input type="reset" value="다시작성" class="btn1 c1">
 			</div>
 		</div>
+		</form>
 	</div>
 </div>
 
