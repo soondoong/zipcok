@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 
 @Controller
 public class HomeGymController {
@@ -41,22 +43,30 @@ public class HomeGymController {
 	@RequestMapping("HomeGymList.do")
 	public ModelAndView HomeGymList(
 			@RequestParam(value="cp",defaultValue = "1")int cp,
-			@RequestParam(value="top_option_date", defaultValue = "1900-01-01")String date,
-			@RequestParam(value="top_option_location", defaultValue = "전체")String location
+			@RequestParam(value="top_option_date", defaultValue = "")String date,
+			@RequestParam(value="top_option_location", defaultValue = "전체")String location,
+			@RequestParam(value="left_opton_price", defaultValue = "10")int price,
+			@RequestParam(value="left_option_person_count", defaultValue = "1")int person_count,
+			HttpServletRequest req
 			) {
-		
+		if(date.length()==0 || date ==null) {
+			date = "1900-01-01";
+		}
 		String year = date.substring(0, 4);
 		String month = date.substring(5, 7);
 		String day = date.substring(8, 10);
-		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day);
+		String eq_option[] = req.getParameterValues("left_option_eq");
+		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day, price, person_count, eq_option);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("location", location);
 		if(!date.equals("1900-01-01"))map.put("date", date);
-		
+		map.put("price", price);
+		map.put("person_count", person_count);
+		if(eq_option!=null)map.put("eq_option", eq_option);
 		int listSize = 5;
 		int pageSize = 5;
 		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);
-		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day);
+		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day, price, person_count, eq_option);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);

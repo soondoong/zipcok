@@ -71,6 +71,10 @@
 			hg_end_date <![CDATA[>=]]> '${select_date_date}'
 			</when>
 		</choose>
+		and
+		hg_price <![CDATA[>=]]> #{price}
+		and
+		hg_person_count <![CDATA[>=]]> #{person_count}
 	</select>
 
 	<select id="homegymTotalCnt" parameterType="Hashmap" resultType="Integer">
@@ -95,5 +99,12 @@
 			hg_end_date <![CDATA[>=]]> '${select_date_date}'
 			</when>
 		</choose>
+		and
+		hg_price <![CDATA[>=]]> #{price}
+		and
+		hg_person_count <![CDATA[>=]]> #{person_count}
+	</select>
+	<select id="hgEqList" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
+		select * from homegym_equipment where eq_mem_id = #{hg_mem_id} order by eq_idx
 	</select>
 </mapper>
