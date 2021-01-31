@@ -137,5 +137,17 @@ public class MypageController {
 		return "mypage/mypageLikeList";
 	}
 	
+	@RequestMapping("mypagePayList.do")
+	public String mypagePayList() {
+		
+		return "mypage/mypagePayList";
+	}
+	
+	@RequestMapping("mypageWriteList.do")
+	public String mypageWriteList() {
+		
+		return "mypage/mypageWriteList";
+	}
+	
 	
 }
