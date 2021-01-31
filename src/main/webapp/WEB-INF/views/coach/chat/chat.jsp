@@ -10,7 +10,7 @@
 <head>
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
-
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
 <style>
 </style>
 </head>
