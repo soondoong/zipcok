@@ -158,6 +158,25 @@ public class CommController {
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
 	}
+	
+	@RequestMapping("commFoodList.do")
+	public ModelAndView foodList(@RequestParam(value="cp",defaultValue = "1")int cp) {
+		int totalCnt=exBbsDao.getTotalCnt();
+		int listSize=5;
+		int pageSize=5;
+		String pageStr=zipcok.page.CommPageModule.makePage("commFoodList.do", totalCnt, cp, listSize, pageSize);
+		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize);
+		for(int i=0;i<list.size();i++) {
+			int idx=list.get(i).getEx_idx();
+			int recnt=exBbsDao.dailyGetTotalRe(idx);
+			int count=exBbsDao.dailySetTotalRe(recnt, idx);
+		}
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("comm/commDailyList");
+		return mav;
+	}
 
 }
 
