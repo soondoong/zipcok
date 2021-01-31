@@ -60,12 +60,21 @@ $(function(){
 <body>
 <%@include file="../header2.jsp" %>
 
-<c:if test="${empty sessionScope.sid }">
-<script>
-alert('로그인 후 이용가능 합니다!');
-location.href='index.do';
-</script>
-</c:if>
+ <c:choose>
+         <c:when test = "${empty sessionScope.sid && empty sessionScope.coachId }">
+           <script>
+			alert('로그인 후 이용가능 합니다!');
+			location.href='index.do';
+			</script>
+         </c:when>
+         <c:when test = "${!empty sessionScope.coachId }">
+           <script>
+			alert('이미 코치로 등록되어있습니다!');
+			location.href='index.do';
+			</script>
+         </c:when>
+</c:choose>
+
 
 <article class="p-5">
 <form action="coachJoin.do" method="post" enctype="multipart/form-data">
