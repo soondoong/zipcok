@@ -18,15 +18,22 @@ height:30px;
 }
 </style>
 <script>
+window.addEventListener('load', function() {
+	var eq_options = '${keywordMap.eq_options}';
+	var eq_options_split = eq_options.split(',');
+	for(var i in eq_options_split){
+		document.getElementById(eq_options_split[i]).checked = true;
+	}
+	});
 
-function showPrice(){
+function priceOption(){
 	var left_price_span = document.getElementById('price').value;
 	document.getElementById('price_value').innerText = left_price_span;
-}
-function sendOption(){
-	showPrice();
 	document.getElementById('option_fm').submit();
-	
+}
+
+function sendOption(){
+	document.getElementById('option_fm').submit();
 }
 	
 </script>
@@ -49,24 +56,23 @@ function sendOption(){
 			<input type="date" name="top_option_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
 			<input type="submit" value="검색하기">
 		</div>
-
-			<hr>
+		<hr>
 		<!-- 좌측 조건바 -->
 		<div id = "left_option">
 			<h4>검색 조건</h4>
 			<hr>
 			<div id = "eq_list">
 				<h6>기구</h6>
-				<input type = "checkbox" name = "left_option_eq" value = "기구1" onclick = "javascript:sendOption();">기구 1
-				<input type = "checkbox" name = "left_option_eq" value = "기구2" onclick = "javascript:sendOption();">기구 2
-				<input type = "checkbox" name = "left_option_eq" value = "기구3" onclick = "javascript:sendOption();">기구 3
-				<input type = "checkbox" name = "left_option_eq" value = "기구4" onclick = "javascript:sendOption();">기구 4
-				<input type = "checkbox" name = "left_option_eq" value = "기구5" onclick = "javascript:sendOption();">기구 5
-				<input type = "checkbox" name = "left_option_eq" value = "기구6" onclick = "javascript:sendOption();">기구 6
-				<input type = "checkbox" name = "left_option_eq" value = "기구7" onclick = "javascript:sendOption();">기구 7
-				<input type = "checkbox" name = "left_option_eq" value = "기구8" onclick = "javascript:sendOption();">기구 8
-				<input type = "checkbox" name = "left_option_eq" value = "기구9" onclick = "javascript:sendOption();">기구 9
-				<input type = "checkbox" name = "left_option_eq" value = "기구10"onclick = "javascript:sendOption();">기구 10
+				<input type = "checkbox" name = "left_option_eq" value = "eq1" id = "eq1" onclick = "javascript:sendOption();">기구 1
+				<input type = "checkbox" name = "left_option_eq" value = "eq2" id = "eq2" onclick = "javascript:sendOption();">기구 2
+				<input type = "checkbox" name = "left_option_eq" value = "eq3" id = "eq3" onclick = "javascript:sendOption();">기구 3
+				<input type = "checkbox" name = "left_option_eq" value = "eq4" id = "eq4" onclick = "javascript:sendOption();">기구 4
+				<input type = "checkbox" name = "left_option_eq" value = "eq5" id = "eq5" onclick = "javascript:sendOption();">기구 5
+				<input type = "checkbox" name = "left_option_eq" value = "eq6" id = "eq6" onclick = "javascript:sendOption();">기구 6
+				<input type = "checkbox" name = "left_option_eq" value = "eq7" id = "eq7" onclick = "javascript:sendOption();">기구 7
+				<input type = "checkbox" name = "left_option_eq" value = "eq8" id = "eq8" onclick = "javascript:sendOption();">기구 8
+				<input type = "checkbox" name = "left_option_eq" value = "eq9" id = "eq9" onclick = "javascript:sendOption();">기구 9
+				<input type = "checkbox" name = "left_option_eq" value = "eq10" id = "eq10" onclick = "javascript:sendOption();">기구 10
 			</div>
 			<hr>
 			<h6>가격</h6>
@@ -74,7 +80,7 @@ function sendOption(){
 				최저가 : <span id = "price_value">${keywordMap.price }</span>원 이상
 			</div>
 			<div>
-			<input type="range" max="100000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:sendOption();">
+			<input type="range" max="100000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:priceOption();">
 			</div>
 			<hr>
 			<h6>수용 인원</h6>
