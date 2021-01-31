@@ -85,6 +85,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		map.put("select_date_date", java.sql.Date.valueOf(select_date));
 		map.put("price", price);
 		map.put("person_count", person_count);
+		
 		int result = sqlMap.selectOne("homegymTotalCnt", map);
 		return result==0?1:result;
 	}

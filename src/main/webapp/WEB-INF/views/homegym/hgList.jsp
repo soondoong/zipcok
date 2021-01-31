@@ -129,5 +129,17 @@ function sendOption(){
 		</c:choose>	
 	</div>
 	<h6>${pageStr }</h6>
+	
+<c:choose>
+   <c:when test="${dto.bbs_mem_id}==${sessionScope.sid}">	</c:when>
+   <c:when test="${dto.bbs_mem_id}==${sessionScope.coachid}">	</c:when>
+   <c:otherwise>
+   <script>
+   window.alert('본인이 작성한 글만 볼 수 있습니다');
+   location.href = 'csList.do';
+   </script>
+   </c:otherwise>
+</c:choose>
+	
 </body>
 </html>
