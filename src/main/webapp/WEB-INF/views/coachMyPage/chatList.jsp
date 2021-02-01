@@ -37,8 +37,25 @@ padding:0;
 	<tr>
 	<td><p>메세지를넣을까?</p></td>
 	<td>
+	
+	
+		<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
+	<c:url value="/gotoChat.do" var="url">
+		 <c:param name="croom_idx" value="${cdto.croom_idx }" />
+	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+	</c:url>
+	
+	<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
+		<c:url value="/roomDelete.do" var="delurl">
+		 <c:param name="id" value="${sessionScope.coachId}" />	 
+	 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+	</c:url>
+	
+	
+	<input type="button" value="대화하기" class="btn btn-primary"
+	onclick="location.href='${url}'">
 	<input type="button" value="나가기" class="btn btn-danger"
-	onclick="location.href='roomDelete.do?croom_idx=${cdto.croom_idx}&id=${sessionScope.coachId}'">
+	onclick="location.href='${delurl}'">
 	</td>
 	</tr>
 </c:forEach>

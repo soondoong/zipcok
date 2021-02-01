@@ -11,7 +11,7 @@ public class RequestFormDTO {
 	private String req_start_date; 
 	private String req_cont;
 	private String req_date;
-	
+	private String req_status;
 	private String mem_name;
 	private String mem_addr;
 	private String mem_birth;
@@ -102,6 +102,16 @@ public class RequestFormDTO {
 	}
 
 
+	public String getReq_status() {
+		return req_status;
+	}
+
+
+	public void setReq_status(String req_status) {
+		this.req_status = req_status;
+	}
+
+
 	public String getMem_name() {
 		return mem_name;
 	}
@@ -133,8 +143,8 @@ public class RequestFormDTO {
 
 
 	public RequestFormDTO(int req_idx, String req_mem_id, String req_receive_id, String req_type, String req_category,
-			String req_start_date, String req_cont, String req_date, String mem_name, String mem_addr,
-			String mem_birth) {
+			String req_start_date, String req_cont, String req_date, String req_status, String mem_name,
+			String mem_addr, String mem_birth) {
 		super();
 		this.req_idx = req_idx;
 		this.req_mem_id = req_mem_id;
@@ -144,10 +154,13 @@ public class RequestFormDTO {
 		this.req_start_date = req_start_date;
 		this.req_cont = req_cont;
 		this.req_date = req_date;
+		this.req_status = req_status;
 		this.mem_name = mem_name;
 		this.mem_addr = mem_addr;
 		this.mem_birth = mem_birth;
 	}
+
+
 
 	
 	

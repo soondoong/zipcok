@@ -418,7 +418,8 @@ request_form_idx.nextval,
 #{req_category},
 #{req_start_date},
 #{req_cont},
-to_char(sysdate,'yyyy-mm-dd')
+to_char(sysdate,'yyyy-mm-dd'),
+'yet'
 )
 </insert>
 

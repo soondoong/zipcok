@@ -27,5 +27,12 @@ rownum between #{start} and #{end}
 		where
 			req_idx = #{req_idx}
 	</delete>
+	
+	<update id="requestStatusChange">
+	update request_form
+	set
+	req_status = 'ing'
+	where req_idx = #{req_idx}
+	</update>
   
   </mapper>

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.almom.domain.ChatRoomDTO;
 import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.CoachDAO;
+import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
 
@@ -24,6 +25,8 @@ public class ChatController {
 	@Autowired
 	private MypageDAO myPagedao;
 	@Autowired
+	private CoachMypageDAO cpagedao;
+	@Autowired
 	private ChatDAO chatdao;
 
 
@@ -33,7 +36,8 @@ public class ChatController {
 	public ModelAndView startToChat (@RequestParam("userid")String userid,
 			@RequestParam("coachid")String coachid,@RequestParam("req_idx")int req_idx) {
 		ModelAndView mav=new ModelAndView();
-	
+		
+		int count=cpagedao.requestStatusChange(req_idx);
 		
 		ChatRoomDTO newRoomdto = new ChatRoomDTO();
 		newRoomdto.setCroom_userid(userid);
@@ -41,12 +45,29 @@ public class ChatController {
 		newRoomdto.setCroom_req_idx(req_idx);
 		
 			int result=chatdao.createRoom(newRoomdto);
-			if(result>0) {System.out.println("--채팅방생성성공!--");}
+			if(result>0 && count >0) {System.out.println("--채팅방생성및status전환성공!--");}	
+		
+			ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);
 			
-		mav.setViewName("coach/chat/chat2");
+			mav.addObject("gopage", "gotoChat.do?croom_idx="+cdto.getCroom_idx()+"&req_idx="+req_idx);
+			
+			mav.setViewName("coach/chat/chatMSG");
 		return mav;
 	}
 	
+	
+	
+	@RequestMapping("gotoChat.do")
+	public ModelAndView gotoChat (@RequestParam("croom_idx")int croom_idx,@RequestParam("req_idx")int req_idx) {
+		ModelAndView mav= new ModelAndView();
+		//채팅방idx로 등록된 메시지들을 전송일 순으로 전부출력.
+		
+		//채팅방정보
+		ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);	
+		mav.addObject("croomDTO", cdto);
+		mav.setViewName("coach/chat/chat2");	
+		return mav;
+	}
 	
 	
 	

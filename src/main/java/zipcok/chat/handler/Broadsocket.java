@@ -100,20 +100,12 @@ public class Broadsocket  {
 	// 모두에게 메시지 전송
 		private synchronized static void broadcast(Session selfSession, MessageDTO message) {
 		    
-			for (Session session : sessionList) {
+			for (Session session : sessionList) { //세션에접속한사용자중에
 			    if (selfSession.getId().equals(session.getId())) {
 			        continue; // 메시지 보낸 당사자에게는 전송 제외하기
 			    }
 			    
-			    if (message.getMsg_reciever() == null || message.getMsg_reciever().equals("")) {
-	                // 귓속말 상대 toId 값이 없으면 모두에게 메시지 전송
-	                Basic basic = session.getBasicRemote();
-	                try {
-	                    basic.sendObject(message);
-	                } catch (IOException | EncodeException e) {
-	                    e.printStackTrace();
-	                }
-			    } else {
+		
 	                // 귓속말 상대인 toId 값이 있으면 해당 세션에만 메시지를 전송하고 빠져나옴
 	                if (message.getMsg_reciever().equals(session.getId())) {
 	                    Basic basic = session.getBasicRemote();
@@ -124,7 +116,7 @@ public class Broadsocket  {
 	                    }
 	                    break; // for문 빠져나옴
 	                }
-			    }
+			    
 			} // for
 		}
 	

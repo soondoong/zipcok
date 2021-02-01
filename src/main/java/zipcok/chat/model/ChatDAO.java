@@ -13,16 +13,11 @@ public interface ChatDAO {
 	public RequestFormDTO findRequestForm(int req_idx); //요청서1개정보가져오기 
 	public ChatRoomDTO isRoom(ChatRoomDTO dto); //이미속해있는채팅방잇나보기
 	public int roomDelete(int croom_idx); //채팅방나가기
-	
+	public ChatRoomDTO findRoomInfo(int req_idx); //상담요청서idx로 채팅방정보찾기
 	
 	public void insertMessage(MessageDTO dto);
-	public String getPartner(ChatRoomDTO dto)throws Exception;
-	public String getProfile(String str)throws Exception;
-	public String getName(String str)throws Exception;
-	public List<MessageDTO> getMessageList(String str)throws Exception;
-	public List<ChatRoomDTO> getRoomList(String str)throws Exception;
-	public List<ChatRoomDTO> getRoomList2(String str)throws Exception;
-	public MessageDTO getRecentMessage(String str)throws Exception;
+	public List<MessageDTO> getMessageList(int croom_idx);
+	public MessageDTO getRecentMessage(int croom_idx);
 	//public String isGetMessageList(String str)throws Exception;
 	
 	public String getTutorId(String str)throws Exception;

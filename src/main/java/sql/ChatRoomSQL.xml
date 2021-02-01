@@ -30,6 +30,18 @@ croom_req_idx = #{croom_req_idx}
 </select>
 
 
+<select id ="findRoomInfo"  resultType = "zipcok.almom.domain.ChatRoomDTO">
+
+select * from 
+chatroom
+WHERE
+croom_req_idx = #{croom_req_idx} 
+</select>
+
+
+
+
+
 
 <select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
 select * from 

@@ -4,20 +4,20 @@ import java.util.Date;
 import com.google.gson.Gson;
 public class MessageDTO {
 	
-	private int msg_idx; //message_id
-	private int msg_croom_idx; //CHATROOM_chatroom_id
-	private int msg_req_idx; //CLASS_class_id
+	private int msg_idx; //메세지idx
+	private int msg_croom_idx; //채팅방idx
+	private int msg_req_idx; //요청서idx
 	private String msg_sender; //세션아이디
 	private String msg_reciever; //세션아이디
-	private String msg_content; //messagㅊe_content
-	private Date msg_sendtime; //message_sendTime
-	private Date msg_readtime; //message_readTime
-	private String msg_userid; //USER_user_id;
-	private String msg_coachid; //TUTOR_USER_user_id;
-	private String user_mfile_upload;//user_profileImagePath
-	private String receiver_mfile_upload;//receiver_user_profileImagePath
-	private String user_name; // user_name;
-	private String receiver_user_name; //receiver_user_name;
+	private String msg_content; //메세지내용
+	private Date msg_sendtime; //메세지보낸시간
+	private Date msg_readtime; //메세지읽은시간
+	private String msg_userid; //고객아이디;
+	private String msg_coachid; //코치아이디;
+	private String user_mfile_upload;//보내는이프로필사진이름
+	private String receiver_mfile_upload;//받는이프로필사진이름
+	private String user_name; // 보내는이 이름;
+	private String receiver_user_name; //받는이 이름;
 	private int unReadCount;
 	
 	public MessageDTO() {

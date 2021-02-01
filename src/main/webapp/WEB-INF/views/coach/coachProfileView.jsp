@@ -116,7 +116,8 @@ function lengthLimit(){
 			<div class="card" id="sidebox" >
 			<div class="card-body"> 
 		 	 <p class="card-text">${dto.mem_name} 코치님에게 상담을 요청하여 서비스를 이용해보세요!</p>
-			<input type="button" class="btn btn-primary" value="상담요청하기" onclick="showForm()">
+			<input type="button" class="btn btn-primary" value="상담요청하기" 
+			onclick="${empty sessionScope.coachId ?'showForm()':'cantDo()' }">
 			</div>
 			</div>
 
@@ -141,6 +142,11 @@ function showForm(){
 function close(){
 	$('.requestDiv').css('display','none');
 }
+
+function cantDo(){  //코치는못보내
+	alert('일반회원만 이용가능한 서비스입니다!');
+}
+
 
 /*---------------------------------------------------*/
 
@@ -177,14 +183,7 @@ $( '#startDate' ).val(today);
 
 
 /*null값전송막기*/
-   $('#requestForm').on('submit',function(){
-      
-         if ( !$( 'input[name="req_category"]:checked' ).val() ) {
-      
-            alert('카테고리를 체크해주세요');
-            $( 'input[name="req_category"]:checked' ).focus();
-            return false;
-         } 
+ $('#requestForm').on('submit',function(){
          
          if ( $( '#startDate' ).val() =='' ) {
              

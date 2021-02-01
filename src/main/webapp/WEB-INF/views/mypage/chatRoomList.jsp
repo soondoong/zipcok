@@ -18,7 +18,7 @@ padding:0;
 <c:set var="list" value="${ chatList }"/>
 
 <br>
-<h2>채팅방목록</h2>
+<h2>일반회원채팅방목록</h2>
 <hr>
 	
 <table style=" border:1px solid lightgray; margin-left: 10%; margin-right: auto;">
@@ -27,7 +27,7 @@ padding:0;
 	<tr>
 	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
 	<td >
-	<dt>${cdto.croom_userid }</dt>
+	<dt>${cdto.croom_coachid }</dt>
 	<label>무언가넣자</label>
 	<br><label>마지막메세지같은거넣자</label>
 	<br><label>메세지보낸시각:2021-01-22</label>
@@ -37,8 +37,25 @@ padding:0;
 	<tr>
 	<td><p>메세지를넣을까?</p></td>
 	<td>
+	
+	
+		<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
+	<c:url value="/gotoChat.do" var="url">
+		 <c:param name="croom_idx" value="${cdto.croom_idx }" />
+	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+	</c:url>
+	
+	<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
+		<c:url value="/roomDelete.do" var="delurl">
+		 <c:param name="id" value="${sessionScope.sid}" />	 
+	 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+	</c:url>
+	
+	
+	<input type="button" value="대화하기" class="btn btn-primary"
+	onclick="location.href='${url}'">
 	<input type="button" value="나가기" class="btn btn-danger"
-	onclick="location.href='roomDelete.do?croom_idx=${cdto.croom_idx}&id=${sessionScope.sid}'">
+	onclick="location.href='${delurl}'">
 	</td>
 	</tr>
 </c:forEach>

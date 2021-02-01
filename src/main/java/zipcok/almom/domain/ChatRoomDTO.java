@@ -12,6 +12,7 @@ public class ChatRoomDTO {
 	private int croom_req_idx; //상담요청서 
 	private Date croom_opendate;
 	
+	
 	public ChatRoomDTO() {
 		// TODO Auto-generated constructor stub
 	}
