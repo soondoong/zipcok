@@ -8,7 +8,7 @@ public class MessageDTO {
 	private int msg_croom_idx; //채팅방idx
 	private int msg_req_idx; //요청서idx
 	private String msg_sender; //세션아이디
-	private String msg_reciever; //세션아이디
+	private String msg_receiver; //세션아이디
 	private String msg_content; //메세지내용
 	private Date msg_sendtime; //메세지보낸시간
 	private Date msg_readtime; //메세지읽은시간
@@ -50,11 +50,11 @@ public class MessageDTO {
 	public void setMsg_sender(String msg_sender) {
 		this.msg_sender = msg_sender;
 	}
-	public String getMsg_reciever() {
-		return msg_reciever;
+	public String getMsg_receiver() {
+		return msg_receiver;
 	}
-	public void setMsg_reciever(String msg_reciever) {
-		this.msg_reciever = msg_reciever;
+	public void setMsg_receiver(String msg_receiver) {
+		this.msg_receiver = msg_receiver;
 	}
 	public String getMsg_content() {
 		return msg_content;
@@ -116,7 +116,7 @@ public class MessageDTO {
 	public void setUnReadCount(int unReadCount) {
 		this.unReadCount = unReadCount;
 	}
-	public MessageDTO(int msg_idx, int msg_croom_idx, int msg_req_idx, String msg_sender, String msg_reciever,
+	public MessageDTO(int msg_idx, int msg_croom_idx, int msg_req_idx, String msg_sender, String msg_receiver,
 			String msg_content, Date msg_sendtime, Date msg_readtime, String msg_userid, String msg_coachid,
 			String user_mfile_upload, String receiver_mfile_upload, String user_name, String receiver_user_name,
 			int unReadCount) {
@@ -125,7 +125,7 @@ public class MessageDTO {
 		this.msg_croom_idx = msg_croom_idx;
 		this.msg_req_idx = msg_req_idx;
 		this.msg_sender = msg_sender;
-		this.msg_reciever = msg_reciever;
+		this.msg_receiver = msg_receiver;
 		this.msg_content = msg_content;
 		this.msg_sendtime = msg_sendtime;
 		this.msg_readtime = msg_readtime;
@@ -140,7 +140,7 @@ public class MessageDTO {
 	@Override
 	public String toString() {
 		return "MessageDTO [msg_idx=" + msg_idx + ", msg_croom_idx=" + msg_croom_idx + ", msg_req_idx=" + msg_req_idx
-				+ ", msg_sender=" + msg_sender + ", msg_reciever=" + msg_reciever + ", msg_content=" + msg_content
+				+ ", msg_sender=" + msg_sender + ", msg_receiver=" + msg_receiver + ", msg_content=" + msg_content
 				+ ", msg_sendtime=" + msg_sendtime + ", msg_readtime=" + msg_readtime + ", msg_userid=" + msg_userid
 				+ ", msg_coachid=" + msg_coachid + ", user_mfile_upload=" + user_mfile_upload
 				+ ", receiver_mfile_upload=" + receiver_mfile_upload + ", user_name=" + user_name

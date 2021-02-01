@@ -106,9 +106,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	      msgdto.setMsg_croom_idx(croom.getCroom_idx());
 	      if(croom.getCroom_userid().equals(msgdto.getMsg_sender())) {
 
-	    	  msgdto.setMsg_reciever(roomdto.getCroom_coachid());
+	    	  msgdto.setMsg_receiver(roomdto.getCroom_coachid());
 	      }else {
-	    	  msgdto.setMsg_reciever(roomdto.getCroom_userid());
+	    	  msgdto.setMsg_receiver(roomdto.getCroom_userid());
 	      }
 
 

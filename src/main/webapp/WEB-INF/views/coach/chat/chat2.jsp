@@ -41,9 +41,7 @@ function openSocket() {
 		return;
 	}
 	
-	// 채팅에 사용할 이름 가져오기
 
-	
 	// 웹소켓 객체 생성하여 소켓서버에 연결 요청하기. 채팅에 사용할 이름도 함께 보냄.
 	sock = new WebSocket('ws://localhost:9090/zipcok/broadcasting/'+myname);
 	
@@ -86,14 +84,17 @@ function send() {
 	/*메세지데이터 전송json타입 (시간은서버단에서)*/
 	var message = {};
 	message.user_name = '${login.mem_name}';
-	message.msg_sender = '${myid}'; //이게세션정보가들어가야하나?
-	message.msg_reciever = yourid; //받을상대아이디;이게세션정보가들어가야하나?
+	message.msg_sender = ''; //이게세션정보가들어가야하나?
+	message.msg_receiver = ''; //받을상대아이디;이게세션정보가들어가야하나?
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
 	message.msg_content = inputMessage;
 	message.msg_req_idx = '${cdto.croom_req_idx}';
 
-	
+	var toId = yourid;
+	if (toId != '') {
+		message.msg_receiver = toId;
+	}
 	console.log('message : ' + message);
 	sock.send(JSON.stringify(message));
 	
