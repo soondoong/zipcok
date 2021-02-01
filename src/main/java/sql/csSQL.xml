@@ -71,7 +71,7 @@
 	)
 </insert>
 
-<select id = "maxIdx" resultType="Integer">
+<select id = "csmaxIdx" resultType="Integer">
 select max(bbs_idx) from zipcok_bbs where bbs_key='고객센터'
 </select>
 

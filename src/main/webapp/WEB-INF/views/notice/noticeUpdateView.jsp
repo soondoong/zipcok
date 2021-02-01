@@ -7,7 +7,8 @@
 <c:set var="dto" value="${dto}"></c:set>
 <script>
 	function deletefile() {
-		window.alert(document.getElementById("noticeImg"));
+		document.getElementById('del_yn').value='Y';
+		href.location='deleteFile.do';
 	}
 </script>
 <div id="container">
@@ -48,6 +49,8 @@
 					</select></td>
 				</tr>
 				<input type="hidden" name="bbs_idx" value="${dto.bbs_idx}">
+				<input type="hidden" name="zfile_bbs_idx" value="${list.zfile_idx}">
+				<input type="hidden" id="del yn" name="del_yn" value="N">
 				<tr>
 					<th>제목</th>
 

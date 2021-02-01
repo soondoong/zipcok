@@ -2,7 +2,10 @@ package zipcok.mypage.model;
 
 import java.util.*;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
@@ -54,6 +57,25 @@ public class MypageDAOImple implements MypageDAO {
 	public int mypagePhoneUpdate(MemberDTO dto) {
 		int count = sqlMap.update("mypagePhoneUpdate", dto);
 		return count;
+	}
+	
+	@Override
+	public int mypageWriteListTotalCnt() {
+		int count=sqlMap.selectOne("mypageWriteListTotalCnt");
+		return count==0?1:count;
+	}
+	
+	@Override
+	public List mypageWriteList(int cp, int ls, String mem_id) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("mem_id", mem_id);
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlMap.selectList("mypageWriteList", map);
+		
+		return list;
 	}
 	
 	

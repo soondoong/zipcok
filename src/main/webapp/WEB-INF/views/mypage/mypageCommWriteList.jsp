@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +15,7 @@ function mypageCommWriteList() {
 </script>
 </head>
 <body>
-	<%@include file="../header2.jsp"%>
+<%@include file="../header2.jsp"%>
 	<%@include file="./mypageSideMenu.jsp" %>
 	<div style="margin-left: 200px; padding: 1px 16px;">
 	<br>
@@ -37,7 +36,7 @@ function mypageCommWriteList() {
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="5" align="center">${pageStr }</td>
+			<td colspan="5" align="center">페이징들어갈곳</td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -50,11 +49,11 @@ function mypageCommWriteList() {
 		</c:if>
 		<c:forEach var="dto" items="${list }">
 		<tr>
-			<td>${dto.bbs_key }</td>
-			<td>${dto.bbs_category }</td>
-			<td>${dto.bbs_subject }</td>
-			<td>${dto.bbs_category }</td>
-			<td>${dto.bbs_writedate }</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 		</tr>
 	</c:forEach>
 	</tbody>
