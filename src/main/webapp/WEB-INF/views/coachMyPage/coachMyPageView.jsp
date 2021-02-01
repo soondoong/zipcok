@@ -50,7 +50,7 @@ padding: 8px 15px 8px 15px;
 			
 			<li><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>
 			
-			<li><a href="gotoChat.do">채팅방</a></li>
+			<li><a href="chatRoomList.do?mem_id=${sessionScope.coachId}">채팅방</a></li>
 			
 			<li><a href="#">운동 커뮤니티 관리</a></li>
 		

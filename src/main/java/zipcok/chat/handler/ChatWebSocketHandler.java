@@ -17,9 +17,9 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 
-import zipcok.almom.domain.ChatRoomVO;
-import zipcok.almom.domain.MessageVO;
-import zipcok.almom.persistence.ChatDAO;
+import zipcok.almom.domain.ChatRoomDTO;
+import zipcok.almom.domain.MessageDTO;
+import zipcok.chat.model.ChatDAO;
 import zipcok.member.model.MemberDTO;
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {
@@ -66,49 +66,49 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		System.out.println("????????????");
+	
 		System.out.println(message.getPayload());
 
 		  Map<String, Object> map = null;
 
-	      MessageVO messageVO = MessageVO.convertMessage(message.getPayload());
+	      MessageDTO msgdto = MessageDTO.convertMessage(message.getPayload());
 
-	      System.out.println("1 : " + messageVO.toString());
-
-
-	      ChatRoomVO roomVO  = new ChatRoomVO();
-	      roomVO.setCroom_req_idx(messageVO.getMsg_req_idx()); //요청서
-	      roomVO.setCroom_coachid(messageVO.getMsg_coachid()); //코치
-	      roomVO.setCroom_userid(messageVO.getMsg_userid()); //유저
-
-	      ChatRoomVO croom =null;
-	      if(!messageVO.getMsg_userid().equals(messageVO.getMsg_coachid())) {
-	    	  System.out.println("--msg보내는이가 고객이라면--");
+	      System.out.println("1 : " + msgdto.toString());
 
 
+	      ChatRoomDTO roomdto  = new ChatRoomDTO();
+	      roomdto.setCroom_req_idx(msgdto.getMsg_req_idx()); //요청서
+	      roomdto.setCroom_coachid(msgdto.getMsg_coachid()); //코치
+	      roomdto.setCroom_userid(msgdto.getMsg_userid()); //유저
 
-	    	  if(dao.isRoom(roomVO) == null ) {
-	    		  System.out.println("b");
-	    		  dao.createRoom(roomVO);
-	    		  System.out.println("---채팅방 생성됨!---");
-	    		  croom = dao.isRoom(roomVO);
+	      ChatRoomDTO croom =null;
+	      if(!msgdto.getMsg_userid().equals(msgdto.getMsg_coachid())) {
+	    	  			System.out.println("--msg보내는이가 고객이라면--");
 
-	    	  }else {
-	    		  System.out.println("--이미채팅방 존재함--");
-	    		  croom = dao.isRoom(roomVO);
-	    	  }
+			    	  if(dao.isRoom(roomdto) == null ) {
+			    		  System.out.println("b");
+			    		  dao.createRoom(roomdto);
+			    		  System.out.println("---채팅방 생성됨!---");
+			    		  croom = dao.isRoom(roomdto);
+		
+			    	  }else {
+			    		  System.out.println("--이미채팅방 존재함--");
+			    		  croom = dao.isRoom(roomdto);
+			    	  }
+			    	  
+			    	  
 	      }else {
 	    	  System.out.println("--msg보내는이가 코치라면");
-    		  croom = dao.isRoom(roomVO);
+    		  croom = dao.isRoom(roomdto);
     		  
     	  }
 
-	      messageVO.setMsg_croom_idx(croom.getCroom_idx());
-	      if(croom.getCroom_userid().equals(messageVO.getMsg_sender())) {
+	      msgdto.setMsg_croom_idx(croom.getCroom_idx());
+	      if(croom.getCroom_userid().equals(msgdto.getMsg_sender())) {
 
-	    	  messageVO.setMsg_reciever(roomVO.getCroom_coachid());
+	    	  msgdto.setMsg_reciever(roomdto.getCroom_coachid());
 	      }else {
-	    	  messageVO.setMsg_reciever(roomVO.getCroom_userid());
+	    	  msgdto.setMsg_reciever(roomdto.getCroom_userid());
 	      }
 
 
@@ -123,10 +123,10 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	         MemberDTO login = (MemberDTO) map.get("login"); //접속자 세션정보
 
 	         //받는사람
-	         if (login.getMem_id().equals(messageVO.getMsg_sender())) {
+	         if (login.getMem_id().equals(msgdto.getMsg_sender())) {
 
 	            Gson gson = new Gson();
-	            String msgJson = gson.toJson(messageVO);
+	            String msgJson = gson.toJson(msgdto);
 	            websocketSession.sendMessage(new TextMessage(msgJson));
 	         }
 
