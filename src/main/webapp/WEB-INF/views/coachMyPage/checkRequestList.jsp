@@ -38,20 +38,15 @@ padding:0;
 	<td><p>${rdto.req_cont }</p></td>
 	<td>
 	<input type="button" value="상담하기" class="btn btn-primary"
-	onclick="location.href='startToChat.do?mem_id=${rdto.receive_id}&req_idx=${rdto.req_idx}'">
+	onclick="location.href='startToChat.do?userid=${rdto.req_mem_id }&coachid=${rdto.req_receive_id}&req_idx=${rdto.req_idx}'">
 	<input type="button" value="삭제" class="btn btn-danger"
-	onclick="location.href='requestDelete.do?req_idx=${rdto.req_idx}&id=${req_receive_id }'">
+	onclick="location.href='requestDelete.do?req_idx=${rdto.req_idx}&id=${login.mem_id}'">
 	</td>
 	</tr>
 </c:forEach>
 </tbody>
 </table>
 	
-	
-	
-	
-	
 
-</div>
 </body>
 </html>

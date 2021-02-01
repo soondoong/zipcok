@@ -38,7 +38,7 @@ padding:0;
 	<td><p>메세지를넣을까?</p></td>
 	<td>
 	<input type="button" value="나가기" class="btn btn-danger"
-	onclick="location.href='roomDelete.do?croom_idx=${cdto.croom_idx}&id=${sessionScope.coachId}'">
+	onclick="location.href='roomDelete.do?croom_idx=${cdto.croom_idx}&id=${sessionScope.sid}'">
 	</td>
 	</tr>
 </c:forEach>

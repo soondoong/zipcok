@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import zipcok.almom.domain.ChatRoomDTO;
 import zipcok.almom.domain.MessageDTO;
+import zipcok.coach.model.RequestFormDTO;
 @Service
 @Repository
 public class ChatDAOImple implements ChatDAO{
@@ -21,16 +22,17 @@ public class ChatDAOImple implements ChatDAO{
 	
 	/*채팅방생성*/
 	@Override
-	public void createRoom(ChatRoomDTO dto) throws Exception {		
-		System.out.println("---create Room----");
-		sqlMap.insert("createRoom" , dto);
+	public int createRoom(ChatRoomDTO dto) {		
+		System.out.println("---create Room Imple----");
+		int count = sqlMap.insert("createRoom" , dto);
 		System.out.println("시팔");
+		return count;
 	}
 
 
 	/*이미만들어진채팅방이 있는지*/
 	@Override
-	public ChatRoomDTO isRoom(ChatRoomDTO dto) throws Exception {
+	public ChatRoomDTO isRoom(ChatRoomDTO dto) {
 		// TODO Auto-generated method stub
 		
 		ChatRoomDTO roomdto = null;
@@ -40,11 +42,34 @@ public class ChatDAOImple implements ChatDAO{
 		
 		return roomdto;
 	}
+	
+	/*채팅방목록 뽑아오기*/
+	@Override
+	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey) {
+		 List<ChatRoomDTO> list= sqlMap.selectList(sqlkey,id);
+		 			
+		return list;
+	}
+	
+	/*요청서1개정보가져오기*/
+	@Override
+	public RequestFormDTO findRequestForm(int req_idx) {
+		
+		RequestFormDTO dto= sqlMap.selectOne("findRequestFormInfo",req_idx);
+		return dto;
+	}
+	
+	/*채팅방 나가기*/
+	@Override
+	public int roomDelete(int croom_idx) {
+		int count = sqlMap.delete("roomDelete",croom_idx);
+		return count;
+	}
 
 
 
 	@Override
-	public void insertMessage(MessageDTO dto) throws Exception {
+	public void insertMessage(MessageDTO dto) {
 		// TODO Auto-generated method stub
 		
 		sqlMap.insert("insertMessage" , dto);

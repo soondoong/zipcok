@@ -9,7 +9,6 @@ insert into
 chatroom
 values (
 chatroom_idx.nextval ,
- #{croom_name},
 #{ croom_userid},
 #{croom_coachid}, 
 #{croom_req_idx},
@@ -29,6 +28,32 @@ croom_coachid = #{croom_coachid}
 and
 croom_req_idx = #{croom_req_idx} 
 </select>
+
+
+
+<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+select * from 
+chatroom
+WHERE
+croom_userid =   #{ id} 
+
+</select>
+
+
+<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+select * from 
+chatroom
+WHERE
+croom_coachid =  #{ id} 
+
+</select>
+
+
+<delete id="roomDelete">
+delete chatroom
+where 
+croom_idx = #{croom_idx}
+</delete>
 
 
   </mapper>

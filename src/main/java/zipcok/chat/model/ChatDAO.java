@@ -4,12 +4,18 @@ import java.util.List;
 
 import zipcok.almom.domain.ChatRoomDTO;
 import zipcok.almom.domain.MessageDTO;
+import zipcok.coach.model.RequestFormDTO;
 
 public interface ChatDAO {
 
-	public void createRoom(ChatRoomDTO dto)throws Exception;
-	public ChatRoomDTO isRoom(ChatRoomDTO dto)throws Exception;
-	public void insertMessage(MessageDTO dto)throws Exception;
+	public int createRoom(ChatRoomDTO dto); //채팅방생성데이터등록
+	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey);   //채팅방목록불러오기
+	public RequestFormDTO findRequestForm(int req_idx); //요청서1개정보가져오기 
+	public ChatRoomDTO isRoom(ChatRoomDTO dto); //이미속해있는채팅방잇나보기
+	public int roomDelete(int croom_idx); //채팅방나가기
+	
+	
+	public void insertMessage(MessageDTO dto);
 	public String getPartner(ChatRoomDTO dto)throws Exception;
 	public String getProfile(String str)throws Exception;
 	public String getName(String str)throws Exception;

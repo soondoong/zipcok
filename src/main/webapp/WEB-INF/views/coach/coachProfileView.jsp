@@ -63,7 +63,7 @@ display: none;
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	// 기존 css에서 div 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($("#sidebox").css('top'));
 	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
@@ -88,8 +88,6 @@ $(document).ready(function() {
 });
 
 
-
-
 /*상담요청서 글자수 제한*/
 function lengthLimit(){
     var content = $('#requestText').val();
@@ -99,6 +97,7 @@ function lengthLimit(){
         $('#requestText').val(content.substring(0, 60));
     }
 }
+
 </script>
 </head>
 <body>
@@ -109,7 +108,6 @@ function lengthLimit(){
 <c:set var="review" value="${resultMap.reviewList }"/>
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>
-
 <section>
 	<article class="secondWrap">
 			
