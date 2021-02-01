@@ -80,7 +80,7 @@ function sendOption(){
 				최저가 : <span id = "price_value">${keywordMap.price }</span>원 이상
 			</div>
 			<div>
-			<input type="range" max="100000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:priceOption();">
+			<input type="range" max="10000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:priceOption();">
 			</div>
 			<hr>
 			<h6>수용 인원</h6>
@@ -114,13 +114,12 @@ function sendOption(){
 					<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
 					<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
 					<br>장비 리스트 :
-					<c:if test = "${empty eq_list }">
+					<br>
+					<c:if test = "${empty dto.list }">
 					<h1>등록된 기구가 없습니다.</h1>
 					</c:if>
-					<c:forEach var = "list" items="${eq_list}">
-						<c:forEach var = "eq_dto" items = "${list }">
-						${eq_dto.eq_name }
-						</c:forEach>
+					<c:forEach var = "eq_list" items="${dto.list}">
+						${eq_list.eq_name } : ${eq_list.eq_count }<br>
 					</c:forEach>			
 					</div>
 					<hr>
@@ -129,17 +128,5 @@ function sendOption(){
 		</c:choose>	
 	</div>
 	<h6>${pageStr }</h6>
-	
-<c:choose>
-   <c:when test="${dto.bbs_mem_id}==${sessionScope.sid}">	</c:when>
-   <c:when test="${dto.bbs_mem_id}==${sessionScope.coachid}">	</c:when>
-   <c:otherwise>
-   <script>
-   window.alert('본인이 작성한 글만 볼 수 있습니다');
-   location.href = 'csList.do';
-   </script>
-   </c:otherwise>
-</c:choose>
-	
 </body>
 </html>

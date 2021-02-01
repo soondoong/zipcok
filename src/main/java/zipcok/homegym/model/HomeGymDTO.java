@@ -1,6 +1,7 @@
 package zipcok.homegym.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class HomeGymDTO {
 	private String hg_mem_id;
@@ -24,6 +25,7 @@ public class HomeGymDTO {
 	private String hg_approved_check;
 	private java.sql.Date hg_approved_date;
 	private String hg_status;
+	private List<HomeGymEquipmentDTO> list;
 	
 	public HomeGymDTO() {
 		// TODO Auto-generated constructor stub
@@ -197,11 +199,19 @@ public class HomeGymDTO {
 		this.hg_status = hg_status;
 	}
 
+	public List<HomeGymEquipmentDTO> getList() {
+		return list;
+	}
+
+	public void setList(List<HomeGymEquipmentDTO> list) {
+		this.list = list;
+	}
+
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
 			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date_year,
 			String hg_start_date_month, String hg_start_date_day, String hg_end_date_year, String hg_end_date_month,
 			String hg_end_date_day, String hg_not_date, int hg_start_time, int hg_end_time, int hg_price,
-			String hg_approved_check, Date hg_approved_date, String hg_status) {
+			String hg_approved_check, Date hg_approved_date, String hg_status, List<HomeGymEquipmentDTO> list) {
 		super();
 		this.hg_mem_id = hg_mem_id;
 		this.hg_nickname = hg_nickname;
@@ -224,6 +234,7 @@ public class HomeGymDTO {
 		this.hg_approved_check = hg_approved_check;
 		this.hg_approved_date = hg_approved_date;
 		this.hg_status = hg_status;
+		this.list = list;
 	}
 	
 }
