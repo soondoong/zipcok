@@ -6,12 +6,14 @@
 
 <%@include file="../_include/header.jsp" %>
 
-<c:if test="${empty sessionScope.sid } || ${empty sessionScope.coachid }">
-<script>
-window.alert('로그인 후 이용가능 합니다!');
-location.href='csList.do';
-</script>
-</c:if>
+<c:choose>
+	<c:when test="${empty sessionScope.sid && empty sessionScope.coachId }">
+		<script>
+			alert('로그인 후 이용가능 합니다!');
+			location.href = 'csList.do';
+		</script>
+	</c:when>
+</c:choose>
 <div class="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">

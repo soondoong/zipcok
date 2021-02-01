@@ -7,18 +7,18 @@
 <c:set var="dto" value="${dto}"></c:set>
 <script>
 	function deletefile() {
-		window.alert(document.getElementById("noticeImg"));
+		window.alert(document.getElementById("csImg"));
 	}
 </script>
 <div id="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">
-			<h2 class="page_title">공지사항</h2>
+			<h2 class="page_title">고객센터</h2>
 			<p class="page_text">수정할 부분을 다시 작성해 주세요</p>
 		</div>
 	</div>
 	<div id="contents">
-		<form action="noticeUpdate.do" method="post"
+		<form action="csUpdate.do" method="post"
 			enctype="multipart/form-data">
 <style>
 .white_talbe_01 {
@@ -63,9 +63,9 @@
 				<c:forEach var="List" items="${list}">
 
 					<tr>
-						<td colspan="3" class="imgtd"><img id="noticeImg"
+						<td colspan="3" class="imgtd"><img id="csImg"
 							alt="${List.zfile_upload }"
-							src="/zipcok/upload/notice/${List.zfile_upload}" width="800px;"
+							src="/zipcok/upload/cs/${List.zfile_upload}" width="800px;"
 							height="500px;"></td>
 					</tr>
 
@@ -84,7 +84,7 @@
 			</table>
 			<div class="table_list_bottom">
 				<div class="btn_left_box">
-					<a href="noticeList.do" class="btn1 c2">목록보기</a>
+					<a href="csList.do" class="btn1 c2">목록보기</a>
 				</div>
 				<div class="btn_right_box">
 					<input type="submit" value="수정하기" class="btn1 c1"> <input
