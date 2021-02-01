@@ -42,7 +42,7 @@ public class CoachController {
 	@RequestMapping("gotoChat.do")
 	public String gotoChat () {
 
-		return "coach/chat/chat";
+		return "coach/chat/chat2";
 	}
 	
 	

@@ -83,20 +83,20 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
 	      ChatRoomVO croom =null;
 	      if(!messageVO.getMsg_userid().equals(messageVO.getMsg_coachid())) {
-	    	  System.out.println("--msg보내는이가 고객이라면--");
+	    	  			System.out.println("--msg보내는이가 고객이라면--");
 
-
-
-	    	  if(dao.isRoom(roomVO) == null ) {
-	    		  System.out.println("b");
-	    		  dao.createRoom(roomVO);
-	    		  System.out.println("---채팅방 생성됨!---");
-	    		  croom = dao.isRoom(roomVO);
-
-	    	  }else {
-	    		  System.out.println("--이미채팅방 존재함--");
-	    		  croom = dao.isRoom(roomVO);
-	    	  }
+			    	  if(dao.isRoom(roomVO) == null ) {
+			    		  System.out.println("b");
+			    		  dao.createRoom(roomVO);
+			    		  System.out.println("---채팅방 생성됨!---");
+			    		  croom = dao.isRoom(roomVO);
+		
+			    	  }else {
+			    		  System.out.println("--이미채팅방 존재함--");
+			    		  croom = dao.isRoom(roomVO);
+			    	  }
+			    	  
+			    	  
 	      }else {
 	    	  System.out.println("--msg보내는이가 코치라면");
     		  croom = dao.isRoom(roomVO);
