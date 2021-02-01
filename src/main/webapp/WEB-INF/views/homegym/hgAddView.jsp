@@ -242,11 +242,11 @@ width : 600px;
 			<li>
 			<label class="HomeGymAddLabel">보유 운동 기구</label>
 			<select	name="eq_name_temp" id = "eq_name_temp">
-					<option value="기구 1">기구 1</option>
-					<option value="기구 2">기구 2</option>
-					<option value="기구 3">기구 3</option>
-					<option value="기구 4">기구 4</option>
-					<option value="기구 5">기구 5</option>
+					<option value="eq 1">기구 1</option>
+					<option value="eq 2">기구 2</option>
+					<option value="eq 3">기구 3</option>
+					<option value="eq 4">기구 4</option>
+					<option value="eq 5">기구 5</option>
 			</select>
 			<label class="HomeGymAddLabel">보유 수</label>
 			<select name="eq_count_temp" id = "eq_count_temp">

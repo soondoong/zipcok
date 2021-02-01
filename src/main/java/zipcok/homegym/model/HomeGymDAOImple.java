@@ -28,7 +28,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 
 	@Override
-	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, String year, String month, String day, int price, int person_count, String eq_option[]) {
+	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, String year, String month, String day, int price, int person_count, String eq_option) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
@@ -76,7 +76,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public int HomeGymTotalCnt(String location, String year, String month, String day, int price, int person_count, String eq_option[]) {
+	public int HomeGymTotalCnt(String location, String year, String month, String day, int price, int person_count, String eq_option) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(eq_option!=null)map.put("eq_option", eq_option);
 		map.put("location", location);
@@ -85,6 +85,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		map.put("select_date_date", java.sql.Date.valueOf(select_date));
 		map.put("price", price);
 		map.put("person_count", person_count);
+		
 		int result = sqlMap.selectOne("homegymTotalCnt", map);
 		return result==0?1:result;
 	}

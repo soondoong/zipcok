@@ -56,17 +56,28 @@ public class HomeGymController {
 		String month = date.substring(5, 7);
 		String day = date.substring(8, 10);
 		String eq_option[] = req.getParameterValues("left_option_eq");
-		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day, price, person_count, eq_option);
+		String eq_options = "";
+		if(eq_option!=null) {
+			for(int i = 0 ; i < eq_option.length ; i ++) {
+
+				eq_options += eq_option[i];
+				if(i!=eq_option.length-1) {
+					eq_options += ",";
+				}
+			}
+		}
+		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day, price, person_count, eq_options);
 		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("eq_options", eq_options);
 		map.put("location", location);
-		if(!date.equals("1900-01-01"))map.put("date", date);
+		if(!date.equals("1900-01-01"))	map.put("date", date);
 		map.put("price", price);
 		map.put("person_count", person_count);
-		if(eq_option!=null)map.put("eq_option", eq_option);
 		int listSize = 5;
 		int pageSize = 5;
 		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);
-		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day, price, person_count, eq_option);
+		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day, price, person_count, eq_options);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
