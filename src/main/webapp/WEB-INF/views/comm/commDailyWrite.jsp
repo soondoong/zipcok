@@ -12,14 +12,14 @@
 <%@include file="./commSideMenu.jsp"%>
 <div class="content">
 <h1>일일 운동 게시판 글쓰기</h1>
-<form name="dailyWrite" action="commDailyWrite.do" method="post">
+<form name="dailyWrite" action="commDailyWrite.do" method="post" enctype="multipart/form-data">
 	<table class="content">
 		<tr>
 			<th>제목</th>
 			<td colspan="2"><input type="text" name="ex_subject"></td>
 		</tr>
 		<tr>
-			<td><input type="file"></td>
+			<td><input type="file" name="upload"></td>
 			<td><input type="file"></td>
 			<td><input type="file"></td>
 		</tr>
