@@ -12,6 +12,17 @@
 	select * from member_file where mfile_mem_id=#{mem_id}
 	</select>
 
+	<!-- 프로필 사진 수정
+	<update id="mypagePhotoUpdate" parameterType="zipcok.coach.model.CoachFileDTO">
+		update member_file set
+			mfile_upload=#{mfile_upload},
+			mfile_size=#{mfile_size},
+			mfile_orig=#{mfile_orig},
+			mfile_type=#{mfile_type}
+			where mfile_mem_id=#{mfile_mem_id}
+	</update>
+	 -->
+
 	<update id="mypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
 	</update>
@@ -32,5 +43,18 @@
 		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
 	</update>
 	
+	
+	<select id="mypageWriteListTotalCnt" resultType="Integer">
+		select count(*) from zipcok_bbs
+	</select>
+	
+	<select id="mypageWriteList"  resultType="zipcok.cs.model.CsDTO">
+	select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc) a) b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
+	 
+
 
 </mapper>

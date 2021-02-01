@@ -31,6 +31,7 @@
 			</div>
 			<div>
 				<a href="idFindForm.do">ID Find</a> / <a href="pwdFindForm.do">Pwd Find</a>
+				<a href="kakaoLoginForm.do">카카오테스트</a>
 			</div>
 		</div>
 	</form>

@@ -9,11 +9,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDAO;
@@ -31,6 +33,8 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO mdao;
+	private final static String id = "52b05e780f798f8adb17b234257f1f6c";
+	private final static String url = "http://localhost:9090/zipcok/kakaoLogin.do";
 	
 	@Autowired
 	private MypageDAO mpdao;   //수연채팅방필요
@@ -305,7 +309,5 @@ public class MemberController {
 		mav.setViewName("member/memberJoin");
 		return mav;
 	}
-	
-	
 	
 }
