@@ -3,6 +3,7 @@ package zipcok.mypage.model;
 import java.util.*;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.cs.model.CsDTO;
 import zipcok.member.model.MemberDTO;
 
 public interface MypageDAO {
@@ -13,6 +14,7 @@ public interface MypageDAO {
 	public int mypageAddrUpdate(MemberDTO dto);
 	public int mypageEmailUpdate(MemberDTO dto);
 	public int mypagePhoneUpdate(MemberDTO dto);
-	
+	public int mypageWriteListTotalCnt();
+	public List mypageWriteList(int cp, int ls, String mem_id);
 	
 }

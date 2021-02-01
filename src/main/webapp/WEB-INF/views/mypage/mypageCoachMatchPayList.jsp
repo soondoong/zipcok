@@ -19,7 +19,7 @@ function mypageCoachMatchPayList(){
 	<%@include file="./mypageSideMenu.jsp"%>
 	<div style="margin-left: 200px; padding: 1px 16px;">
 		<br>
-		<h3>${sessionScope.sname }님의결제내역</h3>
+		<h3>${sessionScope.sname }님의 결제내역</h3>
 		<hr>
 		<input type="button" value="홈짐 결제내역" onclick="mypageHomeGymPayList()">
 		<input type="button" value="코치매치 결제내역" onclick="mypageCoachMatchPayList()">

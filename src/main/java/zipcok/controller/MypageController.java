@@ -26,6 +26,7 @@ public class MypageController {
 	@Autowired
 	ServletContext c;
 	
+	//마이페이지 내프로필
 	@RequestMapping("/memberProfileForm.do")
 	public ModelAndView memberProfileForm(
 			HttpSession session) {
@@ -45,6 +46,8 @@ public class MypageController {
 		return "mypage/mypagePwdUpdate";
 	}
 	
+	
+	//비밀번호 변경
 	@RequestMapping("/mypagePwdUpdate.do")
 	public ModelAndView mypagePwdUpdate(MemberDTO dto,
 			@RequestParam("mem_pwd")String mem_pwd,
@@ -73,6 +76,8 @@ public class MypageController {
 		return "mypage/mypageAddrUpdate";
 	}
 	
+	
+	//주소 변경
 	@RequestMapping("/mypageAddrUpdate.do")
 	public ModelAndView mypageAddrUpdate(MemberDTO dto,
 			HttpSession session,
@@ -95,6 +100,8 @@ public class MypageController {
 		return "mypage/mypageEmailUpdate";
 	}
 	
+	
+	//이메일 변경
 	@RequestMapping("/mypageEmailUpdate.do")
 	public ModelAndView mypageEmailUpdate(
 			MemberDTO dto,
@@ -118,6 +125,8 @@ public class MypageController {
 		return "mypage/mypagePhoneUpdate";
 	}
 	
+	
+	//전화번호 변경
 	@RequestMapping("/mypagePhonUpdate.do")
 	public ModelAndView mypagePhoneUpdate(
 			MemberDTO dto,
@@ -159,10 +168,28 @@ public class MypageController {
 		return "mypage/mypageCoachMatchPayList";
 	}
 	
-	@RequestMapping("mypageWriteList.do")
-	public String mypageWriteList() {
+	//마이페이지 F&A/고객센터 작성글 목록
+	@RequestMapping("/mypageWriteList.do")
+	public ModelAndView mypageWriteList(HttpSession session,
+			@RequestParam(value = "cp", defaultValue = "1")int cp) {
 		
-		return "mypage/mypageWriteList";
+		int totalCnt=dao.mypageWriteListTotalCnt();
+		int listSize=3;
+		int pageSize=3;
+		String pageStr=zipcok.page.MypagePageModule.makePage("mypageWriteList.do", totalCnt, cp, listSize, pageSize);
+		List list = dao.mypageWriteList(cp, listSize, (String)session.getAttribute("sid"));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("mypage/mypageWriteList");
+		
+		return mav;
+	}
+	
+	@RequestMapping("/mypageCommWriteList.do")
+	public String mypageCommWriteList() {
+		
+		return "mypage/mypageCommWriteList";
 	}
 	
 	
