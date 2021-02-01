@@ -7,6 +7,10 @@
 	<select id="memberProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">
 	select * from zipcok_member where mem_id=#{mem_id}
 	</select>
+	
+	<select id="memberProfilePhoto" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
+	select * from member_file where mfile_mem_id=#{mem_id}
+	</select>
 
 	<update id="mypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}

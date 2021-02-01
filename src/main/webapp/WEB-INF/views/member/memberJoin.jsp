@@ -6,9 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -337,7 +335,6 @@ function execPostCode() {
         }
      }).open();
  }
-
 
 </script>
 
