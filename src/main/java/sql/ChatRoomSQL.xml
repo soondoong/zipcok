@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.almon">
+ 
+<insert id = "createRoom" parameterType="zipcok.almom.domain.ChatRoomVO">
+insert into 
+chatroom
+values (
+chatroom_idx.nextval ,
+ #{croom_name},
+#{ croom_userid},
+#{croom_coachid}, 
+#{croom_req_idx},
+sysdate
+)
+
+</insert>
+
+
+<select id ="isRoom" parameterType="zipcok.almom.domain.ChatRoomVO" resultType = "zipcok.almom.domain.ChatRoomVO">
+
+select * from 
+chatroom
+WHERE croom_userid = #{croom_userid} 
+and 
+croom_coachid = #{croom_coachid} 
+and
+croom_req_idx = #{croom_req_idx} 
+</select>
+
+
+
+  
+  </mapper>

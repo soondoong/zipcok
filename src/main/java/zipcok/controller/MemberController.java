@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.MypageDAO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,6 +31,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO mdao;
+	
+	@Autowired
+	private MypageDAO mpdao;   //수연채팅방필요
 	
 	@Autowired
 	ServletContext c;
@@ -152,6 +156,11 @@ public class MemberController {
 					mav.setViewName("member/loginMsg");
 					session.setAttribute("sid", mem_id);
 					session.setAttribute("sname", dbname);
+					
+					/*수연추가채팅용정보*/
+					MemberDTO loginDTO = mpdao.memberProfile(mem_id);
+					session.setAttribute("login", loginDTO);
+					/*수연추가채팅용정보*/
 					String saveid=req.getParameter("saveid");
 					if(saveid==null) {
 						Cookie ck=new Cookie("saveid", mem_id);
@@ -169,6 +178,11 @@ public class MemberController {
 					mav.setViewName("member/loginMsg");
 					session.setAttribute("coachId", mem_id);
 					session.setAttribute("sname", dbname);
+					
+					/*수연추가채팅용정보*/
+					MemberDTO loginDTO = mpdao.memberProfile(mem_id);
+					session.setAttribute("login", loginDTO);
+					/*수연추가채팅용정보*/
 					String saveid=req.getParameter("saveid");
 					if(saveid==null) {
 						Cookie ck=new Cookie("saveid", mem_id);

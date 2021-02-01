@@ -14,6 +14,7 @@
     <mapper resource="sql/coachSQL.xml"/>
     <mapper resource="sql/homegymSQL.xml"/>
     <mapper resource="sql/csSQL.xml"/>
+    <mapper resource="sql/ChatRoomSQL.xml"/>
     
   </mappers>
 </configuration>
