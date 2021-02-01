@@ -177,6 +177,11 @@ public class CommController {
 		mav.setViewName("comm/commDailyList");
 		return mav;
 	}
+	
+	@RequestMapping(value="commFoodWrite.do", method=RequestMethod.GET)
+	public String foodWriteForm() {
+		return "comm/commFoodWrite";
+	}
 
 }
 
