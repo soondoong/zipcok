@@ -11,21 +11,6 @@
 
 
 
-		<mvc:annotation-driven/>
-		<context:annotation-config/>
-
-	 <websocket:handlers>
-	  <websocket:mapping handler="chatHandler" path="/chat" />
-		  <websocket:handshake-interceptors>
-	         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-	      </websocket:handshake-interceptors>
-	  <websocket:sockjs />
-	
-	 </websocket:handlers>
-	 
-	 <bean id="chatHandler" class="zipcok.chat.handler.ChatWebSocketHandler" />
-	 <mvc:default-servlet-handler />
-
 
 	
 	 <!-- config -->
