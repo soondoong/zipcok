@@ -12,22 +12,15 @@
 			location.href = 'csList.do';
 		</script>
 	</c:when>
+	
 </c:choose>
 
-<c:choose>
-   <c:when  test="${dto.bbs_mem_id}!=${sessionScope.sid}">
+   <c:if  test="${login.mem_id!=dto.bbs_mem_id}">
    <script>
    window.alert('본인이 작성한 글만 볼 수 있습니다');
    location.href = 'csList.do';
    </script>
-   </c:when>
-   <c:when test="${dto.bbs_mem_id}!=${sessionScope.coachid}">
-   <script>
-   window.alert('본인이 작성한 글만 볼 수 있습니다');
-   location.href = 'csList.do';
-   </script>
-   </c:when>
-   <c:otherwise>
+   </c:if>
    <div id="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">
@@ -78,8 +71,6 @@
 		</div>
 	</div>
 </div>
-   </c:otherwise>
-</c:choose>
 
 
 <%@include file="../_include/footer.jsp" %>
