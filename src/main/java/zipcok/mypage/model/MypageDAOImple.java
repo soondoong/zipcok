@@ -26,6 +26,13 @@ public class MypageDAOImple implements MypageDAO {
 	}
 	
 	@Override
+	public CoachFileDTO memberProfilePhoto(String mem_id) {
+		CoachFileDTO cdto = sqlMap.selectOne("memberProfilePhoto", mem_id);
+		return cdto;
+	}
+	
+	
+	@Override
 	public int mypagePwdUpdate(MemberDTO dto) {
 		int count = sqlMap.update("mypagePwdUpdate", dto);
 		return count;

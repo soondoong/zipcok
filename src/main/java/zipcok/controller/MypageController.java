@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -30,7 +31,10 @@ public class MypageController {
 			HttpSession session) {
 		ModelAndView mav= new ModelAndView();
 		MemberDTO dto=dao.memberProfile((String)session.getAttribute("sid"));
+		CoachFileDTO cdto=dao.memberProfilePhoto((String)session.getAttribute("sid"));
+	
 		mav.addObject("dto", dto);
+		mav.addObject("cdto", cdto);
 		mav.setViewName("mypage/memberProfile");
 		return mav;
 	}
@@ -131,16 +135,28 @@ public class MypageController {
 		
 	}
 	
-	@RequestMapping("mypageLikeList.do")
-	public String mypageLikeList() {
+	@RequestMapping("mypageHomeGymLikeList.do")
+	public String mypageHomeGymLikeList() {
 		
-		return "mypage/mypageLikeList";
+		return "mypage/mypageHomeGymLikeList";
 	}
 	
-	@RequestMapping("mypagePayList.do")
-	public String mypagePayList() {
+	@RequestMapping("mypageCoachMatchLikeList.do")
+	public String mypageCoachMatchLikeList() {
 		
-		return "mypage/mypagePayList";
+		return "mypage/mypageCoachMatchLikeList";
+	}
+	
+	@RequestMapping("mypageHomeGymPayList.do")
+	public String mypageHomeGymPayList() {
+		
+		return "mypage/mypageHomeGymPayList";
+	}
+	
+	@RequestMapping("mypageCoachMatchPayList.do")
+	public String mypageCoachMatchPayList() {
+		
+		return "mypage/mypageCoachMatchPayList";
 	}
 	
 	@RequestMapping("mypageWriteList.do")

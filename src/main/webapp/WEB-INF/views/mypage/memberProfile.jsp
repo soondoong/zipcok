@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.profileIMG { width:300px; height:300px;  border-radius: 50%; overflow: hidden; margin-bottom: 50px;}
+.profileIMG img { width:300px; height:300px; object-fit: cover; background-color:lightgray;}
+</style>
 
 <script>
 function mypagePwdUpdate(){
@@ -29,9 +33,10 @@ function mypagePhoneUpdate(){
 	<div style="margin-left: 200px; padding: 1px 16px;">
 	<br>
 	<h3>${sessionScope.sname }님의 프로필</h3>
-
-	<div>
-		<label><a href="#">프로필사진 해야함</a></label>
+	<hr>
+	<br>
+	<div class="profileIMG">
+			 <img src="/zipcok/upload/member/${cdto.mfile_upload}"  width="250px" height="250px" alt="">
 	</div>
 	
 		<div>
