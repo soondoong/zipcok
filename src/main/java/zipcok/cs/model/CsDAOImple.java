@@ -72,7 +72,7 @@ public class CsDAOImple implements CsDAO {
 	
 	@Override
 	public int csMaxIdx() {
-		int maxIdx = sqlMap.selectOne("maxIdx");
+		int maxIdx = sqlMap.selectOne("csmaxIdx");
 		return maxIdx;
 	}
 	

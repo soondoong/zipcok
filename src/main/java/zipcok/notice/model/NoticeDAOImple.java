@@ -128,8 +128,8 @@ public class NoticeDAOImple implements NoticeDAO {
 	}
 	
 	@Override
-	public int deleteFile(int bbs_idx) {
-		int result=sqlMap.delete("deleteNoticeInfoFile", bbs_idx);
+	public int deleteFile(ZipcokFileDTO dto) {
+		int result=sqlMap.delete("zfiledelete", dto);
 		return result;
 	}
 }

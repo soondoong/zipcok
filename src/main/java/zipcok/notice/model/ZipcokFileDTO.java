@@ -90,6 +90,11 @@ public class ZipcokFileDTO {
 	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
 	}
+	public ZipcokFileDTO(int zfile_bbs_idx, String del_yn) {
+		super();
+		this.zfile_bbs_idx = zfile_bbs_idx;
+		this.del_yn = del_yn;
+	}
 	
 	
 	
