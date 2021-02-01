@@ -28,13 +28,12 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 
 	@Override
-	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, String year, String month, String day, int price, int person_count, String eq_option) {
+	public List<HomeGymDTO> HomeGymList(int cp, int listSize, String location, String year, String month, String day, int price, int person_count) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
 		map.put("start", start);
 		map.put("end", end);
-		if(eq_option!=null)map.put("eq_option", eq_option);
 		map.put("location", location);
 		String select_date = year+'-'+month+'-'+day;
 		map.put("select_date", select_date);
@@ -42,10 +41,6 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		map.put("price", price);
 		map.put("person_count", person_count);
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL", map);
-		for(int i = 0 ; i < list.size(); i ++) {
-			String hg_mem_id = list.get(i).getHg_mem_id();
-			List<HomeGymEquipmentDTO> eq_list = sqlMap.selectList("hgEqList",hg_mem_id);
-		}
 		return list;
 	}
 	@Override
@@ -76,9 +71,8 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public int HomeGymTotalCnt(String location, String year, String month, String day, int price, int person_count, String eq_option) {
+	public int HomeGymTotalCnt(String location, String year, String month, String day, int price, int person_count) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		if(eq_option!=null)map.put("eq_option", eq_option);
 		map.put("location", location);
 		String select_date = year+'-'+month+'-'+day;		
 		map.put("select_date", select_date);
@@ -91,8 +85,14 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public List<HomeGymEquipmentDTO> EqList(String hg_mem_id) {
-		List<HomeGymEquipmentDTO> list = sqlMap.selectList("hgEqList",hg_mem_id);
+	public List<HomeGymEquipmentDTO> EqList(String hg_mem_id, String eq_option[]) {
+		HomeGymEquipmentDTO dto = new HomeGymEquipmentDTO();
+		dto.setEq_mem_id(hg_mem_id);
+		dto.setEq_list(eq_option);
+		Map<String, Object>map = new HashMap<String, Object>();
+		map.put("eq_mem_id", hg_mem_id);
+		map.put("eq_list", eq_option);
+		List<HomeGymEquipmentDTO> list = sqlMap.selectList("hgEqList",map);
 		return list;
 	}
 
