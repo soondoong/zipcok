@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="../_include/head.jsp" %>
-
-<%@include file="../_include/header.jsp" %>
+<%@include file="../header2.jsp" %>
 
 
 <!-- 

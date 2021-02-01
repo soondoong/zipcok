@@ -5,12 +5,34 @@
 <%@include file="../header2.jsp" %>
 
 <c:set var="dto" value="${dto}"/>
+<c:choose>
+	<c:when test="${empty sessionScope.sid && empty sessionScope.coachId }">
+		<script>
+			alert('로그인 후 이용가능 합니다!');
+			location.href = 'csList.do';
+		</script>
+	</c:when>
+</c:choose>
 
-<div id="container">
+<c:choose>
+   <c:when  test="${dto.bbs_mem_id}!=${sessionScope.sid}">
+   <script>
+   window.alert('본인이 작성한 글만 볼 수 있습니다');
+   location.href = 'csList.do';
+   </script>
+   </c:when>
+   <c:when test="${dto.bbs_mem_id}!=${sessionScope.coachid}">
+   <script>
+   window.alert('본인이 작성한 글만 볼 수 있습니다');
+   location.href = 'csList.do';
+   </script>
+   </c:when>
+   <c:otherwise>
+   <div id="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">
-			<h2 class="page_title">공지사항</h2>
-			<p class="page_text">새로운 소식을 알려드립니다.</p>
+			<h2 class="page_title">고객센터</h2>
+			<p class="page_text">자주하는질문과 고객센터입니다</p>
 		</div>		
 	</div>
 	<div id="contents">
@@ -38,46 +60,26 @@
 			</div>
 			<div class="view_body">
 				<c:forEach var="List" items="${list}">
-				<img alt="${List.zfile_upload }" src="/zipcok/upload/notice/${List.zfile_upload}">
+				<img alt="${List.zfile_upload }" src="/zipcok/upload/cs/${List.zfile_upload}">
 				</c:forEach>
 				<div class="view_content">${dto.bbs_content}</div>
 			</div>
-			<div class="view_navi">
-				<dl>
-					<dt>이전 글</dt>
-				<c:choose>
-					<c:when test="${empty prev}">
-						<dd>이전 글이 없습니다.</dd>
-					</c:when>
-					<c:otherwise>
-						<dd><a href="noticeContent.do?bbs_idx=${prev.bbs_idx}">[${prev.bbs_category}] ${prev.bbs_subject}</a></dd>
-					</c:otherwise>
-				</c:choose>
-				</dl>
-				<dl>
-					<dt>다음 글</dt>
-				<c:choose>
-					<c:when test="${empty next}">
-						<dd>다음 글이 없습니다.</dd>
-					</c:when>
-					<c:otherwise>
-						<dd><a href="noticeContent.do?bbs_idx=${next.bbs_idx}">[${next.bbs_category}] ${next.bbs_subject}</a></dd>
-					</c:otherwise>
-				</c:choose>
-				</dl>
-			</div> 
+		
 		</article>
 		
 		<div class="table_list_bottom">
 			<div class="btn_left_box">
-				<a href="noticeList.do" class="btn1 c2">목록보기</a>
+				<a href="csList.do" class="btn1 c2">목록보기</a>
 			</div>
 			<div class="btn_right_box">
-				<a href="noticeDelete.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">삭제하기</a>
-				<a href="noticeUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
+				<a href="csDelete.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">삭제하기</a>
+				<a href="csUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
 			</div>
 		</div>
 	</div>
 </div>
+   </c:otherwise>
+</c:choose>
+
 
 <%@include file="../_include/footer.jsp" %>

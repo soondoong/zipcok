@@ -6,6 +6,8 @@
 
 <%@include file="../_include/header.jsp"%>
 
+<c:set var="dto" value="${dto}"></c:set>
+
 <div id="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">
@@ -66,7 +68,7 @@
 								<c:forEach var="dto" items="${list}">
 									<tr>
 										<td>${dto.bbs_idx }</td>
-										<c:url var="contentUrl" value="noticeContent.do">
+										<c:url var="contentUrl" value="csContent.do">
 											<c:param name="bbs_idx">${dto.bbs_idx}</c:param>
 										</c:url>
 										<td><a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a></td>

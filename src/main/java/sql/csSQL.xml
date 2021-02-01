@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.cs">
+  
   <select id="csAllListSQL" parameterType="Map" resultType="zipcok.cs.model.CsDTO">
 		select b.* from
 		(select rownum,a.* from
@@ -32,4 +33,51 @@
   	0
   	)
   </insert>
+  	<update id="csUpdateSQL" parameterType="zipcok.cs.model.CsDTO">
+  		update
+  		zipcok_bbs
+  		set
+  		bbs_category=#{bbs_category},
+  		bbs_subject=#{bbs_subject},
+  		bbs_content=#{bbs_content}
+  		where
+  		bbs_key='고객센터' and bbs_idx=#{bbs_idx}
+  	</update>
+  	<select id="csContentSQL" parameterType="Integer" resultType="zipcok.cs.model.CsDTO">
+  		select
+  		*
+  		from
+  		zipcok_bbs
+  		where
+  		bbs_key='고객센터'
+  		and
+  		bbs_idx=#{bbs_idx}
+  	</select>
+  	
+  	<insert id="insertCsInfoFile" parameterType="zipcok.cs.model.CsZipcokFileDTO">
+	insert into 
+	 zipcok_file
+	values(
+	zipcok_file_zfile_idx.nextval,
+	#{zfile_bbs_idx},
+	#{zfile_mem_id},
+	'고객센터',
+	#{zfile_upload},
+	#{zfile_size},
+	#{zfile_orig},
+	#{zfile_path},
+	#{zfile_type},
+	#{del_yn}
+	)
+</insert>
+
+<select id = "maxIdx" resultType="Integer">
+select max(bbs_idx) from zipcok_bbs where bbs_key='고객센터'
+</select>
+
+<select id="csZfileSelect" parameterType="Integer" resultType="zipcok.cs.model.CsZipcokFileDTO">
+select *
+from zipcok_file
+where zfile_bbs_idx=#{bbs_idx}
+</select>
   </mapper>
