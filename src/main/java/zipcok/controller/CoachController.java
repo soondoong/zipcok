@@ -39,13 +39,6 @@ public class CoachController {
 	@Autowired
 	ServletContext c;
 	
-	@RequestMapping("gotoChat.do")
-	public String gotoChat () {
-
-		return "coach/chat/chat2";
-	}
-	
-	
 		
 	/*메인검색페이지 이동*/
 	@RequestMapping("findCoachList.do")  

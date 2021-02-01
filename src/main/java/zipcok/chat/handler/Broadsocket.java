@@ -13,8 +13,9 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import zipcok.almom.domain.MessageVO;
-import zipcok.almom.persistence.ChatDAO;
+import zipcok.almom.domain.MessageDTO;
+import zipcok.chat.model.ChatDAO;
+
 
 @ServerEndpoint(value = "/broadcasting/{name}", 
 decoders = MessageDecoder.class, 
@@ -43,7 +44,7 @@ public class Broadsocket  {
 		 sessionList.add(session);
 			nameMap.put(session.getId(), name);
 			
-			MessageVO message = new MessageVO();
+			MessageDTO message = new MessageDTO();
 			message.setUser_name(name); //이 메세지작성자
 			message.setMsg_sender(session.getId());
 			message.setMsg_content("님이 채팅방에 참여하였습니다.");
@@ -55,7 +56,7 @@ public class Broadsocket  {
 	
 	// 서버가 클라이언트로부터 메시지를 받았을때 호출되는 메소드
 	@OnMessage
-	public void onMessage(Session session, MessageVO message) 
+	public void onMessage(Session session, MessageDTO message) 
 			throws IOException {
 		System.out.println("onmessage단:"+message);
 
@@ -80,7 +81,7 @@ public class Broadsocket  {
 		 String name = nameMap.get(session.getId());
 		    System.out.println(name + "(" + session.getId() + ")와 연결이 끊어졌습니다.");
 			
-			MessageVO message = new MessageVO();
+			MessageDTO message = new MessageDTO();
 			message.setUser_name(name); //이 메세지작성자
 			message.setMsg_sender(session.getId());
 			message.setMsg_content("님이 채팅방에서 나갔습니다.");
@@ -97,7 +98,7 @@ public class Broadsocket  {
 	
 	
 	// 모두에게 메시지 전송
-		private synchronized static void broadcast(Session selfSession, MessageVO message) {
+		private synchronized static void broadcast(Session selfSession, MessageDTO message) {
 		    
 			for (Session session : sessionList) {
 			    if (selfSession.getId().equals(session.getId())) {

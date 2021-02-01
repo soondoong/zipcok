@@ -7,15 +7,15 @@ import javax.websocket.EndpointConfig;
 
 import com.google.gson.Gson;
 
-import zipcok.almom.domain.MessageVO;
+import zipcok.almom.domain.MessageDTO;
 
-public class MessageDecoder implements Decoder.Text<MessageVO> {
+public class MessageDecoder implements Decoder.Text<MessageDTO> {
 
 	private static Gson gson = new Gson();
 
 	@Override
-	public MessageVO decode(String s) throws DecodeException {
-		return gson.fromJson(s, MessageVO.class);
+	public MessageDTO decode(String s) throws DecodeException {
+		return gson.fromJson(s, MessageDTO.class);
 	}
 
 	@Override

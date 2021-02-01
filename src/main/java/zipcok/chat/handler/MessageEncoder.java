@@ -6,14 +6,14 @@ import javax.websocket.EndpointConfig;
 
 import com.google.gson.Gson;
 
-import zipcok.almom.domain.MessageVO;
+import zipcok.almom.domain.MessageDTO;
 
-public class MessageEncoder implements Encoder.Text<MessageVO> {
+public class MessageEncoder implements Encoder.Text<MessageDTO> {
 	
 	private static Gson gson = new Gson();
 
 	@Override
-	public String encode(MessageVO message) throws EncodeException {
+	public String encode(MessageDTO message) throws EncodeException {
 		return gson.toJson(message);
 	}
 

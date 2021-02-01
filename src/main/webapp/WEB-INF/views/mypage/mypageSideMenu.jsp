@@ -16,7 +16,7 @@ font-size : 25px;
 <br>
 <li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>
 <br>
-<li class="sidemenuli" id="sideFont"><a href="#">채팅방</a></li>
+<li class="sidemenuli" id="sideFont"><a href="chatRoomList.do?mem_id=${sessionScope.sid}">채팅방</a></li>
 <br>
 <li class="sidemenuli"><a href="mypageWriteList.do?mem_id=${sessionScope.sid}" id="sideFont">작성글관리</a></li>
 </ul>
