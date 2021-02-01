@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ChatController {
 	
+
 	
 	
 	@RequestMapping(value = "/chatting.do", method = RequestMethod.GET)

@@ -66,7 +66,7 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 	@Override
 	   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
-		System.out.println("????????????");
+	
 		System.out.println(message.getPayload());
 
 		  Map<String, Object> map = null;
