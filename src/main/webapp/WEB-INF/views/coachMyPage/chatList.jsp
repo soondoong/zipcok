@@ -20,7 +20,7 @@ padding:0;
 <c:set var="list" value="${ chatList }"/>
 
 <br>
-<h2>채팅방목록</h2>
+<h2>코치의채팅방목록</h2>
 <hr>
 	
 <table style=" border:1px solid lightgray; margin-left: 10%; margin-right: auto;">
@@ -45,6 +45,7 @@ padding:0;
 	<c:url value="/gotoChat.do" var="url">
 		 <c:param name="croom_idx" value="${cdto.croom_idx }" />
 	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+	 	<c:param name="type" value="${loginAll.mem_tpye}" />
 	</c:url>
 	
 	<!-- 나가기 버튼 클릭시 넘길 파라미터 -->

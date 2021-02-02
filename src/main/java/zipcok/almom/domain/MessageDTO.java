@@ -7,8 +7,8 @@ public class MessageDTO {
 	private int msg_idx; //메세지idx
 	private int msg_croom_idx; //채팅방idx
 	private int msg_req_idx; //요청서idx
-	private String msg_sender; //세션아이디
-	private String msg_receiver; //세션아이디
+	private String msg_sender; //세션기준되는아이디
+	private String msg_receiver; //세션기준되는아이디
 	private String msg_content; //메세지내용
 	private Date msg_sendtime; //메세지보낸시간
 	private Date msg_readtime; //메세지읽은시간
@@ -18,7 +18,7 @@ public class MessageDTO {
 	private String receiver_mfile_upload;//받는이프로필사진이름
 	private String user_name; // 보내는이 이름;
 	private String receiver_user_name; //받는이 이름;
-	private int unReadCount;
+	private int unReadCount; //default=0;load되면 1이되게
 	
 	public MessageDTO() {
 		// TODO Auto-generated constructor stub

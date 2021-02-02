@@ -15,7 +15,7 @@ import zipcok.almom.domain.ChatRoomDTO;
 import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coachmypage.model.CoachMypageDAO;
-import zipcok.member.model.MemberDTO;
+import zipcok.member.model.*;
 import zipcok.mypage.model.MypageDAO;
 
 @Controller
@@ -30,7 +30,6 @@ public class ChatController {
 	private ChatDAO chatdao;
 
 
-	
 	
 	@RequestMapping("startToChat.do")
 	public ModelAndView startToChat (@RequestParam("userid")String userid,
@@ -58,17 +57,27 @@ public class ChatController {
 	
 	
 	@RequestMapping("gotoChat.do")
-	public ModelAndView gotoChat (@RequestParam("croom_idx")int croom_idx,@RequestParam("req_idx")int req_idx) {
+	public ModelAndView gotoChat (@RequestParam("croom_idx")int croom_idx,
+			@RequestParam("req_idx")int req_idx, @RequestParam("type")String type) {
 		ModelAndView mav= new ModelAndView();
-		//채팅방idx로 등록된 메시지들을 전송일 순으로 전부출력.
 		
-		//채팅방정보
-		ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);	
-		mav.addObject("croomDTO", cdto);
+				ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);	
+				mav.addObject("croomDTO", cdto); //채팅방정보
+				
+		/*채팅방에 들어올때  일반회원인지 코치회원인지 판단해서
+		 * 상대방 정보 dto 뿌려주기 */
+		if(type.equals("일반회원")) { //일반회원
+			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_coachid());
+			mav.addObject("receiveDTO", dto);
+		}else { //코치회원
+			MemberDTO dto= myPagedao.memberProfile(cdto.getCroom_userid());
+			mav.addObject("receiveDTO", dto);
+		}
+		
 		mav.setViewName("coach/chat/chat2");	
 		return mav;
+		
 	}
-	
 	
 	
 		@RequestMapping("chatRoomList.do")
@@ -109,4 +118,5 @@ public class ChatController {
 			return mav;
 		}
 	
+		
 }

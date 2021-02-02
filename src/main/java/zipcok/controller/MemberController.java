@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -164,6 +165,11 @@ public class MemberController {
 					/*수연추가채팅용정보*/
 					MemberDTO loginDTO = mpdao.memberProfile(mem_id);
 					session.setAttribute("login", loginDTO);
+					
+					//사진도들어가
+					MemberAllDTO loginDTO2 = mpdao.memberAllProfile(mem_id);
+					session.setAttribute("loginAll", loginDTO2);
+					
 					/*수연추가채팅용정보*/
 					String saveid=req.getParameter("saveid");
 					if(saveid==null) {
@@ -186,6 +192,10 @@ public class MemberController {
 					/*수연추가채팅용정보*/
 					MemberDTO loginDTO = mpdao.memberProfile(mem_id);
 					session.setAttribute("login", loginDTO);
+					
+					//사진도들어가
+					MemberAllDTO loginDTO2 = mpdao.memberAllProfile(mem_id);
+					session.setAttribute("loginAll", loginDTO2);
 					/*수연추가채팅용정보*/
 					String saveid=req.getParameter("saveid");
 					if(saveid==null) {
