@@ -11,9 +11,7 @@ import javax.websocket.RemoteEndpoint.Basic;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-
-import zipcok.almom.domain.MessageDTO;
-import zipcok.chat.model.ChatDAO;
+import zipcok.chat.model.*;
 import zipcok.member.model.MemberDTO;
 
 

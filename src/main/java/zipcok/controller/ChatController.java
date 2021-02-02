@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import zipcok.almom.domain.ChatRoomDTO;
+import zipcok.chat.model.*;
 import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coachmypage.model.CoachMypageDAO;

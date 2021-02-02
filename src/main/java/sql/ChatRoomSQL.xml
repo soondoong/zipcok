@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.almon">
  
-<insert id = "createRoom" parameterType="zipcok.almom.domain.ChatRoomDTO">
+<insert id = "createRoom" parameterType="zipcok.chat.model.ChatRoomDTO">
 insert into  
 chatroom
 values (
@@ -18,7 +18,7 @@ sysdate
 </insert>
 
 
-<select id ="isRoom" parameterType="zipcok.almom.domain.ChatRoomDTO" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="isRoom" parameterType="zipcok.chat.model.ChatRoomDTO" resultType = "zipcok.chat.model.ChatRoomDTO">
 
 select * from 
 chatroom
@@ -30,7 +30,7 @@ croom_req_idx = #{croom_req_idx}
 </select>
 
 
-<select id ="findRoomInfo"  resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="findRoomInfo"  resultType = "zipcok.chat.model.ChatRoomDTO">
 
 select * from 
 chatroom
@@ -43,7 +43,7 @@ croom_req_idx = #{croom_req_idx}
 
 
 
-<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomDTO">
 select * from 
 chatroom
 WHERE
@@ -52,7 +52,7 @@ croom_userid =   #{ id}
 </select>
 
 
-<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomDTO">
 select * from 
 chatroom
 WHERE

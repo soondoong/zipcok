@@ -2,14 +2,11 @@ package zipcok.chat.model;
 
 
 import java.util.*;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import zipcok.almom.domain.ChatRoomDTO;
-import zipcok.almom.domain.MessageDTO;
 import zipcok.coach.model.RequestFormDTO;
 @Service
 @Repository

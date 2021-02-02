@@ -1,4 +1,4 @@
-package zipcok.almom.domain;
+package zipcok.chat.model;
 import java.util.Date;
 
 import com.google.gson.Gson;

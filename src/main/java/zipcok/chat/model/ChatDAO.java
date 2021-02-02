@@ -2,8 +2,6 @@ package zipcok.chat.model;
 
 import java.util.List;
 
-import zipcok.almom.domain.ChatRoomDTO;
-import zipcok.almom.domain.MessageDTO;
 import zipcok.coach.model.RequestFormDTO;
 
 public interface ChatDAO {
