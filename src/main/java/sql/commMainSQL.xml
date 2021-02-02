@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zipcok.comm">
+	
+	<select id="coachcommListSQL" resultType="Integer">
+		select
+			com_idx
+		from
+			community
+		where
+			com_coach_id=#{mem_id}
+	</select>
+	
+	<select id="normalcommListSQL" resultType="Integer">
+		select
+			uc_idx
+		from
+			users_community
+		where
+			uc_mem_id=#{mem_id}		
+	</select> 
+	
+	<select id="commListSQL" resultType="zipcok.comm.model.CommunityDTO">
+		select
+			*
+		from
+			community
+		where
+			com_idx=#{com_idx}
+	</select>
+
+
+</mapper>

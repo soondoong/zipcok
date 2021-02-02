@@ -61,7 +61,7 @@
 						<li><a href="coachRegistInfoView.do">코치로 등록하기</a></li>
 					</ul></li>
 
-				<li class="drop-down"><a href="">커뮤니티</a>
+				<li class="drop-down"><a href="commMain.do">커뮤니티</a>
 					<ul>
 						<li><a href="commMain.do">내 커뮤니티보기</a></li>
 					</ul></li>
