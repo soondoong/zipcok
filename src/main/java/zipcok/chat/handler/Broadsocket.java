@@ -12,14 +12,12 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import zipcok.almom.domain.MessageDTO;
 import zipcok.chat.model.ChatDAO;
 import zipcok.member.model.MemberDTO;
 
 
-@ServerEndpoint(value = "/broadcasting/{id}/{name}", 
+@ServerEndpoint(value = "/broadcasting/{id}/{name}/{roomidx}", 
 decoders = MessageDecoder.class, 
 encoders = MessageEncoder.class) //value = "/echo/{name}" name은 채팅참여 유저이름"
 public class Broadsocket  {
@@ -36,13 +34,15 @@ public class Broadsocket  {
 	
 	// 클라이언트와 연결된 이후 호출되는 메소드
 	@OnOpen
-	public void onOpen(Session session, @PathParam("id") String id,@PathParam("name") String name) throws IOException  {
+	public void onOpen(Session session, @PathParam("id") String id,
+			@PathParam("name") String name,@PathParam("roomidx") String roomidx) throws IOException  {
 		// Add session to the connected sessions set
 		 System.out.println("id:"+id+"/name:"+name + "(" + session.getId() + ")님이 접속했습니다."); //세션아이디 그냥아이디랑다름
 		 
 		 	sessionList.add(session);
 			userMap.put(session.getId(), id);   //세션아이디로 진짜아이디저장
 			userMap.put(session.getId()+1, name);   //세션아이디로 이름저장
+			userMap.put(session.getId()+2, roomidx);   //세션아이디로 채팅방번호 저장
 			
 			MessageDTO message = new MessageDTO();
 			message.setUser_name(name); //이 메세지작성자
@@ -92,6 +92,7 @@ public class Broadsocket  {
 			sessionList.remove(session);
 			userMap.remove(session.getId());	 //맵에있던 아이디지우기
 			userMap.remove(session.getId()+1);	//맵에있던 이름지우기
+			userMap.remove(session.getId()+2);	//맵에있던 채팅방번호지우기
 		    clients.remove(session);
 	}
 	
@@ -123,8 +124,10 @@ public class Broadsocket  {
 	                
 			    } else {
 			    	 String realid= userMap.get(session.getId());
+			    	 String roomidx_s= userMap.get(session.getId()+2);
+			    	 int roomidx = Integer.parseInt(roomidx_s);
 	                // 귓속말 상대인 toId 값이 있으면 해당 세션에만 메시지를 전송하고 빠져나옴
-	                if (message.getMsg_receiver().equals(realid)) {
+	                if (message.getMsg_receiver().equals(realid) && message.getMsg_croom_idx()== roomidx) {
 	                	System.out.println("==귓말상대잇어==");
 	                    Basic basic = session.getBasicRemote();
 	                    try {

@@ -34,17 +34,14 @@
 		<div class="col-2" style="float: right">
 			<span> 닫기 </span>
 		</div>
-
-
-
 	</div>
 	<div class="col-12" style="margin-top: 40px; clear: both;">
 		<div class="col-10"
 			style="margin: 20px auto; text-align: center; color: white; background-color: #01D1FE; border: 1px solid #01D1FE; padding: 10px 10px; border-radius: 8px;">
 			수업 일정과 강의 내용에 대해 문의해보세요. <br>(연락처 문의 또는 직접 알려주는 것은 불가)
 		</div>
-
 	</div>
+	
 	<!-- 채팅 내용 -->
 	<div class="col-12">
 		<div class="col-11"  style="margin: 0 auto; border: 1px solid #01D1FE; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
