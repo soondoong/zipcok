@@ -19,11 +19,13 @@ padding:0;
 
 <br>
 <h2>받은 요청서</h2>
+<p>상담하기 버튼을 누르면 고객님과 채팅으로 대화 하실 수 있습니다!</p>
 <hr>
-	
+<br>
 <table style=" border:1px solid lightgray; margin-left: 10%; margin-right: auto;">
 <tbody>
 <c:forEach var="rdto" items="${list}">
+
 	<tr>
 	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
 	<td >
@@ -37,21 +39,33 @@ padding:0;
 	<tr>
 	<td><p>${rdto.req_cont }</p></td>
 	<td>
-	<input type="button" value="상담하기" class="btn btn-primary"
-	onclick="location.href='startToChat.do?mem_id=${rdto.req_receive_id}&req_idx=${rdto.req_idx}'">
+
+	
+	<!-- 상담버튼 클릭시 넘길 파라미터 -->
+	<c:url value="/startToChat.do" var="url">
+		 <c:param name="userid" value="${rdto.req_mem_id }" />
+	 	<c:param name="coachid" value="${rdto.req_receive_id}" />
+	 	<c:param name="req_idx" value="${rdto.req_idx}" />
+	</c:url>
+	
+	<!-- 삭제버튼 클릭시 넘길 파라미터 -->
+		<c:url value="/requestDelete.do" var="delurl">
+		 <c:param name="id" value="${login.mem_id}" />	 
+	 	<c:param name="req_idx" value="${rdto.req_idx}" />
+	</c:url>
+	
+	
+	<input type="button" value="${rdto.req_status eq 'yet'?'상담하기':'상담 중'}" class="btn ${rdto.req_status eq 'yet'?'btn-primary':'btn-warning'}"
+	onclick="location.href='${rdto.req_status eq 'yet'?url:'#'}'">
+
 	<input type="button" value="삭제" class="btn btn-danger"
-	onclick="location.href='requestDelete.do?req_idx=${rdto.req_idx}&id=${req_receive_id }'">
+	onclick="location.href='${delurl}'"> <!-- id잇어야원래페이지넘어오기편함 -->
 	</td>
 	</tr>
 </c:forEach>
 </tbody>
 </table>
 	
-	
-	
-	
-	
 
-</div>
 </body>
 </html>

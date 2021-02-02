@@ -6,11 +6,12 @@ public class ChatRoomDTO {
 
 	
 	
-	private int croom_idx;  // chatroom_id
-	private String croom_userid; //USER_user_id
-	private String croom_coachid;//TUTOR_USER_user_id
-	private int croom_req_idx; //상담요청서 CLASS_class_id
-	private Date croom_opendate;//
+	private int croom_idx;  
+	private String croom_userid;
+	private String croom_coachid;
+	private int croom_req_idx; //상담요청서 
+	private Date croom_opendate;
+	
 	
 	public ChatRoomDTO() {
 		// TODO Auto-generated constructor stub

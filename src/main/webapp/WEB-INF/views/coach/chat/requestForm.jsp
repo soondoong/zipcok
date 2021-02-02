@@ -21,6 +21,7 @@ left:340px;
 
 </style> 
 
+
 			<form name="requestForm" id="requestForm" action="sendRequestForm.do"  method = "get" >
 			<div id="showDiv" class="showdiv card" > 
 				<div class="card-body">
@@ -36,17 +37,16 @@ left:340px;
 		         <div >
 		            <label>희망 카테고리를 선택해주세요</label>
 		            
-		            <div style="display: flex;">  
+		            <div style="display: flex;" id="radioDIV"> 
+		        
 				            <div class="form-check">
-							  <input class="form-check-input" type="radio" name="req_category" id="cate1" value="필라테스" checked>
-							  <label class="form-check-label" for="cate1">
-							   필라테스
+							  <input class="form-check-input" type="radio" name="req_category" id="cate1" value="" checked>
+							  <label class="form-check-label" id="cate1label" for="cate1">						  
 							  </label>
 							</div>
 							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="req_category" id="cate2" value="다이어트" >
-							  <label class="form-check-label" for="cate2">
-							    다이어트
+							  <input class="form-check-input" type="radio" name="req_category" id="cate2" value="" >
+							  <label class="form-check-label" id="cate2label" for="cate2">
 							  </label>
 							</div>
 					
@@ -70,3 +70,26 @@ left:340px;
 			  	</div>	 			
 		    </div>
 	        </form>    
+<script>
+
+/*요청서 카테고리띄우기*/
+$(document).ready(function(){
+	 
+	var c='${dto.cate_name}' ;
+
+	var array = c.split("/");
+	if(array.length>1){
+		$("#cate1").val(array[0]);
+		$("#cate1label").text(array[0]);
+		$("#cate2").val(array[1]);
+		$("#cate2label").text(array[1]);
+	}else{
+		$("#radioDIV").html("<div class='form-check'>"+
+		"<input class='form-check-input' type='radio' name='req_category' id='cate1' value='' checked>"+
+		  "<label class='form-check-label' id='cate1label' for='cate1'>	"+	array[0]+		  
+		  "</label></div>");
+	}
+ 
+
+});
+</script>	        

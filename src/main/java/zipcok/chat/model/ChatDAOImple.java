@@ -1,9 +1,7 @@
 package zipcok.chat.model;
 
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import zipcok.almom.domain.ChatRoomDTO;
 import zipcok.almom.domain.MessageDTO;
+import zipcok.coach.model.RequestFormDTO;
 @Service
 @Repository
 public class ChatDAOImple implements ChatDAO{
@@ -21,16 +20,17 @@ public class ChatDAOImple implements ChatDAO{
 	
 	/*채팅방생성*/
 	@Override
-	public void createRoom(ChatRoomDTO dto) throws Exception {		
-		System.out.println("---create Room----");
-		sqlMap.insert("createRoom" , dto);
+	public int createRoom(ChatRoomDTO dto) {		
+		System.out.println("---create Room Imple----");
+		int count = sqlMap.insert("createRoom" , dto);
 		System.out.println("시팔");
+		return count;
 	}
 
 
 	/*이미만들어진채팅방이 있는지*/
 	@Override
-	public ChatRoomDTO isRoom(ChatRoomDTO dto) throws Exception {
+	public ChatRoomDTO isRoom(ChatRoomDTO dto) {
 		// TODO Auto-generated method stub
 		
 		ChatRoomDTO roomdto = null;
@@ -40,50 +40,52 @@ public class ChatDAOImple implements ChatDAO{
 		
 		return roomdto;
 	}
-
-
-
+	
+	/*채팅방목록 뽑아오기*/
 	@Override
-	public void insertMessage(MessageDTO dto) throws Exception {
-		// TODO Auto-generated method stub
+	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey) {
+		 List<ChatRoomDTO> list= sqlMap.selectList(sqlkey,id);
+		 			
+		return list;
+	}
+	
+	/*요청서1개정보가져오기*/
+	@Override
+	public RequestFormDTO findRequestForm(int req_idx) {
+		
+		RequestFormDTO dto= sqlMap.selectOne("findRequestFormInfo",req_idx);
+		return dto;
+	}
+	
+	/*채팅방 나가기*/
+	@Override
+	public int roomDelete(int croom_idx) {
+		int count = sqlMap.delete("roomDelete",croom_idx);
+		return count;
+	}
+
+
+	/*메세지 저장하기*/
+	@Override
+	public void insertMessage(MessageDTO dto) {
+
 		
 		sqlMap.insert("insertMessage" , dto);
 	}
 
-
-
+	/* 상담요청서idx로 채팅방정보찾기 */
 	@Override
-	public String getPartner(ChatRoomDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		
-		List<MessageDTO> mdto= sqlMap.selectList("getPartner", dto);
-		
-		return mdto.get(0).getMsg_userid();
+	public ChatRoomDTO findRoomInfo(int req_idx) {
+		ChatRoomDTO dto=sqlMap.selectOne("findRoomInfo",req_idx);
+		return dto;
 	}
 
 
-
 	@Override
-	public String getProfile(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectOne("getProfile" , str);
-	}
+	public List<MessageDTO> getMessageList(int croom_idx) {
 
 
-
-	@Override
-	public String getName(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectOne("getName" , str);
-	}
-
-
-
-	@Override
-	public List<MessageDTO> getMessageList(String str) throws Exception {
-		// TODO Auto-generated method stub
-
-			return sqlMap.selectList("getMessageList" , str);
+			return sqlMap.selectList("getMessageList" , croom_idx);
 		
 		
 	}
@@ -91,25 +93,9 @@ public class ChatDAOImple implements ChatDAO{
 
 
 	@Override
-	public List<ChatRoomDTO> getRoomList(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectList("getRoomList",str);
-	}
+	public MessageDTO getRecentMessage(int croom_idx) {
 
-
-
-	@Override
-	public List<ChatRoomDTO> getRoomList2(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectList("getRoomList2" , str);
-	}
-
-
-
-	@Override
-	public MessageDTO getRecentMessage(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectOne("getRecentMessage" , str);
+		return sqlMap.selectOne("getRecentMessage" , croom_idx);
 	}
 
 

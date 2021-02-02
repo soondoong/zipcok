@@ -63,7 +63,7 @@ display: none;
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	// 기존 css에서 div 위치(top)값을 가져와 저장한다.
 	var floatPosition = parseInt($("#sidebox").css('top'));
 	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
@@ -88,8 +88,6 @@ $(document).ready(function() {
 });
 
 
-
-
 /*상담요청서 글자수 제한*/
 function lengthLimit(){
     var content = $('#requestText').val();
@@ -99,6 +97,7 @@ function lengthLimit(){
         $('#requestText').val(content.substring(0, 60));
     }
 }
+
 </script>
 </head>
 <body>
@@ -109,7 +108,6 @@ function lengthLimit(){
 <c:set var="review" value="${resultMap.reviewList }"/>
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>
-
 <section>
 	<article class="secondWrap">
 			
@@ -118,7 +116,8 @@ function lengthLimit(){
 			<div class="card" id="sidebox" >
 			<div class="card-body"> 
 		 	 <p class="card-text">${dto.mem_name} 코치님에게 상담을 요청하여 서비스를 이용해보세요!</p>
-			<input type="button" class="btn btn-primary" value="상담요청하기" onclick="showForm()">
+			<input type="button" class="btn btn-primary" value="상담요청하기" 
+			onclick="${empty sessionScope.coachId ?'showForm()':'cantDo()' }">
 			</div>
 			</div>
 
@@ -143,6 +142,11 @@ function showForm(){
 function close(){
 	$('.requestDiv').css('display','none');
 }
+
+function cantDo(){  //코치는못보내
+	alert('일반회원만 이용가능한 서비스입니다!');
+}
+
 
 /*---------------------------------------------------*/
 
@@ -179,14 +183,7 @@ $( '#startDate' ).val(today);
 
 
 /*null값전송막기*/
-   $('#requestForm').on('submit',function(){
-      
-         if ( !$( 'input[name="req_category"]:checked' ).val() ) {
-      
-            alert('카테고리를 체크해주세요');
-            $( 'input[name="req_category"]:checked' ).focus();
-            return false;
-         } 
+ $('#requestForm').on('submit',function(){
          
          if ( $( '#startDate' ).val() =='' ) {
              

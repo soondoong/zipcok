@@ -18,7 +18,7 @@ padding:0;
 <c:set var="list" value="${ chatList }"/>
 
 <br>
-<h2>채팅방목록</h2>
+<h2>일반회원채팅방목록</h2>
 <hr>
 	
 <table style=" border:1px solid lightgray; margin-left: 10%; margin-right: auto;">
@@ -27,7 +27,7 @@ padding:0;
 	<tr>
 	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
 	<td >
-	<dt>${cdto.croom_userid }</dt>
+	<dt>${cdto.croom_coachid }</dt>
 	<label>무언가넣자</label>
 	<br><label>마지막메세지같은거넣자</label>
 	<br><label>메세지보낸시각:2021-01-22</label>
@@ -47,7 +47,7 @@ padding:0;
 	
 	<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
 		<c:url value="/roomDelete.do" var="delurl">
-		 <c:param name="id" value="${sessionScope.coachId}" />	 
+		 <c:param name="id" value="${sessionScope.sid}" />	 
 	 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
 	</c:url>
 	
