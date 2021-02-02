@@ -82,16 +82,9 @@ public class MypageDAOImple implements MypageDAO {
 	
 	//홈짐 좋아요 총 수
 	@Override
-	public int mypageHomeGymLikeListTotalCnt() {
-		int count=sqlMap.selectOne("mypageHomeGymLikeListTotalCnt");
+	public int mypageHomeGymLikeListTotalCnt(String mem_id) {
+		int count=sqlMap.selectOne("mypageHomeGymLikeListTotalCnt", mem_id);
 		return count==0?1:count;
-	}
-	
-	//홈짐 좋아요 키 구분
-	@Override
-	public String likeListKey(String mem_id) {
-		String str = sqlMap.selectOne("mypageLikeListKey", mem_id);
-		return str;
 	}
 	
 	//홈짐 좋아요 목록
@@ -107,6 +100,27 @@ public class MypageDAOImple implements MypageDAO {
 		
 		return list;
 	}
+	
+		//코치매칭 좋아요 총 수
+		@Override
+		public int mypageCoachMatchLikeListTotalCnt(String mem_id) {
+			int count=sqlMap.selectOne("mypageCoachMatchLikeListTotalCnt", mem_id);
+			return count==0?1:count;
+		}
+		
+		//코치매칭 좋아요 목록
+		@Override
+		public List mypageCoachMatchLikeList(int cp, int ls, String mem_id) {
+			int start=(cp-1)*ls+1;
+			int end=cp*ls;
+			Map map=new HashedMap();
+			map.put("mem_id", mem_id);
+			map.put("start", start);
+			map.put("end", end);
+			List list = sqlMap.selectList("mypageCoachMatchLikeList", map);
+			
+			return list;
+		}
 	
 
 	

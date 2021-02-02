@@ -17,7 +17,7 @@ function mypageCoachMatchPayList(){
 <body>
 <%@include file="../header2.jsp"%>
 	<%@include file="./mypageSideMenu.jsp"%>
-	<div style="margin-left: 200px; padding: 1px 16px;">
+	<div style="margin-left: 250px; padding: 1px 16px;">
 		<br>
 		<h3>${sessionScope.sname }님의 결제내역</h3>
 		<hr>

@@ -5,7 +5,7 @@
 font-size : 25px;
 }
 </style>
-<link rel="stylesheet" type="text/css" href="css/comm/commDailySideMenuLayout.css">
+<link rel="stylesheet" type="text/css" href="css/comm/mypageSideMenuLayout.css">
 <div class="sidebar">
 <ul class="sidemenu">
 <li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>

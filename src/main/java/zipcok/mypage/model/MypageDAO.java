@@ -16,7 +16,9 @@ public interface MypageDAO {
 	public int mypagePhoneUpdate(MemberDTO dto);
 	public int mypageWriteListTotalCnt();
 	public List mypageWriteList(int cp, int ls, String mem_id);
-	public int mypageHomeGymLikeListTotalCnt();
+	public int mypageHomeGymLikeListTotalCnt(String mem_id);
 	public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
-	public String likeListKey(String mem_id);
+	public int mypageCoachMatchLikeListTotalCnt(String mem_id);
+	public List mypageCoachMatchLikeList(int cp, int ls, String mem_id);
+
 }

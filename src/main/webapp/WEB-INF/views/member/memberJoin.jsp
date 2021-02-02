@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- 부트스트랩 -->
+<!--  <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -36,7 +39,7 @@ $(document).ready(function() {
    var address = $('#mem_detailaddr');
    
    //아이디 중복확인
-   /*
+  
    $("#mem_id").blur(function() {
        if($('#mem_id').val()==''){
           $('#id_check').text('아이디를 입력하세요.');
@@ -50,8 +53,8 @@ $(document).ready(function() {
             var mem_id=$('#mem_id').val();
               $.ajax({
                   async : true,
-                     type : 'POST',
-                   data : mem_id,//mem_id라는 이름으로 mem_id라는 데이터를 @WebServlet("/idConfirm.do")에 보내겠다
+                   type : 'POST',
+                   data : mem_id, //mem_id라는 이름으로 mem_id라는 데이터를 @WebServlet("/idConfirm.do")에 보내겠다
                    url : 'idConfirm.do',
                      dateType: 'json',
                      contentType: "application/json; charset=UTF-8",
@@ -85,12 +88,12 @@ $(document).ready(function() {
           }//else if
         
  });//blur
- */
+
  
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
         
-         /*
+        
          if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
          } else {
@@ -98,7 +101,7 @@ $(document).ready(function() {
             alert('아이디를  확인하세요.');
             return false;
          } 
-         */
+        
          
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
@@ -165,16 +168,16 @@ $(document).ready(function() {
        });
 
 
-//   $('#mem_id').blur(function() {
-//      if (idJ.test($('#mem_id').val())) {
-//         console.log('true');
-//         $('#id_check').text('');
-//      } else {
-//         console.log('false');
-//         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능');	
-//         $('#id_check').css('color', 'red');
-//      }
-//   });
+   $('#mem_id').blur(function() {
+      if (idJ.test($('#mem_id').val())) {
+         console.log('true');
+         $('#id_check').text('');
+      } else {
+         console.log('false');
+         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능');	
+         $('#id_check').css('color', 'red');
+      }
+   });
 
    $('#mem_pwd').blur(function() {
       if (pwJ.test($('#mem_pwd').val())) {
@@ -342,7 +345,7 @@ function execPostCode() {
 <body>
 	<%@include file="../header2.jsp"%>
 	<article>
-		<form name="memberJoin" action="memberJoin.do" method="post" enctype="multipart/form-data">
+		<form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
 			<br> <br> <br>
 			<h2>회원가입</h2>
 			<hr>

@@ -196,23 +196,40 @@ public class MypageController {
 	
 	//마이페이지 홈짐 좋아요 목록
 	@RequestMapping("/mypageHomeGymLikeList.do")
-	public ModelAndView mypageHomeGymLikeList(
-			HttpSession session,
+	public ModelAndView mypageHomeGymLikeList(HttpSession session,
 			@RequestParam(value = "cp", defaultValue = "1")int cp) {
 		
-		int totalCnt=dao.mypageHomeGymLikeListTotalCnt();
+		int totalCnt=dao.mypageHomeGymLikeListTotalCnt((String)session.getAttribute("sid"));
 		int listSize=3;
 		int pageSize=3;
-		String result = dao.likeListKey((String)session.getAttribute("sid"));
 		String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
-		List list = dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
-			ModelAndView mav = new ModelAndView();
-			mav.addObject("list", list);
-			mav.addObject("pageStr", pageStr);
-			mav.setViewName("mypage/mypageHomeGymLikeList");
+		List list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("mypage/mypageHomeGymLikeList");
 
 		
 		return mav;
 	}
+	
+	//마이페이지 코치매칭 좋아요 목록
+		@RequestMapping("/mypageCoachMatchLikeList.do")
+		public ModelAndView mypageCoachMatchLikeList(HttpSession session,
+				@RequestParam(value = "cp", defaultValue = "1")int cp) {
+			
+			int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
+			int listSize=3;
+			int pageSize=3;
+			String pageStr=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
+			List list=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", list);
+			mav.addObject("pageStr", pageStr);
+			mav.setViewName("mypage/mypageCoachMatchLikeList");
+
+			
+			return mav;
+		}
 	
 }
