@@ -26,6 +26,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 
 @Controller
 public class HomeGymController {
@@ -79,11 +80,25 @@ public class HomeGymController {
 		options.put("choice_date_d", java.sql.Date.valueOf(date));
 		options.put("price", price);
 		options.put("person_count", person_count);
-		int totalCnt = homegymDAO.HomeGymTotalCnt(options);
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);
+		List<HomeGymDTO> homegym_list = new ArrayList<HomeGymDTO>();
 		for(int i = 0 ; i < list.size() ; i++) {
-			list.get(i).setHg_eq_list(homegymDAO.UserEquipmentList(list.get(i).getHg_mem_id())); 
+			boolean option_check = true;
+			if(!eq_options.equals("")) {
+				for(int j = 0 ; j < eq_option_s.length ; j ++) {
+					if(!list.get(i).getHg_eq().contains(eq_option_s[j])) {
+						option_check = false;
+						break;
+					}
+				}
+			}
+			if(option_check) {
+				List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
+				list.get(i).setHg_eq_list(eq_list);
+				homegym_list.add(list.get(i));
+			}
 		}
+		int totalCnt = homegym_list.size()==0?1:homegym_list.size();
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
 		Map<String, Object> keywordMap = new HashMap<String, Object>();
 		keywordMap.put("eq_options", eq_options);
@@ -96,15 +111,24 @@ public class HomeGymController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
-		mav.addObject("HomeGymList", list);
+		mav.addObject("HomeGymList", homegym_list);
 		mav.addObject("keywordMap", keywordMap);
 		mav.setViewName("homegym/hgList");
 		return mav;
 	}
 	
 	@RequestMapping("HomeGymContent.do")
-	public String HomeGymContent() {
-		return "homegym/hgContent";
+	public ModelAndView HomeGymContent(
+			@RequestParam(value = "hg_mem_id")String homegymId) {
+		HomeGymDTO hgContent = homegymDAO.HomeGymContent(homegymId);
+		List<HomeGymEquipmentDTO> eqContent = homegymeqDAO.HomeGymEquipmentContent(homegymId);
+		List<CoachFileDTO> imgContent = homegymDAO.HomeGymImageContent(homegymId);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hgContent", hgContent);
+		mav.addObject("eqContent", eqContent);
+		mav.addObject("imgContent", imgContent);
+		mav.setViewName("homegym/hgContent");
+		return mav;
 	}
 	
 	@RequestMapping("HomeGymReservation.do")
@@ -138,6 +162,7 @@ public class HomeGymController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
 	@RequestMapping(value = "avgPrice.do")
 	public ModelAndView HomeGymAvgPrice() {
 		int result = homegymDAO.HomeGymAddPrice();
@@ -146,7 +171,6 @@ public class HomeGymController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
-	
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymAdd(HomeGymDTO dto, String eq_name[], int eq_count[],
@@ -183,6 +207,7 @@ public class HomeGymController {
 		mav.setViewName("homegym/hgMsg");
 		return mav;
 	}
+	
 	private String copyInto(MultipartFile upload, String path) {
 		
 		try {
