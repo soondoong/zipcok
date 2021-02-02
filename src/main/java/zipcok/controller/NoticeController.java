@@ -26,11 +26,12 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeDAO noticeDao;
-	
+
 	
 	@Autowired
 	ServletContext c;
 
+	
 	//공지사항 리스트,페이징
 	@RequestMapping("noticeList.do")
 	public ModelAndView goNoticeList(
@@ -187,7 +188,7 @@ public class NoticeController {
 	
 	//수정페이지로 이동
 	@RequestMapping("noticeUpdateView.do")
-	public ModelAndView goNoticeUpdateeViw(
+	public ModelAndView goNoticeUpdateeView(
 		@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
 		NoticeDTO dto=noticeDao.noticeContent(bbs_idx);
 		
@@ -204,15 +205,16 @@ public class NoticeController {
 	
 	//수정하기
 	@RequestMapping("noticeUpdate.do")
-	public ModelAndView goNoticeUpdate(NoticeDTO dto,
+	public ModelAndView goNoticeUpdate(NoticeDTO dto, ZipcokFileDTO zdto,
 			@RequestParam("upload")List<MultipartFile> list) {
 			
 			int result=noticeDao.noticeUpdate(dto);
 			int maxIdx = noticeDao.noticeMaxIdx();
 			
 			ArrayList<ZipcokFileDTO> fileArr=new ArrayList<ZipcokFileDTO>();
+			
 			/*파일복사및저장하기*/
-			for(int i=0;i<list.size();i++) {		
+			for(int i=0;i<list.size();i++) {
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 				int zfile_bbs_idx=maxIdx;
 				String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
@@ -221,13 +223,16 @@ public class NoticeController {
 				String zfile_mem_id = "admin";
 				String zfile_type = list.get(i).getContentType();
 				int zfile_size=(int)(list.get(i).getSize());
-				ZipcokFileDTO zdto=new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,"N");
-				
+				System.out.println(zdto.getDel_yn());
+				String del_yn=zdto.getDel_yn();
+				zdto = new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
+		
 				fileArr.add(zdto);
 			}
-	/*다중파일첨부 시 필요*/		
-			
+	/*다중파일첨부 시 필요*/
 			int count=noticeDao.noticeFileUpload(fileArr);
+				noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
+			
 			if(count==fileArr.size()) {
 				System.out.println("사진등록성공");
 			}			

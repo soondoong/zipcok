@@ -17,7 +17,7 @@
 
    <c:if  test="${login.mem_id!=dto.bbs_mem_id}">
    <script>
-   window.alert('본인이 작성한 글만 볼 수 있습니다');
+   window.alert('본인이 작성한 글만 볼 수 있습니다.');
    location.href = 'csList.do';
    </script>
    </c:if>

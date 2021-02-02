@@ -6,11 +6,18 @@
 <c:set var="list" value="${list }"/>
 <c:set var="dto" value="${dto}"></c:set>
 <script>
-	function deletefile() {
-		document.getElementById('del').value='Y';
-		var noticeimg=document.getElementById('noticeImg');
-		noticeimg.style.display='none';
-	}
+function changeDely(){
+	var deltype=document.getElementById('deltype').value='Y';
+	var noticeimg=document.getElementById('noticeImg');
+	noticeimg.style.display='none';
+}
+function changeDeln(){
+	var deltype=document.getElementById('deltype').value='N';
+}
+
+
+
+
 </script>
 <div id="container">
 	<div class="page_top_visual">
@@ -20,7 +27,7 @@
 		</div>
 	</div>
 	<div id="contents">
-		<form action="noticeUpdate.do" method="post"
+<form action="noticeUpdate.do" method="post"
 			enctype="multipart/form-data">
 <style>
 .white_talbe_01 {
@@ -50,7 +57,7 @@
 					</select></td>
 				</tr>
 				<input type="hidden" name="bbs_idx" value="${dto.bbs_idx}">
-				<input type="hidden" id="del" name="del_yn" >
+				<input type="hidden" id="deltype" name="del_yn" value="N">
 				<tr>
 					<th>제목</th>
 
@@ -79,9 +86,8 @@
 							style="width: 800px; height: 200px;">${dto.bbs_content } </textarea></td>
 				</tr>
 				<tr>
-					<td><input type="file" name="upload" value="사진수정"></td>
-					<td><input type="button" value="사진삭제"
-						onclick="javascript:deletefile()"></td>
+					<td><input type="file" name="upload" onclick="javascript:changeDeln()" value="사진수정"></td>
+					<td><input type="button"  onclick="javascript:changeDely()" value="사진삭제"></td>
 					<td></td>
 				</tr>
 			</table>

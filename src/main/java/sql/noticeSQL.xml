@@ -143,12 +143,19 @@ zfile_bbs_idx=#{bbs_idx}
 and
 zfile_idx = (select max(zfile_idx) from zipcok_file)
 </select>
-<update id="zfiledelete" parameterType="zipcok.notice.model.ZipcokFileDTO">
+<update id="zfileDelete" parameterType="zipcok.notice.model.ZipcokFileDTO">
 update
 zipcok_file
 set
-del_yn=#{del_yn}
+del_yn='y'
 where 
-zfile_bbs_idx=#{bbs_idx}
+zfile_bbs_idx=#{zfile_bbs_idx}
 </update>
+<delete id="zfileRealDelete">
+delete
+from
+zipcok_file
+where
+del_yn='Y'
+</delete>
   </mapper>
