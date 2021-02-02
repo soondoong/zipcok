@@ -13,7 +13,7 @@ public interface ChatDAO {
 	public int roomDelete(int croom_idx); //채팅방나가기
 	public ChatRoomDTO findRoomInfo(int req_idx); //상담요청서idx로 채팅방정보찾기
 	
-	public void insertMessage(MessageDTO dto);
+	public int insertMessage(MessageDTO dto)throws Exception;
 	public List<MessageDTO> getMessageList(int croom_idx);
 	public MessageDTO getRecentMessage(int croom_idx);
 	//public String isGetMessageList(String str)throws Exception;

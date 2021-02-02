@@ -33,7 +33,7 @@ public class ChatController {
 	
 	@RequestMapping("startToChat.do")
 	public ModelAndView startToChat (@RequestParam("userid")String userid,
-			@RequestParam("coachid")String coachid,@RequestParam("req_idx")int req_idx) {
+			@RequestParam("coachid")String coachid,@RequestParam("req_idx")int req_idx,@RequestParam("type")String type) {
 		ModelAndView mav=new ModelAndView();
 		
 		int count=cpagedao.requestStatusChange(req_idx);
@@ -48,7 +48,7 @@ public class ChatController {
 		
 			ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);
 			
-			mav.addObject("gopage", "gotoChat.do?croom_idx="+cdto.getCroom_idx()+"&req_idx="+req_idx);
+			mav.addObject("gopage", "gotoChat.do?croom_idx="+cdto.getCroom_idx()+"&req_idx="+req_idx+"&type="+type);
 			
 			mav.setViewName("coach/chat/chatMSG");
 		return mav;
@@ -116,5 +116,6 @@ public class ChatController {
 			return mav;
 		}
 	
+
 		
 }

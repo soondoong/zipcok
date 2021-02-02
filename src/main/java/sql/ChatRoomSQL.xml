@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="zipcok.almon">
+  <mapper namespace="zipcok.chat">
  
 <insert id = "createRoom" parameterType="zipcok.chat.model.ChatRoomDTO">
 insert into  
@@ -16,6 +16,26 @@ sysdate
 )
 
 </insert>
+
+
+<insert id = "insertMessage" parameterType="zipcok.chat.model.MessageDTO">
+insert into  
+message
+values (
+message_idx.nextval ,
+#{msg_croom_idx},
+#{msg_req_idx},
+#{msg_sender}, 
+#{msg_receiver},
+#{msg_userid},
+#{msg_coachid}, 
+#{msg_content},
+#{msg_sendtime},
+#{msg_readtime},
+0
+)
+</insert>
+
 
 
 <select id ="isRoom" parameterType="zipcok.chat.model.ChatRoomDTO" resultType = "zipcok.chat.model.ChatRoomDTO">
@@ -66,6 +86,7 @@ delete chatroom
 where 
 croom_idx = #{croom_idx}
 </delete>
+
 
 
   </mapper>

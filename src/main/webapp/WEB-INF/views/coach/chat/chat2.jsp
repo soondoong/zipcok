@@ -73,7 +73,7 @@ function openSocket() {
 		scroll();
 	}
 	
-	// onmessage는 서버로부터 메시지를 받았을때 호출됨
+	// onmessage는 서버로부터 메시지를 받았을때 호출됨======================onMessage
 	sock.onmessage = function (event) {
 		console.log('event.data : ' + event.data);
 		var message = JSON.parse(event.data);
@@ -104,9 +104,12 @@ function send() {
 	if (inputMessage == '') {
 		return;
 	}
+
+	var t = getTimeStamp();
 	
 	/*메세지데이터 전송json타입 (시간은서버단에서)*/
 	var message = {};	
+	message.msg_idx=1; //defalut;
 	message.msg_croom_idx = roomidx;
 	message.msg_req_idx = '${cdto.croom_req_idx}';
 	message.msg_sender ='${myid}'; //구분키중요
@@ -117,14 +120,17 @@ function send() {
 	message.user_mfile_upload = 'noimg.png';
 	message.receiver_mfile_upload = 'noimg.png'; 
     message.user_name = '${login.mem_name}';
-    message.receiver_user_name = '상대이름';
+    message.receiver_user_name = '${rdto.mem_name}';
+    message.msg_sendtime = t;
+    message.msg_readtime = t;
+    message.unReadCount= 1;//default
 
 	console.log('message : ' + message);
 	sock.send(JSON.stringify(message)); //서버에 json형태로메세지보내기
 	
-	
 	var str = message.msg_content  + '\n';
 	appendMyMessage(str); //채팅창에 내가보낸메세지 추가해줌	
+	
 	scroll();	
 	$('#message-input').val(''); //메세지입력창 리셋
 }

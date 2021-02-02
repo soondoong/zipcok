@@ -48,6 +48,7 @@ padding:0;
 		 <c:param name="userid" value="${rdto.req_mem_id }" />
 	 	<c:param name="coachid" value="${rdto.req_receive_id}" />
 	 	<c:param name="req_idx" value="${rdto.req_idx}" />
+	 	<c:param name="type" value="${login.mem_type}" />
 	</c:url>
 	
 	<!-- 삭제버튼 클릭시 넘길 파라미터 -->
