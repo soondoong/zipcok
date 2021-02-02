@@ -43,11 +43,12 @@
 		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
 	</update>
 	
-	
+	<!-- F&A/고객센터 총 개시글 수 -->
 	<select id="mypageWriteListTotalCnt" resultType="Integer">
 		select count(*) from zipcok_bbs
 	</select>
 	
+	<!-- F&A/고객센터 글목록 -->
 	<select id="mypageWriteList"  resultType="zipcok.cs.model.CsDTO">
 	select * from
 		(select rownum as rnum,a.* from
@@ -55,6 +56,23 @@
 		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
 	 
+	  <!-- 홈짐 좋아요 총 수 -->
+	 <select id="mypageHomeGymLikeListTotalCnt" resultType="Integer">
+		select count(*) from zipcok_like
+	</select>
+	
+	<!-- 홈짐 좋아요 키값 구분 -->
+	 <select id="mypageLikeListKey" resultType="zipcok.mypage.model.LikeDTO">
+		select like_key from zipcok_like where like_mem_id=#{mem_id}
+	</select>
+	 
+	 <!-- 홈짐 좋아요 목록 -->
+	 <select id="mypageHomeGymLikeList"  resultType="zipcok.mypage.model.LikeDTO">
+	 	select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_like where like_mem_id=#{mem_id} order by like_idx desc) a) b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	 </select>
 
 
 </mapper>

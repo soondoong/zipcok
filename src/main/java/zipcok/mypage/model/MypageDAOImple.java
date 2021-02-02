@@ -59,12 +59,14 @@ public class MypageDAOImple implements MypageDAO {
 		return count;
 	}
 	
+	//F&A 고객센터 작성글 총 수
 	@Override
 	public int mypageWriteListTotalCnt() {
 		int count=sqlMap.selectOne("mypageWriteListTotalCnt");
 		return count==0?1:count;
 	}
 	
+	//F&A 고객센터 작성글 목록
 	@Override
 	public List mypageWriteList(int cp, int ls, String mem_id) {
 		int start=(cp-1)*ls+1;
@@ -78,5 +80,34 @@ public class MypageDAOImple implements MypageDAO {
 		return list;
 	}
 	
+	//홈짐 좋아요 총 수
+	@Override
+	public int mypageHomeGymLikeListTotalCnt() {
+		int count=sqlMap.selectOne("mypageHomeGymLikeListTotalCnt");
+		return count==0?1:count;
+	}
+	
+	//홈짐 좋아요 키 구분
+	@Override
+	public String likeListKey(String mem_id) {
+		String str = sqlMap.selectOne("mypageLikeListKey", mem_id);
+		return str;
+	}
+	
+	//홈짐 좋아요 목록
+	@Override
+	public List mypageHomeGymLikeList(int cp, int ls, String mem_id) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("mem_id", mem_id);
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlMap.selectList("mypageHomeGymLikeList", map);
+		
+		return list;
+	}
+	
+
 	
 }

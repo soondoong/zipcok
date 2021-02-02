@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.LikeDTO;
 import zipcok.mypage.model.MypageDAO;
 
 @Controller
@@ -192,5 +193,26 @@ public class MypageController {
 		return "mypage/mypageCommWriteList";
 	}
 	
+	
+	//마이페이지 홈짐 좋아요 목록
+	@RequestMapping("/mypageHomeGymLikeList.do")
+	public ModelAndView mypageHomeGymLikeList(
+			HttpSession session,
+			@RequestParam(value = "cp", defaultValue = "1")int cp) {
+		
+		int totalCnt=dao.mypageHomeGymLikeListTotalCnt();
+		int listSize=3;
+		int pageSize=3;
+		String result = dao.likeListKey((String)session.getAttribute("sid"));
+		String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
+		List list = dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", list);
+			mav.addObject("pageStr", pageStr);
+			mav.setViewName("mypage/mypageHomeGymLikeList");
+
+		
+		return mav;
+	}
 	
 }
