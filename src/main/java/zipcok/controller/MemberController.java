@@ -33,8 +33,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO mdao;
-	private final static String id = "52b05e780f798f8adb17b234257f1f6c";
-	private final static String url = "http://localhost:9090/zipcok/kakaoLogin.do";
+	private final static String K_CLIENT_ID = "52b05e780f798f8adb17b234257f1f6c"; 
+	private final static String K_REDIRECT_URI = "http://localhost:9090/zipcok/kakaoLogin.do";
+
 	
 	@Autowired
 	private MypageDAO mpdao;   //수연채팅방필요

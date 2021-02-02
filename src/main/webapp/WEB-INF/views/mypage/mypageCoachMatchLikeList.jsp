@@ -24,38 +24,28 @@ function mypageCoachMatchLikeList(){
 		<input type="button" value="홈짐 좋아요 목록" onclick="mypageHomeGymLikeList()">
 		<input type="button" value="코치매치 좋아요 목록" onclick="mypageCoachMatchLikeList()">
 				<hr>
-				<table border="1" cellspacing="0" width="550">
-	<thead>
-		<tr>
-			<th>홈짐등록자</th>
-			<th>홈짐사용자</th>
-			<th>홈짐이름</th>
-			<th>별점</th>
-		</tr>
-	</thead>
-	<tfoot>
-		<tr>
-			<td colspan="4" align="center">페이지들어갈곳</td>
-		</tr>
-	</tfoot>
-	<tbody>
-		<c:if test="${empty list}">
-			<tr>
-				<td colspan="4" align="center">
-					등록된 게시글이 없습니다.
-				</td>
-			</tr>
-		</c:if>
-		<c:forEach var="dto" items="">
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><input type="button" value="후기쓰기"></td>
-		</tr>
-	</c:forEach>
-	</tbody>
-</table>
+			<table
+			style="border: 1px solid lightgray; width:550px;">
+					<tr>
+						<td rowspan="2"><img src="img/coach/noimg.png" width="150px"></td>
+						<td>
+						<label><b>123</b></label>
+						<br>
+						<label>123</label>
+						<br>
+						<label>123</label>
+						</td>
+						<td style="padding-top: 0; text-align: right;" valign="bottom"><label>요청일:
+								123</label></td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td>
+						</td>
+					</tr>
+			
+		</table>
 	</div>
 </body>
 </html>
