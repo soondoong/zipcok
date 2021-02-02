@@ -108,17 +108,16 @@ function sendOption(){
 			<c:otherwise>
 				<c:forEach var="dto" items="${HomeGymList }">
 					<div class="ListItem">
-					시작일:${dto.hg_start_date_year }-${dto.hg_start_date_month }-${dto.hg_start_date_day }
-					<br>종료일:${dto.hg_end_date_year }-${dto.hg_end_date_month }-${dto.hg_end_date_day }
+					시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
 					<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
 					<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
 					<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
 					<br>장비 리스트 :
 					<br>
-					<c:if test = "${empty dto.list }">
+					<c:if test = "${empty dto.hg_eq_list }">
 					<h1>등록된 기구가 없습니다.</h1>
 					</c:if>
-					<c:forEach var = "eq_list" items="${dto.list}">
+					<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
 						${eq_list.eq_name } : ${eq_list.eq_count }<br>
 					</c:forEach>			
 					</div>

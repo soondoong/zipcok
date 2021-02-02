@@ -10,10 +10,8 @@
 		#{hg_person_count}, #{hg_price},
 		#{hg_info}, '1', #{hg_faddr},
 		#{hg_saddr}, #{hg_station}, #{hg_comeinfo},
-		#{hg_start_date_year},
-		#{hg_start_date_month}, #{hg_start_date_day},
-		#{hg_end_date_year},
-		#{hg_end_date_month}, #{hg_end_date_day},
+		to_date(#{hg_start_date},'yyyy-mm-dd'),
+		to_date(#{hg_end_date},'yyyy-mm-dd'),
 		#{hg_not_date},
 		#{hg_start_time},
 		#{hg_end_time},
@@ -40,73 +38,100 @@
 		#{mfile_type}
 		)
 	</insert>
-	
+
 	<select id="hgNickNameCheckSQL" parameterType="String"
 		resultType="String">
-		select hg_nickname from homegym where hg_nickname = #{hg_nickname}
+		select hg_nickname from homegym where hg_nickname =
+		#{hg_nickname}
 	</select>
-	
-	<select id = "hgAvgPriceSQL" resultType="Integer">
-		select avg(hg_price) from homegym
+
+	<select id="hgAvgPriceSQL" resultType="Integer">
+		select avg(hg_price) from
+		homegym
 	</select>
-	
+
 	<select id="hgListSQL" parameterType="hashMap"
 		resultType="zipcok.homegym.model.HomeGymDTO">
 		select * from
-		(select rownum as rnum,
-         to_date(hg_start_date_year||hg_start_date_month||hg_start_date_day,'yyyy-mm-dd') as hg_start_date,
-         to_date(hg_end_date_year||hg_end_date_month||hg_end_date_day,'yyyy-mm-dd') as hg_end_date,
-         a.* from
-		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
-		where rnum<![CDATA[>=]]> #{start} and rnum<![CDATA[<=]]>#{end} and 		hg_faddr
-		<choose>
-			<when test = "location == '전체'">like '%%'</when>
-			<when test = "location != '전체'">like '%${location}%'</when>
-		</choose>
-		<choose>
-			<when test = "select_date == '1900-01-01'"></when>
-			<when test = "select_date != '1900-01-01'">
-			and
-			hg_start_date <![CDATA[<=]]> '${select_date_date}' and 
-			hg_end_date <![CDATA[>=]]> '${select_date_date}'
-			</when>
-		</choose>
-		and
-		hg_price <![CDATA[>=]]> #{price}
-		and
-		hg_person_count <![CDATA[>=]]> #{person_count}
-	</select>
-
-	<select id="homegymTotalCnt" parameterType="Hashmap" resultType="Integer">
-		select count(*) from
-		(select rownum as rnum,
-         to_date(hg_start_date_year||hg_start_date_month||hg_start_date_day,'yyyy-mm-dd') as hg_start_date,
-         to_date(hg_end_date_year||hg_end_date_month||hg_end_date_day,'yyyy-mm-dd') as hg_end_date,
-         a.* from
-		(select * from homegym where hg_approved_check = '1' and hg_status = '1' order by hg_regist_date desc) a) b 
+		(select rownum as rnum, f.*, a.hg_eq from
+		(select h.hg_mem_id, wm_concat(eq_name) as hg_eq from homegym
+		h,homegym_equipment e
 		where
-		hg_faddr
+		h.hg_mem_id = e.eq_mem_id
+		group by
+		h.hg_mem_id) a, homegym f
+		where
+		a.hg_mem_id = f.hg_mem_id
+		and
 		<choose>
-			<when test = "location == '전체'">like '%%'</when>
-			<when test = "location != '전체'">like '%${location}%'</when>
-		</choose>
-
-		<choose>
-			<when test = "select_date == '1900-01-01'"></when>
-			<when test = "select_date != '1900-01-01'">
-			and			
-			hg_start_date <![CDATA[<=]]> '${select_date_date}' and 
-			hg_end_date <![CDATA[>=]]> '${select_date_date}'
+			<when test = "location =='전체'"></when>
+			<when test = "location !='전체'">
+			f.hg_faddr like '%${location}%'
+			and
 			</when>
 		</choose>
+		<choose>
+			<when test="choice_date == '1900-01-01'"></when>
+			<when test="choice_date != '1900-01-01'">
+				f.hg_start_date <![CDATA[<=]]>
+				'${choice_date_d}'
+				and
+				f.hg_end_date <![CDATA[>=]]>
+				'${choice_date_d}'
+				and
+			</when>
+		</choose>
+		f.hg_price <![CDATA[>=]]> #{price}
 		and
-		hg_price <![CDATA[>=]]> #{price}
+		f.hg_person_count <![CDATA[>=]]> #{person_count}
 		and
-		hg_person_count <![CDATA[>=]]> #{person_count}
+		f.hg_approved_check = '1'
+		and
+		f.hg_status = '1') b
+		where
+		rnum between #{start} and #{end}
 	</select>
-	<select id="hgEqList" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
- select * from homegym_equipment
-        where eq_mem_id = #{eq_mem_id}
-        order by eq_name
+
+	<select id="homegymTotalCntSQL" parameterType="Hashmap"
+		resultType="Integer">
+		select count(*) from
+		(select rownum as rnum, f.*, a.hg_eq from
+		(select h.hg_mem_id, wm_concat(eq_name) as hg_eq from homegym
+		h,homegym_equipment e
+		where
+		h.hg_mem_id = e.eq_mem_id
+		group by
+		h.hg_mem_id) a, homegym f
+		where
+		a.hg_mem_id = f.hg_mem_id
+		and
+		<choose>
+			<when test = "location =='전체'"></when>
+			<when test = "location !='전체'">
+			f.hg_faddr like '%${location}%'
+			and
+			</when>
+		</choose>
+		<choose>
+			<when test="choice_date == '1900-01-01'"></when>
+			<when test="choice_date != '1900-01-01'">
+				f.hg_start_date <![CDATA[<=]]>
+				'${choice_date_d}'
+				and
+				f.hg_end_date <![CDATA[>=]]>
+				'${choice_date_d}'
+				and
+			</when>
+		</choose>
+		f.hg_price <![CDATA[>=]]> #{price}
+		and
+		f.hg_person_count <![CDATA[>=]]> #{person_count}
+		and
+		f.hg_approved_check = '1'
+		and
+		f.hg_status = '1') b
+	</select>
+	<select id="userEquipmentListSQL" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
+	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
 	</select>
 </mapper>
