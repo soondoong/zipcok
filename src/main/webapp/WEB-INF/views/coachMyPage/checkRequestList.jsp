@@ -39,6 +39,7 @@ padding:0;
 	<tr>
 	<td><p>${rdto.req_cont }</p></td>
 	<td>
+
 	
 	<!-- 상담버튼 클릭시 넘길 파라미터 -->
 	<c:url value="/startToChat.do" var="url">
@@ -56,6 +57,7 @@ padding:0;
 	
 	<input type="button" value="${rdto.req_status eq 'yet'?'상담하기':'상담 중'}" class="btn ${rdto.req_status eq 'yet'?'btn-primary':'btn-warning'}"
 	onclick="location.href='${rdto.req_status eq 'yet'?url:'#'}'">
+
 	<input type="button" value="삭제" class="btn btn-danger"
 	onclick="location.href='${delurl}'"> <!-- id잇어야원래페이지넘어오기편함 -->
 	</td>

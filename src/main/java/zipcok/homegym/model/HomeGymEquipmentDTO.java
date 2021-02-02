@@ -5,7 +5,6 @@ public class HomeGymEquipmentDTO {
 	private String eq_mem_id;
 	private String eq_name;
 	private int eq_count;
-	private String eq_list[];
 	public HomeGymEquipmentDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -42,21 +41,12 @@ public class HomeGymEquipmentDTO {
 		this.eq_count = eq_count;
 	}
 
-	public String[] getEq_list() {
-		return eq_list;
-	}
-
-	public void setEq_list(String[] eq_list) {
-		this.eq_list = eq_list;
-	}
-
-	public HomeGymEquipmentDTO(int eq_idx, String eq_mem_id, String eq_name, int eq_count, String eq_list[]) {
+	public HomeGymEquipmentDTO(int eq_idx, String eq_mem_id, String eq_name, int eq_count) {
 		super();
 		this.eq_idx = eq_idx;
 		this.eq_mem_id = eq_mem_id;
 		this.eq_name = eq_name;
 		this.eq_count = eq_count;
-		this.eq_list = eq_list;
 	}
 
 	

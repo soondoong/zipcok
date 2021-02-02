@@ -26,7 +26,6 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
-import zipcok.homegym.model.HomeGymEquipmentDTO;
 
 @Controller
 public class HomeGymController {
@@ -49,47 +48,56 @@ public class HomeGymController {
 			@RequestParam(value="left_option_person_count", defaultValue = "1")int person_count,
 			HttpServletRequest req
 			) {
+		String keywords = "";
+		keywords += "&top_option_location="+location;
 		if(date.length()==0 || date ==null) {
 			date = "1900-01-01";
 		}
-		String year = date.substring(0, 4);
-		String month = date.substring(5, 7);
-		String day = date.substring(8, 10);
+		keywords += "&top_option_date="+date;
 		String eq_option_s[] = req.getParameterValues("left_option_eq");
 		String eq_options = "";
 		if(eq_option_s!=null) {
 			for(int i = 0 ; i < eq_option_s.length ; i ++) {
 				eq_options += eq_option_s[i];
+				keywords += "&left_option_eq="+eq_option_s[i];
 				if(i!=eq_option_s.length-1) {
 					eq_options += ",";
 				}
 			}
 		}
-		int totalCnt = homegymDAO.HomeGymTotalCnt(location, year, month, day, price, person_count);
+		keywords += "&left_option_price="+price;
+		keywords += "&left_option_person_count="+person_count;
 		int listSize = 5;
 		int pageSize = 5;
-		List<HomeGymDTO> list = homegymDAO.HomeGymList(cp, listSize, location, year, month, day, price, person_count);
+		Map<String, Object> options = new HashMap<String, Object>();
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		options.put("start", start);
+		options.put("end", end);
+		options.put("location", location);
+		options.put("choice_date", date);
+		options.put("choice_date_d", java.sql.Date.valueOf(date));
+		options.put("price", price);
+		options.put("person_count", person_count);
+		int totalCnt = homegymDAO.HomeGymTotalCnt(options);
+		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);
 		for(int i = 0 ; i < list.size() ; i++) {
-			List<HomeGymEquipmentDTO> eq_list = homegymDAO.EqList(list.get(i).getHg_mem_id(), eq_option_s);
-			if(eq_list==null) {
-			totalCnt--;
-			list.remove(i);
-			}else {
-			list.get(i).setList(eq_list);
-			}
+			list.get(i).setHg_eq_list(homegymDAO.UserEquipmentList(list.get(i).getHg_mem_id())); 
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("eq_options", eq_options);
-		map.put("location", location);
-		if(!date.equals("1900-01-01"))	map.put("date", date);
-		map.put("price", price);
-		map.put("person_count", person_count);
-		String pageStr = zipcok.page.PageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize);
+		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
+		Map<String, Object> keywordMap = new HashMap<String, Object>();
+		keywordMap.put("eq_options", eq_options);
+		keywordMap.put("location", location);
+		if(!date.equals("1900-01-01"))	keywordMap.put("date", date);
+		keywordMap.put("price", price);
+		keywordMap.put("person_count", person_count);
+		
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("HomeGymList", list);
-		mav.addObject("keywordMap", map);
+		mav.addObject("keywordMap", keywordMap);
 		mav.setViewName("homegym/hgList");
 		return mav;
 	}
@@ -141,17 +149,13 @@ public class HomeGymController {
 	
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
-	public ModelAndView HomeGymAdd(	
-			HomeGymDTO dto,
-			String eq_name[],
-			int eq_count[],
-			String eq_mem_id,
+	public ModelAndView HomeGymAdd(HomeGymDTO dto, String eq_name[], int eq_count[],
 			@RequestParam("upload")List<MultipartFile> list) {
 		int hg_result = homegymDAO.HomeGymAdd(dto);
 		int eq_result = 0;
 		for(int i = 0; i < eq_name.length; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("eq_mem_id", eq_mem_id);
+			map.put("eq_mem_id", dto.getHg_mem_id());
 			map.put("eq_name", eq_name[i]);
 			map.put("eq_count", eq_count[i]);
 			eq_result = homegymeqDAO.HomeGymEquipmentAdd(map);
@@ -163,7 +167,7 @@ public class HomeGymController {
 			String mfile_upload=copyInto( list.get(i), mfile_path);	//파일저장후 새로운이름생성됨
 			String mfile_orig=list.get(i).getOriginalFilename(); //파일원본명
 			String mfile_key="홈짐"; //파일저장 구분키
-			String mfile_mem_id=eq_mem_id;
+			String mfile_mem_id=dto.getHg_mem_id();
 			int mfile_size=(int)(list.get(i).getSize());
 
 			String mfile_type=list.get(i).getContentType();

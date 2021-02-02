@@ -57,6 +57,34 @@ width : 600px;
 			yearSuffix:'년'
 		});
 	});
+	function getTimeStamp() {
+
+	    var d = new Date();
+	    var s =
+	        leadingZeros(d.getFullYear(), 4) + '-' +
+	        leadingZeros(d.getMonth() + 1, 2) + '-' +
+	        leadingZeros(d.getDate(), 2);
+
+	    return s;
+	}
+
+	function leadingZeros(n, digits) {
+
+	    var zero = '';
+	    n = n.toString();
+
+	    if (n.length < digits) {
+	        for (i = 0; i < digits - n.length; i++)
+	            zero += '0';
+	    }
+	    return zero + n;
+	}
+
+	var today = getTimeStamp() ;
+	$( '#start_Date' ).attr('min', today);
+	$( '#start_Date' ).val(today);
+
+	
 	var count = 0;
 	function addEq(){
 		
@@ -100,20 +128,6 @@ width : 600px;
 		window.open('HomeGymAddrPopup.do', 'addrPopup', 'width=300, height=400, left=30%, top=30%');
 	}
 	function addSubmit() {
-		var start_date = document.getElementById('start_date').value;
-		var start_year = start_date.slice(0, 4);
-		var start_month = start_date.slice(5, 7);
-		var start_day = start_date.slice(8, 10);
-		document.getElementById('start_year').value = start_year;
-		document.getElementById('start_month').value = start_month;
-		document.getElementById('start_day').value = start_day;
-		var end_date = document.getElementById('end_date').value;
-		var end_year = end_date.slice(0, 4);
-		var end_month = end_date.slice(5, 7);
-		var end_day = end_date.slice(8, 10);
-		document.getElementById('end_year').value = end_year;
-		document.getElementById('end_month').value = end_month;
-		document.getElementById('end_day').value = end_day;
 		var hg_nickname = document.getElementById('hg_nickname').value;
 		var nicknameCheck = document.getElementById('nickname_overlap').value;
 		if(nicknameCheck=='0'){
@@ -125,10 +139,18 @@ width : 600px;
 	function start_change(){
 		var result = document.getElementById('start_date').value;
 		$("#date_div").datepicker( "option", "minDate", result );
+		document.getElementById('end_date').setAttribute('min', result);
 	}
 	function end_change(){
-		var result = document.getElementById('end_date').value;
-		$("#date_div").datepicker( "option", "maxDate", result );
+		var start_result = document.getElementById('start_date').value;
+		var end_result = document.getElementById('end_date').value;
+		if(start_result>end_result){
+			window.alert('종료 날짜는 시작 날짜보다 빠를 수 없습니다.');
+			end_result += start_result + 1;
+			return;
+		}
+		
+		$("#date_div").datepicker( "option", "maxDate", end_result );
 	}
 	function not_change(){
 		var result = document.getElementById('not_date').value;
@@ -282,16 +304,10 @@ width : 600px;
 				<th>시작일</th>
 				<td>
 				<input type="date" id="start_date" name="hg_start_date" onchange="javascript:start_change();">
-				<input type="hidden" id="start_year" name="hg_start_date_year">
-				<input type="hidden" id="start_month" name="hg_start_date_month">
-				<input type="hidden" id="start_day" name="hg_start_date_day">
 				</td>
 				<th>마감일</th>
 				<td>
 				<input type="date" id="end_date" name="hg_end_date" onchange="javascript:end_change();">
-				<input type="hidden" id="end_year" name="hg_end_date_year">
-				<input type="hidden" id="end_month" name="hg_end_date_month">
-				<input type="hidden" id="end_day" name="hg_end_date_day">
 				</td>
 			</tr>
 
