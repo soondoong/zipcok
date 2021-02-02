@@ -43,6 +43,14 @@
   		where
   		bbs_key='고객센터' and bbs_idx=#{bbs_idx}
   	</update>
+  	<delete id="csDeleteSQL">
+  		delete from
+  		zipcok_bbs
+  		where
+  		bbs_key='고객센터'
+  		and
+  		bbs_idx=#{bbs_idx}
+  	</delete>
   	<select id="csContentSQL" parameterType="Integer" resultType="zipcok.cs.model.CsDTO">
   		select
   		*
@@ -74,10 +82,43 @@
 <select id = "csmaxIdx" resultType="Integer">
 select max(bbs_idx) from zipcok_bbs where bbs_key='고객센터'
 </select>
+<update id="csReadnumSQL" parameterType="zipcok.cs.model.CsDTO">
+      update
+         zipcok_bbs
+      set
+         bbs_readnum=bbs_readnum+1 
+      where
+      	 bbs_key='고객센터'
+  		 and
+         bbs_idx=#{bbs_idx}
+   </update>
+<update id="csZfileDelete" parameterType="zipcok.cs.model.CsZipcokFileDTO">
+update
+zipcok_file
+set
+del_yn='y'
+where 
+zfile_bbs_idx=#{zfile_bbs_idx}
+</update>
 
 <select id="csZfileSelect" parameterType="Integer" resultType="zipcok.cs.model.CsZipcokFileDTO">
-select *
-from zipcok_file
-where zfile_bbs_idx=#{bbs_idx}
+select 
+*
+from
+zipcok_file
+where
+del_yn='N'
+and
+zfile_bbs_idx=#{bbs_idx}
+and
+zfile_idx = (select max(zfile_idx) from zipcok_file)
 </select>
+<update id="cszfileDelete" parameterType="zipcok.cs.model.CsDTO">
+update
+zipcok_file
+set
+del_yn='y'
+where 
+zfile_bbs_idx=#{zfile_bbs_idx}
+</update>
   </mapper>

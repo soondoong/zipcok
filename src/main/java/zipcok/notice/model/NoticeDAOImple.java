@@ -127,9 +127,16 @@ public class NoticeDAOImple implements NoticeDAO {
 		return list;
 	}
 	
+	//사진 삭제한 척
 	@Override
 	public int deleteFile(ZipcokFileDTO dto) {
-		int result=sqlMap.delete("zfiledelete", dto);
+		int result=sqlMap.update("zfileDelete", dto);
+		return result;
+	}
+	//리얼 사진 삭제
+	@Override
+	public int zfileRealDelete() {
+		int result=sqlMap.delete("zfileRealDelete");
 		return result;
 	}
 }

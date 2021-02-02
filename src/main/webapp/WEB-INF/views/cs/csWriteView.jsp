@@ -23,6 +23,9 @@
 	</div>
 <div class="contents">
 <form action="csWrite.do" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="bbs_mem_id" value="${login.mem_id}">
+	<!-- <input type="hidden" name="bbs_mem_id" value="${sessionScope.coachid}"> -->
+
 	<style>
 		.white_talbe_01 {border-top: 1px solid #333333;}
 		.white_talbe_01 tbody tr th {width: 200px; padding: 10px 20px; background: #f7f7f7; border-bottom: 1px solid #dddddd;}
@@ -39,8 +42,7 @@
 			<option>기타</option>
 		</select></td>
 	</tr>
-	<input type="hidden" name="bbs_mem_id" value="${sessionScope.sid}">
-	<input type="hidden" name="bbs_mem_id" value="${sessionScope.coachid}">
+
 	<tr>
 		<th>제목</th>
 		<td><input type="text" name="bbs_subject"></td>

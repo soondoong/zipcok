@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,9 +104,11 @@ public class CsController {
 		//고객센터 글쓰기
 		@RequestMapping("csWrite.do")
 		public ModelAndView goCsWrite(CsDTO dto,
-				@RequestParam("upload")List<MultipartFile> list) {
+				@RequestParam("upload")List<MultipartFile> list,
+				@RequestParam("bbs_mem_id")String bbs_mem_id) {
 			int result=csDao.csWrite(dto);
 			int maxIdx=csDao.csMaxIdx();
+			
 			/*다중파일첨부 시 필요*/	
 			
 			
@@ -116,11 +120,11 @@ public class CsController {
 				String zfile_path=c.getRealPath("/upload/cs/"); //저장되는 경로
 				String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 				String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
-				String zfile_mem_id = "admin";
+				String zfile_mem_id = bbs_mem_id;
 				String zfile_type = list.get(i).getContentType();
 				int zfile_size=(int)(list.get(i).getSize());
 				String del_yn="N";
-				CsZipcokFileDTO cdto=new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,del_yn);
+				CsZipcokFileDTO cdto=new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id,"", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,del_yn);
 				
 				fileArr.add(cdto);
 			}
@@ -139,9 +143,53 @@ public class CsController {
 			return mav;
 		}
 		
+		
+		
+		//수정 페이지이동
+		@RequestMapping("csUpdateView.do")
+		public ModelAndView goCsUpdateView(
+				@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
+			CsDTO dto=csDao.csContent(bbs_idx);
+			
+			List<CsZipcokFileDTO> list=csDao.CsZfileSelect(bbs_idx);
+			ModelAndView mav=new ModelAndView();
+			
+			mav.addObject("list",list);
+			mav.addObject("dto",dto);
+			mav.setViewName("cs/csUpdateView");
+			return mav;
+		}
+		
+		//고객센터 수정하기
 		@RequestMapping("csUpdate.do")
-		public ModelAndView goCsUpdate(CsDTO dto) {
+		public ModelAndView goCsUpdate(CsDTO dto,CsZipcokFileDTO zdto,
+				@RequestParam("upload")List<MultipartFile> list) {
 			int result=csDao.csUpdate(dto);
+			int csMaxIdx=csDao.csMaxIdx();
+			
+			ArrayList<CsZipcokFileDTO> fileArr=new ArrayList<CsZipcokFileDTO>();
+			
+			/*파일복사및저장하기*/
+			for(int i=0;i<list.size();i++) {
+				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
+				int zfile_bbs_idx=csMaxIdx;
+				String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
+				String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
+				String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
+				String zfile_mem_id = "admin";
+				String zfile_type = list.get(i).getContentType();
+				int zfile_size=(int)(list.get(i).getSize());
+				System.out.println(zdto.getDel_yn());
+				String del_yn=zdto.getDel_yn();
+				zdto = new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
+		
+				fileArr.add(zdto);
+			}
+			/*다중파일첨부 시 필요*/
+			int count=csDao.csFileUpload(fileArr);
+			if(count==fileArr.size()) {
+				System.out.println("사진등록성공");
+			}	
 			String msg=result>0?"수정이 완료되었습니다":"수정 실패했습니다";
 			
 			ModelAndView mav=new ModelAndView();
@@ -159,7 +207,7 @@ public class CsController {
 			
 			
 			
-			List<CsZipcokFileDTO> list=csDao.zfileSelect(bbs_idx);
+			List<CsZipcokFileDTO> list=csDao.CsZfileSelect(bbs_idx);
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("list",list);
 			mav.addObject("dto",dto);
