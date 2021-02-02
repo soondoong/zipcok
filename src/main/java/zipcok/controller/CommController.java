@@ -89,8 +89,7 @@ public class CommController {
 			BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
 			
 			fileArr.add(bdto);
-		}
-		
+		}		
 		/*다중파일첨부 시 필요*/		
 		int count=bbsFileDao.bbsFileUpload(fileArr);
 		if(count==fileArr.size()) {
