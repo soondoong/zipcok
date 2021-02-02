@@ -33,6 +33,7 @@ var sock;
 var myname = '${login.mem_name}';
 var type='${mtype}';
 var yourid= '${yourid}';
+var myid='${myid}';
 
 function openSocket() {
 	if (sock != null && sock !== undefined && sock.readyState !== WebSocket.CLOSED) {
@@ -43,7 +44,7 @@ function openSocket() {
 	
 
 	// 웹소켓 객체 생성하여 소켓서버에 연결 요청하기. 채팅에 사용할 이름도 함께 보냄.
-	sock = new WebSocket('ws://localhost:9090/zipcok/broadcasting/'+myname);
+	sock = new WebSocket('ws://localhost:9090/zipcok/broadcasting/'+myid+'/'+myname);
 	
 	// 서버와 연결이 완료된후 자동호출됨
 	sock.onopen = function (event) {
@@ -84,7 +85,7 @@ function send() {
 	/*메세지데이터 전송json타입 (시간은서버단에서)*/
 	var message = {};
 	message.user_name = '${login.mem_name}';
-	message.msg_sender = ''; //이게세션정보가들어가야하나?
+	message.msg_sender ='${myid}'; //이게세션정보가들어가야하나?
 	message.msg_receiver = ''; //받을상대아이디;이게세션정보가들어가야하나?
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
