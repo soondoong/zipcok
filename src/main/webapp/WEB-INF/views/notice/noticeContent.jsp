@@ -38,7 +38,9 @@
 			</div>
 			<div class="view_body">
 				<c:forEach var="List" items="${list}">
-				<img alt="${List.zfile_upload }" src="/zipcok/upload/notice/${List.zfile_upload}">
+				<div>
+				<img src="/zipcok/upload/notice/${List.zfile_upload}">
+				</div>
 				</c:forEach>
 				<div class="view_content">${dto.bbs_content}</div>
 			</div>

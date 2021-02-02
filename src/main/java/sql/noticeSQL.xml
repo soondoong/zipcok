@@ -149,6 +149,6 @@ zipcok_file
 set
 del_yn=#{del_yn}
 where 
-zfile_bbs_idx=#{zfile_bbs_idx}
+zfile_bbs_idx=#{bbs_idx}
 </update>
   </mapper>
