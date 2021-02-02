@@ -1,4 +1,3 @@
-
 package zipcok.controller;
 
 import java.io.File;
@@ -28,24 +27,17 @@ import zipcok.comm.model.FoodBbsDAO;
 import zipcok.comm.model.BbsFileDAO;
 import zipcok.comm.model.BbsFileDTO;
 
-
 @Controller
-public class CommController {
+public class CommDailyController {
 	
 	@Autowired
 	private ExBbsDAO exBbsDao;
-	private FoodBbsDAO foodBbsDao;
 	private BbsFileDAO bbsFileDao;
-	
 	
 	@Autowired
 	ServletContext c;
 	
-	@RequestMapping("commMain.do")
-	public String mainView() {
-		return "comm/commMainView";
-	}
-	
+	//일일 운동 게시판 목록보기
 	@RequestMapping("commDailyList.do")
 	public ModelAndView dailyList(@RequestParam(value="cp",defaultValue = "1")int cp) {
 		int totalCnt=exBbsDao.getTotalCnt();
@@ -65,11 +57,13 @@ public class CommController {
 		return mav;
 	}
 	
+	//일일 운동 게시판 글쓰기 입장
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.GET)
 	public String dailyWriteForm() {
 		return "comm/commDailyWrite";
 	}
 	
+	//일일 운동 게시판 글쓰기 실행 & 파일첨부
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.POST)
 	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list) {
 		int result=exBbsDao.dailyWrite(dto);
@@ -134,6 +128,7 @@ public class CommController {
 		
 	}
 	
+	//일일 운동 게시판 글보기
 	@RequestMapping("commDailyContent.do")
 	public ModelAndView dailyContent(int ex_idx) {
 		int result=exBbsDao.dailyReadnum(ex_idx);
@@ -148,6 +143,7 @@ public class CommController {
 		return mav;
 	}
 	
+	//일일 운동 게시판 글수정 입장
 	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.GET)
 	public ModelAndView dailyUpdateForm(int ex_idx) {
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
@@ -157,6 +153,7 @@ public class CommController {
 		return mav;
 	}
 	
+	//일일 운동 게시판 글수정 실행
 	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.POST)
 	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, @RequestParam(value="ex_idx")String idx_s) {
 		int ex_idx=Integer.parseInt(idx_s);
@@ -170,6 +167,7 @@ public class CommController {
 		return mav;
 	}
 	
+	//일일 운동 게시판 글삭제
 	@RequestMapping("commDailyDelete.do")
 	public ModelAndView dailyDelete(String ex_idx) {
 		int ex_idx2=Integer.parseInt(ex_idx);
@@ -182,6 +180,7 @@ public class CommController {
 		return mav;	
 	}
 	
+	//일일 운동 게시판 댓글작성
 	@RequestMapping("commDailyReWrite.do")
 	public ModelAndView dailyReWrite(int re_idx, int ex_idx, ExReBbsDTO dto) {
 		if(re_idx==0) {
@@ -200,6 +199,7 @@ public class CommController {
 		return mav;
 	}
 	
+	//일일 운동 게시판 댓글삭제
 	@RequestMapping("commDailyReDelete.do")
 	public ModelAndView dailyReDelete(int re_lev,int ex_idx, int re_group, int re_idx) {
 		int result=0;
@@ -217,7 +217,7 @@ public class CommController {
 		return mav;
 	}
 	
-
+	//일일 운동 게시판 대댓글작성
 	@RequestMapping("commDailyReReWrite.do")
 	public ModelAndView dailyReReWrite(ExReBbsDTO dto, int re_group,int re_bbs_idx,int ex_idx) {
 		int re_sunbun_p=exBbsDao.dailyGetSunbun_p(re_group);
@@ -232,29 +232,5 @@ public class CommController {
 		return mav;
 	}
 	
-	@RequestMapping("commFoodList.do")
-	public ModelAndView foodList(@RequestParam(value="cp",defaultValue = "1")int cp) {
-		int totalCnt=exBbsDao.getTotalCnt();
-		int listSize=5;
-		int pageSize=5;
-		String pageStr=zipcok.page.CommPageModule.makePage("commFoodList.do", totalCnt, cp, listSize, pageSize);
-		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize);
-		for(int i=0;i<list.size();i++) {
-			int idx=list.get(i).getEx_idx();
-			int recnt=exBbsDao.dailyGetTotalRe(idx);
-			int count=exBbsDao.dailySetTotalRe(recnt, idx);
-		}
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("list", list);
-		mav.addObject("pageStr", pageStr);
-		mav.setViewName("comm/commDailyList");
-		return mav;
-	}
-	
-	@RequestMapping(value="commFoodWrite.do", method=RequestMethod.GET)
-	public String foodWriteForm() {
-		return "comm/commFoodWrite";
-	}
-
 }
 
