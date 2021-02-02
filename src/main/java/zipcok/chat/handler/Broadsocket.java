@@ -49,6 +49,9 @@ public class Broadsocket  {
 			message.setMsg_sender(session.getId());
 			message.setMsg_content("님이 채팅방에 참여하였습니다.");
 			
+			//roomidx를 통해 디비에 저장된내역 미리 뿌려주기
+			
+			
 			//broadcast(session, message);
 	}
 	
@@ -67,9 +70,10 @@ public class Broadsocket  {
 	    message.setUser_name(realname);
 	    message.setMsg_sender(realid);
 	    
-		broadcast(session, message);
-		
-		
+	    //받은메세지 디비에저장하기
+	    
+	    broadcast(session, message);
+			
 	}
 	
 	

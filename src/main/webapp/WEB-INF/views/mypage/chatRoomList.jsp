@@ -43,6 +43,7 @@ padding:0;
 	<c:url value="/gotoChat.do" var="url">
 		 <c:param name="croom_idx" value="${cdto.croom_idx }" />
 	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+	 	 <c:param name="type" value="${login.mem_type}" />
 	</c:url>
 	
 	<!-- 나가기 버튼 클릭시 넘길 파라미터 -->

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
 
 public class MypageDAOImple implements MypageDAO {
@@ -27,6 +28,17 @@ public class MypageDAOImple implements MypageDAO {
 		
 		return dto;
 	}
+	
+	/*프로필사진포함된 dto*/
+	@Override
+	public MemberAllDTO memberAllProfile(String mem_id) {
+		MemberAllDTO dto= sqlMap.selectOne("memberAllProfile", mem_id);
+		
+		return dto;
+	}
+
+	
+	
 	
 	@Override
 	public CoachFileDTO memberProfilePhoto(String mem_id) {

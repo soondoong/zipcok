@@ -14,11 +14,12 @@
 <c:set var="mtype" value="${empty sessionScope.sid ?'코치':'일반' }"/>
 <c:set var="myid" value="${mtype eq '코치'?cdto.croom_coachid : cdto.croom_userid}"/>
 <c:set var="yourid" value="${mtype eq '코치'?cdto.croom_userid : cdto.croom_coachid}"/>
+<c:set var="rdto" value="${receiveDTO}"/>
 
 <div class="container">
 	<h2>${login.mem_name}<c:if test="${sessionScope.sid ==null}">코치</c:if>님</h2>
 	     
-	<h3>${yourid}<c:if test="${sessionScope.sid !=null}">코치</c:if>님과의 채팅 페이지</h3>
+	<h3>${rdto.mem_name}<c:if test="${sessionScope.sid !=null}">코치</c:if>님과의 채팅 페이지</h3>
 	
 	<!-- 채팅 내용 -->
 	<div class="col-12">
@@ -105,33 +106,29 @@ function send() {
 	}
 	
 	/*메세지데이터 전송json타입 (시간은서버단에서)*/
-	var message = {};
-	message.user_name = '${login.mem_name}';
-	message.msg_sender ='${myid}'; //이게세션정보가들어가야하나?
-	message.msg_receiver = ''; //받을상대아이디;이게세션정보가들어가야하나?
+	var message = {};	
+	message.msg_croom_idx = roomidx;
+	message.msg_req_idx = '${cdto.croom_req_idx}';
+	message.msg_sender ='${myid}'; //구분키중요
+	message.msg_receiver = yourid; //받을상대아이디;구분키중요
+	message.msg_content = inputMessage;
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
-	message.msg_content = inputMessage;
-	message.msg_req_idx = '${cdto.croom_req_idx}';
-	message.msg_croom_idx = roomidx;
+	message.user_mfile_upload = 'noimg.png';
+	message.receiver_mfile_upload = 'noimg.png'; 
+    message.user_name = '${login.mem_name}';
+    message.receiver_user_name = '상대이름';
 
-	var toId = yourid;
-	if (toId != '') {
-		message.msg_receiver = toId;
-	}
 	console.log('message : ' + message);
-	sock.send(JSON.stringify(message));
+	sock.send(JSON.stringify(message)); //서버에 json형태로메세지보내기
 	
-	var t = getTimeStamp();
+	
 	var str = message.msg_content  + '\n';
-	
-
-	appendMyMessage(str);
-	//$('#chatMessageArea').append(str);
-	scroll();
-	
-	$('#message-input').val('');
+	appendMyMessage(str); //채팅창에 내가보낸메세지 추가해줌	
+	scroll();	
+	$('#message-input').val(''); //메세지입력창 리셋
 }
+
 
 function scroll() {
 	var top = $('#messages').prop('scrollHeight');
@@ -165,6 +162,8 @@ function leadingZeros(n, digits) {
   return zero + n;
 }
 
+
+
 /*채팅방에 메세지붙여주기*/
 function appendMyMessage(msg) {  //내메세지는 오른쪽
 
@@ -177,7 +176,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 +"<div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div>"
 	 +"<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div>"
 	 +"</div>"
-	 +"<div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='img/coach/noimg.png' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${login.mem_name}</div></div></div>");		 
+	 +"<div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${login.mem_name}</div></div></div>");		 
 
 	  var chatAreaHeight = $("#chatArea").height();
 	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
