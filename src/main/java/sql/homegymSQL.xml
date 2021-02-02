@@ -91,47 +91,16 @@
 		where
 		rnum between #{start} and #{end}
 	</select>
-
-	<select id="homegymTotalCntSQL" parameterType="Hashmap"
-		resultType="Integer">
-		select count(*) from
-		(select rownum as rnum, f.*, a.hg_eq from
-		(select h.hg_mem_id, wm_concat(eq_name) as hg_eq from homegym
-		h,homegym_equipment e
-		where
-		h.hg_mem_id = e.eq_mem_id
-		group by
-		h.hg_mem_id) a, homegym f
-		where
-		a.hg_mem_id = f.hg_mem_id
-		and
-		<choose>
-			<when test = "location =='전체'"></when>
-			<when test = "location !='전체'">
-			f.hg_faddr like '%${location}%'
-			and
-			</when>
-		</choose>
-		<choose>
-			<when test="choice_date == '1900-01-01'"></when>
-			<when test="choice_date != '1900-01-01'">
-				f.hg_start_date <![CDATA[<=]]>
-				'${choice_date_d}'
-				and
-				f.hg_end_date <![CDATA[>=]]>
-				'${choice_date_d}'
-				and
-			</when>
-		</choose>
-		f.hg_price <![CDATA[>=]]> #{price}
-		and
-		f.hg_person_count <![CDATA[>=]]> #{person_count}
-		and
-		f.hg_approved_check = '1'
-		and
-		f.hg_status = '1') b
-	</select>
 	<select id="userEquipmentListSQL" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
 	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
+	</select>
+	<select id = "hgContentSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymDTO">
+	select * from homegym where hg_mem_id = #{value}
+	</select>
+	<select id = "hgEquipmentContentSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymEquipmentDTO">
+	select * from homegym_equipment where eq_mem_id = #{value}
+	</select>
+	<select id = "hgImageContentSQL" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
+		select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value}
 	</select>
 </mapper>

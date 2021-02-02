@@ -22,11 +22,18 @@ public class HomeGymEquipmentDAOImple implements HomeGymEquipmentDAO {
 		int eq_result = sqlMap.insert("hgEqAddSQL", map);
 		return eq_result;
 	}
+	
+	@Override
+	public List<HomeGymEquipmentDTO> UserEquipmentList(String userid) {
+		List<HomeGymEquipmentDTO> list = sqlMap.selectList("userEquipmentListSQL", userid);
+		return list;
+	}
 
 	@Override
-	public List<HomeGymEquipmentDTO> HomeGymEquipmentSelect(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HomeGymEquipmentDTO> HomeGymEquipmentContent(String homegymId) {
+		List<HomeGymEquipmentDTO> list = sqlMap.selectList("hgEquipmentContentSQL", homegymId);
+		return list;
 	}
+	
 
 }

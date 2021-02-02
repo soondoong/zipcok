@@ -16,14 +16,20 @@ border-radius: 8px;
 width:200px;
 height:30px;
 }
+.ListItem{
+border:1px solid black;
+}
 </style>
 <script>
 window.addEventListener('load', function() {
 	var eq_options = '${keywordMap.eq_options}';
-	var eq_options_split = eq_options.split(',');
-	for(var i in eq_options_split){
-		document.getElementById(eq_options_split[i]).checked = true;
+	if(eq_options != ''){
+		var eq_options_split = eq_options.split(',');
+		for(var i in eq_options_split){
+			document.getElementById(eq_options_split[i]).checked = true;
+		}
 	}
+
 	});
 
 function priceOption(){
@@ -35,7 +41,9 @@ function priceOption(){
 function sendOption(){
 	document.getElementById('option_fm').submit();
 }
-	
+function ContentEnter(id){
+	location.href = 'HomeGymContent.do?hg_mem_id='+id;
+}
 </script>
 </head>
 <body>
@@ -107,7 +115,7 @@ function sendOption(){
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="dto" items="${HomeGymList }">
-					<div class="ListItem">
+					<div class="ListItem" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
 					시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
 					<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
 					<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
@@ -118,8 +126,10 @@ function sendOption(){
 					<h1>등록된 기구가 없습니다.</h1>
 					</c:if>
 					<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-						${eq_list.eq_name } : ${eq_list.eq_count }<br>
-					</c:forEach>			
+					<div class = "eq_option_${eq_list.eq_name }">
+						${eq_list.eq_name } : ${eq_list.eq_count }
+					</div>
+					</c:forEach>		
 					</div>
 					<hr>
 				</c:forEach>

@@ -25,11 +25,15 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
-	public int HomeGymTotalCnt(Map<String, Object> options) {
-		int result = sqlMap.selectOne("homegymTotalCntSQL", options);
-		return result==0?1:result;
+	public HomeGymDTO HomeGymContent(String homegymId) {
+		HomeGymDTO dto = sqlMap.selectOne("hgContentSQL", homegymId);
+		return dto;
+	}
+	@Override
+		public List<CoachFileDTO> HomeGymImageContent(String homegymId) {
+		List<CoachFileDTO> list = sqlMap.selectList("hgImageContentSQL", homegymId);
+		return list;
 	}
 	
 	@Override
@@ -37,11 +41,7 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL", options);
 		return list;
 	}
-	@Override
-	public List<HomeGymEquipmentDTO> UserEquipmentList(String userid) {
-		List<HomeGymEquipmentDTO> list = sqlMap.selectList("userEquipmentListSQL", userid);
-		return list;
-	}
+
 	@Override
 	public String HomeGymNickNameCheck(String hg_nickname) {
 		String nickname = sqlMap.selectOne("hgNickNameCheckSQL", hg_nickname);
