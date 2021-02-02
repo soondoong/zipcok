@@ -48,7 +48,7 @@
 				<button id=sendBtn class="btn btn-lg btn-primary" onclick="send()">전송</button>		
 		</div>
 	</div>
-		
+	</div>	
 		
 <!-- 내메세지 -->		
 <div class='col-4 row' style = 'margin-left:470px; height : auto; margin-top : 5px;'>

@@ -176,7 +176,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 +"<div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div>"
 	 +"<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div>"
 	 +"</div>"
-	 +"<div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:9px; clear:both;'>${login.mem_name}</div></div></div>");		 
+	 +"<div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>${login.mem_name}</div></div></div>");		 
 
 	  var chatAreaHeight = $("#chatArea").height();
 	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
@@ -192,7 +192,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 }else{
 
 	 var t = getTimeStamp();
-	 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><div style='font-size:15px; clear:both;'>"+yourid+"</div></div>"
+	 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>"+yourid+"</div></div>"
 	 +"<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")		 
 
 	  var chatAreaHeight = $("#chatArea").height();

@@ -68,10 +68,10 @@ public class ChatController {
 		 * 상대방 정보 dto 뿌려주기 */
 		if(type.equals("일반회원")) { //일반회원
 			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_coachid());
-			mav.addObject("receiveDTO", dto);
+			mav.addObject("receiveDTO", dto); //상대방정보dto
 		}else { //코치회원
-			MemberDTO dto= myPagedao.memberProfile(cdto.getCroom_userid());
-			mav.addObject("receiveDTO", dto);
+			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_userid());
+			mav.addObject("receiveDTO", dto);//상대방정보dto
 		}
 		
 		mav.setViewName("coach/chat/chat2");	
@@ -92,9 +92,7 @@ public class ChatController {
 				mav.setViewName("mypage/chatRoomList");
 			}else { //코치회원용 채팅방목록
 									
-		
-				List<ChatRoomDTO> list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");
-				
+				List<ChatRoomDTO> list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");				
 				mav.addObject("chatList", list);
 				mav.setViewName("coachMyPage/chatList");
 			}
