@@ -3,12 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="../header2.jsp" %>
-
+<c:set var="list" value="${list }"/>
 <c:set var="dto" value="${dto}"></c:set>
 <script>
 	function deletefile() {
-		document.getElementById('del_yn').value='Y';
-		href.location='deleteFile.do';
+		document.getElementById('del').value='Y';
+		var noticeimg=document.getElementById('noticeImg');
+		noticeimg.style.display='none';
 	}
 </script>
 <div id="container">
@@ -49,8 +50,7 @@
 					</select></td>
 				</tr>
 				<input type="hidden" name="bbs_idx" value="${dto.bbs_idx}">
-				<input type="hidden" name="zfile_bbs_idx" value="${list.zfile_idx}">
-				<input type="hidden" id="del yn" name="del_yn" value="N">
+				<input type="hidden" id="del" name="del_yn" >
 				<tr>
 					<th>제목</th>
 
