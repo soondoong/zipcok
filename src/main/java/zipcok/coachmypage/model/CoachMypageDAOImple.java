@@ -2,6 +2,7 @@ package zipcok.coachmypage.model;
 
 import java.util.*;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,26 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		 int count=sqlMap.update("requestStatusChange", req_idx);
 		return count;
 	}
+	
+	
+	@Override
+	public int coachMypageHomeGymLikeListTotalCnt(String mem_id) {
+		int count=sqlMap.selectOne("coachMypageHomeGymLikeListTotalCnt", mem_id);
+		return count==0?1:count;
+	}
+	
+	@Override
+	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("mem_id", mem_id);
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlMap.selectList("coachMypageHomeGymLikeList", map);
+		
+		return list;
+	}
+	
 	
 }

@@ -3,6 +3,7 @@ package zipcok.controller;
 import java.util.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -111,4 +112,28 @@ ServletContext c;
 		mav.setViewName("coach/joinMsg");
 		return mav;
 	}
+	
+	
+		//코치 마이페이지 홈짐 좋아요 목록
+		@RequestMapping("/coachMypageHomeGymLikeList.do")
+		public ModelAndView mypageHomeGymLikeList(HttpSession session,
+				@RequestParam(value = "cp", defaultValue = "1")int cp) {
+			
+			int totalCnt=cdao.coachMypageHomeGymLikeListTotalCnt((String)session.getAttribute("coachId"));
+			int listSize=3;
+			int pageSize=3;
+			String pageStr=zipcok.page.MypagePageModule.makePage("coachMypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
+			List list=cdao.coachMypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("coachId"));
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", list);
+			mav.addObject("pageStr", pageStr);
+			mav.setViewName("coachMyPage/coachMypageHomeGymLikeList");
+
+			
+			return mav;
+		}
+	
+	
+	
+	
 }

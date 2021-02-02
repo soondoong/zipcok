@@ -7,31 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.mpUl{ 
- list-style-type: none;   width:16vw; height: 100%;margin-top:40px;
- background-color:lightgray;
- width: 200px;
-padding: 0;
-margin:  0;
-position: absolute;
-height: 100%;
-overflow: auto;
-
- }
-.mpUl li{  
-box-sizing: border-box;
-text-decoration: none;
-display: block;
-color: #000;
-padding: 8px 15px 8px 15px;
-}
-.mpUl li a{  color: black; font-size: 1.2rem; }
 .profileIMG { width:500px; height:500px;  border-radius: 50%; overflow: hidden; margin-bottom: 50px;}
 .profileIMG img { width:500px; height:500px; object-fit: cover;}
 </style>
 </head>
 <body>
 <%@include file="../header2.jsp"%>
+<%@include file="./coachMypageSideMenu.jsp"%>
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
 <c:set var="curri" value="${resultMap.curriList }"/>
@@ -39,35 +21,8 @@ padding: 8px 15px 8px 15px;
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>	
 	
-	
-<!-- 좌측 메뉴 -->	
-<div class="leftWall">
-	<div>
-		<ul class="mpUl">
-			<li><a href="coachMyPage.do?id=${sessionScope.coachId }">내 프로필</a></li>
-			
-			<li><a href="#">내 홈짐보기</a></li>
-			
-			<li><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>
-			
-			<li><a href="chatRoomList.do?mem_id=${sessionScope.coachId}">채팅방</a></li>
-			
-			<li><a href="#">운동 커뮤니티 관리</a></li>
-		
-			<li><a href="CMPageLikeList.do?id=${sessionScope.coachId}">좋아요 목록</a></li>
-		
-			<li><a href="#">작성글관리</a></li>
-		
-			<li><a href="#">결제내역</a></li>		
-		</ul>
-
-	</div>
-</div>
-
-<!-- 좌측 메뉴 -->	
-
 <!-- 프로필 본문-->
-<div class="container mt-5">		
+<div class="container mt-3" style="margin-left: 250px; padding: 1px 16px;">		
 		
 	<div class="profileIMG">
 	<img src="/zipcok/upload/member/${dto.mfile_upload }" >

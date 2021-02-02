@@ -15,6 +15,8 @@ padding:0;
 </head>
 <body>
 <%@include file="../header2.jsp" %>
+<%@include file="./coachMypageSideMenu.jsp"%>
+<div style="margin-left: 250px; padding: 1px 16px;">
 <c:set var="list" value="${ chatList }"/>
 
 <br>
@@ -61,5 +63,6 @@ padding:0;
 </c:forEach>
 </tbody>
 </table>
+</div>
 </body>
 </html>

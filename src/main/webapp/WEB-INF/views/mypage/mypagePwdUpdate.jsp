@@ -65,7 +65,7 @@ $(document).ready(function() {
 <%@include file="../header2.jsp"%>
 <%@include file="./mypageSideMenu.jsp" %>
 <br>
-	<div style="margin-left: 200px; padding: 1px 16px;">
+	<div style="margin-left: 250px; padding: 1px 16px;">
 	<h2>비밀번호 수정</h2>
 	<br>
 		<form action="mypagePwdUpdate.do">

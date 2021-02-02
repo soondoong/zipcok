@@ -15,6 +15,8 @@ padding:0;
 </head>
 <body>
 <%@include file="../header2.jsp" %>
+<%@include file="./coachMypageSideMenu.jsp"%>
+<div style="margin-left: 250px; padding: 1px 16px;">
 <c:set var="list" value="${ requestList }"/>
 
 <br>
@@ -22,7 +24,7 @@ padding:0;
 <p>상담하기 버튼을 누르면 고객님과 채팅으로 대화 하실 수 있습니다!</p>
 <hr>
 <br>
-<table style=" border:1px solid lightgray; margin-left: 10%; margin-right: auto;">
+<table style=" border:1px solid lightgray; margin-right: auto;">
 <tbody>
 <c:forEach var="rdto" items="${list}">
 
@@ -66,6 +68,6 @@ padding:0;
 </tbody>
 </table>
 	
-
+</div>
 </body>
 </html>
