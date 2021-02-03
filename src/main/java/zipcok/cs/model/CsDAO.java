@@ -13,7 +13,8 @@ public interface CsDAO {
 	public int deleteCsFile(CsZipcokFileDTO dto);//파일삭제한척
 	public CsDTO csContent(int bbs_idx);//상세보기
 	public int csMaxIdx();//최신글idx구하기
-	public List<CsZipcokFileDTO> CsZfileSelect(int bbs_idx);//파일초회하기
+	public List<CsZipcokFileDTO> CsZfileSelect(int bbs_idx);//파일조회하기
 	public int csFileUpload(ArrayList<CsZipcokFileDTO> fileArr);//파일업로드하기
 	public int csReadnum(int bbs_idx);//고객센터 조회수
+	public int csReWrite(CsReDTO dto);
 }

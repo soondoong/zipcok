@@ -76,28 +76,38 @@ public class CsDAOImple implements CsDAO {
 			CsDTO dto=sqlMap.selectOne("csContentSQL",bbs_idx);
 			return dto;
 	}
-	
+	//최신글 idx 받아오기
 	@Override
 	public int csMaxIdx() {
 		int maxIdx = sqlMap.selectOne("csmaxIdx");
 		return maxIdx;
 	}
-	
+	//파일 리스트 받아오기
 	@Override
 	public List<CsZipcokFileDTO> CsZfileSelect(int bbs_idx) {
 		List<CsZipcokFileDTO> list=sqlMap.selectList("csZfileSelect", bbs_idx);
-		return null;
+		return list;
 	}
 	
-	
+	//조회수 받아오기
 	@Override
 	public int csReadnum(int bbs_idx) {
 		int count=sqlMap.update("csReadnumSQL", bbs_idx);
 		return count;
 	}
+	
+	//del_yn y로 변경해주기
 	@Override
 	public int deleteCsFile(CsZipcokFileDTO dto) {
 		int result=sqlMap.update("csZfileDelete", dto);
 		return result;
+	}
+	
+	
+	//답변달기
+	@Override
+	public int csReWrite(CsReDTO dto) {
+		int count=sqlMap.insert("csReWrite", dto);
+		return count;
 	}
 }
