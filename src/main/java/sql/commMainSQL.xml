@@ -30,6 +30,16 @@
 		where
 			com_idx=#{com_idx}
 	</select>
+	
+	<select id="getCaochNameSQL" resultType="String">
+		select
+			mem_name
+		from
+			zipcok_member
+		where
+			mem_id=#{com_coach_id}		
+	</select> 
+	
 
 
 </mapper>

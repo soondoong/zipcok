@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +66,9 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 글쓰기 실행 & 파일첨부
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.POST)
-	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list) {
+	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list,HttpSession session) {
 		int result=exBbsDao.dailyWrite(dto);
+		System.out.println(dto.getEx_comm_idx());
 		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
 		
 		ArrayList<BbsFileDTO> fileArr=new ArrayList<BbsFileDTO>();
@@ -77,14 +79,16 @@ public class CommDailyController {
 			String bfile_rename=copyInto(list.get(i), bfile_path);	//파일저장후 새로운이름생성됨
 			String bfile_origin=list.get(i).getOriginalFilename(); //파일원본명
 			String bfile_meal="아침"; //파일저장 구분키
-			String bfile_comm=dto.getEx_comm_idx();
+			System.out.println(session.getAttribute("com_idx"));
+			String bfile_comm=String.valueOf(session.getAttribute("com_idx"));
 			int bfile_size=(int)(list.get(i).getSize());
 			String bfile_type=list.get(i).getContentType();
 			BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
 			
 			fileArr.add(bdto);
 		}		
-		/*다중파일첨부 시 필요*/		
+		/*다중파일첨부 시 필요*/	
+		
 		int count=bbsFileDao.bbsFileUpload(fileArr);
 		if(count==fileArr.size()) {
 			System.out.println("사진등록성공");
