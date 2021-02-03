@@ -41,6 +41,20 @@ width : 600px;
 }
 </style>
 <script>
+var count = 0;
+function homegym_setting(){
+	if(${sessionScope.sid==null && sessionScope.coachId==null}){
+		window.alert('로그인이 필요한 페이지 입니다.');
+		location.href='index.do';
+		return;
+	}
+	var today = getTimeStamp() ;
+	$( '#start_Date' ).attr('min', today);
+	$( '#start_Date' ).val(today);
+	
+
+}
+
 	$(function() {
 		$('#date_div').datepicker({
 			dateFormat: 'yy-mm-dd',
@@ -80,12 +94,10 @@ width : 600px;
 	    return zero + n;
 	}
 
-	var today = getTimeStamp() ;
-	$( '#start_Date' ).attr('min', today);
-	$( '#start_Date' ).val(today);
+
 
 	
-	var count = 0;
+
 	function addEq(){
 		
 		var eq_name = document.getElementById('eq_name_temp').value; 
@@ -204,18 +216,16 @@ width : 600px;
 	}
 </script>
 </head>
-<body>
+<body onload = "javascript:homegym_setting();">
 	<h1>홈짐 등록하기</h1>
 	<form name="HomeGymAddForm" id="addForm" action="HomeGymAdd.do"
 		method="post" enctype="multipart/form-data">
 		<h5>기본 정보</h5>
 		<ul>
-			<li><label class="HomeGymAddLabel">홈짐 아이디</label>
-			<input type="text" name="hg_mem_id" placeholder="최대 10글자">
-			<input type="text" name="eq_mem_id" placeholder="최대 10글자">
-			</li>
+			
 			<li>
 			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
+			<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
 			<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
 			<input type="button" value="중복 확인" onclick = "javascript:nicknameCheck();">
 			<br><span id = "nicknameCheckText"></span>
@@ -264,11 +274,11 @@ width : 600px;
 			<li>
 			<label class="HomeGymAddLabel">보유 운동 기구</label>
 			<select	name="eq_name_temp" id = "eq_name_temp">
-					<option value="eq 1">기구 1</option>
-					<option value="eq 2">기구 2</option>
-					<option value="eq 3">기구 3</option>
-					<option value="eq 4">기구 4</option>
-					<option value="eq 5">기구 5</option>
+					<option value="eq1">기구 1</option>
+					<option value="eq2">기구 2</option>
+					<option value="eq3">기구 3</option>
+					<option value="eq4">기구 4</option>
+					<option value="eq5">기구 5</option>
 			</select>
 			<label class="HomeGymAddLabel">보유 수</label>
 			<select name="eq_count_temp" id = "eq_count_temp">

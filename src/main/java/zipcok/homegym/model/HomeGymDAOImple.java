@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
 @Service
 public class HomeGymDAOImple implements HomeGymDAO {
 
@@ -22,8 +23,8 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	
 	@Override
 	public boolean HomeGymCheck(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		int result = sqlMap.selectOne("homegymCheckSQL", id);
+		return result==1?false:true;
 	}
 	@Override
 	public HomeGymDTO HomeGymContent(String homegymId) {
@@ -68,6 +69,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		}
 		return result;
 	}
-
-
+	@Override
+	public List<ReviewDTO> HomeGymReview(String homegymId) {
+		List<ReviewDTO> list = sqlMap.selectList("homegymReviewSelectSQL", homegymId);
+		return list;
+	}
 }
