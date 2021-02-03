@@ -1,5 +1,6 @@
 package zipcok.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.catalina.User;
@@ -45,7 +46,8 @@ public class ChatController {
 		
 			int result=chatdao.createRoom(newRoomdto);
 			if(result>0 && count >0) {System.out.println("--채팅방생성및status전환성공!--");}	
-		
+					
+			
 			ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);
 			
 			mav.addObject("gopage", "gotoChat.do?croom_idx="+cdto.getCroom_idx()+"&req_idx="+req_idx+"&type="+type);
@@ -84,19 +86,21 @@ public class ChatController {
 	   public ModelAndView chatRoomList(@RequestParam("mem_id")String id) {
 			ModelAndView mav=new ModelAndView();
 			
+			List<ChatRoomListDTO> list=  null; //채팅방리스트
 			MemberDTO mdto=myPagedao.memberProfile(id); //코치회원인지 일반회원인지 판단		
 			if(mdto.getMem_type().equals("일반회원")) { //일반회원용 채팅방목록
 						
-				List<ChatRoomDTO> list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
+				list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
 				mav.addObject("chatList", list);
-				mav.setViewName("mypage/chatRoomList");
+				mav.setViewName("mypage/chatRoomList");		
+				
 			}else { //코치회원용 채팅방목록
 									
-				List<ChatRoomDTO> list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");				
+				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");				
 				mav.addObject("chatList", list);
 				mav.setViewName("coachMyPage/chatList");
 			}
-		
+				
 			return mav;
 		}
 		

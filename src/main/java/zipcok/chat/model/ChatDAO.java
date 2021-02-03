@@ -7,7 +7,7 @@ import zipcok.coach.model.RequestFormDTO;
 public interface ChatDAO {
 
 	public int createRoom(ChatRoomDTO dto); //채팅방생성데이터등록
-	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey);   //채팅방목록불러오기
+	public List<ChatRoomListDTO> allChatRoomList(String id,String sqlkey);   //채팅방목록불러오기
 	public RequestFormDTO findRequestForm(int req_idx); //요청서1개정보가져오기 
 	public ChatRoomDTO isRoom(ChatRoomDTO dto); //이미속해있는채팅방잇나보기
 	public int roomDelete(int croom_idx); //채팅방나가기

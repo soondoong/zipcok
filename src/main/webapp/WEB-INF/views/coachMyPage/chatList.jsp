@@ -18,7 +18,6 @@ padding:0;
 <%@include file="./coachMypageSideMenu.jsp"%>
 <div style="margin-left: 250px; padding: 1px 16px;">
 <c:set var="list" value="${ chatList }"/>
-
 <br>
 <h2>코치의채팅방목록</h2>
 <hr>
@@ -30,9 +29,9 @@ padding:0;
 	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
 	<td >
 	<dt>${cdto.croom_userid }</dt>
-	<label>무언가넣자</label>
-	<br><label>마지막메세지같은거넣자</label>
-	<br><label>메세지보낸시각:2021-01-22</label>
+	<label>보낸이:${cdto.msg_sender }</label>
+	<br><label>${cdto.msg_content }</label>
+	<br><label>메세지보낸시각:${cdto.msg_sendtime }</label>
 	</td>
 	<td style="padding-top:0; text-align:right;"  valign="top"><label>생성일: ${cdto.croom_opendate }</label></td>
 	</tr>

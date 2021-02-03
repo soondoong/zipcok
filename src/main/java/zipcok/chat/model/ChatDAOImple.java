@@ -40,8 +40,8 @@ public class ChatDAOImple implements ChatDAO{
 	
 	/*채팅방목록 뽑아오기*/
 	@Override
-	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey) {
-		 List<ChatRoomDTO> list= sqlMap.selectList(sqlkey,id);
+	public List<ChatRoomListDTO> allChatRoomList(String id,String sqlkey) {
+		 List<ChatRoomListDTO> list= sqlMap.selectList(sqlkey,id);
 		 			
 		return list;
 	}

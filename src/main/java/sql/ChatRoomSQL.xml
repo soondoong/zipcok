@@ -37,6 +37,22 @@ message_idx.nextval ,
 </insert>
 
 
+<select id ="getRecentMessage"  resultType = "zipcok.chat.model.MessageDTO">
+
+select 
+a.*
+from
+(select *
+from message
+where
+msg_croom_idx = #{croom_idx}
+order by msg_sendtime desc)a
+where 
+rownum = 1
+</select>
+
+
+
 
 <select id ="isRoom" parameterType="zipcok.chat.model.ChatRoomDTO" resultType = "zipcok.chat.model.ChatRoomDTO">
 
@@ -60,23 +76,44 @@ croom_req_idx = #{croom_req_idx}
 
 
 
-
-
-
-<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomDTO">
+<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 select * from 
-chatroom
-WHERE
-croom_userid =   #{ id} 
+chatroom left outer join 
+(select 
+a.*
+from
+(select *
+from message
+order by msg_sendtime desc)a
+where 
+rownum = 1)msg
+
+on
+croom_userid = #{id} 
+and
+croom_idx= msg_croom_idx(+)
+
 
 </select>
 
 
-<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomDTO">
+<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 select * from 
-chatroom
-WHERE
-croom_coachid =  #{ id} 
+chatroom left outer join 
+(select 
+a.*
+from
+(select *
+from message
+order by msg_sendtime desc)a
+where 
+rownum = 1)msg
+
+on
+croom_coachid = #{id} 
+and
+croom_idx= msg_croom_idx(+)
+
 
 </select>
 

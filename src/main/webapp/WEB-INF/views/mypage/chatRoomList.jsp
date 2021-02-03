@@ -28,15 +28,14 @@ padding:0;
 	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
 	<td >
 	<dt>${cdto.croom_coachid }</dt>
-	<label>무언가넣자</label>
-	<br><label>마지막메세지같은거넣자</label>
-	<br><label>메세지보낸시각:2021-01-22</label>
+	<label><strong>보낸이:${cdto.msg_sender }</strong></label>
+	<br><label>${cdto.msg_content }</label>
+	<br><label>메세지보낸시각:${cdto.msg_sendtime }</label>
 	</td>
 	<td style="padding-top:0; text-align:right;"  valign="top"><label>생성일: ${cdto.croom_opendate }</label></td>
 	</tr>
 	<tr>
-	<td><p>메세지를넣을까?</p></td>
-	<td>
+	<td colspan="2" align="right">
 	
 	
 		<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
@@ -59,6 +58,9 @@ padding:0;
 	onclick="location.href='${delurl}'">
 	</td>
 	</tr>
+	
+		
+	
 </c:forEach>
 </tbody>
 </table>
