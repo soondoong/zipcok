@@ -7,7 +7,7 @@ import javax.websocket.EndpointConfig;
 
 import com.google.gson.Gson;
 
-import zipcok.almom.domain.MessageDTO;
+import zipcok.chat.model.*;
 
 public class MessageDecoder implements Decoder.Text<MessageDTO> {
 

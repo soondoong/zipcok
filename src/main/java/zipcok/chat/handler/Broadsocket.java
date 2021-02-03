@@ -12,24 +12,24 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import zipcok.almom.domain.MessageDTO;
-import zipcok.chat.model.ChatDAO;
-import zipcok.member.model.MemberDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import zipcok.chat.model.*;
+import zipcok.controller.ChatController;
+import zipcok.member.model.*;
 
 
 @ServerEndpoint(value = "/broadcasting/{id}/{name}/{roomidx}", 
 decoders = MessageDecoder.class, 
 encoders = MessageEncoder.class) //value = "/echo/{name}" name은 채팅참여 유저이름"
 public class Broadsocket  {
-
-
-	
+	@Autowired
+	private ChatDAO chatdao;
 	private static List<Session> sessionList = new ArrayList<>();
 	private static Map<String, String> userMap = new HashMap<>();
-
 	
-	  private static Set<Session> clients = Collections //세션에접속해있는 유저들
-	  .synchronizedSet(new HashSet<Session>());
+	//  private static Set<Session> sessionList  = Collections //세션에접속해있는 유저들
+	//  .synchronizedSet(new HashSet<Session>());
 
 	
 	// 클라이언트와 연결된 이후 호출되는 메소드
@@ -67,11 +67,40 @@ public class Broadsocket  {
 	    
 	    System.out.println(realname + "(" + realid + ")로부터 " + message.getMsg_content());
 		
+	     
 	    message.setUser_name(realname);
 	    message.setMsg_sender(realid);
 	    
-	    //받은메세지 디비에저장하기
 	    
+	  /* 
+		 int msg_croom_idx = message.getMsg_croom_idx(); //채팅방idx
+		 int msg_req_idx = message.getMsg_req_idx(); //요청서idx
+		 String msg_sender = message.getMsg_sender(); //세션기준되는아이디
+		String msg_receiver = message.getMsg_receiver(); //세션기준되는아이디
+		 String msg_content = message.getMsg_content(); //메세지내용
+		 String msg_sendtime = message.getMsg_sendtime(); //메세지보낸시간
+		 String msg_readtime = message.getMsg_readtime(); //메세지읽은시간
+		String msg_userid = message.getMsg_userid(); //고객아이디;
+		 String msg_coachid = message.getMsg_coachid(); //코치아이디;
+		String user_mfile_upload = message.getUser_mfile_upload();//보내는이프로필사진이름
+		 String receiver_mfile_upload = message.getReceiver_mfile_upload();//받는이프로필사진이름
+		String user_name = message.getUser_name(); // 보내는이 이름;
+		String receiver_user_name = message.getReceiver_user_name(); //받는이 이름;
+		
+	    	
+		 MessageDTO msgdto=new MessageDTO(0, msg_croom_idx, msg_req_idx, msg_sender, msg_receiver, msg_content, msg_sendtime, msg_readtime, msg_userid, msg_coachid, user_mfile_upload, receiver_mfile_upload, user_name, receiver_user_name, 1);
+		
+	    //받은메세지 디비에저장하기
+	     
+	    int result =0;
+		try {
+			result = chatdao.insertMessage(message);
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+		    if(result>0) {System.out.println("===msg저장성공====");}
+	 */
 	    broadcast(session, message);
 			
 	}
@@ -97,7 +126,7 @@ public class Broadsocket  {
 			userMap.remove(session.getId());	 //맵에있던 아이디지우기
 			userMap.remove(session.getId()+1);	//맵에있던 이름지우기
 			userMap.remove(session.getId()+2);	//맵에있던 채팅방번호지우기
-		    clients.remove(session);
+		   // clients.remove(session);
 	}
 	
 	@OnError
@@ -117,7 +146,7 @@ public class Broadsocket  {
 			    
 			   
 			    if (message.getMsg_receiver() == null || message.getMsg_receiver().equals("")) {
-	                // 귓속말 상대 toId 값이 없으면 모두에게 메시지 전송
+	                //  상대 값이 없으면 모두에게 메시지 전송
 			    	System.out.println("==getMsg_receiver");
 	                Basic basic = session.getBasicRemote();
 	                try {
@@ -130,7 +159,7 @@ public class Broadsocket  {
 			    	 String realid= userMap.get(session.getId());
 			    	 String roomidx_s= userMap.get(session.getId()+2);
 			    	 int roomidx = Integer.parseInt(roomidx_s);
-	                // 귓속말 상대인 toId 값이 있으면 해당 세션에만 메시지를 전송하고 빠져나옴
+	                //  상대 값이 있으면 해당 세션에만 메시지를 전송하고 빠져나옴
 	                if (message.getMsg_receiver().equals(realid) && message.getMsg_croom_idx()== roomidx) {
 	                	System.out.println("==귓말상대잇어==");
 	                    Basic basic = session.getBasicRemote();

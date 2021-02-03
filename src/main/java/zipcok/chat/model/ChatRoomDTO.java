@@ -1,4 +1,4 @@
-package zipcok.almom.domain;
+package zipcok.chat.model;
 
 import java.sql.Date;
 

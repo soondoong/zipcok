@@ -2,17 +2,14 @@ package zipcok.chat.model;
 
 
 import java.util.*;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import zipcok.almom.domain.ChatRoomDTO;
-import zipcok.almom.domain.MessageDTO;
 import zipcok.coach.model.RequestFormDTO;
+
+
 @Service
-@Repository
 public class ChatDAOImple implements ChatDAO{
 	
 	@Autowired
@@ -43,8 +40,8 @@ public class ChatDAOImple implements ChatDAO{
 	
 	/*채팅방목록 뽑아오기*/
 	@Override
-	public List<ChatRoomDTO> allChatRoomList(String id,String sqlkey) {
-		 List<ChatRoomDTO> list= sqlMap.selectList(sqlkey,id);
+	public List<ChatRoomListDTO> allChatRoomList(String id,String sqlkey) {
+		 List<ChatRoomListDTO> list= sqlMap.selectList(sqlkey,id);
 		 			
 		return list;
 	}
@@ -67,10 +64,9 @@ public class ChatDAOImple implements ChatDAO{
 
 	/*메세지 저장하기*/
 	@Override
-	public void insertMessage(MessageDTO dto) {
-
-		
-		sqlMap.insert("insertMessage" , dto);
+	public int insertMessage(MessageDTO dto)throws Exception {
+		int count=sqlMap.insert("insertMessage" , dto);
+		return count;
 	}
 
 	/* 상담요청서idx로 채팅방정보찾기 */

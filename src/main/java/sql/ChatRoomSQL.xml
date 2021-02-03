@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="zipcok.almon">
+  <mapper namespace="zipcok.chat">
  
-<insert id = "createRoom" parameterType="zipcok.almom.domain.ChatRoomDTO">
+<insert id = "createRoom" parameterType="zipcok.chat.model.ChatRoomDTO">
 insert into  
 chatroom
 values (
@@ -18,7 +18,43 @@ sysdate
 </insert>
 
 
-<select id ="isRoom" parameterType="zipcok.almom.domain.ChatRoomDTO" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<insert id = "insertMessage" parameterType="zipcok.chat.model.MessageDTO">
+insert into  
+message
+values (
+message_idx.nextval ,
+#{msg_croom_idx},
+#{msg_req_idx},
+#{msg_sender}, 
+#{msg_receiver},
+#{msg_userid},
+#{msg_coachid}, 
+#{msg_content},
+#{msg_sendtime},
+#{msg_readtime},
+0
+)
+</insert>
+
+
+<select id ="getRecentMessage"  resultType = "zipcok.chat.model.MessageDTO">
+
+select 
+a.*
+from
+(select *
+from message
+where
+msg_croom_idx = #{croom_idx}
+order by msg_sendtime desc)a
+where 
+rownum = 1
+</select>
+
+
+
+
+<select id ="isRoom" parameterType="zipcok.chat.model.ChatRoomDTO" resultType = "zipcok.chat.model.ChatRoomDTO">
 
 select * from 
 chatroom
@@ -30,7 +66,7 @@ croom_req_idx = #{croom_req_idx}
 </select>
 
 
-<select id ="findRoomInfo"  resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="findRoomInfo"  resultType = "zipcok.chat.model.ChatRoomDTO">
 
 select * from 
 chatroom
@@ -40,23 +76,44 @@ croom_req_idx = #{croom_req_idx}
 
 
 
-
-
-
-<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 select * from 
-chatroom
-WHERE
-croom_userid =   #{ id} 
+chatroom left outer join 
+(select 
+a.*
+from
+(select *
+from message
+order by msg_sendtime desc)a
+where 
+rownum = 1)msg
+
+on
+croom_userid = #{id} 
+and
+croom_idx= msg_croom_idx(+)
+
 
 </select>
 
 
-<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.almom.domain.ChatRoomDTO">
+<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 select * from 
-chatroom
-WHERE
-croom_coachid =  #{ id} 
+chatroom left outer join 
+(select 
+a.*
+from
+(select *
+from message
+order by msg_sendtime desc)a
+where 
+rownum = 1)msg
+
+on
+croom_coachid = #{id} 
+and
+croom_idx= msg_croom_idx(+)
+
 
 </select>
 
@@ -66,6 +123,7 @@ delete chatroom
 where 
 croom_idx = #{croom_idx}
 </delete>
+
 
 
   </mapper>

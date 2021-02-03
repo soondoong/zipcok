@@ -21,7 +21,7 @@ public class MemberAllDTO {
 	private int mem_out;
 	private Date mem_outdate;
 	private String mem_type;
-	private String mfile_upload;
+	private String mfile_upload; //회원프로필사진
 	
 	public MemberAllDTO() {
 		// TODO Auto-generated constructor stub
