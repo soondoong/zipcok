@@ -80,7 +80,7 @@ function changeDeln(){
 				<tr>
 					<td colspan="3"><textarea rows="6" cols="70"
 							name="bbs_content" placeholder="내용을 입력해주세요"
-							style="width: 800px; height: 200px;">${dto.bbs_content } </textarea></td>
+							style="white-space: pre-line; width: 800px; height: 200px;">${dto.bbs_content } </textarea></td>
 				</tr>
 				<tr>
 					<td><input type="file" name="upload" onclick="javascript:changeDeln()" value="사진수정"></td>

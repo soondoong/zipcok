@@ -42,7 +42,7 @@
 				<img src="/zipcok/upload/notice/${List.zfile_upload}">
 				</div>
 				</c:forEach>
-				<div class="view_content">${dto.bbs_content}</div>
+				<div class="view_content"><textarea rows="6" cols="80" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea></div>
 			</div>
 			<div class="view_navi">
 				<dl>

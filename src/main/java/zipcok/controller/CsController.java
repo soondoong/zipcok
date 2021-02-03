@@ -22,8 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.cs.model.CsDAO;
 import zipcok.cs.model.CsDTO;
+import zipcok.cs.model.CsReDTO;
 import zipcok.cs.model.CsZipcokFileDTO;
-import zipcok.notice.model.ZipcokFileDTO;
 
 
 @Controller
@@ -173,7 +173,7 @@ public class CsController {
 			for(int i=0;i<list.size();i++) {
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 				int zfile_bbs_idx=csMaxIdx;
-				String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
+				String zfile_path=c.getRealPath("/upload/cs/"); //저장되는 경로
 				String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 				String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
 				String zfile_mem_id = "admin";
@@ -204,14 +204,32 @@ public class CsController {
 		public ModelAndView goCsContent(
 				@RequestParam(value="bbs_idx",defaultValue = "0")int bbs_idx) {
 			CsDTO dto=csDao.csContent(bbs_idx);
+			csDao.csReadnum(bbs_idx);//조회수 증가
 			
 			
 			
 			List<CsZipcokFileDTO> list=csDao.CsZfileSelect(bbs_idx);
 			ModelAndView mav=new ModelAndView();
-			mav.addObject("list",list);
+			mav.addObject("csFileList",list);
 			mav.addObject("dto",dto);
 			mav.setViewName("cs/csContent");
+			return mav;
+		}
+		
+		//고객센터 게시판 답변작성
+		@RequestMapping("csReWrite.do")
+		public ModelAndView csReWrite(
+				@RequestParam("bbs_idx")int bbs_idx, CsReDTO dto) {
+			
+			
+			dto.setRe_bbs_idx(bbs_idx);
+			int result=csDao.csReWrite(dto);
+			System.out.println(dto.getRe_bbs_idx());
+			String msg=result>0?"답변 작성 성공!":"답변 작성 실패!";
+			ModelAndView mav=new ModelAndView();
+			mav.addObject("msg", msg);
+			mav.addObject("gopage", "csContent.do?bbs_idx="+bbs_idx);
+			mav.setViewName("cs/csMsg");
 			return mav;
 		}
 }

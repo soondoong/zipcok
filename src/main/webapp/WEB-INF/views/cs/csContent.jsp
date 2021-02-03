@@ -21,6 +21,14 @@
    location.href = 'csList.do';
    </script>
    </c:if>
+   <script>
+   function rewriteview(){
+	   document.getElementById('reWriteView').style.display='block';
+   }
+   function csReWrite(){
+	   location.href='csReWrite.do';
+   }
+   </script>
    <div id="container">
 	<div class="page_top_visual">
 		<div class="common_page_title">
@@ -42,6 +50,7 @@
 			.content_view_wrap .view_navi dl {position: relative; padding: 0 0 0 160px; margin: 0;}
 			.content_view_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dd {margin: 0; padding: 0 20px; line-height: 40px; border-bottom: 1px solid #dddddd;}
+			.view body {padding: 30px 20px 50px;}
 		</style>
 		<article class="content_view_wrap">
 			<div class="view_head">
@@ -52,10 +61,14 @@
 				</div>
 			</div>
 			<div class="view_body">
-				<c:forEach var="List" items="${list}">
-				<img alt="${List.zfile_upload }" src="/zipcok/upload/cs/${List.zfile_upload}">
+				<c:forEach var="csFileList" items="${csFileList}">
+				<div>
+				<img src="/zipcok/upload/cs/${csFileList.zfile_upload}">
+				</div>
 				</c:forEach>
-				<div class="view_content">${dto.bbs_content}</div>
+				<div class="view_content">
+					<textarea rows="6" cols="80" placeholder="내용을 입력해주세요" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea>
+				</div>
 			</div>
 		
 		</article>
@@ -68,6 +81,13 @@
 				<a href="csDelete.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">삭제하기</a>
 				<a href="csUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
 			</div>
+		</div>
+		<hr>
+		
+		<div>
+			<div><input type="button" value="답변달기" onclick="rewriteview()"></div>
+			<div id="reWriteView" style="display: none;"><textarea rows="6" cols="80" style="height: 300px;" name="re_content"></textarea>
+			<div><input type="button" value="답변등록하기" onclick="csReWrite()"></div></div>
 		</div>
 	</div>
 </div>

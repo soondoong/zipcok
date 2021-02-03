@@ -75,15 +75,14 @@ function changeDeln(){
 					<tr>
 						<td colspan="3" class="imgtd"><img id="noticeImg"
 							alt="${List.zfile_upload }"
-							src="/zipcok/upload/notice/${List.zfile_upload}" width="800px;"
+							src="/zipcok/upload/notice/${List.zfile_upload}" width="600px;"
 							height="500px;"></td>
 					</tr>
 
 				</c:forEach>
 				<tr>
-					<td colspan="3"><textarea rows="6" cols="70"
-							name="bbs_content" placeholder="내용을 입력해주세요"
-							style="width: 800px; height: 200px;">${dto.bbs_content } </textarea></td>
+					<td colspan="3"><textarea rows="6" cols="70" name="bbs_content" placeholder="내용을 입력해주세요"
+							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content } </textarea></td>
 				</tr>
 				<tr>
 					<td><input type="file" name="upload" onclick="javascript:changeDeln()" value="사진수정"></td>
