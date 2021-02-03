@@ -11,10 +11,11 @@
     <mapper resource="sql/CoachMypageSQL.xml"/>
     <mapper resource="sql/exbbsSQL.xml"/>
     <mapper resource="sql/foodbbsSQL.xml"/>
+    <mapper resource="sql/commMainSQL.xml"/>
     <mapper resource="sql/coachSQL.xml"/>
     <mapper resource="sql/homegymSQL.xml"/>
     <mapper resource="sql/csSQL.xml"/>
-     <mapper resource="sql/ChatRoomSQL.xml"/>
+    <mapper resource="sql/ChatRoomSQL.xml"/>
     
   </mappers>
 </configuration>

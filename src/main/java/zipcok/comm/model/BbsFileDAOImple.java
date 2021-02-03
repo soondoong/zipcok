@@ -17,7 +17,7 @@ public class BbsFileDAOImple implements BbsFileDAO {
 		int count=0;
 		
 		for(int i=0; i<fileArr.size(); i++) {
-		count+=sqlMap.insert("insertBbsFile",fileArr.get(i));
+		count+=sqlMap.insert("insertBbsFileSQL",fileArr.get(i));
 		}
 		return count;
 	}

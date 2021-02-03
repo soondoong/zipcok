@@ -13,6 +13,8 @@
 <div class="content">
 <h1>일일 운동 게시판 글쓰기</h1>
 <form name="dailyWrite" action="commDailyWrite.do" method="post" enctype="multipart/form-data">
+<input type="hidden" name="ex_comm_idx" value="${com_idx}">
+
 	<table class="content">
 		<tr>
 			<th>제목</th>
@@ -35,7 +37,7 @@
 			<td colspan="2"><input type="text" name="ex_cal"><input type="button" value="수정"></td>
 		</tr>
 		<tr>
-			<td colspan="3"><textarea cols="120" rows="10" name="ex_content"></textarea></td>
+			<td colspan="3"><textarea cols="120" rows="10" name="ex_content" style="white-space: pre-line;"></textarea></td>
 		</tr>
 		<tr>
 			<td colspan="3" style="text-align: right"><input type="reset" value="처음부터 쓰기"><input type="submit" value="글쓰기"></td>

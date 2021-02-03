@@ -4,7 +4,8 @@ import java.util.*;
 
 public interface CommunityDAO {
 	
-	public List commList(String mem_id, String mem_type);
+	public CommunityDTO commList(String mem_id, String mem_type);
+	public String getCaochName(String com_coach_id);
 	
 	
 

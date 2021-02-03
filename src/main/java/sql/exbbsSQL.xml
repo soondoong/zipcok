@@ -8,7 +8,7 @@
 		insert into
 			exer_bbs
 		values(exer_bbs_idx.nextval,
-				'?',
+				#{ex_comm_idx},
 				'한슬',
 				#{ex_subject},
 				#{ex_content},
