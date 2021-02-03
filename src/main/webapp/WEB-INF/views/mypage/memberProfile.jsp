@@ -73,6 +73,9 @@ function mypagePhoneUpdate(){
 				name="mem_phone" value="${dto.mem_phone }"></label> <input
 				type="button" value="수정하기" onclick="mypagePhoneUpdate()">
 		</div>
+		<div>
+		<a href="memberDeleteForm.do?mem_id=${sessionScope.sid}'">[회원탈퇴]</a>
+		</div>
 	</div>
 </body>
 </html>

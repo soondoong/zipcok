@@ -133,6 +133,24 @@ ServletContext c;
 			return mav;
 		}
 	
+		
+		//코치마이페이지 F&A/고객센터 작성글 목록
+		@RequestMapping("/coachMypageWriteList.do")
+		public ModelAndView mypageWriteList(HttpSession session,
+				@RequestParam(value = "cp", defaultValue = "1")int cp) {
+			
+			int totalCnt=cdao.coachMypageHomeGymLikeListTotalCnt((String)session.getAttribute("coachId"));
+			int listSize=3;
+			int pageSize=3;
+			String pageStr=zipcok.page.MypagePageModule.makePage("coachMypageWriteList.do", totalCnt, cp, listSize, pageSize);
+			List list = cdao.coachMypageWriteList(cp, listSize, (String)session.getAttribute("coachId"));
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", list);
+			mav.addObject("pageStr", pageStr);
+			mav.setViewName("coachMyPage/coachMypageWriteList");
+			
+			return mav;
+		}
 	
 	
 	

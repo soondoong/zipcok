@@ -50,5 +50,26 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		return list;
 	}
 	
+	//F&A 고객센터 작성글 총 수
+	@Override
+	public int coachMypageWriteListTotalCnt(String mem_id) {
+		int count=sqlMap.selectOne("coachMypageWriteListTotalCnt", mem_id);
+		return count==0?1:count;
+	}
+	
+	//F&A 고객센터 작성글 목록
+	@Override
+	public List coachMypageWriteList(int cp, int ls, String mem_id) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("mem_id", mem_id);
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlMap.selectList("coachMypageWriteList", map);
+		
+		return list;
+	}
+	
 	
 }

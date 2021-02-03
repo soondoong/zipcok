@@ -49,6 +49,21 @@ rownum between #{start} and #{end}
 	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='홈짐' order by like_idx desc)a)b
 	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	 </select>	
+	 
+	 <!-- F&A/고객센터 총 개시글 수 -->
+	<select id="coachMypageWriteListTotalCnt" resultType="Integer">
+		select count(*) from
+	 	(select rownum as rnum,a.* from
+	 	(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc)a)b
+	</select>
+	
+	<!-- F&A/고객센터 글목록 -->
+	<select id="coachMypageWriteList"  resultType="zipcok.cs.model.CsDTO">
+		select * from
+		(select rownum as rnum,a.* from
+		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc) a) b
+		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
 	
   
   </mapper>

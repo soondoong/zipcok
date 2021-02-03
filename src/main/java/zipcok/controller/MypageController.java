@@ -34,6 +34,7 @@ public class MypageController {
 		ModelAndView mav= new ModelAndView();
 		MemberDTO dto=dao.memberProfile((String)session.getAttribute("sid"));
 		CoachFileDTO cdto=dao.memberProfilePhoto((String)session.getAttribute("sid"));
+		
 	
 		mav.addObject("dto", dto);
 		mav.addObject("cdto", cdto);
@@ -174,7 +175,7 @@ public class MypageController {
 	public ModelAndView mypageWriteList(HttpSession session,
 			@RequestParam(value = "cp", defaultValue = "1")int cp) {
 		
-		int totalCnt=dao.mypageWriteListTotalCnt();
+		int totalCnt=dao.mypageWriteListTotalCnt((String)session.getAttribute("sid"));
 		int listSize=3;
 		int pageSize=3;
 		String pageStr=zipcok.page.MypagePageModule.makePage("mypageWriteList.do", totalCnt, cp, listSize, pageSize);
@@ -213,7 +214,7 @@ public class MypageController {
 		return mav;
 	}
 	
-	//마이페이지 코치매칭 좋아요 목록
+		//마이페이지 코치매칭 좋아요 목록
 		@RequestMapping("/mypageCoachMatchLikeList.do")
 		public ModelAndView mypageCoachMatchLikeList(HttpSession session,
 				@RequestParam(value = "cp", defaultValue = "1")int cp) {
@@ -231,5 +232,37 @@ public class MypageController {
 			
 			return mav;
 		}
+		
+		//회원탈퇴 폼
+		@RequestMapping("/memberDeleteForm.do")
+		public String memberDeleteForm() {
+			
+			return "mypage/memberDeleteForm";
+		}
+		
+		//회원탈퇴
+		@RequestMapping("/memberDelete.do")
+		public ModelAndView memberDelete(HttpSession session,
+				@RequestParam("mem_pwd")String mem_pwd,
+				@RequestParam("mem_pwd2")String mem_pwd2) {
+			
+			ModelAndView mav = new ModelAndView();
+			if(mem_pwd.equals(mem_pwd2)) {
+				int result=dao.memberDelete((String)session.getAttribute("sid"));
+				session.invalidate();
+				mav.addObject("msg", "회원탈퇴 하셨습니다~");
+				mav.addObject("gourl", "index.do");
+				mav.setViewName("mypage/mypageMsg");
+			}else {
+				mav.addObject("msg", "비밀번호가 일치하지않습니다.");
+				mav.addObject("gourl", "memberProfileForm.do");
+				mav.setViewName("mypage/mypageMsg");
+			}
+			return mav;
+		}
+		
+		
+		
+		
 	
 }

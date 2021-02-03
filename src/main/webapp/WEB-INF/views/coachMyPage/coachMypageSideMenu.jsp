@@ -20,7 +20,7 @@ font-size : 25px;
 			<br>
 			<li class="sidemenuli" id="sideFont"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
 			<br>
-			<li class="sidemenuli" id="sideFont"><a href="#">작성글관리</a></li>
+			<li class="sidemenuli" id="sideFont"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
 			<br>
 			<li class="sidemenuli" id="sideFont"><a href="#">결제내역</a></li>		
 		</ul>
