@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
 
 public interface HomeGymDAO {
 	public boolean HomeGymCheck(String id);
@@ -15,4 +16,5 @@ public interface HomeGymDAO {
 	public int HomeGymAddPrice();
 	public HomeGymDTO HomeGymContent(String homegymId);
 	public List<CoachFileDTO> HomeGymImageContent(String homegymId);
+	public List<ReviewDTO> HomeGymReview(String homegymId);
 }

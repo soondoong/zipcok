@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
@@ -123,10 +126,12 @@ public class HomeGymController {
 		HomeGymDTO hgContent = homegymDAO.HomeGymContent(homegymId);
 		List<HomeGymEquipmentDTO> eqContent = homegymeqDAO.HomeGymEquipmentContent(homegymId);
 		List<CoachFileDTO> imgContent = homegymDAO.HomeGymImageContent(homegymId);
+		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(homegymId);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);
 		mav.addObject("eqContent", eqContent);
 		mav.addObject("imgContent", imgContent);
+		mav.addObject("reviewList", reviewList);
 		mav.setViewName("homegym/hgContent");
 		return mav;
 	}
@@ -142,8 +147,19 @@ public class HomeGymController {
 	}
 	
 	@RequestMapping("HomeGymAddNotice.do")
-	public String HomeGymAddNoticeForm() {
-		return "homegym/hgAddNotice";
+	public ModelAndView HomeGymAddNoticeForm(
+			HttpSession se) {
+		String user_id = (String)se.getAttribute("sid");
+		if(user_id==null) {
+			user_id = (String)se.getAttribute("coachid");
+		}
+		System.out.println(user_id);
+		boolean check_result = homegymDAO.HomeGymCheck(user_id);
+		System.out.println(check_result);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("check_result", check_result);
+		mav.setViewName("homegym/hgAddNotice");
+		return mav;
 	}
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.GET)
