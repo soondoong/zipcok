@@ -58,7 +58,9 @@ mfile_key='회원프로필'
 	
 	<!-- F&A/고객센터 총 개시글 수 -->
 	<select id="mypageWriteListTotalCnt" resultType="Integer">
-		select count(*) from zipcok_bbs
+		select count(*) from
+	 	(select rownum as rnum,a.* from
+	 	(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc)a)b
 	</select>
 	
 	<!-- F&A/고객센터 글목록 -->
@@ -98,6 +100,11 @@ mfile_key='회원프로필'
 	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='코치매칭' order by like_idx desc)a)b
 	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	 </select>
+	 
+	 <!-- 회원탈퇴 -->
+	 <delete id="memberDelete" parameterType="zipcok.member.model.MemberDTO">
+	 delete from zipcok_member where mem_id=#{mem_id}
+	 </delete>
 
 
 </mapper>

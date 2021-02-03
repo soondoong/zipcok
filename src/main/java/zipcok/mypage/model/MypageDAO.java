@@ -16,11 +16,12 @@ public interface MypageDAO {
 	public int mypageAddrUpdate(MemberDTO dto);
 	public int mypageEmailUpdate(MemberDTO dto);
 	public int mypagePhoneUpdate(MemberDTO dto);
-	public int mypageWriteListTotalCnt();
+	public int mypageWriteListTotalCnt(String mem_id);
 	public List mypageWriteList(int cp, int ls, String mem_id);
 	public int mypageHomeGymLikeListTotalCnt(String mem_id);
 	public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
 	public int mypageCoachMatchLikeListTotalCnt(String mem_id);
 	public List mypageCoachMatchLikeList(int cp, int ls, String mem_id);
+	public int memberDelete(String mem_id);
 
 }

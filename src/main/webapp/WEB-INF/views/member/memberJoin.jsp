@@ -39,7 +39,7 @@ $(document).ready(function() {
    var address = $('#mem_detailaddr');
    
    //아이디 중복확인
-  
+  /*
    $("#mem_id").blur(function() {
        if($('#mem_id').val()==''){
           $('#id_check').text('아이디를 입력하세요.');
@@ -88,12 +88,13 @@ $(document).ready(function() {
           }//else if
         
  });//blur
+ */
 
  
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
         
-        
+        /*
          if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
          } else {
@@ -101,7 +102,7 @@ $(document).ready(function() {
             alert('아이디를  확인하세요.');
             return false;
          } 
-        
+        */
          
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
@@ -167,7 +168,7 @@ $(document).ready(function() {
       
        });
 
-
+	/*
    $('#mem_id').blur(function() {
       if (idJ.test($('#mem_id').val())) {
          console.log('true');
@@ -178,6 +179,7 @@ $(document).ready(function() {
          $('#id_check').css('color', 'red');
       }
    });
+	*/
 
    $('#mem_pwd').blur(function() {
       if (pwJ.test($('#mem_pwd').val())) {

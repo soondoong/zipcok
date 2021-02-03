@@ -73,8 +73,8 @@ public class MypageDAOImple implements MypageDAO {
 	
 	//F&A 고객센터 작성글 총 수
 	@Override
-	public int mypageWriteListTotalCnt() {
-		int count=sqlMap.selectOne("mypageWriteListTotalCnt");
+	public int mypageWriteListTotalCnt(String mem_id) {
+		int count=sqlMap.selectOne("mypageWriteListTotalCnt", mem_id);
 		return count==0?1:count;
 	}
 	
@@ -134,6 +134,11 @@ public class MypageDAOImple implements MypageDAO {
 			return list;
 		}
 	
+		@Override
+		public int memberDelete(String mem_id) {
+			int count = sqlMap.delete("memberDelete", mem_id);
+			return count;
+		}
 
 	
 }
