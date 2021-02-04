@@ -30,6 +30,8 @@ import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+import zipcok.homegym.model.PaymentDAO;
+import zipcok.homegym.model.PaymentDTO;
 
 @Controller
 public class HomeGymController {
@@ -39,6 +41,8 @@ public class HomeGymController {
 	
 	@Autowired
 	private HomeGymEquipmentDAO homegymeqDAO;
+	@Autowired
+	private PaymentDAO homegympayDAO;
 	
 	@Autowired
 	ServletContext c;
@@ -148,14 +152,14 @@ public class HomeGymController {
 	
 	@RequestMapping("HomeGymAddNotice.do")
 	public ModelAndView HomeGymAddNoticeForm(
-			HttpSession se) {
-		String user_id = (String)se.getAttribute("sid");
-		if(user_id==null) {
-			user_id = (String)se.getAttribute("coachid");
+			HttpSession session) {
+		boolean check_result = false;
+		
+		if(session.getAttribute("sid")!=null) {
+			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("sid"));
+		}else if(session.getAttribute("coachid")!=null) {
+			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("coachid"));
 		}
-		System.out.println(user_id);
-		boolean check_result = homegymDAO.HomeGymCheck(user_id);
-		System.out.println(check_result);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("check_result", check_result);
 		mav.setViewName("homegym/hgAddNotice");
@@ -192,10 +196,11 @@ public class HomeGymController {
 	public ModelAndView HomeGymAdd(HomeGymDTO dto, String eq_name[], int eq_count[],
 			@RequestParam("upload")List<MultipartFile> list) {
 		int hg_result = homegymDAO.HomeGymAdd(dto);
+		String user_id = dto.getHg_mem_id();
 		int eq_result = 0;
 		for(int i = 0; i < eq_name.length; i++) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("eq_mem_id", dto.getHg_mem_id());
+			map.put("eq_mem_id", user_id);
 			map.put("eq_name", eq_name[i]);
 			map.put("eq_count", eq_count[i]);
 			eq_result = homegymeqDAO.HomeGymEquipmentAdd(map);
@@ -207,7 +212,7 @@ public class HomeGymController {
 			String mfile_upload=copyInto( list.get(i), mfile_path);	//파일저장후 새로운이름생성됨
 			String mfile_orig=list.get(i).getOriginalFilename(); //파일원본명
 			String mfile_key="홈짐"; //파일저장 구분키
-			String mfile_mem_id=dto.getHg_mem_id();
+			String mfile_mem_id=user_id;
 			int mfile_size=(int)(list.get(i).getSize());
 
 			String mfile_type=list.get(i).getContentType();
@@ -218,8 +223,9 @@ public class HomeGymController {
 		int fu_result = homegymDAO.HomeGymImgUpload(fileArr);
 		ModelAndView mav = new ModelAndView();
 		String msg = hg_result>0&&eq_result>0&&fu_result>0?"홈짐 등록이 정상적으로 처리되었습니다.":"등록에 실패하였습니다.";
+		String goPage = msg.equals("홈짐 등록이 정상적으로 처리되었습니다.")?"HomeGymPaymentAdd.do":"HomeGymList.do";
 		mav.addObject("msg", msg);
-		mav.addObject("goPage", "HomeGymList.do");
+		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgMsg");
 		return mav;
 	}
@@ -227,7 +233,7 @@ public class HomeGymController {
 	private String copyInto(MultipartFile upload, String path) {
 		
 		try {
-	        Calendar cal = Calendar.getInstance()  ;
+	        Calendar cal = Calendar.getInstance();
 	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmSS");
 	        String time = dateFormat.format(cal.getTime());
 	        String random=RandomStringUtils.randomAlphabetic(8);
@@ -245,10 +251,24 @@ public class HomeGymController {
 		}	
 	}
 	
-	@RequestMapping("HomeGymCardAdd.do")
-	public String HomeGymCardAddForm() {
-		return "homegym/hgCardAddView";
+	@RequestMapping(value = "HomeGymPaymentAdd.do", method = RequestMethod.GET)
+	public String HomeGymPaymentAddForm() {
+		return "homegym/hgPaymentAddView";
 	}
+	@RequestMapping(value = "HomeGymPaymentAdd.do", method = RequestMethod.POST)
+	public ModelAndView HomeGymPaymentAdd(PaymentDTO dto,
+			@RequestParam("hg_mem_id")String user_id) {
+		dto.setHg_mem_id(user_id);
+		int result = homegympayDAO.HomeGymPaymentAdd(dto);
+		ModelAndView mav = new ModelAndView();
+		String msg = result>0?"계좌가 성공적으로 등록되었습니다.":"계좌 등록에 오류가 발생하였습니다.";
+		String goPage = result>0?"index.do":"HomeGymPaymentAdd.do";
+		mav.addObject("msg", msg);
+		mav.addObject("goPage", goPage);
+		mav.setViewName("homegym/hgMsg");
+		return mav;
+	}
+	
 	@RequestMapping("HomeGymAddrPopup.do")
 	public String HomeGymAddrPopup() {
 		return "homegym/hgAddrPopup";

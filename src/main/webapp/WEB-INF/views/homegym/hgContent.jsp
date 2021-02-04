@@ -21,9 +21,14 @@ function hgContent_setting(){
 		var start_option = document.createElement('option');
 		var end_option = document.createElement('option');
 		start_option.setAttribute('value', i);
-		start_option.innerText = i;
 		end_option.setAttribute('value', i);
-		end_option.innerText = i;
+		var numberTrans = i;
+		if(i < 10){
+			numberTrans = '0'+i;
+
+		}
+		start_option.innerText = numberTrans+':00';
+		end_option.innerText = numberTrans+':00';
 		document.getElementById('choice_start_time').appendChild(start_option);
 		document.getElementById('choice_end_time').appendChild(end_option);
 	}
@@ -47,7 +52,6 @@ function price_result(){
 	var start_time = document.getElementById('choice_start_time').value;
 	var end_time = document.getElementById('choice_end_time').value;
 	var reservation_time = end_time - start_time;
-	window.alert(reservation_time);
 	if(reservation_time<1){
 		window.alert('종료 시간은 시작시간보다 커여합니다.');
 		document.getElementById('choice_end_time').value = '-';
@@ -56,9 +60,46 @@ function price_result(){
 
 	var recent_price = document.getElementById('expect_price');
 	recent_price.innerText = homegym_price * reservation_time;
-	window.alert(recent_price.innerText);
+}
+function reservation(){
+	var use_date = document.getElementById('choice_date').value;
+	var use_start_time = document.getElementById('choice_start_time').value
+	var use_end_time = document.getElementById('choice_end_time').value;
+	var use_person_count = document.getElementById('choice_person_count').value;
+	var use_price = document.getElementById('expect_price').innerText;
+	var use_time = use_end_time - use_start_time;
+	if(use_date == '' || use_start_time == '' || use_end_time ==''){
+		window.alert('옵션을 확인해주세요.');
+		return;
+	}
+	if(use_start_time < 10){
+		use_start_time = '0'+use_start_time;
+	}
+	if(use_end_time < 10){
+		use_end_time = '0'+use_end_time;
+	}
+	use_start_time +=':00';
+	use_end_time +=':00';
+	
+	var reservationInfo = document.getElementById('reservationInfo');
+	document.getElementById('reservationInfo').style.display = 'none';
+	document.getElementById('reservationInfo_click').style.display = 'block';
+	
+	document.getElementById('use_date').innerHTML=use_date+'<input type = "hidden" name = "use_date" value = "'+use_date+'">';
+	document.getElementById('use_time').innerHTML=use_start_time+'-'+use_end_time+'/'+use_time+'시간'+'<input type = "hidden" name = "use_time" value = "'+use_time+'">';
+	document.getElementById('use_person_count').innerHTML=use_person_count+'<input type = "hidden" name = "use_person_count" value = "'+use_person_count+'">';
+	document.getElementById('use_price').innerHTML=use_price+'<input type = "hidden" name = "use_price" value = "'+use_price+'">';
+	window.alert(use_price);
+}
+function reservation_click(){
+	
+}
+function reservation_back_click(){
+	document.getElementById('reservationInfo').style.display = 'block';
+	document.getElementById('reservationInfo_click').style.display = 'none';
 }
 </script>
+
 <style>
 #top_info{
 background-color:blue;
@@ -84,6 +125,9 @@ height:250px;
 .eqList{
 border:1px solid black;
 }
+#reservationInfo_click{
+display:none;
+}
 </style>
 </head>
 <body onload = "javascript:hgContent_setting();">
@@ -97,38 +141,38 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 <img src = "upload/homegymInfo/${img.mfile_upload }">
 </c:forEach>
 </div>
-<div id = "reservationArea">
 <input type = "button" value = "목록으로" onclick = "javascript:location.href='HomeGymList.do'">
-${hgContent.hg_nickname }님의 홈짐<br>
-<table>
-	<tr>
-		<th>이용 일자</th>
-		<td><input id = "choice_date" type = "date"></td>
-	</tr>
-	<tr>
-		<th>이용 시간</th>
-		<td>
-		<select id = "choice_start_time" name = "choice_start_time">
-		<option value = '-'>시작 시간
-		</select>
-		-
-		<select id = "choice_end_time" name = "choice_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();">
-		<option value = '-'>종료 시간
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<th>이용 인원</th>
-		<td>
-		<select id = "choice_person_count"></select>
-		</td>
-	</tr>
-	<tr>
-		<th>결제 예상 금액</th>
-		<td><label id = "expect_price">${hgContent.hg_price }</label>원</td>
-	</tr>
-</table>
-<input type = "button" value = "홈짐 예약하기" onclick = "javascript:location.href='HomeGymReservation.do'">
+<div id = "reservationArea">
+	${hgContent.hg_nickname }님의 홈짐<br>
+	<ul id = "reservationInfo">
+		<li>이용 일자</li>
+		<li><input id = "choice_date" type = "date"></li>
+		<li>이용 시간</li>
+		<li><select id = "choice_start_time" name = "choice_start_time"><option value = "">시작 시간</option></select>
+			-
+			<select id = "choice_end_time" name = "choice_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();"><option value = "">종료 시간</option></select></li>
+		<li>이용 인원</li>
+		<li><select id = "choice_person_count"></select></li>
+		<li>결제 예상 금액</li>
+		<li><label id = "expect_price">${hgContent.hg_price }</label>원</li>
+		<li><input type = "button" value = "홈짐 예약하기" onclick = "javascript:reservation();"></li>
+	</ul>
+	<ul id = "reservationInfo_click">
+		<li>이용 일자</li>
+		<li id = "use_date">
+		<input type = "text" id = "use_date_hidden" name = "use_date">
+		</li>
+		<li>이용 시간</li>
+		<li id = "use_time"><input type = "hidden" id = "use_time_hidden" name = "use_time"></li>
+		<li>이용 인원</li>
+		<li id = "use_person_count"><input type = "hidden" id = "use_person_count_hidden" name = "use_person_count"></li>
+		<li>결제 예상 금액</li>
+		<li><label id = "use_price"><input type = "hidden" id = "use_price_hidden" name = "use_price"></label>원</li>
+		<li>
+		<input type = "button" value = "결제하기" onclick = "javascript:reservation_click();">
+		<input type = "button" value = "돌아가기" onclick = "javascript:reservation_back_click();">
+		</li>
+	</ul>
 </div>
 <div id = "hgContent">
 	<h3>홈짐 소개</h3>

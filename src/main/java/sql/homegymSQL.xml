@@ -109,4 +109,14 @@
 	<select id="homegymCheckSQL" parameterType="String" resultType="Integer">
 	select count(*) from homegym where hg_mem_id = #{value}
 	</select>
+	<insert id = "PaymenAddSQL" parameterType="zipcok.homegym.model.PaymentDTO">
+	insert into zipcok_payment values(
+	pa_idx.nextval,
+	#{hg_mem_id},
+	'홈짐',
+	#{pa_bankname},
+	#{pa_no},
+	#{pa_username}
+	)
+	</insert>
 </mapper>

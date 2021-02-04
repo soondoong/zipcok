@@ -3,6 +3,7 @@ package zipcok.homegym.model;
 public class PaymentDTO {
 	private int pa_idx;
 	private String hg_mem_id;
+	private String pa_key;
 	private String pa_bankname;
 	private String pa_no;
 	private String pa_username;
@@ -18,6 +19,12 @@ public class PaymentDTO {
 	}
 	public void setHg_mem_id(String hg_mem_id) {
 		this.hg_mem_id = hg_mem_id;
+	}
+	public String getPa_key() {
+		return pa_key;
+	}
+	public void setPa_key(String pa_key) {
+		this.pa_key = pa_key;
 	}
 	public String getPa_bankname() {
 		return pa_bankname;
@@ -40,14 +47,17 @@ public class PaymentDTO {
 	public PaymentDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public PaymentDTO(int pa_idx, String hg_mem_id, String pa_bankname, String pa_no, String pa_username) {
+	public PaymentDTO(int pa_idx, String hg_mem_id, String pa_key, String pa_bankname, String pa_no,
+			String pa_username) {
 		super();
 		this.pa_idx = pa_idx;
 		this.hg_mem_id = hg_mem_id;
+		this.pa_key = pa_key;
 		this.pa_bankname = pa_bankname;
 		this.pa_no = pa_no;
 		this.pa_username = pa_username;
 	}
+
 
 	
 	
