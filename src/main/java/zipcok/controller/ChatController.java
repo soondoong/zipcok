@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.chat.model.*;
-import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.member.model.*;
@@ -66,8 +65,13 @@ public class ChatController {
 				ChatRoomDTO cdto = chatdao.findRoomInfo(req_idx);	
 				mav.addObject("croomDTO", cdto); //채팅방정보
 				
+				List<MessageDTO> msglist = chatdao.getMessageList(croom_idx);		
+				mav.addObject("msglist", msglist);
+		
 		/*채팅방에 들어올때  일반회원인지 코치회원인지 판단해서
-		 * 상대방 정보 dto 뿌려주기 */
+		 * 상대방 정보 dto 뿌려주기 
+		 * 그동안 메세지 뿌려주기
+		 * */
 		if(type.equals("일반회원")) { //일반회원
 			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_coachid());
 			mav.addObject("receiveDTO", dto); //상대방정보dto
@@ -109,7 +113,7 @@ public class ChatController {
 		/*채팅방 선택삭제하기*/
 		@RequestMapping("roomDelete.do")
 		public ModelAndView requestDelete(@RequestParam("croom_idx")int croom_idx,@RequestParam("id")String id) {
-			
+			//채팅방나가면 상담요청서 상태도 바뀌어야함.
 			int result=chatdao.roomDelete(croom_idx);
 			String msg=result>0?"채팅방에서 퇴장하셨습니다":"퇴장실패";
 			System.out.println("-----채팅방퇴장기능수행------");

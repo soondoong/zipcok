@@ -20,7 +20,6 @@ public class ChatDAOImple implements ChatDAO{
 	public int createRoom(ChatRoomDTO dto) {		
 		System.out.println("---create Room Imple----");
 		int count = sqlMap.insert("createRoom" , dto);
-		System.out.println("시팔");
 		return count;
 	}
 
@@ -58,6 +57,7 @@ public class ChatDAOImple implements ChatDAO{
 	@Override
 	public int roomDelete(int croom_idx) {
 		int count = sqlMap.delete("roomDelete",croom_idx);
+		count = sqlMap.delete("msgDelete",croom_idx);
 		return count;
 	}
 
@@ -79,11 +79,11 @@ public class ChatDAOImple implements ChatDAO{
 
 	@Override
 	public List<MessageDTO> getMessageList(int croom_idx) {
-
-
-			return sqlMap.selectList("getMessageList" , croom_idx);
-		
-		
+	
+		      sqlMap.update("updateUnreadcount", croom_idx); //읽은카운트 바꿔주고
+		      List<MessageDTO> dto = sqlMap.selectList("getMessageList" , croom_idx); //리스트가꼬오기
+		      
+			 return dto;
 	}
 
 

@@ -15,7 +15,7 @@
 <c:set var="myid" value="${mtype eq '코치'?cdto.croom_coachid : cdto.croom_userid}"/>
 <c:set var="yourid" value="${mtype eq '코치'?cdto.croom_userid : cdto.croom_coachid}"/>
 <c:set var="rdto" value="${receiveDTO}"/>
-
+<c:set var="msglist" value="${msglist }"/>
 <div class="container">
 	<h2>${login.mem_name}<c:if test="${sessionScope.sid ==null}">코치</c:if>님</h2>
 	     
@@ -24,7 +24,67 @@
 	<!-- 채팅 내용 -->
 	<div class="col-12">
 		<div class="col-8"  style=" border: 1px solid lightgray; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
-			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;"></div>
+			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;">
+			
+			
+				<c:if test="${!empty msglist}">
+				<c:forEach var="msgdto" items="${msglist}">
+					
+				<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
+					
+				<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'>
+						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:left;'>
+							 <div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'>
+							 <span style = 'font-size : 12px;'>${msgdto.msg_content }</span>
+							 </div>
+							 
+							 <div col-12 style = 'font-size:9px; text-align:right; float:right;'>
+							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
+							 </div>
+						 </div>
+						 
+						 <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
+								 <img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '>
+								 <div style='font-size:15px; clear:both;'>${login.mem_name}</div>
+						</div>
+				</div>
+						
+					
+				</c:if>
+				
+				
+					<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->
+					
+				<div class='col-6 row' style = 'margin-left:0px; height : auto; margin-top : 5px;'>
+				
+					   <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
+								 <img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '>
+								 <div style='font-size:15px; clear:both;'>${msgdto.user_name}</div>
+						</div>
+				
+						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'>
+							 <div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;'>
+							 <span style = 'font-size : 12px;'>${msgdto.msg_content }</span>
+							 </div>
+							 
+							 <div col-12 style = 'font-size:9px; text-align:right; float:left;'>
+							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
+							 </div>
+						 </div>
+						 
+				
+				</div>
+				
+					
+				</c:if>	
+					
+					
+					
+				</c:forEach>
+				</c:if>
+		
+			
+			</div>
 		</div>
 	</div>
 
@@ -39,10 +99,10 @@
 	<!-- 전송버튼 -->
 			<div class="col-4"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
 			<button type="button" class="btn btn-primary" id="btnSend" >전송</button>
-			<button type="button" class="btn btn-warning" id="btnClose" onclick="location.href='index.do'">나가기</button>
+			<button type="button" class="btn btn-warning" id="btnClose" onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'">목록으로가기</button>
 			</div>
     <!-- 전송버튼 -->
-		
+	
 </div>
 <script type="text/javascript">
 

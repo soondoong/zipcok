@@ -10,7 +10,11 @@ public class ChatRoomListDTO {
 	private String croom_coachid;
 	private int croom_req_idx; //상담요청서 
 	private Date croom_opendate;
-	
+    
+	private String mfile_upload; //현재유저플필사진 완전 현재사진임
+	private String mem_name; //상대이름
+
+
 	//메세지
 	private int msg_idx; //메세지idx
 	private int msg_croom_idx; //채팅방idx
@@ -27,7 +31,7 @@ public class ChatRoomListDTO {
 	private String user_name; // 보내는이 이름;
 	private String receiver_user_name; //받는이 이름;
 	private int unReadCount; //default=0;load되면 1이되게
-	
+
 	public ChatRoomListDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -70,6 +74,22 @@ public class ChatRoomListDTO {
 
 	public void setCroom_opendate(Date croom_opendate) {
 		this.croom_opendate = croom_opendate;
+	}
+
+	public String getMfile_upload() {
+		return mfile_upload;
+	}
+
+	public void setMfile_upload(String mfile_upload) {
+		this.mfile_upload = mfile_upload;
+	}
+
+	public String getMem_name() {
+		return mem_name;
+	}
+
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
 	}
 
 	public int getMsg_idx() {
@@ -193,16 +213,18 @@ public class ChatRoomListDTO {
 	}
 
 	public ChatRoomListDTO(int croom_idx, String croom_userid, String croom_coachid, int croom_req_idx,
-			Date croom_opendate, int msg_idx, int msg_croom_idx, int msg_req_idx, String msg_sender,
-			String msg_receiver, String msg_content, String msg_sendtime, String msg_readtime, String msg_userid,
-			String msg_coachid, String user_mfile_upload, String receiver_mfile_upload, String user_name,
-			String receiver_user_name, int unReadCount) {
+			Date croom_opendate, String mfile_upload, String mem_name, int msg_idx, int msg_croom_idx, int msg_req_idx,
+			String msg_sender, String msg_receiver, String msg_content, String msg_sendtime, String msg_readtime,
+			String msg_userid, String msg_coachid, String user_mfile_upload, String receiver_mfile_upload,
+			String user_name, String receiver_user_name, int unReadCount) {
 		super();
 		this.croom_idx = croom_idx;
 		this.croom_userid = croom_userid;
 		this.croom_coachid = croom_coachid;
 		this.croom_req_idx = croom_req_idx;
 		this.croom_opendate = croom_opendate;
+		this.mfile_upload = mfile_upload;
+		this.mem_name = mem_name;
 		this.msg_idx = msg_idx;
 		this.msg_croom_idx = msg_croom_idx;
 		this.msg_req_idx = msg_req_idx;
@@ -219,9 +241,8 @@ public class ChatRoomListDTO {
 		this.receiver_user_name = receiver_user_name;
 		this.unReadCount = unReadCount;
 	}
-	
-	
-	
+
+
 	
 	
 }
