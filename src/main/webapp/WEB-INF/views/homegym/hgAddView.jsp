@@ -43,16 +43,9 @@ width : 600px;
 <script>
 var count = 0;
 function homegym_setting(){
-	if(${sessionScope.sid==null && sessionScope.coachId==null}){
-		window.alert('로그인이 필요한 페이지 입니다.');
-		location.href='index.do';
-		return;
-	}
 	var today = getTimeStamp() ;
 	$( '#start_Date' ).attr('min', today);
 	$( '#start_Date' ).val(today);
-	
-
 }
 
 	$(function() {
@@ -181,6 +174,11 @@ function homegym_setting(){
 	}
 	function nicknameCheck(){
 		var hg_nickname = document.getElementById('hg_nickname').value;
+		if(hg_nickname==''){
+			var checkText = document.getElementById('nicknameCheckText');
+			checkText.innerHTML = '닉네임을 입력해주세요.';
+			return;
+		}
 		var params = 'hg_nickname='+hg_nickname;
 		sendRequest('HomeGymNickNameCheck.do', params, nicknameCheck_rq, 'GET');
 	}

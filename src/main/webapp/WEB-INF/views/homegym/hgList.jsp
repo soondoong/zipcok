@@ -42,6 +42,11 @@ function sendOption(){
 	document.getElementById('option_fm').submit();
 }
 function ContentEnter(id){
+	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
+		window.alert('로그인이 필요한 페이지 입니다.');
+		location.href='loginForm.do';
+		return;
+	}
 	location.href = 'HomeGymContent.do?hg_mem_id='+id;
 }
 </script>

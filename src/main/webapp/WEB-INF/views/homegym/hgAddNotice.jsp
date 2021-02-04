@@ -9,10 +9,13 @@
 <body>
 <%@include file="../header2.jsp" %>
 <script>
-if(${sessionScope.sid==null && sessionScope.coachId==null}){
-	window.alert('로그인이 필요한 페이지 입니다.');
-	location.href='index.do';
-	return;
+function login_check(){
+	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
+		window.alert('로그인이 필요한 페이지 입니다.');
+		location.href='loginForm.do';
+		return;
+	}
+	location.href = 'HomeGymAdd.do';
 }
 </script>
 <h1>홈짐 등록 안내</h1>
@@ -20,7 +23,7 @@ if(${sessionScope.sid==null && sessionScope.coachId==null}){
 <input type = "button" value = "내 홈짐 보러가기" onclick = "#">
 </c:if>
 <c:if test = "${check_result }">
-<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:location.href='HomeGymAdd.do'">
+<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:login_check();">
 </c:if>
 </body>
 </html>
