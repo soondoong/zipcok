@@ -101,10 +101,20 @@ mfile_key='회원프로필'
 	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	 </select>
 	 
+
 	 <!-- 회원탈퇴 -->
+	 <!--  
 	 <delete id="memberDelete" parameterType="zipcok.member.model.MemberDTO">
 	 delete from zipcok_member where mem_id=#{mem_id}
 	 </delete>
-
-
+	 -->
+	 
+	 <!-- 회원탈퇴(프로필) -->
+	 <!-- 
+	<delete id="memberPhotoDelete" parameterType="zipcok.coach.model.CoachFileDTO">
+	delete from member_file where mfile_mem_id=#{mem_id}
+	</delete>
+	 -->
+	 
+	 
 </mapper>

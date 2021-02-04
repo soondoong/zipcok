@@ -134,11 +134,16 @@ public class MypageDAOImple implements MypageDAO {
 			return list;
 		}
 	
-		@Override
-		public int memberDelete(String mem_id) {
-			int count = sqlMap.delete("memberDelete", mem_id);
-			return count;
-		}
-
+//		@Override
+//		public int memberDelete(String mem_id) {
+//			int count = sqlMap.delete("memberDelete", mem_id);
+//			return count;
+//		}
+//
+//		@Override
+//		public int memberPhotoDelete(String mem_id) {
+//			int count = sqlMap.delete("memberPhotoDelete", mem_id);
+//			return count;
+//		}
 	
 }

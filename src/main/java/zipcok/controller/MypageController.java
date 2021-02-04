@@ -234,32 +234,42 @@ public class MypageController {
 		}
 		
 		//회원탈퇴 폼
-		@RequestMapping("/memberDeleteForm.do")
-		public String memberDeleteForm() {
-			
-			return "mypage/memberDeleteForm";
-		}
+//		@RequestMapping("/memberDeleteForm.do")
+//		public String memberDeleteForm() {
+//			
+//			return "mypage/memberDeleteForm";
+//		}
 		
 		//회원탈퇴
-		@RequestMapping("/memberDelete.do")
-		public ModelAndView memberDelete(HttpSession session,
-				@RequestParam("mem_pwd")String mem_pwd,
-				@RequestParam("mem_pwd2")String mem_pwd2) {
-			
-			ModelAndView mav = new ModelAndView();
-			if(mem_pwd.equals(mem_pwd2)) {
-				int result=dao.memberDelete((String)session.getAttribute("sid"));
-				session.invalidate();
-				mav.addObject("msg", "회원탈퇴 하셨습니다~");
-				mav.addObject("gourl", "index.do");
-				mav.setViewName("mypage/mypageMsg");
-			}else {
-				mav.addObject("msg", "비밀번호가 일치하지않습니다.");
-				mav.addObject("gourl", "memberProfileForm.do");
-				mav.setViewName("mypage/mypageMsg");
-			}
-			return mav;
-		}
+//		@RequestMapping("/memberDelete.do")
+//		public ModelAndView memberDelete(HttpSession session,
+//				@RequestParam("mem_pwd")String mem_pwd,
+//				@RequestParam("mem_pwd2")String mem_pwd2) {
+//			
+//			ModelAndView mav = new ModelAndView();
+//			if(mem_pwd.equals(mem_pwd2)) {
+//				int result=dao.memberPhotoDelete((String)session.getAttribute("sid"));
+//				int result2=dao.memberDelete((String)session.getAttribute("sid"));
+//				System.out.println(result);
+//				System.out.println(result2);
+//				if(result>0 && result2>0) {
+//					session.invalidate();
+//					mav.addObject("msg", "회원탈퇴 하셨습니다~");
+//					mav.addObject("gourl", "index.do");
+//					mav.setViewName("mypage/mypageMsg");
+//				}else {
+//					mav.addObject("msg", "고객센터에 문의 바랍니다.");
+//					mav.addObject("gourl", "index.do");
+//					mav.setViewName("mypage/mypageMsg");
+//				}
+//				
+//			}else {
+//				mav.addObject("msg", "비밀번호가 일치하지않습니다.");
+//				mav.addObject("gourl", "memberProfileForm.do");
+//				mav.setViewName("mypage/mypageMsg");
+//			}
+//			return mav;
+//		}
 		
 		
 		

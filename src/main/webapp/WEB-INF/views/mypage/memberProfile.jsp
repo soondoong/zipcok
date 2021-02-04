@@ -74,7 +74,7 @@ function mypagePhoneUpdate(){
 				type="button" value="수정하기" onclick="mypagePhoneUpdate()">
 		</div>
 		<div>
-		<a href="memberDeleteForm.do?mem_id=${sessionScope.sid}'">[회원탈퇴]</a>
+		<a href="#">[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
 		</div>
 	</div>
 </body>
