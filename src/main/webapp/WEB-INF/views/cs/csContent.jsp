@@ -15,18 +15,26 @@
 	
 </c:choose>
 
+	<c:if test="${login.mem_id!='admin'}">
    <c:if  test="${login.mem_id!=dto.bbs_mem_id}">
    <script>
    window.alert('본인이 작성한 글만 볼 수 있습니다.');
    location.href = 'csList.do';
    </script>
+   </c:if>  
    </c:if>
    <script>
    function rewriteview(){
 	   document.getElementById('reWriteView').style.display='block';
    }
-   function csReWrite(){
-	   location.href='csReWrite.do';
+   function csReWrite(idx){
+	   var re_content=document.getElementById('re_content').value;
+	   var url='csReWrite.do?bbs_idx='+idx+'&re_content='+re_content;
+	   location.href=url;
+   }
+   function csReDelete(re_idx,bbs_idx){
+	   var url='csReDelete.do?re_idx='+re_idx+'&bbs_idx='+bbs_idx;
+	   location.href=url;
    }
    </script>
    <div id="container">
@@ -67,7 +75,7 @@
 				</div>
 				</c:forEach>
 				<div class="view_content">
-					<textarea rows="6" cols="80" placeholder="내용을 입력해주세요" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea>
+					<textarea rows="6" cols="80" placeholder="내용을 입력해주세요" readonly="readonly" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea>
 				</div>
 			</div>
 		
@@ -83,12 +91,27 @@
 			</div>
 		</div>
 		<hr>
-		
-		<div>
-			<div><input type="button" value="답변달기" onclick="rewriteview()"></div>
-			<div id="reWriteView" style="display: none;"><textarea rows="6" cols="80" style="height: 300px;" name="re_content"></textarea>
-			<div><input type="button" value="답변등록하기" onclick="csReWrite()"></div></div>
-		</div>
+		<c:if test="${empty dto2}">
+			<c:if test="${login.mem_id=='admin'}">
+				<div>
+					<div><input type="button" value="답변달기" onclick="rewriteview()"></div>
+					<div id="reWriteView" style="display: none;"><textarea rows="6" cols="80" style="height: 300px;" id="re_content" name="re_content"></textarea>
+					<div><input type="button" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})"></div></div>
+					
+					
+				</div>
+			</c:if>
+		</c:if>
+		<c:if test="${!empty dto2}">
+			<div>
+				<span>작성자 : ${dto2.re_id}</span>
+				<span>작성일 : ${dto2.re_writedate}</span>
+			</div>
+			<div><textarea rows="6" cols="80" readonly="readonly">${dto2.re_content}</textarea></div>
+			<c:if test="${login.mem_id=='admin'}">
+			<div><input type="button" value="답변 삭제" onclick="csReDelete(${dto2.re_idx},${dto.bbs_idx})"></div>
+			</c:if>
+		</c:if>
 	</div>
 </div>
 

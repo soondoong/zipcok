@@ -34,6 +34,32 @@
 			<div>
 				<!-- 자주묻는질문 -->
 				<p>자주 묻는 질문</p>
+				<div>
+					<div tabindex="0" role="button" aria-disabled="false" aria-expanded="true">
+						<div>
+							<div>어떤 클래스가 준비되어 있나요?</div>
+						</div>
+						<div aria-disabled="false" aria-hidden="true">
+							<span> 
+								<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+									<path style="font-size: 2.175rem" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+								</svg>
+							</span>
+						</div>
+					</div>
+					<div style="min-height: 0px; height: auto; transition-duration: 222ms;">
+						<div>
+							<div>
+								<div role="region">
+									<div>
+										<div>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요
+											🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div style="display: none;">

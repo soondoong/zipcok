@@ -9,8 +9,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import zipcok.notice.model.NoticeDTO;
-import zipcok.notice.model.ZipcokFileDTO;
 
 @Service
 public class CsDAOImple implements CsDAO {
@@ -108,6 +106,19 @@ public class CsDAOImple implements CsDAO {
 	@Override
 	public int csReWrite(CsReDTO dto) {
 		int count=sqlMap.insert("csReWrite", dto);
+		return count;
+	}
+	
+	//고객센터 답변 가져오기
+	@Override
+	public CsReDTO csReList(int re_bbs_idx) {
+		CsReDTO dto=sqlMap.selectOne("csReList",re_bbs_idx);
+		return dto;
+	}
+	//고객센터 답변 지우기
+	@Override
+	public int csReDelete(int re_idx) {
+		int count=sqlMap.delete("csReDelete",re_idx);
 		return count;
 	}
 }

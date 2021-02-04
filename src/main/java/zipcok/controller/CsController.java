@@ -209,9 +209,11 @@ public class CsController {
 			
 			
 			List<CsZipcokFileDTO> list=csDao.CsZfileSelect(bbs_idx);
+			CsReDTO dto2=csDao.csReList(bbs_idx);
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("csFileList",list);
 			mav.addObject("dto",dto);
+			mav.addObject("dto2", dto2);
 			mav.setViewName("cs/csContent");
 			return mav;
 		}
@@ -224,12 +226,25 @@ public class CsController {
 			
 			dto.setRe_bbs_idx(bbs_idx);
 			int result=csDao.csReWrite(dto);
-			System.out.println(dto.getRe_bbs_idx());
-			String msg=result>0?"답변 작성 성공!":"답변 작성 실패!";
+			String msg=result>0?"답변이 성공적으로 작성되었습니다":"답변 작성 실패!";
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);
 			mav.addObject("gopage", "csContent.do?bbs_idx="+bbs_idx);
 			mav.setViewName("cs/csMsg");
 			return mav;
+		}
+		
+		//고객센터 게시판 답변 삭제
+		@RequestMapping("csReDelete.do")
+		public ModelAndView csReDelete(int re_idx,int bbs_idx) {
+			int result=csDao.csReDelete(re_idx);
+			
+			String msg=result>0?"답변이 성공적으로 삭제되었습니다":"답변 삭제 실패";
+			ModelAndView mav=new ModelAndView();
+			mav.addObject("msg", msg);
+			mav.addObject("gopage","csContent.do?bbs_idx="+bbs_idx);
+			mav.setViewName("cs/csMsg");
+			return mav;
+			
 		}
 }

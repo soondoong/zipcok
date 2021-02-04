@@ -16,5 +16,7 @@ public interface CsDAO {
 	public List<CsZipcokFileDTO> CsZfileSelect(int bbs_idx);//파일조회하기
 	public int csFileUpload(ArrayList<CsZipcokFileDTO> fileArr);//파일업로드하기
 	public int csReadnum(int bbs_idx);//고객센터 조회수
-	public int csReWrite(CsReDTO dto);
+	public int csReWrite(CsReDTO dto);//고객센터 답변달기
+	public CsReDTO csReList(int re_bbs_idx);//고객센터 답변가져오기
+	public int csReDelete(int re_idx);//고객센터 답변 지우기
 }
