@@ -125,15 +125,32 @@ zfile_bbs_idx=#{zfile_bbs_idx}
 insert into
 bbs_rebbs
 values(
-bbs_rebbs_re_idx.nextval,
-re_bbs=4,
+bbs_rebbs_idx.nextval,
+4,
 9999,
 'admin',
-re_content=#{re_content},
+#{re_content},
 sysdate,
-bbs_rebbs_re_group.nextval,
+bbs_rebbs_group.nextval,
 1,
 1,
-re_bbs_idx=#{re_bbs_idx})
+#{re_bbs_idx})
 </insert>
+<select id="csReList" resultType="zipcok.cs.model.CsReDTO">
+select
+*
+from
+bbs_rebbs
+where
+re_bbs=4
+and
+re_bbs_idx=#{re_bbs_idx}
+</select>
+<delete id="csReDelete">
+delete
+from
+bbs_rebbs
+where
+re_idx=#{re_idx}
+</delete>
   </mapper>
