@@ -112,10 +112,12 @@ public class ChatController {
 		
 		/*채팅방 선택삭제하기*/
 		@RequestMapping("roomDelete.do")
-		public ModelAndView requestDelete(@RequestParam("croom_idx")int croom_idx,@RequestParam("id")String id) {
-			//채팅방나가면 상담요청서 상태도 바뀌어야함.
-			int result=chatdao.roomDelete(croom_idx);
-			String msg=result>0?"채팅방에서 퇴장하셨습니다":"퇴장실패";
+		public ModelAndView requestDelete(@RequestParam("croom_idx")int croom_idx,
+				@RequestParam("id")String id,@RequestParam("req_idx")int req_idx) {
+			//채팅방나가면 상담요청서 지우기.
+			int result=cpagedao.requestDelete(req_idx);
+					result+=chatdao.roomDelete(croom_idx);
+			String msg=result>1?"채팅방에서 퇴장하셨습니다":"퇴장실패";
 			System.out.println("-----채팅방퇴장기능수행------");
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);

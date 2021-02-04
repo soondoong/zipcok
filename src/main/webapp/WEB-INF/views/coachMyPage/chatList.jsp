@@ -56,6 +56,7 @@ padding:0;
 		<c:url value="/roomDelete.do" var="delurl">
 		 <c:param name="id" value="${sessionScope.coachId}" />	 
 	 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
 	</c:url>
 	
 	
