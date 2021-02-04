@@ -22,6 +22,7 @@ public interface MypageDAO {
 	public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
 	public int mypageCoachMatchLikeListTotalCnt(String mem_id);
 	public List mypageCoachMatchLikeList(int cp, int ls, String mem_id);
-	public int memberDelete(String mem_id);
+	//public int memberDelete(String mem_id);
+	//public int memberPhotoDelete(String mem_id);
 
 }

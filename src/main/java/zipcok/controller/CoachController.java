@@ -155,7 +155,8 @@ public class CoachController {
 	/*코치가입하기 기능*/
 	@RequestMapping("coachJoin.do")
 	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			HttpSession session) {
 		
 		
 		HashMap<String, Object> map=new HashMap<String, Object>();
@@ -200,13 +201,18 @@ public class CoachController {
 		if(count==fileArr.size()) {
 			System.out.println("사진등록성공");
 		}
-		
+		ModelAndView mav=new ModelAndView();
 		String msg=result>0?"코치로 등록되었습니다":"코치 등록실패";
 		
-		ModelAndView mav=new ModelAndView();
+		if(result>0) {
+			session.invalidate();
+		}else {
+			
+		}
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "index.do");
 		mav.setViewName("coach/joinMsg");
+	
 		return mav;
 	}
 	
