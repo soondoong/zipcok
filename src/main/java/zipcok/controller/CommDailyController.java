@@ -33,6 +33,7 @@ public class CommDailyController {
 	
 	@Autowired
 	private ExBbsDAO exBbsDao;
+	@Autowired
 	private BbsFileDAO bbsFileDao;
 	
 	@Autowired
@@ -89,7 +90,7 @@ public class CommDailyController {
 		}		
 		/*다중파일첨부 시 필요*/	
 		
-		int count=bbsFileDao.bbsFileUpload(fileArr);
+		int count=bbsFileDao.bbsFileUpload(fileArr); 
 		if(count==fileArr.size()) {
 			System.out.println("사진등록성공");
 		}
@@ -129,6 +130,25 @@ public class CommDailyController {
 			e.printStackTrace();
 			return null;
 		}
+		
+	}
+		
+	// 첨부 파일 삭제
+	@RequestMapping("commFileDelte.do")
+	public ModelAndView deleteFile(BbsFileDTO dto) {
+		fileDel(dto.getBfile_path(),dto.getBfile_rename());
+		//int result=bbsFileDao.?????
+		//String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
+		ModelAndView mav=new ModelAndView();
+		//mav.addObject("msg", msg);
+		return mav;
+	}
+	
+		private void fileDel(String path,String name) {
+			File f=new File(path+'/'+name);
+			if(f.isFile()) {
+				f.delete();
+			}
 		
 	}
 	
