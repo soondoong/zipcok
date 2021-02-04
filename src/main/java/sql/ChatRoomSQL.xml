@@ -27,12 +27,16 @@ message_idx.nextval ,
 #{msg_req_idx},
 #{msg_sender}, 
 #{msg_receiver},
-#{msg_userid},
-#{msg_coachid}, 
 #{msg_content},
 #{msg_sendtime},
 #{msg_readtime},
-0
+#{msg_userid},
+#{msg_coachid}, 
+#{user_mfile_upload},
+#{receiver_mfile_upload},
+#{user_name},
+#{receiver_user_name},
+1
 )
 </insert>
 
@@ -51,7 +55,22 @@ where
 rownum = 1
 </select>
 
+<select id="getMessageList" resultType="zipcok.chat.model.MessageDTO">
+select * from 
+message
+where 
+msg_croom_idx =  #{croom_idx}
+order by msg_sendtime asc
 
+</select>
+
+<update id="updateUnreadcount">
+update message
+set 
+unreadcount = 0
+where 
+msg_croom_idx = #{croom_idx}
+</update>
 
 
 <select id ="isRoom" parameterType="zipcok.chat.model.ChatRoomDTO" resultType = "zipcok.chat.model.ChatRoomDTO">
@@ -77,8 +96,14 @@ croom_req_idx = #{croom_req_idx}
 
 
 <select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
-select * from 
+
+select
+modu.*,zm.mem_name,mf.mfile_upload
+from 
+
+(select * from 
 chatroom left outer join 
+
 (select 
 a.*
 from
@@ -91,15 +116,31 @@ rownum = 1)msg
 on
 croom_userid = #{id} 
 and
-croom_idx= msg_croom_idx(+)
+croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
+
+where
+croom_coachid = mf.mfile_mem_id
+and
+mf.mfile_key = '회원프로필'
+and
+croom_coachid = zm.mem_id
+order by croom_req_idx desc
+
+
 
 
 </select>
 
 
 <select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
-select * from 
+
+select
+modu.*,zm.mem_name,mf.mfile_upload
+from 
+
+(select * from 
 chatroom left outer join 
+
 (select 
 a.*
 from
@@ -112,7 +153,15 @@ rownum = 1)msg
 on
 croom_coachid = #{id} 
 and
-croom_idx= msg_croom_idx(+)
+croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
+
+where
+croom_userid = mf.mfile_mem_id
+and
+mf.mfile_key = '회원프로필'
+and
+croom_userid = zm.mem_id
+order by croom_req_idx desc
 
 
 </select>
@@ -124,6 +173,11 @@ where
 croom_idx = #{croom_idx}
 </delete>
 
+<delete id="msgDelete">
+delete message
+where 
+msg_croom_idx = #{croom_idx}
+</delete>
 
 
   </mapper>

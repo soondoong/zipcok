@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
@@ -23,7 +24,8 @@ public class MypageController {
 	
 	@Autowired
 	private MypageDAO dao;
-	
+	@Autowired
+	private CoachDAO cdao;
 	@Autowired
 	ServletContext c;
 	
@@ -272,7 +274,12 @@ public class MypageController {
 //		}
 		
 		
-		
+		@RequestMapping("checkPMRequest.do")
+		public ModelAndView checkPMRequest(@RequestParam("id")String id) {
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("mypage/PMrequestList");
+			return mav;
+		}
 		
 	
 }

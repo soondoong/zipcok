@@ -50,6 +50,7 @@ padding:0;
 	 	<c:param name="req_idx" value="${rdto.req_idx}" />
 	 	<c:param name="type" value="${login.mem_type}" />
 	</c:url>
+		
 	
 	<!-- 삭제버튼 클릭시 넘길 파라미터 -->
 		<c:url value="/requestDelete.do" var="delurl">

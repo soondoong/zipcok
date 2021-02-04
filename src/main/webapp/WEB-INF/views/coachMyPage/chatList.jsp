@@ -26,18 +26,23 @@ padding:0;
 <tbody>
 <c:forEach var="cdto" items="${list}">
 	<tr>
-	<td rowspan="2"><img src="img/coach/noimg.png" width="130px"></td>
+	<td rowspan="2"><p style="font-weight: 600; font-size: 1.4rem;">${cdto.mem_name }회원님과의 대화</p><img src="upload/member/${cdto.mfile_upload }" style="width:100px; height: 100px; object-fit: cover; padding:0px;" ></td>
 	<td >
-	<dt>${cdto.croom_userid }</dt>
-	<label>보낸이:${cdto.msg_sender }</label>
-	<br><label>${cdto.msg_content }</label>
+	 <c:if test="${!empty cdto.user_name}">
+	<br><label>${cdto.user_name} : ${cdto.msg_content }</label>
 	<br><label>메세지보낸시각:${cdto.msg_sendtime }</label>
+	 </c:if>
+	 
+	 <c:if test="${empty cdto.user_name}">
+	 <br><br>
+		<p  style="background-color: yellow;">아직 채팅이 시작되지않았습니다!</p>
+	 </c:if>
 	</td>
 	<td style="padding-top:0; text-align:right;"  valign="top"><label>생성일: ${cdto.croom_opendate }</label></td>
 	</tr>
 	<tr>
-	<td><p>메세지를넣을까?</p></td>
-	<td>
+	<td colspan="2" align="right">
+	
 	
 	
 		<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
@@ -51,6 +56,7 @@ padding:0;
 		<c:url value="/roomDelete.do" var="delurl">
 		 <c:param name="id" value="${sessionScope.coachId}" />	 
 	 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+	 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
 	</c:url>
 	
 	
