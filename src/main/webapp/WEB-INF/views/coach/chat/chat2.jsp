@@ -4,6 +4,7 @@
 <html>
 <head>
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <style>
 
 </style>
@@ -77,9 +78,7 @@
 				
 					
 				</c:if>	
-					
-					
-					
+									
 				</c:forEach>
 				</c:if>
 		
@@ -88,23 +87,106 @@
 		</div>
 	</div>
 
+<!-- 파일첨부 결제요청서 -->
+<div id="filemenu">
+  <div style="float:left;">
+  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
+  </div>
+  <div  style="float:left;">
+  <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
+  </div>
+</div>
+<input type="file" id="file" name="file" onchange="changeValue(this)"/>
+
+
+
+<script>
+/*사진미리띄워주기*/
+function readURL(input) {
+	 if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  
+	  reader.onload = function (e) {
+	   $('#image_section').attr('src', e.target.result);  
+	   $('#image_sectionDIV').css('display', 'block');  
+	   
+	  }
+	  
+	  reader.readAsDataURL(input.files[0]);
+	  }
+	}
+	 
+	// 이벤트를 바인딩해서 input에 파일이 올라올때 위의 함수를 this context로 실행합니다.
+	$("#file").change(function(){
+	   readURL(this);
+	});
 	
+/*사진파일전송*/
+$(function () {
+
+	$('#btn-upload').click(function (e) {
+	e.preventDefault();
+	$('#file').click();
+		});
+
+	$('#imgDel').click(function (e) {
+		e.preventDefault();
+		$('#file').val('');		
+		 $('#image_sectionDIV').css('display', 'none');  
+			});
+
+	
+	
+	});
+
+</script>
+
+
 		<!-- 전송메세지 입력창 -->
 		<div class="col-6" style="float: left;">
+		<div id="image_sectionDIV" >
+		<img id="image_section" src="" style="width:140px"/>
+		<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>
+		</div>
+		
 			<textarea class="form-control" style="border: 1px solid gray; height: 65px; float: left; width:100%"
-				placeholder="Enter ..."  id="message-input"></textarea>
+				placeholder="Enter ..."  id="message-input"> </textarea>
 		</div>
 	
 	
 	<!-- 전송버튼 -->
-			<div class="col-4"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
-			<button type="button" class="btn btn-primary" id="btnSend" >전송</button>
-			<button type="button" class="btn btn-warning" id="btnClose" onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'">목록으로가기</button>
+			<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
+			<button type="button" class="btn btn-primary btn-lg" id="btnSend" >전송</button>		
+			</div>		
+			
+			
+			<div  style="clear:both;" >
+			<button type="button" class="btn btn-warning" id="btnClose" 
+			onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'">목록으로가기</button>
+
+			
 			</div>
     <!-- 전송버튼 -->
+    <style>
+    .afile{
+    color:gray;
+    font-size:3rem;
+    }
+    .afile:hover{
+    color:blue;
+    }
+  #file { display:none; } 
+  #image_sectionDIV{ display:none; }
+    </style>
+
 	
 </div>
 <script type="text/javascript">
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+
 
 var sock;
 
@@ -164,6 +246,11 @@ function send() {
 	if (inputMessage == '') {
 		return;
 	}
+	
+	var fileupload= $("#file").val();
+	if (fileupload == ''){
+		fileupload = 'noimg.png'
+	}
 
 	var t = getTimeStamp();
 	
@@ -177,8 +264,8 @@ function send() {
 	message.msg_content = inputMessage;
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
-	message.user_mfile_upload = 'noimg.png';
-	message.receiver_mfile_upload = 'noimg.png'; 
+	message.msg_file_upload = fileupload;
+	message.msg_file_path = 'noimg.png'; 
     message.user_name = '${login.mem_name}';
     message.receiver_user_name = '${rdto.mem_name}';
     message.msg_sendtime = t;
@@ -193,6 +280,8 @@ function send() {
 	
 	scroll();	
 	$('#message-input').val(''); //메세지입력창 리셋
+	$('#file').val('');		//파일창리셋
+	 $('#image_sectionDIV').css('display', 'none');  //이미지미리보여주기리셋
 }
 
 

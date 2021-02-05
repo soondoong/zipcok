@@ -14,8 +14,8 @@ public class MessageDTO {
 	private String msg_readtime; //메세지읽은시간
 	private String msg_userid; //고객아이디;
 	private String msg_coachid; //코치아이디;
-	private String user_mfile_upload;//보내는이프로필사진이름
-	private String receiver_mfile_upload;//받는이프로필사진이름
+	private String msg_file_upload;//보내는이프로필사진이름
+	private String msg_file_path;//받는이프로필사진이름
 	private String user_name; // 보내는이 이름;
 	private String receiver_user_name; //받는이 이름;
 	private int unReadCount; //default=0;load되면 1이되게
@@ -111,20 +111,20 @@ public class MessageDTO {
 		this.msg_coachid = msg_coachid;
 	}
 
-	public String getUser_mfile_upload() {
-		return user_mfile_upload;
+	public String getmsg_file_upload() {
+		return msg_file_upload;
 	}
 
-	public void setUser_mfile_upload(String user_mfile_upload) {
-		this.user_mfile_upload = user_mfile_upload;
+	public void setmsg_file_upload(String msg_file_upload) {
+		this.msg_file_upload = msg_file_upload;
 	}
 
-	public String getReceiver_mfile_upload() {
-		return receiver_mfile_upload;
+	public String getmsg_file_path() {
+		return msg_file_path;
 	}
 
-	public void setReceiver_mfile_upload(String receiver_mfile_upload) {
-		this.receiver_mfile_upload = receiver_mfile_upload;
+	public void setmsg_file_path(String msg_file_path) {
+		this.msg_file_path = msg_file_path;
 	}
 
 	public String getUser_name() {
@@ -153,7 +153,7 @@ public class MessageDTO {
 
 	public MessageDTO(int msg_idx, int msg_croom_idx, int msg_req_idx, String msg_sender, String msg_receiver,
 			String msg_content, String msg_sendtime, String msg_readtime, String msg_userid, String msg_coachid,
-			String user_mfile_upload, String receiver_mfile_upload, String user_name, String receiver_user_name,
+			String msg_file_upload, String msg_file_path, String user_name, String receiver_user_name,
 			int unReadCount) {
 		super();
 		this.msg_idx = msg_idx;
@@ -166,8 +166,8 @@ public class MessageDTO {
 		this.msg_readtime = msg_readtime;
 		this.msg_userid = msg_userid;
 		this.msg_coachid = msg_coachid;
-		this.user_mfile_upload = user_mfile_upload;
-		this.receiver_mfile_upload = receiver_mfile_upload;
+		this.msg_file_upload = msg_file_upload;
+		this.msg_file_path = msg_file_path;
 		this.user_name = user_name;
 		this.receiver_user_name = receiver_user_name;
 		this.unReadCount = unReadCount;
@@ -178,8 +178,8 @@ public class MessageDTO {
 		return "MessageDTO [msg_idx=" + msg_idx + ", msg_croom_idx=" + msg_croom_idx + ", msg_req_idx=" + msg_req_idx
 				+ ", msg_sender=" + msg_sender + ", msg_receiver=" + msg_receiver + ", msg_content=" + msg_content
 				+ ", msg_sendtime=" + msg_sendtime + ", msg_readtime=" + msg_readtime + ", msg_userid=" + msg_userid
-				+ ", msg_coachid=" + msg_coachid + ", user_mfile_upload=" + user_mfile_upload
-				+ ", receiver_mfile_upload=" + receiver_mfile_upload + ", user_name=" + user_name
+				+ ", msg_coachid=" + msg_coachid + ", msg_file_upload=" + msg_file_upload
+				+ ", msg_file_path=" + msg_file_path + ", user_name=" + user_name
 				+ ", receiver_user_name=" + receiver_user_name + ", unReadCount=" + unReadCount + "]";
 	}
 	
