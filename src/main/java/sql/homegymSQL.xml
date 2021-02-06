@@ -119,4 +119,24 @@
 	#{pa_username}
 	)
 	</insert>
+	<insert id = "hgReservationAddSQL" parameterType="zipcok.homegym.model.HomeGymReservationDTO">
+	insert into homegym_reservation values(
+	homegym_reservation_reser_idx.nextval,
+	#{mem_id},
+	#{hg_mem_id},
+	#{reser_date},
+	#{reser_start_time},
+	#{reser_end_time},
+	#{reser_person_count},
+	sysdate,
+	'예약됨',
+	#{reser_price}
+	)
+	</insert>
+	<select id = "hgReservationMaxIdxFindSQL" resultType = "Integer">
+	select max(reser_idx) from homegym_reservation
+	</select>
+	<select id = "hgReservationSelectSQL" parameterType="Integer" resultType="zipcok.homegym.model.HomeGymReservationDTO">
+	select * from homegym_reservation where reser_idx = #{value}
+	</select>
 </mapper>

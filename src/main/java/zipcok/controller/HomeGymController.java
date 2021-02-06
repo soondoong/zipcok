@@ -13,7 +13,6 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +29,8 @@ import zipcok.homegym.model.HomeGymDAO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDAO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+import zipcok.homegym.model.HomeGymReservationDAO;
+import zipcok.homegym.model.HomeGymReservationDTO;
 import zipcok.homegym.model.PaymentDAO;
 import zipcok.homegym.model.PaymentDTO;
 
@@ -43,6 +44,8 @@ public class HomeGymController {
 	private HomeGymEquipmentDAO homegymeqDAO;
 	@Autowired
 	private PaymentDAO homegympayDAO;
+	@Autowired
+	private HomeGymReservationDAO homegymreserDAO;
 	
 	@Autowired
 	ServletContext c;
@@ -140,9 +143,30 @@ public class HomeGymController {
 		return mav;
 	}
 	
-	@RequestMapping("HomeGymReservation.do")
-	public String HomeGymReservation() {
-		return "homegym/hgReservationView";
+	@RequestMapping(value="HomeGymReservation.do")
+	public ModelAndView HomeGymReservationForm(HomeGymReservationDTO dto, HttpSession session) {
+		String user_id = "";
+		if(session.getAttribute("sid")!=null)user_id = (String)session.getAttribute("sid");
+		else if(session.getAttribute("coachid")!=null)user_id = (String)session.getAttribute("coachid");
+		dto.setMem_id(user_id);
+		int reser_result = homegymreserDAO.HomeGymReservationAdd(dto);
+		int max_idx = homegymreserDAO.HomeGymReservationMaxIdxFind();
+		String msg = reser_result>0?"예약되었습니다.":"예약에 실패하였습니다.";
+		boolean check = reser_result>0;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("check", check);
+		mav.addObject("this_idx", max_idx);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping(value = "HomeGymPayPage.do")
+	public ModelAndView HomeGymPaymentForm(@RequestParam("reser_idx")int reser_idx) {
+		HomeGymReservationDTO dto = homegymreserDAO.homeGymReservationSelect(reser_idx);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reservationInfo", dto);
+		mav.setViewName("homegym/hgPaymentPage");
+		return mav;
 	}
 	
 	@RequestMapping("HomeGymUseNotice.do")
