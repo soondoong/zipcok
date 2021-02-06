@@ -31,7 +31,8 @@ public class ChatRoomListDTO {
 	private String user_name; // 보내는이 이름;
 	private String receiver_user_name; //받는이 이름;
 	private int unReadCount; //default=0;load되면 1이되게
-
+	private String msg_type; //메시지,사진,결제요청서인지
+	
 	public ChatRoomListDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -172,19 +173,19 @@ public class ChatRoomListDTO {
 		this.msg_coachid = msg_coachid;
 	}
 
-	public String getmsg_file_upload() {
+	public String getMsg_file_upload() {
 		return msg_file_upload;
 	}
 
-	public void setmsg_file_upload(String msg_file_upload) {
+	public void setMsg_file_upload(String msg_file_upload) {
 		this.msg_file_upload = msg_file_upload;
 	}
 
-	public String getmsg_file_path() {
+	public String getMsg_file_path() {
 		return msg_file_path;
 	}
 
-	public void setmsg_file_path(String msg_file_path) {
+	public void setMsg_file_path(String msg_file_path) {
 		this.msg_file_path = msg_file_path;
 	}
 
@@ -212,11 +213,19 @@ public class ChatRoomListDTO {
 		this.unReadCount = unReadCount;
 	}
 
+	public String getMsg_type() {
+		return msg_type;
+	}
+
+	public void setMsg_type(String msg_type) {
+		this.msg_type = msg_type;
+	}
+
 	public ChatRoomListDTO(int croom_idx, String croom_userid, String croom_coachid, int croom_req_idx,
 			Date croom_opendate, String mfile_upload, String mem_name, int msg_idx, int msg_croom_idx, int msg_req_idx,
 			String msg_sender, String msg_receiver, String msg_content, String msg_sendtime, String msg_readtime,
-			String msg_userid, String msg_coachid, String msg_file_upload, String msg_file_path,
-			String user_name, String receiver_user_name, int unReadCount) {
+			String msg_userid, String msg_coachid, String msg_file_upload, String msg_file_path, String user_name,
+			String receiver_user_name, int unReadCount, String msg_type) {
 		super();
 		this.croom_idx = croom_idx;
 		this.croom_userid = croom_userid;
@@ -240,8 +249,10 @@ public class ChatRoomListDTO {
 		this.user_name = user_name;
 		this.receiver_user_name = receiver_user_name;
 		this.unReadCount = unReadCount;
+		this.msg_type = msg_type;
 	}
 
+	
 
 	
 	

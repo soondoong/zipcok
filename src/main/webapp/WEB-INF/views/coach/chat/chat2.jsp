@@ -96,12 +96,13 @@
   <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
   </div>
 </div>
-<input type="file" id="file" name="file" onchange="changeValue(this)"/>
-
+<input type="file" id="file" name="file" onchange="changeValue(this)">
 
 
 <script>
 /*사진미리띄워주기*/
+
+
 function readURL(input) {
 	 if (input.files && input.files[0]) {
 	  var reader = new FileReader();
@@ -187,7 +188,7 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 
-
+var file= $("#file").val();
 var sock;
 
 var myname = '${login.mem_name}';  //나의이름
@@ -203,27 +204,38 @@ function openSocket() {
 		scroll();
 		return;
 	}
-	
+	 // BLOB데이터를 가지고 URL객체를 만들어 내는 함수
+	 function createObjectURL (blob) {
+	  if ( window.webkitURL ) {
+	   return window.webkitURL.createObjectURL( blob );
+	  } else if ( window.URL && window.URL.createObjectURL ) {
+	   return window.URL.createObjectURL( blob );
+	  } else {
+	   return null;
+	  }
+	 }
+
 
 	// 웹소켓 객체 생성하여 소켓서버에 연결 요청하기. 채팅에 사용할 이름도 함께 보냄.
 	sock = new WebSocket('ws://localhost:9090/zipcok/chat?realid='+myid+'&realname='+myname+'&roomidx='+roomidx);
 	
 	// 서버와 연결이 완료된후 자동호출됨
 	sock.onopen = function (event) {
-	//	$('#messages').append('연결되었습니다.<br>');
-		 appendMessage("연결되었습니다.<br>.");
+
 		scroll();
 	}
 	
 	// onmessage는 서버로부터 메시지를 받았을때 호출됨======================onMessage
 	sock.onmessage = function (event) {
-		console.log('event.data : ' + event.data);
-		var message = JSON.parse(event.data);
-		console.log('message : ' + message);
-		
-		var str = message.msg_content  + '\n';
-		appendOtherMessage(str);
-		//$('#chatMessageArea').append(str);
+			
+			console.log('event.data : ' + event.data);
+			var message = JSON.parse(event.data);
+			console.log('message : ' + message);
+			
+			var str = message.msg_content  + '\n';
+			appendOtherMessage(str);
+					
+
 		scroll();
 	};
 	
@@ -246,16 +258,20 @@ function send() {
 	if (inputMessage == '') {
 		return;
 	}
-	
+	var msgtype = '사진';
 	var fileupload= $("#file").val();
 	if (fileupload == ''){
-		fileupload = 'noimg.png'
+		fileupload = 'noimg.png';
+		msgtype = '텍스트';
 	}
 
-	var t = getTimeStamp();
+	var t = getTimeStamp(); //현재시간
+
 	
-	/*메세지데이터 전송json타입 (시간은서버단에서)*/
-	var message = {};	
+	
+	
+	/*메세지데이터 전송json타입 */
+	var message = {};
 	message.msg_idx=1; //defalut;
 	message.msg_croom_idx = roomidx;
 	message.msg_req_idx = '${cdto.croom_req_idx}';
@@ -271,13 +287,14 @@ function send() {
     message.msg_sendtime = t;
     message.msg_readtime = t;
     message.unReadCount= 1;//default
-
-	console.log('message : ' + message);
+	message.msg_type= msgtype;
+	//console.log('message : ' + message);
 	sock.send(JSON.stringify(message)); //서버에 json형태로메세지보내기
 	
 	var str = message.msg_content  + '\n';
+
 	appendMyMessage(str); //채팅창에 내가보낸메세지 추가해줌	
-	
+
 	scroll();	
 	$('#message-input').val(''); //메세지입력창 리셋
 	$('#file').val('');		//파일창리셋
@@ -319,6 +336,7 @@ function leadingZeros(n, digits) {
 
 
 
+
 /*채팅방에 메세지붙여주기*/
 function appendMyMessage(msg) {  //내메세지는 오른쪽
 
@@ -345,10 +363,12 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 if(msg == ''){
 		 return false;
 	 }else{
-
 	 var t = getTimeStamp();
-	 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>"+yourid+"</div></div>"
-	 +"<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")		 
+	 
+	
+		 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>"+yourid+"</div></div>"
+				 +"<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")	;	 
+
 
 	  var chatAreaHeight = $("#chatArea").height();
 	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
