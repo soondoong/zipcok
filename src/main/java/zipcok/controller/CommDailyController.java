@@ -84,9 +84,9 @@ public class CommDailyController {
 			String bfile_comm=String.valueOf(session.getAttribute("com_idx"));
 			int bfile_size=(int)(list.get(i).getSize());
 			String bfile_type=list.get(i).getContentType();
-			BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
+		//	BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
 			
-			fileArr.add(bdto);
+			//fileArr.add(bdto);
 		}		
 		/*다중파일첨부 시 필요*/	
 		
