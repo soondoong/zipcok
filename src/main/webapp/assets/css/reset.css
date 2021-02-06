@@ -86,12 +86,13 @@ textarea::placeholder {color: #aaaaaa;}
 
 select::-ms-expand {display: none;}
 
-button,
+/*button,
 input[type=file],
 input[type=image],
 input[type=reset],
 input[type=button],
-input[type=submit] {border: none; background: none; border-radius: 0; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; letter-spacing: -0.05em;}
+
+input[type=submit] {border: none; background: none; border-radius: 0; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none; letter-spacing: -0.05em;}*/
 
 label {cursor: pointer;}
 legend, hr, caption {visibility: hidden; overflow: hidden; width: 0px; height: 0px; font-size: 0px; line-height: 0px; border: none; background: none; position: absolute; left: -9999em; top: -9999em; opacity: 0;}

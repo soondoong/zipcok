@@ -2,9 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@include file="../_include/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>집콕헬스</title>
+</head>
+<body>
 
-<%@include file="../_include/header.jsp"%>
+<%@include file="../header2.jsp"%>
 
 <c:set var="dto" value="${dto}"></c:set>
 
@@ -18,10 +24,10 @@
 	<div id="contents">
 		<style>
 			.tab_style_01 {}
-			.tab_style_01 ul {display: flex; border-bottom: 2px solid navy;}
+			.tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
 			.tab_style_01 li {flex: 1 1 auto;}
-			.tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center;}
-			.tab_style_01 li.on button {background: navy; color: #ffffff;}
+			.tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
+			.tab_style_01 li.on button {background: #006be0; color: #ffffff;}
 		</style>
 		<div id="toggle_tab" class="tab_style_01 mb50">
 			<ul>
@@ -33,33 +39,56 @@
 		<div id="toggle_contents">
 			<div>
 				<!-- 자주묻는질문 -->
-				<p>자주 묻는 질문</p>
-				<div>
-					<div tabindex="0" role="button" aria-disabled="false" aria-expanded="true">
-						<div>
-							<div>어떤 클래스가 준비되어 있나요?</div>
+				<h2 class="mb30">자주묻는질문</h2>
+				<style>
+					.qna_list {border-top: 1px solid #cccccc;}
+					.qna_list li {}
+					.qna_list li .q_box {border-bottom: 1px solid #cccccc;}
+					.qna_list li .q_box button {display: block; width: 100%; padding: 15px; background: url(assets/img/icon/arrow-down.svg) right 15px center no-repeat; background-size: 10px auto; text-align: left; transition: all 200ms; border: none;}
+					.qna_list li .q_box button:hover {background-color: #f7f7f7;}
+					.qna_list li .a_box {display: none; padding: 15px; border-bottom: 1px solid #cccccc;}
+					.qna_list li .a_box p {margin-bottom: 0;}
+					.qna_list li.on .a_box {display: block;}
+				</style>
+				<ul id="qna_list" class="qna_list">
+					<li>
+						<div class="q_box">
+							<button type="button">어떤 클래스가 준비되어 있나요?</button>
 						</div>
-						<div aria-disabled="false" aria-hidden="true">
-							<span> 
-								<svg focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-									<path style="font-size: 2.175rem" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
-								</svg>
-							</span>
+						<div class="a_box">
+							<p>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요 🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</p>
 						</div>
-					</div>
-					<div style="min-height: 0px; height: auto; transition-duration: 222ms;">
-						<div>
-							<div>
-								<div role="region">
-									<div>
-										<div>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요
-											🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</div>
-									</div>
-								</div>
-							</div>
+					</li>
+					<li>
+						<div class="q_box">
+							<button type="button">어떤 클래스가 준비되어 있나요?</button>
 						</div>
-					</div>
-				</div>
+						<div class="a_box">
+							<p>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요 🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</p>
+						</div>
+					</li>
+					<li>
+						<div class="q_box">
+							<button type="button">어떤 클래스가 준비되어 있나요?</button>
+						</div>
+						<div class="a_box">
+							<p>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요 🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</p>
+						</div>
+					</li>
+					<li>
+						<div class="q_box">
+							<button type="button">어떤 클래스가 준비되어 있나요?</button>
+						</div>
+						<div class="a_box">
+							<p>하루홈트는 라이브 운동 플랫폼 입니다. 명상/요가/필라테스/피트니스 등 다양한 운동 컨텐츠를 선보일 예정이에요 🤸&zwj;♀️ 열정적인 트레이너 그리고 다양한 멤버들을 만나보세요.</p>
+						</div>
+					</li>
+				</ul>
+				<script>
+					$('#qna_list button').on('click', function() {
+						$(this).parents('li').toggleClass('on');
+					})
+				</script>
 			</div>
 
 			<div style="display: none;">
