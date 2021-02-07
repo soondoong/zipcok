@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="css/member/login.css">
 <script src="https://kit.fontawesome.com/51db22a717.js"
 	crossorigin="anonymous"></script>
-
 </head>
 <body>
+	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
 	<br>
 	<br>
