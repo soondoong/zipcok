@@ -132,7 +132,7 @@ select max(bbs_idx) from zipcok_bbs where bbs_key='공지사항'
 
 
 <select id="zfileSelect" parameterType="Integer" resultType="zipcok.notice.model.ZipcokFileDTO">
-select 
+select
 *
 from
 zipcok_file
@@ -140,8 +140,6 @@ where
 del_yn='N'
 and
 zfile_bbs_idx=#{bbs_idx}
-and
-zfile_idx = (select max(zfile_idx) from zipcok_file)
 </select>
 <update id="zfileDelete" parameterType="zipcok.notice.model.ZipcokFileDTO">
 update
