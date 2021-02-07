@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script>
 	function mypageHomeGymLikeList() {
 		location.href = 'mypageHomeGymLikeList.do?mem_id=${sessionScope.sid}';
@@ -16,17 +18,29 @@
 </script>
 </head>
 <body>
+	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
+	<div class="mypage_wrap">
 	<%@include file="./mypageSideMenu.jsp"%>
-	<div style="margin-left: 250px; padding: 1px 16px;">
+	<div class="mypage_contents">
+         <div class="mypage_main">
+        
 		<br>
-		<h3>${sessionScope.sname }님의 좋아요 목록</h3>
-		<hr>
-		<input type="button" value="홈짐 좋아요 목록"
-			onclick="mypageHomeGymLikeList()"> <input type="button"
-			value="코치매치 좋아요 목록" onclick="mypageCoachMatchLikeList()">
-		<hr>
-		<table width="700px">
+		<div id="toggle_tab" class="tab_style_01 mb50">
+		<style>
+		.mypage_main .tab_style_01 {}
+		.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
+		.mypage_main .tab_style_01 li {flex: 1 1 auto;}
+		.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
+		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
+		</style>		
+			<ul>
+				<li class="on"><button type="button" onclick="mypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
+				<li><button type="button" onclick="mypageCoachMatchLikeList()">코치매칭 좋아요 목록</button></li>
+			</ul>
+		</div>
+		<div class="mypage_main_table">
+		<table>
 			<tbody>
 			<c:if test="${empty list }">
 			<tr>
@@ -56,6 +70,10 @@
 			</tr>
 			</tfoot>
 		</table>
+		</div>
+		</div>
 	</div>
+	</div>
+	   <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

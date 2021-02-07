@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
@@ -62,15 +63,17 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<%@include file="../header2.jsp"%>
-<%@include file="./mypageSideMenu.jsp" %>
-<br>
-	<div style="margin-left: 250px; padding: 1px 16px;">
+	<%@include file="../_include/head.jsp" %>
+	<%@include file="../header2.jsp"%>
+	<div class="mypage_wrap">
+	<%@include file="./mypageSideMenu.jsp"%>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 	<h2>비밀번호 수정</h2>
 	<br>
 		<form action="mypagePwdUpdate.do">
 			<input type="hidden" name="mem_id" value="${sessionScope.sid }">
-			<div class="col-sm-3 col-md-offset-3">
+			<div class="col-sm-10 col-md-offset-3">
 				<div class="form-group">
 					<label for="pw">새 비밀번호</label> <input type="password"
 						class="form-control" id="mem_pwd" name="mem_pwd"
@@ -91,6 +94,9 @@ $(document).ready(function() {
 				</div>
 			</div>
 		</form>
+		</div>
+		</div>
 </div>
+   <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

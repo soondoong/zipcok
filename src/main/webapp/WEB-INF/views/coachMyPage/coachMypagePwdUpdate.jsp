@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
@@ -61,10 +63,12 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<%@include file="../header2.jsp"%>
-<%@include file="./coachMypageSideMenu.jsp" %>
-<br>
-	<div style="margin-left: 250px; padding: 1px 16px;">
+	<%@include file="../_include/head.jsp" %>
+	<%@include file="../header2.jsp"%>
+	<div class="mypage_wrap">
+	<%@include file="./coachMypageSideMenu.jsp"%>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 	<h2>비밀번호 수정</h2>
 	<br>
 		<form action="coachMypagePwdUpdate.do">
@@ -91,5 +95,8 @@ $(document).ready(function() {
 			</div>
 		</form>
 </div>
+</div>
+</div>
+ <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

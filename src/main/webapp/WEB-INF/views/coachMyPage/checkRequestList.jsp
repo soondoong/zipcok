@@ -6,17 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-body{
-margin:0;
-padding:0;
-}
-</style>
+<link href="assets/css/mypage.css" rel="stylesheet">
 </head>
 <body>
-<%@include file="../header2.jsp" %>
-<%@include file="./coachMypageSideMenu.jsp"%>
-<div style="margin-left: 250px; padding: 1px 16px;">
+	<%@include file="../_include/head.jsp" %>
+	<%@include file="../header2.jsp"%>
+	<div class="mypage_wrap">
+	<%@include file="./coachMypageSideMenu.jsp"%>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 <c:set var="list" value="${ requestList }"/>
 
 <br>
@@ -69,7 +67,9 @@ padding:0;
 </c:forEach>
 </tbody>
 </table>
-	
 </div>
+</div>	
+</div>
+ <%@include file="../_include/footer.jsp" %>
 </body>
 </html>
