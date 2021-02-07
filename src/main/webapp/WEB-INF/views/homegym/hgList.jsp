@@ -70,6 +70,7 @@ function ContentEnter(id){
 		.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
 		.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
 		.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
+
 	</style>
 
 	<!-- 상단 조건바 -->
@@ -135,20 +136,18 @@ function ContentEnter(id){
 			</form>
 		</div>
 		<div class="homegym_search_result">
-			<div id = "top_option">
-				<h1>어떤 홈짐을 찾고 계신가요?</h1>
-			</div>
-			<div>
+			<h1>어떤 홈짐을 찾고 계신가요?</h1>
+			<div class="homegym_search_result_list">
 				<h6>게시글 수 : ${totalCnt }</h6>
 				<hr>
 				<c:set var="HomeGymList" value="${HomeGymList }" />
 				<c:choose>
 					<c:when test="${empty HomeGymList }">
-						<div class="ListItem">등록된 홈짐이 없습니다.</div>
+						<div class="homegym_search_result_list_item">등록된 홈짐이 없습니다.</div>
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="dto" items="${HomeGymList }">
-							<div class="ListItem" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
+							<div class="homegym_search_result_list_item" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
 							시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
 							<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
 							<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
@@ -156,10 +155,10 @@ function ContentEnter(id){
 							<br>장비 리스트 :
 							<br>
 							<c:if test = "${empty dto.hg_eq_list }">
-							<h1>등록된 기구가 없습니다.</h1>
+							<h6>등록된 기구가 없습니다.</h6>
 							</c:if>
 							<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-							<div class = "eq_option_${eq_list.eq_name }">
+							<div class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
 								${eq_list.eq_name } : ${eq_list.eq_count }
 							</div>
 							</c:forEach>		
