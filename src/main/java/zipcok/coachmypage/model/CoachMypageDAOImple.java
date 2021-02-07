@@ -6,6 +6,8 @@ import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import zipcok.member.model.MemberDTO;
+
 @Service
 public class CoachMypageDAOImple implements CoachMypageDAO {
 
@@ -70,6 +72,38 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		
 		return list;
 	}
+	
+	//코치마이페이지 일반프로필
+	@Override
+	public MemberDTO coachMypageProfile(String mem_id) {
+		MemberDTO mdto = sqlMap.selectOne("coachMypageProfile", mem_id);
+		return mdto;
+	}
+	
+	@Override
+	public int coachMypagePwdUpdate(MemberDTO dto) {
+		int count = sqlMap.update("coachMypagePwdUpdate", dto);
+		return count;
+	}
+	
+	@Override
+	public int coachMypageAddrUpdate(MemberDTO dto) {
+		int count = sqlMap.update("coachMypageAddrUpdate", dto);
+		return count;
+	}
+	
+	@Override
+	public int coachMypageEmailUpdate(MemberDTO dto) {
+		int count = sqlMap.update("coachMypageEmailUpdate", dto);
+		return count;
+	}
+	
+	@Override
+	public int coachMypagePhoneUpdate(MemberDTO dto) {
+		int count = sqlMap.update("coachMypagePhoneUpdate", dto);
+		return count;
+	}
+	
 	
 	
 }

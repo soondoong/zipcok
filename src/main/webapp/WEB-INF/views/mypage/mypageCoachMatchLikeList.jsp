@@ -26,7 +26,7 @@ function mypageCoachMatchLikeList(){
 				<hr>
 		<table width="700px">
 			<tbody>
-			<c:if test="${empty list }">
+			<c:if test="${empty list2 }">
 			<tr>
 				<td>
 					좋아요를 눌러보아요~
@@ -34,7 +34,7 @@ function mypageCoachMatchLikeList(){
 			</tr>
 			</c:if>
 			
-			<c:forEach var="dto" items="${list }">
+			<c:forEach var="dto" items="${list2 }">
 					<tr>
 						<td><img src="img/coach/noimg.png" width="150px"></td>
 						<td>
@@ -50,7 +50,7 @@ function mypageCoachMatchLikeList(){
 			</tbody>
 			<tfoot>
 			<tr>
-			<td colspan="3" align="center">${pageStr }</td>
+			<td colspan="3" align="center">${pageStr2 }</td>
 			</tr>
 			</tfoot>
 		</table>

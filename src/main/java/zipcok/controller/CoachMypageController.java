@@ -30,10 +30,12 @@ public class CoachMypageController {
 ServletContext c;
 	
 	@RequestMapping("/coachMyPage.do")
-	public ModelAndView coachMypageProfile(@RequestParam("id")String id) {
+	public ModelAndView coachMypageProfile(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
 		
-		HashMap<String, Object> resultMap = dao.coachProfile(id);
+		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));
+		
+		HashMap<String, Object> resultMap = dao.coachProfile((String)session.getAttribute("coachId"));
 		
 		//커리큘럼 2개면 분할해서 보내주기
 		if(resultMap.get("curriList") !=null ) {   //등록한 커리큘럼이 있다면
@@ -64,6 +66,8 @@ ServletContext c;
 		}
 		
 	}
+		
+		mav.addObject("mdto", mdto);
 		mav.addObject("resultMap", resultMap);	
 		mav.setViewName("coachMyPage/coachMyPageView");
 		
@@ -101,14 +105,14 @@ ServletContext c;
 	
 	/*받은요청서 선택삭제하기*/
 	@RequestMapping("requestDelete.do")
-	public ModelAndView requestDelete(@RequestParam("req_idx")int req_idx,@RequestParam("id")String id) {
+	public ModelAndView requestDelete(@RequestParam("req_idx")int req_idx,@RequestParam("mem_id")String mem_id) {
 		
 		int result=cdao.requestDelete(req_idx);
 		String msg=result>0?"상담요청서가 삭제되었습니다":"삭제실패";
 		System.out.println("-----기능수행------");
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
-		mav.addObject("gopage", "checkRequest.do?id="+id);
+		mav.addObject("gopage", "checkRequest.do?id="+mem_id);
 		mav.setViewName("coach/joinMsg");
 		return mav;
 	}
@@ -151,6 +155,113 @@ ServletContext c;
 			
 			return mav;
 		}
+		
+		
+		
+		@RequestMapping("/coachMypagePwdUpdateForm.do")
+		public String coachMypagePwdUpdateForm() {
+			
+			return "coachMyPage/coachMypagePwdUpdate";
+		}
+		
+		//비밀번호 변경
+		@RequestMapping("/coachMypagePwdUpdate.do")
+		public ModelAndView coachMypagePwdUpdate(MemberDTO dto,
+				@RequestParam("mem_pwd")String mem_pwd,
+				@RequestParam("mem_pwd2")String mem_pwd2,
+				@RequestParam("mem_id")String mem_id) {
+			
+			ModelAndView mav=new ModelAndView();
+
+			if(mem_pwd.equals(mem_pwd2)) {
+				int result=cdao.coachMypagePwdUpdate(dto);
+				mav.addObject("mem_id", mem_id);
+				mav.addObject("msg", "비밀번호 수정 완료!");
+				mav.addObject("gourl", "coachMyPage.do");
+				mav.setViewName("coachMyPage/coachMypageMsg");
+			}else {
+				mav.addObject("msg", "잘못된 정보입니다.");
+				mav.addObject("gourl", "coachMyPage.do");
+				mav.setViewName("coachMyPage/coachMypageMsg");
+			}
+			return mav;
+		}
+		
+		@RequestMapping("/coachMypageAddrUpdateForm.do")
+		public String coachMypageAddrUpdateForm() {
+			
+			return "coachMyPage/coachMypageAddrUpdate";
+		}
+		
+		
+		//주소 변경
+		@RequestMapping("/coachMypageAddrUpdate.do")
+		public ModelAndView coachMypageAddrUpdate(MemberDTO dto,
+				HttpSession session,
+				@RequestParam("mem_zipcode")String mem_zipcode,
+				@RequestParam("mem_addr")String mem_addr,
+				@RequestParam("mem_detailaddr")String mem_detailaddr) {
+			ModelAndView mav = new ModelAndView();
+			dto.setMem_id((String)session.getAttribute("coachId"));
+			int result = cdao.coachMypageAddrUpdate(dto);
+			String msg=result>0?"주소변경 성공!":"주소변경 실패!";
+			mav.addObject("msg", msg);
+			mav.addObject("gourl", "coachMyPage.do");
+			mav.setViewName("coachMyPage/coachMypagePopupMsg");
+			return mav;
+		}
+		
+		@RequestMapping("/coachMypageEmailUpdateForm.do")
+		public String coachMypageEmailUpdateForm() {
+			
+			return "coachMyPage/coachMypageEmailUpdate";
+		}
+		
+		
+		//이메일 변경
+		@RequestMapping("/coachMypageEmailUpdate.do")
+		public ModelAndView coachMypageEmailUpdate(
+				MemberDTO dto,
+				HttpSession session,
+				@RequestParam("mem_email") String mem_email) {
+			
+			ModelAndView mav= new ModelAndView();
+			dto.setMem_id((String)session.getAttribute("coachId"));
+			int result = cdao.coachMypageEmailUpdate(dto);
+			String msg=result>0?"이메일 변경 성공!":"이메일 변경 실패!";
+			mav.addObject("msg", msg);
+			mav.addObject("gourl", "coachMyPage.do");
+			mav.setViewName("coachMyPage/coachMypagePopupMsg");
+			return mav;
+			
+		}
+		
+		@RequestMapping("/coachMypagePhoneUpdateForm.do")
+		public String coachMypagePhoneUpdateForm() {
+			
+			return "coachMyPage/coachMypagePhoneUpdate";
+		}
+		
+		
+		//전화번호 변경
+		@RequestMapping("/coachMypagePhonUpdate.do")
+		public ModelAndView coachMypagePhoneUpdate(
+				MemberDTO dto,
+				HttpSession session,
+				@RequestParam("mem_phone") String mem_phone) {
+			
+			ModelAndView mav= new ModelAndView();
+			dto.setMem_id((String)session.getAttribute("coachId"));
+			int result = cdao.coachMypagePhoneUpdate(dto);
+			String msg=result>0?"전화번호 변경 성공!":"전화번호 변경 실패!";
+			mav.addObject("msg", msg);
+			mav.addObject("gourl", "coachMyPage.do");
+			mav.setViewName("coachMyPage/coachMypagePopupMsg");
+			return mav;
+			
+		}
+		
+		
 	
 	
 	
