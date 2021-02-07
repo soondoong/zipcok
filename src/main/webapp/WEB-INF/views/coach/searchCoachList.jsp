@@ -3,8 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@include file="../_include/head.jsp" %>
-
-<%@include file="../_include/header.jsp" %>
+<%@include file="../header2.jsp" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
@@ -12,11 +11,10 @@
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">
 	<style>
-		.topSearchWrap {background: #006be0; text-align: center; padding: 120px 0;}
+		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
 		.topSearchWrap .searchDiv {display: inline-block;}
 		.topSearchWrap .searchDiv > * {float: left;}
-		.topSearchWrap .searchDiv select {width: 200px; margin-right: 10px;}
-		.topSearchWrap .searchDiv input {width: 100px; height: 40px; background: #ffffff; color: #000000;}
+		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px;}
 	</style>
 	<div class="topSearchWrap">
 		<div class="searchDiv">
@@ -42,28 +40,27 @@
 		 		<option <c:if test="${keyword.category=='다이어트'}">selected="selected"</c:if>>다이어트</option>
 		 	</select>
 		 	
-		 	<input type="submit" value="검색하기">
+		 			 <button type="submit" class="btn btn-primary btn-lg">검색하기</button>
 		</div>
 	</div>
 </form>
 <!-- 상단 검색바 영역  -->
 
 <style>
-.result_contents_wrap {display: flex; padding: 30px;}
+.result_contents_wrap {  max-width:1490px;display: flex; padding: 30px; margin: 0 auto;}
 
 .result_contents_wrap .leftWall {flex: 0 0 300px;}
-.result_contents_wrap .leftFilterDIV {padding: 20px;}
-
-.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px;}
+.result_contents_wrap .leftFilterDIV { padding: 20px;}
+.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1150px;}
 
 .result_contents_wrap .hgroup {margin-bottom: 40px;}
 .result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}
 
 .result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
 .result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
-.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex; justify-content: center; align-items: center; width: 238px; height: 238px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
-.result_contents_wrap .contentsWrap .oneperson .image-container img {max-width: 100%; max-height: 100%;}
-.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: #f7f7f7;}
+.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
+.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
 .result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
 .result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
 .result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
@@ -104,7 +101,7 @@
 	
 	<div class="contentsWrap">
 		<div class="hgroup">
-			<h3 class=" mt-5">검색된 리스트</h3>
+			<h3>검색된 리스트</h3>
 			<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
 		</div>
 		
@@ -112,7 +109,9 @@
 			<c:forEach var="dto" items="${list}">
 		
 			<div class="oneperson">
-				<div class="image-container" style="background: url('/zipcok/upload/member/${dto.mfile_upload}');"></div>
+				<div class="image-container">
+				<img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
+				</div>
 				<div class="desc">
 				    <div class="member">
 				    	<span class="category">${dto.cate_name }</span> <span>${dto.mem_name }</span> 

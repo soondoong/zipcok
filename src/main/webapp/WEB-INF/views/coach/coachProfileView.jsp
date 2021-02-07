@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <style>
 body{
 width:100%;
@@ -19,7 +21,7 @@ padding:50px 100px 0px 100px;
 width: 1200px;
 margin:0 auto;
 }
-table{
+.imgcoachtable{
 width: 1000px;
 margin:60px 0px;
 }
@@ -61,46 +63,6 @@ height:550px;
 display: none;
 }
 </style>
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	// 기존 css에서 div 위치(top)값을 가져와 저장한다.
-	var floatPosition = parseInt($("#sidebox").css('top'));
-	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
-
-	$(window).scroll(function() {
-		// 현재 스크롤 위치를 가져온다.
-		var scrollTop = $(window).scrollTop();
-		var newPosition = scrollTop + floatPosition + "px";
-
-		
-		 $("#sidebox").css('top', newPosition);
-	
-
-		 
-			/* 애니메이션
-		$("#sidebox").stop().animate({
-			"top" : newPosition
-		}, 500);	 */
-
-	}).scroll();
-
-});
-
-
-/*상담요청서 글자수 제한*/
-function lengthLimit(){
-    var content = $('#requestText').val();
-
-    if (content.length > 60){
-        alert("최대 60자까지 입력 가능합니다.");
-        $('#requestText').val(content.substring(0, 60));
-    }
-}
-
-</script>
-</head>
-<body>
 <%@include file="../header2.jsp" %>
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
@@ -202,9 +164,9 @@ $( '#startDate' ).val(today);
 			
 				
 		<!-- 코치사진영역 -->		
-			<table  >
+			<table class="imgcoachtable" >
 			<tr>
-				<td rowspan="3" class="maintd"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
+				<td rowspan="3" class="maintd" style="width:50%;"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
 				<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></td>	
 				<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></td>		
 			</tr>
@@ -304,5 +266,44 @@ $( '#startDate' ).val(today);
 		
 	</article>
 </section>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	// 기존 css에서 div 위치(top)값을 가져와 저장한다.
+	var floatPosition = parseInt($("#sidebox").css('top'));
+	// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+	$(window).scroll(function() {
+		// 현재 스크롤 위치를 가져온다.
+		var scrollTop = $(window).scrollTop();
+		var newPosition = scrollTop + floatPosition + "px";
+
+		
+		 $("#sidebox").css('top', newPosition);
+	
+
+		 
+			/* 애니메이션
+		$("#sidebox").stop().animate({
+			"top" : newPosition
+		}, 500);	 */
+
+	}).scroll();
+
+});
+
+
+/*상담요청서 글자수 제한*/
+function lengthLimit(){
+    var content = $('#requestText').val();
+
+    if (content.length > 60){
+        alert("최대 60자까지 입력 가능합니다.");
+        $('#requestText').val(content.substring(0, 60));
+    }
+}
+
+</script>
 </body>
 </html>
