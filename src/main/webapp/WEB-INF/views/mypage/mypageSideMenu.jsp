@@ -3,7 +3,6 @@
 
 <div class="mypage_sidebar">
 	<ul>
-
 		<li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>
 		<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>
 		<li class="sidemenuli" id="sideFont"><a href="checkPMRequest.do?id=${sessionScope.sid}">받은 견적 보기</a></li>

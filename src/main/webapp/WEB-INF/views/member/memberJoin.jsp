@@ -345,6 +345,7 @@ function execPostCode() {
 
 </head>
 <body>
+	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
 	<article>
 		<form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
