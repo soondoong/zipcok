@@ -20,7 +20,6 @@ function pg_check(){
 			 pg_choice_method = pg_method[i].value;
 		 }
 	 }
-	 window.alert('${sessionScope.loginAll.mem_name}');
 	IMP.request_pay({
 	    pg : 'kakaopay', // version 1.1.0부터 지원.
 	    cid : 'A52CY',
@@ -45,6 +44,13 @@ function pg_check(){
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
 	    alert(msg);
+	    var params = '?pd_req_idx='+${reservationInfo.reser_idx};
+	    params += '&pd_code='+rsq.merchant_uid;
+	    params += '&pd_target_id='+${reservationInfo.reser_hg_mem_id};
+	    params += '&pd_mem_id='+${sessionScope.loginAll.mem_name};
+	    params += '&pd_method='+pg_choice_method;
+	    params += '&pd_price='+${reservationInfo.reser_price};
+	    location.href=''+params;
 	});
 }
 </script>
