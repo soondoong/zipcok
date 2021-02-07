@@ -5,18 +5,51 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.idFind-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	margin-top: 21px;
+}
+.idFind-button-wrap button{
+	width: 250px;
+	height :48px;
+	font-size: 18px;
+	background: deepskyblue;
+	color: white;
+	border: solid 1px deepskyblue;
+	border-radius: 5px;
+	margin : 15px 0 15px 0;
+}
+</style>
+<script>
+function backPage(){
+	location.href='loginForm.do';
+}
+</script>
 </head>
 <body>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
 <br><br>
+<div class="idFind-container" style="height: 615px;">
+<br><br><br><br>
 <h2>아이디 찾기</h2>
+<br>
 <form action="idFind.do">
 	<div>
-		<label>가입하신 이메일</label>
-		<input type="text" name="mem_email" size="30">
-		<input type="submit" value="찾기">
+		<label style="font-size : 20px;">가입하신 이메일</label>
+		<input type="text" name="mem_email" required="required">
+		<div class="idFind-button-wrap">
+				<button type="submit">Find</button>
+				<button type="button" onclick="backPage()">Back</button>
+		</div>
+		
 	</div>
 </form>
+</div>
+<%@include file="../_include/footer.jsp" %>
 </body>
 </html>
