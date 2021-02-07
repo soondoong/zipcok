@@ -96,7 +96,7 @@
   <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
   </div>
 </div>
-<input type="file" id="file" name="file" onchange="changeValue(this)">
+<input type="file" id="file" name="file" onchange="changeValue(this);">
 
 
 <script>
@@ -159,6 +159,9 @@ $(function () {
 			<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
 			<button type="button" class="btn btn-primary btn-lg" id="btnSend" >전송</button>		
 			</div>		
+				<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
+			<button type="button" class="btn btn-primary btn-lg" id="btnSendFile" >사진파일전송</button>		
+			</div>		
 			
 			
 			<div  style="clear:both;" >
@@ -204,17 +207,6 @@ function openSocket() {
 		scroll();
 		return;
 	}
-	 // BLOB데이터를 가지고 URL객체를 만들어 내는 함수
-	 function createObjectURL (blob) {
-	  if ( window.webkitURL ) {
-	   return window.webkitURL.createObjectURL( blob );
-	  } else if ( window.URL && window.URL.createObjectURL ) {
-	   return window.URL.createObjectURL( blob );
-	  } else {
-	   return null;
-	  }
-	 }
-
 
 	// 웹소켓 객체 생성하여 소켓서버에 연결 요청하기. 채팅에 사용할 이름도 함께 보냄.
 	sock = new WebSocket('ws://localhost:9090/zipcok/chat?realid='+myid+'&realname='+myname+'&roomidx='+roomidx);
@@ -229,19 +221,33 @@ function openSocket() {
 	sock.onmessage = function (event) {
 			
 			console.log('event.data : ' + event.data);
-			var message = JSON.parse(event.data);
-			console.log('message : ' + message);
+			var msg = event.data;
+			if(msg != null && msg.type =='사진'){ //사진메세지라면
+				console.log("파일첨부잇어여");
+				var blob = event.data;
+
+				  console.log("New Message : " + blob.size + " byte");
+				  
+				  // works cross-browser
+				  var uri = createObjectURL(blob);
+				  var img = document.createElement("img");
+				  img.src = uri;
+
+				  document.body.appendChild(img);
+
+				//출처: https://imaitman.tistory.com/235 [To be rich..]
+				
+				
+			}else{	//파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다.
+				var url = URL.createObjectURL(new Blob([msg]));
+				$("#chatMessageArea").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
+			}
 			
-			var str = message.msg_content  + '\n';
-			appendOtherMessage(str);
-					
 
 		scroll();
 	};
 	
 	sock.onclose = function (event) {
-	//	$('#messages').append('연결이 끊어졌습니다.<br>');
-		 appendMessage("연결을 끊었습니다.");
 		scroll();
 	}
 	
@@ -252,23 +258,68 @@ function closeSocket() {
 	sock = null;
 }
 
+// BLOB데이터를 가지고 URL객체를 만들어 내는 함수
+function createObjectURL (blob) {
+ if ( window.webkitURL ) {
+  return window.webkitURL.createObjectURL( blob );
+ } else if ( window.URL && window.URL.createObjectURL ) {
+  return window.URL.createObjectURL( blob );
+ } else {
+  return null;
+ }
+}
+
+
+
+
+function sendFile(){
+	var file = document.getElementById('file').files[0]; //파일오브젝트
+	var fileValue = $("#file").val().split("\\");
+	var fileName = fileValue[fileValue.length-1]; // 파일명
+
+	var t = getTimeStamp(); //현재시간
+	var fileReader = new FileReader();
+	fileReader.readAsArrayBuffer(file);
+	fileReader.onload = function() {
+		var param = {
+				msg_idx:1,
+				msg_croom_idx : roomidx,
+				msg_req_idx : '${cdto.croom_req_idx}',
+				msg_sender :'${myid}', //구분키중요
+				msg_receiver : yourid, //받을상대아이디;구분키중요
+				msg_content : 'nomsg',
+				msg_userid: '${myid}',
+				msg_coachid: yourid, //받을상대아이디;
+				msg_file_upload : fileName,
+				msg_file_path : 'filepath',
+				user_name : '${login.mem_name}',
+				receiver_user_name : '${rdto.mem_name}',
+				msg_sendtime : t,
+				msg_readtime : t,
+				unReadCount: 1,//default
+				msg_type: '사진'	
+				
+				
+			}	
+			sock.send(JSON.stringify(param)); //파일 보내기전 메시지를 보내서 파일을 보냄을 명시한다.
+		
+		arrayBuffer = this.result;
+	     sock.send(arrayBuffer); //파일 소켓 전송
+	};
+	
+}
+
+
+
+
 function send() {
 	
 	var inputMessage = $('#message-input').val();
 	if (inputMessage == '') {
 		return;
 	}
-	var msgtype = '사진';
-	var fileupload= $("#file").val();
-	if (fileupload == ''){
-		fileupload = 'noimg.png';
-		msgtype = '텍스트';
-	}
 
 	var t = getTimeStamp(); //현재시간
-
-	
-	
 	
 	/*메세지데이터 전송json타입 */
 	var message = {};
@@ -287,8 +338,8 @@ function send() {
     message.msg_sendtime = t;
     message.msg_readtime = t;
     message.unReadCount= 1;//default
-	message.msg_type= msgtype;
-	//console.log('message : ' + message);
+	message.msg_type= '텍스트';
+
 	sock.send(JSON.stringify(message)); //서버에 json형태로메세지보내기
 	
 	var str = message.msg_content  + '\n';
@@ -396,6 +447,11 @@ $(document).ready(function () {
 	$('#btnSend').on('click', function (event) {
 		send();
 	});
+
+	$('#btnSendFile').on('click', function (event) {
+		sendFile();
+	});
+	
 	
 	$('#message-input').on('keydown', function (event) {
 		if (event.keyCode == 13) { // 엔터키
