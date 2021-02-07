@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -55,6 +56,8 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<div class="mypage_wrap">	
+	<%@include file="./coachMypageSideMenu.jsp"%>
 <article>
 		<form action="coachMypageEmailUpdate.do">
 			<h4>이메일 변경</h4>
@@ -76,5 +79,6 @@ $(document).ready(function() {
 			</div>
 		</form>
 	</article>
+</div>	
 </body>
 </html>

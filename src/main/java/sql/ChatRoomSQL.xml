@@ -103,7 +103,7 @@ modu.*,zm.mem_name,mf.mfile_upload
 from 
 
 (select * from 
-chatroom left outer join 
+(select * from chatroom where croom_userid = #{id})room left outer join 
 
 (select 
 a.*
@@ -115,9 +115,7 @@ where
 rownum = 1)msg
 
 on
-croom_userid = #{id} 
-and
-croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
+room.croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
 
 where
 croom_coachid = mf.mfile_mem_id
@@ -140,7 +138,7 @@ modu.*,zm.mem_name,mf.mfile_upload
 from 
 
 (select * from 
-chatroom left outer join 
+(select * from chatroom where croom_coachid = #{id})room left outer join 
 
 (select 
 a.*
@@ -152,9 +150,7 @@ where
 rownum = 1)msg
 
 on
-croom_coachid = #{id} 
-and
-croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
+room.croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
 
 where
 croom_userid = mf.mfile_mem_id

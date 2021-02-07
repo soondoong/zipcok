@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script>
 function coachMypageWriteList() {
 	location.href='coachMypageWriteList.do?mem_id=${sessionScope.sid}';
@@ -17,7 +18,8 @@ function coachMypageCommWriteList() {
 <body>
 <body>
 	<%@include file="../header2.jsp"%>
-	<%@include file="./coachMypageSideMenu.jsp" %>
+	<div class="mypage_wrap">	
+	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div style="margin-left: 250px; padding: 1px 16px;">
 	<br>
 	<h3>${sessionScope.sname }님의 작성글</h3>
@@ -59,6 +61,7 @@ function coachMypageCommWriteList() {
 	</c:forEach>
 	</tbody>
 </table>
+		</div>
 	</div>
 </body>
 </html>

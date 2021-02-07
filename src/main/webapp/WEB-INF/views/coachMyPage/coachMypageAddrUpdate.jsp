@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- daum 도로명주소 찾기 api -->
@@ -92,7 +93,10 @@ function execPostCode() {
 </script>
 
 </head>
+
 <body>
+	<div class="mypage_wrap">	
+	<%@include file="./coachMypageSideMenu.jsp"%>
 	<article>
 		<form action="coachMypageAddrUpdate.do">
 			<h4>주소변경</h4>
@@ -129,5 +133,6 @@ function execPostCode() {
 			</div>
 		</form>
 	</article>
+	</div>	
 </body>
 </html>

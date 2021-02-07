@@ -7,11 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <style>
-.profileIMG { width:500px; height:500px;  border-radius: 50%; overflow: hidden; margin-bottom: 50px;}
-.profileIMG img { width:500px; height:500px; object-fit: cover;}
+.mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
+font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
+#file{display:none;}
 </style>
-
+  
 <script>
 function coachMypagePwdUpdate(){
 	location.href='coachMypagePwdUpdateForm.do';
@@ -30,7 +32,6 @@ function coachMypagePhoneUpdate(){
 </head>
 <body>
 <%@include file="../header2.jsp"%>
-<%@include file="./coachMypageSideMenu.jsp"%>
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
 <c:set var="curri" value="${resultMap.curriList }"/>
@@ -38,13 +39,41 @@ function coachMypagePhoneUpdate(){
 <c:set var="oneList" value="${oneCurriList}"/>
 <c:set var="twoList" value="${twoCurriList }"/>	
 <c:set var="mdto" value="${mdto }"></c:set>
-	
+
+<div class="mypage_wrap">	
+<%@include file="./coachMypageSideMenu.jsp"%>
 <!-- 프로필 본문-->
-<div class="container mt-3" style="margin-left: 250px; padding: 1px 16px;">		
-		
-	<div class="profileIMG">
-	<img src="/zipcok/upload/member/${dto.mfile_upload }" >
-	</div>
+	<div class="mypage_contents">	
+		<div class="mypage_main">
+			<div class="profileIMG">
+			<!-- 프로필사진 수정 -->
+			<img src="/zipcok/upload/member/${dto.mfile_upload }" >
+			</div>
+			<a href="#" id="a-upload"><i class="fas fa-camera reupload" ></i></a>
+			<form id="uploadForm" enctype="multipart/form-data" method="POST" action="profileImgReUpload.do">
+			<input type="file" id="file" name="upload" onchange="changeValue(this)" accept="image/gif, image/jpeg, image/png"/>
+			<input type="hidden" name="id" value="${login.mem_id }">		
+			</form>
+			<!-- 프로필사진 수정 -->
+<script type="text/javascript">
+$(function () { //사진수정버튼
+
+			$('#a-upload').click(function (e) {
+			e.preventDefault();
+			$('#file').click();
+			 });
+});
+function changeValue(obj){ //사진선택하면
+	var fileValue = $("#file").val().split("\\");
+	var fileName = fileValue[fileValue.length-1]; // 파일명
+   var result=confirm(fileName+"사진으로 변경하시겠습니까?");
+	if(result){		
+		  $('#uploadForm').submit();
+	}
+	
+
+}
+</script>	 
 	<!-- 코치소개 영역 -->		
 			<div>
 			<span style="font-size:2rem; font-weight: 600;">${dto.mem_name}코치</span>	 
@@ -114,8 +143,10 @@ function coachMypagePhoneUpdate(){
 			<p>${dto.coach_mat }</p>
 			<br>
 			
-			</div>
-			
+	 </div><!-- mypage_main -->
+	<!-- 코치프로필 본문-->		
+		
+		<!-- 일반기본프로필 본문-->	
 		<div>
 			<label style="font-size:1.0rem; font-weight: 400; margin:40px 10px 0 0;">
 			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
@@ -175,9 +206,10 @@ function coachMypagePhoneUpdate(){
 		<a href="#">[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
 		</div>
 		<br><br>
-	
+	</div>
 </div>	
 	
 <!-- 프로필 본문-->		
+</div>
 </body>
 </html>

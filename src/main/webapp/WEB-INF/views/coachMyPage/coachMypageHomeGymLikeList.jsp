@@ -5,9 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 </head>
 <body>
 <%@include file="../header2.jsp"%>
+<div class="mypage_wrap">	
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div style="margin-left: 250px; padding: 1px 16px;">
 		<br>
@@ -41,6 +43,7 @@
 			</tr>
 			</tfoot>
 		</table>
+	</div>
 	</div>
 </body>
 </html>

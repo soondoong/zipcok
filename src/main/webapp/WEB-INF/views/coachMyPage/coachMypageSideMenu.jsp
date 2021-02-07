@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	<div class="mypage_sidebar">
+<div class="mypage_sidebar">
 	<ul>
-
 		<li class="sidemenuli"><a href="coachMyPage.do?id=${sessionScope.coachId }">내 프로필</a></li>
 		<li class="sidemenuli"><a href="#">내 홈짐보기</a></li>
 		<li class="sidemenuli" ><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>

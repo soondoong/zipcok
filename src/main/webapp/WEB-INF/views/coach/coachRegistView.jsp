@@ -48,11 +48,36 @@ function execPostCode() {
  
  /*체크박스 두개만 가능하게하기*/
 $(function(){
+	
+	//카테고리 두가지까지 제한
+	  $('.cate').click(function(){
+	  if($(".cate:checked").length >2){  alert('최대 두 가지 선택가능합니다.'); $(this).prop('checked', false); }
+	  });	
 
-  $('.cate').click(function(){
-  if($(".cate:checked").length >2){  alert('최대 두 가지 선택가능합니다.'); $(this).prop('checked', false); }
-  });
+	//가입버튼눌럿을때 제한조건
+	$('#joinform').submit(function(){
+		
+		 var fileCheck = $("input[name=uplaod]").val();
+	
+		//카테고리 하나라도 선택하지않으면
+		alert('dd');
+		  if($(".cate:checked").length <1){  
+			  alert('카테고리를 선택해주세요.'); 
+				return false;			
+		  }
+		  alert(fileCheck.name);
+		  if(!fileCheck){
+				  alert('사진을 한 장이상 선택해주세요.'); 
+					return false;			
+		  }
+		  
+		  
+	  });
+		
+	
+	
 });
+ 
 
 
 </script>
@@ -77,7 +102,7 @@ $(function(){
 
 
 <article class="p-5">
-<form action="coachJoin.do" method="post" enctype="multipart/form-data">
+<form action="coachJoin.do" method="post" enctype="multipart/form-data" id="joinform">
 <div class="col-sm-3 col-md-offset-3">
 <h3>코치정보 등록</h3>
 <hr>
@@ -133,7 +158,7 @@ $(function(){
 	  <label for="cate_name">카테고리</label> 
 	  	<div>
 	    <div class="form-check form-check-inline">
-		  <input class="form-check-input cate" class="cate"
+		  <input class="form-check-input cate"
 		   name="cate_name" type="checkbox" value="퍼스널트레이닝">
 		  <label class="form-check-label" for="inlineCheckbox1">퍼스널트레이닝</label>
 		</div>
@@ -157,19 +182,19 @@ $(function(){
 	
 	
 	<div class="form-group">
-		<label>사진등록</label>
+		<label>소개 사진등록(최대 6장)</label>
 		<ul id="fileUl">
-			<li>올릴파일:<input type="file"  name="upload"></li>
+			<li>올릴파일:<input type="file"  name="upload" accept="image/gif, image/jpeg, image/png"></li>
 		</ul>
-		<div><input type="button" value="파일추가" onclick="plus();"></div>
-		<div class="eheck_font"></div>
+		<div><input type="button" value="파일추가" onclick="plus();" style="float:right;"></div>
+		<div class="eheck_font" style="clear: both;"></div>
 	</div>
 	<script>
 	//사진파일계속추가
 	function plus(){
 		var wrapul=document.getElementById("fileUl");	
 		var newLi=document.createElement("li");
-		newLi.innerHTML='올릴파일:<input type="file" name="upload">';
+		newLi.innerHTML='올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png">';
 		wrapul.appendChild(newLi);
 		
 	}

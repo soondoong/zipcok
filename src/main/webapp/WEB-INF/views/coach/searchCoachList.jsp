@@ -2,7 +2,45 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@include file="../_include/head.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
+		.topSearchWrap .searchDiv {display: inline-block;}
+		.topSearchWrap .searchDiv > * {float: left;}
+		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px;}
+		
+						
+		.result_contents_wrap {  max-width:1490px;display: flex; padding: 30px; margin: 0 auto;}		
+		.result_contents_wrap .leftWall {flex: 0 0 300px;}
+		.result_contents_wrap .leftFilterDIV { padding: 20px;}
+		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1150px;}		
+		.result_contents_wrap .hgroup {margin-bottom: 40px;}
+		.result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}		
+		.result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
+		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
+		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .type {float: left; margin-right: 5px; background: #777777; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
+		
+		.nomalpaging {margin: 40px 0 0; text-align: center;}
+		.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+		.nomalpaging a:not(:first-child) {margin-left: 5px;}
+				
+</style>
+
+</head>
+<body>
 <%@include file="../header2.jsp" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -10,12 +48,6 @@
 
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">
-	<style>
-		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
-		.topSearchWrap .searchDiv {display: inline-block;}
-		.topSearchWrap .searchDiv > * {float: left;}
-		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px;}
-	</style>
 	<div class="topSearchWrap">
 		<div class="searchDiv">
 		 	<select id="location" name="location">
@@ -46,33 +78,6 @@
 </form>
 <!-- 상단 검색바 영역  -->
 
-<style>
-.result_contents_wrap {  max-width:1490px;display: flex; padding: 30px; margin: 0 auto;}
-
-.result_contents_wrap .leftWall {flex: 0 0 300px;}
-.result_contents_wrap .leftFilterDIV { padding: 20px;}
-.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1150px;}
-
-.result_contents_wrap .hgroup {margin-bottom: 40px;}
-.result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}
-
-.result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
-.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
-.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
-.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
-.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
-.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
-.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
-.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
-.result_contents_wrap .contentsWrap .oneperson .desc .grade .type {float: left; margin-right: 5px; background: #777777; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
-.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
-.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
-.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
-
-.nomalpaging {margin: 40px 0 0; text-align: center;}
-.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
-.nomalpaging a:not(:first-child) {margin-left: 5px;}
-</style>
 <div class="result_contents_wrap">
 <!-- 좌측검색필터  -->
 
@@ -110,7 +115,9 @@
 		
 			<div class="oneperson">
 				<div class="image-container">
+				<a href="coachProfile.do?id=${dto.coach_mem_id}">
 				<img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
+				</a>
 				</div>
 				<div class="desc">
 				    <div class="member">

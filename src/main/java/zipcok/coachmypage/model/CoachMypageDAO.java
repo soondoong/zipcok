@@ -2,6 +2,7 @@ package zipcok.coachmypage.model;
 
 import java.util.*;
 
+import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
 
 public interface CoachMypageDAO {
@@ -17,5 +18,7 @@ public interface CoachMypageDAO {
 	public int coachMypageAddrUpdate(MemberDTO dto);
 	public int coachMypageEmailUpdate(MemberDTO dto);
 	public int coachMypagePhoneUpdate(MemberDTO dto);
-	
+	public CoachFileDTO findProfileDTO(String id); //프로필파일수정
+	public int deleteProfileImg(CoachFileDTO dto); //프로필파일수정
+	public int insertProfileImg(CoachFileDTO dto); //프로필파일수정
 }

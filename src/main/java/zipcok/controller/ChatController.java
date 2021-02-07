@@ -117,7 +117,7 @@ public class ChatController {
 			//채팅방나가면 상담요청서 지우기.
 			int result=cpagedao.requestDelete(req_idx);
 					result+=chatdao.roomDelete(croom_idx);
-			String msg=result>1?"채팅방에서 퇴장하셨습니다":"퇴장실패";
+			String msg=result>0?"채팅방에서 퇴장하셨습니다":"퇴장실패";
 			System.out.println("-----채팅방퇴장기능수행------");
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);

@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.coach">
     <select id="findCategoryCoach" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
-    
-select rownum as rnum,zm.mem_name,
+ select aa.* from   
+(select rownum as rnum,zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
 (select a.coach_mem_id,nvl(trunc(avg(rev_star),1),0) as avg,nvl(count(rev_mem_id),0) as starcnt
@@ -34,8 +34,9 @@ b.coach_mem_id = mf.mfile_mem_id
 and
 b.coach_mem_id = zm.mem_id
 and
-mf.mfile_key='회원프로필'
-
+mf.mfile_key='회원프로필')aa
+where 
+rnum <![CDATA[<]]>15
 
 </select>
 	
