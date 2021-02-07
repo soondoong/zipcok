@@ -7,77 +7,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.blueBackground{
-background-color:   #3978df;
-width:100%;
-height: 190px;
-}
-.searchDiv{
- position: relative;
- top: 40%;
-text-align:center;
-line-height: 1;
-}
-.contentsWrap{
-magin:0 auto;
-margin-top:40px;
-padding:0px 30px;
-}
-.listWrap{
-width:230px;
-display: flex;
-}
-.oneperson{
-margin:0 20px 0 20px;
-float:left;
-}
+		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0;border-radius: 0 0 30px 30px;}
+		.topSearchWrap .searchDiv {display: inline-block;}
+		.topSearchWrap .searchDiv > * {float: left;}
+		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px;}
+		
+		.result_contents_wrap {  max-width:1490px;padding: 30px; margin: 0 auto;}		
+		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1400px;}		
+		.result_contents_wrap .contentsWrap .listWrap {overflow: hidden; margin: 0 -30px -30px 0;}
+		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
+		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .type {float: left; margin-right: 5px; background: #777777; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade img {height: 20px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
+		
+		.nomalpaging {margin: 40px 0 0; text-align: center;}
+		.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+		.nomalpaging a:not(:first-child) {margin-left: 5px;}
+				
 
-.image-container img{
-width:250px;
-height:270px;
-object-fit: cover;
-
-}
-.image-container{
-   overflow: hidden;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 230px;
-   height:270px;
-   margin-bottom:15px;
-}
-.extype{
-text-align:center;
-display:inline-block;
-width:50px;
-background-color: gray;
-color:white;
-border-radius: 20%;
-font-size: 0.8rem;
-}
-.category{
-font-size: 0.8rem;
-}
-.h5search{
-margin-bottom: 30px;
-}
-.paging{
-position: relative;
-left:50%;
-}
-.paging a{
-font-size:1.6rem;
-padding-right:20px;
-}
-.starIMG{
- width:29px;
-padding:0 8px 0 4px;
- }
- .contentsWrap h3{
- margin-bottom:40px;
- font-weight: 600;
- }
 </style>
 
 <script>
@@ -91,18 +45,11 @@ function search(){
 	
 }
 
-
 </script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
 <!-- 상단 검색바 영역  -->
-<style>
-		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0;border-radius: 0 0 30px 30px;}
-		.topSearchWrap .searchDiv {display: inline-block;}
-		.topSearchWrap .searchDiv > * {float: left;}
-		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px;}
-	</style>
 <form name="fm" action="searchCoach.do">
 <div class="topSearchWrap">
 		<div class="searchDiv">
@@ -135,73 +82,74 @@ function search(){
 
 
 <!-- 리스트 영역  -->
-
-<section>
-	<article class="contentsWrap">
-		<h3 class=" mt-5">나도 몸짱! 고강도 전신운동</h3>
-		
-<div class="listWrap">
-
-<c:forEach var="dto" items="${map.pt }">
-		<div class="oneperson">
-			<div class="image-container">
-		        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
-		       
-		    </div>
-		    
-		    <div>
-		    <span class="category">${dto.cate_name }</span>&nbsp; <span>${dto.mem_name }</span> 
-		    </div>
-		    
-		     <div>
-		    <span><a href="coachProfile.do?id=${ dto.coach_mem_id }">${dto.coach_intro_sub}</a></span>
-		    </div>
-		    
-		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; 
-		    	<span><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>
-		    	&nbsp; <span>(${dto.starcnt }명 참여)</span>
-		    </div>
-		  </div>  
-		  
-
-</c:forEach>
-</div> 
-
-
-	
-	<h3 class="mt-5">나를 위한, 힐링의 시간</h3>
-
+<div class="result_contents_wrap">
+		<h3>나도 몸짱! 고강도 전신운동</h3>
+  			<div class="contentsWrap">		
+				<div class="listWrap">
+				<i class="fas fa-chevron-right"></i>
+					<c:forEach var="dto" items="${map.pt }">
+							<div class="oneperson">
+								<div class="image-container">
+							       <a href="coachProfile.do?id=${ dto.coach_mem_id }">
+							        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
+							       </a>
+							    </div>
+							    <div class="desc">
+							    <div class="member">
+									    	<span class="category">${dto.cate_name }</span> <span>${dto.mem_name }</span> 
+									    </div>
+							    
+							     <div class="greet">
+							    <span><a href="coachProfile.do?id=${ dto.coach_mem_id }">${dto.coach_intro_sub}</a></span>
+							    </div>
+							    
+							    <div class="grade">
+							    	<span class="type">${dto.coach_ex_type }</span>
+							    	<span class="star"><img src="img/coach/star.png">${dto.avg }</span>
+							    	<span class="join">(${dto.starcnt }명 참여)</span>
+							    </div>
+							  </div>  
+							</div>  
+					
+					</c:forEach>
+					</div> 
+			</div>
+</div>
+<div class="result_contents_wrap">	
+	<h3>나를 위한, 힐링의 시간</h3>
+ <div class="contentsWrap">
 	<div class="listWrap2">
 		<c:forEach var="dto2" items="${map.yoga }">
-
-		<div class="oneperson">
-		
-			<div class="image-container">
-		        <img src="/zipcok/upload/member/${dto2.mfile_upload}" alt="">
-		    </div>
-		    
-		    <div>
-		    <span class="category">${dto2.cate_name }</span>&nbsp; <span>${dto2.mem_name }</span> 
-		    </div>
-		    
-		     <div>
-		    <span><a href="coachProfile.do?id=${ dto2.coach_mem_id }">${dto2.coach_intro_sub}</a></span>
-		    </div>
-		    
-		    <div>
-		    	<span class="extype">${dto2.coach_ex_type }</span>&nbsp; 
-		    	<span><img src="img/coach/star.png" class="starIMG">${dto2.avg }</span>&nbsp; <span>(${dto2.starcnt }명 참여)</span>
-		    </div>
-		  </div>  
+<div class="oneperson">
+								<div class="image-container">
+							       <a href="coachProfile.do?id=${ dto2.coach_mem_id }">
+							        <img src="/zipcok/upload/member/${dto2.mfile_upload}" alt="">
+							       </a>
+							    </div>
+							    <div class="desc">
+							    <div class="member">
+									    	<span class="category">${dto2.cate_name }</span> <span>${dto2.mem_name }</span> 
+									    </div>
+							    
+							     <div class="greet">
+							    <span><a href="coachProfile.do?id=${ dto2.coach_mem_id }">${dto2.coach_intro_sub}</a></span>
+							    </div>
+							    
+							    <div class="grade">
+							    	<span class="type">${dto2.coach_ex_type }</span>
+							    	<span class="star"><img src="img/coach/star.png">${dto2.avg }</span>
+							    	<span class="join">(${dto2.starcnt }명 참여)</span>
+							    </div>
+							  </div>  
+							</div>  
 		  
 
 </c:forEach> 
 		
 	</div>
-	</article>
-</section>
-
+</div>
+</div>
 <!-- 리스트 영역  -->
+
 </body>
 </html>

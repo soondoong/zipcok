@@ -19,10 +19,12 @@ function coachMypageCommWriteList() {
 <body>
 	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
-	<div class="mypage_wrap">
+
+	<div class="mypage_wrap">	
 	<%@include file="./coachMypageSideMenu.jsp"%>
-	<div class="mypage_contents">
-         <div class="mypage_main">
+	<div style="margin-left: 250px; padding: 1px 16px;">
+	<br>
+
 	<h3>${sessionScope.sname }님의 작성글</h3>
 	<hr>
 		<input type="button" value="F&A/고객센터 작성글" onclick="coachMypageWriteList()">
@@ -62,6 +64,7 @@ function coachMypageCommWriteList() {
 	</c:forEach>
 	</tbody>
 </table>
+		</div>
 	</div>
 	</div>
 	</div>

@@ -35,6 +35,37 @@ rownum between #{start} and #{end}
 	where req_idx = #{req_idx}
 	</update>
 	
+	<delete id="DelCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO"> 
+	delete from member_file
+    where
+    mfile_mem_id = #{mfile_mem_id}
+     and
+     mfile_key = '회원프로필'
+	</delete>
+	
+	<insert id="insertCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO">
+	insert into 
+	 member_file
+	values(
+	member_file_mfile_idx.nextval,
+	#{mfile_key},
+	#{mfile_mem_id},
+	#{mfile_upload},
+	#{mfile_size},
+	#{mfile_orig},
+	#{mfile_path},
+	#{mfile_type}
+	)
+	</insert>
+	
+	<select id="findFileDTO" resultType="zipcok.coach.model.CoachFileDTO">
+	 select * from member_file
+	 where 
+	 mfile_mem_id = #{id}
+	 and
+	 mfile_key = '회원프로필'
+	</select>
+	
 	<!-- 홈짐 좋아요 총 수 -->
 	 <select id="coachMypageHomeGymLikeListTotalCnt" resultType="Integer">
 		select count(*) from

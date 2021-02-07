@@ -1,108 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
-<style>
-
-</style>
-</head>
-<body>
-<%@include file="../../header2.jsp" %>
-<c:set var="cdto" value="${croomDTO}"/>
-<c:set var="mtype" value="${empty sessionScope.sid ?'코치':'일반' }"/>
-<c:set var="myid" value="${mtype eq '코치'?cdto.croom_coachid : cdto.croom_userid}"/>
-<c:set var="yourid" value="${mtype eq '코치'?cdto.croom_userid : cdto.croom_coachid}"/>
-<c:set var="rdto" value="${receiveDTO}"/>
-<c:set var="msglist" value="${msglist }"/>
-<div class="container">
-	<h2>${login.mem_name}<c:if test="${sessionScope.sid ==null}">코치</c:if>님</h2>
-	     
-	<h3>${rdto.mem_name}<c:if test="${sessionScope.sid !=null}">코치</c:if>님과의 채팅 페이지</h3>
-	
-	<!-- 채팅 내용 -->
-	<div class="col-12">
-		<div class="col-8"  style=" border: 1px solid lightgray; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
-			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;">
-			
-			
-				<c:if test="${!empty msglist}">
-				<c:forEach var="msgdto" items="${msglist}">
-					
-				<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
-					
-				<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'>
-						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:left;'>
-							 <div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'>
-							 <span style = 'font-size : 12px;'>${msgdto.msg_content }</span>
-							 </div>
-							 
-							 <div col-12 style = 'font-size:9px; text-align:right; float:right;'>
-							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
-							 </div>
-						 </div>
-						 
-						 <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
-								 <img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '>
-								 <div style='font-size:15px; clear:both;'>${login.mem_name}</div>
-						</div>
-				</div>
-						
-					
-				</c:if>
-				
-				
-					<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->
-					
-				<div class='col-6 row' style = 'margin-left:0px; height : auto; margin-top : 5px;'>
-				
-					   <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
-								 <img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '>
-								 <div style='font-size:15px; clear:both;'>${msgdto.user_name}</div>
-						</div>
-				
-						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'>
-							 <div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;'>
-							 <span style = 'font-size : 12px;'>${msgdto.msg_content }</span>
-							 </div>
-							 
-							 <div col-12 style = 'font-size:9px; text-align:right; float:left;'>
-							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
-							 </div>
-						 </div>
-						 
-				
-				</div>
-				
-					
-				</c:if>	
-									
-				</c:forEach>
-				</c:if>
-		
-			
-			</div>
-		</div>
-	</div>
-
-<!-- 파일첨부 결제요청서 -->
-<div id="filemenu">
-  <div style="float:left;">
-  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
-  </div>
-  <div  style="float:left;">
-  <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
-  </div>
-</div>
-<input type="file" id="file" name="file" onchange="changeValue(this);">
-
-
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script><!-- 폰트 -->
 <script>
 /*사진미리띄워주기*/
-
-
 function readURL(input) {
 	 if (input.files && input.files[0]) {
 	  var reader = new FileReader();
@@ -141,6 +49,171 @@ $(function () {
 	});
 
 </script>
+   
+<style>
+.afile{color:gray; font-size:3rem;}
+.afile:hover{ color:blue;}
+#file { display:none; } 
+#image_sectionDIV{ display:none; }
+.pimg{width:50px; height:50px;  border-radius: 50%; }
+.mymsg .notmymsg{font-size:14px; }
+.mymsg:after{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 1px 12px 10px;
+	border-color: lightgray transparent;
+	display: block;
+	width: 0;
+	transform: rotate(45deg);
+	z-index: 1;
+	top: -6.5px; 
+	left: 213px; 
+	 }
+.notmymsg:after{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 10px 12px 1px;
+	border-color:gray transparent;
+	display: block;
+	width: 0;
+	transform: rotate(318deg);
+	z-index: 1;
+	top: -6.5px; 
+	left: -5px; 
+	}
+  </style>
+</head>
+<%@include file="../../header2.jsp" %>
+<body>
+
+<c:set var="cdto" value="${croomDTO}"/>
+<c:set var="mtype" value="${empty sessionScope.sid ?'코치':'일반' }"/>
+<c:set var="myid" value="${mtype eq '코치'?cdto.croom_coachid : cdto.croom_userid}"/>
+<c:set var="yourid" value="${mtype eq '코치'?cdto.croom_userid : cdto.croom_coachid}"/>
+<c:set var="rdto" value="${receiveDTO}"/>
+<c:set var="msglist" value="${msglist }"/>
+
+
+
+<div class="mypage_wrap">
+	 <c:if test="${mtype=='코치' }">
+				<div class="mypage_sidebar">
+					<ul>
+						<li class="sidemenuli"><a href="coachMyPage.do?id=${sessionScope.coachId }">내 프로필</a></li>
+						<li class="sidemenuli"><a href="#">내 홈짐보기</a></li>
+						<li class="sidemenuli" ><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>
+						<li class="sidemenuli" ><a href="chatRoomList.do?mem_id=${sessionScope.coachId}">채팅방</a></li>
+						<li class="sidemenuli" ><a href="#">운동 커뮤니티 관리</a></li>
+						<li class="sidemenuli"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
+						<li class="sidemenuli"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
+						<li class="sidemenuli"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.coachId}">결제내역</a></li>
+					</ul>
+				</div>
+	   </c:if>  
+   
+	    <c:if test="${mtype=='일반' }">
+					<div class="mypage_sidebar">
+						<ul>
+							<li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>
+							<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>
+							<li class="sidemenuli" id="sideFont"><a href="checkPMRequest.do?id=${sessionScope.sid}">받은 견적 보기</a></li>
+							<li class="sidemenuli" id="sideFont"><a href="chatRoomList.do?mem_id=${sessionScope.sid}">채팅방</a></li>
+							<li class="sidemenuli"><a href="mypageHomeGymLikeList.do?mem_id=${sessionScope.sid}" id="sideFont">좋아요 목록</a></li>
+							<li class="sidemenuli"><a href="mypageWriteList.do?mem_id=${sessionScope.sid}" id="sideFont">작성글관리</a></li>
+							<li class="sidemenuli" id="sideFont"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.sid}" id="sideFont">결제내역</a></li>
+						</ul>
+					</div>
+	    </c:if>  
+ 
+
+	
+
+<div class="container">
+
+	<h2>${login.mem_name}<c:if test="${sessionScope.sid ==null}">코치</c:if>님</h2>
+	     
+	<h3>${rdto.mem_name}<c:if test="${sessionScope.sid !=null}">코치</c:if>님과의 채팅 페이지</h3>
+	
+	<!-- 채팅 내용 -->
+	<div class="col-12">
+		<div class="col-8"  style=" border: 1px solid lightgray; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
+			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;">
+			
+			
+				<c:if test="${!empty msglist}">
+				<c:forEach var="msgdto" items="${msglist}">
+					
+				<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
+					
+				<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'>
+						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:left;'>
+							 <div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'>
+							 <span style = 'font-size : 12px;' class="mymsg">${msgdto.msg_content }</span>						 
+							 </div>
+							 
+							 <div col-12 style = 'font-size:9px; text-align:right; float:right;'>
+							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
+							 </div>
+						 </div>
+						 
+						 <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
+								 <img class='pimg' src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
+								 <div style='font-size:15px; clear:both;'>${login.mem_name}</div>
+						</div>
+				</div>
+						
+					
+				</c:if>
+				
+				
+					<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->
+					
+				<div class='col-6 row' style = 'margin-left:0px; height : auto; margin-top : 5px;'>
+				
+					   <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
+								 <img class='pimg' src='/zipcok/upload/member/${rdto.mfile_upload}'>
+								 <div style='font-size:15px; clear:both;'>${msgdto.user_name}</div>
+						</div>
+				
+						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'>
+							 <div class = 'col-12' style = ' background-color: gray; padding : 10px 5px; float:left; border-radius:10px;'>
+							 <span class="notmymsg">${msgdto.msg_content }</span>
+							 </div>
+							 
+							 <div col-12 style = 'font-size:9px; text-align:right; float:left;'>
+							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
+							 </div>
+						 </div>
+						 
+				
+				</div>
+				
+					
+				</c:if>	
+									
+				</c:forEach>
+				</c:if>
+		
+			
+			</div>
+		</div>
+	</div>
+	
+
+		<!-- 파일첨부 결제요청서 -->
+		<div id="filemenu">
+		  <div style="float:left;">
+		  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
+		  </div>
+		  <div  style="float:left;">
+		  <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
+		  </div>
+		</div>
+		<input type="file" id="file" name="file" onchange="changeValue(this);">
+		
+
 
 
 		<!-- 전송메세지 입력창 -->
@@ -153,6 +226,7 @@ $(function () {
 			<textarea class="form-control" style="border: 1px solid gray; height: 65px; float: left; width:100%"
 				placeholder="Enter ..."  id="message-input"> </textarea>
 		</div>
+	
 	
 	
 	<!-- 전송버튼 -->
@@ -171,20 +245,9 @@ $(function () {
 			
 			</div>
     <!-- 전송버튼 -->
-    <style>
-    .afile{
-    color:gray;
-    font-size:3rem;
-    }
-    .afile:hover{
-    color:blue;
-    }
-  #file { display:none; } 
-  #image_sectionDIV{ display:none; }
-    </style>
 
-	
 </div>
+
 <script type="text/javascript">
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -331,7 +394,7 @@ function send() {
 	message.msg_content = inputMessage;
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
-	message.msg_file_upload = fileupload;
+	message.msg_file_upload = 'noimg.png';
 	message.msg_file_path = 'noimg.png'; 
     message.user_name = '${login.mem_name}';
     message.receiver_user_name = '${rdto.mem_name}';
@@ -387,7 +450,6 @@ function leadingZeros(n, digits) {
 
 
 
-
 /*채팅방에 메세지붙여주기*/
 function appendMyMessage(msg) {  //내메세지는 오른쪽
 
@@ -408,6 +470,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 
 	 }
  }
+ 
  
  function appendOtherMessage(msg) {   //상대메세지는 왼쪽
 
@@ -431,14 +494,9 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 
 
 
-
 /*웹소켓연결단*/
-
 $(document).ready(function () {
-	
-
 		openSocket(); //입장버튼없이 바로연결
-
 	
 	$('#btnClose').on('click', function (event) {
 		closeSocket();
@@ -452,18 +510,14 @@ $(document).ready(function () {
 		sendFile();
 	});
 	
-	
 	$('#message-input').on('keydown', function (event) {
 		if (event.keyCode == 13) { // 엔터키
 			send();
 		}
-	});
-	
+	});	
 });
 
-
-
 </script>
-
+</div>
 </body>
 </html>

@@ -8,9 +8,10 @@
 <link href="assets/css/mypage.css" rel="stylesheet">
 </head>
 <body>
-	<%@include file="../_include/head.jsp" %>
-	<%@include file="../header2.jsp"%>
-	<div class="mypage_wrap">
+
+<%@include file="../header2.jsp"%>
+<div class="mypage_wrap">	
+
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
          <div class="mypage_main">
@@ -46,7 +47,8 @@
 		</table>
 	</div>
 	</div>
-	</div>
+
 	 <%@include file="../_include/footer.jsp" %>
+
 </body>
 </html>

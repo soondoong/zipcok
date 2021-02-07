@@ -7,9 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="venobox/venobox.css" type="text/css" media="screen" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <style>
 body{
 width:100%;
@@ -156,19 +156,26 @@ $( '#startDate' ).val(today);
          
    });
  /*-----------------------------------------------------*/
+$(document).ready(function(){
+    $('.venobox').venobox(); 
+});
 
 </script>
 			
-			
-			
-			
-				
+
+		
 		<!-- 코치사진영역 -->		
 			<table class="imgcoachtable" >
 			<tr>
-				<td rowspan="3" class="maintd" style="width:50%;"><img src="/zipcok/upload/member/${dto.mfile_upload }"></td>
-				<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></td>	
-				<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></td>		
+				<td rowspan="3" class="maintd" style="width:50%;">
+				<a class="venobox" data-gall="myGallery"
+				href="/zipcok/upload/member/${dto.mfile_upload }"><img src="/zipcok/upload/member/${dto.mfile_upload }"></a></td>
+				<td class="smalltd img1">
+				<a class="venobox"  data-gall="myGallery"
+				href="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></a></td>	
+				<td class="smalltd img2">
+				<a class="venobox"  data-gall="myGallery"
+				href="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png': file[0].mfile_upload }"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></a></td>		
 			</tr>
 			
 			<tr>

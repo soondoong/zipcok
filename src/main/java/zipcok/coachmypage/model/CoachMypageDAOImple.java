@@ -6,6 +6,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
 
 @Service
@@ -31,6 +32,30 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		 int count=sqlMap.update("requestStatusChange", req_idx);
 		return count;
 	}
+	
+	/*코치프로필사진삭제*/
+	@Override
+	public int deleteProfileImg(CoachFileDTO dto) {
+	
+		int count=sqlMap.delete("DelCmpProfileImg",dto);
+		
+		return count;
+	}
+	/*코치프로필사진등록*/
+	@Override
+	public int insertProfileImg(CoachFileDTO dto) {
+		
+	  int count=sqlMap.insert("insertCmpProfileImg",dto);
+		
+		return count;
+	}
+	/*파일진짜삭제하려면필요*/
+
+@Override
+public CoachFileDTO findProfileDTO(String id) {
+	CoachFileDTO dto=sqlMap.selectOne("findFileDTO", id);
+	return dto;
+}
 	
 	
 	@Override
