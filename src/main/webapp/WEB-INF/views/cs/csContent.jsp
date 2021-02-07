@@ -69,9 +69,9 @@
 				</div>
 			</div>
 			<div class="view_body">
-				<c:forEach var="csFileList" items="${csFileList}">
+				<c:forEach var="zfileList" items="${csFileList}">
 				<div>
-				<img src="/zipcok/upload/cs/${csFileList.zfile_upload}">
+				<img src="/zipcok/upload/cs/${zfileList.zfile_upload}">
 				</div>
 				</c:forEach>
 				<div class="view_content">
