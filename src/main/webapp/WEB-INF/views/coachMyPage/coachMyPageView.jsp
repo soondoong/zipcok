@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <style>
 .profileIMG { width:500px; height:500px;  border-radius: 50%; overflow: hidden; margin-bottom: 50px;}
 .profileIMG img { width:500px; height:500px; object-fit: cover;}

@@ -97,11 +97,14 @@ function search(){
 <body>
 <%@include file="../header2.jsp" %>
 <!-- 상단 검색바 영역  -->
+<style>
+		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0;border-radius: 0 0 30px 30px;}
+		.topSearchWrap .searchDiv {display: inline-block;}
+		.topSearchWrap .searchDiv > * {float: left;}
+		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px;}
+	</style>
 <form name="fm" action="searchCoach.do">
 <div class="topSearchWrap">
-	<div class="blueBackground">
-
-	
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option selected="selected">전체지역</option>
@@ -124,11 +127,8 @@ function search(){
 		 		<option>요가</option>
 		 		<option>다이어트</option>
 		 	</select>
-		 	
-		 	<input type="submit" value="검색하기">
+		 <button type="submit" class="btn btn-primary btn-lg">검색하기</button>
 		</div>
-	
-	</div>
 </div>
 </form>
 <!-- 상단 검색바 영역  -->
