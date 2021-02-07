@@ -2,15 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>집콕헬스</title>
-</head>
-<body>
-
-<%@include file="../header2.jsp"%>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
 
 <c:set var="dto" value="${dto}"></c:set>
 
