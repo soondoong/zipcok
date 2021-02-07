@@ -10,8 +10,9 @@ insert into
 	bbs_file
 values(
 	bbs_file_idx.nextval,
-	#{bfile_bbs},
+	#{bfile_bbs_idx},
 	#{bfile_rename},
+	#{bfile_bbs},
 	#{bfile_size},
 	#{bfile_origin},
 	#{bfile_path},

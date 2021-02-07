@@ -69,12 +69,12 @@ public class CommDailyController {
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.POST)
 	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list,HttpSession session) {
 		int result=exBbsDao.dailyWrite(dto);
-		System.out.println(dto.getEx_comm_idx());
 		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
 		
 		ArrayList<BbsFileDTO> fileArr=new ArrayList<BbsFileDTO>();
 		/*파일복사및저장하기*/
-		for(int i=0;i<list.size();i++) {		
+		for(int i=0;i<list.size();i++) {	
+			int bfile_bbs_idx=dto.getEx_idx();
 			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 			String bfile_path=c.getRealPath("/upload/comm/"); //저장되는 경로
 			String bfile_rename=copyInto(list.get(i), bfile_path);	//파일저장후 새로운이름생성됨
@@ -84,9 +84,10 @@ public class CommDailyController {
 			String bfile_comm=String.valueOf(session.getAttribute("com_idx"));
 			int bfile_size=(int)(list.get(i).getSize());
 			String bfile_type=list.get(i).getContentType();
-		//	BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
+			String bfile_delyn="N";
+			BbsFileDTO bdto=new BbsFileDTO(0, bfile_bbs_idx, bfile_rename, "0", bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal, bfile_delyn);
 			
-			//fileArr.add(bdto);
+			fileArr.add(bdto);
 		}		
 		/*다중파일첨부 시 필요*/	
 		

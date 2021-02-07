@@ -98,7 +98,8 @@ function bbsReReClose(){
 				.reply_wrap {margin-top: 50px;}
 				.reply_wrap .reply_count {margin-bottom: 30px;}
 				.reply_wrap .reply_area {position: relative; padding: 15px; border-bottom: 1px solid #cccccc;}
-				.reply_wrap .reply_area:first-child {border-top: 1px solid #cccccc;}
+				.reply_wrap .reply_area:first-child {border
+				-top: 1px solid #cccccc;}
 				.reply_wrap .reply_item.depth2 {padding-left: 50px; background: url(assets/img/icon/replyarrow.png) 10px 7px no-repeat; background-size: 20px;}
 				.reply_wrap .reply_item .reply_writer {font-size: 14px;}
 				.reply_wrap .reply_item .reply {margin-top: 10px; font-size: 14px;}
