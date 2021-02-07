@@ -224,11 +224,11 @@ public class MypageController {
 			int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
 			int listSize=3;
 			int pageSize=3;
-			String pageStr=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
-			List list=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
+			String pageStr2=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
+			List list2=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
 			ModelAndView mav = new ModelAndView();
-			mav.addObject("list", list);
-			mav.addObject("pageStr", pageStr);
+			mav.addObject("list2", list2);
+			mav.addObject("pageStr2", pageStr2);
 			mav.setViewName("mypage/mypageCoachMatchLikeList");
 
 			
