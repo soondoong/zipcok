@@ -95,6 +95,12 @@ public class ZipcokFileDTO {
 		this.zfile_bbs_idx = zfile_bbs_idx;
 		this.del_yn = del_yn;
 	}
+	public ZipcokFileDTO(int zfile_idx, int zfile_bbs_idx) {
+		super();
+		this.zfile_idx = zfile_idx;
+		this.zfile_bbs_idx = zfile_bbs_idx;
+	}
+	
 	
 	
 	

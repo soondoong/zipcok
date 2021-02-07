@@ -8,9 +8,9 @@
 <c:set var="list" value="${list }"/>
 <c:set var="dto" value="${dto}"></c:set>
 <script>
-function changeDely(){
-	var deltype=document.getElementById('deltype').value='Y';
-	var noticeimg=document.getElementById('noticeImg');
+function changeDely(i){
+	var deltype=document.getElementById('deltype'+i).value='Y';
+	var noticeimg=document.getElementById('noticeImg'+i);
 	noticeimg.style.display='none';
 }
 function changeDeln(){
@@ -29,8 +29,7 @@ function changeDeln(){
 		</div>
 	</div>
 	<div id="contents">
-<form action="noticeUpdate.do" method="post"
-			enctype="multipart/form-data">
+<form action="noticeUpdate.do" method="post" enctype="multipart/form-data">
 <style>
 .white_talbe_01 {
 	border-top: 1px solid #333333;
@@ -46,7 +45,9 @@ function changeDeln(){
 .white_talbe_01 tbody tr td {
 	padding: 10px 20px;
 	border-bottom: 1px solid #dddddd;
+
 }
+.imgul li {display: inline;}
 </style>
 			<table>
 				<tr>
@@ -59,7 +60,7 @@ function changeDeln(){
 					</select></td>
 				</tr>
 				<input type="hidden" name="bbs_idx" value="${dto.bbs_idx}">
-				<input type="hidden" id="deltype" name="del_yn" value="N">
+				
 				<tr>
 					<th>제목</th>
 
@@ -67,31 +68,31 @@ function changeDeln(){
 						value="${dto.bbs_subject}"></td>
 				</tr>
 					<hr>
-				<c:if test="${empty list}">
-					<tr>
-						<th colspan="3">등록된 사진이 없습니다.</th>
-					</tr>
-				</c:if>
-				<c:forEach var="List" items="${list}">
-
-					<tr>
-						<td colspan="3" class="imgtd"><img id="noticeImg"
-							alt="${List.zfile_upload }"
-							src="/zipcok/upload/notice/${List.zfile_upload}" width="600px;"
-							height="500px;"></td>
-					</tr>
-
-				</c:forEach>
+				
 				<tr>
 					<td colspan="3"><textarea rows="6" cols="70" name="bbs_content" placeholder="내용을 입력해주세요"
 							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content } </textarea></td>
 				</tr>
 				<tr>
 					<td><input type="file" name="upload" onclick="javascript:changeDeln()" value="사진수정"></td>
-					<td><input type="button"  onclick="javascript:changeDely()" value="사진삭제"></td>
-					<td></td>
 				</tr>
 			</table>
+			<div>
+				<ul class="imgul">
+					<c:if test="${empty list}">
+						
+							<li colspan="3">등록된 사진이 없습니다.</li>
+						
+					</c:if>
+					<c:forEach varStatus="i" var="List" items="${list}">
+							<li id="noticeImg${i.getIndex()}" class="imgtd"><img alt="${List.zfile_upload }"
+								src="/zipcok/upload/notice/${List.zfile_upload}" width="120px;" height="120px;">
+								<input type="button"  onclick="javascript:changeDely(${i.getIndex()})" value="사진삭제">
+							<input type="hidden" id="deltype${i.getIndex()}" name="del_yn" value="N">
+							<input type="hidden" name="zfile_idx" value="${List.zfile_idx}"></li>
+					</c:forEach>
+				</ul>
+			</div>
 			<div class="table_list_bottom">
 				<div class="btn_left_box">
 					<a href="noticeList.do" class="btn1 c2">목록보기</a>
