@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <style>
 .mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
@@ -14,6 +15,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 #file{display:none;}
 </style>
   
+
 <script>
 function coachMypagePwdUpdate(){
 	location.href='coachMypagePwdUpdateForm.do';
@@ -31,7 +33,9 @@ function coachMypagePhoneUpdate(){
 
 </head>
 <body>
+
 <%@include file="../header2.jsp"%>
+
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
 <c:set var="curri" value="${resultMap.curriList }"/>
@@ -43,6 +47,7 @@ function coachMypagePhoneUpdate(){
 <div class="mypage_wrap">	
 <%@include file="./coachMypageSideMenu.jsp"%>
 <!-- 프로필 본문-->
+
 	<div class="mypage_contents">	
 		<div class="mypage_main">
 			<div class="profileIMG">
@@ -74,6 +79,7 @@ function changeValue(obj){ //사진선택하면
 
 }
 </script>	 
+
 	<!-- 코치소개 영역 -->		
 			<div>
 			<span style="font-size:2rem; font-weight: 600;">${dto.mem_name}코치</span>	 
@@ -148,36 +154,36 @@ function changeValue(obj){ //사진선택하면
 		
 		<!-- 일반기본프로필 본문-->	
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:40px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			이름 :</span>${mdto.mem_name }<input type="hidden"
 				name="mem_name" value="${mdto.mem_name }"></label>
 		</div>
 		
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			생년월일 :</span>${mdto.mem_birth }<input type="hidden"
 				name="mem_birth" value="${mdto.mem_birth }"></label>
 		</div>
 	
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			아이디 :</span>${mdto.mem_id }<input type="hidden" name="mem_id"
 				value="${mdto.mem_id }"></label>
 		</div>
 		
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			비밀번호 :</span>****<input type="hidden" name="mem_pwd"
 				value="${mdto.mem_pwd }"></label> <input type="button" value="수정하기" onclick="coachMypagePwdUpdate()">
 		</div>
 		
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			주소 :</span>${mdto.mem_addr } ${mdto.mem_detailaddr }
 				<input type="hidden" name="mem_zipcode" value="${mdto.mem_zipcode }">
 				<input type="hidden" name="mem_addr" value="${mdto.mem_addr }">
@@ -187,29 +193,36 @@ function changeValue(obj){ //사진선택하면
 		</div>
 		
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			이메일 :</span>${mdto.mem_email } <input type="hidden"
 				name="mem_email" value="${mdto.mem_email }"></label> <input
 				type="button" value="수정하기" onclick="coachMypageEmailUpdate()">
 		</div>
 		
 		<div>
-			<label style="font-size:1.0rem; font-weight: 400; margin:18px 10px 0 0;">
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 25px 0 0;">
+			<label>
+			<span>
 			전화번호 :</span>${mdto.mem_phone } <input type="hidden"
 				name="mem_phone" value="${mdto.mem_phone }"></label> <input
 				type="button" value="수정하기" onclick="coachMypagePhoneUpdate()">
 		</div>
 		
-		<div style="margin:18px 10px 0 0;">
+		<div>
 		<a href="#">[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
 		</div>
 		<br><br>
+
 	</div>
+
 </div>	
-	
-<!-- 프로필 본문-->		
 </div>
+</div>	
+<!-- 프로필 본문-->		
+
+</div>
+
+ <%@include file="../_include/footer.jsp" %>
+
 </body>
 </html>

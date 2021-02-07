@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
@@ -62,10 +63,12 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<%@include file="../header2.jsp"%>
-<%@include file="./mypageSideMenu.jsp" %>
-<br>
-	<div style="margin-left: 250px; padding: 1px 16px;">
+	<%@include file="../_include/head.jsp" %>
+	<%@include file="../header2.jsp"%>
+	<div class="mypage_wrap">
+	<%@include file="./mypageSideMenu.jsp"%>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 	<h2>회원탈퇴</h2>
 	<br>
 		<form action="memberDelete.do">
@@ -92,5 +95,8 @@ $(document).ready(function() {
 			</div>
 		</form>
 </div>
+</div>
+</div>
+   <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

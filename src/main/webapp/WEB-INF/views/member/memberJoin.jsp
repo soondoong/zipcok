@@ -5,7 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<style>
+.member-join-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	margin-top: 21px;
+}
+.member-join-button-wrap button{
+	width: 250px;
+	height :48px;
+	font-size: 18px;
+	background: deepskyblue;
+	color: white;
+	border: solid 1px deepskyblue;
+	border-radius: 5px;
+	margin : 15px 0 15px 0;
+}
+</style>
+<script>
+function backPage(){
+	location.href='index.do';
+}
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- 부트스트랩 -->
 <!--  <link rel="stylesheet" href="css/bootstrap.min.css"> -->
@@ -347,16 +370,13 @@ function execPostCode() {
 <body>
 	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
+	<div class="member-join-container">
 	<article>
 		<form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
-			<br> <br> <br>
-			<h2>회원가입</h2>
-			<hr>
 			<br>
-			<h6>기본 정보 입력</h6>
-			<hr>
-
-			<div class="col-sm-3 col-md-offset-3">
+			<h2 align="center">회원가입</h2>
+			<br>
+			<div>
 			
 			
 				<div class="form-group">
@@ -412,7 +432,7 @@ function execPostCode() {
 						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
 						readonly="readonly">
 					<button type="button" class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						style="background-color: deepskyblue; color: white; line-height: 1.20;"
 						onclick="execPostCode();">
 						<i class="fa fa-search"></i> 우편번호 찾기
 					</button>
@@ -437,13 +457,13 @@ function execPostCode() {
 						placeholder="Phone Number">
 					<div class="eheck_font" id="phone_check"></div>
 						<input type="button" class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						style="background-color: deepskyblue; color: white; line-height: 1.20;"
 						value="인증번호전송"><br>
 						
 						<input class="form-control" style="width: 40%; display: inline;"
 						placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
 						<input type="button" class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						style="background-color: deepskyblue; color: white; line-height: 1.20;"
 						value="인증">
 				</div>
 
@@ -463,11 +483,14 @@ function execPostCode() {
 
 
 
-				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">회원가입</button>
+				<div class="member-join-button-wrap">
+					<button type="submit">회원가입</button>
+					<button type="button" onclick="backPage()">메인으로</button>
 				</div>
 			</div>
 		</form>
 	</article>
+	</div>
+	 <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+
 <style>
 .chatroomDiv{ margin:0 auto;max-width: 1000px;}
 </style>
@@ -73,5 +74,6 @@
 		</table>
 	</div>	
 </div>
+
 </body>
 </html>

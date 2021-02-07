@@ -62,6 +62,7 @@ $(document).ready(function() {
 
 </head>
 <body>
+<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
 <br>
 <br>
@@ -92,5 +93,6 @@ $(document).ready(function() {
 			</div>
 		</form>
 	</article>
+	 <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

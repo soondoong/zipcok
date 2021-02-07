@@ -33,6 +33,7 @@ import zipcok.homegym.model.HomeGymReservationDAO;
 import zipcok.homegym.model.HomeGymReservationDTO;
 import zipcok.homegym.model.PaymentDAO;
 import zipcok.homegym.model.PaymentDTO;
+import zipcok.homegym.model.Payment_detailsDAO;
 
 @Controller
 public class HomeGymController {
@@ -46,6 +47,8 @@ public class HomeGymController {
 	private PaymentDAO homegympayDAO;
 	@Autowired
 	private HomeGymReservationDAO homegymreserDAO;
+	@Autowired
+	private Payment_detailsDAO homegympdDAO;
 	
 	@Autowired
 	ServletContext c;

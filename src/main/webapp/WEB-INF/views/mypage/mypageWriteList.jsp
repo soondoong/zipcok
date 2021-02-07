@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">
+
 <script>
 function mypageWriteList() {
 	location.href='mypageWriteList.do?mem_id=${sessionScope.sid}';
@@ -16,16 +18,28 @@ function mypageCommWriteList() {
 </script>
 </head>
 <body>
+	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
-	<%@include file="./mypageSideMenu.jsp" %>
-	<div style="margin-left: 250px; padding: 1px 16px;">
+	<div class="mypage_wrap">
+	<%@include file="./mypageSideMenu.jsp"%>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 	<br>
-	<h3>${sessionScope.sname }님의 작성글</h3>
-	<hr>
-		<input type="button" value="F&A/고객센터 작성글" onclick="mypageWriteList()">
-		<input type="button" value="커뮤니티 작성글" onclick="mypageCommWriteList()">
-		<hr>
-	<table border="1" cellspacing="0" width="550">
+	<div id="toggle_tab" class="tab_style_01 mb50">
+		<style>
+		.mypage_main .tab_style_01 {}
+		.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
+		.mypage_main .tab_style_01 li {flex: 1 1 auto;}
+		.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
+		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
+		</style>		
+			<ul>
+				<li class="on"><button type="button" onclick="mypageWriteList()">F&A / 고객센터 작성글</button></li>
+				<li><button type="button" onclick="mypageCommWriteList()">커뮤니티 작성글</button></li>
+			</ul>
+		</div>
+<div class="mypage_main_table">
+	<table border="1" cellspacing="0">
 	<thead>
 		<tr>
 			<th>게시판</th>
@@ -59,6 +73,10 @@ function mypageCommWriteList() {
 	</c:forEach>
 	</tbody>
 </table>
+</div>
 	</div>
+	</div>
+	</div>
+	   <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

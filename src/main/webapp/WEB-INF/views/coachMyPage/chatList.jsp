@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+
 <style>
 .chatroomDiv{ margin:0 auto;max-width: 1000px;}
 </style>
@@ -68,6 +69,10 @@
 	</tbody>
 	</table>
 	</div>
+
 </div>
+</div>
+</div>
+ <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

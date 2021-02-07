@@ -8,11 +8,13 @@
 <link href="assets/css/mypage.css" rel="stylesheet">
 </head>
 <body>
+
 <%@include file="../header2.jsp"%>
 <div class="mypage_wrap">	
+
 	<%@include file="./coachMypageSideMenu.jsp"%>
-	<div style="margin-left: 250px; padding: 1px 16px;">
-		<br>
+	<div class="mypage_contents">
+         <div class="mypage_main">
 		<h3>${sessionScope.sname }님의 홈짐 좋아요 목록</h3>
 		<hr>
 		<table width="700px">
@@ -45,5 +47,8 @@
 		</table>
 	</div>
 	</div>
+
+	 <%@include file="../_include/footer.jsp" %>
+
 </body>
 </html>

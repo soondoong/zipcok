@@ -262,10 +262,15 @@ public class NoticeController {
 	@RequestMapping("deleteFile.do")
 	public ModelAndView deleteFile(
 			@RequestParam(value="zfile_bbs_idx",defaultValue = "1")int zfile_bbs_idx,
-			@RequestParam(value="del_yn")String del_yn) {
-		ZipcokFileDTO dto=new ZipcokFileDTO(zfile_bbs_idx, del_yn);
-		int result=noticeDao.deleteFile(dto);
-		String msg=result>0?"사진삭제 성공":"사진삭제 실패";
+			@RequestParam(value="del_yn")String del_yn[]) {
+		
+		int result=0;
+		for(int i=0;i<del_yn.length;i++) {
+		ZipcokFileDTO dto=new ZipcokFileDTO(zfile_bbs_idx, del_yn[i]);
+		result+=noticeDao.deleteFile(dto);
+		
+		}
+		String msg=result==del_yn.length?"사진삭제 성공":"사진삭제 실패";
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg",msg);

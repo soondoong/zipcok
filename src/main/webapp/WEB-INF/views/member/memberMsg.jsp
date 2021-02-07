@@ -13,8 +13,10 @@ function show(){
 </script>
 </head>
 <body>
+<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 ${msg }
 <input type="button" value="로그인" onclick="show()">
+ <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

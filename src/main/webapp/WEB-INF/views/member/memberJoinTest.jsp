@@ -344,6 +344,9 @@ function execPostCode() {
 
 </script>
 </head>
+<body>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp"%>
 <article class="container">
 	<div class="page-header">
 		<div class="col-md-6 col-md-offset-3">
