@@ -2,6 +2,8 @@ package zipcok.homegym.model;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+@Service
 public class Payment_detailsDAOImple implements Payment_detailsDAO {
 
 	@Override
