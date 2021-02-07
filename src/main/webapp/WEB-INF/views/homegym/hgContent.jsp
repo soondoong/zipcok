@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script>
 function hgContent_setting(){
 	var start_date = '${hgContent.hg_start_date}';
@@ -72,31 +71,55 @@ function reservation(){
 		window.alert('옵션을 확인해주세요.');
 		return;
 	}
+	var start_ex = use_start_time;
+	var end_ex = use_end_time;
 	if(use_start_time < 10){
-		use_start_time = '0'+use_start_time;
+		start_ex = '0'+use_start_time;
 	}
 	if(use_end_time < 10){
-		use_end_time = '0'+use_end_time;
+		end_ex = '0'+use_end_time;
 	}
-	use_start_time +=':00';
-	use_end_time +=':00';
+	start_ex +=':00';
+	end_ex +=':00';
 	
-	var reservationInfo = document.getElementById('reservationInfo');
 	document.getElementById('reservationInfo').style.display = 'none';
 	document.getElementById('reservationInfo_click').style.display = 'block';
 	
-	document.getElementById('use_date').innerHTML=use_date+'<input type = "hidden" name = "use_date" value = "'+use_date+'">';
-	document.getElementById('use_time').innerHTML=use_start_time+'-'+use_end_time+'/'+use_time+'시간'+'<input type = "hidden" name = "use_time" value = "'+use_time+'">';
-	document.getElementById('use_person_count').innerHTML=use_person_count+'<input type = "hidden" name = "use_person_count" value = "'+use_person_count+'">';
-	document.getElementById('use_price').innerHTML=use_price+'<input type = "hidden" name = "use_price" value = "'+use_price+'">';
-	window.alert(use_price);
-}
-function reservation_click(){
-	
+	document.getElementById('use_date').innerHTML=use_date;
+	document.getElementById('use_time').innerHTML=start_ex+'-'+end_ex+'/'+use_time+'시간';
+	document.getElementById('use_person_count').innerHTML=use_person_count;
+	document.getElementById('use_price').innerHTML=use_price+'<input type = "hidden" name = "reser_price" id = "choice_price" value = "'+use_price+'">';
 }
 function reservation_back_click(){
 	document.getElementById('reservationInfo').style.display = 'block';
 	document.getElementById('reservationInfo_click').style.display = 'none';
+}
+function reservation_ajax(){
+	var hg_mem_id = document.getElementById('hg_mem_id').value;
+	var use_date = document.getElementById('choice_date').value;
+	var use_start_time = document.getElementById('choice_start_time').value
+	var use_end_time = document.getElementById('choice_end_time').value;
+	var use_person_count = document.getElementById('choice_person_count').value;
+	var use_price = document.getElementById('choice_price').value;
+	var params = 'hg_mem_id='+hg_mem_id+'&reser_date='+use_date+'&reser_start_time='+use_start_time+'&reser_end_time='+use_end_time+'&reser_person_count='+use_person_count+'&reser_price='+use_price;
+	sendRequest('HomeGymReservation.do', params, reservation_callback, 'GET');
+}
+function reservation_callback(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data=XHR.responseText;
+  			data=eval('('+data+')');
+  			var msg = data.msg;
+  			var check = data.check;
+  			var idx = data.this_idx;
+  			window.alert(msg);
+  			window.alert(check);
+  			window.alert(idx);
+  			if(check){
+  				location.href = 'HomeGymPayPage.do?reser_idx='+idx;
+  			}
+		}
+	}
 }
 </script>
 
@@ -144,35 +167,35 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 <input type = "button" value = "목록으로" onclick = "javascript:location.href='HomeGymList.do'">
 <div id = "reservationArea">
 	${hgContent.hg_nickname }님의 홈짐<br>
-	<ul id = "reservationInfo">
-		<li>이용 일자</li>
-		<li><input id = "choice_date" type = "date"></li>
-		<li>이용 시간</li>
-		<li><select id = "choice_start_time" name = "choice_start_time"><option value = "">시작 시간</option></select>
-			-
-			<select id = "choice_end_time" name = "choice_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();"><option value = "">종료 시간</option></select></li>
-		<li>이용 인원</li>
-		<li><select id = "choice_person_count"></select></li>
-		<li>결제 예상 금액</li>
-		<li><label id = "expect_price">${hgContent.hg_price }</label>원</li>
-		<li><input type = "button" value = "홈짐 예약하기" onclick = "javascript:reservation();"></li>
-	</ul>
-	<ul id = "reservationInfo_click">
-		<li>이용 일자</li>
-		<li id = "use_date">
-		<input type = "text" id = "use_date_hidden" name = "use_date">
-		</li>
-		<li>이용 시간</li>
-		<li id = "use_time"><input type = "hidden" id = "use_time_hidden" name = "use_time"></li>
-		<li>이용 인원</li>
-		<li id = "use_person_count"><input type = "hidden" id = "use_person_count_hidden" name = "use_person_count"></li>
-		<li>결제 예상 금액</li>
-		<li><label id = "use_price"><input type = "hidden" id = "use_price_hidden" name = "use_price"></label>원</li>
-		<li>
-		<input type = "button" value = "결제하기" onclick = "javascript:reservation_click();">
-		<input type = "button" value = "돌아가기" onclick = "javascript:reservation_back_click();">
-		</li>
-	</ul>
+	<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
+		<ul id = "reservationInfo">
+			<li>이용 일자</li>
+			<li><input id = "choice_date" name = "reser_date" type = "date"></li>
+			<li>이용 시간</li>
+			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>
+				-
+				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();"><option value = "">종료 시간</option></select></li>
+			<li>이용 인원</li>
+			<li><select id = "choice_person_count" name = "reser_person_count"></select></li>
+			<li>결제 예상 금액</li>
+			<li><label id = "expect_price">${hgContent.hg_price }</label>원</li>
+			<li><input type = "button" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
+		</ul>
+		<ul id = "reservationInfo_click">
+			<li>이용 일자</li>
+			<li id = "use_date">
+			</li>
+			<li>이용 시간</li>
+			<li id = "use_time"></li>
+			<li>이용 인원</li>
+			<li id = "use_person_count"></li>
+			<li>결제 예상 금액</li>
+			<li><label id = "use_price"></label>원</li>
+			<li>
+			<input type = "button" value = "예약하기" onclick = "javascript:reservation_ajax();">
+			<input type = "button" value = "돌아가기" onclick = "javascript:reservation_back_click();">
+			</li>
+		</ul>
 </div>
 <div id = "hgContent">
 	<h3>홈짐 소개</h3>
@@ -250,6 +273,7 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 		</c:if>
 	</div>
 </div>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 </body>
 </html>

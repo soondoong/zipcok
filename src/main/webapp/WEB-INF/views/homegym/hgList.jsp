@@ -53,10 +53,29 @@ function ContentEnter(id){
 </head>
 <body>
 <%@include file="../header2.jsp" %>
+
+	<style>
+		.top_search_wrap {padding: 100px 0; background: #3978df; text-align: center;}
+		.top_search_wrap .top_search_inner {display: inline-block;}
+		.top_search_wrap select {width: 200px; height: 40px;}
+		.top_search_wrap input[type=date] {width: 200px; height: 40px;}
+		.top_search_wrap input[type=submit] {width: 150px; height: 40px;}
+	
+		.homegym_wrap {display: flex;}
+		.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
+		.homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
+		.homegym_wrap .homegym_search_wrap .eq_list {}
+		.homegym_wrap .homegym_search_wrap .eq_list label {display: inline-block; cursor: pointer; position: relative; padding: 0 0 0 24px;}
+		.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
+		.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
+		.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
+		.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
+	</style>
+
 	<!-- 상단 조건바 -->
-	<form id = "option_fm" action = "HomeGymList.do" method = "post">
-		<div id = "top_option">
-			<h1>어떤 홈짐을 찾고 계신가요?</h1>
+	
+	<div class="top_search_wrap">
+		<div class="top_search_inner">
 			<select name="top_option_location" onchange="javascript:sendOption();">
 				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected="selected"</c:if>>----</option>
 				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected="selected"</c:if>>강남구</option>
@@ -69,78 +88,89 @@ function ContentEnter(id){
 			<input type="date" name="top_option_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
 			<input type="submit" value="검색하기">
 		</div>
-		<hr>
-		<!-- 좌측 조건바 -->
-		<div id = "left_option">
-			<h4>검색 조건</h4>
-			<hr>
-			<div id = "eq_list">
-				<h6>기구</h6>
-				<input type = "checkbox" name = "left_option_eq" value = "eq1" id = "eq1" onclick = "javascript:sendOption();">기구 1
-				<input type = "checkbox" name = "left_option_eq" value = "eq2" id = "eq2" onclick = "javascript:sendOption();">기구 2
-				<input type = "checkbox" name = "left_option_eq" value = "eq3" id = "eq3" onclick = "javascript:sendOption();">기구 3
-				<input type = "checkbox" name = "left_option_eq" value = "eq4" id = "eq4" onclick = "javascript:sendOption();">기구 4
-				<input type = "checkbox" name = "left_option_eq" value = "eq5" id = "eq5" onclick = "javascript:sendOption();">기구 5
-				<input type = "checkbox" name = "left_option_eq" value = "eq6" id = "eq6" onclick = "javascript:sendOption();">기구 6
-				<input type = "checkbox" name = "left_option_eq" value = "eq7" id = "eq7" onclick = "javascript:sendOption();">기구 7
-				<input type = "checkbox" name = "left_option_eq" value = "eq8" id = "eq8" onclick = "javascript:sendOption();">기구 8
-				<input type = "checkbox" name = "left_option_eq" value = "eq9" id = "eq9" onclick = "javascript:sendOption();">기구 9
-				<input type = "checkbox" name = "left_option_eq" value = "eq10" id = "eq10" onclick = "javascript:sendOption();">기구 10
-			</div>
-			<hr>
-			<h6>가격</h6>
-			<div>
-				최저가 : <span id = "price_value">${keywordMap.price }</span>원 이상
-			</div>
-			<div>
-			<input type="range" max="10000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:priceOption();">
-			</div>
-			<hr>
-			<h6>수용 인원</h6>
-			<div>
-			<select name = "left_option_person_count" onchange = "javascript:sendOption();">
-				<option value = "1" <c:if test="${keywordMap.person_count==1}">selected="selected"</c:if>>1</option>
-				<option value = "2" <c:if test="${keywordMap.person_count==2}">selected="selected"</c:if>>2</option>
-				<option value = "3" <c:if test="${keywordMap.person_count==3}">selected="selected"</c:if>>3</option>
-				<option value = "4" <c:if test="${keywordMap.person_count==4}">selected="selected"</c:if>>4</option>
-				<option value = "5" <c:if test="${keywordMap.person_count==5}">selected="selected"</c:if>>5</option>
-				<option value = "6" <c:if test="${keywordMap.person_count==6}">selected="selected"</c:if>>6</option>
-			</select><label>명 이상</label>
-			</div>
-			<hr>
-		</div>
-</form>
-	<div>
-		<h6>게시글 수 : ${totalCnt }</h6>
-		<hr>
-		<c:set var="HomeGymList" value="${HomeGymList }" />
-		<c:choose>
-			<c:when test="${empty HomeGymList }">
-				<div class="ListItem">등록된 홈짐이 없습니다.</div>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="dto" items="${HomeGymList }">
-					<div class="ListItem" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
-					시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
-					<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
-					<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
-					<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
-					<br>장비 리스트 :
-					<br>
-					<c:if test = "${empty dto.hg_eq_list }">
-					<h1>등록된 기구가 없습니다.</h1>
-					</c:if>
-					<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-					<div class = "eq_option_${eq_list.eq_name }">
-						${eq_list.eq_name } : ${eq_list.eq_count }
-					</div>
-					</c:forEach>		
-					</div>
-					<hr>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>	
 	</div>
-	<h6>${pageStr }</h6>
+	
+	<div class="homegym_wrap">
+		<div class="homegym_search_wrap">
+			<form id = "option_fm" action = "HomeGymList.do" method = "post">
+			<!-- 좌측 조건바 -->
+			<div id = "left_option" class="left_option">
+				<h4>검색 조건</h4>
+				<hr>
+				<div id = "eq_list" class="eq_list">
+					<h6>기구</h6>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq1" id = "eq1" onclick = "javascript:sendOption();"><span>기구 1</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq2" id = "eq2" onclick = "javascript:sendOption();"><span>기구 2</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq3" id = "eq3" onclick = "javascript:sendOption();"><span>기구 3</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq4" id = "eq4" onclick = "javascript:sendOption();"><span>기구 4</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq5" id = "eq5" onclick = "javascript:sendOption();"><span>기구 5</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq6" id = "eq6" onclick = "javascript:sendOption();"><span>기구 6</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq7" id = "eq7" onclick = "javascript:sendOption();"><span>기구 7</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq8" id = "eq8" onclick = "javascript:sendOption();"><span>기구 8</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq9" id = "eq9" onclick = "javascript:sendOption();"><span>기구 9</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "eq10" id = "eq10" onclick = "javascript:sendOption();"><span>기구 10</span></label>
+				</div>
+				<hr>
+				<h6>가격</h6>
+				<div>
+					최저가 : <span id = "price_value">${keywordMap.price }</span>원 이상
+				</div>
+				<div>
+				<input type="range" max="10000" step="1000" value="${keywordMap.price }" id="price" name = "left_opton_price" onchange="javascript:priceOption();">
+				</div>
+				<hr>
+				<h6>수용 인원</h6>
+				<div>
+				<select name = "left_option_person_count" onchange = "javascript:sendOption();">
+					<option value = "1" <c:if test="${keywordMap.person_count==1}">selected="selected"</c:if>>1</option>
+					<option value = "2" <c:if test="${keywordMap.person_count==2}">selected="selected"</c:if>>2</option>
+					<option value = "3" <c:if test="${keywordMap.person_count==3}">selected="selected"</c:if>>3</option>
+					<option value = "4" <c:if test="${keywordMap.person_count==4}">selected="selected"</c:if>>4</option>
+					<option value = "5" <c:if test="${keywordMap.person_count==5}">selected="selected"</c:if>>5</option>
+					<option value = "6" <c:if test="${keywordMap.person_count==6}">selected="selected"</c:if>>6</option>
+				</select><label>명 이상</label>
+				</div>
+				<hr>
+			</div>
+			</form>
+		</div>
+		<div class="homegym_search_result">
+			<div id = "top_option">
+				<h1>어떤 홈짐을 찾고 계신가요?</h1>
+			</div>
+			<div>
+				<h6>게시글 수 : ${totalCnt }</h6>
+				<hr>
+				<c:set var="HomeGymList" value="${HomeGymList }" />
+				<c:choose>
+					<c:when test="${empty HomeGymList }">
+						<div class="ListItem">등록된 홈짐이 없습니다.</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="dto" items="${HomeGymList }">
+							<div class="ListItem" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
+							시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
+							<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
+							<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
+							<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
+							<br>장비 리스트 :
+							<br>
+							<c:if test = "${empty dto.hg_eq_list }">
+							<h1>등록된 기구가 없습니다.</h1>
+							</c:if>
+							<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
+							<div class = "eq_option_${eq_list.eq_name }">
+								${eq_list.eq_name } : ${eq_list.eq_count }
+							</div>
+							</c:forEach>		
+							</div>
+							<hr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>	
+			</div>
+			<h6>${pageStr }</h6>
+		</div>
+	</div>
 </body>
 </html>
