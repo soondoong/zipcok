@@ -67,7 +67,7 @@ mfile_key='회원프로필'
 	<select id="mypageWriteList"  resultType="zipcok.cs.model.CsDTO">
 		select * from
 		(select rownum as rnum,a.* from
-		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc) a) b
+		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} and bbs_key='고객센터' order by bbs_idx desc) a) b
 		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
 	 
@@ -90,14 +90,14 @@ mfile_key='회원프로필'
 	 <select id="mypageCoachMatchLikeListTotalCnt" resultType="Integer">
 		select count(*) from
 	 	(select rownum as rnum,a.* from
-	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='코치매칭' order by like_idx desc)a)b
+	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='코치' order by like_idx desc)a)b
 	</select>
 	
 	 <!-- 코치매칭 좋아요 목록 -->
 	 <select id="mypageCoachMatchLikeList"  resultType="zipcok.mypage.model.LikeDTO">
 	 	select * from
 	 	(select rownum as rnum,a.* from
-	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='코치매칭' order by like_idx desc)a)b
+	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='코치' order by like_idx desc)a)b
 	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	 </select>
 	 

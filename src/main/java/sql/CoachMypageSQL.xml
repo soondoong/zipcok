@@ -61,9 +61,35 @@ rownum between #{start} and #{end}
 	<select id="coachMypageWriteList"  resultType="zipcok.cs.model.CsDTO">
 		select * from
 		(select rownum as rnum,a.* from
-		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc) a) b
+		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} and bbs_key='고객센터' order by bbs_idx desc) a) b
 		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
+	
+	<!-- 코치마이페이지 일반프로필 -->
+	<select id="coachMypageProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">
+	select * from zipcok_member where mem_id=#{mem_id}
+	</select>
+	
+	<update id="coachMypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
+		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+	</update>
+	
+	<update id="coachMypageAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
+		update zipcok_member set
+			mem_zipcode=#{mem_zipcode},
+			mem_addr=#{mem_addr},
+			mem_detailaddr=#{mem_detailaddr}
+			where mem_id=#{mem_id}
+	</update>
+	
+	<update id="coachMypageEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
+		update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
+	</update>
+	
+	<update id="coachMypagePhoneUpdate" parameterType="zipcok.member.model.MemberDTO">
+		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
+	</update>
+	
 	
   
   </mapper>

@@ -72,8 +72,7 @@ function changeDeln(){
 					<tr>
 						<td colspan="3" class="imgtd"><img id="csImg"
 							alt="${List.zfile_upload }"
-							src="/zipcok/upload/cs/${List.zfile_upload}" width="800px;"
-							height="500px;"></td>
+							src="/zipcok/upload/cs/${List.zfile_upload}"></td>
 					</tr>
 
 				</c:forEach>

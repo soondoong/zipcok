@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <script>
 function mypagePwdUpdate(){
 	location.href='mypagePwdUpdateForm.do';
@@ -24,8 +25,7 @@ function mypagePhoneUpdate(){
 
 </head>
 <body>
-	<%@include file="../header2.jsp"%>
-	
+	<%@include file="../header2.jsp"%>	
 	
 	<link href="assets/css/mypage.css" rel="stylesheet">
 
@@ -77,6 +77,7 @@ function mypagePhoneUpdate(){
 						<a href="#">[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
