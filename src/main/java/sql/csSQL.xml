@@ -110,8 +110,6 @@ where
 del_yn='N'
 and
 zfile_bbs_idx=#{bbs_idx}
-and
-zfile_idx = (select max(zfile_idx) from zipcok_file)
 </select>
 <update id="cszfileDelete" parameterType="zipcok.cs.model.CsDTO">
 update

@@ -41,12 +41,28 @@
 						<th>내용</th>
 						<td><textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea></td>
 					</tr>
-					<tr>
-						<th>파일첨부</th>
-						<td><input type="file" name="upload" value="파일첨부"></td>
-					</tr>
 				</tbody>
 			</table>
+				<div class="form-group">
+					<label>사진등록</label>
+					<ul id="fileUl">
+						<li>올릴파일:<input type="file" name="upload"></li>
+					</ul>
+					<div>
+						<input type="button" value="파일추가" class="btn1 c1"
+							onclick="plus();">
+					</div>
+				</div>
+				<script>
+	//사진파일계속추가
+	function plus(){
+		var wrapul=document.getElementById("fileUl");	
+		var newli=document.createElement("li");
+		newli.innerHTML='올릴파일:<input type="file" name="upload">';
+		wrapul.appendChild(newli);
+		
+	}
+</script>
 		</div>
 		<div class="table_list_bottom">
 			<div class="btn_left_box">
