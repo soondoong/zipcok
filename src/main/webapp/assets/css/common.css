@@ -68,7 +68,7 @@
 #newHeader {width: 100%; background: #ffffff; position: relative; z-index: 1000;}
 #newHeader .header_inner {position: relative; width: 1024px; height: 92px; margin: 0 auto;}
 #newHeader .logo {position: absolute; top: 16px; left: 20px;}
-#newHeader .logo a {display: block; width: 140px; height: 60px; background: #3978df; font-size: 32px; line-height: 60px; color: #ffffff; text-align: center; font-family: 'Roboto'; font-weight: 700;}
+#newHeader .logo a {display: block; width: 140px; height: 60px; background: #006be0; font-size: 32px; line-height: 60px; color: #ffffff; text-align: center; font-family: 'Roboto'; font-weight: 700;}
 #newHeader .gnb {position: absolute; top: 0; left: 200px;}
 #newHeader .gnb > ul > li {float: left; position: relative; padding: 20px 0;}
 #newHeader .gnb > ul > li:not(:first-child) {margin-left: 20px;}
@@ -95,7 +95,7 @@
 
 /* NoticeList.jsp 참고할 것 */
 /* 페이지 상단 남색 영역 (페이지 타이틀) */
-.page_top_visual {margin: -30px -100% 0; padding: 70px 100% 0; height: 200px; background: navy;}
+.page_top_visual {margin: -30px -100% 0; padding: 70px 100% 0; height: 200px; background: #006be0;}
 .page_top_visual .common_page_title {margin-bottom: 12px;}
 .page_top_visual .common_page_title .page_title {font-weight: 700; font-size: 32px; color: #ffffff;}
 .page_top_visual .common_page_title .page_text {font-size: 14px; color: #ffffff;}

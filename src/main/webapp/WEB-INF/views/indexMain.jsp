@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="./header2.jsp" %>
-	<div id="container">
 	 <!-- ======= Hero Section ======= -->
 	 <section id="hero" class="d-flex jumboimg align-items-center" >
 	   <div class="container" data-aos="zoom-out" data-aos-delay="100">
@@ -14,6 +13,5 @@
 	   </div>
 	 </section>
 	 <!-- End Hero -->
-	 </div>
 
 <%@include file="_include/footer.jsp" %>

@@ -1,149 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript" src="js/httpRequest.js"></script>
-<style>
-html, body {
-    margin: 0;
-}
-.leftWall{
-    width:20%;
-    height: 100vh;
-    position:relative;
-    float: left;
-    top:0px;
-    left:0px;
-    background-color:white;
-}
-.blueBackground{
-background-color:   #3978df;
-width:100%;
-height: 190px;
-}
-.section1{
-position: relative;
-}
-.searchDiv{
- position: relative;
- top: 40%;
-text-align:center;
-line-height: 1;
-}
-.contentsWrap{
-position: relative;
-width:80%;
-margin-top:40px;
-margin:0 auto;
-float:left;
-}
-.secondWrap{
-position: relative;
-margin:0 auto;
-}
-.listWrap::after{
-content:"";
-display: block;
-clear: both;
-}
-.oneperson{
-margin:0 20px 0 20px;
-float:left;
-}
 
-.image-container img{
-width:250px;
-height:270px;
-object-fit: cover;
+<%@include file="../_include/head.jsp" %>
 
-}
-.image-container{
-   overflow: hidden;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 230px;
-   height:270px;
-   margin-bottom:15px;
-}
-.extype{
-text-align:center;
-display:inline-block;
-width:50px;
-background-color: gray;
-color:white;
-border-radius: 20%;
-font-size: 0.8rem;
-}
-.category{
-font-size: 0.8rem;
-}
-.h5search{
-margin-bottom: 30px;
-}
-.paging,.nomalpaging{
-position:relative;
-width:100px;
-margin:0 auto;
-}
+<%@include file="../_include/header.jsp" %>
 
-.paging a,.nomalpaging a{
-font-size:1.6rem;
-padding-right:20px;
-}
-.gender{
-position: relative;
-z-index:30;
-}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 
-.leftFilterDIV{
-	margin: 0 60px 0 0;
-    padding: 30px;
-    width:270px;
-    height:500px;
-    position:relative;
-    float: left;
-    top:40px;
-    left:50px;
-}
-
-.fp{
-	font-family: "nanumsquare-b";
-    font-size: 18px;
-    font-weight:bold;
-    line-height: 16px;
-    color: #444444;
-}
-#starRange{
-position: relative;
-z-index:30;
-}
-.starIMG{
- width:29px;
-padding:0 8px 0 4px;
- }
-.ajaxDIV{     /*ajax 사용시 보이게함*/
-display:none;
-}
-</style>
-
-
-
-</head>
-<body>
-<%@include file="../header2.jsp" %>
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">
-<div class="topSearchWrap">
-	<div class="blueBackground">
-
-	
+	<style>
+		.topSearchWrap {background: #006be0; text-align: center; padding: 120px 0;}
+		.topSearchWrap .searchDiv {display: inline-block;}
+		.topSearchWrap .searchDiv > * {float: left;}
+		.topSearchWrap .searchDiv select {width: 200px; margin-right: 10px;}
+		.topSearchWrap .searchDiv input {width: 100px; height: 40px; background: #ffffff; color: #000000;}
+	</style>
+	<div class="topSearchWrap">
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option <c:if test="${keyword.location=='전체지역'}">selected="selected"</c:if>>전체지역</option>
@@ -159,7 +34,7 @@ display:none;
 		 		<option <c:if test="${keyword.extype=='둘다'}">selected="selected"</c:if>>둘다</option>
 		 	</select>
 		 	
-		 		<select id="category" name="category">
+		 	<select id="category" name="category">
 		 		<option <c:if test="${keyword.category=='모든카테고리'}">selected="selected"</c:if>>모든카테고리</option>
 		 		<option <c:if test="${keyword.category=='퍼스널트레이닝'}">selected="selected"</c:if>>퍼스널트레이닝</option>
 		 		<option <c:if test="${keyword.category=='필라테스'}">selected="selected"</c:if>>필라테스</option>
@@ -170,46 +45,118 @@ display:none;
 		 	<input type="submit" value="검색하기">
 		</div>
 	</div>
-</div>
 </form>
 <!-- 상단 검색바 영역  -->
 
+<style>
+.result_contents_wrap {display: flex; padding: 30px;}
+
+.result_contents_wrap .leftWall {flex: 0 0 300px;}
+.result_contents_wrap .leftFilterDIV {padding: 20px;}
+
+.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px;}
+
+.result_contents_wrap .hgroup {margin-bottom: 40px;}
+.result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}
+
+.result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
+.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
+.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex; justify-content: center; align-items: center; width: 238px; height: 238px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+.result_contents_wrap .contentsWrap .oneperson .image-container img {max-width: 100%; max-height: 100%;}
+.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: #f7f7f7;}
+.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
+.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
+.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
+.result_contents_wrap .contentsWrap .oneperson .desc .grade .type {float: left; margin-right: 5px; background: #777777; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
+.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
+.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
+.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
+
+.nomalpaging {margin: 40px 0 0; text-align: center;}
+.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.nomalpaging a:not(:first-child) {margin-left: 5px;}
+</style>
+<div class="result_contents_wrap">
 <!-- 좌측검색필터  -->
 
-<div class="leftWall">
-	<div class="card leftFilterDIV">
-	<h4>검색필터</h4><br>
-		<hr>
-		<div class="m-3 gender"> 
-		<p class="fp">성별</p>
-		<button type="button" class="btn btn-outline-primary sexBtn sexBtn1">남자</button>
-	    <button type="button" class="btn btn-outline-primary sexBtn sexBtn2" >여자</button>
-		</div>
+	<div class="leftWall">
+		<div class="card leftFilterDIV">
+		<h4>검색필터</h4><br>
 			<hr>
-		<div class="m-3"> 
-		<p class="fp">경력</p>
-		<label>0 ~ </label><label id="yearVal">3</label>년 이상
-		<br>
-		 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
-		</div>
-	</div>	
+			<div class="m-3 gender"> 
+			<p class="fp">성별</p>
+			<button type="button" class="btn btn-outline-primary sexBtn sexBtn1">남자</button>
+		    <button type="button" class="btn btn-outline-primary sexBtn sexBtn2" >여자</button>
+			</div>
+				<hr>
+			<div class="m-3"> 
+			<p class="fp">경력</p>
+			<label>0 ~ </label><label id="yearVal">3</label>년 이상
+			<br>
+			 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
+			</div>
+		</div>	
+		
+	</div>
 	
-</div>
+	<!-- 좌측검색필터  -->
+	<!-- 리스트 영역  -->
+	
+	<div class="contentsWrap">
+		<div class="hgroup">
+			<h3 class=" mt-5">검색된 리스트</h3>
+			<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
+		</div>
+		
+		<div class="secondWrap">
+			<c:forEach var="dto" items="${list}">
+		
+			<div class="oneperson">
+				<div class="image-container" style="background: url('/zipcok/upload/member/${dto.mfile_upload}');"></div>
+				<div class="desc">
+				    <div class="member">
+				    	<span class="category">${dto.cate_name }</span> <span>${dto.mem_name }</span> 
+				    </div>
+				    <div class="greet">
+				    	<span><a href="coachProfile.do?id=${dto.coach_mem_id}">${dto.coach_intro_sub}</a></span>
+				    </div>
+				    <div class="grade">
+				    	<span class="type">${dto.coach_ex_type }</span>
+				    	<span class="star"><img src="img/coach/star.png" alt="">${dto.avg}</span>
+				    	<span class="join">(${dto.starcnt }명 참여)</span>
+				    </div>
+			    </div>
+			</div>  <!-- oneperson -->
+				
+			</c:forEach>
+		</div><!-- secondWrap -->	
+		
+		<div class="nomalpaging">
+			${pageStr}
+		</div>			
+		
+		
+		<!-- ajax검색된 리스트영역 -->
+		<div class="ajaxDIV">    
+	    </div>
+		<!-- ajax검색된 리스트영역 -->
+		
+	</div><!-- contentsWrap -->
+</div><!-- class : result_contents_wrap -->
 
-<!-- 좌측검색필터  -->
 <script>
 
 
-/*버튼 클릭하면 active됨*/
-$('.sexBtn').click(function(){
-
-  if( $(this).hasClass('active') ){
-  	$(this).removeClass('active');
-  }else{
-  	 $(this).addClass('active');
-  }
-  showList();
-});
+	/*버튼 클릭하면 active됨*/
+	$('.sexBtn').click(function(){
+	
+	  if( $(this).hasClass('active') ){
+	  	$(this).removeClass('active');
+	  }else{
+	  	 $(this).addClass('active');
+	  }
+	  showList();
+	});
 
 
 	/*별점 드래그한대로 숫자들어감*/
@@ -287,59 +234,10 @@ $('.sexBtn').click(function(){
 	
 		  showList(temp);
 	  } 
-
 </script>
-<!-- 리스트 영역  -->
-
-<div class="contentsWrap">
-
-		<h3 class=" mt-5">검색된 리스트</h3>
-		<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
-	
-<div class="secondWrap">
-	<c:forEach var="dto" items="${list}">
-
-	<div class="oneperson">
-		
-			<div class="image-container">
-		        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">		  
-		    </div>
-		    
-		    <div>
-		    <span class="category">${dto.cate_name }</span>&nbsp; <span>${dto.mem_name }</span> 
-		    </div>
-		    
-		     <div>
-		    <span><a href="coachProfile.do?id=${dto.coach_mem_id}">${dto.coach_intro_sub}</a></span>
-		    </div>
-		    
-		    <div>
-		    	<span class="extype">${dto.coach_ex_type }</span>&nbsp; <span>
-		    	<img src="img/coach/star.png" class="starIMG">${dto.avg }</span>&nbsp; <span>(${dto.starcnt }명 참여)</span>
-		    </div>
-	</div>  <!-- oneperson -->
-		
-	</c:forEach>
-		
-				<div class="nomalpaging">
-				${pageStr}
-				</div>
-				
-				
-	</div><!-- secondWrap -->			
-
-
-<!-- ajax검색된 리스트영역 -->
-	<div class="ajaxDIV">    
-    </div>
-<!-- ajax검색된 리스트영역 -->
-
-</div><!-- contentsWrap -->
-
 
 
 <!-- 리스트 영역  -->
 
+<%@include file="../_include/footer.jsp" %>
 
-</body>
-</html>

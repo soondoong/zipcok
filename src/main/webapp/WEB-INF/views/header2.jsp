@@ -24,8 +24,9 @@
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
+<link href="assets/css/reset.css" rel="stylesheet">
+<link href="assets/css/common.css" rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
-
 
 
 <!-- ======= Header ======= -->

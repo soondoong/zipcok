@@ -84,9 +84,9 @@ public class CommDailyController {
 			String bfile_comm=String.valueOf(session.getAttribute("com_idx"));
 			int bfile_size=(int)(list.get(i).getSize());
 			String bfile_type=list.get(i).getContentType();
-			BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
+		//	BbsFileDTO bdto=new BbsFileDTO(0, "0", bfile_rename, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal);
 			
-			fileArr.add(bdto);
+			//fileArr.add(bdto);
 		}		
 		/*다중파일첨부 시 필요*/	
 		
@@ -137,7 +137,7 @@ public class CommDailyController {
 	@RequestMapping("commFileDelte.do")
 	public ModelAndView deleteFile(BbsFileDTO dto) {
 		fileDel(dto.getBfile_path(),dto.getBfile_rename());
-		//int result=bbsFileDao.?????
+		//int result=bbsFileDao.db삭제하는 dao메소드
 		//String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		//mav.addObject("msg", msg);
@@ -159,10 +159,13 @@ public class CommDailyController {
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
 		List list=exBbsDao.dailyReList(ex_idx);
 		int recnt=exBbsDao.dailyGetTotalRe(ex_idx);
+		String bfile_bbs="0";
+		//List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto", dto);
 		mav.addObject("list", list);
 		mav.addObject("recnt", recnt);
+		//mav.addObject("filelist", filelist);
 		mav.setViewName("comm/commDailyContent");
 		return mav;
 	}

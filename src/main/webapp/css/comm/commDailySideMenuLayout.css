@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-	ul.sidemenu {
+/* 	ul.sidemenu {
 		list-style-type: none;
 		background-color: #ccc;
 		width: 200px;
@@ -27,4 +27,4 @@
 	li.sidemenuli a:hover:not(.comm) {
 		background-color: #333;
 		color: #fff;
-	}
+	} */

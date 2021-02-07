@@ -7,19 +7,33 @@
 
 <insert id="insertBbsFileSQL" parameterType="zipcok.comm.model.BbsFileDTO">
 insert into 
- bbs_file
+	bbs_file
 values(
-bbs_file_idx.nextval,
-#{bfile_bbs},
-#{bfile_rename},
-#{bfile_size},
-#{bfile_origin},
-#{bfile_path},
-#{bfile_type},
-#{bfile_comm},
-#{bfile_meal}
+	bbs_file_idx.nextval,
+	#{bfile_bbs},
+	#{bfile_rename},
+	#{bfile_size},
+	#{bfile_origin},
+	#{bfile_path},
+	#{bfile_type},
+	#{bfile_comm},
+	#{bfile_meal},
+	'N'
 )
 </insert>
+
+<select id="bbsFileListSQL" resultType="zipcok.comm.model.BbsFileDTO">
+select 
+	*
+from
+	bbs_file
+where
+	bfile_delyn='N'
+and
+	bfile_bbs=#{bfile_bbs}
+and
+	bfile_bbs_idx=#{bfile_bbs_idx)}
+</select>
 
 </mapper>
 
