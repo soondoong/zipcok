@@ -26,12 +26,13 @@ public class ChatRoomListDTO {
 	private String msg_readtime; //메세지읽은시간
 	private String msg_userid; //고객아이디;
 	private String msg_coachid; //코치아이디;
-	private String user_mfile_upload;//보내는이프로필사진이름
-	private String receiver_mfile_upload;//받는이프로필사진이름
+	private String msg_file_upload;//보내는이프로필사진이름
+	private String msg_file_path;//받는이프로필사진이름
 	private String user_name; // 보내는이 이름;
 	private String receiver_user_name; //받는이 이름;
 	private int unReadCount; //default=0;load되면 1이되게
-
+	private String msg_type; //메시지,사진,결제요청서인지
+	
 	public ChatRoomListDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -172,20 +173,20 @@ public class ChatRoomListDTO {
 		this.msg_coachid = msg_coachid;
 	}
 
-	public String getUser_mfile_upload() {
-		return user_mfile_upload;
+	public String getMsg_file_upload() {
+		return msg_file_upload;
 	}
 
-	public void setUser_mfile_upload(String user_mfile_upload) {
-		this.user_mfile_upload = user_mfile_upload;
+	public void setMsg_file_upload(String msg_file_upload) {
+		this.msg_file_upload = msg_file_upload;
 	}
 
-	public String getReceiver_mfile_upload() {
-		return receiver_mfile_upload;
+	public String getMsg_file_path() {
+		return msg_file_path;
 	}
 
-	public void setReceiver_mfile_upload(String receiver_mfile_upload) {
-		this.receiver_mfile_upload = receiver_mfile_upload;
+	public void setMsg_file_path(String msg_file_path) {
+		this.msg_file_path = msg_file_path;
 	}
 
 	public String getUser_name() {
@@ -212,11 +213,19 @@ public class ChatRoomListDTO {
 		this.unReadCount = unReadCount;
 	}
 
+	public String getMsg_type() {
+		return msg_type;
+	}
+
+	public void setMsg_type(String msg_type) {
+		this.msg_type = msg_type;
+	}
+
 	public ChatRoomListDTO(int croom_idx, String croom_userid, String croom_coachid, int croom_req_idx,
 			Date croom_opendate, String mfile_upload, String mem_name, int msg_idx, int msg_croom_idx, int msg_req_idx,
 			String msg_sender, String msg_receiver, String msg_content, String msg_sendtime, String msg_readtime,
-			String msg_userid, String msg_coachid, String user_mfile_upload, String receiver_mfile_upload,
-			String user_name, String receiver_user_name, int unReadCount) {
+			String msg_userid, String msg_coachid, String msg_file_upload, String msg_file_path, String user_name,
+			String receiver_user_name, int unReadCount, String msg_type) {
 		super();
 		this.croom_idx = croom_idx;
 		this.croom_userid = croom_userid;
@@ -235,13 +244,15 @@ public class ChatRoomListDTO {
 		this.msg_readtime = msg_readtime;
 		this.msg_userid = msg_userid;
 		this.msg_coachid = msg_coachid;
-		this.user_mfile_upload = user_mfile_upload;
-		this.receiver_mfile_upload = receiver_mfile_upload;
+		this.msg_file_upload = msg_file_upload;
+		this.msg_file_path = msg_file_path;
 		this.user_name = user_name;
 		this.receiver_user_name = receiver_user_name;
 		this.unReadCount = unReadCount;
+		this.msg_type = msg_type;
 	}
 
+	
 
 	
 	
