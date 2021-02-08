@@ -38,7 +38,7 @@ public class NoticeController {
 		int listSize=10;
 		int pageSize=10;
 		String pageStr=zipcok.page.PageModule.makePage("noticeList.do", totalCnt, cp, listSize, pageSize);
-		
+		noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
 		List list = noticeDao.noticeAllList(cp, listSize);
 		ModelAndView mav=new ModelAndView();
 		
@@ -65,13 +65,13 @@ public class NoticeController {
 		int result=noticeDao.noticeWrite(dto);
 		int maxIdx = noticeDao.noticeMaxIdx();
 		
-		
 /*다중파일첨부 시 필요*/	
 		
 		
 		ArrayList<ZipcokFileDTO> fileArr=new ArrayList<ZipcokFileDTO>();
 		/*파일복사및저장하기*/
 		for(int i=0;i<list.size();i++) {		
+			if(!list.get(i).getOriginalFilename().equals("")) {
 			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 			int zfile_bbs_idx=maxIdx;
 			String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
@@ -83,7 +83,9 @@ public class NoticeController {
 			ZipcokFileDTO zdto=new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,"N");
 			
 			fileArr.add(zdto);
+			}
 		}
+		
 /*다중파일첨부 시 필요*/		
 		
 		int count=noticeDao.noticeFileUpload(fileArr);
@@ -203,52 +205,60 @@ public class NoticeController {
 	
 	//수정하기
 	@RequestMapping("noticeUpdate.do")
-	public ModelAndView goNoticeUpdate(NoticeDTO dto, ZipcokFileDTO zdto,
-			@RequestParam("upload")List<MultipartFile> list,@RequestParam("files")List<String> files) {
+	public ModelAndView goNoticeUpdate(
+			NoticeDTO dto,
+			@RequestParam("upload")List<MultipartFile> list,
+			@RequestParam("files")String files[],
+			@RequestParam("del_yn")String del_yn[]) {
+		System.out.println(list.size());
+		for(int i = 0 ; i < files.length ; i ++) {
+			System.out.println(files[i]);
+			if(del_yn[i].equals("Y")) {
+				noticeDao.deleteFile(files[i]);
+			}
+		}
 		
 		//1단계 files로 넘어온 이름들과 기존에 첨부파일로 갖고있던 이름들비교. 없는사진은 테이블에서삭제
-		List<ZipcokFileDTO> oldfiles= noticeDao.zfileSelect(dto.getBbs_idx());
-		for(String a : files) {
-			for(ZipcokFileDTO fdto : oldfiles) {
-				if(files.contains(fdto.getZfile_upload())) {
-					//그대로유지
-					continue;
-				}else {
-					//삭제할꺼야
-					int result=noticeDao.deleteFile(fdto);
-					String msg=result>0?"ㅇㅇㅇㅇㅇ":"ㄴㄴㄴ";
-					System.out.println(msg);
-				}
-			}
-			System.out.println(a);
-		}
+//		List<ZipcokFileDTO> oldfiles= noticeDao.zfileSelect(dto.getBbs_idx());
+//		for(String a : files) {
+//			for(ZipcokFileDTO fdto : oldfiles) {
+//				if(files.contains(fdto.getZfile_upload())) {
+//					//그대로유지
+//					continue;
+//				}else {
+//					//삭제할꺼야
+//					int result=noticeDao.deleteFile(fdto);
+//					String msg=result>0?"ㅇㅇㅇㅇㅇ":"ㄴㄴㄴ";
+//					System.out.println(msg);
+//				}
+//			}
+//			System.out.println(a);
+//		}
 		//2단계 수정글내용은 수정해주기
 			int result=noticeDao.noticeUpdate(dto);
-			int maxIdx = noticeDao.noticeMaxIdx();
 			
 		//3단계 새로등록한다고 올린파일은 디비에저장해주기	
 			ArrayList<ZipcokFileDTO> fileArr=new ArrayList<ZipcokFileDTO>();
-		if(list.size()>0 && list != null) {	
 			/*파일복사및저장하기*/
 			for(int i=0;i<list.size();i++) {
+				if(!list.get(i).getOriginalFilename().equals("")) {//파일명이 빈값인 파일이 계속 추가돼서 조건 걸어놓음
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
-				int zfile_bbs_idx=maxIdx;
+				int zfile_bbs_idx=dto.getBbs_idx();
 				String zfile_path=c.getRealPath("/upload/notice/"); //저장되는 경로
 				String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 				String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
 				String zfile_mem_id = "admin";
 				String zfile_type = list.get(i).getContentType();
 				int zfile_size=(int)(list.get(i).getSize());
-				System.out.println(zdto.getDel_yn());
-				String del_yn="N";
-				zdto = new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "key", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
+				String del_yn_upload="N";
+				ZipcokFileDTO zdto = new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "key", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn_upload);
 		
 				fileArr.add(zdto);
+				}
 			}
-		}	
 	/*다중파일첨부 시 필요*/
 			int count=noticeDao.noticeFileUpload(fileArr);
-				//noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
+				
 			
 			if(count==fileArr.size()) {
 				System.out.println("사진등록성공");
@@ -269,6 +279,7 @@ public class NoticeController {
 	public ModelAndView goNoticeDelete(String bbs_idx) {
 	      int bbs_idx2=Integer.parseInt(bbs_idx);
 	      int result=noticeDao.noticeDelete(bbs_idx2);
+	      noticeDao.noticeAndFileDel(bbs_idx2);
 	      String msg=result>0?"게시글 삭제 성공":"게시글 삭제 실패";
 	      
 	      ModelAndView mav=new ModelAndView();
@@ -277,24 +288,24 @@ public class NoticeController {
 	      mav.setViewName("notice/noticeMsg");
 	      return mav;
 	}
-	
-	//파일 삭제하기
-	@RequestMapping("deleteFile.do")
-	public ModelAndView deleteFile(
-			@RequestParam(value="zfile_bbs_idx",defaultValue = "1")int zfile_bbs_idx,
-			@RequestParam(value="del_yn")String del_yn[]) {
-		
-		int result=0;
-		for(int i=0;i<del_yn.length;i++) {
-		ZipcokFileDTO dto=new ZipcokFileDTO(zfile_bbs_idx, del_yn[i]);
-		result+=noticeDao.deleteFile(dto);
-		}
-		String msg=result==del_yn.length?"사진삭제 성공":"사진삭제 실패";
-		
-		ModelAndView mav=new ModelAndView();
-		mav.addObject("msg",msg);
-		mav.addObject("gopage", "noticeUpdateView.do");
-	      mav.setViewName("notice/noticeMsg");
-	      return mav;
-	}
+//	
+//	//파일 삭제하기
+//	@RequestMapping("deleteFile.do")
+//	public ModelAndView deleteFile(
+//			@RequestParam(value="zfile_bbs_idx",defaultValue = "1")int zfile_bbs_idx,
+//			@RequestParam(value="del_yn")String del_yn[]) {
+//		
+//		int result=0;
+//		for(int i=0;i<del_yn.length;i++) {
+//		ZipcokFileDTO dto=new ZipcokFileDTO(zfile_bbs_idx, del_yn[i]);
+//		result+=noticeDao.deleteFile(dto);
+//		}
+//		String msg=result==del_yn.length?"사진삭제 성공":"사진삭제 실패";
+//		
+//		ModelAndView mav=new ModelAndView();
+//		mav.addObject("msg",msg);
+//		mav.addObject("gopage", "noticeUpdateView.do");
+//	      mav.setViewName("notice/noticeMsg");
+//	      return mav;
+//	}
 }

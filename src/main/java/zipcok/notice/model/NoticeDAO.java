@@ -12,8 +12,9 @@ public interface NoticeDAO {
 	public NoticeDTO noticeContent(int bbs_idx);//상세보기
 	public List noticeSearchList(int cp,int ls, String bbs_category);//카테고리별게시물리스트
 	public int noticeUpdate(NoticeDTO dto);//게시물수정
-	public int deleteFile(ZipcokFileDTO dto);//파일삭제한척
+	public int deleteFile(String fileName);//파일삭제한척
 	public int noticeDelete(int bbs_idx);//게시물삭제
+	public int noticeAndFileDel(int bbs_idx);//게시물삭제될 때 파일도 함께 삭제
 	public int zfileRealDelete();//파일데이터삭제
 	public int noticeReadnum(int bbs_idx);//공지사항 조회수
 	

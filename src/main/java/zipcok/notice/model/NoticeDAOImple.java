@@ -82,6 +82,11 @@ public class NoticeDAOImple implements NoticeDAO {
 		int count=sqlMap.delete("noticeDeleteSQL", bbs_idx);
 		return count;
 	}
+	//파일 del_yn 바꿔주는 메서드(게시글idx이용)
+	public int noticeAndFileDel(int bbs_idx) {
+		int count=sqlMap.update("zfileDelete2", bbs_idx);
+		return count;
+	}
 	
 	//조회수 메서드
 	@Override
@@ -129,8 +134,8 @@ public class NoticeDAOImple implements NoticeDAO {
 	
 	//사진 삭제한 척
 	@Override
-	public int deleteFile(ZipcokFileDTO dto) {
-		int result=sqlMap.update("zfileDelete", dto);
+	public int deleteFile(String fileName) {
+		int result=sqlMap.update("zfileDelete", fileName);
 		return result;
 	}
 	//리얼 사진 삭제
