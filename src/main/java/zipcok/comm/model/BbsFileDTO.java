@@ -2,10 +2,10 @@ package zipcok.comm.model;
 
 public class BbsFileDTO {
 	
-	private int bflie_idx; //파일 번호
+	private int bfile_idx; //파일 번호
 	private int bfile_bbs_idx; //게시글 번호
 	private String bfile_rename; //업로드 파일명
-	private String bfile_bbs; //게시판 구분자
+	private int bfile_bbs; //게시판 구분자
 	private int bfile_size; //파일크기
 	private String bfile_origin; //파일원본명
 	private String bfile_path; //파일저장경로
@@ -19,11 +19,11 @@ public class BbsFileDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BbsFileDTO(int bflie_idx, int bfile_bbs_idx, String bfile_rename, String bfile_bbs, int bfile_size,
+	public BbsFileDTO(int bfile_idx, int bfile_bbs_idx, String bfile_rename, int bfile_bbs, int bfile_size,
 			String bfile_origin, String bfile_path, String bfile_type, String bfile_comm, String bfile_meal,
 			String bfile_delyn) {
 		super();
-		this.bflie_idx = bflie_idx;
+		this.bfile_idx = bfile_idx;
 		this.bfile_bbs_idx = bfile_bbs_idx;
 		this.bfile_rename = bfile_rename;
 		this.bfile_bbs = bfile_bbs;
@@ -36,12 +36,12 @@ public class BbsFileDTO {
 		this.bfile_delyn = bfile_delyn;
 	}
 
-	public int getBflie_idx() {
-		return bflie_idx;
+	public int getBfile_idx() {
+		return bfile_idx;
 	}
 
-	public void setBflie_idx(int bflie_idx) {
-		this.bflie_idx = bflie_idx;
+	public void setBfile_idx(int bfile_idx) {
+		this.bfile_idx = bfile_idx;
 	}
 
 	public int getBfile_bbs_idx() {
@@ -60,11 +60,11 @@ public class BbsFileDTO {
 		this.bfile_rename = bfile_rename;
 	}
 
-	public String getBfile_bbs() {
+	public int getBfile_bbs() {
 		return bfile_bbs;
 	}
 
-	public void setBfile_bbs(String bfile_bbs) {
+	public void setBfile_bbs(int bfile_bbs) {
 		this.bfile_bbs = bfile_bbs;
 	}
 
@@ -123,6 +123,9 @@ public class BbsFileDTO {
 	public void setBfile_delyn(String bfile_delyn) {
 		this.bfile_delyn = bfile_delyn;
 	}
+
+	
+	
 
 	
 

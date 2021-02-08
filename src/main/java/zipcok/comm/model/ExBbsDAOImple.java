@@ -18,6 +18,12 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
+	@Override
+	public int getMaxExIdx() {
+		int count=sqlMap.selectOne("getMaxExIdxSQL");
+		return count;
+	}
+	
 	//글목록 불러오기
 	@Override
 	public List dailyList(int cp, int ls) {

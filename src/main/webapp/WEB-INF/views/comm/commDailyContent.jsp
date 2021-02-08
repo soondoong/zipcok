@@ -20,7 +20,6 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 	location.href=url;
 }
 </script>
-<link rel="stylesheet" type="text/css" href="css/comm/commDailyContentLayout.css">
 </head>
 <body>
 	<%@include file="../header2.jsp"%>
@@ -38,6 +37,8 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		.community_daily_summary {width: 100%; border-top: 1px solid #dddddd;}
 		.community_daily_summary tbody tr th {background: #f7f7f7; padding: 10px; border-bottom: 1px solid #dddddd;}
 		.community_daily_summary tbody tr td {padding: 10px; border-bottom: 1px solid #dddddd;}
+		
+		.community_contents .view_body {padding: 30px 20px 50px;}
 	</style>
 
 	<div class="community_wrap">
@@ -79,12 +80,27 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						<th>오늘의 소비 칼로리</th>
 						<td colspan="3">${dto.ex_cal}</td>
 					</tr>
-					<tr>
-						<td colspan="4">${dto.ex_content }</td>
-					</tr>
 				</tbody>
 			</table>
-
+			<div class="view_body">
+				<c:forEach var="filelist" items="${filelist}" varStatus="i">
+				<div>
+				<img src="/zipcok/upload/comm/${filelist.bfile_rename}" style="width:80%;">
+				</div>
+				</c:forEach>
+				<div class="view_content">${dto.ex_content }</div>
+			</div>
+			<c:if test="${!empty filelist}">
+			<div id="fileList">
+				<ul>
+					<li>첨부파일(클릭으로 다운로드)</li>
+					<c:forEach var="filelist" items="${filelist}" varStatus="i">
+					<li><a href="/zipcok/upload/comm/${filelist.bfile_rename}" download>${filelist.bfile_origin}</a></li>
+					</c:forEach>
+				</ul>
+			</div>
+			</c:if>
+			
 			<style>
 				.reply_wrap {margin-top: 50px;}
 				.reply_wrap .reply_count {margin-bottom: 30px;}
