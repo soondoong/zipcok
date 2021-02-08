@@ -17,10 +17,13 @@
 		.result_contents_wrap {  max-width:1490px;display: flex; padding: 30px; margin: 0 auto;}		
 		.result_contents_wrap .leftWall {flex: 0 0 300px;}
 		.result_contents_wrap .leftFilterDIV { padding: 20px;}
+		.result_contents_wrap .leftFilterDIV .sexBtn{width: 110px; display: inline-block;}
+		.result_contents_wrap .leftFilterDIV	.yearrange{width:210px;}
 		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1150px;}		
 		.result_contents_wrap .hgroup {margin-bottom: 40px;}
 		.result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}		
 		.result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
+		.secondAjaxWrap{overflow: hidden; margin: 0 -30px -30px 0;}
 		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
 		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
 		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
@@ -32,10 +35,13 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
+		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;}
+		.likeafter{color : #e86a82; }
 		
-		.nomalpaging {margin: 40px 0 0; text-align: center;}
-		.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
-		.nomalpaging a:not(:first-child) {margin-left: 5px;}
+	
+		.nomalpaging,.paging {margin: 40px 0 0; text-align: center;}
+		.nomalpaging a,.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+		.nomalpaging a:not(:first-child),.paging a:not(:first-child) {margin-left: 5px;}
 				
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
@@ -94,7 +100,7 @@
 			<p class="fp">경력</p>
 			<label>0 ~ </label><label id="yearVal">3</label>년 이상
 			<br>
-			 <input type="range" min="1" max="5" id="yearRange" onmouseup ="yearValue(this);" onchange="showList()">
+			 <input type="range" min="1" max="5" id="yearRange" class="yearrange" onmouseup ="yearValue(this);" onchange="showList()">
 			</div>
 		</div>	
 		
@@ -113,6 +119,7 @@
 			<c:forEach var="dto" items="${list}">
 		
 			<div class="oneperson">
+			<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>								
 				<div class="image-container">
 				<a href="coachProfile.do?id=${dto.coach_mem_id}">
 				<img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
@@ -142,8 +149,13 @@
 		
 		
 		<!-- ajax검색된 리스트영역 -->
-		<div class="ajaxDIV">    
-	    </div>
+		
+			<div class="secondAjaxWrap">
+					<div class="ajaxDIV">
+					    
+				    </div>
+	   		</div>
+	   		 
 		<!-- ajax검색된 리스트영역 -->
 		
 	</div><!-- contentsWrap -->
@@ -210,15 +222,36 @@
 	  				var str='총 코치수'+cList.length+'명\n';
 	  				//alert(str);
 	  				$('.secondWrap').css('display','none');
+	  				$('.nomalpaging').css('display','none');
+	  				
 	  				$('.ajaxDIV').html('');
+	  				$( 'div' ).remove( '.paging' );
+	  				
 	  		 	for(var i=0;i<cList.length;i++){
 	  		 	
 	  					var dto=cList[i];
-	$('.ajaxDIV').append('<div class="oneperson"><div class="image-container"><img src="/zipcok/upload/member/'+dto.mfile_upload+'"></div>'+	  					
-								'<div><span class="category">'+dto.cate_name+'</span>&nbsp; <span>'+dto.mem_name+'</span></div>'+
-									'<div><span><a href="coachProfile.do?id='+dto.coach_mem_id+'">'+dto.coach_intro_sub+'</a></span></div>'+
-										' <div><span class="extype">'+dto.coach_ex_type+'</span>&nbsp; <span><img src="img/coach/star.png" class="starIMG">'+dto.avg+'</span>'+
-										'&nbsp; <span>('+dto.starcnt+'명 참여)</span></div></div>');						    
+	  					$('.ajaxDIV').append('<div class="oneperson">'
+	  							+'<a href="#" class="ia" id="'+ dto.coach_mem_id+'"><i class="far fa-heart likeicon"></i></a>'								
+	  							+'<div class="image-container">'
+	  							+'<a href="coachProfile.do?id='+dto.coach_mem_id+'">'
+	  						   +'<img src="/zipcok/upload/member/'+ dto.mfile_upload+'" alt="">'
+	  						     +'</a>'
+	  							+'</div>'
+	  							+'<div class="desc">'
+	  							   +'<div class="member">'
+	  							    	+'<span class="category">'+ dto.cate_name+'</span> <span>'+ dto.mem_name+'</span>' 
+	  							    +'</div>'
+	  							    +'<div class="greet">'
+	  							    +'<span><a href="coachProfile.do?id='+ dto.coach_mem_id+'">'+ dto.coach_intro_sub+'</a></span>'
+	  							    +'</div>'
+	  							    +'<div class="grade">'
+	  							    +'<span class="type">'+ dto.coach_ex_type+'</span>'
+	  							    +'<span class="star"><img src="img/coach/star.png" alt="">'+ dto.avg+'</span>'
+	  							    +'<span class="join">('+ dto.starcnt+'명 참여)</span>'
+	  							    +'</div>'
+	  							    +'</div>'
+	  							    +'</div>');						    
+				    
 
 	$('.ajaxDIV').css('display','block');
 	  					
@@ -226,7 +259,7 @@
 	  		 	
 	  		 	/*페이징추가*/
 	  			var cpage=data.pageStrAjax;
-	  			$('.ajaxDIV').append('<div class="paging">'+cpage+'</div>');
+	  			$('.secondAjaxWrap').after('<div class="paging">'+cpage+'</div>');
 	  		}
 	  	}
 	  	
@@ -240,7 +273,70 @@
 		  showList(temp);
 	  } 
 </script>
+<script type="text/javascript">
+/*좋아요 토글*/
+$(function(){
+	$('.ia').on('click', function() {
+	var sid="${sid.mem_id}";	
+			if(sid == null || sid == ''){ //비로그인이거나 코치일 시
+				alert('회원만 가능한 서비스입니다');
+			}else{ //로그인시				
+				var targetid= $(this).attr('id');	
+				alert(targetid);	
+			  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+		             $(this).removeClass("toggleStyle");
+		             $(this).html('<i class="far fa-heart likeicon"></i>');
+		             ajaxUnLike(login,targetid);	     
+		         }else{ //좋아요햇을시
+		        	 
+		             $(this).addClass("toggleStyle");
+		             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+		            
+		        	ajaxLike(login,targetid);	           
+		             //좋아요하면 insert 취소하면 delete            
+		             
+		         }
+			 
+		
+		
+				
+			}	
+		
+	
+	});
+		
+});
 
+
+/*ajax 좋아요*/
+  function ajaxLike(login,targetid){		  
+	  var params='like_mem_id='+login+"&"+'like_target_id='+targetid;	 
+  	sendRequest("coachLikenum.do",params,likeplus,'GET');
+  }
+function likeplus(){
+	  	if(XHR.readyState==4){
+	  			if(XHR.status==200){
+	  				var data=XHR.responseText;
+	  				data=eval('('+data+')');
+	  			    alert("좋아요를 보내셨습니다!");		
+	  			}
+	  	}
+}
+
+function ajaxUnLike(login,targetid){		  
+	  var params='like_mem_id='+login+"&"+'like_target_id='+targetid;	 
+	sendRequest("coachUnLike.do",params,likeminus,'GET');
+}
+function likeminus(){
+	  	if(XHR.readyState==4){
+	  			if(XHR.status==200){
+	  				var data=XHR.responseText;
+	  				data=eval('('+data+')');
+	  			    alert("좋아요가 취소되었습니다");		
+	  			}
+	  	}
+}
+</script>
 
 <!-- 리스트 영역  -->
 

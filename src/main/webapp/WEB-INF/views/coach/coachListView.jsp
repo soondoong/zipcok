@@ -26,7 +26,7 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
-		.likeicon{ font-size:27px;font-weight:100;position:relative; top:10px; left:-68px; color: white;z-index: 100;display: inline-block;}
+		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;}
 		.likeafter{color : #e86a82; }
 		
 		.nomalpaging {margin: 40px 0 0; text-align: center;}
@@ -36,6 +36,7 @@
 
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 <script>
 function search(){
 	
@@ -87,9 +88,9 @@ function search(){
 		<h3>나도 몸짱! 고강도 전신운동</h3>
   			<div class="contentsWrap">		
 				<div class="listWrap">
-					<c:forEach var="dto" items="${map.pt }">
-					<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>				
+					<c:forEach var="dto" items="${map.pt }">			
 							<div class="oneperson">
+						      	<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>	
 								<div class="image-container">
 							       <a href="coachProfile.do?id=${ dto.coach_mem_id }">
 							        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
@@ -121,7 +122,8 @@ function search(){
  <div class="contentsWrap">
 	<div class="listWrap2">
 		<c:forEach var="dto2" items="${map.yoga }">
-<div class="oneperson">
+					<div class="oneperson">
+						<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>	
 								<div class="image-container">
 							       <a href="coachProfile.do?id=${ dto2.coach_mem_id }">
 							        <img src="/zipcok/upload/member/${dto2.mfile_upload}" alt="">
@@ -155,49 +157,65 @@ function search(){
 /*좋아요 토글*/
 $(function(){
 	$('.ia').on('click', function() {
-	var login="${login.mem_id}";	
-	if(login == null || login == ''){ //비로그인시
-		alert('로그인한 회원만 가능한 서비스입니다');
-	}else{ //로그인시
-		
-		var targetid= $(this).attr('id');	
-		alert(targetid);	
-	  if($(this).hasClass("toggleStyle")){ //좋아요취소시
-             $(this).removeClass("toggleStyle");
-             $(this).html('<i class="far fa-heart likeicon"></i>');
-             
-         }else{ //좋아요햇을시
-        	 
-             $(this).addClass("toggleStyle");
-             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
-             
-             
-             /*ajax*/
- 			$.ajax({
- 				url: "/coachLikenum.do",
-               type: "GET",
-               data: {
-                   like_mem_id: '${login.mem_id}',
-                   like_target_id: targetid
-               },
-               success: function () {
- 			        alert(targetid+"님께 좋아요를 보내셨습니다!");
-               },
- 			})
-             
-             //좋아요하면 insert 취소하면 delete            
-             
-         }
+	var sid="${sid.mem_id}";	
+			if(sid == null || sid == ''){ //비로그인이거나 코치일 시
+				alert('회원만 가능한 서비스입니다');
+			}else{ //로그인시				
+				var targetid= $(this).attr('id');	
+				alert(targetid);	
+			  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+		             $(this).removeClass("toggleStyle");
+		             $(this).html('<i class="far fa-heart likeicon"></i>');
+		             ajaxUnLike(login,targetid);	     
+		         }else{ //좋아요햇을시
+		        	 
+		             $(this).addClass("toggleStyle");
+		             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+		            
+		        	ajaxLike(login,targetid);	           
+		             //좋아요하면 insert 취소하면 delete            
+		             
+		         }
+			 
 		
 		
-	}	
+				
+			}	
 		
 	
 	});
 		
 });
 
-		 
+
+/*ajax 좋아요*/
+  function ajaxLike(login,targetid){		  
+	  var params='like_mem_id='+login+"&"+'like_target_id='+targetid;	 
+  	sendRequest("coachLikenum.do",params,likeplus,'GET');
+  }
+function likeplus(){
+	  	if(XHR.readyState==4){
+	  			if(XHR.status==200){
+	  				var data=XHR.responseText;
+	  				data=eval('('+data+')');
+	  			    alert("좋아요를 보내셨습니다!");		
+	  			}
+	  	}
+}
+
+function ajaxUnLike(login,targetid){		  
+	  var params='like_mem_id='+login+"&"+'like_target_id='+targetid;	 
+	sendRequest("coachUnLike.do",params,likeminus,'GET');
+}
+function likeminus(){
+	  	if(XHR.readyState==4){
+	  			if(XHR.status==200){
+	  				var data=XHR.responseText;
+	  				data=eval('('+data+')');
+	  			    alert("좋아요가 취소되었습니다");		
+	  			}
+	  	}
+}
 </script>
 </body>
 </html>
