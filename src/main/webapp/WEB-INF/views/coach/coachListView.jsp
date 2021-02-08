@@ -90,7 +90,14 @@ function search(){
 				<div class="listWrap">
 					<c:forEach var="dto" items="${map.pt }">			
 							<div class="oneperson">
-						      	<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>	
+							
+								<c:if test="${dto.lknum ==0 }">
+								<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+								</c:if>
+								<c:if test="${dto.lknum ==1 }">
+								<a href="#" class="ia toggleStyle" id="${ dto.coach_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+								</c:if>
+								
 								<div class="image-container">
 							       <a href="coachProfile.do?id=${ dto.coach_mem_id }">
 							        <img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
@@ -123,7 +130,12 @@ function search(){
 	<div class="listWrap2">
 		<c:forEach var="dto2" items="${map.yoga }">
 					<div class="oneperson">
-						<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>	
+					<c:if test="${dto2.lknum ==0 }">
+					<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+					</c:if>
+					<c:if test="${dto2.lknum ==1 }">
+					<a href="#" class="ia toggleStyle" id="${ dto.coach_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+					</c:if>
 								<div class="image-container">
 							       <a href="coachProfile.do?id=${ dto2.coach_mem_id }">
 							        <img src="/zipcok/upload/member/${dto2.mfile_upload}" alt="">
@@ -156,23 +168,24 @@ function search(){
 <script type="text/javascript">
 /*좋아요 토글*/
 $(function(){
+		
 	$('.ia').on('click', function() {
-	var sid="${sid.mem_id}";	
+	var sid="${sessionScope.sid}";	
 			if(sid == null || sid == ''){ //비로그인이거나 코치일 시
 				alert('회원만 가능한 서비스입니다');
 			}else{ //로그인시				
 				var targetid= $(this).attr('id');	
-				alert(targetid);	
+				//alert(targetid);	
 			  if($(this).hasClass("toggleStyle")){ //좋아요취소시
 		             $(this).removeClass("toggleStyle");
 		             $(this).html('<i class="far fa-heart likeicon"></i>');
-		             ajaxUnLike(login,targetid);	     
+		             ajaxUnLike(sid,targetid);	     
 		         }else{ //좋아요햇을시
 		        	 
 		             $(this).addClass("toggleStyle");
 		             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
 		            
-		        	ajaxLike(login,targetid);	           
+		        	ajaxLike(sid,targetid);	           
 		             //좋아요하면 insert 취소하면 delete            
 		             
 		         }
@@ -198,7 +211,7 @@ function likeplus(){
 	  			if(XHR.status==200){
 	  				var data=XHR.responseText;
 	  				data=eval('('+data+')');
-	  			    alert("좋아요를 보내셨습니다!");		
+	  			    alert("좋아요 목록에 추가되었습니다");		
 	  			}
 	  	}
 }

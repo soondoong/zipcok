@@ -44,10 +44,11 @@ public class CoachController {
 		
 	/*메인검색페이지 이동*/
 	@RequestMapping("findCoachList.do")  
-		public ModelAndView gotoCoachList() {
+		public ModelAndView gotoCoachList(@RequestParam("sid")String sid) {
 		HashMap<String,String> categoryMap = new HashMap<String, String>();
 		categoryMap.put("pt", "퍼스널트레이닝");
 		categoryMap.put("yoga", "요가");
+		categoryMap.put("sid", sid);
 		
 		
 		HashMap<String, List<MainCoachDTO>> map=dao.mainCoachList(categoryMap);
