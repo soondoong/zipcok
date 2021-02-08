@@ -8,6 +8,13 @@
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
 
+<style>
+.mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
+font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
+#file{display:none;}
+</style>
+
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script>
 function mypagePwdUpdate(){
    location.href='mypagePwdUpdateForm.do';

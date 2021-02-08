@@ -25,16 +25,43 @@ mfile_key='회원프로필'
 	select * from member_file where mfile_mem_id=#{mem_id}
 	</select>
 
-	<!-- 프로필 사진 수정
-	<update id="mypagePhotoUpdate" parameterType="zipcok.coach.model.CoachFileDTO">
-		update member_file set
-			mfile_upload=#{mfile_upload},
-			mfile_size=#{mfile_size},
-			mfile_orig=#{mfile_orig},
-			mfile_type=#{mfile_type}
-			where mfile_mem_id=#{mfile_mem_id}
-	</update>
-	 -->
+
+
+	<!-- 프로필 사진 수정 -->
+	<delete id="moDelCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO"> 
+	delete from member_file
+    where
+    mfile_mem_id = #{mfile_mem_id}
+     and
+     mfile_key = '회원프로필'
+	</delete>
+	
+	<insert id="moInsertCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO">
+	insert into 
+	 member_file
+	values(
+	member_file_mfile_idx.nextval,
+	#{mfile_key},
+	#{mfile_mem_id},
+	#{mfile_upload},
+	#{mfile_size},
+	#{mfile_orig},
+	#{mfile_path},
+	#{mfile_type}
+	)
+	</insert>
+	
+	<select id="moFindFileDTO" resultType="zipcok.coach.model.CoachFileDTO">
+	 select * from member_file
+	 where 
+	 mfile_mem_id = #{id}
+	 and
+	 mfile_key = '회원프로필'
+	</select>
+	<!--  -->
+	
+	
+	
 
 	<update id="mypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
