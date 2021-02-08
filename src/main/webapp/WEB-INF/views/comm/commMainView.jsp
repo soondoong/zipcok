@@ -9,12 +9,22 @@
 </head>
 <body>
 <%@include file="../header2.jsp" %>
-<%@include file="./commSideMenu.jsp" %>
-<div class="content">
-<h1>커뮤니티 메인</h1>
-<h3>코치 : ${coach_name} 코치</h3>
-달력
-<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
-</div>
+
+	<style>
+			.community_wrap {display: flex; min-height: calc(100vh - 92px);}
+			.community_wrap .community_sidebar {flex: 0 0 250px; background-color: #ccc;}
+			.community_wrap .community_sidebar ul {padding: 0; margin:  0;}
+			.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
+			.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
+			.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
+	</style>	
+
+	<div class="community_wrap">
+	<%@include file="./commSideMenu.jsp" %>
+		<h1>커뮤니티 메인</h1>
+		<h3>코치 : ${coach_name} 코치</h3>
+		달력
+		<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
+	</div>
 </body>
 </html>
