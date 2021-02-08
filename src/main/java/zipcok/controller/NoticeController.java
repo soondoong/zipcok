@@ -204,13 +204,31 @@ public class NoticeController {
 	//수정하기
 	@RequestMapping("noticeUpdate.do")
 	public ModelAndView goNoticeUpdate(NoticeDTO dto, ZipcokFileDTO zdto,
-			@RequestParam("upload")List<MultipartFile> list) {
-			
+			@RequestParam("upload")List<MultipartFile> list,@RequestParam("files")List<String> files) {
+		
+		//1단계 files로 넘어온 이름들과 기존에 첨부파일로 갖고있던 이름들비교. 없는사진은 테이블에서삭제
+		List<ZipcokFileDTO> oldfiles= noticeDao.zfileSelect(dto.getBbs_idx());
+		for(String a : files) {
+			for(ZipcokFileDTO fdto : oldfiles) {
+				if(files.contains(fdto.getZfile_upload())) {
+					//그대로유지
+					continue;
+				}else {
+					//삭제할꺼야
+					int result=noticeDao.deleteFile(fdto);
+					String msg=result>0?"ㅇㅇㅇㅇㅇ":"ㄴㄴㄴ";
+					System.out.println(msg);
+				}
+			}
+			System.out.println(a);
+		}
+		//2단계 수정글내용은 수정해주기
 			int result=noticeDao.noticeUpdate(dto);
 			int maxIdx = noticeDao.noticeMaxIdx();
 			
+		//3단계 새로등록한다고 올린파일은 디비에저장해주기	
 			ArrayList<ZipcokFileDTO> fileArr=new ArrayList<ZipcokFileDTO>();
-			
+		if(list.size()>0 && list != null) {	
 			/*파일복사및저장하기*/
 			for(int i=0;i<list.size();i++) {
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
@@ -222,26 +240,28 @@ public class NoticeController {
 				String zfile_type = list.get(i).getContentType();
 				int zfile_size=(int)(list.get(i).getSize());
 				System.out.println(zdto.getDel_yn());
-				String del_yn=zdto.getDel_yn();
-				zdto = new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
+				String del_yn="N";
+				zdto = new ZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "key", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
 		
 				fileArr.add(zdto);
 			}
+		}	
 	/*다중파일첨부 시 필요*/
 			int count=noticeDao.noticeFileUpload(fileArr);
-				noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
+				//noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
 			
 			if(count==fileArr.size()) {
 				System.out.println("사진등록성공");
 			}			
 			String msg=result>0?"게시글 수정 성공":"게시글 수정 실패";
-			
+		
+		
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg",msg);
 			mav.addObject("gopage","noticeList.do");
 			mav.setViewName("notice/noticeMsg");
 			return mav;
-			
+		
 	}
 	
 	//삭제하기
