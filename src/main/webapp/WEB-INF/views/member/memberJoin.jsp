@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,26 +7,26 @@
 <title>Insert title here</title>
 <style>
 .member-join-container{
-	width:100%;
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-	margin-top: 21px;
+   width:100%;
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   margin-top: 21px;
 }
 .member-join-button-wrap button{
-	width: 250px;
-	height :48px;
-	font-size: 18px;
-	background: deepskyblue;
-	color: white;
-	border: solid 1px deepskyblue;
-	border-radius: 5px;
-	margin : 15px 0 15px 0;
+   width: 250px;
+   height :48px;
+   font-size: 18px;
+   background: deepskyblue;
+   color: white;
+   border: solid 1px deepskyblue;
+   border-radius: 5px;
+   margin : 15px 0 15px 0;
 }
 </style>
 <script>
 function backPage(){
-	location.href='index.do';
+   location.href='index.do';
 }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -62,7 +62,7 @@ $(document).ready(function() {
    var address = $('#mem_detailaddr');
    
    //아이디 중복확인
-  /*
+   
    $("#mem_id").blur(function() {
        if($('#mem_id').val()==''){
           $('#id_check').text('아이디를 입력하세요.');
@@ -71,7 +71,10 @@ $(document).ready(function() {
           } else if(idJ.test($('#mem_id').val())!=true){
              $('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
              $('#id_check').css('color', 'red');
-          } else if($('#mem_id').val()!=''){
+         
+          } else { 
+             show();
+          } /*else if($('#mem_id').val()!=''){
              
             var mem_id=$('#mem_id').val();
               $.ajax({
@@ -108,16 +111,16 @@ $(document).ready(function() {
         }
 
              });//ajax/// 
-          }//else if
-        
+          }//else if */
+      
  });//blur
- */
+
 
  
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
         
-        /*
+
          if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
          } else {
@@ -125,7 +128,7 @@ $(document).ready(function() {
             alert('아이디를  확인하세요.');
             return false;
          } 
-        */
+
          
          // 비밀번호가 같은 경우 && 비밀번호 정규식
          if (($('#mem_pwd').val() == ($('#mem_pwd2').val()))
@@ -191,18 +194,18 @@ $(document).ready(function() {
       
        });
 
-	/*
+   /*
    $('#mem_id').blur(function() {
       if (idJ.test($('#mem_id').val())) {
          console.log('true');
          $('#id_check').text('');
       } else {
          console.log('false');
-         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능');	
+         $('#id_check').text('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능');   
          $('#id_check').css('color', 'red');
       }
    });
-	*/
+   */
 
    $('#mem_pwd').blur(function() {
       if (pwJ.test($('#mem_pwd').val())) {
@@ -366,131 +369,163 @@ function execPostCode() {
 
 </script>
 
+
+<script type="text/javascript" src="js/httpRequest.js"></script>
+<script type="text/javascript">
+function show(){
+   var mem_id=document.memberJoin.mem_id.value;
+   var params='mem_id='+mem_id;
+   sendRequest('idConfirm.do',params,showResult,'GET');
+}
+function showResult(){
+   if(XHR.readyState==4){
+      if(XHR.status==200){
+         var data=XHR.responseText;
+         data=eval('('+data+')');
+         var result=data.result;
+         
+         var msg='';
+         
+         if(result >0){
+            msg='중복된 아이디입니다.';
+         }else{
+            msg='사용가능한 아이디입니다.';
+         }
+           $('#id_check').text(msg);
+             $('#id_check').css('color', 'red');
+      }
+   }
+}
+</script>
+
+
 </head>
 <body>
-	<%@include file="../_include/head.jsp" %>
-	<%@include file="../header2.jsp"%>
-	<div class="member-join-container">
-	<article>
-		<form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
-			<br>
-			<h2 align="center">회원가입</h2>
-			<br>
-			<div>
-			
-			
-				<div class="form-group">
-					<label for="mem_name">이름</label> <input type="text"
-						class="form-control" id="mem_name" name="mem_name"
-						placeholder="Name">
-					<div class="eheck_font" id="name_check"></div>
-				</div>
+   <%@include file="../_include/head.jsp" %>
+   <%@include file="../header2.jsp"%>
+   <div class="member-join-container">
+   <article>
+      <form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
+         <br>
+         <h2 align="center">회원가입</h2>
+         <br>
+         <div>
+         
+         
+            <div class="form-group">
+               <label for="mem_name">이름</label> <input type="text"
+                  class="form-control" id="mem_name" name="mem_name"
+                  placeholder="Name">
+               <div class="eheck_font" id="name_check"></div>
+            </div>
 
 
-				<div class="form-group">
-					<label for="mem_birth">생년월일</label> <input type="tel"
-						class="form-control" id="mem_birth" name="mem_birth"
-						placeholder="ex) 19990101">
-					<div class="eheck_font" id="birth_check"></div>
-				</div>
+            <div class="form-group">
+               <label for="mem_birth">생년월일</label> <input type="tel"
+                  class="form-control" id="mem_birth" name="mem_birth"
+                  placeholder="ex) 19990101">
+               <div class="eheck_font" id="birth_check"></div>
+            </div>
 
 
-				<div class="form-group">
-					<label for="id">아이디</label> <input type="text" class="form-control"
-						id="mem_id" name="mem_id" placeholder="ID">
-					
-				<div class="eheck_font" id="id_check"></div>
-				</div>
-				
+            <div class="form-group">
+               <label for="id">아이디</label> <input type="text" class="form-control"
+                  id="mem_id" name="mem_id" placeholder="ID">
+               
+               <span id="idCheckMsg"></span>
+            <div class="eheck_font" id="id_check"></div>
+            </div>
+            
 
-				<div class="form-group">
-					<label for="pw">비밀번호</label> <input type="password"
-						class="form-control" id="mem_pwd" name="mem_pwd"
-						placeholder="PASSWORD">
-					<div class="eheck_font" id="pw_check"></div>
-				</div>
-				
-				
-				<div class="form-group">
-					<label for="pw2">비밀번호 확인</label> <input type="password"
-						class="form-control" id="mem_pwd2" name="mem_pwd2"
-						placeholder="Confirm Password">
-					<div class="eheck_font" id="pw2_check"></div>
-				</div>
-
-
-				<div class="form-group">
-					<label for="mem_email">이메일 주소</label> <input type="email"
-						class="form-control" id="mem_email" name="mem_email"
-						placeholder="E-mail">
-					<div class="eheck_font" id="email_check"></div>
-				</div>
+            <div class="form-group">
+               <label for="pw">비밀번호</label> <input type="password"
+                  class="form-control" id="mem_pwd" name="mem_pwd"
+                  placeholder="PASSWORD">
+               <div class="eheck_font" id="pw_check"></div>
+            </div>
+            
+            
+            <div class="form-group">
+               <label for="pw2">비밀번호 확인</label> <input type="password"
+                  class="form-control" id="mem_pwd2" name="mem_pwd2"
+                  placeholder="Confirm Password">
+               <div class="eheck_font" id="pw2_check"></div>
+            </div>
 
 
-				<div class="form-group">
-					<input class="form-control" style="width: 40%; display: inline;"
-						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
-						readonly="readonly">
-					<button type="button" class="btn btn-default"
-						style="background-color: deepskyblue; color: white; line-height: 1.20;"
-						onclick="execPostCode();">
-						<i class="fa fa-search"></i> 우편번호 찾기
-					</button>
-				</div>
+            <div class="form-group">
+               <label for="mem_email">이메일 주소</label> <input type="email"
+                  class="form-control" id="mem_email" name="mem_email"
+                  placeholder="E-mail">
+               <div class="eheck_font" id="email_check"></div>
+            </div>
 
 
-				<div class="form-group">
-					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
-						name="mem_addr" id="mem_addr" type="text" readonly="readonly" />
-				</div>
+            <div class="form-group">
+               <input class="form-control" style="width: 40%; display: inline;"
+                  placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
+                  readonly="readonly">
+               <button type="button" class="btn btn-default"
+                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  onclick="execPostCode();">
+                  <i class="fa fa-search"></i> 우편번호 찾기
+               </button>
+            </div>
 
 
-				<div class="form-group">
-					<input class="form-control" placeholder="상세주소"
-						name="mem_detailaddr" id="mem_detailaddr" type="text" />
-				</div>
+            <div class="form-group">
+               <input class="form-control" style="top: 5px;" placeholder="도로명 주소"
+                  name="mem_addr" id="mem_addr" type="text" readonly="readonly" />
+            </div>
 
 
-				<div class="form-group">
-					<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
-						type="tel" class="form-control" id="mem_phone" name="mem_phone"
-						placeholder="Phone Number">
-					<div class="eheck_font" id="phone_check"></div>
-						<input type="button" class="btn btn-default"
-						style="background-color: deepskyblue; color: white; line-height: 1.20;"
-						value="인증번호전송"><br>
-						
-						<input class="form-control" style="width: 40%; display: inline;"
-						placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
-						<input type="button" class="btn btn-default"
-						style="background-color: deepskyblue; color: white; line-height: 1.20;"
-						value="인증">
-				</div>
+            <div class="form-group">
+               <input class="form-control" placeholder="상세주소"
+                  name="mem_detailaddr" id="mem_detailaddr" type="text" />
+            </div>
 
 
-				<div class="form-group">
-					<label for="mem_gender">성별 </label>&nbsp; <input type="radio"
-						id="mem_gender" name="mem_gender" value="남">남 <input
-						type="radio" id="mem_gender" name="mem_gender" value="여">여
-				</div>
-				
-				
-				
-				<div class="form-group">
-					<label>프로필사진등록</label><br>
-						<span>올릴파일:<input type="file"  name="upload"></span>
-				</div>
+            <div class="form-group">
+               <label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
+                  type="tel" class="form-control" id="mem_phone" name="mem_phone"
+                  placeholder="Phone Number">
+               <div class="eheck_font" id="phone_check"></div>
+                  <input type="button" class="btn btn-default"
+                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  value="인증번호전송"><br>
+                  
+                  <input class="form-control" style="width: 40%; display: inline;"
+                  placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
+                  <input type="button" class="btn btn-default"
+                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  value="인증">
+            </div>
+
+
+            <div class="form-group">
+               <label for="mem_gender">성별 </label>&nbsp; <input type="radio"
+                  id="mem_gender" name="mem_gender" value="남">남 <input
+                  type="radio" id="mem_gender" name="mem_gender" value="여">여
+            </div>
+            
+            
+            
+            <div class="form-group">
+               <label>프로필사진등록</label><br>
+                  <span>올릴파일:<input type="file"  name="upload"></span>
+            </div>
 
 
 
-				<div class="member-join-button-wrap">
-					<button type="submit">회원가입</button>
-					<button type="button" onclick="backPage()">메인으로</button>
-				</div>
-			</div>
-		</form>
-	</article>
-	</div>
-	 <%@include file="../_include/footer.jsp" %>
+            <div class="member-join-button-wrap">
+               <button type="submit">회원가입</button>
+               <button type="button" onclick="backPage()">메인으로</button>
+            </div>
+         </div>
+      </form>
+   </article>
+   </div>
+   <br><br>
+    <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

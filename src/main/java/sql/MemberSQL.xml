@@ -4,74 +4,74 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mo.member">
 
-	<insert id="memberJoin" parameterType="zipcok.member.model.MemberDTO">
-		insert into
-			zipcok_member
-		values(zipcok_member_mem_idx.nextval,
-			#{mem_name},
-			#{mem_birth},
-			#{mem_id},
-			#{mem_pwd},
-			#{mem_email},
-			#{mem_zipcode},
-			#{mem_addr},
-			#{mem_detailaddr},
-			#{mem_gender},
-			#{mem_phone},
-			sysdate,
-			sysdate,
-			'온라인',
-			0,
-			sysdate,
-			'일반회원'
-			)
-	</insert>
-	
-	<insert id="insertMemberInfoFile" parameterType="zipcok.coach.model.CoachFileDTO">
-	insert into 
-	 member_file
-	values(
-	member_file_mfile_idx.nextval,
-	#{mfile_key},
-	#{mfile_mem_id},
-	#{mfile_upload},
-	#{mfile_size},
-	#{mfile_orig},
-	#{mfile_path},
-	#{mfile_type}
-	)
-		
-	</insert>
-	
-	
-	<select id="idCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_id from zipcok_member where mem_id = #{mem_id} 
-	</select>
+   <insert id="memberJoin" parameterType="zipcok.member.model.MemberDTO">
+      insert into
+         zipcok_member
+      values(zipcok_member_mem_idx.nextval,
+         #{mem_name},
+         #{mem_birth},
+         #{mem_id},
+         #{mem_pwd},
+         #{mem_email},
+         #{mem_zipcode},
+         #{mem_addr},
+         #{mem_detailaddr},
+         #{mem_gender},
+         #{mem_phone},
+         sysdate,
+         sysdate,
+         '온라인',
+         0,
+         sysdate,
+         '일반회원'
+         )
+   </insert>
+   
+   <insert id="insertMemberInfoFile" parameterType="zipcok.coach.model.CoachFileDTO">
+   insert into 
+    member_file
+   values(
+   member_file_mfile_idx.nextval,
+   #{mfile_key},
+   #{mfile_mem_id},
+   #{mfile_upload},
+   #{mfile_size},
+   #{mfile_orig},
+   #{mfile_path},
+   #{mfile_type}
+   )
+      
+   </insert>
+   
+   
+   <select id="idCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+      select mem_id from zipcok_member where mem_id = #{mem_id} 
+   </select>
 
-	<select id="pwdCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_pwd from zipcok_member where mem_id = #{mem_id} 
-	</select>
-	
-	<select id="getMemberName" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_name from zipcok_member where mem_id = #{mem_id}
-	</select>
-	
-	<select id="idFind" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_id from zipcok_member where mem_email = #{mem_email}
-	</select>
-	
-	<select id="typeCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
-		select mem_type from zipcok_member where mem_id = #{mem_id}
-	</select>
-	
-	<update id="pwdUpdate" parameterType="zipcok.member.model.MemberDTO">
-		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
-	</update>
+   <select id="pwdCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+      select mem_pwd from zipcok_member where mem_id = #{mem_id} 
+   </select>
+   
+   <select id="getMemberName" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+      select mem_name from zipcok_member where mem_id = #{mem_id}
+   </select>
+   
+   <select id="idFind" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+      select mem_id from zipcok_member where mem_email = #{mem_email}
+   </select>
+   
+   <select id="typeCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
+      select mem_type from zipcok_member where mem_id = #{mem_id}
+   </select>
+   
+   <update id="pwdUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+   </update>
 
-	<select id="idConfirm" parameterType="zipcok.member.model.MemberDTO">
-		select mem_id from zipcok_member where mem_id = #{mem_id} 
-	</select>
+   <select id="idConfirm" resultType="String" parameterType="String">
+      select mem_id from zipcok_member where mem_id = #{value} 
+   </select>
 
-	
-	
+   
+   
 </mapper>

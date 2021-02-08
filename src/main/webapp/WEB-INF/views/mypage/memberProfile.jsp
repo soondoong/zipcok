@@ -40,12 +40,40 @@ function mypagePhoneUpdate(){
       
       <div class="mypage_contents">
          <div class="mypage_main">
-            <h3>${sessionScope.sname }님의 프로필</h3>
             <br>
             <div class="profileIMG">
-                <img src="/zipcok/upload/member/${cdto.mfile_upload}"  alt="">
+                <img src="/zipcok/upload/member/${cdto.mfile_upload}">
             </div>
+            <!-- 프로필사진 수정 -->
+            <a href="#" id="a-upload"><i class="fas fa-camera reupload" ></i></a>
+         <form id="uploadForm" enctype="multipart/form-data" method="POST" action="moProfileImgReUpload.do">
+         <input type="file" id="file" name="upload" onchange="changeValue(this)" accept="image/gif, image/jpeg, image/png"/>
+         <input type="hidden" name="id" value="${login.mem_id }">      
+         </form>
+         <!-- 프로필사진 수정 -->
+<script type="text/javascript">
+$(function () { //사진수정버튼
+
+         $('#a-upload').click(function (e) {
+         e.preventDefault();
+         $('#file').click();
+          });
+});
+function changeValue(obj){ //사진선택하면
+   var fileValue = $("#file").val().split("\\");
+   var fileName = fileValue[fileValue.length-1]; // 파일명
+   var result=confirm(fileName+"사진으로 변경하시겠습니까?");
+   if(result){      
+        $('#uploadForm').submit();
+   }
+   
+
+}
+</script>    
+         
             <div class="profile_info">
+               <div><b>${sessionScope.sname } 님의 프로필입니다.</b></div>
+               <br>
                <div>
                   <label>이름 : ${dto.mem_name }<input type="hidden"
                      name="mem_name" value="${dto.mem_name }"></label>
