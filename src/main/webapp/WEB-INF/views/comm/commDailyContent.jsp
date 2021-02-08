@@ -9,25 +9,16 @@
 <script>
 function bbsReWrite(re_idx,ex_idx){
 	re_content=document.getElementById("re_content").value;
-	url="commDailyReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&re_content="+re_content;
+	re_id=document.getElementById("re_id").value;
+	url="commDailyReWrite.do?re_idx="+re_idx+"&ex_idx="+ex_idx+"&re_content="+re_content+"&re_id="+re_id;
 	location.href=url;
 }
 function bbsRereWrite(re_group,re_bbs_idx,index){
 	re_content=document.getElementById("rere_content"+index).value;
-	url="commDailyReReWrite.do?ex_idx="+re_bbs_idx+"&re_group="+re_group+"&re_bbs_idx="+re_bbs_idx+"&re_content="+re_content;
+	re_id=document.getElementById("re_id").value;
+	url="commDailyReReWrite.do?ex_idx="+re_bbs_idx+"&re_group="+re_group+"&re_bbs_idx="+re_bbs_idx+"&re_content="+re_content+"&re_id="+re_id;
 	location.href=url;
 }
-/* function bbsReReOpen(re_idx){
-	url=location.href;
-	url+="&re_idx="+re_idx;
-	location.href=url;
-	var tr1=document.getElementById("rereple");
-	tr1.style.display="table-row";
-}
-function bbsReReClose(){
-	var tr1=document.getElementById("rereple");
-	tr1.style.display="none";
-} */
 </script>
 <link rel="stylesheet" type="text/css" href="css/comm/commDailyContentLayout.css">
 </head>
@@ -124,30 +115,48 @@ function bbsReReClose(){
 					</c:if>
 					
 					<!-- for문 시작 -->
+					<c:forEach var="dto2" items="${list}" varStatus="i">
 					<div class="reply_area"><!-- for -->
-						<div class="reply_item"><!-- 1depth 댓글 -->
-							<div class="reply_writer">홍승표</div>
-							<div class="reply">댓글내용입니다.댓글내용입니다.댓글내용입니다.댓글내용입니다.댓글내용입니다.댓글내용입니다.댓글내용입니다.</div>
-							<div class="reply_btns">
-								<button type="button" class="reply_comment" onclick="$(this).parents('.reply_item').next().toggle();">답글</button>
-								<button type="button" class="reply_delete">삭제</button>
+					<c:choose>
+						<c:when test="${dto2.re_lev eq '1' }">
+							<div class="reply_item"><!-- 1depth 댓글 -->
+								<div class="reply_writer">${dto2.re_id}</div>
+								<div class="reply">${dto2.re_content}</div>
+								<div class="reply_btns">
+									<button type="button" class="reply_comment" onclick="$(this).parents('.reply_item').next().toggle();">답글</button>
+									<!-- 작성자와 아이디 일치 확인 -->
+										<button type="button" class="reply_delete" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</button>
+								</div>
 							</div>
-						</div>
+						</c:when>
+						<c:when test="${dto2.re_lev eq '2' }">
+							<div class="reply_item depth2"><!-- 2depth 댓글일때 depth2 클래스만 추가 -->
+								<div class="reply_writer">${dto2.re_id}</div>
+								<div class="reply">${dto2.re_content}</div>
+								<div class="reply_btns">
+									<button type="button" class="reply_delete" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</button>
+								</div>
+							</div>
+						</c:when>
+					</c:choose>
 						<div class="comment_area" style="display: none;">
-							<textarea placeholder="답글을 입력해주세요."></textarea>
-							<button type="button" class="reply_confirm">작성완료</button>
+							<textarea placeholder="답글을 입력해주세요." id="rere_content${i.index}"></textarea>
+							<button type="button" class="reply_confirm" onclick="bbsRereWrite(${dto2.re_group},${dto2.re_bbs_idx},${i.index})">작성완료</button>
 						</div>
 					</div>
-					<div class="reply_area"><!-- for -->
-						<div class="reply_item depth2"><!-- 2depth 댓글일때 depth2 클래스만 추가 -->
-							<div class="reply_writer">홍승표</div>
-							<div class="reply">대댓글입니다. 대댓글입니다. 대댓글입니다. 대댓글입니다. 대댓글입니다. 대댓글입니다. 대댓글입니다.</div>
-							<div class="reply_btns">
-								<button type="button" class="reply_delete">삭제</button>
-							</div>
-						</div>
-					</div>
+					<c:if test="${i.last}">
+							<c:set var="re_idx" value="${dto2.re_idx}"></c:set>
+							<c:set var="ex_idx" value="${dto.ex_idx}"></c:set>
+					</c:if>
+					</c:forEach>
 					<!-- for문 끝 -->
+					<div class="reply_writearea">
+					<ul class="replewrite">
+						<li><input type="hidden" name="re_id" id="re_id" value="${sessionScope.sname}" readonly>
+						<input type="text" name="re_content" id="re_content"></li>
+						<li><input type="button" value="댓글달기" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
+					</ul>
+					</div>
 					
 					
 					
