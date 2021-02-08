@@ -43,14 +43,16 @@ function pg_check(){
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
 	    }
-	    alert(msg);
-	    var params = '?pd_req_idx='+${reservationInfo.reser_idx};
+	    var parmas = '';
+		params = '?pd_req_idx='+${reservationInfo.reser_idx};
 	    params += '&pd_code='+rsq.merchant_uid;
-	    params += '&pd_target_id='+${reservationInfo.reser_hg_mem_id};
+	    params += '&pd_target_id='+${reservationInfo.hg_mem_id};
 	    params += '&pd_mem_id='+${sessionScope.loginAll.mem_name};
 	    params += '&pd_method='+pg_choice_method;
 	    params += '&pd_price='+${reservationInfo.reser_price};
-	    location.href=''+params;
+	    window.alert(params);
+		location.href = 'HomeGymPayListAdd.do'+params;
+	    alert(msg);
 	});
 }
 </script>

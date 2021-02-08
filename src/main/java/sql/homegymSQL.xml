@@ -139,4 +139,18 @@
 	<select id = "hgReservationSelectSQL" parameterType="Integer" resultType="zipcok.homegym.model.HomeGymReservationDTO">
 	select * from homegym_reservation where reser_idx = #{value}
 	</select>
+	<insert id="PaymentListAddSQL" parameterType="zipcok.homegym.model.Payment_detailsDTO">
+		insert into zipcok_payment_details values(
+		zipcok_payment_details_pd_idx.nextval,
+		#{pd_req_idx},
+		'홈짐',
+		#{pd_code},
+		#{pd_target_id},
+		#{pd_mem_id},
+		#{pd_method},
+		sysdate,
+		'결제됨',
+		#{pd_price}
+		)
+	</insert>
 </mapper>
