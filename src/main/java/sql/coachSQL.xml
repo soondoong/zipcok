@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.coach">
-    <select id="findCategoryCoach" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">
- select aa.* from   
+    <select id="findCategoryCoach" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
+ select aa.*,nvl(lk.lknum,0)as lknum from   
 (select rownum as rnum,zm.mem_name,
 cr.*,mf.mfile_upload,b.avg,b.starcnt
 from
@@ -19,7 +19,7 @@ c.coach_floc like '%%'
 and
 c.coach_ex_type like '%%'
 and
-cate_name = #{category}
+cate_name = #{category} 
 group by c.coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+) 
@@ -34,9 +34,22 @@ b.coach_mem_id = mf.mfile_mem_id
 and
 b.coach_mem_id = zm.mem_id
 and
-mf.mfile_key='회원프로필')aa
-where 
-rnum <![CDATA[<]]>15
+mf.mfile_key='회원프로필')aa ,
+
+(select coach_mem_id,nvl(count(like_mem_id),0)as lknum
+from coach_regist left outer join zipcok_like
+on
+coach_mem_id = like_target_id(+)
+and
+like_mem_id = #{sid}
+and
+like_key = '코치'
+group by 
+coach_mem_id)lk
+where
+aa.coach_mem_id=lk.coach_mem_id
+and
+rnum <![CDATA[<]]>10
 
 </select>
 	

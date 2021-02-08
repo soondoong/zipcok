@@ -17,6 +17,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,10 +44,11 @@ public class CoachController {
 		
 	/*메인검색페이지 이동*/
 	@RequestMapping("findCoachList.do")  
-		public ModelAndView gotoCoachList() {
+		public ModelAndView gotoCoachList(@RequestParam("sid")String sid) {
 		HashMap<String,String> categoryMap = new HashMap<String, String>();
 		categoryMap.put("pt", "퍼스널트레이닝");
 		categoryMap.put("yoga", "요가");
+		categoryMap.put("sid", sid);
 		
 		
 		HashMap<String, List<MainCoachDTO>> map=dao.mainCoachList(categoryMap);
@@ -313,8 +315,12 @@ public class CoachController {
 	
 	
 	/*좋아요 받앗을때 ajax*/
-	@RequestMapping("coachLikenum.do")
-	public ModelAndView likenumplus(LikeDTO likedto) {
+	@RequestMapping(value="coachLikenum.do")
+	public ModelAndView likenumplus(@RequestParam("like_mem_id")String like_mem_id, @RequestParam("like_target_id")String like_target_id) {
+		System.out.println( "ajax도착");
+		LikeDTO likedto=new LikeDTO();
+		likedto.setLike_mem_id(like_mem_id);
+		likedto.setLike_target_id(like_target_id);
 		ModelAndView mav=new ModelAndView();
 		int result = dao.insertLike(likedto);
 		if(result>0) {
@@ -323,6 +329,21 @@ public class CoachController {
 		mav.setViewName("jsonView");
 	 return mav;
 	}
-	
+	/*좋아요 취소햇을때 ajax*/
+	@RequestMapping(value="coachUnLike.do")
+	public ModelAndView Unlike(@RequestParam("like_mem_id")String like_mem_id, @RequestParam("like_target_id")String like_target_id) {
+		System.out.println( "ajax도착");
+		LikeDTO likedto=new LikeDTO();
+		likedto.setLike_mem_id(like_mem_id);
+		likedto.setLike_target_id(like_target_id);
+		ModelAndView mav=new ModelAndView();
+		int result = dao.deleteLike(likedto);
+		if(result>0) {
+			System.out.println("좋아요취소 성공");
+		}
+		mav.setViewName("jsonView");
+	 return mav;
+	}
+
 	
 }
