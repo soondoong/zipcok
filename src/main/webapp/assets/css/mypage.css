@@ -23,4 +23,6 @@
 .mypage_main .profile_info > div:not(:first-child) {margin-top: 10px;}
 
 
+/*병모*/
+.mypage_main_choice {width: 100%; margin : auto;}
 .mypage_main_table { width : 70%; margin : auto;}
