@@ -21,6 +21,13 @@
 				0)
 	</insert>
 	
+	<select id="getMaxExIdxSQL" resultType="Integer">
+		select
+			max(ex_idx)
+		from 
+			exer_bbs		
+	</select>
+	
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
 		select * from
 		(select rownum as rnum,a.* from

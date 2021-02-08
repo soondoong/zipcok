@@ -70,32 +70,36 @@ public class CommDailyController {
 	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list,HttpSession session) {
 		int result=exBbsDao.dailyWrite(dto);
 		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
-		
+		int bfile_size=0;
+
 		ArrayList<BbsFileDTO> fileArr=new ArrayList<BbsFileDTO>();
 		/*파일복사및저장하기*/
 		for(int i=0;i<list.size();i++) {	
-			int bfile_bbs_idx=dto.getEx_idx();
-			System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
+			int bfile_bbs_idx=exBbsDao.getMaxExIdx();
+			//System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 			String bfile_path=c.getRealPath("/upload/comm/"); //저장되는 경로
 			String bfile_rename=copyInto(list.get(i), bfile_path);	//파일저장후 새로운이름생성됨
 			String bfile_origin=list.get(i).getOriginalFilename(); //파일원본명
-			String bfile_meal="아침"; //파일저장 구분키
-			System.out.println(session.getAttribute("com_idx"));
+			String bfile_meal="일반파일"; //파일저장 구분키
 			String bfile_comm=String.valueOf(session.getAttribute("com_idx"));
-			int bfile_size=(int)(list.get(i).getSize());
+			bfile_size=(int)(list.get(i).getSize());
 			String bfile_type=list.get(i).getContentType();
 			String bfile_delyn="N";
-			BbsFileDTO bdto=new BbsFileDTO(0, bfile_bbs_idx, bfile_rename, "0", bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal, bfile_delyn);
+			BbsFileDTO bdto=new BbsFileDTO(0, bfile_bbs_idx, bfile_rename, 1, bfile_size, bfile_origin, bfile_path, bfile_type, bfile_comm, bfile_meal, bfile_delyn);
 			
 			fileArr.add(bdto);
-		}		
-		/*다중파일첨부 시 필요*/	
+		}	
 		
-		int count=bbsFileDao.bbsFileUpload(fileArr); 
-		if(count==fileArr.size()) {
-			System.out.println("사진등록성공");
+		//파일 안올리는 게시물 거르기
+		for(int i=0;i<list.size();i++) {
+			bfile_size=(int)list.get(i).getSize();
+		}
+		if(bfile_size!=0) {
+			int count=bbsFileDao.bbsFileUpload(fileArr); 
 		}
 		
+		
+		/*다중파일첨부 시 필요*/	
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyList.do");
@@ -115,7 +119,7 @@ public class CommDailyController {
 	        String uploadName=time+random+upload.getOriginalFilename();
 	        //현재시간+랜덤문자열+원본파일명을 더한 새로운 파일이름생성
 	        
-			System.out.println("파일새로운이름:"+uploadName);
+			//System.out.println("파일새로운이름:"+uploadName);
 	       
 			
 			byte bytes[]=upload.getBytes(); //복사할원본
@@ -132,11 +136,17 @@ public class CommDailyController {
 			return null;
 		}
 		
-	}
+	}		
 		
-	// 첨부 파일 삭제
-	@RequestMapping("commFileDelte.do")
-	public ModelAndView deleteFile(BbsFileDTO dto) {
+	// 첨부 파일 삭제 대기로 변경
+	//public ModelAndView deleteFile(BbsFileDTO dto) {
+		//BbsFileDTO dto=bbsFiledao.
+	//}
+		
+		
+	// 진짜 첨부 파일 삭제
+	@RequestMapping("commFileDel.do")
+	public ModelAndView realdeleteFile(BbsFileDTO dto) {
 		fileDel(dto.getBfile_path(),dto.getBfile_rename());
 		//int result=bbsFileDao.db삭제하는 dao메소드
 		//String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
@@ -160,13 +170,13 @@ public class CommDailyController {
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
 		List list=exBbsDao.dailyReList(ex_idx);
 		int recnt=exBbsDao.dailyGetTotalRe(ex_idx);
-		String bfile_bbs="0";
-		//List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
+		int bfile_bbs=1;
+		List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto", dto);
 		mav.addObject("list", list);
 		mav.addObject("recnt", recnt);
-		//mav.addObject("filelist", filelist);
+		mav.addObject("filelist", filelist);
 		mav.setViewName("comm/commDailyContent");
 		return mav;
 	}
@@ -175,7 +185,10 @@ public class CommDailyController {
 	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.GET)
 	public ModelAndView dailyUpdateForm(int ex_idx) {
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
+		int bfile_bbs=1;
+		List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("filelist", filelist);
 		mav.addObject("dto", dto);
 		mav.setViewName("comm/commDailyUpdate");
 		return mav;
@@ -183,7 +196,7 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 글수정 실행
 	@RequestMapping(value="commDailyUpdate.do", method=RequestMethod.POST)
-	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, @RequestParam(value="ex_idx")String idx_s) {
+	public ModelAndView dailyUpdateSubmit(ExBbsDTO dto, @RequestParam(value="ex_idx")String idx_s, @RequestParam("upload")List<MultipartFile> list) {
 		int ex_idx=Integer.parseInt(idx_s);
 		dto.setEx_idx(ex_idx);
 		int result=exBbsDao.dailyUpdate(dto);

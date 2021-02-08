@@ -33,7 +33,7 @@ where
 and
 	bfile_bbs=#{bfile_bbs}
 and
-	bfile_bbs_idx=#{bfile_bbs_idx)}
+	bfile_bbs_idx=#{bfile_bbs_idx}
 </select>
 
 </mapper>

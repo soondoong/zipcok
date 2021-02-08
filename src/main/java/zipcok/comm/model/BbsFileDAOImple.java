@@ -29,12 +29,18 @@ public class BbsFileDAOImple implements BbsFileDAO {
 	
 	//파일 리스트 가져오기
 	@Override
-	public List<BbsFileDTO> bbsFileList(String bfile_bbs,int bfile_bbs_idx) {
+	public List<BbsFileDTO> bbsFileList(int bfile_bbs,int ex_idx) {
 		Map map=new HashMap();
 		map.put("bfile_bbs", bfile_bbs);
-		map.put("bfile_bbs_idx", bfile_bbs_idx);
+		map.put("bfile_bbs_idx", ex_idx);
 		List<BbsFileDTO> list=sqlMap.selectList("bbsFileListSQL", map);
 		return list;
+	}
+	
+	@Override
+	public int bbsFileDel(int bfile_idx) {
+		int result=sqlMap.delete("bbsFileDelSQL");
+		return result;
 	}
 
 }
