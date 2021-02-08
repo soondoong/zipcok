@@ -2,18 +2,26 @@ package zipcok.homegym.model;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 @Service
 public class Payment_detailsDAOImple implements Payment_detailsDAO {
 
-	@Override
-	public int Payment_Add(Payment_detailsDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+	private SqlSessionTemplate sqlMap;
+	
+	public Payment_detailsDAOImple(SqlSessionTemplate sqlMap) {
+		super();
+		this.sqlMap = sqlMap;
 	}
 
 	@Override
-	public List<Payment_detailsDTO> Payment_List() {
+	public int PaymentListAdd(Payment_detailsDTO dto) {
+		int result = sqlMap.insert("PaymentListAddSQL", dto);
+		return result;
+	}
+
+	@Override
+	public List<Payment_detailsDTO> PaymentList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

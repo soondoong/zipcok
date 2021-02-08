@@ -11,6 +11,9 @@ public class Payment_detailsDTO {
 	private String pd_payment_date;
 	private String pd_status;
 	private int pd_price;
+	public Payment_detailsDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getPd_idx() {
 		return pd_idx;
 	}

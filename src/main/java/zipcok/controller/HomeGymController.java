@@ -34,6 +34,7 @@ import zipcok.homegym.model.HomeGymReservationDTO;
 import zipcok.homegym.model.PaymentDAO;
 import zipcok.homegym.model.PaymentDTO;
 import zipcok.homegym.model.Payment_detailsDAO;
+import zipcok.homegym.model.Payment_detailsDTO;
 
 @Controller
 public class HomeGymController {
@@ -299,5 +300,24 @@ public class HomeGymController {
 	@RequestMapping("HomeGymAddrPopup.do")
 	public String HomeGymAddrPopup() {
 		return "homegym/hgAddrPopup";
+	}
+	
+	@RequestMapping("HomeGymPayListAdd.do")
+	public ModelAndView HomeGymPayListAdd(
+			Payment_detailsDTO dto,
+			HttpSession session) {
+		System.out.println(dto.getPd_code());
+		int pd_result = homegympdDAO.PaymentListAdd(dto);
+		String msg = pd_result>0?"정상적으로 결제 되었습니다.":"결제 중 오류가 발생하였습니다.";
+		String goPage = "";
+		if(session.getAttribute("sid")!=null) {
+			goPage = "memberProfileForm.do";
+		}else if(session.getAttribute("coach")!=null) {
+			goPage = "coachMyPage.do";
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.setViewName(goPage);
+		return mav;
 	}
 }
