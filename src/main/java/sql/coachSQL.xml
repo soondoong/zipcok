@@ -96,8 +96,8 @@ mf.mfile_key='회원프로필'
 
 	
 	<select id="searchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
-
-select d.* from
+select aa.*,nvl(lk.lknum,0)as lknum from 
+(select d.* from
 (select
 rownum as rnum,c.*
 from 
@@ -145,8 +145,21 @@ b.coach_mem_id = zm.mem_id
 and
 mf.mfile_key='회원프로필'
 order by coach_joindate desc
-)c )d
-where 
+)c )d)aa,
+
+(select coach_mem_id,nvl(count(like_mem_id),0)as lknum
+from coach_regist left outer join zipcok_like
+on
+coach_mem_id = like_target_id(+)
+and
+like_mem_id = #{sid}
+and
+like_key = '코치'
+group by 
+coach_mem_id)lk
+where
+aa.coach_mem_id=lk.coach_mem_id
+and
 rnum between #{start} and  #{end}	
 
 	
@@ -156,7 +169,8 @@ rnum between #{start} and  #{end}
 
 
 	<select id="ajaxSearchCoachByKey" parameterType="HashMap" resultType="zipcok.coach.model.MainCoachDTO">
-
+select aa.*,nvl(lk.lknum,0)as lknum from 
+(
 select d.* from
 (select
  rownum as rnum,c.* from 
@@ -211,10 +225,23 @@ zm.mem_gender
         <when test="gender != '전체'"> like '%${gender}%' </when>
 </choose>
 order by coach_joindate desc
-)c )d
-where 
+)c )d)aa,
 
-rnum  between #{start} and #{end}
+(select coach_mem_id,nvl(count(like_mem_id),0)as lknum
+from coach_regist left outer join zipcok_like
+on
+coach_mem_id = like_target_id(+)
+and
+like_mem_id = #{sid}
+and
+like_key = '코치'
+group by 
+coach_mem_id)lk
+where
+aa.coach_mem_id=lk.coach_mem_id
+and
+rnum between #{start} and  #{end}	
+
 
 
 </select>

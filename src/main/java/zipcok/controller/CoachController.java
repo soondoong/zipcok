@@ -68,7 +68,7 @@ public class CoachController {
 	@RequestMapping("searchCoach.do")
 	public ModelAndView searchCoach(@RequestParam(value="location")String location,
 			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
-			@RequestParam(value="cp", defaultValue = "1")int cp) {
+			@RequestParam(value="cp", defaultValue = "1")int cp,@RequestParam("sid")String sid) {
 		/*키워드 담기*/
 		HashMap<String,Object> keywordMap=new HashMap<String,Object>();
 		
@@ -77,13 +77,13 @@ public class CoachController {
 		keywordMap.put("location",location);
 		keywordMap.put("extype",extype);
 		keywordMap.put("category",category);
-		
+		keywordMap.put("sid",sid);
 		
 		/*페이지설정*/
 		int totalCnt=dao.getTotalCnt(keywordMap); //테이블명써주기
 		int listSize=4;
 		int pageSize=5;
-		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
+		String keywords="&location="+location+"&extype="+extype+"&category="+category+"&sid="+sid;  //페이지이동시 검색키워드파라미터로보내기
 		String pageStr=zipcok.page.CoachPageModule.makePage("searchCoach.do", totalCnt, cp, listSize, pageSize,keywords);
 		
 		
@@ -105,7 +105,7 @@ public class CoachController {
 	public ModelAndView coachListAjax(@RequestParam(value="gender")String gender,
 			@RequestParam(value="yearVal")String yearVal, @RequestParam(value="location")String location,
 			@RequestParam(value="extype")String extype,@RequestParam(value="category")String category,
-			@RequestParam(value="cp", defaultValue = "1")int cp) {
+			@RequestParam(value="cp", defaultValue = "1")int cp, @RequestParam(value="sid")String sid) {
 		
 		System.out.println("------------------------------------------------------");
 		System.out.println(location+"/"+extype+"/"+category+"/"+gender+"/"+yearVal); 
@@ -117,7 +117,7 @@ public class CoachController {
 		keywordMap.put("category",category);
 		keywordMap.put("gender",gender);
 		keywordMap.put("yearVal",yearVal);
-		
+		keywordMap.put("sid",sid);
 
 		/*페이지설정*/
 		int totalCnt=dao.getAjaxTotalCnt(keywordMap); //테이블명써주기
@@ -125,7 +125,7 @@ public class CoachController {
 		int listSize=4;
 		int pageSize=5;
 		String params="&gender="+gender+"&"+"yearVal="+yearVal;
-		String keywords="&location="+location+"&extype="+extype+"&category="+category;  //페이지이동시 검색키워드파라미터로보내기
+		String keywords="&location="+location+"&extype="+extype+"&category="+category+"&sid="+sid;  //페이지이동시 검색키워드파라미터로보내기
 		String pageStr=zipcok.page.AjaxCoachPageModule.makePage(totalCnt, cp, listSize, pageSize);
 		
 		List<MainCoachDTO> list=dao.ajaxSearchCoachList(keywordMap, cp, listSize);
