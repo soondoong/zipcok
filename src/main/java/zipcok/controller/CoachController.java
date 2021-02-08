@@ -30,6 +30,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 import zipcok.coach.model.MainCoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.mypage.model.LikeDTO;
 
 @Controller
 public class CoachController {
@@ -309,5 +310,19 @@ public class CoachController {
 		
 		return mav;
 	}
+	
+	
+	/*좋아요 받앗을때 ajax*/
+	@RequestMapping("coachLikenum.do")
+	public ModelAndView likenumplus(LikeDTO likedto) {
+		ModelAndView mav=new ModelAndView();
+		int result = dao.insertLike(likedto);
+		if(result>0) {
+			System.out.println("좋아요 등록성공");
+		}
+		mav.setViewName("jsonView");
+	 return mav;
+	}
+	
 	
 }

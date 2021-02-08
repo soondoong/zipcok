@@ -434,5 +434,25 @@ select
 
 </select>	
 
+<insert id="likeplus" parameterType="zipcok.mypage.model.LikeDTO">
+insert into zipcok_like
+values(
+like_idx.nextval,
+'코치',
+#{like_mem_id},
+#{like_target_id},
+sysdate
+)
+</insert>
+
+<delete id="deletelike"  parameterType="zipcok.mypage.model.LikeDTO">
+delete from zipcok_like
+where
+like_mem_id = #{like_mem_id}
+and
+like_target_id = #{like_target_id}
+and
+like_key = '코치'
+</delete>
 
  </mapper>

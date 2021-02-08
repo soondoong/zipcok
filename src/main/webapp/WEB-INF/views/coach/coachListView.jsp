@@ -26,6 +26,8 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
+		.likeicon{ font-size:27px;font-weight:100;position:relative; top:10px; left:-68px; color: white;z-index: 100;display: inline-block;}
+		.likeafter{color : #e86a82; }
 		
 		.nomalpaging {margin: 40px 0 0; text-align: center;}
 		.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
@@ -33,7 +35,7 @@
 				
 
 </style>
-
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script>
 function search(){
 	
@@ -44,7 +46,6 @@ function search(){
 	sendRequest('searchCoachAjax.do',params,showResult,'GET');
 	
 }
-
 </script>
 </head>
 <body>
@@ -86,8 +87,8 @@ function search(){
 		<h3>나도 몸짱! 고강도 전신운동</h3>
   			<div class="contentsWrap">		
 				<div class="listWrap">
-				<i class="fas fa-chevron-right"></i>
 					<c:forEach var="dto" items="${map.pt }">
+					<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>				
 							<div class="oneperson">
 								<div class="image-container">
 							       <a href="coachProfile.do?id=${ dto.coach_mem_id }">
@@ -150,6 +151,53 @@ function search(){
 </div>
 </div>
 <!-- 리스트 영역  -->
+<script type="text/javascript">
+/*좋아요 토글*/
+$(function(){
+	$('.ia').on('click', function() {
+	var login="${login.mem_id}";	
+	if(login == null || login == ''){ //비로그인시
+		alert('로그인한 회원만 가능한 서비스입니다');
+	}else{ //로그인시
+		
+		var targetid= $(this).attr('id');	
+		alert(targetid);	
+	  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+             $(this).removeClass("toggleStyle");
+             $(this).html('<i class="far fa-heart likeicon"></i>');
+             
+         }else{ //좋아요햇을시
+        	 
+             $(this).addClass("toggleStyle");
+             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+             
+             
+             /*ajax*/
+ 			$.ajax({
+ 				url: "/coachLikenum.do",
+               type: "GET",
+               data: {
+                   like_mem_id: '${login.mem_id}',
+                   like_target_id: targetid
+               },
+               success: function () {
+ 			        alert(targetid+"님께 좋아요를 보내셨습니다!");
+               },
+ 			})
+             
+             //좋아요하면 insert 취소하면 delete            
+             
+         }
+		
+		
+	}	
+		
+	
+	});
+		
+});
 
+		 
+</script>
 </body>
 </html>
