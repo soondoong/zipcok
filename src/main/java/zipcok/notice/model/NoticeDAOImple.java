@@ -13,22 +13,23 @@ import zipcok.coach.model.CoachFileDTO;
 
 @Service
 public class NoticeDAOImple implements NoticeDAO {
-	
-	@Autowired
-	private SqlSessionTemplate sqlMap;
+   
+   @Autowired
+   private SqlSessionTemplate sqlMap;
 
-	
-	public NoticeDAOImple(SqlSessionTemplate sqlMap) {
-		super();
-		this.sqlMap = sqlMap;
-	}
-	
-	//글쓰기 메서드
-	public int noticeWrite(NoticeDTO dto) {
-		int count=sqlMap.insert("noticeWriteSQL", dto);
-		return count;
-	}
-	
+   
+   public NoticeDAOImple(SqlSessionTemplate sqlMap) {
+      super();
+      this.sqlMap = sqlMap;
+   }
+   
+   //글쓰기 메서드
+   public int noticeWrite(NoticeDTO dto) {
+      int count=sqlMap.insert("noticeWriteSQL", dto);
+      return count;
+   }
+   
+
 
 	//모든 리스트 메서드
 	public List noticeAllList(int cp, int ls) {
@@ -102,29 +103,31 @@ public class NoticeDAOImple implements NoticeDAO {
 		return result;
 	}
 
-	//이전글 다음글
-	@Override
-	public NoticeDTO noticePrevNext(int rnum) {
-		NoticeDTO dto=sqlMap.selectOne("prevnextSQL", rnum);
-		return dto;
-	}
-	
-	
-	//파일 업로드
-	@Override
-	public int noticeFileUpload(ArrayList<ZipcokFileDTO> fileArr) {
-		int count=0;
-		
-		for(int i=0; i<fileArr.size(); i++) {
-		count+=sqlMap.insert("insertNoticeInfoFile",fileArr.get(i));
-		}
-		return count;
-	}
-	@Override
-	public int noticeMaxIdx() {
-		int maxIdx = sqlMap.selectOne("maxIdx");
-		return maxIdx;
-	}
+
+   //이전글 다음글
+   @Override
+   public NoticeDTO noticePrevNext(int rnum) {
+      NoticeDTO dto=sqlMap.selectOne("prevnextSQL", rnum);
+      return dto;
+   }
+   
+   
+   //파일 업로드
+   @Override
+   public int noticeFileUpload(ArrayList<ZipcokFileDTO> fileArr) {
+      int count=0;
+      
+      for(int i=0; i<fileArr.size(); i++) {
+      count+=sqlMap.insert("insertNoticeInfoFile",fileArr.get(i));
+      }
+      return count;
+   }
+   @Override
+   public int noticeMaxIdx() {
+      int maxIdx = sqlMap.selectOne("maxIdx");
+      return maxIdx;
+   }
+
 
 	@Override
 	public List<ZipcokFileDTO> zfileSelect(int bbs_idx) {
@@ -145,3 +148,4 @@ public class NoticeDAOImple implements NoticeDAO {
 		return result;
 	}
 }
+

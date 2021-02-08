@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="../_include/head.jsp" %>
 <style>
 .white_talbe_01 {
-	border-top: 1px solid #333333;
+   border-top: 1px solid #333333;
 }
 
 .white_talbe_01 tbody tr th {
-	width: 200px;
-	padding: 10px 20px;
-	background: #f7f7f7;
-	border-bottom: 1px solid #dddddd;
+   width: 200px;
+   padding: 10px 20px;
+   background: #f7f7f7;
+   border-bottom: 1px solid #dddddd;
 }
 
 .white_talbe_01 tbody tr td {
-	padding: 10px 20px;
-	border-bottom: 1px solid #dddddd;
+   padding: 10px 20px;
+   border-bottom: 1px solid #dddddd;
 
 }
 .imgul li {display: inline;}
@@ -27,6 +27,7 @@
 <c:set var="list" value="${list }"/>
 <c:set var="dto" value="${dto}"></c:set>
 <script>
+
 
 /*id와 file의 idx를 받아와서 del_yn을 y로 바꿔주는 자바스크립트*/
 function delimg(id,idx){
@@ -40,11 +41,13 @@ var result=confirm('업로드된 사진을 삭제하시겠습니까?');
 
 
 
+
 </script>
 
 
 
 <div id="container">
+
 	<div class="page_top_visual">
 		<div class="common_page_title">
 			<h2 class="page_title">공지사항</h2>
@@ -131,6 +134,7 @@ var result=confirm('업로드된 사진을 삭제하시겠습니까?');
 			</div>
 		</form>
 	</div>
+
 </div>
 
 

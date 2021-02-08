@@ -21,15 +21,15 @@ import java.util.*;
 import javax.servlet.ServletContext;
 @Controller
 public class NoticeController {
-	
-	@Autowired
-	private NoticeDAO noticeDao;
+   
+   @Autowired
+   private NoticeDAO noticeDao;
 
-	
-	@Autowired
-	ServletContext c;
+   
+   @Autowired
+   ServletContext c;
 
-	
+
 	//공지사항 리스트,페이징
 	@RequestMapping("noticeList.do")
 	public ModelAndView goNoticeList(
@@ -309,3 +309,4 @@ public class NoticeController {
 //	      return mav;
 //	}
 }
+

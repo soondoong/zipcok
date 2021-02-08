@@ -4,7 +4,7 @@ import java.util.*;
 
 
 public interface NoticeDAO {
-	
+
 	public int noticeWrite(NoticeDTO dto);//게시물등록
 	public List noticeAllList(int cp,int ls);//모든게시물리스트
 	public int getTotalCnt();//총게시물수
@@ -25,3 +25,4 @@ public interface NoticeDAO {
 	public int noticeMaxIdx();//최신글idx구하기
 	public List<ZipcokFileDTO> zfileSelect(int bbs_idx);//파일조회하기
 }
+
