@@ -147,7 +147,7 @@ zipcok_file
 set
 del_yn='y'
 where 
-zfile_bbs_idx=#{zfile_bbs_idx}
+zfile_upload=#{zfile_upload}
 </update>
 <delete id="zfileRealDelete">
 delete

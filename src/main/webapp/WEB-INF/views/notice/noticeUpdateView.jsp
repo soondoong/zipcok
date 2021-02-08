@@ -3,33 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="../_include/head.jsp" %>
-<%@include file="../header2.jsp" %>
-
-<c:set var="list" value="${list }"/>
-<c:set var="dto" value="${dto}"></c:set>
-<script>
-function changeDely(i){
-	var deltype=document.getElementById('deltype'+i).value='Y';
-	var noticeimg=document.getElementById('noticeImg'+i);
-	noticeimg.style.display='none';
-}
-function changeDeln(){
-	var deltype=document.getElementById('deltype').value='N';
-}
-
-
-
-
-</script>
-<div id="container">
-	<div class="page_top_visual">
-		<div class="common_page_title">
-			<h2 class="page_title">공지사항</h2>
-			<p class="page_text">수정할 부분을 다시 작성해 주세요</p>
-		</div>
-	</div>
-	<div id="contents">
-<form action="noticeUpdate.do" method="post" enctype="multipart/form-data">
 <style>
 .white_talbe_01 {
 	border-top: 1px solid #333333;
@@ -49,6 +22,45 @@ function changeDeln(){
 }
 .imgul li {display: inline;}
 </style>
+<%@include file="../header2.jsp" %>
+
+<c:set var="list" value="${list }"/>
+<c:set var="dto" value="${dto}"></c:set>
+<script>
+function changeDely(i){
+	var deltype=document.getElementById('deltype'+i).value='Y';
+	var noticeimg=document.getElementById('noticeImg'+i);
+	noticeimg.style.display='none';
+}
+function changeDeln(){
+	var deltype=document.getElementById('deltype').value='N';
+}
+
+/*수연작성*/
+function delimg(id){
+var img= document.getElementById(id);
+var result=confirm('업로드된 사진을 삭제하시겠습니까?');
+	if(result){
+		var li=document.getElementById(id+'li');
+		li.innerHTML='';	
+	}	
+}//삭제되지않은것들은 이름이넘어가므로 컨트롤러에서비교 후 삭제
+
+
+
+</script>
+
+
+
+<div id="container">
+	<div class="page_top_visual">
+		<div class="common_page_title">
+			<h2 class="page_title">공지사항</h2>
+			<p class="page_text">수정할 부분을 다시 작성해 주세요</p>
+		</div>
+	</div>
+	<div id="contents">
+	<form action="noticeUpdate.do" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<th>카테고리 유형</th>
@@ -85,11 +97,19 @@ function changeDeln(){
 						
 					</c:if>
 					<c:forEach varStatus="i" var="List" items="${list}">
-							<li id="noticeImg${i.getIndex()}" class="imgtd"><img alt="${List.zfile_upload }"
+					
+					<li class="imgtd" id="${List.zfile_upload}li">
+					<img id="${List.zfile_upload}"
+					src="/zipcok/upload/notice/${List.zfile_upload}" style="whidth:100px; height: 100px;">
+					<input type="button"  onclick="javascript:delimg('${List.zfile_upload}')" value="사진삭제">
+					<input type="hidden" name="files" value="${List.zfile_upload}">
+					</li>					
+					
+						<!-- <li id="noticeImg${i.getIndex()}" class="imgtd"><img alt="${List.zfile_upload }"
 								src="/zipcok/upload/notice/${List.zfile_upload}" width="120px;" height="120px;">
 								<input type="button"  onclick="javascript:changeDely(${i.getIndex()})" value="사진삭제">
 							<input type="hidden" id="deltype${i.getIndex()}" name="del_yn" value="N">
-							<input type="hidden" name="zfile_idx" value="${List.zfile_idx}"></li>
+							<input type="hidden" name="zfile_idx" value="${List.zfile_idx}"></li> -->	
 					</c:forEach>
 				</ul>
 			</div>

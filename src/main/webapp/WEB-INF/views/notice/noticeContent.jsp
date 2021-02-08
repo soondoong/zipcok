@@ -40,7 +40,7 @@
 			<div class="view_body">
 				<c:forEach var="List" items="${list}">
 				<div>
-				<img src="/zipcok/upload/notice/${List.zfile_upload}">
+				<img src="/zipcok/upload/notice/${List.zfile_upload}" style="width:80%;">
 				</div>
 				</c:forEach>
 				<div class="view_content"><textarea rows="6" cols="80" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea></div>

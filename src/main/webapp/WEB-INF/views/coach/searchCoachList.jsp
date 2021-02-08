@@ -38,13 +38,12 @@
 		.nomalpaging a:not(:first-child) {margin-left: 5px;}
 				
 </style>
-
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/httpRequest.js"></script>
 
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">

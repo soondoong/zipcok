@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.sun.javafx.collections.MappingChange.Map;
 
+import zipcok.mypage.model.LikeDTO;
+
 
 @Service
 public class CoachDAOImple implements CoachDAO {
@@ -275,6 +277,20 @@ public class CoachDAOImple implements CoachDAO {
 	}
 
 
+ /*좋아요 추가*/
+ @Override
+public int insertLike(LikeDTO dto) {
+	int count=sqlMap.insert("likeplus",dto);
 	
+	return count;
+}
+ 
+ /*좋아요삭제*/
+ @Override
+public int deleteLike(LikeDTO dto) {
+	 int count=sqlMap.delete("deletelike",dto);		
+		return count;
+}
+ 	
 	
 }
