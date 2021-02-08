@@ -268,7 +268,6 @@ public class NoticeController {
 		for(int i=0;i<del_yn.length;i++) {
 		ZipcokFileDTO dto=new ZipcokFileDTO(zfile_bbs_idx, del_yn[i]);
 		result+=noticeDao.deleteFile(dto);
-		
 		}
 		String msg=result==del_yn.length?"사진삭제 성공":"사진삭제 실패";
 		
