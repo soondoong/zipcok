@@ -47,19 +47,19 @@
 				<div class="form-group">
 					<label>사진등록</label>
 					<ul id="fileUl">
-						<li>올릴파일:<input type="file" name="upload"></li>
+						<li>올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png"></li>
 					</ul>
 					<div>
 						<input type="button" value="파일추가" class="btn1 c1"
 							onclick="plus();">
 					</div>
 				</div>
-				<script>
+<script>
 	//사진파일계속추가
 	function plus(){
 		var wrapul=document.getElementById("fileUl");	
 		var newli=document.createElement("li");
-		newli.innerHTML='올릴파일:<input type="file" name="upload">';
+		newli.innerHTML='올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png">';
 		wrapul.appendChild(newli);
 		
 	}
