@@ -34,7 +34,7 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
 		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;}
-		.likeafter{color : #e86a82; }
+		.likeafter{color : #FF6682; }
 		
 		.nomalpaging {margin: 40px 0 0; text-align: center;}
 		.nomalpaging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}

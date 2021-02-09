@@ -60,12 +60,12 @@ $(function(){
 		 var fileCheck = $("input[name=uplaod]").val();
 	
 		//카테고리 하나라도 선택하지않으면
-		alert('dd');
+		
 		  if($(".cate:checked").length <1){  
 			  alert('카테고리를 선택해주세요.'); 
 				return false;			
 		  }
-		  alert(fileCheck.name);
+		
 		  if(!fileCheck){
 				  alert('사진을 한 장이상 선택해주세요.'); 
 					return false;			
