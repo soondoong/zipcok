@@ -17,7 +17,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="5" align="center">${pageStr}</td>
-			<td><input id="button" type="button" onclick="location.href='commDailyWrite.do'" value="글쓰기"></td>
+			<td><input id="button" type="button" onclick="location.href='commFoodWrite.do'" value="글쓰기"></td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -29,21 +29,25 @@
 			</tr>
 		</c:if>
 		<c:forEach var="dto" items="${list}">
-			<tr>
-				<td>${dto.ex_idx}</td>
-				<c:url var="contentUrl" value="commDailyList.do">
-					<c:param name="idx">${dto.ex_idx}</c:param>
-				</c:url>
-				<c:set var="recnt" value="(${dto.ex_recnt})" />
-				<c:choose>
-				<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
-				</c:choose>
-				<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
-				<td>${dto.ex_cal}cal</td>
-				<td>${dto.ex_id}</td>
-				<td>${dto.ex_readnum}</td>
-				<td>${dto.ex_writedate}</td>
-			</tr>
+			<table>
+				<tr>
+					<c:url var="contentUrl" value="commFoodList.do">
+						<c:param name="idx">${dto.food_idx}</c:param>
+					</c:url>
+					<c:set var="recnt" value="(${dto.food_recnt})" />
+					<c:choose>
+					<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
+					</c:choose>
+					<td>${dto.ex_id}</td>
+					<td>${dto.ex_writedate}</td>
+					<td>${dto.ex_readnum}</td>
+				<tr>
+					<td>이미지</td>
+				</tr>
+					<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
+					<td>${dto.ex_cal}cal</td>
+				</tr>
+			</table>
 		</c:forEach>
 	</tbody>
 </table>

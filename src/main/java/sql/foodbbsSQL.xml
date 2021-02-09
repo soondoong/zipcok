@@ -4,14 +4,82 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zipcok.comm">
 
-<select id="foodListSQL" parameterType="Map" resultType="zipcok.comm.model.FoodBbsDTO">
-		select * from
-		(select rownum as rnum,a.* from
-		(select * from exer_bbs order by ex_idx desc) a) b
-		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+	<insert id="foodWriteSQL" parameterType="zipcok.comm.model.FoodBbsDTO">
+		insert into
+			food_bbs
+		values(food_bbs_idx.nextval,
+				#{food_comm_idx},
+				#{food_id},
+				#{food_subject},
+				sysdate,
+				sysdate,
+				'말머리',
+				0,
+				#{food_goal},
+				0)
+	</insert>
+	
+	<select id="getMaxFoodIdxSQL" resultType="Integer">
+		select
+			max(food_idx)
+		from 
+			food_bbs		
 	</select>
 
-
-
+	<select id="foodListSQL" parameterType="Map" resultType="zipcok.comm.model.FoodBbsDTO">
+		select * from
+		(select rownum as rnum,a.* from
+		(select * from food_bbs order by food_idx desc) a) b
+		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+	</select>
+	
+	<select id="foodContentSQL" parameterType="Integer" resultType="zipcok.comm.model.FoodBbsDTO">
+		select * from 
+			food_bbs
+		where
+			food_idx=#{food_idx}
+	</select>
+	
+	<select id="foodGetTotalCntSQL" resultType="Integer">
+		select
+			count(*)
+		from
+			food_bbs	
+	</select>
+	
+	<update id="foodUpdateSQL" parameterType="zipcok.comm.model.FoodBbsDTO">
+		update
+			food_bbs
+		set
+			food_subject=#{food_subject},
+			food_content=#{food_content},
+		where
+			food_idx=#{food_idx}
+	</update>
+	
+	<delete id="foodDeleteSQL">
+		delete from
+			food_bbs
+		where
+			food_idx=#{food_idx}
+	</delete>
+	
+	<update id="foodReadnumSQL" parameterType="zipcok.comm.model.FoodBbsDTO">
+		update
+			food_bbs
+		set
+			food_readnum=food_readnum+1 
+		where
+			food_idx=#{food_idx}
+	</update>
+	
+	<insert id="foodSetTotalReSQL" parameterType="zipcok.comm.model.FoodBbsDTO">
+		update
+			food_bbs
+		set
+			food_recnt=#{food_recnt}
+		where
+			food_idx=#{food_idx}
+	</insert>
 
 </mapper>

@@ -12,6 +12,8 @@ public interface ExBbsDAO {
 	public int dailyUpdate(ExBbsDTO dto);
 	public int dailyDelete(int ex_idx);
 	public int dailyReadnum(int ex_idx);
+	
+	//댓글
 	public int dailyGetMaxSunbun(int re_idx);
 	public int dailyReWrite(ExReBbsDTO dto);
 	public int dailyReDelete(int re_group);
