@@ -69,8 +69,8 @@ public class HomeGymController {
 			date = "1900-01-01";
 		}
 		keywords += "&top_option_date="+date;
-		String eq_option_s[] = req.getParameterValues("left_option_eq");
 		String eq_options = "";
+		String eq_option_s[] = req.getParameterValues("left_option_eq");
 		if(eq_option_s!=null) {
 			for(int i = 0 ; i < eq_option_s.length ; i ++) {
 				eq_options += eq_option_s[i];
@@ -94,7 +94,8 @@ public class HomeGymController {
 		options.put("choice_date_d", java.sql.Date.valueOf(date));
 		options.put("price", price);
 		options.put("person_count", person_count);
-		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);
+		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);	
+		
 		List<HomeGymDTO> homegym_list = new ArrayList<HomeGymDTO>();
 		for(int i = 0 ; i < list.size() ; i++) {
 			boolean option_check = true;
@@ -106,13 +107,15 @@ public class HomeGymController {
 					}
 				}
 			}
+			String file_upload = homegymDAO.HomeGymIdImgSelect(list.get(i).getHg_mem_id());
+			list.get(i).setHg_upload(file_upload);
 			if(option_check) {
 				List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
 				list.get(i).setHg_eq_list(eq_list);
 				homegym_list.add(list.get(i));
-			}
+			}			
 		}
-		int totalCnt = homegym_list.size()==0?1:homegym_list.size();
+		int totalCnt = list.size()==0?1:list.size();
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
 		Map<String, Object> keywordMap = new HashMap<String, Object>();
 		keywordMap.put("eq_options", eq_options);

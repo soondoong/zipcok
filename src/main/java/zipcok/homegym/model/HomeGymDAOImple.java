@@ -74,4 +74,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		List<ReviewDTO> list = sqlMap.selectList("homegymReviewSelectSQL", homegymId);
 		return list;
 	}
+	@Override
+	public String HomeGymIdImgSelect(String homegymId) {
+		String file_upload = sqlMap.selectOne("homegymImgUploadSelectSQL", homegymId);
+		return file_upload;
+	}
 }

@@ -89,7 +89,9 @@
 		and
 		f.hg_status = '1') b
 		where
-		rnum between #{start} and #{end}
+		rnum <![CDATA[>=]]> #{start}
+		and
+		rnum <![CDATA[<=]]> #{end}
 	</select>
 	<select id="userEquipmentListSQL" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
 	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
@@ -153,4 +155,9 @@
 		#{pd_price}
 		)
 	</insert>
+	<select id="homegymImgUploadSelectSQL" parameterType="String" resultType="String">
+		select mfile_upload from 
+		(select rownum as rnum, a.* from 
+		(select * from member_file where mfile_mem_id = #{value} and mfile_key = '홈짐') a)b where rnum = 1 
+	</select>
 </mapper>
