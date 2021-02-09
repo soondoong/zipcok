@@ -93,7 +93,7 @@ public class NoticeController {
 			System.out.println("사진등록성공");
 		}
 		
-		String msg=result>0?"게시글 등록 성공":"게시글 등록 실패";
+		String msg=result>0?"공지사항이 성공적으로 등록되었습니다":"알 수 없는 오류";
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg",msg);
@@ -205,39 +205,22 @@ public class NoticeController {
 	
 	//수정하기
 	@RequestMapping("noticeUpdate.do")
-	public ModelAndView goNoticeUpdate(
-			NoticeDTO dto,
+	public ModelAndView goNoticeUpdate(NoticeDTO dto,
 			@RequestParam("upload")List<MultipartFile> list,
 			@RequestParam("files")String files[],
-			@RequestParam("del_yn")String del_yn[]) {
-		System.out.println(list.size());
+			@RequestParam("del_yn")String del_yn[],
+			@RequestParam("bbs_idx")int bbs_idx) {
 		for(int i = 0 ; i < files.length ; i ++) {
 			System.out.println(files[i]);
 			if(del_yn[i].equals("Y")) {
 				noticeDao.deleteFile(files[i]);
 			}
 		}
-		
-		//1단계 files로 넘어온 이름들과 기존에 첨부파일로 갖고있던 이름들비교. 없는사진은 테이블에서삭제
-//		List<ZipcokFileDTO> oldfiles= noticeDao.zfileSelect(dto.getBbs_idx());
-//		for(String a : files) {
-//			for(ZipcokFileDTO fdto : oldfiles) {
-//				if(files.contains(fdto.getZfile_upload())) {
-//					//그대로유지
-//					continue;
-//				}else {
-//					//삭제할꺼야
-//					int result=noticeDao.deleteFile(fdto);
-//					String msg=result>0?"ㅇㅇㅇㅇㅇ":"ㄴㄴㄴ";
-//					System.out.println(msg);
-//				}
-//			}
-//			System.out.println(a);
-//		}
-		//2단계 수정글내용은 수정해주기
+		//파일들의 del_yn을 바꿔준 후에
+		noticeDao.zfileRealDelete();//del_yn 이 Y 인 데이터 삭제
+		// 수정글내용은 수정해주기
 			int result=noticeDao.noticeUpdate(dto);
-			
-		//3단계 새로등록한다고 올린파일은 디비에저장해주기	
+		//새로등록한다고 올린파일은 디비에저장해주기	
 			ArrayList<ZipcokFileDTO> fileArr=new ArrayList<ZipcokFileDTO>();
 			/*파일복사및저장하기*/
 			for(int i=0;i<list.size();i++) {
@@ -263,12 +246,12 @@ public class NoticeController {
 			if(count==fileArr.size()) {
 				System.out.println("사진등록성공");
 			}			
-			String msg=result>0?"게시글 수정 성공":"게시글 수정 실패";
+			String msg=result>0?"공지사항이 수정되었습니다":"알 수 없는 오류";
 		
 		
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg",msg);
-			mav.addObject("gopage","noticeList.do");
+			mav.addObject("gopage","noticeContent.do?bbs_idx="+bbs_idx);
 			mav.setViewName("notice/noticeMsg");
 			return mav;
 		
@@ -280,7 +263,7 @@ public class NoticeController {
 	      int bbs_idx2=Integer.parseInt(bbs_idx);
 	      int result=noticeDao.noticeDelete(bbs_idx2);
 	      noticeDao.noticeAndFileDel(bbs_idx2);
-	      String msg=result>0?"게시글 삭제 성공":"게시글 삭제 실패";
+	      String msg=result>0?"공지사항이 삭제되었습니다":"알 수 없는 오류";
 	      
 	      ModelAndView mav=new ModelAndView();
 	      mav.addObject("msg",msg);

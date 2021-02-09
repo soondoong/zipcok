@@ -92,14 +92,7 @@ select max(bbs_idx) from zipcok_bbs where bbs_key='고객센터'
   		 and
          bbs_idx=#{bbs_idx}
    </update>
-<update id="csZfileDelete" parameterType="zipcok.cs.model.CsZipcokFileDTO">
-update
-zipcok_file
-set
-del_yn='y'
-where 
-zfile_bbs_idx=#{zfile_bbs_idx}
-</update>
+
 
 <select id="csZfileSelect" parameterType="Integer" resultType="zipcok.cs.model.CsZipcokFileDTO">
 select 
@@ -111,14 +104,29 @@ del_yn='N'
 and
 zfile_bbs_idx=#{bbs_idx}
 </select>
-<update id="cszfileDelete" parameterType="zipcok.cs.model.CsDTO">
-update
-zipcok_file
-set
-del_yn='y'
-where 
-zfile_bbs_idx=#{zfile_bbs_idx}
+<update id="cszfileDelete" parameterType="String">
+	update
+	zipcok_file
+	set
+	del_yn='Y'
+	where 
+	zfile_upload=#{value}
 </update>
+<update id="cszfileDelete2" parameterType="zipcok.cs.model.CsZipcokFileDTO">
+	update
+	zipcok_file
+	set
+	del_yn='Y'
+	where 
+	zfile_bbs_idx=#{zfile_bbs_idx}
+</update>
+<delete id="cszfileRealDelete">
+	delete
+	from
+	zipcok_file
+	where
+	del_yn='Y'
+</delete>
 <insert id="csReWrite" parameterType="zipcok.cs.model.CsReDTO">
 insert into
 bbs_rebbs

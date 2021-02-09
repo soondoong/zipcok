@@ -99,9 +99,11 @@
 			
 			<div class="table_list_bottom">
 				<div class="pagination">${pageStr}</div>
-				<div class="btn_right_box">
-					<input type="submit" value="글쓰기" class="btn1 c1">				
-				</div>
+					<c:if test="${login.mem_id=='admin'}">
+						<div class="btn_right_box">
+							<input type="submit" value="글쓰기" class="btn1 c1">				
+						</div>
+					</c:if>
 			</div>
 			</form>
 		</div>
