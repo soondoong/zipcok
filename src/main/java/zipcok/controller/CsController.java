@@ -114,7 +114,8 @@ public class CsController {
 			
 			ArrayList<CsZipcokFileDTO> fileArr=new ArrayList<CsZipcokFileDTO>();
 			/*파일복사및저장하기*/
-			for(int i=0;i<list.size();i++) {		
+			for(int i=0;i<list.size();i++) {
+				if(!list.get(i).getOriginalFilename().equals("")) {
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
 				int zfile_bbs_idx=maxIdx;
 				String zfile_path=c.getRealPath("/upload/cs/"); //저장되는 경로
@@ -127,6 +128,7 @@ public class CsController {
 				CsZipcokFileDTO cdto=new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id,"", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type,del_yn);
 				
 				fileArr.add(cdto);
+				}
 			}
 	/*다중파일첨부 시 필요*/		
 			
@@ -162,39 +164,56 @@ public class CsController {
 		
 		//고객센터 수정하기
 		@RequestMapping("csUpdate.do")
-		public ModelAndView goCsUpdate(CsDTO dto,CsZipcokFileDTO zdto,
-				@RequestParam("upload")List<MultipartFile> list) {
-			int result=csDao.csUpdate(dto);
-			int csMaxIdx=csDao.csMaxIdx();
+		public ModelAndView goCsUpdate(CsDTO dto,
+				@RequestParam("upload")List<MultipartFile> list,
+				@RequestParam("bbs_mem_id")String bbs_mem_id,
+				@RequestParam("files")String files[],
+				@RequestParam("del_yn")String del_yn[],
+				@RequestParam("bbs_idx")int bbs_idx) {
+			for(int i = 0 ; i < files.length ; i ++) {
+				System.out.println(files[i]);
+				System.out.println(del_yn[i]);
+				if(del_yn[i].equals("Y")) {
+					csDao.deleteCsFile(files[i]);
+				}
+			}
+			//파일들의 del_yn을 바꿔준 후에
+			csDao.cszfileRealDelete();//del_yn 이 Y 인 데이터 삭제
 			
+			//수정글은 수정해주기
+			int result=csDao.csUpdate(dto);
+			
+			//새로 등록한다고 올린 파일은 디비에 저장해주기
 			ArrayList<CsZipcokFileDTO> fileArr=new ArrayList<CsZipcokFileDTO>();
 			
 			/*파일복사및저장하기*/
 			for(int i=0;i<list.size();i++) {
+				if(!list.get(i).getOriginalFilename().equals("")) {
 				System.out.println("사진원본이름:"+list.get(i).getOriginalFilename());
-				int zfile_bbs_idx=csMaxIdx;
+				int zfile_bbs_idx=dto.getBbs_idx();
 				String zfile_path=c.getRealPath("/upload/cs/"); //저장되는 경로
 				String zfile_upload=copyInto( list.get(i), zfile_path);	//파일저장후 새로운이름생성됨
 				String zfile_orig=list.get(i).getOriginalFilename(); //파일원본명
-				String zfile_mem_id = "admin";
+				String zfile_mem_id = bbs_mem_id;
 				String zfile_type = list.get(i).getContentType();
 				int zfile_size=(int)(list.get(i).getSize());
-				System.out.println(zdto.getDel_yn());
-				String del_yn=zdto.getDel_yn();
-				zdto = new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, del_yn);
+				String cs_del_yn="N";
+				CsZipcokFileDTO csdto = new CsZipcokFileDTO(0, zfile_bbs_idx, zfile_mem_id, "", zfile_upload, zfile_size, zfile_orig, zfile_path, zfile_type, cs_del_yn);
 		
-				fileArr.add(zdto);
+				fileArr.add(csdto);
+				}
 			}
 			/*다중파일첨부 시 필요*/
 			int count=csDao.csFileUpload(fileArr);
+			
 			if(count==fileArr.size()) {
 				System.out.println("사진등록성공");
 			}	
-			String msg=result>0?"수정이 완료되었습니다":"수정 실패했습니다";
+			String msg=result>0?"게시글이 수정되었습니다":"알 수 없는 오류";
 			
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg",msg);
-			mav.addObject("gopage","csList.do");
+			mav.addObject("gopage","csContent.do?bbs_idx="+bbs_idx);
 			mav.setViewName("cs/csMsg");
 			return mav;
 		}
@@ -216,6 +235,20 @@ public class CsController {
 			mav.addObject("dto2", dto2);
 			mav.setViewName("cs/csContent");
 			return mav;
+		}
+		//컨텐츠 삭제하기
+		@RequestMapping("csDelete.do")
+		public ModelAndView goNoticeDelete(String bbs_idx) {
+		      int bbs_idx2=Integer.parseInt(bbs_idx);
+		      int result=csDao.csDelete(bbs_idx2);
+		      csDao.csAndFileDel(bbs_idx2);
+		      String msg=result>0?"공지사항이 삭제되었습니다":"알 수 없는 오류";
+		      
+		      ModelAndView mav=new ModelAndView();
+		      mav.addObject("msg",msg);
+		      mav.addObject("gopage", "csList.do");
+		      mav.setViewName("cs/csMsg");
+		      return mav;
 		}
 		
 		//고객센터 게시판 답변작성

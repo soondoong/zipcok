@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
+
+<c:set var="list" value="${list }"/>
+<c:set var="dto" value="${dto}"></c:set>
 <style>
 .white_talbe_01 {
    border-top: 1px solid #333333;
@@ -22,10 +26,8 @@
 }
 .imgul li {display: inline;}
 </style>
-<%@include file="../header2.jsp" %>
 
-<c:set var="list" value="${list }"/>
-<c:set var="dto" value="${dto}"></c:set>
+
 <script>
 
 
@@ -78,7 +80,7 @@ var result=confirm('업로드된 사진을 삭제하시겠습니까?');
 				
 				<tr>
 					<td colspan="3"><textarea rows="6" cols="70" name="bbs_content" placeholder="내용을 입력해주세요"
-							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content } </textarea></td>
+							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content }</textarea></td>
 				</tr>
 			</table>
 				<div class="form-group">
