@@ -147,7 +147,7 @@ public class CommDailyController {
 	// 진짜 첨부 파일 삭제
 	@RequestMapping("commFileDel.do")
 	public ModelAndView realdeleteFile(BbsFileDTO dto) {
-		fileDel(dto.getBfile_path(),dto.getBfile_rename());
+		fileDel(dto.getBfile_path(),dto.getBfile_rename()); 
 		//int result=bbsFileDao.db삭제하는 dao메소드
 		//String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
 		ModelAndView mav=new ModelAndView();
