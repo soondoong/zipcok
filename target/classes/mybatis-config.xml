@@ -13,6 +13,7 @@
     <mapper resource="sql/foodbbsSQL.xml"/>
     <mapper resource="sql/commMainSQL.xml"/>
     <mapper resource="sql/commFileSQL.xml"/>
+    <mapper resource="sql/commManageSQL.xml"/>
     <mapper resource="sql/coachSQL.xml"/>
     <mapper resource="sql/homegymSQL.xml"/>
     <mapper resource="sql/csSQL.xml"/>
