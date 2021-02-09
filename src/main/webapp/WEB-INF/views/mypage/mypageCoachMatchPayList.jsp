@@ -22,7 +22,7 @@ function mypageCoachMatchPayList(){
 	<div class="mypage_wrap">
 	<%@include file="./mypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-         <div class="mypage_main_choice">
+         <div class="mypage_main">
 		<br>
 		<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>

@@ -316,7 +316,6 @@ public class MemberController {
       
       int result = mdao.idConfirm(mem_id);
       ModelAndView mav = new ModelAndView();
-      System.out.println(result);
       
       mav.addObject("result", result);
       mav.setViewName("jsonView");
