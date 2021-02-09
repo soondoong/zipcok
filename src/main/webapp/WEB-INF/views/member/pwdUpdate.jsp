@@ -6,6 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.pwdUpdate-container{
+	width:100%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	margin-top: 21px;
+}
+.pwdUpdate-button-wrap button{
+	width: 250px;
+	height :48px;
+	font-size: 18px;
+	background: #257cda;
+	color: white;
+	border: solid 1px #257cda;
+	border-radius: 5px;
+	margin : 15px 0 15px 0;
+}
+</style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -60,19 +79,26 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+function backPage(){
+	location.href='index.do';
+}
+</script>
+
+
 </head>
 <body>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
-<br>
-<br>
+<br><br><br>
+<div class="pwdUpdate-container" style="height: 590px;">
 	<article>
-	<h2>비밀번호 수정</h2>
+	<h2 align="center">비밀번호 수정</h2>
 	<br>
 		<form action="pwdUpdate.do">
 		<c:set var="id" value="${mem_id }"></c:set>
 			<input type="hidden" name="mem_id" value="${id }">
-			<div class="col-sm-3 col-md-offset-3">
+			<div class="col-sm-12 col-md-offset-3">
 				<div class="form-group">
 					<label for="pw">새 비밀번호</label> <input type="password"
 						class="form-control" id="mem_pwd" name="mem_pwd"
@@ -87,12 +113,14 @@ $(document).ready(function() {
 						placeholder="Confirm Password">
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
-				<div class="form-group text-center">
+				<div class="pwdUpdate-button-wrap">
 					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="button" class="btn btn-primary" onclick="backPage()">메인으로</button>
 				</div>
 			</div>
 		</form>
 	</article>
+	</div>
 	 <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

@@ -63,9 +63,9 @@ body{
 	width: 465px;
 	height :48px;
 	font-size: 18px;
-	background: deepskyblue;
+	background: #257cda;
 	color: white;
-	border: solid 1px deepskyblue;
+	border: solid 1px #257cda;
 	border-radius: 5px;
 }
 .login-stay-sign-in{
@@ -74,7 +74,7 @@ body{
 	
 	display: flex;
 	font-size: 15px;
-	color: deepskyblue;
+	color: #257cda;
 	align-items: center;
 	justify-content: flex-start;
 	border-bottom: solid 1px var(--border-gray-color);
@@ -125,7 +125,7 @@ body{
 	font-size: 18px;
 }
 .Easy-sgin-in-wrap .forget-msg{
-	color:deepskyblue;
+	color : #257cda;
 	font-size: 14px;
 	padding-top: 10px;
 
