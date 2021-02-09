@@ -7,14 +7,14 @@
 
 <c:set var="dto" value="${dto}"></c:set>
 <script>
-function changeDely(){
-	var deltype=document.getElementById('deltype').value='Y';
-	var csimg=document.getElementById('csImg');
-	csimg.style.display='none';
-}
-function changeDeln(){
-	var deltype=document.getElementById('deltype').value='N';
-}
+function delimg(id,idx){
+	var result=confirm('업로드된 사진을 삭제하시겠습니까?');
+		if(result){
+			document.getElementById('deltype'+idx).value='Y';
+			var li=document.getElementById(id+'li');
+			li.style.display='none';	
+		}	
+	}
 </script>
 <div id="container">
 	<div class="page_top_visual">
@@ -78,17 +78,19 @@ function changeDeln(){
 
 				</c:forEach>
 				<tr>
-					<td colspan="3"><textarea rows="6" cols="70"
-							name="bbs_content" placeholder="내용을 입력해주세요"
-							style="white-space: pre-line; width: 800px; height: 200px;">${dto.bbs_content } </textarea></td>
-				</tr>
-				<tr>
-					<td><input type="file" name="upload" onclick="javascript:changeDeln()" value="사진수정"></td>
-					<td><input type="button" value="사진삭제"
-						onclick="javascript:changeDely()"></td>
-					<td></td>
+					<td colspan="3"><textarea rows="6" cols="70" name="bbs_content" placeholder="내용을 입력해주세요"
+							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content } </textarea></td>
 				</tr>
 			</table>
+				<div class="form-group">
+					<label>사진등록</label>
+					<ul id="fileUl">
+						<li>올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png"></li>
+					</ul>
+					<div>
+						<input type="button" value="사진추가" class="btn1 c1" onclick="plus();">
+					</div>
+				</div>
 			<div class="table_list_bottom">
 				<div class="btn_left_box">
 					<a href="csList.do" class="btn1 c2">목록보기</a>
