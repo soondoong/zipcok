@@ -59,9 +59,34 @@
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option <c:if test="${keyword.location=='전체지역'}">selected="selected"</c:if>>전체지역</option>
+		 		<option <c:if test="${keyword.location=='강남구'}">selected="selected"</c:if>>강남구</option>
+		 		<option <c:if test="${keyword.location=='강동구'}">selected="selected"</c:if>>강동구</option>
+		 		<option <c:if test="${keyword.location=='강북구'}">selected="selected"</c:if>>강북구</option>
 		 		<option <c:if test="${keyword.location=='강서구'}">selected="selected"</c:if>>강서구</option>
+		 		<option <c:if test="${keyword.location=='관악구'}">selected="selected"</c:if>>관악구</option>
+		 		<option <c:if test="${keyword.location=='광진구'}">selected="selected"</c:if>>광진구</option>
+		 		<option <c:if test="${keyword.location=='구로구'}">selected="selected"</c:if>>구로구</option>
+		 		<option <c:if test="${keyword.location=='금천구'}">selected="selected"</c:if>>금천구</option>
+		 		<option <c:if test="${keyword.location=='노원구'}">selected="selected"</c:if>>노원구</option>
+		 		<option <c:if test="${keyword.location=='도봉구'}">selected="selected"</c:if>>도봉구</option>
+		 		<option <c:if test="${keyword.location=='동대문구'}">selected="selected"</c:if>>동대문구</option>
+		 		<option <c:if test="${keyword.location=='동작구'}">selected="selected"</c:if>>동작구</option>
 		 		<option <c:if test="${keyword.location=='마포구'}">selected="selected"</c:if>>마포구</option>
 		 		<option <c:if test="${keyword.location=='서대문구'}">selected="selected"</c:if>>서대문구</option>
+		 		<option <c:if test="${keyword.location=='서초구'}">selected="selected"</c:if>>서초구</option>
+		 		<option <c:if test="${keyword.location=='성동구'}">selected="selected"</c:if>>성동구</option>
+		 		<option <c:if test="${keyword.location=='성북구'}">selected="selected"</c:if>>성북구</option>
+		 		<option <c:if test="${keyword.location=='송파구'}">selected="selected"</c:if>>송파구</option>
+		 		<option <c:if test="${keyword.location=='양천구'}">selected="selected"</c:if>>양천구</option>
+		 		<option <c:if test="${keyword.location=='영등포구'}">selected="selected"</c:if>>영등포구</option>
+		 		<option <c:if test="${keyword.location=='용산구'}">selected="selected"</c:if>>용산구</option>
+		 		<option <c:if test="${keyword.location=='은평구'}">selected="selected"</c:if>>은평구</option>
+		 		<option <c:if test="${keyword.location=='종로구'}">selected="selected"</c:if>>종로구</option>
+		 		<option <c:if test="${keyword.location=='중구'}">selected="selected"</c:if>>중구</option>
+		 		<option <c:if test="${keyword.location=='중랑구'}">selected="selected"</c:if>>중랑구</option>
+		 		
+		 		
+		 		
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
