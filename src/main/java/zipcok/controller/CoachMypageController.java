@@ -147,7 +147,7 @@ ServletContext c;
 		
 		//코치마이페이지 F&A/고객센터 작성글 목록
 		@RequestMapping("/coachMypageWriteList.do")
-		public ModelAndView mypageWriteList(HttpSession session,
+		public ModelAndView coachMypageWriteList(HttpSession session,
 				@RequestParam(value = "cp", defaultValue = "1")int cp) {
 			
 			int totalCnt=cdao.coachMypageHomeGymLikeListTotalCnt((String)session.getAttribute("coachId"));
@@ -161,6 +161,12 @@ ServletContext c;
 			mav.setViewName("coachMyPage/coachMypageWriteList");
 			
 			return mav;
+		}
+		
+		@RequestMapping("/coachMypageCommWriteList.do")
+		public String coachMypageCommWriteList() {
+			
+			return "coachMyPage/coachMypageCommWriteList";
 		}
 		
 		

@@ -73,7 +73,7 @@ $(document).ready(function() {
 	<br>
 		<form action="coachMypagePwdUpdate.do">
 			<input type="hidden" name="mem_id" value="${sessionScope.coachId }">
-			<div class="col-sm-3 col-md-offset-3">
+			<div class="col-sm-10 col-md-offset-3">
 				<div class="form-group">
 					<label for="pw">새 비밀번호</label> <input type="password"
 						class="form-control" id="mem_pwd" name="mem_pwd"

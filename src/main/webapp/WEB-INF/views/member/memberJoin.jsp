@@ -69,7 +69,7 @@ $(document).ready(function() {
           $('#id_check').css('color', 'red');                     
    
           } else if(idJ.test($('#mem_id').val())!=true){
-             $('#id_check').text('4~12자의 영문, 숫자만 사용 가능합니다.');
+             $('#id_check').text('5~12자의 영문, 숫자만 사용 가능합니다.');
              $('#id_check').css('color', 'red');
          
           } else { 
@@ -388,11 +388,14 @@ function showResult(){
          
          if(result >0){
             msg='중복된 아이디입니다.';
+            $('#id_check').text(msg);
+            $('#id_check').css('color', 'red');
          }else{
             msg='사용가능한 아이디입니다.';
+            $('#id_check').text(msg);
+            $('#id_check').css('color', 'blue');
          }
-           $('#id_check').text(msg);
-             $('#id_check').css('color', 'red');
+           
       }
    }
 }

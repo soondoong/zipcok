@@ -71,7 +71,7 @@ function changeValue(obj){ //사진선택하면
 }
 </script>    
          
-            <div class="profile_info">
+            <div>
                <div><b>${sessionScope.sname } 님의 프로필입니다.</b></div>
                <br>
                <div>

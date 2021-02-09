@@ -11,7 +11,7 @@
 		<li class="sidemenuli" ><a href="#">운동 커뮤니티 관리</a></li>
 		<li class="sidemenuli"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
 		<li class="sidemenuli"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
-		<li class="sidemenuli"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.coachId}">결제내역</a></li>
+		<li class="sidemenuli"><a href="#">결제내역</a></li>
 
 	</ul>
 </div>

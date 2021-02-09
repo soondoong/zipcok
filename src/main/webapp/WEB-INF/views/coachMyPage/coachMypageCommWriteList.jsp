@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+
 <script>
-function mypageWriteList() {
-	location.href='mypageWriteList.do?mem_id=${sessionScope.sid}';
+function coachMypageWriteList() {
+	location.href='coachMypageWriteList.do?mem_id=${sessionScope.coachId}';
 }
-function mypageCommWriteList() {
-	location.href='mypageCommWriteList.do?mem_id=${sessionScope.sid}';
+function coachMypageCommWriteList() {
+	location.href='coachMypageCommWriteList.do?mem_id=${sessionScope.coachId}';
 }
 </script>
 </head>
@@ -19,7 +21,7 @@ function mypageCommWriteList() {
 	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
 	<div class="mypage_wrap">
-	<%@include file="./mypageSideMenu.jsp"%>
+	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
          <div class="mypage_main">
 	<br>
@@ -32,11 +34,11 @@ function mypageCommWriteList() {
 		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
 		</style>		
 			<ul>
-				<li><button type="button" onclick="mypageWriteList()">F&A / 고객센터 작성글</button></li>
-				<li class="on"><button type="button" onclick="mypageCommWriteList()">커뮤니티 작성글</button></li>
+				<li><button type="button" onclick="coachMypageWriteList()">F&A / 고객센터 작성글</button></li>
+				<li class="on"><button type="button" onclick="coachMypageCommWriteList()">커뮤니티 작성글</button></li>
 			</ul>
 		</div>
-		<div class="mypage_main_table">
+<div class="mypage_main_table">
 	<table border="1" cellspacing="0">
 	<thead>
 		<tr>
@@ -49,7 +51,7 @@ function mypageCommWriteList() {
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="5" align="center">페이징들어갈곳</td>
+			<td colspan="5" align="center">${pageStr }</td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -62,11 +64,11 @@ function mypageCommWriteList() {
 		</c:if>
 		<c:forEach var="dto" items="${list }">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${dto.bbs_key }</td>
+			<td>${dto.bbs_category }</td>
+			<td>${dto.bbs_subject }</td>
+			<td>${dto.bbs_category }</td>
+			<td>${dto.bbs_writedate }</td>
 		</tr>
 	</c:forEach>
 	</tbody>
