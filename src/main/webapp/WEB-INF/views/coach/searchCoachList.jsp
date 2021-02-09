@@ -8,11 +8,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
+		.topSearchWrap {background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1);	
+		text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
 		.topSearchWrap .searchDiv {display: inline-block;}
 		.topSearchWrap .searchDiv > * {float: left;}
-		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px;}
-		
+		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
+		.topSearchWrap .searchDiv .sbtn { box-shadow: 3px 3px 5px #1f47a2;}
 						
 		.result_contents_wrap {  max-width:1490px;display: flex; padding: 30px; margin: 0 auto;}		
 		.result_contents_wrap .leftWall {flex: 0 0 300px;}
@@ -53,13 +54,39 @@
 
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">
+<input type="hidden" name="sid" value="${sessionScope.sid }">
 	<div class="topSearchWrap">
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option <c:if test="${keyword.location=='전체지역'}">selected="selected"</c:if>>전체지역</option>
+		 		<option <c:if test="${keyword.location=='강남구'}">selected="selected"</c:if>>강남구</option>
+		 		<option <c:if test="${keyword.location=='강동구'}">selected="selected"</c:if>>강동구</option>
+		 		<option <c:if test="${keyword.location=='강북구'}">selected="selected"</c:if>>강북구</option>
 		 		<option <c:if test="${keyword.location=='강서구'}">selected="selected"</c:if>>강서구</option>
+		 		<option <c:if test="${keyword.location=='관악구'}">selected="selected"</c:if>>관악구</option>
+		 		<option <c:if test="${keyword.location=='광진구'}">selected="selected"</c:if>>광진구</option>
+		 		<option <c:if test="${keyword.location=='구로구'}">selected="selected"</c:if>>구로구</option>
+		 		<option <c:if test="${keyword.location=='금천구'}">selected="selected"</c:if>>금천구</option>
+		 		<option <c:if test="${keyword.location=='노원구'}">selected="selected"</c:if>>노원구</option>
+		 		<option <c:if test="${keyword.location=='도봉구'}">selected="selected"</c:if>>도봉구</option>
+		 		<option <c:if test="${keyword.location=='동대문구'}">selected="selected"</c:if>>동대문구</option>
+		 		<option <c:if test="${keyword.location=='동작구'}">selected="selected"</c:if>>동작구</option>
 		 		<option <c:if test="${keyword.location=='마포구'}">selected="selected"</c:if>>마포구</option>
 		 		<option <c:if test="${keyword.location=='서대문구'}">selected="selected"</c:if>>서대문구</option>
+		 		<option <c:if test="${keyword.location=='서초구'}">selected="selected"</c:if>>서초구</option>
+		 		<option <c:if test="${keyword.location=='성동구'}">selected="selected"</c:if>>성동구</option>
+		 		<option <c:if test="${keyword.location=='성북구'}">selected="selected"</c:if>>성북구</option>
+		 		<option <c:if test="${keyword.location=='송파구'}">selected="selected"</c:if>>송파구</option>
+		 		<option <c:if test="${keyword.location=='양천구'}">selected="selected"</c:if>>양천구</option>
+		 		<option <c:if test="${keyword.location=='영등포구'}">selected="selected"</c:if>>영등포구</option>
+		 		<option <c:if test="${keyword.location=='용산구'}">selected="selected"</c:if>>용산구</option>
+		 		<option <c:if test="${keyword.location=='은평구'}">selected="selected"</c:if>>은평구</option>
+		 		<option <c:if test="${keyword.location=='종로구'}">selected="selected"</c:if>>종로구</option>
+		 		<option <c:if test="${keyword.location=='중구'}">selected="selected"</c:if>>중구</option>
+		 		<option <c:if test="${keyword.location=='중랑구'}">selected="selected"</c:if>>중랑구</option>
+		 		
+		 		
+		 		
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
@@ -77,7 +104,7 @@
 		 		<option <c:if test="${keyword.category=='다이어트'}">selected="selected"</c:if>>다이어트</option>
 		 	</select>
 		 	
-		 			 <button type="submit" class="btn btn-primary btn-lg">검색하기</button>
+		 			 <button type="submit" class="btn btn-primary btn-lg sbtn">검색하기</button>
 		</div>
 	</div>
 </form>
@@ -119,11 +146,16 @@
 			<c:forEach var="dto" items="${list}">
 		
 			<div class="oneperson">
-			<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>								
+					<c:if test="${dto.lknum ==0 }">
+					<a href="#" class="ia" id="${ dto.coach_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+					</c:if>
+					<c:if test="${dto.lknum ==1 }">
+					<a href="#" class="ia toggleStyle" id="${ dto.coach_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+					</c:if>							
 				<div class="image-container">
-				<a href="coachProfile.do?id=${dto.coach_mem_id}">
-				<img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
-				</a>
+					<a href="coachProfile.do?id=${dto.coach_mem_id}">
+					<img src="/zipcok/upload/member/${dto.mfile_upload}" alt="">
+					</a>
 				</div>
 				<div class="desc">
 				    <div class="member">
@@ -206,7 +238,7 @@
 		 /*경력값 정의*/
 		 var yearVal=document.getElementById("yearRange").value; 
 		 	
-		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}';
+		 var keywords='location='+'${keyword.location}'+'&'+'extype='+'${keyword.extype}'+'&'+'category='+'${keyword.category}'+'&sid='+'${sessionScope.sid}';
 		  var params='gender='+gender+"&"+'yearVal='+yearVal+"&"+'cp='+cp+"&"+keywords; //보낼파라미터
 		 // alert(params);
 	  	sendRequest("searchAjax.do",params,shwR,'GET');
@@ -230,6 +262,7 @@
 	  		 	for(var i=0;i<cList.length;i++){
 	  		 	
 	  					var dto=cList[i];
+	  				if(dto.lknum == 0){ //좋아요없다면
 	  					$('.ajaxDIV').append('<div class="oneperson">'
 	  							+'<a href="#" class="ia" id="'+ dto.coach_mem_id+'"><i class="far fa-heart likeicon"></i></a>'								
 	  							+'<div class="image-container">'
@@ -251,7 +284,29 @@
 	  							    +'</div>'
 	  							    +'</div>'
 	  							    +'</div>');						    
-				    
+	  				}else{  //좋아요햇다면
+	  					$('.ajaxDIV').append('<div class="oneperson">'
+	  							+'<a href="#" class="ia toggleStyle" id="'+ dto.coach_mem_id+'"><i class="fas fa-heart likeicon likeafter"></i></a>'								
+	  							+'<div class="image-container">'
+	  							+'<a href="coachProfile.do?id='+dto.coach_mem_id+'">'
+	  						   +'<img src="/zipcok/upload/member/'+ dto.mfile_upload+'" alt="">'
+	  						     +'</a>'
+	  							+'</div>'
+	  							+'<div class="desc">'
+	  							   +'<div class="member">'
+	  							    	+'<span class="category">'+ dto.cate_name+'</span> <span>'+ dto.mem_name+'</span>' 
+	  							    +'</div>'
+	  							    +'<div class="greet">'
+	  							    +'<span><a href="coachProfile.do?id='+ dto.coach_mem_id+'">'+ dto.coach_intro_sub+'</a></span>'
+	  							    +'</div>'
+	  							    +'<div class="grade">'
+	  							    +'<span class="type">'+ dto.coach_ex_type+'</span>'
+	  							    +'<span class="star"><img src="img/coach/star.png" alt="">'+ dto.avg+'</span>'
+	  							    +'<span class="join">('+ dto.starcnt+'명 참여)</span>'
+	  							    +'</div>'
+	  							    +'</div>'
+	  							    +'</div>');	
+	  				}	
 
 	$('.ajaxDIV').css('display','block');
 	  					
@@ -275,8 +330,8 @@
 </script>
 <script type="text/javascript">
 /*좋아요 토글*/
-$(function(){
-	$('.ia').on('click', function() {
+
+	$(document).on('click','.ia', function() {
 		var sid="${sessionScope.sid}";
 			if(sid == null || sid == ''){ //비로그인이거나 코치일 시
 				alert('회원만 가능한 서비스입니다');
@@ -295,17 +350,35 @@ $(function(){
 		        	ajaxLike(sid,targetid);	           
 		             //좋아요하면 insert 취소하면 delete            
 		             
-		         }
-			 
-		
-		
-				
+		         }			 	
 			}	
-		
-	
 	});
 		
-});
+
+
+function likelike(str){
+		var sid="${sessionScope.sid}";
+		if(sid == null || sid == ''){ //비로그인이거나 코치일 시
+			alert('회원만 가능한 서비스입니다');
+		}else{ //로그인시				
+			var targetid= $(this).attr('id');	
+			//alert(targetid);	
+		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+	             $(this).removeClass("toggleStyle");
+	             $(this).html('<i class="far fa-heart likeicon"></i>');
+	             ajaxUnLike(sid,targetid);	     
+	         }else{ //좋아요햇을시
+	        	 
+	             $(this).addClass("toggleStyle");
+	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+	            
+	        	ajaxLike(sid,targetid);	           
+	             //좋아요하면 insert 취소하면 delete            
+	             
+	         }			 	
+		}	
+	
+}
 
 
 /*ajax 좋아요*/

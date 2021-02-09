@@ -9,7 +9,11 @@
 <link href="assets/css/mypage.css" rel="stylesheet">
 
 <style>
-.requestroomDiv{ margin:0 auto;max-width: 1000px;}
+.requestroomDiv{ display:flex; max-width: 1000px;}
+.requestroomDiv .reqwrap{  justify-content: center; padding:60px 0 100px 60px;}
+.requestroomDiv .reqwrap h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
+.requestroomDiv .reqwrap h2{font-weight: 550; color:#12151d;}
+.requestroomDiv .reqwrap hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 </style>
 </head>
 <body>
@@ -17,13 +21,15 @@
 <div class="mypage_wrap">	
 	<%@include file="./coachMypageSideMenu.jsp"%>
 <div  class="requestroomDiv">
+    <div  class="reqwrap">
+				
 		<c:set var="list" value="${ requestList }"/>
 		
-		<br>
-		<h2>받은 요청서</h2>
+		
+		<h2>&nbsp;받은 요청서</h2>
 		<p>상담하기 버튼을 누르면 고객님과 채팅으로 대화 하실 수 있습니다!</p>
 		<hr>
-		<br>
+		
 		<table  style="width:800px;border:1px solid lightgray; margin-right: auto;">
 		<tbody>
 		<c:forEach var="rdto" items="${list}">
@@ -69,12 +75,10 @@
 		</c:forEach>
 		</tbody>
 		</table>
-			
-	</div>
-
+	</div>	
 </div>
 </div>	
-</div>
+
  <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

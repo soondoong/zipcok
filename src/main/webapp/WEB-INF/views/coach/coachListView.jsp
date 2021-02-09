@@ -6,13 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
-		.topSearchWrap {background: #006be0; text-align: center; padding: 90px 0;border-radius: 0 0 30px 30px;}
+		.topSearchWrap {
+background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1);	
+		text-align: center; padding: 90px 0;border-radius: 0 0 30px 30px;}
 		.topSearchWrap .searchDiv {display: inline-block;}
 		.topSearchWrap .searchDiv > * {float: left;}
-		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px;}
+		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
+		.topSearchWrap .searchDiv .sbtn { box-shadow: 3px 3px 5px #1f47a2;}
 		
 		.result_contents_wrap {  max-width:1490px;padding: 30px; margin: 0 auto;}		
+		.result_contents_wrap h3:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
+		.result_contents_wrap h3{font-weight: 550; color:#12151d; margin-top:20px;}
+		
 		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1400px;}		
 		.result_contents_wrap .contentsWrap .listWrap {overflow: hidden; margin: 0 -30px -30px 0;}
 		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
@@ -37,29 +44,42 @@
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
-<script>
-function search(){
-	
-	var location=document.getElementById("location").value;
-	var extype=document.getElementById("extype").value;
-	var category=document.getElementById("category").value;
-	var params="location="+location+"extype="+extype+"category="+category;
-	sendRequest('searchCoachAjax.do',params,showResult,'GET');
-	
-}
-</script>
+
 </head>
 <body>
 <%@include file="../header2.jsp" %>
 <!-- 상단 검색바 영역  -->
 <form name="fm" action="searchCoach.do">
+<input type="hidden" name="sid" value="${sessionScope.sid }">
 <div class="topSearchWrap">
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option selected="selected">전체지역</option>
+		 		<option>강남구</option>
+		 		<option>강동구</option>
+		 		<option>강북구</option>
 		 		<option>강서구</option>
+		 		<option>관악구</option>
+		 		<option>광진구</option>
+		 		<option>구로구</option>
+		 		<option>금천구</option>
+		 		<option>노원구</option>
+		 		<option>도봉구</option>
+		 		<option>동대문구</option>
+		 		<option>동작구</option>
 		 		<option>마포구</option>
 		 		<option>서대문구</option>
+		 		<option>서초구</option>
+		 		<option>성동구</option>
+		 		<option>성북구</option>
+		 		<option>송파구</option>
+		 		<option>양천구</option>
+		 		<option>영등포구</option>
+		 		<option>용산구</option>
+		 		<option>은평구</option>
+		 		<option>종로구</option>
+		 		<option>중구</option>
+		 		<option>중랑구</option>
 		 	</select>
 		 	
 		 	<select id="extype" name="extype">
@@ -76,7 +96,7 @@ function search(){
 		 		<option>요가</option>
 		 		<option>다이어트</option>
 		 	</select>
-		 <button type="submit" class="btn btn-primary btn-lg">검색하기</button>
+		 <button type="submit" class="btn btn-primary btn-lg sbtn">검색하기</button>
 		</div>
 </div>
 </form>
@@ -85,7 +105,8 @@ function search(){
 
 <!-- 리스트 영역  -->
 <div class="result_contents_wrap">
-		<h3>나도 몸짱! 고강도 전신운동</h3>
+		<h3>&nbsp;나도 몸짱! 고강도 전신운동</h3>
+		
   			<div class="contentsWrap">		
 				<div class="listWrap">
 					<c:forEach var="dto" items="${map.pt }">			
@@ -125,7 +146,7 @@ function search(){
 			</div>
 </div>
 <div class="result_contents_wrap">	
-	<h3>나를 위한, 힐링의 시간</h3>
+	<h3>&nbsp;나를 위한, 힐링의 시간</h3>
  <div class="contentsWrap">
 	<div class="listWrap2">
 		<c:forEach var="dto2" items="${map.yoga }">
