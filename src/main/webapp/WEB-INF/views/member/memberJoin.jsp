@@ -17,9 +17,9 @@
    width: 250px;
    height :48px;
    font-size: 18px;
-   background: deepskyblue;
+   background: #257cda;
    color: white;
-   border: solid 1px deepskyblue;
+   border: solid 1px #257cda;
    border-radius: 5px;
    margin : 15px 0 15px 0;
 }
@@ -469,7 +469,7 @@ function showResult(){
                   placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
                   readonly="readonly">
                <button type="button" class="btn btn-default"
-                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  style="background-color: #257cda; color: white; line-height: 1.20;"
                   onclick="execPostCode();">
                   <i class="fa fa-search"></i> 우편번호 찾기
                </button>
@@ -494,13 +494,13 @@ function showResult(){
                   placeholder="Phone Number">
                <div class="eheck_font" id="phone_check"></div>
                   <input type="button" class="btn btn-default"
-                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  style="background-color: #257cda; color: white; line-height: 1.20;"
                   value="인증번호전송"><br>
                   
                   <input class="form-control" style="width: 40%; display: inline;"
                   placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
                   <input type="button" class="btn btn-default"
-                  style="background-color: deepskyblue; color: white; line-height: 1.20;"
+                  style="background-color: #257cda; color: white; line-height: 1.20;"
                   value="인증">
             </div>
 

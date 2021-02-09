@@ -53,7 +53,7 @@
 		<div class="login-main-wrap">
 			<form action="login.do">
 				<section class="login-input-section-wrap">
-					<div style="font-size: 60px; color: deepskyblue;">Z I P C O K
+					<div style="font-size: 60px; color: #257cda; font-weight : 900;">집 콕 헬 스
 					</div>
 					<br>
 					<div class="login-input-wrap">
@@ -64,12 +64,12 @@
 						<input type="password" name="mem_pwd" placeholder="PASSWORD"></input>
 					</div>
 					<div class="login-button-wrap">
-						<button type="submit">Sign in</button>
+						<button type="submit">로 그 인</button>
 					</div>
 					<div class="login-stay-sign-in">
 						<span> <input type="checkbox" name="saveid" value="on"
-							${empty cookie.saveid.value?'':'checked' }>&nbsp; Stay
-							Signed in
+							${empty cookie.saveid.value?'':'checked' }>&nbsp;
+							ID Save
 						</span>
 					</div>
 				</section>

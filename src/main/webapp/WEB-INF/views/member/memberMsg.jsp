@@ -37,9 +37,9 @@ function backPage(){
 <body>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
-<br>
+<br><br><br><br><br><br><br><br>
 
-<div class="joinOK-container" style="height: 650px;">
+<div class="joinOK-container" style="height: 490px;">
 
 <div><h2>${msg }</h2></div>
 
