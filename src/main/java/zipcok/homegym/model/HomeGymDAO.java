@@ -17,4 +17,5 @@ public interface HomeGymDAO {
 	public HomeGymDTO HomeGymContent(String homegymId);
 	public List<CoachFileDTO> HomeGymImageContent(String homegymId);
 	public List<ReviewDTO> HomeGymReview(String homegymId);
+	public String HomeGymIdImgSelect(String homegymId);
 }
