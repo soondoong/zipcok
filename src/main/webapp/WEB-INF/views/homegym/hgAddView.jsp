@@ -1,9 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <style>
 .HomeGymAddLabel {
@@ -37,30 +34,26 @@ width : 600px;
 
 }
 </style>
-<%@include file="../header2.jsp" %>
-<script>
-jQuery.browser = {};
-(function () {
-    jQuery.browser.msie = false;
-    jQuery.browser.version = 0;
-    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-        jQuery.browser.msie = true;
-        jQuery.browser.version = RegExp.$1;
-    }
-})();
-</script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/httpRequest.js"></script>
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
- -->
 <script>
-var count = 0;
-function homegym_setting(){
-	var today = getTimeStamp() ;
-	$( '#start_Date' ).attr('min', today);
-	$( '#start_Date' ).val(today);
-}
+	var count = 0;
+	
+	function homegym_setting(){
+		var today = getTimeStamp() ;
+		$( '#start_Date' ).attr('min', today);
+		$( '#start_Date' ).val(today);
+	}
+
+	jQuery.browser = {};
+	(function () {
+	    jQuery.browser.msie = false;
+	    jQuery.browser.version = 0;
+	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	        jQuery.browser.msie = true;
+	        jQuery.browser.version = RegExp.$1;
+	    }
+	})();
 
 	$(function() {
 		$('#date_div').datepicker({
@@ -100,10 +93,6 @@ function homegym_setting(){
 	    }
 	    return zero + n;
 	}
-
-
-
-	
 
 	function addEq(){
 		
@@ -227,8 +216,6 @@ function homegym_setting(){
 		}
 	}
 </script>
-</head>
-<body onload = "javascript:homegym_setting();">
 	<h1>홈짐 등록하기</h1>
 	<form name="HomeGymAddForm" id="addForm" action="HomeGymAdd.do"
 		method="post" enctype="multipart/form-data">
@@ -372,5 +359,4 @@ function homegym_setting(){
 		</ul>
 		<input type="button" value="홈짐 등록 신청" onclick="javascript:addSubmit();">
 	</form>
-</body>
-</html>
+<%@include file="../_include/footer.jsp" %>

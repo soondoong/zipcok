@@ -1,12 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <script>
 function login_check(){
@@ -79,5 +72,4 @@ function login_check(){
 <c:if test = "${check_result }">
 <input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:login_check();">
 </c:if>
-</body>
-</html>
+<%@include file="../_include/footer.jsp" %>

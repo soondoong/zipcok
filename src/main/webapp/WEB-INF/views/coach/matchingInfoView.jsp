@@ -27,7 +27,7 @@
 	 -->
 
 	<article class="matching_info_view">
-		<h2>부담없이 편한 장소에서 <br>운동을 시작해보세요</h1>
+		<h2>부담없이 편한 장소에서 <br>운동을 시작해보세요</h2>
 		<ul>
 			<li>
 				<div class="visual _motion _right">
