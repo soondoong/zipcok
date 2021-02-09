@@ -9,16 +9,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <style>
-.eq_options {
-border:1px solid black;
-font-size: 20px;
-border-radius: 8px;
-width:200px;
-height:30px;
-}
-.ListItem{
-border:1px solid black;
-}
+.eq_options {border:1px solid black;font-size: 20px;border-radius: 8px;width:200px;height:30px;}
+.ListItem{border:1px solid black;}
+.top_search_wrap {padding: 100px 0;background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
+.top_search_wrap .top_search_inner {display: inline-block;}
+.top_search_wrap select {width: 200px; height: 40px;}
+.top_search_wrap input[type=date] {width: 200px; height: 40px;}
+.top_search_wrap input[type=submit] {width: 150px; height: 40px;}
+.homegym_wrap {display: flex;}
+.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
+.homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
+.homegym_wrap .homegym_search_wrap .eq_list {}
+.homegym_wrap .homegym_search_wrap .eq_list label {display: inline-block; cursor: pointer; position: relative; padding: 0 0 0 24px;}
+.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
+.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
+.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
+.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
+.homegym_wrap .homegym_search_result .homegym_search_result_list_item span { margin-right: 10px; width: 100px; height: 50px; border:1px solid gray; border-radius: 8px;}
+.homegym_wrap .homegym_search_result .homegym_search_result_list_item img { width:300px; height: 300px;}
 </style>
 <script>
 window.addEventListener('load', function() {
@@ -27,10 +35,14 @@ window.addEventListener('load', function() {
 		var eq_options_split = eq_options.split(',');
 		for(var i in eq_options_split){
 			document.getElementById(eq_options_split[i]).checked = true;
+			var option_list = document.getElementsByClassName('homegym_search_result_list_item_option_'+eq_options_split[i]);
+			for(var j = 0 ; j < option_list.length ; j ++ ){
+				var option_class = option_list.item(j);
+				option_class.style.border = '1px solid #3978df';
+			}
 		}
 	}
-
-	});
+});
 
 function priceOption(){
 	var left_price_span = document.getElementById('price').value;
@@ -54,37 +66,18 @@ function ContentEnter(id){
 <body>
 <%@include file="../header2.jsp" %>
 
-	<style>
-		.top_search_wrap {padding: 100px 0; background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
-		.top_search_wrap .top_search_inner {display: inline-block;}
-		.top_search_wrap select {width: 200px; height: 40px;}
-		.top_search_wrap input[type=date] {width: 200px; height: 40px;}
-		.top_search_wrap input[type=submit] {width: 150px; height: 40px;}
-	
-		.homegym_wrap {display: flex;}
-		.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
-		.homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
-		.homegym_wrap .homegym_search_wrap .eq_list {}
-		.homegym_wrap .homegym_search_wrap .eq_list label {display: inline-block; cursor: pointer; position: relative; padding: 0 0 0 24px;}
-		.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
-		.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
-		.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
-		.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
-
-	</style>
-
 	<!-- 상단 조건바 -->
-	
+	<form id = "option_fm" action = "HomeGymList.do" method = "post">
 	<div class="top_search_wrap">
 		<div class="top_search_inner">
 			<select name="top_option_location" onchange="javascript:sendOption();">
-				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected="selected"</c:if>>----</option>
-				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected="selected"</c:if>>강남구</option>
-				<option value="강동구" <c:if test="${keywordMap.location=='강동구'}">selected="selected"</c:if>>강동구</option>
-				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected="selected"</c:if>>강북구</option>
-				<option value="강서구" <c:if test="${keywordMap.location=='강서구'}">selected="selected"</c:if>>강서구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='관악구'}">selected="selected"</c:if>>관악구</option>
-				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected="selected"</c:if>>영등포구</option>
+				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected</c:if>>----</option>
+				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected</c:if>>강남구</option>
+				<option value="강동구" <c:if test="${keywordMap.location=='강동구'}">selected</c:if>>강동구</option>
+				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected</c:if>>강북구</option>
+				<option value="강서구" <c:if test="${keywordMap.location=='강서구'}">selected</c:if>>강서구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='관악구'}">selected</c:if>>관악구</option>
+				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
 			</select>
 			<input type="date" name="top_option_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
 			<input type="submit" value="검색하기">
@@ -93,7 +86,7 @@ function ContentEnter(id){
 	
 	<div class="homegym_wrap">
 		<div class="homegym_search_wrap">
-			<form id = "option_fm" action = "HomeGymList.do" method = "post">
+			
 			<!-- 좌측 조건바 -->
 			<div id = "left_option" class="left_option">
 				<h4>검색 조건</h4>
@@ -133,12 +126,10 @@ function ContentEnter(id){
 				</div>
 				<hr>
 			</div>
-			</form>
 		</div>
 		<div class="homegym_search_result">
 			<h1>어떤 홈짐을 찾고 계신가요?</h1>
 			<div class="homegym_search_result_list">
-				<h6>게시글 수 : ${totalCnt }</h6>
 				<hr>
 				<c:set var="HomeGymList" value="${HomeGymList }" />
 				<c:choose>
@@ -148,9 +139,8 @@ function ContentEnter(id){
 					<c:otherwise>
 						<c:forEach var="dto" items="${HomeGymList }">
 							<div class="homegym_search_result_list_item" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
-							시작일:${dto.hg_start_date } / 종료일:${dto.hg_end_date }
-							<br>아이디 : ${dto.hg_mem_id } / 닉네임 : ${dto.hg_nickname }
-							<br>주소 :  ${dto.hg_faddr } / 상세 주소 : ${dto.hg_saddr }
+							<img src = "upload/homegymInfo/${dto.hg_upload }">
+							닉네임 : ${dto.hg_nickname }
 							<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
 							<br>장비 리스트 :
 							<br>
@@ -158,9 +148,9 @@ function ContentEnter(id){
 							<h6>등록된 기구가 없습니다.</h6>
 							</c:if>
 							<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-							<div class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
+							<span class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
 								${eq_list.eq_name } : ${eq_list.eq_count }
-							</div>
+							</span>
 							</c:forEach>		
 							</div>
 							<hr>
@@ -171,5 +161,6 @@ function ContentEnter(id){
 			<h6>${pageStr }</h6>
 		</div>
 	</div>
+	</form>
 </body>
 </html>

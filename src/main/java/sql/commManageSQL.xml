@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zipcok.comm">
+
+<select id="paymentListSQL" parameterType="String" resultType="zipcok.test.model.Payment_Request_TestDTO">
+	select * from 
+			payment_request_test
+		where
+			pr_receiver_test=#{pr_receiver_test}
+</select>
+
+<select id="manageCommListSQL" parameterType="String" resultType="zipcok.comm.model.CommunityDTO">
+	select * from 
+			community
+		where
+			com_coach_id=#{com_coach_id}
+</select>
+
+<insert id="manageCommPlusSQL" parameterType="zipcok.comm.model.CommunityDTO">
+	insert into
+		community
+	values(community_idx.nextval,
+	#{com_coach_id},
+	#{com_name},
+	0,
+	'N',
+	sysdate	
+	)
+	
+</insert>
+
+
+</mapper>

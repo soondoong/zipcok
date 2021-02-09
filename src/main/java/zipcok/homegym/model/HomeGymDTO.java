@@ -23,6 +23,7 @@ public class HomeGymDTO {
 	private String hg_status;
 	private String hg_eq;
 	private List<HomeGymEquipmentDTO> hg_eq_list;
+	private String hg_upload;
 	
 	public HomeGymDTO() {
 		// TODO Auto-generated constructor stub
@@ -181,10 +182,19 @@ public class HomeGymDTO {
 		this.hg_eq_list = hg_eq_list;
 	}
 
+	public String getHg_upload() {
+		return hg_upload;
+	}
+
+	public void setHg_upload(String hg_upload) {
+		this.hg_upload = hg_upload;
+	}
+
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
 			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date, String hg_end_date,
 			String hg_not_date, int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check,
-			Date hg_approved_date, String hg_status, String hg_eq, List<HomeGymEquipmentDTO> hg_eq_list) {
+			Date hg_approved_date, String hg_status, String hg_eq, List<HomeGymEquipmentDTO> hg_eq_list,
+			String hg_upload) {
 		super();
 		this.hg_mem_id = hg_mem_id;
 		this.hg_nickname = hg_nickname;
@@ -205,6 +215,8 @@ public class HomeGymDTO {
 		this.hg_status = hg_status;
 		this.hg_eq = hg_eq;
 		this.hg_eq_list = hg_eq_list;
+		this.hg_upload = hg_upload;
 	}
+
 	
 }

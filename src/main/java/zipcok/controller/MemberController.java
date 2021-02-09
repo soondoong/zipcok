@@ -90,7 +90,8 @@ public class MemberController {
          MemberDTO dto,
          @RequestParam("upload")List<MultipartFile> list) {
       
-      
+	   String msg="";
+       ModelAndView mav=new ModelAndView();
       
         /*다중파일첨부 시 필요*/   
    
@@ -107,26 +108,39 @@ public class MemberController {
 
          String mfile_type=list.get(i).getContentType();
          CoachFileDTO cdto=new CoachFileDTO(0, mfile_key, mfile_mem_id, mfile_upload, mfile_size, mfile_orig, mfile_path, mfile_type);
+ 
          
-         fileArr.add(cdto);
+         if(mfile_size!=0) {
+        	 fileArr.add(cdto);
+    
+           HashMap<String,Object> map=new HashMap<String,Object>();
+           map.put("fileArr", fileArr);
+           map.put("memberDTO", dto);
+              
+           int result=mdao.memberJoinSubmit(map);
+           
+           if(result>1) {
+         	  msg="회원가입 성공! 환영합니다~";
+         	  mav.addObject("msg", msg);
+              mav.setViewName("member/memberMsg");
+           }else {
+         	  msg="회원가입 실패! 정보를 확인해주세요~";
+         	  mav.addObject("msg", msg);
+              mav.setViewName("member/memberMsg");
+           }
+    
+         }else {
+        	 msg="프로필 사진등록을 해주세요! (필수)";
+        	 mav.addObject("msg", msg);
+             mav.setViewName("member/profileImg_ok");
+         }
+               
       }
+     
       
-      /*다중파일첨부 시 필요*/      
-      
-      
-      
-      HashMap<String,Object> map=new HashMap<String,Object>();
-      map.put("fileArr", fileArr);
-      map.put("memberDTO", dto);   
-      
-      int result=mdao.memberJoinSubmit(map);
-      String msg=result>1?"회원가입 성공!":"회원가입 실패!";
-      ModelAndView mav=new ModelAndView();
-      mav.addObject("msg", msg);
-      mav.setViewName("member/memberMsg");
       return mav;
    }
-   
+
    
    
    
@@ -208,6 +222,8 @@ public class MemberController {
                   resp.addCookie(ck);
                }
             }
+            
+            
          }else {
             mav.addObject("msg", "아이디 또는 비밀번호가 잘못되었습니다");
             mav.addObject("gourl", "loginForm.do");
@@ -299,7 +315,7 @@ public class MemberController {
 
       if(mem_pwd.equals(mem_pwd2)) {
          int result=mdao.pwdUpdate(dto);
-         mav.addObject("msg", "비밀번호 수정 완료!");
+         mav.addObject("msg", "비밀번호 수정 되었습니다. 다시 로그인해주세요~");
          mav.addObject("gourl", "loginForm.do");
          mav.setViewName("member/pwdUpdate_ok");
       }else {

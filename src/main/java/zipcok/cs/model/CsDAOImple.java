@@ -61,6 +61,7 @@ public class CsDAOImple implements CsDAO {
 		int count=sqlMap.delete("csDeleteSQL", bbs_idx);
 		return count;
 	}
+	
 		
 	//게시물수정
 	@Override
@@ -93,11 +94,21 @@ public class CsDAOImple implements CsDAO {
 		int count=sqlMap.update("csReadnumSQL", bbs_idx);
 		return count;
 	}
-	
-	//del_yn y로 변경해주기
+	//파일 del_yn 바꿔주는 메서드(게시글idx이용)
+	public int csAndFileDel(int bbs_idx) {
+		int count=sqlMap.update("cszfileDelete2", bbs_idx);
+		return count;
+	}
+	//del_yn y로 변경해주기(사진삭제버튼누를때)
 	@Override
-	public int deleteCsFile(CsZipcokFileDTO dto) {
-		int result=sqlMap.update("csZfileDelete", dto);
+	public int deleteCsFile(String fileName) {
+		int result=sqlMap.update("cszfileDelete", fileName);
+		return result;
+	}
+	//del_yn y 인 데이터 삭제(수정하기누를때, 리스트로 갈때)
+	@Override
+	public int cszfileRealDelete() {
+		int result=sqlMap.delete("cszfileRealDelete");
 		return result;
 	}
 	

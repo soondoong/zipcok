@@ -16,7 +16,7 @@
 	<div id="foodSubject">
 		제목 <input type="text" name="food_subject">
 	</div>
-		날짜 
+		날짜 <input type="date">
 			
 		
 			<input type="file">

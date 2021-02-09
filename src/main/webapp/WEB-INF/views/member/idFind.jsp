@@ -17,9 +17,9 @@
 	width: 250px;
 	height :48px;
 	font-size: 18px;
-	background: deepskyblue;
+	background: #257cda;
 	color: white;
-	border: solid 1px deepskyblue;
+	border: solid 1px #257cda;
 	border-radius: 5px;
 	margin : 15px 0 15px 0;
 }
