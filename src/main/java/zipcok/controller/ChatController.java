@@ -1,6 +1,7 @@
 package zipcok.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.catalina.User;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.chat.model.*;
 import zipcok.coach.model.CoachDAO;
+import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.member.model.*;
 import zipcok.mypage.model.MypageDAO;
@@ -67,14 +69,22 @@ public class ChatController {
 				
 				List<MessageDTO> msglist = chatdao.getMessageList(croom_idx);		
 				mav.addObject("msglist", msglist);
+				
+				RequestFormDTO reqdto=coachdao.findOneRequest(req_idx);
+				mav.addObject("reqdto", reqdto);
 		
+				
+								
 		/*채팅방에 들어올때  일반회원인지 코치회원인지 판단해서
 		 * 상대방 정보 dto 뿌려주기 
 		 * 그동안 메세지 뿌려주기
 		 * */
-		if(type.equals("일반회원")) { //일반회원
+		if(type.equals("일반회원")) { //일반회원일경우 코치정보도같이뿌려주자
 			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_coachid());
 			mav.addObject("receiveDTO", dto); //상대방정보dto
+			
+			HashMap<String, Object> coachMap=coachdao.coachProfile(dto.getMem_id());
+			mav.addObject("coachMap", coachMap); //코치모든프로필정보
 		}else { //코치회원
 			MemberAllDTO dto= myPagedao.memberAllProfile(cdto.getCroom_userid());
 			mav.addObject("receiveDTO", dto);//상대방정보dto

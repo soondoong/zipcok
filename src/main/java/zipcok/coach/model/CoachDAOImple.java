@@ -282,6 +282,14 @@ public class CoachDAOImple implements CoachDAO {
 		return list;
 	}
 
+	
+	/*요청서정보한개가져오기*/
+@Override
+public RequestFormDTO findOneRequest(int req_idx) {
+	RequestFormDTO dto= sqlMap.selectOne("findOneRequest", req_idx);
+	return dto;
+}
+	
 
  /*좋아요 추가*/
  @Override

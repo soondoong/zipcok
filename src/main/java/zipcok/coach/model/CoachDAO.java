@@ -21,6 +21,7 @@ public interface CoachDAO {
 	public HashMap<String,Object> coachProfile(String id);
 	public int sendRequestForm(RequestFormDTO dto);
 	public List<RequestFormDTO> searchRequestList(HashMap<String, Object> keys,int cp, int ls);
+	public RequestFormDTO findOneRequest(int req_idx);
 	
 	public int insertLike(LikeDTO dto);//좋아요 추가
 	public int deleteLike(LikeDTO dto);//좋아요 삭제

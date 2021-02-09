@@ -37,7 +37,7 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
 		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;}
-		.likeafter{color : #e86a82; }
+		.likeafter{color : #FF6682; }
 		
 	
 		.nomalpaging,.paging {margin: 40px 0 0; text-align: center;}

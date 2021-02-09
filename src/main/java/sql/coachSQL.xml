@@ -474,6 +474,15 @@ select
 
 </select>	
 
+<select id="findOneRequest" resultType="zipcok.coach.model.RequestFormDTO">
+select
+* from 
+ request_form
+ where 
+ req_idx = #{req_idx}
+</select>
+
+
 <insert id="likeplus" parameterType="zipcok.mypage.model.LikeDTO">
 insert into zipcok_like
 values(

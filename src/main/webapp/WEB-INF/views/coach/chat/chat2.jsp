@@ -56,33 +56,7 @@ $(function () {
 #file { display:none; } 
 #image_sectionDIV{ display:none; }
 .pimg{width:50px; height:50px;  border-radius: 50%; }
-.mymsg .notmymsg{font-size:14px; }
-.mymsg:after{
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 0 1px 12px 10px;
-	border-color: lightgray transparent;
-	display: block;
-	width: 0;
-	transform: rotate(45deg);
-	z-index: 1;
-	top: -6.5px; 
-	left: 213px; 
-	 }
-.notmymsg:after{
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 0 10px 12px 1px;
-	border-color:gray transparent;
-	display: block;
-	width: 0;
-	transform: rotate(318deg);
-	z-index: 1;
-	top: -6.5px; 
-	left: -5px; 
-	}
+
   </style>
 </head>
 <%@include file="../../header2.jsp" %>
@@ -94,9 +68,9 @@ $(function () {
 <c:set var="yourid" value="${mtype eq '코치'?cdto.croom_userid : cdto.croom_coachid}"/>
 <c:set var="rdto" value="${receiveDTO}"/>
 <c:set var="msglist" value="${msglist }"/>
-
-
-
+<c:set var="coachdto" value="${coachMap.coachDTO }"/>
+<c:set var="reqdto" value="${reqdto }"/>
+<!-- 메뉴바 -->
 <div class="mypage_wrap">
 	 <c:if test="${mtype=='코치' }">
 				<div class="mypage_sidebar">
@@ -126,80 +100,139 @@ $(function () {
 						</ul>
 					</div>
 	    </c:if>  
- 
+<!-- 메뉴바 --> 
+<style>
+.newcont{margin:50px 0 0 50px;}
+.allchatWrap {max-width:900px; height: 180px;}
+.allchatWrap .othermanInfo{padding:20px;  border:1px solid #DADDE2;  display:flex;  justify-content: flex-start;}
+.allchatWrap .othermanInfo  img{width:140px; height:140px; border-radius: 10px;}
+.allchatWrap .othermanInfo .infos{ padding:10px 0 0 30px;}
+.allchatWrap .othermanInfo .infos  h3{ font-size:18px; font-weight:550;}
+/*코치회원정보*/
+.allchatWrap .othermanInfo .infos  #starimg{ width:90px;height:auto;  }
+/*일반회원정보*/
+.allchatWrap .othermanInfo .infos .type,.gender { margin-right: 5px; background: #318dea; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
+.allchatWrap .othermanInfo .infos .rightgt{margin:0 6px 0 6px;}
+.allchatWrap .othermanInfo .infos .reqcont {margin:10px 0 0 0;}
 
+</style>
+<script>
+
+$(document).ready(function(){
+	/*별점사진정보*/
+	var starnumsosu='${coachdto.avg }';
+	var starnum = starnumsosu.split( '.', 1 );
+	if(starnum==0)starnum=1;
+	$('#starimg').attr('src','img/coach/star/star'+starnum+'.jpg')
 	
+	
+	
+	/*나이정보*/
+	var birthdate='${rdto.mem_birth}';
+	var byear=birthdate.substring(0,4);
+	var today = new Date();
+	var ages = today.getFullYear() - byear;
+	var teen =Math.floor(ages/10); //몇십대인지 ex)10대 20대 30대
+	var teeninfo= teen*10+'대';
+	$('span[class="type"]').html(teeninfo);
+})
+</script>	
+<!-- 채팅컨텐츠 -->
+<div class="container newcont">
 
-<div class="container">
-
-	<h2>${login.mem_name}<c:if test="${sessionScope.sid ==null}">코치</c:if>님</h2>
 	     
-	<h3>${rdto.mem_name}<c:if test="${sessionScope.sid !=null}">코치</c:if>님과의 채팅 페이지</h3>
+<div class="allchatWrap">
+	<div class="othermanInfo">	  
+		 
+		 	 <img src="/zipcok/upload/member/${rdto.mfile_upload}">
+		  <c:if test="${!empty  coachdto }">
+		  <div class="infos">
+		  	  <h3>${rdto.mem_name}코치</h3>
+		  	  <p>${coachdto.cate_name}</p>
+		  	  <p style="font-size:1.3rem; font-weight: 300;"><img src=""  id="starimg">${coachdto.avg }</p>
+		  	  <p>${coachdto.coach_intro_sub }</p>
+		  </div>
+		  </c:if>
+		  
+		   <c:if test="${empty  coachdto }">
+		  <div class="infos">
+		  	  <h3>${rdto.mem_name}</h3>
+		  	  <p><span>${reqdto.req_type }</span><span class="rightgt">&gt;</span><span>${reqdto.req_category }</span></p>
+		  	  <div>
+		  		  <span class="type">몇십대</span>
+		  		  <span class="gender">${rdto.mem_gender }자</span>
+		  	  </div>
+		  	  <p class="reqcont">문의내용 : ${reqdto.req_cont }</p>
+		  </div>
+		  </c:if>
+	</div>
+	
+<style>
+
+.AreaAll{border: 1px solid lightgray; border-top:0px; height: 50vh; border-radius:0 0 5px 5px; overflow-y:scroll}
+#chatMessageArea{ padding :15px 40px 15px 40px;}
+/*내메세지*/
+.OnechatfromMe{display:flex; justify-content:flex-end;  height : auto; margin-top : 10px;}
+.OnechatfromMe .ContentWrap{margin-top : 7px; padding :5px 0;}
+.OnechatfromMe .ContentWrap .cont{min-width:200px; min-height:60px; background-color:white; border:1px solid #ececec;  font-size : 15px; padding : 15px 15px;  border-radius:10px 0 0 10px;}
+.sendtime{font-size:9px; text-align:right; float:right;}	
+.chatimgdiv{padding: 12px 0 0 0;}
+.chatimgdiv img{width:60px; height: 60px; border-radius: 0 5px 5px 0;}
+.chatimgdiv div{font-size:13px; text-align: center;padding:6px 0 0 0;}
+
+/*상대메세지*/
+.OnechatNotMe{justify-content:flex-start;}
+.OnechatNotMe .ContentWrap .cont{border-radius:0 10px 10px 0; background-color:white; border:1px solid #ececec;}
+.OnechatNotMe .chatimgdiv img{ border-radius: 5px 0 0 5px;}
+.OnechatNotMe .sendtime{float:left;}
+
+</style>	
 	
 	<!-- 채팅 내용 -->
-	<div class="col-12">
-		<div class="col-8"  style=" border: 1px solid lightgray; height: 400px; border-radius: 10px; overflow:scroll" id = "chatArea">
-			<div id="chatMessageArea" style = "margin-top : 10px; margin-left:10px;">
-			
-			
+	
+	<div class="AreaAll" id = "chatArea">
+		<div id="chatMessageArea">
+					
 				<c:if test="${!empty msglist}">
-				<c:forEach var="msgdto" items="${msglist}">
+				<c:forEach var="msgdto" items="${msglist}">					
+					<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
 					
-				<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
-					
-				<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'>
-						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:left;'>
-							 <div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'>
-							 <span style = 'font-size : 12px;' class="mymsg">${msgdto.msg_content }</span>						 
-							 </div>
-							 
-							 <div col-12 style = 'font-size:9px; text-align:right; float:right;'>
-							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
-							 </div>
+				<div class='OnechatfromMe'>
+						<div class = 'ContentWrap' >
+							 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
+							 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
 						 </div>
 						 
-						 <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
-								 <img class='pimg' src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
-								 <div style='font-size:15px; clear:both;'>${login.mem_name}</div>
+						 <div class='chatimgdiv' >
+								 <img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
+								 <div>${login.mem_name}</div>
 						</div>
-				</div>
-						
-					
-				</c:if>
+				</div>	
+			</c:if>
 				
 				
-					<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->
-					
-				<div class='col-6 row' style = 'margin-left:0px; height : auto; margin-top : 5px;'>
+			<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->	
+								
+					<div class='OnechatfromMe OnechatNotMe '>
+						<div class='chatimgdiv' >
+									 <img  src='/zipcok/upload/member/${rdto.mfile_upload}'  >
+									 <div>${msgdto.user_name}</div>
+					    </div>
+						<div class = 'ContentWrap' >
+							 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
+							 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
+						 </div>		
+					</div>			
 				
-					   <div class='col-2' style = 'padding-right:0px; padding-left : 0px;'>
-								 <img class='pimg' src='/zipcok/upload/member/${rdto.mfile_upload}'>
-								 <div style='font-size:15px; clear:both;'>${msgdto.user_name}</div>
-						</div>
-				
-						<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'>
-							 <div class = 'col-12' style = ' background-color: gray; padding : 10px 5px; float:left; border-radius:10px;'>
-							 <span class="notmymsg">${msgdto.msg_content }</span>
-							 </div>
-							 
-							 <div col-12 style = 'font-size:9px; text-align:right; float:left;'>
-							 <span style ='float:right; font-size:9px; text-align:right;' >${msgdto.msg_sendtime }</span>
-							 </div>
-						 </div>
-						 
-				
-				</div>
-				
-					
-				</c:if>	
+			</c:if>	
 									
-				</c:forEach>
-				</c:if>
+			</c:forEach>
+		</c:if>
 		
 			
-			</div>
-		</div>
 	</div>
+</div>
+
 	
 
 		<!-- 파일첨부 결제요청서 -->
@@ -245,9 +278,9 @@ $(function () {
 			
 			</div>
     <!-- 전송버튼 -->
-
+ </div><!-- allchatWrap -->	
 </div>
-
+<!-- 채팅컨텐츠 -->
 <script type="text/javascript">
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -458,11 +491,18 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 }else{
 
 	 var t = getTimeStamp();
-	 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:left;'>"
-	 +"<div class = 'col-12' style = ' background-color:lightgray; padding : 10px 5px; float:left; border-radius:10px;'><span style = 'font-size : 12px;'  class='mymsg'>"+msg+"</span></div>"
-	 +"<div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div>"
-	 +"</div>"
-	 +"<div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' class='img-fluid' src='/zipcok/upload/member/${loginAll.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>${login.mem_name}</div></div></div>");		 
+	 
+	 
+	 $("#chatMessageArea").append("<div class='OnechatfromMe'>"+
+				"<div class = 'ContentWrap' >"+
+				 "<div class = 'cont mymsg' >"+msg+"</div>"+
+				 "<div class='sendtime' > "+t+"</div>"+
+			 "</div>"+		 
+			" <div class='chatimgdiv' >"+
+					"<img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >"+
+					 "<div>${login.mem_name}</div>"+
+			"</div>"+
+	"</div>");
 
 	  var chatAreaHeight = $("#chatArea").height();
 	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
@@ -478,12 +518,21 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 		 return false;
 	 }else{
 	 var t = getTimeStamp();
+	  
+
+	 $("#chatMessageArea").append("<div class='OnechatfromMe OnechatNotMe '>"+
+		"<div class='chatimgdiv' >"+
+			" <img  src='/zipcok/upload/member/${rdto.mfile_upload}' >"+
+		     "<div>"+yourid+"</div>"+
+	   " </div>"+
+		"<div class = 'ContentWrap' >"+
+			 "<div class = 'cont mymsg' >"+msg+"</div>"+
+			 "<div class='sendtime' >"+t+"</div>"+
+		 "</div>"+	
+	"</div>");		
 	 
-	
-		 $("#chatMessageArea").append("<div class='col-6 row' style = 'margin-left:50%; height : auto; margin-top : 5px;'><div class='col-2' style = 'padding-right:0px; padding-left : 0px;'><img id='profileImg' src='/zipcok/upload/member/${rdto.mfile_upload}' style = 'width:50px; height:50px; '><div style='font-size:15px; clear:both;'>"+yourid+"</div></div>"
-				 +"<div class = 'col-10' style = 'overflow : y ; margin-top : 7px; float:right;'><div class = 'col-12' style = ' background-color: yellow; padding : 10px 5px; float:left; border-radius:10px;' class='notmymsg'><span style = 'font-size : 12px;'>"+msg+"</span></div><div col-12 style = 'font-size:9px; text-align:right; float:right;'><span style ='float:right; font-size:9px; text-align:right;' >"+t+"</span></div></div></div>")	;	 
-
-
+	 
+	 
 	  var chatAreaHeight = $("#chatArea").height();
 	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
 	  $("#chatArea").scrollTop(maxScroll);

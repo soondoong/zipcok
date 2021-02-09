@@ -11,7 +11,7 @@
 <style>
 .eq_options {border:1px solid black;font-size: 20px;border-radius: 8px;width:200px;height:30px;}
 .ListItem{border:1px solid black;}
-.top_search_wrap {padding: 100px 0; background: #3978df; text-align: center;}
+.top_search_wrap {padding: 100px 0;background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
 .top_search_wrap .top_search_inner {display: inline-block;}
 .top_search_wrap select {width: 200px; height: 40px;}
 .top_search_wrap input[type=date] {width: 200px; height: 40px;}
@@ -65,6 +65,7 @@ function ContentEnter(id){
 </head>
 <body>
 <%@include file="../header2.jsp" %>
+
 	<!-- 상단 조건바 -->
 	<form id = "option_fm" action = "HomeGymList.do" method = "post">
 	<div class="top_search_wrap">
