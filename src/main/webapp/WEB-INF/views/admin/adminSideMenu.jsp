@@ -22,7 +22,7 @@
 			<li><a></a></li>
 			<li><a href="#">코치매칭 관리</a>
 				<ul class="submenu">
-					<li class="submenuList"><a href="#">코치 관리</a></li>
+					<li class="submenuList"><a href="admin_coachMatchAdmin.do">코치 관리</a></li>
 					<li class="submenuList"><a href="#">매칭내역 관리</a></li>
 					<li class="submenuList"><a href="#">취소 관리</a></li>
 					<li class="submenuList"><a href="#">커뮤니티 관리</a></li>
