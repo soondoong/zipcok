@@ -146,6 +146,7 @@ public class MypageDAOImple implements MypageDAO {
       public List mypageCoachMatchLikeList(int cp, int ls, String mem_id) {
          int start=(cp-1)*ls+1;
          int end=cp*ls;
+         System.out.println(cp+"/"+ls+"/"+mem_id);
          Map map=new HashedMap();
          map.put("mem_id", mem_id);
          map.put("start", start);

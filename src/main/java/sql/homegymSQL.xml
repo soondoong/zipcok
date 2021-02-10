@@ -78,23 +78,19 @@
         <choose>
         	<when test = "eq_options ==''"></when>
         	<when test = "eq_options !=''">
-        	hg_eq like
-        	<foreach collection="eq_option_s" item = "arr" open="'%" close="%'" separator="%">
-        	#{arr}
-        	</foreach>
-        	and
+        	<foreach collection="eq_option_s" item = "arr">hg_eq like '%${arr}%' and</foreach>
         	</when>
         </choose>
-        hg_price <![CDATA[>=]]> #{price}
+        hg_price <![CDATA[>=]]> ${price}
 		and
-		hg_person_count <![CDATA[>=]]> #{person_count}
+		hg_person_count <![CDATA[>=]]> ${person_count}
 		and
         hg_approved_check = '1'
 		and
 		hg_status = '1'
         ) c
         where
-        rnum between #{start} and #{end}
+        rnum between ${start} and ${end}
 	</select>
 	
 	
@@ -125,16 +121,12 @@
         <choose>
         	<when test = "eq_options ==''"></when>
         	<when test = "eq_options !=''">
-        	hg_eq like
-        	<foreach collection="eq_option_s" item = "arr" open="'%" close="%'" separator="%">
-        	#{arr}
-        	</foreach>
-        	and
+        	<foreach collection="eq_option_s" item = "arr">hg_eq like '%${arr}%' and</foreach>
         	</when>
         </choose>
-        hg_price <![CDATA[>=]]> #{price}
+        hg_price <![CDATA[>=]]> ${price}
 		and
-		hg_person_count <![CDATA[>=]]> #{person_count}
+		hg_person_count <![CDATA[>=]]> ${person_count}
 		and
         hg_approved_check = '1'
 		and

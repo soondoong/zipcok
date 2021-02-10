@@ -10,6 +10,7 @@ public class Users_communityDTO {
 	private String uc_name;
 	private int uc_day_achiev;
 	private String uc_status;
+	private String uc_mem_name;
 	
 	public Users_communityDTO() {
 		super();
@@ -17,7 +18,7 @@ public class Users_communityDTO {
 	}
 
 	public Users_communityDTO(int uc_idx, String uc_mem_id, int uc_comm_idx, String uc_name, int uc_day_achiev,
-			String uc_status) {
+			String uc_status, String uc_mem_name) {
 		super();
 		this.uc_idx = uc_idx;
 		this.uc_mem_id = uc_mem_id;
@@ -25,6 +26,7 @@ public class Users_communityDTO {
 		this.uc_name = uc_name;
 		this.uc_day_achiev = uc_day_achiev;
 		this.uc_status = uc_status;
+		this.uc_mem_name = uc_mem_name;
 	}
 
 	public int getUc_idx() {
@@ -74,6 +76,15 @@ public class Users_communityDTO {
 	public void setUc_status(String uc_status) {
 		this.uc_status = uc_status;
 	}
+
+	public String getUc_mem_name() {
+		return uc_mem_name;
+	}
+
+	public void setUc_mem_name(String uc_mem_name) {
+		this.uc_mem_name = uc_mem_name;
+	}
+	
 	
 	
 

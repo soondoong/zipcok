@@ -52,19 +52,6 @@ and
 rnum <![CDATA[<]]>10
 
 </select>
-
-
-	<insert id="insertCategory" parameterType="zipcok.coach.model.CategoryDTO">
-insert into 
- coach_category
-values(
-coach_category_cate_idx.nextval,
-#{cate_mem_id},
-#{cate_name}
-)
-
-</insert>
-	
 	
 	
 	<select id="findCategories" parameterType="String" resultType="zipcok.coach.model.CategoryDTO">
@@ -74,15 +61,7 @@ coach_category_cate_idx.nextval,
 	cate_mem_id= #{id}
 	
 	</select>
-	
-		<delete id="deleteCategories"  parameterType="HashMap" >
-	 delete from
-	  coach_category
-	  where
-	  cate_name= #{cate_name}
-	  and
-	  cate_mem_id=#{cate_mem_id}
-	</delete>
+
 	
 	
 	<select id="findCoachInfo" parameterType="String" resultType="zipcok.coach.model.MainCoachDTO">

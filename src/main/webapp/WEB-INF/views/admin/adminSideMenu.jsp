@@ -14,11 +14,9 @@
 			<li><a></a></li>
 			<li><a href="#">회원 관리</a>
 				<ul class="submenu">
-
-				<li class="submenuList"><a href="admin_memberList.do">회원 목록</a></li>
-				<li class="submenuList"><a href="admin_delMemberList.do">탈퇴 회원</a></li>
-
-					<li class="submenuList"><a href="#">회원 통계</a></li>
+					<li class="submenuList"><a href="admin_memberList.do">회원 목록</a></li>
+					<li class="submenuList"><a href="admin_delMemberList.do">탈퇴 회원</a></li>
+					<li class="submenuList"><a href="admin_memberStats.do">회원 통계</a></li>
 				</ul>
 			</li>
 			<li><a></a></li>
@@ -33,8 +31,8 @@
 			<li><a></a></li>
 			<li><a href="#">홈짐예약 관리</a>
 				<ul class="submenu">
-					<li class="submenuList"><a href="#">홈짐 관리</a></li>
-					<li class="submenuList"><a href="#">홈짐 목록</a></li>
+					<li class="submenuList"><a href="admin_homeGymAdmin.do">홈짐 관리</a></li>
+					<li class="submenuList"><a href="admin_homeGymList.do">홈짐 목록</a></li>
 					<li class="submenuList"><a href="#">예약 조회</a></li>
 					<li class="submenuList"><a href="#">예약취소 내역</a></li>
 				</ul>

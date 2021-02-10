@@ -8,11 +8,9 @@
 	.ptitle{font-size:25px; font-weight: 550;margin:0 0 10px 0; display: inline-block;}
 	.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
 	.crebtn{margin: 4px 0 0 30px;}
-	.okbtn{width: 100px; height: 30px; font-weight:bold; font-size:15px; color:white;background-color:#257cd6;}
-	.plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:0 0 0 10px; cursor: pointer;}
-	.plusbtn span{font-size:15px;  }
+	.okbtn{width: 100px; height: 40px; font-weight:bold; font-size:15px; color:white;background-color:#257cd6;}
 	.lastDIV{position: absolute; width:100px;left:35%; bottom: 30px;}
-	.cate_wrap{width:500px; padding: 30px 0 0 50px;}
+	.cate_wrap{width:450px; padding: 30px 0 0 50px;}
 	.catecbx{margin-top: 30px;}
 	.cate_label{ font-size: 16px;}
 	

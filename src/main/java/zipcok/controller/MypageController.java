@@ -237,17 +237,6 @@ public class MypageController {
       
    }
    
-   @RequestMapping("mypageHomeGymLikeList.do")
-   public String mypageHomeGymLikeList() {
-      
-      return "mypage/mypageHomeGymLikeList";
-   }
-   
-   @RequestMapping("mypageCoachMatchLikeList.do")
-   public String mypageCoachMatchLikeList() {
-      
-      return "mypage/mypageCoachMatchLikeList";
-   }
    
    @RequestMapping("mypageHomeGymPayList.do")
    public String mypageHomeGymPayList() {
@@ -309,7 +298,7 @@ public class MypageController {
       @RequestMapping("/mypageCoachMatchLikeList.do")
       public ModelAndView mypageCoachMatchLikeList(HttpSession session,
             @RequestParam(value = "cp", defaultValue = "1")int cp) {
-         
+         System.out.println("코치좋아요목록");
          int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
          int listSize=3;
          int pageSize=3;

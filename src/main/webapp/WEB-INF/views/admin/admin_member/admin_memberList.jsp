@@ -8,12 +8,13 @@
 <link href="assets/css/admin.css" rel="stylesheet">
 <style type="text/css">
 .test-inline {
-	display: inline-flex;
+   display: inline-flex;
 }
 </style>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+
 	<div class="adminPage_wrap">
 		<%@include file="../adminSideMenu.jsp"%>
 		<div class="container adminPage_contents">
@@ -135,6 +136,6 @@
 		</div>
 
 
-	</div>
+   </div>
 
 <%@include file="../../_include/footer.jsp" %>

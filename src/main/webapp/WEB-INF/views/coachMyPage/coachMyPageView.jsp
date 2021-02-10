@@ -164,7 +164,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 					
 			<!-- 커리큘럼영역 -->
 			<div  style="margin-top:30px;">
-					<p class="ptitle"><span>커리큘럼</span></p><input type="button"value="수정" class="rebtn crebtn" onclick="curriRewrite();">				
+					<p class="ptitle"><span>커리큘럼</span></p><input type="button"value="${empty curri?'등록':'수정'}" style="${empty curri?'background-color:#257cda;color:white;':''}" class="rebtn crebtn" onclick="curriRewrite();">				
 					<c:if test="${empty curri}">
 					<div>등록 된 커리큘럼이 없습니다.</div>
 					</c:if>			
@@ -233,11 +233,11 @@ function coachMypagePhoneUpdate(){
 }
 /*커리큘럼수정*/
 function curriRewrite(){
-	window.open('curriReWrite.do','curriUpdate','left=500, top=100, width=600, height=500');	
+	window.open('curriReWrite.do','curriUpdate','left=200, top=100, width=600, height=550');	
 }
 /*카테고리수정*/
 function cateUpdate(){
-	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=500, top=100, width=500, height=350');	
+	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=200, top=100, width=400, height=200');	
 }
 
 /*프사수정=============*/

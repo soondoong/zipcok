@@ -24,9 +24,8 @@
 .homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
 .homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
 .homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
+
 .homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
-.homegym_wrap .homegym_search_result .homegym_search_result_list_item span { margin-right: 10px; width: 100px; height: 50px; border:1px solid gray; border-radius: 8px;}
-.homegym_wrap .homegym_search_result .homegym_search_result_list_item img { width:300px; height: 300px;}
 </style>
 <script>
 window.addEventListener('load', function() {
@@ -38,13 +37,14 @@ window.addEventListener('load', function() {
 			var option_list = document.getElementsByClassName('homegym_search_result_list_item_option_'+eq_options_split[i]);
 			for(var j = 0 ; j < option_list.length ; j ++ ){
 				var option_class = option_list.item(j);
-				option_class.style.border = '1px solid #3978df';
+				option_class.style.color = 'write';
+				option_class.style.backgroundColor = '#0099ff';
 			}
 		}
 	}
 });
 
-function priceOption(){
+function priceOption(){	
 	var left_price_span = document.getElementById('price').value;
 	document.getElementById('price_value').innerText = left_price_span;
 	document.getElementById('option_fm').submit();
@@ -139,24 +139,41 @@ function ContentEnter(id){
 					<c:otherwise>
 						<c:forEach var="dto" items="${HomeGymList }">
 							<div class="homegym_search_result_list_item" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
-							<img src = "upload/homegymInfo/${dto.hg_upload }">
-							닉네임 : ${dto.hg_nickname }
-							<br>가격 : ${dto.hg_price } / 수용 인원 : ${dto.hg_person_count }
-							<br>장비 리스트 :
-							<br>
-							<c:if test = "${empty dto.hg_eq_list }">
-							<h6>등록된 기구가 없습니다.</h6>
-							</c:if>
-							<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-							<span class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
-								${eq_list.eq_name } : ${eq_list.eq_count }
-							</span>
-							</c:forEach>		
+								<div class = "homegym_search_result_list_item_img"><img src = "upload/homegymInfo/${dto.hg_upload }"></div>
+								<div class = "homegym_search_result_list_item_content">
+									${dto.hg_nickname } 님의 홈짐<br>
+									
+									<div class = "homegym_search_result_list_item_content_eqlist">
+									<c:if test = "${empty dto.hg_eq_list }">
+									<h6>등록된 기구가 없습니다.</h6>
+									</c:if>
+									<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
+										<div class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
+											${eq_list.eq_name } : ${eq_list.eq_count }
+										</div>
+									</c:forEach>
+										<div class = "homegym_search_result_list_item_content_price">
+										가격 : ${dto.hg_price }<br>
+										</div>		
+									</div>
+								</div>
 							</div>
 							<hr>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>	
+				<style>
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item {display:flex; border:1px solid gray; padding: 20px; width:800px;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img {padding:10px; width : 150px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img img { width:130px; height: 130px;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content {padding: 10px; width:610px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; border: 1px solid gary; height:100px; vertical-align: middle;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist div { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
+
+</style>
 			</div>
 			<h6>${pageStr }</h6>
 		</div>

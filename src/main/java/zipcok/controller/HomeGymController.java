@@ -103,7 +103,7 @@ public class HomeGymController {
 			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
 			list.get(i).setHg_eq_list(eq_list);
 		}
-		int totalCnt = homegymDAO.HomeGymTotalCnt(options);
+		int totalCnt = homegymDAO.HomeGymTotalCnt(options)==0?1:homegymDAO.HomeGymTotalCnt(options);
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
 		Map<String, Object> keywordMap = new HashMap<String, Object>();
 		keywordMap.put("eq_options", eq_options);

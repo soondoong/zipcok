@@ -121,5 +121,33 @@ rownum between #{start} and #{end}
 		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
 	</update>
 	
-  
+  		<delete id="deleteCategories"  parameterType="HashMap" >
+	 delete from
+	  coach_category
+	  where
+	  cate_name= #{cate_name}
+	  and
+	  cate_mem_id=#{cate_mem_id}
+	</delete>
+	
+	<insert id="insertCategory" parameterType="zipcok.coach.model.CategoryDTO">
+	insert into 
+	 coach_category
+	values(
+	coach_category_cate_idx.nextval,
+	#{cate_mem_id},
+	#{cate_name}
+	)
+	
+	</insert>
+		
+	<delete id="deleteCurri"  parameterType="HashMap">
+	delete from coach_curriculum
+	where
+	curri_mem_id =#{cate_mem_id}
+	and
+	curri_catename=#{cate_name}
+	</delete>
+	
+	
   </mapper>
