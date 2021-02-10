@@ -47,7 +47,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 <!-- 프로필 본문-->
 
 <div class="mypage_contents">	
-	<div class="mypage_main">		
+	<div class="mypage_main coachmypage_main">		
 	<div class="nomalAllWrap">
 		<h2  class="titlee">&nbsp;기본 프로필</h2>
 		<p>회원프로필사진은 코치프로필 사진으로 사용됩니다</p>
