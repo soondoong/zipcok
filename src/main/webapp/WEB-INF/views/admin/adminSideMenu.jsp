@@ -15,7 +15,7 @@
 			<li><a href="#">회원 관리</a>
 				<ul class="submenu">
 					<li class="submenuList"><a href="#">회원 목록</a></li>
-					<li class="submenuList"><a href="#">탈퇴 회원</a></li>
+					<li class="submenuList"><a href="admin_delMemberList.do">탈퇴 회원</a></li>
 					<li class="submenuList"><a href="#">회원 통계</a></li>
 				</ul>
 			</li>
