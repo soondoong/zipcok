@@ -44,8 +44,8 @@ function backPage(){
 	<div><label style="font-size : 20px;">아이디</label><input type="text" name="mem_id" placeholder="ID" required="required"></div>
 	<div><label style="font-size : 20px;">인증번호위에꺼입력</label><input type="text" name="code2" placeholder="CODE" required="required"></div>
 	<div class="pwdFind-button-wrap">
-	<button type="submit">Find</button>
-	<button type="button" onclick="backPage()">Back</button>
+	<button type="submit">찾기</button>
+	<button type="button" onclick="backPage()">돌아가기</button>
 	</div>
 </form>
 </div>

@@ -43,8 +43,8 @@ function backPage(){
 		<label style="font-size : 20px;">가입하신 이메일</label>
 		<input type="text" name="mem_email" required="required">
 		<div class="idFind-button-wrap">
-				<button type="submit">Find</button>
-				<button type="button" onclick="backPage()">Back</button>
+				<button type="submit">찾기</button>
+				<button type="button" onclick="backPage()">돌아가기</button>
 		</div>
 		
 	</div>

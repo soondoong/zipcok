@@ -37,7 +37,7 @@ function backPage(){
 <br><br><br><br><br><br><br><br>
 <h2>${msg }</h2>
 <div class="pwdFind-button-wrap">
-<button type="button" onclick="backPage()">Back</button>
+<button type="button" onclick="backPage()">돌아가기</button>
 </div>
 </div>
  <%@include file="../_include/footer.jsp" %>
