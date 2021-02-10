@@ -17,20 +17,7 @@ function commplus(){
 	<div class="mypage_contents">
 		<div class="mypage_main">
 		<br>
-			 <div id="toggle_tab" class="tab_style_01 mb50">
-			<style>
-			.mypage_main .tab_style_01 {}
-			.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
-			.mypage_main .tab_style_01 li {flex: 1 1 auto;}
-			.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
-			.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
-			</style>		
-					
-				<ul>
-					<li class="on"><button type="button">커뮤니티 관리</button></li>
-					<li><button type="button">커뮤니티 설정</button></li>
-				</ul>
-			</div>
+			
 			<h4>커뮤니티 관리</h4>
 			<div class="mypage_payment_table">
 				
@@ -84,12 +71,13 @@ function commplus(){
 						<th>커뮤니티 이름</th>
 						<th>수강 인원</th>
 						<th>개설일</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:if test="${empty commlist}">
 						<tr>
-							<td colspan="4" align="center">
+							<td colspan="5" align="center">
 								생성된 커뮤니티가 없습니다
 							</td>
 						</tr>
@@ -97,9 +85,10 @@ function commplus(){
 					<c:forEach var="dto2" items="${commlist}">
 					<tr>
 						<td>${dto2.com_idx}</td>
-						<td><a href="coachMyPageCommSetting.do?uc_comm_idx=${dto2.com_idx}">${dto2.com_name}</a></td>
+						<td>${dto2.com_name}</td>
 						<td>${dto2.com_mem_sum}</td>
 						<td>${dto2.com_opendate}</td>
+						<td><a href="coachMyPageCommSetting.do?uc_comm_idx=${dto2.com_idx}">설정</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
