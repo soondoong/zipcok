@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="css/member/login.css">
 </head>
 <body>
-	<%@include file="../_include/head.jsp"%>
 	<%@include file="../header2.jsp"%>
 
 	<!--
