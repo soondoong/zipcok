@@ -9,7 +9,6 @@
 <link href="assets/css/admin.css" rel="stylesheet">
 </head>
 <body>
-<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
  <div class="adminPage_wrap">
       <%@include file="./adminSideMenu.jsp" %>
