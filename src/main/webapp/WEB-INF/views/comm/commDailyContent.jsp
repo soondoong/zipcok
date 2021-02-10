@@ -41,6 +41,12 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		.community_contents .view_body {padding: 30px 20px 50px;}
 	</style>
 
+	<%-- <c:if test="${mem_name eq '로그인필요' }">
+		<script>
+			window.alert('로그인이 필요합니다.');
+			loacation.href="index.do";
+		</script>
+	</c:if> --%>
 	<div class="community_wrap">
 		<%@include file="./commSideMenu.jsp"%>
 
