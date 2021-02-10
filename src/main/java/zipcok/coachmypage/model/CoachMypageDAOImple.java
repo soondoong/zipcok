@@ -137,17 +137,20 @@ public CoachFileDTO findProfileDTO(String id) {
 		
 		return list;
 	}
-	/*카테고리등록*/
-
+	
+	
+/*카테고리삭제 - 커리큘럼도 같이삭제해야함*/
 @Override
 public int categoryDelete(HashMap<String, String> map) {
-	// TODO Auto-generated method stub
-	return 0;
+	int count= sqlMap.delete("deleteCategories",map);
+	count += sqlMap.delete("deleteCurri",map);
+	return count;
 }
+
 @Override
 public int categoryinsert(CategoryDTO dto) {
-	// TODO Auto-generated method stub
-	return 0;
+  int count = sqlMap.insert("insertCategory",dto);
+	return count;
 }
 
 @Override
