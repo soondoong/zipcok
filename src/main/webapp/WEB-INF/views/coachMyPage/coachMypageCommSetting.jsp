@@ -17,6 +17,7 @@ function commplus(){
 	<div class="mypage_contents">
 		<div class="mypage_main">
 		<br>
+			 	
 			 <div id="toggle_tab" class="tab_style_01 mb50">
 			<style>
 			.mypage_main .tab_style_01 {}
@@ -27,42 +28,42 @@ function commplus(){
 			</style>		
 					
 				<ul>
-					<li class="on"><button type="button">커뮤니티 관리</button></li>
-					<li><button type="button">커뮤니티 설정</button></li>
+					<li><button type="button">커뮤니티 관리</button></li>
+					<li class="on"><button type="button">커뮤니티 설정</button></li>
 				</ul>
 			</div>
-			<h4>커뮤니티 관리</h4>
-			<div class="mypage_payment_table">
+			<h4>커뮤니티 설정</h4>
+			<div class="mypage_comm_table">
 				
 			<style>
-			.mypage_payment_table .paymentList {text-align: center;}
-			.mypage_payment_table .paymentList thead {background-color: grey;}
+			.mypage_comm_table .commList {text-align: center;}
+			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>결제한 수강생 내역</h6>
-				<table border="1" cellspacing="0" class="paymentList">
+				<h6>커뮤니티 이름</h6>
+				<table border="1" cellspacing="0" class="commList">
 				<thead>
 					<tr>
-							<th>No.</th>
-						<th>수강생 이름</th>
-						<th>결제 상태</th>
-						<th>과정 진행률</th>
+						<th>No.</th>
+						<th>게시판 명</th>
+						<th>활성 여부</th>
+						<th>비공개 여부</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty paymentlist}">
+					<c:if test="${empty list}">
 						<tr>
 							<td colspan="4" align="center">
 								결제한 수강생이 없습니다.
 							</td>
 						</tr>
 					</c:if>
-					<c:forEach var="dto" items="${paymentlist}">
+					<c:forEach var="dto" items="${list}" varStatus="i">
 					<tr>
-						<td>${dto.pr_idx_test }</td>
-						<td>${dto.pr_sender_test }</td>
-						<td>${dto.pr_status_test }</td>
-						<td>${dto.pr_end_test }</td>
+						<td>${i.index}</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -76,30 +77,30 @@ function commplus(){
 			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>개설된 커뮤니티</h6> <input type="button" value="커뮤니티 추가" onclick="commplus()">
+				<h6>수강생</h6> <input type="button" value="수강생 추가" onclick="commplus()">
 				<table border="1" cellspacing="0" class="commList">
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>커뮤니티 이름</th>
-						<th>수강 인원</th>
-						<th>개설일</th>
+						<th>수강생 이름</th>
+						<th>계정</th>
+						<th>커뮤니티 활성화</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty commlist}">
+					<c:if test="${empty list}">
 						<tr>
 							<td colspan="4" align="center">
 								생성된 커뮤니티가 없습니다
 							</td>
 						</tr>
 					</c:if>
-					<c:forEach var="dto2" items="${commlist}">
+					<c:forEach var="dto2" items="${list}">
 					<tr>
-						<td>${dto2.com_idx}</td>
-						<td><a href="">${dto2.com_name}</a></td>
-						<td>${dto2.com_mem_sum}</td>
-						<td>${dto2.com_opendate}</td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
 					</tr>
 				</c:forEach>
 				</tbody>

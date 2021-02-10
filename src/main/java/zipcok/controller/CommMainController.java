@@ -26,16 +26,19 @@ public class CommMainController {
 	//커뮤니티 메인 입장
 	@RequestMapping("commMain.do")
 	public ModelAndView mainView(HttpSession session) {
-		String mem_id=(String)session.getAttribute("sid");
+		String mem_id="";
 		String mem_type="";
-		if(mem_id==null) {
+		String coachname="";
+		if((String)session.getAttribute("sid")!=null) {
+			mem_id=(String)session.getAttribute("sid");
+			mem_type="일반회원";
+		}else if((String)session.getAttribute("caochId")!=null) {
 			mem_type="코치회원";
 			mem_id=(String)session.getAttribute("coachId");
-		}else {
-			mem_type="일반회원";
 		}
+		ModelAndView mav=new ModelAndView();
 		CommunityDTO dto=communityDao.commList(mem_id,mem_type);
-		String coachname=communityDao.getCaochName(dto.getCom_coach_id());
+		coachname=communityDao.getCaochName(dto.getCom_coach_id());
 		session.setAttribute("com_idx",dto.getCom_idx());
 		session.setAttribute("com_coach_id",dto.getCom_coach_id());
 		session.setAttribute("com_name",dto.getCom_name());
@@ -43,7 +46,7 @@ public class CommMainController {
 		session.setAttribute("com_status",dto.getCom_status());
 		session.setAttribute("com_opendate",dto.getCom_opendate());
 		session.setAttribute("coach_name",coachname);
-		ModelAndView mav=new ModelAndView();
+		
 		mav.addObject("comminfo", dto);
 		mav.addObject("mem_name",coachname);
 		mav.setViewName("comm/commMainView");
