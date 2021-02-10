@@ -58,10 +58,10 @@
 					<br>
 					<div class="login-input-wrap">
 						<input type="text" name="mem_id" value="${cookie.saveid.value}"
-							placeholder="ID"></input>
+							placeholder="아이디"></input>
 					</div>
 					<div class="login-input-wrap password-wrap">
-						<input type="password" name="mem_pwd" placeholder="PASSWORD"></input>
+						<input type="password" name="mem_pwd" placeholder="비밀번호"></input>
 					</div>
 					<div class="login-button-wrap">
 						<button type="submit">로 그 인</button>
@@ -69,15 +69,15 @@
 					<div class="login-stay-sign-in">
 						<span> <input type="checkbox" name="saveid" value="on"
 							${empty cookie.saveid.value?'':'checked' }>&nbsp;
-							ID Save
+							아이디 저장
 						</span>
 					</div>
 				</section>
 			</form>
 			<section class="Easy-sgin-in-wrap">
 				<p class="forget-msg">
-					<a href="idFindForm.do">ID Find</a> / <a href="pwdFindForm.do">Pwd
-						Find</a> / <a href="memberJoinForm.do">Sign up</a>
+					<a href="idFindForm.do">아이디 찾기</a> / <a href="pwdFindForm.do">비밀번호 찾기
+					</a> / <a href="memberJoinForm.do">회원가입</a>
 				</p>
 			</section>
 		</div>

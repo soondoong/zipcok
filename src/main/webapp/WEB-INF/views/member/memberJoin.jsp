@@ -409,31 +409,31 @@ function showResult(){
    <div class="member-join-container">
    <article>
       <form name="memberJoin" id="usercheck" action="memberJoin.do" method="post" enctype="multipart/form-data">
-         <br>
-         <h2 align="center">회원가입</h2>
+         <div style="font-size: 40px; color: #257cda; font-weight : 900; text-align : center;">회 원 가 입
+					</div>
          <br>
          <div>
          
          
             <div class="form-group">
-               <label for="mem_name">이름</label> <input type="text"
+               <label for="mem_name" style="color: #257cda;">이름</label> <input type="text"
                   class="form-control" id="mem_name" name="mem_name"
-                  placeholder="Name">
+                  placeholder="이름">
                <div class="eheck_font" id="name_check"></div>
             </div>
 
 
             <div class="form-group">
-               <label for="mem_birth">생년월일</label> <input type="tel"
+               <label for="mem_birth" style="color: #257cda;">생년월일</label> <input type="tel"
                   class="form-control" id="mem_birth" name="mem_birth"
-                  placeholder="ex) 19990101">
+                  placeholder="예) 19990101">
                <div class="eheck_font" id="birth_check"></div>
             </div>
 
 
             <div class="form-group">
-               <label for="id">아이디</label> <input type="text" class="form-control"
-                  id="mem_id" name="mem_id" placeholder="ID">
+               <label for="id" style="color: #257cda;">아이디</label> <input type="text" class="form-control"
+                  id="mem_id" name="mem_id" placeholder="아이디">
                
                <span id="idCheckMsg"></span>
             <div class="eheck_font" id="id_check"></div>
@@ -441,25 +441,25 @@ function showResult(){
             
 
             <div class="form-group">
-               <label for="pw">비밀번호</label> <input type="password"
+               <label for="pw" style="color: #257cda;">비밀번호</label> <input type="password"
                   class="form-control" id="mem_pwd" name="mem_pwd"
-                  placeholder="PASSWORD">
+                  placeholder="비밀번호">
                <div class="eheck_font" id="pw_check"></div>
             </div>
             
             
             <div class="form-group">
-               <label for="pw2">비밀번호 확인</label> <input type="password"
+               <label for="pw2" style="color: #257cda;">비밀번호 확인</label> <input type="password"
                   class="form-control" id="mem_pwd2" name="mem_pwd2"
-                  placeholder="Confirm Password">
+                  placeholder="비밀번호 확인">
                <div class="eheck_font" id="pw2_check"></div>
             </div>
 
 
             <div class="form-group">
-               <label for="mem_email">이메일 주소</label> <input type="email"
+               <label for="mem_email" style="color: #257cda;">이메일 주소</label> <input type="email"
                   class="form-control" id="mem_email" name="mem_email"
-                  placeholder="E-mail">
+                  placeholder="이메일">
                <div class="eheck_font" id="email_check"></div>
             </div>
 
@@ -489,9 +489,9 @@ function showResult(){
 
 
             <div class="form-group">
-               <label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
+               <label for="mem_phone" style="color: #257cda;">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
                   type="tel" class="form-control" id="mem_phone" name="mem_phone"
-                  placeholder="Phone Number">
+                  placeholder="휴대폰 번호">
                <div class="eheck_font" id="phone_check"></div>
                   <input type="button" class="btn btn-default"
                   style="background-color: #257cda; color: white; line-height: 1.20;"
@@ -506,16 +506,16 @@ function showResult(){
 
 
             <div class="form-group">
-               <label for="mem_gender">성별 </label>&nbsp; <input type="radio"
-                  id="mem_gender" name="mem_gender" value="남">남 <input
+               <label for="mem_gender" style="color: #257cda;">성별 </label>&nbsp; &nbsp; <input type="radio"
+                  id="mem_gender" name="mem_gender" value="남">남  &nbsp;<input
                   type="radio" id="mem_gender" name="mem_gender" value="여">여
             </div>
             
             
             
             <div class="form-group">
-               <label>프로필사진등록</label><br>
-                  <span>올릴파일:<input type="file"  name="upload"></span>
+               <label style="color: #257cda;">프로필 사진 등록</label><br>
+                  <span>프로필 사진을 등록해 주세요 - <input type="file"  name="upload" accept="image/gif, image/jpeg, image/png"></span>
             </div>
 
 
