@@ -85,8 +85,8 @@ $(document).ready(function(){
 		$("#cate2label").text(array[1]);
 	}else{
 		$("#radioDIV").html("<div class='form-check'>"+
-		"<input class='form-check-input' type='radio' name='req_category' id='cate1' value='' checked>"+
-		  "<label class='form-check-label' id='cate1label' for='cate1'>	"+	array[0]+		  
+		"<input class='form-check-input' type='radio' name='req_category' id='cate1' value='"+c+"' checked>"+
+		  "<label class='form-check-label' id='cate1label' for='cate1'>	"+c+		  
 		  "</label></div>");
 	}
  

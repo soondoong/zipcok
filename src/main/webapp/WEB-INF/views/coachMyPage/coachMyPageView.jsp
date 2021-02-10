@@ -13,27 +13,25 @@
 .mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
 font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
 #file{display:none;}
-</style>
-  
+.titlee{font-weight: 550; color:#12151d; margin-bottom:20px;}
+.titlee:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
+.titlee hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 
-<script>
-function coachMypagePwdUpdate(){
-	location.href='coachMypagePwdUpdateForm.do';
-}
-function coachMypageAddrUpdate(){
-	window.open('coachMypageAddrUpdateForm.do?mem_id=${sessionScope.coachId}','addrUpdate','width=550,height=300');
-}
-function coachMypageEmailUpdate(){
-	window.open('coachMypageEmailUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
-}
-function coachMypagePhoneUpdate(){
-	window.open('coachMypagePhoneUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
-}
-</script>
+/*일반프로필 css*/
+.pfDIV{ height:360px; margin-top:30px;}
+.nomalInfo{ padding: 0 0 50px 40px;}
+.nomalInfo div{width: 500px; padding: 15px 0; font-size: 19px; border-bottom:1px solid #e4e4e4;}
+.nomalInfo div span{ font-weight: 550; padding-right: 50px;}
+.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
+
+/*코치프로필 css*/
+.coachInfo{width:500px;flex-direction: row; margin-left:100px;}
+
+</style>
+
 
 </head>
 <body>
-<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
 
 <c:set var="dto" value="${resultMap.coachDTO }"/>
@@ -48,25 +46,208 @@ function coachMypagePhoneUpdate(){
 <%@include file="./coachMypageSideMenu.jsp"%>
 <!-- 프로필 본문-->
 
-	<div class="mypage_contents">	
-		<div class="mypage_main">
-			<div class="profileIMG">
+<div class="mypage_contents">	
+	<div class="mypage_main">		
+	<div class="nomalAllWrap">
+		<h2  class="titlee">&nbsp;기본 프로필</h2>
+		<p>회원프로필사진은 코치프로필 사진으로 사용됩니다</p>
+		 <hr>	
+		 
+		<form id="uploadForm" enctype="multipart/form-data" method="POST" action="profileImgReUpload.do">
+			<div class="pfDIV">
 			<!-- 프로필사진 수정 -->
-			<img src="/zipcok/upload/member/${dto.mfile_upload }" >
-			</div>
-			<a href="#" id="a-upload"><i class="fas fa-camera reupload" ></i></a>
-			<form id="uploadForm" enctype="multipart/form-data" method="POST" action="profileImgReUpload.do">
-			<input type="file" id="file" name="upload" onchange="changeValue(this)" accept="image/gif, image/jpeg, image/png"/>
-			<input type="hidden" name="id" value="${login.mem_id }">		
-			</form>
-			<!-- 프로필사진 수정 -->
-<script type="text/javascript">
+				<div class="profileIMG">
+					<!-- 프로필사진 수정 -->
+					<img src="/zipcok/upload/member/${dto.mfile_upload }" >
+				</div>				
+				<a href="#" id="a-upload"><i class="fas fa-camera reupload" ></i></a>
+					<input type="file" id="file" name="upload" onchange="changeValue(this)" accept="image/gif, image/jpeg, image/png"/>
+					<input type="hidden" name="id" value="${login.mem_id }">				
+			</div>	
+							
+		</form>
+			
+		<!-- 프로필사진 수정 -->
+						
+<!-- 일반프로필 시작 -->
+<div class="nomalInfo">
+		<div class="name">
+			<span>이름</span>${mdto.mem_name }<input type="hidden" name="mem_name" value="${mdto.mem_name }">
+		</div>
+		
+		<div>		
+			<span id="birth">생년월일</span>${mdto.mem_birth }<input type="hidden" name="mem_birth" value="${mdto.mem_birth }">
+		</div>
+	
+		<div>		
+			<span>아이디</span>${mdto.mem_id }<input type="hidden" name="mem_id" value="${mdto.mem_id }">
+		</div>
+		
+		<div>		
+			<span>비밀번호</span>****<input type="hidden" name="mem_pwd"value="${mdto.mem_pwd }">
+			<input type="button" value="수정"  class="rebtn" onclick="coachMypagePwdUpdate()">
+		</div>
+		 
+		<div>		
+			<span>주소</span><input type="button"value="수정" class="rebtn" onclick="coachMypageAddrUpdate()">
+			<p>${mdto.mem_addr } <br>${mdto.mem_detailaddr }</p>
+				<input type="hidden" name="mem_zipcode" value="${mdto.mem_zipcode }">
+				<input type="hidden" name="mem_addr" value="${mdto.mem_addr }">
+				<input type="hidden" name="mem_detailaddr"value="${mdto.mem_detailaddr }">
+			
+			
+		</div>
+		
+		<div>		
+			<span>이메일</span>${mdto.mem_email } <input type="hidden"
+				name="mem_email" value="${mdto.mem_email }"> <input type="button" value="수정" class="rebtn" onclick="coachMypageEmailUpdate()">
+		</div>
+		
+		<div>			
+			<span>전화번호</span>${mdto.mem_phone } <input type="hidden"
+				name="mem_phone" value="${mdto.mem_phone }"><input type="button" value="수정"  class="rebtn" onclick="coachMypagePhoneUpdate()">
+		</div>
+		
+		<div style="text-align: right;">
+		<a href="#" >[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
+		</div>
+		
+	</div>
+</div><!-- nomalAllWrap -->
+<!-- 일반프로필영역 끝 -->
+
+
+	<!-- 코치소개 영역 -->
+
+		<div class="coachInfo">	
+            <h2  class="titlee" >&nbsp;코치 프로필</h2>
+            <p>센스있는 프로필일수록 매칭성공률이 높습니다!</p>
+			<hr>			
+		
+	<style>
+	.ptitle{font-size:20px; font-weight: 550;margin:0 0 10px 0; display: inline-block;}
+	.coachdetails{margin:60px 0 0 30px;}
+	.crebtn{margin: 4px 0 0 30px;}
+	.currititle{font-size:18px; font-weight: 400;}
+	</style>				
+						
+			<div class="coachdetails">
+					<div style="display: inline-block;">
+						<p class="ptitle">활동지역</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
+						<p>${dto.coach_floc }</p>
+					</div>
+					
+					<div style="display: inline-block; margin-left:50px;">
+						<p class="ptitle">강의유형</p><input type="button"value="수정" class="rebtn crebtn" onclick="">	
+						<p>${dto.coach_ex_type}</p>
+					</div>	
+					
+					<div style="margin-top:30px;">
+						<p class="ptitle">소개글 제목</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
+						<p>${dto.coach_intro_sub }</p>
+					</div>
+					<div  style="margin-top:30px;">
+						<p class="ptitle">소개글</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
+						<p>${dto.coach_intro_cont }</p>			
+					</div>	
+									
+					<div style="margin-top:30px;">	 
+						<span class="ptitle">받은 별점 평균</span>
+						<img src="img/coach/star.png"  style="width:30px;margin-left:20px;" ><span  style="font-size:20px;">${dto.avg }	</span>
+					</div>
+					
+					<div style="margin-top:30px;">	 
+						<p class="ptitle">카테고리</p><input type="button"value="수정" class="rebtn crebtn" onclick="cateUpdate();">
+						<p>${dto.cate_name }</p>	
+					</div>
+					
+					
+			<!-- 커리큘럼영역 -->
+			<div  style="margin-top:30px;">
+					<p class="ptitle"><span>커리큘럼</span></p><input type="button"value="수정" class="rebtn crebtn" onclick="curriRewrite();">				
+					<c:if test="${empty curri}">
+					<div>등록 된 커리큘럼이 없습니다.</div>
+					</c:if>			
+					 
+					<table style="margin-top:20px;">
+					<tr>
+					<td style="width:360px; text-align: left;">
+					<c:if test="${!empty oneList}">
+						<div  style="width:360px; height:300px;" >
+							<p class="currititle">${oneList.get(0).curri_catename}</p>
+						<ul>					
+						<c:forEach var="one" items="${oneList }">
+							<li style="margin-left:10px;"><p style="font-weight:bold;">${one.curri_name }</p><p style="margin-left:10px;">${one.curri_content }</p></li>
+						</c:forEach>
+							</ul>
+						</div>
+					</c:if>
+					</td>
+								
+					<td style="width:360px; text-align: left;">
+					<c:if test="${!empty twoList}">
+						<div style="width:360px; height:300px;" >
+							<p class="currititle">${twoList.get(0).curri_catename}</p>
+						<ul>
+						<c:forEach var="two" items="${twoList }">
+							<li style="margin-left:10px;">
+								<p style="font-weight:bold;">${two.curri_name }</p>
+								<p style="margin-left:10px;">${two.curri_content }</p>
+							</li>		
+						</c:forEach>
+							</ul>
+						</div>
+					</c:if>
+					</td>
+					</tr>
+					
+					</table>
+			</div>	<!-- 커리큘럼영역 -->	
+							
+						<div style="margin-top:30px;">
+							<p class="ptitle">준비물</p>
+							<p>${dto.coach_mat }</p>
+						</div>		
+						
+						
+					</div>
+				</div><!-- coach_info -->
+<!-- 코치소개 영역 끝 -->	
+			
+		</div><!-- mypage_main -->
+	</div><!-- mypage_contents -->	
+</div>
+<!-- 프로필 본문-->		
+<script>
+function coachMypagePwdUpdate(){
+	location.href='coachMypagePwdUpdateForm.do';
+}
+function coachMypageAddrUpdate(){
+	window.open('coachMypageAddrUpdateForm.do?mem_id=${sessionScope.coachId}','addrUpdate','width=550,height=300');
+}
+function coachMypageEmailUpdate(){
+	window.open('coachMypageEmailUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
+}
+function coachMypagePhoneUpdate(){
+	window.open('coachMypagePhoneUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
+}
+/*커리큘럼수정*/
+function curriRewrite(){
+	window.open('curriReWrite.do','curriUpdate','left=500, top=100, width=600, height=500');	
+}
+/*카테고리수정*/
+function cateUpdate(){
+	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=500, top=100, width=500, height=350');	
+}
+
+/*프사수정=============*/
 $(function () { //사진수정버튼
 
 			$('#a-upload').click(function (e) {
 			e.preventDefault();
 			$('#file').click();
 			 });
+			 
 });
 function changeValue(obj){ //사진선택하면
 	var fileValue = $("#file").val().split("\\");
@@ -75,152 +256,15 @@ function changeValue(obj){ //사진선택하면
 	if(result){		
 		  $('#uploadForm').submit();
 	}
-	
+/*프사수정===============*/	
 
 }
-</script>	 
 
-	<!-- 코치소개 영역 -->		
-			<div>
-			<span style="font-size:2rem; font-weight: 600;">${dto.mem_name}코치</span>	 
-			<span style="font-size:1.3rem; font-weight: 300;"><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>	
-			</div>
-				
-			<div>
-			<h1>${dto.coach_intro_sub }</h1>
-			<br><br>
-			
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">활동지역</span>
-			<span>${dto.coach_floc }</span>
-			<br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">강의유형</span>
-			<span>${dto.coach_ex_type}</span>
-			<br>
-			<br><br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">소개</span>
-			<p>${dto.coach_intro_cont }</p>
-			<br>
-			
-			<!-- 커리큘럼영역 -->
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">커리큘럼</span>
-			
-			<c:if test="${empty curri}">
-			<div>등록 된 커리큘럼이 없습니다.</div>
-			</c:if>
-			
-			 
-			<table style="margin-top:20px;">
-			<tr>
-			<td style="width:360px; text-align: left;">
-			<c:if test="${!empty oneList}">
-				<div  style="width:360px; height:300px;" >
-					<p style="font-size:1.1rem; font-weight: 400;margin:0 0 50px 0;">${oneList.get(0).curri_catename}</p>
-				<ul>					
-				<c:forEach var="one" items="${oneList }">
-					<li><p>${one.curri_name }</p><p>${one.curri_content }</p></li>
-				</c:forEach>
-					</ul>
-				</div>
-			</c:if>
-			</td>
-			
-			
-			
-			<td style="width:360px; text-align: left;">
-			<c:if test="${!empty twoList}">
-				<div style="width:360px; height:300px;" >
-					<p style="font-size:1.1rem; font-weight: 400;margin:0 0 50px 0;">${twoList.get(0).curri_catename}</p>
-				<ul>
-				<c:forEach var="two" items="${twoList }">
-					<li><p>${two.curri_name }</p><p>${two.curri_content }</p></li>		
-				</c:forEach>
-					</ul>
-				</div>
-			</c:if>
-			</td>
-			</tr>
-			
-			</table>
-			<!-- 커리큘럼영역 -->
-			
-			
-			<br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">준비물</span>
-			<p>${dto.coach_mat }</p>
-			<br>
-			
-	 </div><!-- mypage_main -->
-	<!-- 코치프로필 본문-->		
-		
-		<!-- 일반기본프로필 본문-->	
-		<div>
-			<label>
-			<span>
-			이름 :</span>${mdto.mem_name }<input type="hidden"
-				name="mem_name" value="${mdto.mem_name }"></label>
-		</div>
-		
-		<div>
-			<label>
-			<span>
-			생년월일 :</span>${mdto.mem_birth }<input type="hidden"
-				name="mem_birth" value="${mdto.mem_birth }"></label>
-		</div>
-	
-		<div>
-			<label>
-			<span>
-			아이디 :</span>${mdto.mem_id }<input type="hidden" name="mem_id"
-				value="${mdto.mem_id }"></label>
-		</div>
-		
-		<div>
-			<label>
-			<span>
-			비밀번호 :</span>****<input type="hidden" name="mem_pwd"
-				value="${mdto.mem_pwd }"></label> <input type="button" value="수정하기" onclick="coachMypagePwdUpdate()">
-		</div>
-		
-		<div>
-			<label>
-			<span>
-			주소 :</span>${mdto.mem_addr } ${mdto.mem_detailaddr }
-				<input type="hidden" name="mem_zipcode" value="${mdto.mem_zipcode }">
-				<input type="hidden" name="mem_addr" value="${mdto.mem_addr }">
-				<input type="hidden" name="mem_detailaddr"value="${mdto.mem_detailaddr }">
-			</label>
-			<input type="button"value="수정하기" onclick="coachMypageAddrUpdate()">
-		</div>
-		
-		<div>
-			<label>
-			<span>
-			이메일 :</span>${mdto.mem_email } <input type="hidden"
-				name="mem_email" value="${mdto.mem_email }"></label> <input
-				type="button" value="수정하기" onclick="coachMypageEmailUpdate()">
-		</div>
-		
-		<div>
-			<label>
-			<span>
-			전화번호 :</span>${mdto.mem_phone } <input type="hidden"
-				name="mem_phone" value="${mdto.mem_phone }"></label> <input
-				type="button" value="수정하기" onclick="coachMypagePhoneUpdate()">
-		</div>
-		
-		<div>
-		<a href="#">[회원탈퇴]</a> <!-- memberDeleteForm.do?mem_id=${sessionScope.sid}'  --> 
-		</div>
-		<br><br>
 
-	</div>
 
-</div>	
-</div>
-</div>	
-<!-- 프로필 본문-->		
+</script>
 
-</div>
+
 
  <%@include file="../_include/footer.jsp" %>
 

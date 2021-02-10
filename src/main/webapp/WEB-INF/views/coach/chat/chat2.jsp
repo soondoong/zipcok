@@ -50,18 +50,11 @@ $(function () {
 
 </script>
    
-<style>
-.afile{color:gray; font-size:3rem;}
-.afile:hover{ color:blue;}
-#file { display:none; } 
-#image_sectionDIV{ display:none; }
-.pimg{width:50px; height:50px;  border-radius: 50%; }
-
-  </style>
 </head>
 <%@include file="../../header2.jsp" %>
-<body>
+<link href="css/coach/chat.css" rel="stylesheet">
 
+<body>
 <c:set var="cdto" value="${croomDTO}"/>
 <c:set var="mtype" value="${empty sessionScope.sid ?'코치':'일반' }"/>
 <c:set var="myid" value="${mtype eq '코치'?cdto.croom_coachid : cdto.croom_userid}"/>
@@ -101,21 +94,7 @@ $(function () {
 					</div>
 	    </c:if>  
 <!-- 메뉴바 --> 
-<style>
-.newcont{margin:50px 0 0 50px;}
-.allchatWrap {max-width:900px; height: 180px;}
-.allchatWrap .othermanInfo{padding:20px;  border:1px solid #DADDE2;  display:flex;  justify-content: flex-start;}
-.allchatWrap .othermanInfo  img{width:140px; height:140px; border-radius: 10px;}
-.allchatWrap .othermanInfo .infos{ padding:10px 0 0 30px;}
-.allchatWrap .othermanInfo .infos  h3{ font-size:18px; font-weight:550;}
-/*코치회원정보*/
-.allchatWrap .othermanInfo .infos  #starimg{ width:90px;height:auto;  }
-/*일반회원정보*/
-.allchatWrap .othermanInfo .infos .type,.gender { margin-right: 5px; background: #318dea; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
-.allchatWrap .othermanInfo .infos .rightgt{margin:0 6px 0 6px;}
-.allchatWrap .othermanInfo .infos .reqcont {margin:10px 0 0 0;}
 
-</style>
 <script>
 
 $(document).ready(function(){
@@ -156,8 +135,8 @@ $(document).ready(function(){
 		  
 		   <c:if test="${empty  coachdto }">
 		  <div class="infos">
-		  	  <h3>${rdto.mem_name}</h3>
-		  	  <p><span>${reqdto.req_type }</span><span class="rightgt">&gt;</span><span>${reqdto.req_category }</span></p>
+		  	  <h3>요청인 : ${rdto.mem_name}</h3>
+		  	  <p><span>수업형태: ${reqdto.req_type }</span><span class="rightgt">/</span><span>카테고리 : ${reqdto.req_category }</span></p>
 		  	  <div>
 		  		  <span class="type">몇십대</span>
 		  		  <span class="gender">${rdto.mem_gender }자</span>
@@ -165,28 +144,13 @@ $(document).ready(function(){
 		  	  <p class="reqcont">문의내용 : ${reqdto.req_cont }</p>
 		  </div>
 		  </c:if>
+		  
+		<!-- 목록으로버튼 -->  
+		  
+		  	<i class="fas fa-bars hammenu" onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'"></i>
+		 
 	</div>
 	
-<style>
-
-.AreaAll{border: 1px solid lightgray; border-top:0px; height: 50vh; border-radius:0 0 5px 5px; overflow-y:scroll}
-#chatMessageArea{ padding :15px 40px 15px 40px;}
-/*내메세지*/
-.OnechatfromMe{display:flex; justify-content:flex-end;  height : auto; margin-top : 10px;}
-.OnechatfromMe .ContentWrap{margin-top : 7px; padding :5px 0;}
-.OnechatfromMe .ContentWrap .cont{min-width:200px; min-height:60px; background-color:white; border:1px solid #ececec;  font-size : 15px; padding : 15px 15px;  border-radius:10px 0 0 10px;}
-.sendtime{font-size:9px; text-align:right; float:right;}	
-.chatimgdiv{padding: 12px 0 0 0;}
-.chatimgdiv img{width:60px; height: 60px; border-radius: 0 5px 5px 0;}
-.chatimgdiv div{font-size:13px; text-align: center;padding:6px 0 0 0;}
-
-/*상대메세지*/
-.OnechatNotMe{justify-content:flex-start;}
-.OnechatNotMe .ContentWrap .cont{border-radius:0 10px 10px 0; background-color:white; border:1px solid #ececec;}
-.OnechatNotMe .chatimgdiv img{ border-radius: 5px 0 0 5px;}
-.OnechatNotMe .sendtime{float:left;}
-
-</style>	
 	
 	<!-- 채팅 내용 -->
 	
@@ -234,7 +198,8 @@ $(document).ready(function(){
 </div>
 
 	
-
+<!--채팅치는부분 -->
+<div class="chatWriteWrap">
 		<!-- 파일첨부 결제요청서 -->
 		<div id="filemenu">
 		  <div style="float:left;">
@@ -250,22 +215,25 @@ $(document).ready(function(){
 
 
 		<!-- 전송메세지 입력창 -->
-		<div class="col-6" style="float: left;">
-		<div id="image_sectionDIV" >
-		<img id="image_section" src="" style="width:140px"/>
-		<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>
+		<div class="messageinputDIV" >
+			<div id="image_sectionDIV" >
+				<img id="image_section" src="" style="width:140px"/>
+				<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>			
+			</div>
+		
+			<textarea class="form-control" placeholder="Enter ..."  id="message-input"> </textarea>
 		</div>
 		
-			<textarea class="form-control" style="border: 1px solid gray; height: 65px; float: left; width:100%"
-				placeholder="Enter ..."  id="message-input"> </textarea>
-		</div>
+		<!-- 전송버튼 -->
+		    <i class="fas fa-paper-plane " id="btnSend"></i>
+		
 	
 	
 	
-	<!-- 전송버튼 -->
-			<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
-			<button type="button" class="btn btn-primary btn-lg" id="btnSend" >전송</button>		
-			</div>		
+</div><!-- chatWriteWrap -->	
+	
+	
+			<!-- 사진전송버튼 
 				<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
 			<button type="button" class="btn btn-primary btn-lg" id="btnSendFile" >사진파일전송</button>		
 			</div>		
@@ -277,6 +245,8 @@ $(document).ready(function(){
 
 			
 			</div>
+			-->
+		
     <!-- 전송버튼 -->
  </div><!-- allchatWrap -->	
 </div>
@@ -300,7 +270,7 @@ var roomidx = '${cdto.croom_idx}';  //채팅방번호
 function openSocket() {
 	if (sock != null && sock !== undefined && sock.readyState !== WebSocket.CLOSED) {
 		$('#messages').append('웹소켓이 이미 연결되었습니다.<br>');
-		scroll();
+		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 		return;
 	}
 
@@ -310,7 +280,7 @@ function openSocket() {
 	// 서버와 연결이 완료된후 자동호출됨
 	sock.onopen = function (event) {
 
-		scroll();
+		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	}
 	
 	// onmessage는 서버로부터 메시지를 받았을때 호출됨======================onMessage
@@ -318,29 +288,9 @@ function openSocket() {
 			
 			console.log('event.data : ' + event.data);
 			var msg = event.data;
-			if(msg != null && msg.type =='사진'){ //사진메세지라면
-				console.log("파일첨부잇어여");
-				var blob = event.data;
-
-				  console.log("New Message : " + blob.size + " byte");
-				  
-				  // works cross-browser
-				  var uri = createObjectURL(blob);
-				  var img = document.createElement("img");
-				  img.src = uri;
-
-				  document.body.appendChild(img);
-
-				//출처: https://imaitman.tistory.com/235 [To be rich..]
-				
-				
-			}else{	//파일 업로드한 경우 업로드한 파일을 채팅방에 뿌려준다.
-				var url = URL.createObjectURL(new Blob([msg]));
-				$("#chatMessageArea").append("<div class='img'><img class='msgImg' src="+url+"></div><div class='clearBoth'></div>");
-			}
-			
-
-		scroll();
+			var str = message.msg_content  + '\n';
+			appendOtherMessage(str);
+			$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	};
 	
 	sock.onclose = function (event) {
@@ -504,9 +454,9 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 			"</div>"+
 	"</div>");
 
-	  var chatAreaHeight = $("#chatArea").height();
-	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-	  $("#chatArea").scrollTop(maxScroll);
+
+	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+
 
 	 }
  }
@@ -531,11 +481,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 		 "</div>"+	
 	"</div>");		
 	 
-	 
-	 
-	  var chatAreaHeight = $("#chatArea").height();
-	  var maxScroll = $("#chatMessageArea").height() - chatAreaHeight;
-	  $("#chatArea").scrollTop(maxScroll);
+	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 
 	 }
  }
@@ -546,7 +492,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 /*웹소켓연결단*/
 $(document).ready(function () {
 		openSocket(); //입장버튼없이 바로연결
-	
+
 	$('#btnClose').on('click', function (event) {
 		closeSocket();
 	});
@@ -555,10 +501,6 @@ $(document).ready(function () {
 		send();
 	});
 
-	$('#btnSendFile').on('click', function (event) {
-		sendFile();
-	});
-	
 	$('#message-input').on('keydown', function (event) {
 		if (event.keyCode == 13) { // 엔터키
 			send();
@@ -568,5 +510,6 @@ $(document).ready(function () {
 
 </script>
 </div>
+ <%@include file="../../_include/footer.jsp" %>
 </body>
 </html>

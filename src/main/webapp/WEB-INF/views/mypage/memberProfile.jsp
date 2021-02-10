@@ -32,7 +32,6 @@ function mypagePhoneUpdate(){
 
 </head>
 <body>
-<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
    
    <div class="mypage_wrap">
@@ -40,7 +39,7 @@ function mypagePhoneUpdate(){
       
       <div class="mypage_contents">
          <div class="mypage_main">
-            <br>
+         <div class="nomalAllWrap">
             <div class="profileIMG">
                 <img src="/zipcok/upload/member/${cdto.mfile_upload}">
             </div>
@@ -113,7 +112,8 @@ function changeValue(obj){ //사진선택하면
                </div>
             </div>
 
-         </div>
+           </div>
+         </div><!--nomalAllWrap-->
       </div>
    </div>
    <%@include file="../_include/footer.jsp" %>
