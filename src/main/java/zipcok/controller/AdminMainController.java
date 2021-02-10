@@ -13,10 +13,4 @@ public class AdminMainController {
 	}
 	
 	
-	@RequestMapping("admin_delMemberList.do")
-	public String adminDelMemberList() {
-		
-		return "admin/admin_member/admin_delMemberList";
-	}
-	
 }
