@@ -1,0 +1,51 @@
+@charset "EUC-KR";
+/*상단회원정보보여주기관련=======*/
+.newcont{margin:50px 0 60px 70px;}
+.allchatWrap {max-width:900px; height: 180px; }
+.allchatWrap .othermanInfo{padding:20px;  border:1px solid #DADDE2;  display:flex;  justify-content: flex-start;}
+.allchatWrap .othermanInfo  img{width:140px; height:140px; border-radius: 10px;}
+.allchatWrap .othermanInfo .infos{ padding:10px 0 0 30px;}
+.allchatWrap .othermanInfo .infos  h3{ font-size:18px; font-weight:550; color:#323335;}
+/*코치회원정보*/
+.allchatWrap .othermanInfo .infos  #starimg{ width:90px;height:auto;  }
+/*일반회원정보*/
+.allchatWrap .othermanInfo .infos .type,.gender { margin-right: 5px; background: #318dea; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
+.allchatWrap .othermanInfo .infos .rightgt{margin:0 6px 0 6px;}
+.allchatWrap .othermanInfo .infos .reqcont {margin:10px 0 0 0;}
+.allchatWrap .othermanInfo .hammenu{font-size:30px; position: relative; left:44%; color:#323335; cursor: pointer;}
+
+
+
+/*메세지css관련=======*/
+
+.AreaAll{border: 1px solid lightgray; border-top:0px; height: 50vh;  overflow-y:scroll}
+#chatMessageArea{ padding :20px 40px 30px 40px;}
+/*내메세지*/
+.OnechatfromMe{display:flex; justify-content:flex-end;  height : auto; margin-top : 10px;}
+.OnechatfromMe .ContentWrap{margin-top : 7px; padding :5px 0;}
+.OnechatfromMe .ContentWrap .cont{ min-width:180px; min-height:60px; background-color:white; border:1px solid #ececec;  font-size : 15px; padding :18px;  border-radius:10px 0 0 10px;}
+.sendtime{font-size:9px; text-align:right; float:right;}	
+.chatimgdiv{padding: 12px 0 0 0;}
+.chatimgdiv img{width:60px; height: 60px; border-radius: 0 5px 5px 0;}
+.chatimgdiv div{font-size:13px; text-align: center;padding:6px 0 0 0;}
+
+/*상대메세지*/
+.OnechatNotMe{justify-content:flex-start;}
+.OnechatNotMe .ContentWrap .cont{border-radius:0 10px 10px 0; background-color:white; border:1px solid #ececec;}
+.OnechatNotMe .chatimgdiv img{ border-radius: 5px 0 0 5px;}
+.OnechatNotMe .sendtime{float:left;}
+
+	
+
+/*메세지입력하고보내는부분 ==========*/
+.chatWriteWrap{display:flex;  background-color: #256abf;padding:15px; justify-content:space-around;}
+.chatWriteWrap #filemenu{display:flex;flex-direction: column; justify-content: center; align-items: center}
+.chatWriteWrap .afile{color:white; font-size:30px;}
+.chatWriteWrap .afile:hover{ color:white;}
+.chatWriteWrap #file { display:none; } 
+.chatWriteWrap #image_sectionDIV{ display:none; }
+.chatWriteWrap .pimg{width:50px; height:50px;  border-radius: 50%; }
+.chatWriteWrap textarea{width:600px; height:80px; border: 0px; }
+#btnSend{width:60px; height:60px;cursor: pointer; color: white; font-size: 48px; padding: 17px 0 0 0; transform : rotate(28deg);}
+
+

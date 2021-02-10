@@ -2,6 +2,7 @@ package zipcok.coachmypage.model;
 
 import java.util.*;
 
+import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -21,4 +22,8 @@ public interface CoachMypageDAO {
 	public CoachFileDTO findProfileDTO(String id); //프로필파일수정
 	public int deleteProfileImg(CoachFileDTO dto); //프로필파일수정
 	public int insertProfileImg(CoachFileDTO dto); //프로필파일수정
+	public List<CategoryDTO> categoryFind(String id);//아이디로 카테고리찾기
+	public int categoryinsert(CategoryDTO dto);//카테고리넣기
+	public int categoryDelete(HashMap<String,String> map);//카테고리삭제
+	public int curriDelete(HashMap<String,String> map); //커리큘럼삭제
 }

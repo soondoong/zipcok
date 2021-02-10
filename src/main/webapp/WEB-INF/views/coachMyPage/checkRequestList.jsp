@@ -12,8 +12,9 @@
 .requestroomDiv{ display:flex; max-width: 1000px;}
 .requestroomDiv .reqwrap{  justify-content: center; padding:60px 0 100px 60px;}
 .requestroomDiv .reqwrap h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
-.requestroomDiv .reqwrap h2{font-weight: 550; color:#12151d;}
+.requestroomDiv .reqwrap h2{font-weight: 550; color:#12151d; margin-bottom:20px;}
 .requestroomDiv .reqwrap hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
+.requestroomDiv .reqwrap .noreq{margin:70px 0 0 50px;}
 </style>
 </head>
 <body>
@@ -29,9 +30,14 @@
 		<h2>&nbsp;받은 요청서</h2>
 		<p>상담하기 버튼을 누르면 고객님과 채팅으로 대화 하실 수 있습니다!</p>
 		<hr>
-		
+				<c:if test="${empty list }">
+				<p class="noreq">아직 받은 요청서가 없습니다.</p>
+				</c:if> 
+				
+	<c:if test="${!empty list }">			
 		<table  style="width:800px;border:1px solid lightgray; margin-right: auto;">
 		<tbody>
+		
 		<c:forEach var="rdto" items="${list}">
 		
 			<tr>
@@ -75,6 +81,7 @@
 		</c:forEach>
 		</tbody>
 		</table>
+	</c:if>	
 	</div>	
 </div>
 </div>	

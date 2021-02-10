@@ -6,6 +6,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
+import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -129,6 +130,30 @@ public CoachFileDTO findProfileDTO(String id) {
 		return count;
 	}
 	
-	
+	/*아이디로카테고리찾기*/
+	@Override
+	public List<CategoryDTO> categoryFind(String id) {
+		List<CategoryDTO> list= sqlMap.selectList("findCategories", id);
+		
+		return list;
+	}
+	/*카테고리등록*/
+
+@Override
+public int categoryDelete(HashMap<String, String> map) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+@Override
+public int categoryinsert(CategoryDTO dto) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+@Override
+public int curriDelete(HashMap<String, String> map) {
+	// TODO Auto-generated method stub
+	return 0;
+}
 	
 }

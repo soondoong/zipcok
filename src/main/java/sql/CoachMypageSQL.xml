@@ -121,6 +121,5 @@ rownum between #{start} and #{end}
 		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
 	</update>
 	
-	
   
   </mapper>

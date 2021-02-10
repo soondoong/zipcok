@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
@@ -351,5 +354,92 @@ ServletContext c;
 		
 	}
 	
+	
+	/*커리큘럼 수정하기*/
+	@RequestMapping("curriReWrite.do")
+	public ModelAndView curriReWrite(HttpSession session) {
+		ModelAndView mav=new ModelAndView();
+		
+		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));
+		
+		HashMap<String, Object> resultMap = dao.coachProfile((String)session.getAttribute("coachId"));
+		
+		//커리큘럼 2개면 분할해서 보내주기
+		if(resultMap.get("curriList") !=null ) {   //등록한 커리큘럼이 있다면
+		List<CurriDTO> cr=(List<CurriDTO>)resultMap.get("curriList");
+			
+			if(cr !=null && cr.size() > 0) {   //등록한 커리큘럼이 있다면
+			String one= cr.get(0).getCurri_catename(); //카테고리구분값
+	
+			List<CurriDTO> oneCurri=new ArrayList<CurriDTO>();
+			List<CurriDTO> twoCurri=new ArrayList<CurriDTO>();
+					for( int i=0; i<cr.size(); i++){
+						String catename=cr.get(i).getCurri_catename();
+						if(one.equals(catename)) {
+							
+							oneCurri.add(cr.get(i)); //curri dto 넣기
+							System.out.println("카테하나임");
+						}else if(! one.equals(catename)) {
+												
+							twoCurri.add(cr.get(i)); //curri dto 넣기
+							System.out.println("카테두개임");
+						}
+					}
+				mav.addObject("oneCurriList",oneCurri);
+				if(twoCurri != null && twoCurri.size() >0) { //다른카테고리가 존재한다면
+				mav.addObject("twoCurriList",twoCurri);			
+				}
+				
+		}
+		
+	}
+		
+		mav.addObject("mdto", mdto);
+		mav.addObject("resultMap", resultMap);	
+		
+		mav.setViewName("coachMyPage/curriRewrite");
+		return mav;
+	}
+	
+	
+	/*카테고리 수정view*/
+	@RequestMapping("categoryUpdate.do")
+	public ModelAndView categoryUpdate(@RequestParam("mem_id")String id) {
+		ModelAndView mav= new ModelAndView();
+		     List<CategoryDTO> list = cdao.categoryFind(id);
+		     mav.addObject("catelist", list);
+		     mav.setViewName("coachMyPage/cateUpdate");
+		return mav;
+	}
+	/*카테고리 수정완료*/
+	@RequestMapping("categoryUpdateOK.do")
+	public ModelAndView categoryUpdateOK(HttpServletRequest req,@RequestParam("mem_id")String id) {
+		ModelAndView mav= new ModelAndView();
+		HashMap<String,String> map = new HashMap<String, String>();
+			
+		List<CategoryDTO> list = cdao.categoryFind(id); //기존카테고리dto리스트
+		List<String> oldcateNames = new ArrayList<String>();//기존카테고리이름리스트(최대2개)
+		for(CategoryDTO dto : list) {
+			oldcateNames.add(dto.getCate_name());
+		}
+			
+		String[] cateArr =req.getParameterValues("cate_name"); //금방받은체크박스
+		for(int i=0;i<cateArr.length;i++) {
+			if(oldcateNames.contains(cateArr[i])) {//기존카테고리랑 같다면
+				
+			}else {//새로운 카테고리라면
+				
+			}
+			
+			String cate_mem_id=id;
+			String cate_name=cateArr[i];
+			CategoryDTO cateDto=new CategoryDTO(0, cate_mem_id, cate_name);
+			
+		}
+		
+		
+		     mav.setViewName("coachMyPage/cateUpdate");
+		return mav;
+	}
 	
 }

@@ -13,7 +13,7 @@
 .chatroomDiv .chattt{ justify-content: center; padding:60px 0 100px 60px;}
 .chatroomDiv .chattt .chats .onechat{ display:flex; cursor:pointer; border:1px solid #e5e6e8; border-radius:7px; margin:0 0 10px 0; box-shadow: 5px 5px 5px #e5e6e8; }
 .chatroomDiv .chattt .zipcoktalk:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
-.chatroomDiv .chattt .zipcoktalk{font-weight: 550; color:#12151d;}
+.chatroomDiv .chattt .zipcoktalk{font-weight: 550; color:#12151d; margin-bottom:20px;}
 .chatroomDiv .chattt hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 .onechat .chatprofile{padding:10px;}
 .onechat .chatprofile img{width:120px; height: 120px; object-fit: cover; padding:10px; border-radius:50%; }
@@ -22,8 +22,9 @@
 .onechat .chatcontents .name{font-weight: 600; font-size: 19px; color:#12151d; }
 .onechat .chatcontents .talk{font-size: 14px; color:#12151d; margin:10px 0 0 0;}
 .onechat .opendate{font-size: 12px;color:##6f6f71;padding:10px 0 0 0; position:relative; left:17px;}
-.onechat .btnout{position:relative; top:88px; right:15px; font-size: 28px; color:#1a346d;}
+.onechat .btnout{position:relative; top:88px; right:15px; font-size: 28px; color:#1a346d;cursor: pointer;}
 .onechat .talktime{font-size: 11px; color:#54545f;}
+.noreq{margin:70px 0 0 50px;}
 </style>
 </head>
 <body>
@@ -34,8 +35,15 @@
 				<div class="chattt">
 					<c:set var="list" value="${ chatList }"/>				
 						<h2  class="zipcoktalk">&nbsp;집콕톡</h2>
+						<p>집콕톡을 통해 편리하게 대화를 나눠보세요!</p>
 					 <hr>	
 				<div class="chats">
+				<c:if test="${empty list }">
+				<p class="noreq"> 현재 상담 중인 채팅방이 존재하지 않습니다!</p>
+				</c:if> 
+				
+				
+		<c:if test="${!empty list }">		
 		<c:forEach var="cdto" items="${list}">
 								<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
 									<c:url value="/gotoChat.do" var="url">
@@ -58,7 +66,7 @@
 								
 								<c:if test="${!empty cdto.user_name}">
 									<div class="chatcontents">
-										 <p class="name">${cdto.mem_name }</p>
+										 <p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<p class="talk">${cdto.user_name} : ${cdto.msg_content }</p>
 										<p class="talktime">${cdto.msg_sendtime }</p>
 									</div>
@@ -66,7 +74,7 @@
 									 
 								 <c:if test="${empty cdto.user_name}">
 								   <div class="chatcontents">
-									 	<p class="name">${cdto.mem_name }</p>
+									 	<p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<p  class="talk">아직 채팅이 시작되지않았습니다!</p>
 									</div>
 								 </c:if>
@@ -74,18 +82,31 @@
 										<label>생성일 ${cdto.croom_opendate }</label>
 									</div>
 																	
-									<div>
-									<a href="javascript:location.href='${delurl}'">
-									<i class="fas fa-door-open btnout"></i>
-									</a>							
-									</div>
+															
+										<i class="fas fa-door-open btnout"></i>														
+									
 									
 					</div>				 
 					</c:forEach>
+					</c:if>
 				</div><!-- chats -->
 			</div>
 		</div>		
 </div>
+
+<script>
+$('.btnout').on('click',function(e){
+	e.stopPropagation();
+	var result=confirm('채팅방을 나가시겠습니까?');
+	if(result){
+		location.href='${delurl}';
+	}else{
+		
+	}
+});
+
+</script>
+
  <%@include file="../_include/footer.jsp" %>
 </body>
 </html>
