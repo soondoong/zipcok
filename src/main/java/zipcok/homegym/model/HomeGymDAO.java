@@ -11,6 +11,7 @@ public interface HomeGymDAO {
 	public boolean HomeGymCheck(String id);
 	public int HomeGymAdd(HomeGymDTO dto);
 	public List<HomeGymDTO> HomeGymList(Map<String, Object> options);
+	public int HomeGymTotalCnt(Map<String, Object> options);
 	public int HomeGymImgUpload(ArrayList<CoachFileDTO> list);
 	public String HomeGymNickNameCheck(String hg_nickname);
 	public int HomeGymAddPrice();

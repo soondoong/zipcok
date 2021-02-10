@@ -42,7 +42,11 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		List<HomeGymDTO> list = sqlMap.selectList("hgListSQL", options);
 		return list;
 	}
-
+	@Override
+	public int HomeGymTotalCnt(Map<String, Object> options) {
+		int totalCnt = sqlMap.selectOne("totalCntSQL", options);
+		return totalCnt;
+	}
 	@Override
 	public String HomeGymNickNameCheck(String hg_nickname) {
 		String nickname = sqlMap.selectOne("hgNickNameCheckSQL", hg_nickname);
