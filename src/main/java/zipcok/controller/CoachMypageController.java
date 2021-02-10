@@ -360,10 +360,10 @@ ServletContext c;
 	public ModelAndView curriReWrite(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
 		
-		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));
-		
+		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));	
 		HashMap<String, Object> resultMap = dao.coachProfile((String)session.getAttribute("coachId"));
-		
+		 List<CategoryDTO> list = cdao.categoryFind((String)session.getAttribute("coachId"));
+	     mav.addObject("catelist", list);
 		//커리큘럼 2개면 분할해서 보내주기
 		if(resultMap.get("curriList") !=null ) {   //등록한 커리큘럼이 있다면
 		List<CurriDTO> cr=(List<CurriDTO>)resultMap.get("curriList");
@@ -402,6 +402,8 @@ ServletContext c;
 	}
 	
 	
+	
+	
 	/*카테고리 수정view*/
 	@RequestMapping("categoryUpdate.do")
 	public ModelAndView categoryUpdate(@RequestParam("mem_id")String id) {
@@ -411,34 +413,55 @@ ServletContext c;
 		     mav.setViewName("coachMyPage/cateUpdate");
 		return mav;
 	}
+	
+	
+	
 	/*카테고리 수정완료*/
 	@RequestMapping("categoryUpdateOK.do")
 	public ModelAndView categoryUpdateOK(HttpServletRequest req,@RequestParam("mem_id")String id) {
 		ModelAndView mav= new ModelAndView();
-		HashMap<String,String> map = new HashMap<String, String>();
-			
+				
 		List<CategoryDTO> list = cdao.categoryFind(id); //기존카테고리dto리스트
 		List<String> oldcateNames = new ArrayList<String>();//기존카테고리이름리스트(최대2개)
 		for(CategoryDTO dto : list) {
 			oldcateNames.add(dto.getCate_name());
 		}
-			
+		int count=0;
+		/*1단계 다른거 새로등록하기*/
+		List<String> staycateNames = new ArrayList<String>();//유지할 카테고리 이름들담을 arr
 		String[] cateArr =req.getParameterValues("cate_name"); //금방받은체크박스
+		List<String> newarr = new ArrayList<String>();//금방받은체크박스
 		for(int i=0;i<cateArr.length;i++) {
-			if(oldcateNames.contains(cateArr[i])) {//기존카테고리랑 같다면
-				
-			}else {//새로운 카테고리라면
-				
-			}
-			
-			String cate_mem_id=id;
-			String cate_name=cateArr[i];
-			CategoryDTO cateDto=new CategoryDTO(0, cate_mem_id, cate_name);
-			
+			newarr.add(cateArr[i]);
+				if(oldcateNames.contains(cateArr[i])) {//기존카테고리랑 같다면
+					staycateNames.add(cateArr[i]);
+					continue;
+				}else {//새로운 카테고리라면
+					String cate_mem_id=id;
+					String cate_name=cateArr[i];
+					CategoryDTO cateDto=new CategoryDTO(0, cate_mem_id, cate_name);
+					System.out.println("새로추가할카테고리:"+cate_name);
+					count+= cdao.categoryinsert(cateDto);
+					oldcateNames.add(cate_name); //기존목록에 추가해버리고 다시비교할꺼임
+				}		
 		}
 		
+		for(String cate : oldcateNames) {
+			if(!newarr.contains(cate)) { 
+				HashMap<String, String> catemap = new HashMap<String, String>();
+				catemap.put("cate_mem_id",id);
+				catemap.put("cate_name", cate);
+				System.out.println("삭제할카테고리:"+cate);
+				 count+=cdao.categoryDelete(catemap);     
 		
-		     mav.setViewName("coachMyPage/cateUpdate");
+			}
+			
+		}
+		String msg=count>1?"카테고리가 수정되었습니다":"카테고리수정실패";
+		String gourl="coachMyPage.do";
+		mav.addObject("msg",msg);
+		mav.addObject("gourl",gourl);
+	    mav.setViewName("coachMyPage/coachMypagePopupMsg");
 		return mav;
 	}
 	
