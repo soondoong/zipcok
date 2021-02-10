@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.comm.model.CommManageDAO;
 import zipcok.test.model.Payment_Request_TestDTO;
 import zipcok.comm.model.CommunityDTO;
+import zipcok.comm.model.Users_communityDTO;
 
 @Controller
 public class CommManageController {
@@ -49,6 +50,19 @@ public class CommManageController {
 		mav.addObject("gopage", "coachMyPageCommManage.do");
 		mav.setViewName("comm/commDailyMsg");
 		return mav;
+	}
+	
+	//커뮤니티 설정 진입
+	@RequestMapping("coachMyPageCommSetting.do")
+	public ModelAndView coachMyPageCommSetting(int uc_comm_idx) {
+		List<String> commlist=commManageDao.commUsersList(uc_comm_idx);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("commlist", commlist);
+		mav.addObject("gopage", "coachMyPageCommManage.do");
+		mav.setViewName("coachMyPage/coachMypageCommSetting");
+		return mav;
+		
 	}
 
 }

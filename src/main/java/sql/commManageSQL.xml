@@ -7,14 +7,14 @@
 <select id="paymentListSQL" parameterType="String" resultType="zipcok.test.model.Payment_Request_TestDTO">
 	select * from 
 			payment_request_test
-		where
+	where
 			pr_receiver_test=#{pr_receiver_test}
 </select>
 
 <select id="manageCommListSQL" parameterType="String" resultType="zipcok.comm.model.CommunityDTO">
 	select * from 
 			community
-		where
+	where
 			com_coach_id=#{com_coach_id}
 </select>
 
@@ -31,5 +31,14 @@
 	
 </insert>
 
+<select id="commUsersListSQL" parameterType="Integer" resultType="arraylist">
+	select 
+		uc_mem_id
+	from
+		users_community
+	where
+		uc_comm_idx=#{uc_comm_idx}
+</select>
+	
 
 </mapper>
