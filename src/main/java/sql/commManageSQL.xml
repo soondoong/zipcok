@@ -31,14 +31,44 @@
 	
 </insert>
 
-<select id="commUsersListSQL" parameterType="Integer" resultType="arraylist">
+<select id="commUsersListSQL" parameterType="Integer" resultType="zipcok.comm.model.Users_communityDTO">
 	select 
-		uc_mem_id
+		*
 	from
 		users_community
 	where
-		uc_comm_idx=#{uc_comm_idx}
+		uc_comm_idx=#{value}
 </select>
+
+<select id="commUserGetNameSQL" parameterType="String" resultType="String">
+	select
+		mem_name
+	from
+		zipcok_member
+	where
+		mem_id=#{value}
+</select>
+
+<select id="commUserIdSearchSQL" parameterType="String" resultType="zipcok.member.model.MemberDTO">
+	select
+		*
+	from
+		zipcok_member
+	where
+		mem_id=#{value}
+</select>
+
+<insert id="commMemPlusSQL" parameterType="zipcok.comm.model.CommunityDTO">
+	insert into
+		users_community
+	values(users_community_idx.nextval,
+	#{uc_mem_id},
+	#{com_name},
+	0,
+	'N',
+	sysdate	
+	)
+</insert>
 	
 
 </mapper>
