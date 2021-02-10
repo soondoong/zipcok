@@ -11,4 +11,31 @@ public class AdminMemberController {
 		
 		return "admin/admin_member/admin_memberList";
 	}
+	
+	
+	@RequestMapping("admin_delMemberList.do")
+	public String adminDelMemberList() {
+		
+		return "admin/admin_member/admin_delMemberList";
+	}
+	
+	@RequestMapping("admin_memberStats.do")
+	public String adminMemberStats() {
+		
+		return "admin/admin_member/admin_memberStats";
+	}
+	
+	
+	@RequestMapping("admin_homeGymAdmin.do")
+	public String adminHomeGymAdmin() {
+		
+		return "admin/admin_homeGym/admin_homeGymAdmin";
+	}
+	
+	@RequestMapping("admin_homeGymList.do")
+	public String adminHomeGymList() {
+		
+		return "admin/admin_homeGym/admin_homeGymList";
+	}
+	
 }
