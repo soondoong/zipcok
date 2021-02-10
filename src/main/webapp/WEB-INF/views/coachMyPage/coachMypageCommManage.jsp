@@ -97,7 +97,7 @@ function commplus(){
 					<c:forEach var="dto2" items="${commlist}">
 					<tr>
 						<td>${dto2.com_idx}</td>
-						<td><a href="">${dto2.com_name}</a></td>
+						<td><a href="coachMyPageCommSetting.do?uc_comm_idx=${dto2.com_idx}">${dto2.com_name}</a></td>
 						<td>${dto2.com_mem_sum}</td>
 						<td>${dto2.com_opendate}</td>
 					</tr>
