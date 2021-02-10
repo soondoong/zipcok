@@ -1,5 +1,6 @@
 package zipcok.comm.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -35,5 +36,11 @@ public class CommManageDAOImple implements CommManageDAO {
 		return result;
 	}
 	
+	//커뮤니티 소속 회원들 이름 리스트 만들기
+	@Override
+	public ArrayList<String> commUsersList(int uc_comm_idx) {
+		List list=sqlMap.selectList("commUsersListSQL",uc_comm_idx);
+		return null;
+	}
 
 }
