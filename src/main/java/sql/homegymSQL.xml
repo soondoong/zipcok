@@ -52,46 +52,94 @@
 
 	<select id="hgListSQL" parameterType="hashMap"
 		resultType="zipcok.homegym.model.HomeGymDTO">
-		select * from
-		(select rownum as rnum, f.*, a.hg_eq from
-		(select h.hg_mem_id, wm_concat(eq_name) as hg_eq from homegym
-		h,homegym_equipment e
-		where
-		h.hg_mem_id = e.eq_mem_id
-		group by
-		h.hg_mem_id) a, homegym f
-		where
-		a.hg_mem_id = f.hg_mem_id
-		and
-		<choose>
+		select * from 
+        (select rownum as rnum, b.* from
+		(select h.*, eqlist.hg_eq from (select eq_mem_id, LISTAGG(eq_name, ',') WITHIN GROUP (ORDER BY eq_name) as hg_eq FROM homegym_equipment group by eq_mem_id) eqlist, homegym h 
+        where h.hg_mem_id = eqlist.eq_mem_id )b
+        where
+        <choose>
 			<when test = "location =='전체'"></when>
 			<when test = "location !='전체'">
-			f.hg_faddr like '%${location}%'
+			hg_faddr like '%${location}%'
 			and
 			</when>
 		</choose>
 		<choose>
 			<when test="choice_date == '1900-01-01'"></when>
 			<when test="choice_date != '1900-01-01'">
-				f.hg_start_date <![CDATA[<=]]>
+				hg_start_date <![CDATA[<=]]>
 				'${choice_date_d}'
 				and
-				f.hg_end_date <![CDATA[>=]]>
+				hg_end_date <![CDATA[>=]]>
 				'${choice_date_d}'
 				and
 			</when>
 		</choose>
-		f.hg_price <![CDATA[>=]]> #{price}
+        <choose>
+        	<when test = "eq_options ==''"></when>
+        	<when test = "eq_options !=''">
+        	hg_eq like
+        	<foreach collection="eq_option_s" item = "arr" open="'%" close="%'" separator="%">
+        	#{arr}
+        	</foreach>
+        	and
+        	</when>
+        </choose>
+        hg_price <![CDATA[>=]]> #{price}
 		and
-		f.hg_person_count <![CDATA[>=]]> #{person_count}
+		hg_person_count <![CDATA[>=]]> #{person_count}
 		and
-		f.hg_approved_check = '1'
+        hg_approved_check = '1'
 		and
-		f.hg_status = '1') b
-		where
-		rnum <![CDATA[>=]]> #{start}
+		hg_status = '1'
+        ) c
+        where
+        rnum between #{start} and #{end}
+	</select>
+	
+	
+	<select id = "totalCntSQL" parameterType="hashMap" resultType="Integer">
+	select count(*) from 
+        (select rownum as rnum, b.* from
+		(select h.*, eqlist.hg_eq from (select eq_mem_id, LISTAGG(eq_name, ',') WITHIN GROUP (ORDER BY eq_name) as hg_eq FROM homegym_equipment group by eq_mem_id) eqlist, homegym h 
+        where h.hg_mem_id = eqlist.eq_mem_id )b
+        where
+        <choose>
+			<when test = "location =='전체'"></when>
+			<when test = "location !='전체'">
+			hg_faddr like '%${location}%'
+			and
+			</when>
+		</choose>
+		<choose>
+			<when test="choice_date == '1900-01-01'"></when>
+			<when test="choice_date != '1900-01-01'">
+				hg_start_date <![CDATA[<=]]>
+				'${choice_date_d}'
+				and
+				hg_end_date <![CDATA[>=]]>
+				'${choice_date_d}'
+				and
+			</when>
+		</choose>
+        <choose>
+        	<when test = "eq_options ==''"></when>
+        	<when test = "eq_options !=''">
+        	hg_eq like
+        	<foreach collection="eq_option_s" item = "arr" open="'%" close="%'" separator="%">
+        	#{arr}
+        	</foreach>
+        	and
+        	</when>
+        </choose>
+        hg_price <![CDATA[>=]]> #{price}
 		and
-		rnum <![CDATA[<=]]> #{end}
+		hg_person_count <![CDATA[>=]]> #{person_count}
+		and
+        hg_approved_check = '1'
+		and
+		hg_status = '1'
+        ) c
 	</select>
 	<select id="userEquipmentListSQL" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
 	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name

@@ -89,33 +89,21 @@ public class HomeGymController {
 		int end=cp*listSize;
 		options.put("start", start);
 		options.put("end", end);
+		if(eq_option_s!=null)options.put("eq_option_s", eq_option_s);
+		options.put("eq_options", eq_options);
 		options.put("location", location);
 		options.put("choice_date", date);
 		options.put("choice_date_d", java.sql.Date.valueOf(date));
 		options.put("price", price);
 		options.put("person_count", person_count);
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);	
-		
-		List<HomeGymDTO> homegym_list = new ArrayList<HomeGymDTO>();
 		for(int i = 0 ; i < list.size() ; i++) {
-			boolean option_check = true;
-			if(!eq_options.equals("")) {
-				for(int j = 0 ; j < eq_option_s.length ; j ++) {
-					if(!list.get(i).getHg_eq().contains(eq_option_s[j])) {
-						option_check = false;
-						break;
-					}
-				}
-			}
 			String file_upload = homegymDAO.HomeGymIdImgSelect(list.get(i).getHg_mem_id());
 			list.get(i).setHg_upload(file_upload);
-			if(option_check) {
-				List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
-				list.get(i).setHg_eq_list(eq_list);
-				homegym_list.add(list.get(i));
-			}			
+			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
+			list.get(i).setHg_eq_list(eq_list);
 		}
-		int totalCnt = list.size()==0?1:list.size();
+		int totalCnt = homegymDAO.HomeGymTotalCnt(options);
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
 		Map<String, Object> keywordMap = new HashMap<String, Object>();
 		keywordMap.put("eq_options", eq_options);
@@ -128,7 +116,7 @@ public class HomeGymController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
-		mav.addObject("HomeGymList", homegym_list);
+		mav.addObject("HomeGymList", list);
 		mav.addObject("keywordMap", keywordMap);
 		mav.setViewName("homegym/hgList");
 		return mav;
