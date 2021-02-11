@@ -16,13 +16,13 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	
 	
 	@Override
-	public int adminMemberTotalCnt(Map<String, Object> map) {
+	public int adminMemberTotalCnt(HashMap<String, Object> map) {
 		int totalCnt = sqlMap.selectOne("totalCnt", map);
 		return totalCnt;
 	}
 
 	@Override
-	public List<MemberDTO> adminMemberList(Map<String, Object> map) {
+	public List<MemberDTO> adminMemberList(HashMap<String, Object> map) {
 		List<MemberDTO> list = sqlMap.selectList("adminMemberList", map);
 		return list;
 	}

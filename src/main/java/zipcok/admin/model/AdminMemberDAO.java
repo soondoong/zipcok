@@ -6,7 +6,7 @@ import zipcok.member.model.MemberDTO;
 
 public interface AdminMemberDAO {
 
-	public int adminMemberTotalCnt(Map<String, Object> map);
-	public List<MemberDTO> adminMemberList(Map<String, Object> map);
+	public int adminMemberTotalCnt(HashMap<String, Object> map);
+	public List<MemberDTO> adminMemberList(HashMap<String, Object> map);
 	
 }

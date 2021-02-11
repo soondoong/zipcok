@@ -49,7 +49,8 @@
 						<li>검색 회원수: </li>
 					</ul>
 				</div>
-				<div>			
+				<div>	
+						
 				<!-- 회원목록부분 테이블 div -->
 					<table border="1" cellspacing="0">
 						<thead>
@@ -73,13 +74,13 @@
 						</c:if>
 						<c:forEach var="dto" items="${list }">
 							<tr>
-								<td>1</td>
-								<td>구병모</td>
-								<td>qudah123</td>
-								<td>123456789</td>
-								<td>a@naver.com</td>
-								<td>2021.01.12</td>
-								<td>2021.01.21</td>
+								<td>${dto.mem_idx }</td>
+								<td>${dto.mem_name }</td>
+								<td>${dto.mem_id }</td>
+								<td>${dto.mem_phone }</td>
+								<td>${dtp.mem_email }</td>
+								<td>${dto.mem_joindate }</td>
+								<td>${dto.mem.change }</td>
 							</tr>
 						</c:forEach>
 						</tbody>
