@@ -188,12 +188,12 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 							<p class="catename">${c.cate_name }</p>
 						</div>
 						<div class="currimore"  id="${c.cate_name }">	
-						<c:if test="${c.cate_name ne oneList.get(0).curri_catename && c.cate_name ne twoList.get(0).curri_catename }">						
-							<span class="curriP">커리큘럼 추가하기</span>
-						</c:if>
-						<c:if test="${c.cate_name eq oneList.get(0).curri_catename || c.cate_name eq twoList.get(0).curri_catename }">						
-							<span class="curriP">${c.cate_name eq oneList.get(0).curri_catename?"커리큘럼 수정하기":"커리큘럼 추가하기" }</span>
-						</c:if>	
+					<c:if test="${c.cate_name ne oneList.get(0).curri_catename && c.cate_name ne twoList.get(0).curri_catename }">						
+						<span class="curriP">커리큘럼 추가하기</span>
+					</c:if>
+					<c:if test="${c.cate_name eq oneList.get(0).curri_catename ||  c.cate_name eq twoList.get(0).curri_catename }">			
+							<span class="curriP">커리큘럼 수정하기</span>
+					</c:if>	
 							<i class="fas fa-plus-square plusbtn"></i>
 						</div>
 				</div>				
@@ -377,10 +377,10 @@ function changeValue(obj){ //사진선택하면
 						return false;
 					}else{
 						
-							if($('.nodataOKbtn').attr('name')== '등록완료'){						
-								$('form[name='+formname+']').action="NodataCurriInsert.do";												
+							if($(this).val() == '등록완료'){			
+								$('form[name='+formname+']').attr('action','NodataCurriInsert.do').submit();												
 							}else{
-								$('form[name='+formname+']').action="DataCurriInsert.do";			
+								$('form[name='+formname+']').attr('action','DataCurriInsert.do').submit();			
 							}
 						
 						

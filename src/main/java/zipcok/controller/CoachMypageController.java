@@ -445,7 +445,7 @@ ServletContext c;
 			String curri_content = curri_contents[i];
 			
 			CurriDTO cdto=new CurriDTO(0, curri_mem_id, curri_catename, curri_order, curri_name, curri_content);
-			cdao.curriInsert(cdto);
+			cdao.curriUpdate(cdto);
 		}
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", "커리큘럼이 수정되었습니다.");	
