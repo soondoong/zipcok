@@ -19,14 +19,18 @@
 			.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
 			.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
 			
-			.community_wrap .community_list {flex: 1 1 auto; padding: 30px;}	
+			.community_wrap .community_list {display: block; flex: 1 1 auto;}	
+			.community_wrap .community_list .com_top {background-color: #ccc; height: 150px; padding: 15px;}
 	</style>
 	
 	<div class="community_wrap">
 	<%@include file="./commSideMenu.jsp" %>
 	
 		<div class="community_list">
+			<div class="com_top">
 			<h1>일일 운동 게시판</h1>
+			<h3>코치 : ${coach_name} 코치</h3>
+			</div>
 			<table class="bbs">
 				<thead>
 						<tr>

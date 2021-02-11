@@ -40,8 +40,8 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	//총 게시물 수 구하기
 	@Override
-	public int getTotalCnt() {
-		int count=sqlMap.selectOne("getTotalCntSQL");
+	public int getTotalCnt(int ex_comm_idx) {
+		int count=sqlMap.selectOne("getTotalCntSQL",ex_comm_idx);
 		return count==0?1:count;
 	}
 	
