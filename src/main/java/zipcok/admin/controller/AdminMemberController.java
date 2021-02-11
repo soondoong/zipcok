@@ -37,6 +37,8 @@ public class AdminMemberController {
 	    int pageSize=3;
 	    int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
+		map.put("start", start);
+		map.put("end", end);
 	    int totalCnt = dao.adminMemberTotalCnt(map)==0?1:dao.adminMemberTotalCnt(map);
 	    String pageStr=zipcok.page.MypagePageModule.makePage("adminMemberListAction.do", totalCnt, cp, listSize, pageSize);
 	    List<MemberDTO> list = dao.adminMemberList(map);
