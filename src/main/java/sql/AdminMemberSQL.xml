@@ -2,54 +2,38 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="mo.adminMember">
+  <mapper namespace="zipcok">
   
   
-  	<select id = "totalCnt" parameterType="hashMap" resultType="Integer">
-	
+  	<select id = "totalCnt" parameterType="HashMap" >
+
 	select count(*) from
     (select rownum as rnum,a.* from
-    (select * from zipcok_member where
+    (select * from zipcok_member
+     where
+     mem_type like
     <choose>
-        <when test = "mem_type =='전체'"></when>
-        <when test = "mem_type !='전체'">
-   		 mem_type like '%${mem_type}%'
-   		 and
-    	</when>
+        <when test = "type =='전체'">'%%'</when>
+        <when test = "type !='전체'"> '%${type}%'</when>
     </choose>
-    <choose>
-    	<when test = "mem_id ==''"></when>
-   	 	<when test = "mem_type !=''">
- 		mem_id like '%${mem_id}%'
-	 	and
-    	</when>
-    </choose>
-    )a)b)c
+
+    )a)b
     
 	</select>
   
   
-	<select id="adminMemberList" parameterType="hashMap" resultType="zipcok.member.model.MemberDTO">
+	<select id="adminMemberList" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
 	
 	select * from
     (select rownum as rnum,a.* from
-    (select * from zipcok_member where
+    (select * from zipcok_member
+     where
+     mem_type like
     <choose>
-        <when test = "mem_type =='전체'"></when>
-        <when test = "mem_type !='전체'">
-   		 mem_type like '%${mem_type}%'
-   		 and
-    	</when>
+        <when test = "type =='전체'">'%%'</when>
+        <when test = "type !='전체'"> '%${type}%'</when>
     </choose>
-    <choose>
-    	<when test = "mem_id ==''"></when>
-   	 	<when test = "mem_type !=''">
- 		mem_id like '%${mem_id}%'
-	 	and
-    	</when>
-    </choose>
-    order by mem_idx desc)a)b)c
-    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+ )a)b
     
 	</select>
 
