@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.admin">
+  	<select id="adminSearchCoach" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
+  	
+  	select
+  	*
+  	from
+  	zipcok_member
+  	where
+  	mem_type='코치회원'
+  	and
+  	<choose>
+  	<when test="choice=='번호'">mem_idx=#{searchText}	</when>
+  	<when test="choice=='id'">mem_id=#{searchText}</when>
+  	<when test="choice=='이름'">mem_name=#{searchText}</when>
+  	</choose>
+  	and
+  	mem_gender=#{mem_gender}
+  	</select>
+  </mapper>
