@@ -18,4 +18,16 @@ public class AdminHomeGymController {
 		
 		return "admin/admin_homeGym/admin_homeGymList";
 	}
+	
+	@RequestMapping("admin_homeGymReservation.do")
+	public String adminHomeGymReservation() {
+		
+		return "admin/admin_homeGym/admin_homeGymReservation";
+	}
+	
+	@RequestMapping("admin_homeGymReserveCancel.do")
+	public String adminHomeGymReserveCancel() {
+		
+		return "admin/admin_homeGym/admin_homeGymReserveCancel";
+	}
 }
