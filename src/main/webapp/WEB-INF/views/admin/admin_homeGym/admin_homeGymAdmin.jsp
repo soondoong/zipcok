@@ -22,14 +22,50 @@
             <h3>홈짐 조회</h3>
             <form action="#">
                   <ul class="test-inline">
-                     <li>검색 조건</li>
+                     <li><select><option>전체</option></select></li>
                      <li><select><option>아이디</option></select></li>
                      <li><input type="text" value="내용을입력해주세요"></li>
                      <li><input type="submit" value="검색"></li>
                   </ul>
-               </form>
-            <br><br>
-            
+            </form>
+            <br>
+            <div>
+               <ul   class="test-inline">
+                  <li>등록된 홈짐 수 : 12</li>
+               </ul>
+            </div>
+			
+            <div><!-- 회원목록부분 테이블 div -->
+               <table border="1" cellspacing="0">
+                  <thead>
+                     <tr>
+                        <th>번호</th>
+                        <th>홈짐이름</th>
+                        <th>공유자아이디</th>
+                        <th>등록일</th>
+                        <th>정보수정일</th>
+                        <th>결제계좌정보</th>
+                        <th>상태</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>1</td>
+                        <td>표승이네건강파크</td>
+                        <td>member</td>
+                        <td>2021.02.11</td>
+                        <td>2021.02.11</td>
+                        <td>미등록</td>
+                        <td><input type="checkbox"></td>
+                     </tr>
+                  </tbody>
+                  <tfoot>
+                     <tr>
+                        <td colspan="7" align="center">페이징 들어갈 자리</td>
+                     </tr>
+                  </tfoot>
+               </table>
+            </div>
 			<h3>홈짐 정보 관리</h3>
 			<from>
 				<ul>
