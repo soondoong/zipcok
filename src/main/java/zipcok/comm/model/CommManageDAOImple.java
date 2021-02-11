@@ -25,6 +25,12 @@ public class CommManageDAOImple implements CommManageDAO {
 		return list;
 	}
 	
+	@Override
+	public List<Payment_Request_TestDTO> paymentList_finish(String pr_receiver_test) {
+		List<Payment_Request_TestDTO> list=sqlMap.selectList("paymentList_finishSQL",pr_receiver_test);
+		return list;
+	}
+	
 	//개설 커뮤니티 정보 가져오기
 	@Override
 	public List<CommunityDTO> manageCommList(String com_coach_id) {
@@ -63,8 +69,18 @@ public class CommManageDAOImple implements CommManageDAO {
 	}
 	
 	@Override
-	public int commMemPlus(String uc_mem_id) {
-		int result=sqlMap.insert("commMemPlusSQL",uc_mem_id);
+	public String getCommName(int uc_comm_idx) {
+		String uc_name=sqlMap.selectOne("getCommNameSQL",uc_comm_idx);
+		return uc_name;
+	}
+	
+	@Override
+	public int commMemPlus(String uc_mem_id, int uc_comm_idx, String com_name) {
+		Map map=new HashMap();
+		map.put("uc_mem_id", uc_mem_id);
+		map.put("uc_comm_idx", uc_comm_idx);
+		map.put("uc_name", com_name);
+		int result=sqlMap.insert("commMemPlusSQL",map);
 		return result;
 	}
 

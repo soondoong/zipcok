@@ -40,6 +40,15 @@
 			mem_id=#{com_coach_id}		
 	</select> 
 	
+	<select id="getComInfoSQL" resultType="zipcok.comm.model.CommunityDTO">
+		select
+			*
+		from
+			community
+		where
+			com_idx=#{com_idx}
+	</select>
+	
 
 
 </mapper>

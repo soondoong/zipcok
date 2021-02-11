@@ -65,6 +65,7 @@ public class CommManageController {
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("commlist", commlist);
+		mav.addObject("uc_comm_idx", uc_comm_idx);
 		mav.setViewName("coachMyPage/coachMypageCommSetting");
 		return mav;
 		
@@ -72,32 +73,29 @@ public class CommManageController {
 	
 	//수강생 추가 팝업
 	@RequestMapping("coachMyPageMemPlusForm.do")
-	public ModelAndView coachMyPagememPlusForm(HttpSession session) {
+	public ModelAndView coachMyPagememPlusForm(HttpSession session, int uc_comm_idx) {
 		String id=""+session.getAttribute("coachId");
-		List<Payment_Request_TestDTO> list=commManageDao.paymentList(id);
+		List<Payment_Request_TestDTO> list=commManageDao.paymentList_finish(id);
 		
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("commlist", list);
+		mav.addObject("paymentlist", list);
+		mav.addObject("uc_comm_idx", uc_comm_idx);
 		mav.setViewName("coachMyPage/coachMypageMemPlusForm");
 		return mav;
 	}
 	
-	//수강생 검색 결과
+	//수강생 추가
 	@RequestMapping("coachMyPageMemPlus.do")
-	public ModelAndView coachMyPagememPlus(String mem_id) {
-		List<MemberDTO> memlist=commManageDao.commUserIdSearch(mem_id);
+	public ModelAndView coachMyPagememPlus(String uc_mem_id, int uc_comm_idx) {
+		String com_name=commManageDao.getCommName(uc_comm_idx);
+		int result=commManageDao.commMemPlus(uc_mem_id, uc_comm_idx, com_name);
+		String msg=result>0?"수강생 추가가 완료되었습니다.":"수강생 추가 실패!";
 		
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("memlist", memlist);
-		mav.setViewName("coachMyPage/coachMypageMemPlus");
+		mav.addObject("msg", msg);
+		mav.setViewName("comm/commManageMsg");
 		return mav;
 		
 	}
-	
-	//수강생 추가
-	//@RequestMapping("coachMyPageMemPlusSubmit.do")
-	//public ModelAndView coachMyPageMemPlusSubmit(String mem_id) {
-	//	int result=
-	//}
 
 }

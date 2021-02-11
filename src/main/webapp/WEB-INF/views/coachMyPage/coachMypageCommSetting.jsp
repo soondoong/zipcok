@@ -6,8 +6,9 @@
 <%@include file="../_include/head.jsp" %>
 	
 <script>
-function memplus(){
-	window.open('coachMyPageMemPlusForm.do','memUpdate','width=550,height=300');
+function memplus(uc_comm_idx){
+	var url='coachMyPageMemPlusForm.do?uc_comm_idx='+uc_comm_idx;
+	window.open(url,'memUpdate','width=550,height=300');
 }
 </script>
 	
@@ -63,7 +64,7 @@ function memplus(){
 			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>수강생</h6> <input type="button" value="수강생 추가" onclick="memplus()">
+				<h6>수강생</h6> <input type="button" value="수강생 추가" onclick="memplus(${uc_comm_idx})">
 				<table border="1" cellspacing="0" class="commList">
 				<thead>
 					<tr>
