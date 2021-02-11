@@ -190,7 +190,7 @@ function reservation_callback(){
 			<li><select id = "choice_person_count" name = "reser_person_count"></select></li>
 			<li>결제 예상 금액</li>
 			<li><label id = "expect_price">${hgContent.hg_price }</label>원</li>
-			<li><input type = "button" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
+			<li><input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
 		</ul>
 		<ul id = "reservationInfo_click">
 			<li>이용 일자</li>
@@ -202,8 +202,8 @@ function reservation_callback(){
 			<li>결제 예상 금액</li>
 			<li><label id = "use_price"></label>원</li>
 			<li>
-			<input type = "button" value = "예약하기" onclick = "javascript:reservation_ajax();">
-			<input type = "button" value = "돌아가기" onclick = "javascript:reservation_back_click();">
+			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약하기" onclick = "javascript:reservation_ajax();">
+			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "돌아가기" onclick = "javascript:reservation_back_click();">
 			</li>
 		</ul>
 	</div>

@@ -54,8 +54,8 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public int HomeGymAddPrice() {
-		int avgPrice = sqlMap.selectOne("hgAvgPriceSQL");
+	public String HomeGymAddPrice() {
+		String avgPrice = sqlMap.selectOne("hgAvgPriceSQL");
 		return avgPrice;
 	}
 
