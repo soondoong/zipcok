@@ -171,8 +171,7 @@ rownum between #{start} and #{end}
 			and
 			curri_catename =	#{curri_catename}
 			and
-			curri_order =#{curri_order}
-		)	
+			curri_order =#{curri_order}		
 	</update>
 	
   </mapper>

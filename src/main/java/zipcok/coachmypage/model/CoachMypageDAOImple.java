@@ -51,8 +51,8 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		
 		return count;
 	}
-	/*파일진짜삭제하려면필요*/
-
+	
+/*파일진짜삭제하려면필요*/
 @Override
 public CoachFileDTO findProfileDTO(String id) {
 	CoachFileDTO dto=sqlMap.selectOne("findFileDTO", id);
@@ -165,5 +165,12 @@ public int curriDelete(HashMap<String, String> map) {
 public void curriInsert(CurriDTO cdto) {
 	 sqlMap.insert("curriInsert",cdto);		
 }
+
+/*커리큘럼 수정*/
+@Override
+public void curriUpdate(CurriDTO cdto) {
 	
+	sqlMap.update("curriUpdate",cdto);
+}
+
 }
