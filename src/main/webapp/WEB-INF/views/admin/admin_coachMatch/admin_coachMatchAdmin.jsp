@@ -74,45 +74,79 @@
 					</table>
 				</div>
 				<div><!-- 코치의 세부정보 부분 div -->
+				<form>
 					<ul>
 						<li>
 							<h5>활동지역</h5>
+							
 							<ul>
 								<li>경기도 안산시 범죄도시</li>
 							</ul>	
+							<input type="button" value="활동지역 수정">
 						</li>
 						<li>
 							<h5>소개글</h5>
+							
 							<ul>
 								<li>소개글 제목</li>
 								<li>소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용소개글  내용</li>
 							</ul>
+							<input type="button" value="소개글 수정">
 						</li>
 						<li>
 							<h5>카테고리</h5>
+							
 							<ul>
 								<li>필라테스 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
 								<li>요가 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
 								<li>헬스 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
 							</ul>
+							<input type="button" value="카테고리 수정">
 						</li>
 						<li>
 							<h5>준비물</h5>
+							
 							<ul>
 								<li>필라테스 : 매트</li>
 								<li>요가 : 매트</li>
 								<li>헬스 : 개인 수건</li>
 							</ul>
+							<input type="button" value="준비물 수정">
 						</li>
 						<li>
 							<h5>강의유형</h5>
+							
 							<ul>
 								<li>대면 / 비대면</li>
 							</ul>
+							<input type="button" value="강의유형 수정">
 						</li>
-						<li><h5>경력</h5></li>
-						<li><h5>코치 소개 사진</h5></li>
+						<li>
+							<h5>경력</h5>
+							<ul>
+								<li>1    년</li>
+							</ul>
+							<input type="button" value="경력 수정">
+						</li>
+						<li>
+							<h5>코치 소개 사진</h5>
+							<ul class="test_inline">
+								<li><input type="button" value="수정하기"></li>
+								<li><input type="button" value="사진추가"></li>
+							</ul>
+						</li>
+						<li>
+							<ul class="test_inline">
+								<li>사진</li>
+								<li>사진</li>
+								<li>사진</li>
+								<li>사진</li>
+								<li>사진</li>
+							</ul>
+						</li>
 					</ul>
+					<input type="submit" value="저장하기">
+					</form>
 				</div>
 			</div>
 		</div>

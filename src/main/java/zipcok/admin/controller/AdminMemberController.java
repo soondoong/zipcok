@@ -26,16 +26,6 @@ public class AdminMemberController {
 	}
 	
 	
-	@RequestMapping("admin_homeGymAdmin.do")
-	public String adminHomeGymAdmin() {
-		
-		return "admin/admin_homeGym/admin_homeGymAdmin";
-	}
 	
-	@RequestMapping("admin_homeGymList.do")
-	public String adminHomeGymList() {
-		
-		return "admin/admin_homeGym/admin_homeGymList";
-	}
 	
 }
