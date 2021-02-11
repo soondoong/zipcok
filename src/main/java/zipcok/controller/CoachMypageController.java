@@ -400,8 +400,36 @@ ServletContext c;
 	
 	
 	/*운동커리큘럼새로등록기능*/
-	@RequestMapping("nodataCurriInsert.do")
+	@RequestMapping("NodataCurriInsert.do")
 	public ModelAndView nodataCurriInsert(HttpServletRequest req) {
+		String[] curri_mem_ids=req.getParameterValues("curri_mem_id");
+		String[] curri_catenames=req.getParameterValues("curri_catename");
+		String[] curri_orders=req.getParameterValues("curri_order");
+		String[] curri_names=req.getParameterValues("curri_name");
+		String[] curri_contents=req.getParameterValues("curri_content");
+		
+		for(int i=0; i<curri_mem_ids.length; i++) {
+			String curri_mem_id = curri_mem_ids[i];
+			String curri_catename = curri_catenames[i];
+			String curri_orderss = curri_orders[i];
+			int curri_order=Integer.parseInt(curri_orderss);
+			String curri_name = curri_names[i];
+			String curri_content = curri_contents[i];
+			
+			CurriDTO cdto=new CurriDTO(0, curri_mem_id, curri_catename, curri_order, curri_name, curri_content);
+			cdao.curriInsert(cdto);
+		}
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", "새로운 커리큘럼이 등록되었습니다.");	
+		mav.addObject("gopage", "coachMyPage.do");	
+		mav.setViewName("coach/joinMsg");
+		return mav;
+	}
+	
+
+	/*운동커리큘럼수정기능*/
+	@RequestMapping("DataCurriInsert.do")
+	public ModelAndView DataCurriInsert(HttpServletRequest req) {
 		String[] curri_mem_ids=req.getParameterValues("curri_mem_id");
 		String[] curri_catenames=req.getParameterValues("curri_catename");
 		String[] curri_orders=req.getParameterValues("curri_order");
