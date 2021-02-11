@@ -29,4 +29,5 @@ public interface CoachMypageDAO {
 	public int curriDelete(HashMap<String,String> map); //커리큘럼삭제
 	public void curriInsert(CurriDTO cdto);//커리큘럼등록
 	public void curriUpdate(CurriDTO cdto);//커리큘럼수정
+	public void curriDelete(CurriDTO cdto);//커리큘럼 삭제
 }

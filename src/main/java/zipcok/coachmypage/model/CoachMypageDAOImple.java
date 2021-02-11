@@ -172,5 +172,10 @@ public void curriUpdate(CurriDTO cdto) {
 	
 	sqlMap.update("curriUpdate",cdto);
 }
+/*커리큘럼삭제*/
+@Override
+public void curriDelete(CurriDTO cdto) {
+	sqlMap.delete("deleteCurri",cdto);
+}
 
 }
