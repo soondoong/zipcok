@@ -17,7 +17,7 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	
 	@Override
 	public int adminMemberTotalCnt(HashMap<String, Object> map) {
-		int totalCnt = sqlMap.selectOne("totalCnt", map);
+		int totalCnt = sqlMap.selectOne("adminMemberTotalCnt", map);
 		return totalCnt;
 	}
 
@@ -26,6 +26,14 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 		List<MemberDTO> list = sqlMap.selectList("adminMemberList", map);
 		return list;
 	}
+	
+	@Override
+	public MemberDTO adminMemberManage(String mem_id) {
+		MemberDTO dto=sqlMap.selectOne("adminMemberManage", mem_id);
+		return dto;
+	}
+	
+	
 	
 	
 }

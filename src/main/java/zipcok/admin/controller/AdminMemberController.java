@@ -32,12 +32,11 @@ public class AdminMemberController {
 		if(name.equals("") || name.length()==0) {
 			name = "noinputmsg";
 		}
-		System.out.println(type);
-		System.out.println(name);
+
 		ModelAndView mav=new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		String keywords="type="+type;
+		String keywords="&type="+type;
 		keywords+="&name="+name;
 	    int listSize=3;
 	    int pageSize=3;
@@ -49,16 +48,26 @@ public class AdminMemberController {
 		map.put("end", end); 
 	    
 	    List<MemberDTO> list = dao.adminMemberList(map);
-	    System.out.println("1");
 	    int totalCnt = dao.adminMemberTotalCnt(map)==0?1:dao.adminMemberTotalCnt(map);
-	    System.out.println("2");
 	    String pageStr=zipcok.page.AdminMemberPageModule.makePage("adminMemberListAction.do", totalCnt, cp, listSize, pageSize, keywords);
-	    System.out.println("3");
 	    mav.addObject("totalCnt", totalCnt);
 		mav.addObject("pageStr", pageStr);
 		mav.addObject("list", list);
 	
 		mav.setViewName("admin/admin_member/admin_memberList");
+		return mav;
+	}
+	
+	
+	@RequestMapping("adminMemberManage.do")
+	public ModelAndView adminMemberManage(@RequestParam("mem_id") String mem_id) {
+		
+		ModelAndView mav=new ModelAndView();
+		MemberDTO dto2=dao.adminMemberManage(mem_id);
+		
+		mav.addObject("dto2", dto2);
+		mav.setViewName("admin/admin_member/admin_memberList");
+		
 		return mav;
 	}
 	

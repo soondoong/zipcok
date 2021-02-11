@@ -74,57 +74,57 @@
 						</c:if>
 						<c:forEach var="dto" items="${list }">
 							<tr>
-								<td>${dto.mem_idx }</td>
+								<td><a href="adminMemberManage.do?mem_id=${dto.mem_id }" style="color: blue">${dto.mem_idx }</a></td>
 								<td>${dto.mem_name }</td>
 								<td>${dto.mem_id }</td>
 								<td>${dto.mem_phone }</td>
-								<td>${dtp.mem_email }</td>
+								<td>${dto.mem_email }</td>
 								<td>${dto.mem_joindate }</td>
-								<td>${dto.mem.change }</td>
+								<td>${dto.mem_change }</td>
 							</tr>
 						</c:forEach>
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="7" align="center">페이징 들어갈 자리</td>
+								<td colspan="7" align="center">${pageStr }</td>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
-				<div>
+				 <div>
 					<div>
 					
 					<br><br>
 				
 						<h3>회원관리</h3>
 					</div>
-					<div><!-- 회원관리부분 div -->
+					<div>
 						<table>
 							<tr>
-								<th>회원번호 <input type="text" readonly="readonly"></th>
+								<th>회원번호<input type="text" value="${dto2.mem_idx }" readonly="readonly" style="background-color : lightgray;"></th>
 							</tr>
 							<tr>
-								<th>아이디 <input type="text" readonly="readonly"></th>
-								<th>비밀번호 <input type="password" readonly="readonly"></th>
+								<th>아이디<input type="text" value="${dto2.mem_name }" readonly="readonly" style="background-color : lightgray;"></th>
+								<th>비밀번호<input type="text" value="* * * *" readonly="readonly" style="background-color : lightgray;"></th>
 							</tr>
 							<tr>
-								<th>이름 <input type="text"></th>
-								<th>회원등급<select><option>일반회원</option></select></th>
+								<th>이름<input type="text" value="${dto2.mem_name }" readonly="readonly" style="background-color : lightgray;"></th>
+								<th>회원등급<input type="text" value="${dto2.mem_type }" readonly="readonly" style="background-color : lightgray;"></th>
 							</tr>
 							<tr>
-								<td>휴대폰번호 <input type="text"></td>
-								<th>상호평가 점수 <input type="text" readonly="readonly"></th>
+								<td>휴대폰번호 <input type="text" value="${dto2.mem_phone }" readonly="readonly" style="background-color : lightgray;"></td>
+								<th>상호평가 점수 <input type="text" readonly="readonly" readonly="readonly" style="background-color : lightgray;"></th>
 							</tr>
 						</table>
 					</div>
-					<div><!-- 상호평가내역 div -->
+					<div>
 						<ul class="test-inline">
 							<li>검색 조건</li>
 							<li><select><option>홈짐대여</option></select></li>
 							<li><input type="button" value="검색"></li>
 						</ul>
 					</div>
-					<div><!-- 상호평가내역 테이블 div -->
+					<div>
 					<table border="1" cellspacing="0">
 						<thead>
 							<tr>
@@ -158,8 +158,6 @@
 				</div>
 			</div>
 		</div>
-
-
    </div>
 
 <%@include file="../../_include/footer.jsp" %>

@@ -2,21 +2,26 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="zipcok">
+  <mapper namespace="zipcok.admin">
   
   
-  	<select id = "totalCnt" parameterType="HashMap" >
+  	<select id = "adminMemberTotalCnt" parameterType="HashMap" resultType="Integer">
 
 	select count(*) from
     (select rownum as rnum,a.* from
     (select * from zipcok_member
-     where
-     mem_type like
+    where
+  	mem_type like
     <choose>
         <when test = "type =='전체'">'%%'</when>
         <when test = "type !='전체'"> '%${type}%'</when>
     </choose>
-
+	and
+    mem_name like
+    <choose>
+    	<when test = "name =='noinputmsg'">'%%'</when>
+   	 	<when test = "name !='noinputmsg'">'%${name}%'</when>
+    </choose>
     )a)b
     
 	</select>
@@ -27,14 +32,28 @@
 	select * from
     (select rownum as rnum,a.* from
     (select * from zipcok_member
-     where
-     mem_type like
+    where
+    mem_type like
     <choose>
         <when test = "type =='전체'">'%%'</when>
-        <when test = "type !='전체'"> '%${type}%'</when>
+        <when test = "type !='전체'">'%${type}%'</when>
     </choose>
- )a)b
+    and
+    mem_name like
+    <choose>
+    	<when test = "name =='noinputmsg'">'%%'</when>
+   	 	<when test = "name !='noinputmsg'">'%${name}%'</when>
+    </choose>
+ 	)a)b
     
 	</select>
+	
+	
+	<select id="adminMemberManage" parameterType="String" resultType="zipcok.member.model.MemberDTO">
+	select * from zipcok_member where mem_id=#{mem_id}
+	</select>
+
+
+
 
   </mapper>
