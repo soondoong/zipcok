@@ -45,7 +45,7 @@
 		#{hg_nickname}
 	</select>
 
-	<select id="hgAvgPriceSQL" resultType="Integer">
+	<select id="hgAvgPriceSQL" resultType="String">
 		select avg(hg_price) from
 		homegym
 	</select>

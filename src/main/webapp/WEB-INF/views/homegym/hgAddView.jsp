@@ -187,11 +187,33 @@
 			}
 		}
 	}
+	function end_time_click(){
+		var start_time = document.getElementById('start_time').value;
+		if(start_time == '-'){
+			window.alert('시작 시간을 먼저 선택해주세요');
+			return;
+		}
+	}
+	function time_check(){
+		var start_time = document.getElementById('start_time').value;
+		var end_time = document.getElementById('end_time').value;
+		if(end_time == '-'){
+			window.alert('종료 시간을 선택해주세요');
+			return;
+		}
+		var time_dv = end_time - start_time;
+		if(time_dv<1){
+			window.alert('종료 시간은 시작시간보다 커여합니다.');
+			document.getElementById('end_time').value = '시간을 선택해주세요';
+			return;
+		}
+	}
 </script>
 <style>
 .homegymAddArea label {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
 textarea {resize: none;}
-#date_div {width:800px; height:300; z-index: 1; }
+.homegymAddArea #nicknameCheckText {text-align: center;}
+#date_div {width:800px; height:300; z-index: 1; margin-bottom: 30px;}
 .ui-datepicker {width:800px; height:300px; top:30px; z-index: 2; }
 .ui-datepicker .ui-datepicker-title {line-height: 41px; vertical-align: middle; }
 .ui-datepicker select.ui-datepicker-year {width:25%;}
@@ -199,8 +221,12 @@ textarea {resize: none;}
 .ui-datepicker td {height:40px;}
 .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {height:35px; }
 #block_data_div{ position: absolute; height:300px; width : 800px; }
+.homegymAddArea #HomeGymAddImgDiv {margin-top: 20px;}
 .homegymAddArea {width: 50%; margin:auto; }
-.homegymAddArea {margin-bottom: 20px;}
+.homegymAddArea .commonInfo {margin: 10px auto;}
+.homegymAddArea .eqInfo {margin: 10px auto;}
+.homegymAddArea .imgInfo {margin: 10px auto;}
+.homegymAddArea .dateInfo {margin: 10px auto;}
 .homegymAddArea input[type=text] {width: 200px; }
 .homegymAddArea select {width: 200px; }
 .homegymAddArea input[type=date] {width: 200px; }
@@ -208,6 +234,7 @@ textarea {resize: none;}
 .homegymADdArea .eq_add_list {font-size: 25px; font-weight: 300; color: gary;}
 .homegymAddArea .dateInfo {margin-bottom: 30px; }
 .homegymAddArea .dateInfo th {width: 200px;}
+.homegymAddArea .button_div {text-align: center; margin-bottom: 30px;}
 
 </style>
 <div class = "homegymAddArea">
@@ -220,7 +247,7 @@ textarea {resize: none;}
 				<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
 				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
 				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
-				<input type="button" value="중복 확인" onclick = "javascript:nicknameCheck();">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="중복 확인" onclick = "javascript:nicknameCheck();">
 				<div id = "nicknameCheckText"></div>
 				<input type="hidden" id="nickname_overlap" value="0">
 			</li>
@@ -229,7 +256,7 @@ textarea {resize: none;}
 			<li>
 				<label class="HomeGymAddLabel">홈짐 주소</label>
 				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
-				<input type="button"value="주소 검색" onclick="javascript:addrPopupOpen();">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="javascript:addrPopupOpen();">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">상세주소</label>
@@ -293,7 +320,7 @@ textarea {resize: none;}
 						<option value="4">4</option>
 						<option value="5">5</option>
 				</select>
-				<input type="button" value="추가" onclick = "javascript:addEq();">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="추가" onclick = "javascript:addEq();">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel"></label>
@@ -340,32 +367,81 @@ textarea {resize: none;}
 			</tr>
 		</table>
 		<div id = "date_div">
-		<!-- <div id = "block_data_div"></div><!-- 달력 클릭 못하게 덮는 용도 -->
+		<div id = "block_data_div"></div><!-- 달력 클릭 못하게 덮는 용도 -->
 		</div>
 		
 		<ul class = "timeInfo">
 			<li>
 			<label>예약 가능 시간</label>
-			<select name="hg_start_time">
+			</li>
+			<li>
+			<label></label>
+			<select name="hg_start_time" id = "start_time">
+					<option value="-">시간을 선택해주세요</option>
+					<option value="0">00</option>
+					<option value="1">01</option>
+					<option value="2">02</option>
+					<option value="3">03</option>
+					<option value="4">04</option>
+					<option value="5">05</option>
+					<option value="6">06</option>
+					<option value="7">07</option>
+					<option value="8">08</option>
 					<option value="9">09</option>
 					<option value="10">10</option>
 					<option value="11">11</option>
-			</select>
-			<label>부터</label>
-			<select name="hg_end_time">
+					<option value="12">11</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
 					<option value="18">18</option>
 					<option value="19">19</option>
 					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+			</select>
+			<select name="hg_end_time" id = "end_time" onclick="javascript:end_time_click();" onchange="javascript:time_check();">
+					<option value="-">시간을 선택해주세요</option>
+					<option value="0">00</option>
+					<option value="1">01</option>
+					<option value="2">02</option>
+					<option value="3">03</option>
+					<option value="4">04</option>
+					<option value="5">05</option>
+					<option value="6">06</option>
+					<option value="7">07</option>
+					<option value="8">08</option>
+					<option value="9">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">11</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
 			</select>
 			</li>
 			<li>
 			<label>요금 설정/시간</label>
-			<input type="text" name="hg_price">
-			<input type="button" value="평균 요금 확인하기" onclick = "javascript:avgPrice();">
+			<input type="text" name="hg_price"> 
+			<input type="button" class = "btn btn-primary btn-lg sbtn" value="평균 요금 확인하기" onclick = "javascript:avgPrice();">
 			<label class="HomeGymAddLabel">평균 요금 : <span id = "price">----</span>원</label>
 			</li>
 		</ul>
-		<input type="button" value="홈짐 등록 신청" onclick="javascript:addSubmit();">
+		<div class = "button_div">
+			<input type="button" class = "btn btn-primary btn-lg sbtn" value="홈짐 등록 신청" onclick="javascript:addSubmit();">
+			<input type="button" class = "btn btn-primary btn-lg sbtn" value="돌아가기" onclick="javascript:location.href='index.do'">
+		</div>
 	</form>
 </div>
 <%@include file="../_include/footer.jsp" %>

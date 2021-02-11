@@ -171,21 +171,26 @@ public class HomeGymController {
 		return "homegym/hgUseNotice";
 	}
 	
-	@RequestMapping("HomeGymAddNotice.do")
-	public ModelAndView HomeGymAddNoticeForm(
-			HttpSession session) {
-		boolean check_result = false;
-		
-		if(session.getAttribute("sid")!=null) {
-			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("sid"));
-		}else if(session.getAttribute("coachid")!=null) {
-			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("coachid"));
-		}
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("check_result", check_result);
-		mav.setViewName("homegym/hgAddNotice");
-		return mav;
+	@RequestMapping("HomeGymAddNoitce.do")
+	public String HomeGymAddNoticeFrom() {
+		return "homegym/hgAddNotice";
 	}
+	
+//	@RequestMapping("HomeGymAddNotice.do")
+//	public ModelAndView HomeGymAddNoticeForm(
+//			HttpSession session) {
+//		boolean check_result = false;
+//		
+//		if(session.getAttribute("sid")!=null) {
+//			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("sid"));
+//		}else if(session.getAttribute("coachid")!=null) {
+//			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("coachid"));
+//		}
+//		ModelAndView mav = new ModelAndView();
+//		mav.addObject("check_result", check_result);
+//		mav.setViewName("homegym/hgAddNotice");
+//		return mav;
+//	}
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.GET)
 	public String HomeGymAddForm() {
@@ -206,7 +211,11 @@ public class HomeGymController {
 	
 	@RequestMapping(value = "avgPrice.do")
 	public ModelAndView HomeGymAvgPrice() {
-		int result = homegymDAO.HomeGymAddPrice();
+		int result = 0;
+		if(homegymDAO.HomeGymAddPrice()!=null) {
+			result = Integer.parseInt(homegymDAO.HomeGymAddPrice());
+		}
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("avgPrice", result);
 		mav.setViewName("jsonView");
