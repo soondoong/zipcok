@@ -11,6 +11,15 @@
 			pr_receiver_test=#{pr_receiver_test}
 </select>
 
+<select id="paymentList_finishSQL" parameterType="String" resultType="zipcok.test.model.Payment_Request_TestDTO">
+	select * from 
+			payment_request_test
+	where
+			pr_receiver_test=#{pr_receiver_test}
+	and
+			pr_status_test='결제완료'
+</select>
+
 <select id="manageCommListSQL" parameterType="String" resultType="zipcok.comm.model.CommunityDTO">
 	select * from 
 			community
@@ -58,15 +67,24 @@
 		mem_id=#{value}
 </select>
 
+<select id="getCommNameSQL" parameterType="Integer" resultType="String">
+	select
+		com_name
+	from
+		community
+	where
+		com_idx=#{value}
+</select>
+
 <insert id="commMemPlusSQL" parameterType="zipcok.comm.model.CommunityDTO">
 	insert into
 		users_community
 	values(users_community_idx.nextval,
 	#{uc_mem_id},
-	#{com_name},
+	#{uc_comm_idx},
+	#{uc_name},
 	0,
-	'N',
-	sysdate	
+	'활성화'	
 	)
 </insert>
 	

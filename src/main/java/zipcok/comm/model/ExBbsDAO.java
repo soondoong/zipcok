@@ -6,7 +6,7 @@ public interface ExBbsDAO {
 	
 	public int dailyWrite(ExBbsDTO dto);
 	public int getMaxExIdx();
-	public List dailyList(int cp,int ls);
+	public List dailyList(int cp,int ls,int ex_comm_idx);
 	public int getTotalCnt();
 	public ExBbsDTO dailyContent(int idx);
 	public int dailyUpdate(ExBbsDTO dto);

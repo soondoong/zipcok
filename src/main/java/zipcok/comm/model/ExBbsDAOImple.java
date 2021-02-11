@@ -26,12 +26,13 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	//글목록 불러오기
 	@Override
-	public List dailyList(int cp, int ls) {
+	public List dailyList(int cp, int ls, int ex_comm_idx) {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
 		Map map=new HashMap();
 		map.put("start", start);
 		map.put("end", end);
+		map.put("ex_comm_idx", ex_comm_idx);
 		List list=sqlMap.selectList("dailyListSQL",map);
 		return list;
 	}

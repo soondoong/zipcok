@@ -31,7 +31,7 @@
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
 		select * from
 		(select rownum as rnum,a.* from
-		(select * from exer_bbs order by ex_idx desc) a) b
+		(select * from exer_bbs where ex_comm_idx=#{ex_comm_idx} order by ex_idx desc) a) b
 		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
 	</select>
 	

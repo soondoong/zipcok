@@ -41,12 +41,13 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 목록보기
 	@RequestMapping("commDailyList.do")
-	public ModelAndView dailyList(@RequestParam(value="cp",defaultValue = "1")int cp) {
+	public ModelAndView dailyList(HttpSession session, @RequestParam(value="cp",defaultValue = "1")int cp) {
 		int totalCnt=exBbsDao.getTotalCnt();
 		int listSize=5;
 		int pageSize=5;
 		String pageStr=zipcok.page.CommPageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
-		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize);
+		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize, ex_comm_idx);
 		for(int i=0;i<list.size();i++) {
 			int idx=list.get(i).getEx_idx();
 			int recnt=exBbsDao.dailyGetTotalRe(idx);
