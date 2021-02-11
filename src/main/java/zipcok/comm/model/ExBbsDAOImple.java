@@ -13,7 +13,7 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	//글쓰기
 	@Override
-	public int dailyWrite(ExBbsDTO dto) {
+	public int dailyWrite(ExBbsDTO dto) {	
 		int count=sqlMap.insert("dailyWriteSQL", dto);
 		return count;
 	}

@@ -69,6 +69,12 @@ public class CommDailyController {
 	//일일 운동 게시판 글쓰기 실행 & 파일첨부
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.POST)
 	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list,HttpSession session) {
+		String ex_id="";
+		ex_id=(String)session.getAttribute("sid");
+		if(ex_id==null) {
+			ex_id=(String)session.getAttribute("coachId");
+		}
+		dto.setEx_id(ex_id);
 		int result=exBbsDao.dailyWrite(dto);
 		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
 		int bfile_size=0;
