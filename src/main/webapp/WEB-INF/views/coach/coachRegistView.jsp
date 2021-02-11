@@ -55,22 +55,30 @@ $(function(){
 	  });	
 
 	//가입버튼눌럿을때 제한조건
-	$('#joinform').submit(function(){
+	$('.coachJoinbtn').on('click',function(){
 		
-		 var fileCheck = $("input[name=uplaod]").val();
-	
+		 var uploadFiles= $('input[type=file]');
 		//카테고리 하나라도 선택하지않으면
+				  if($(".cate:checked").length <1){  
+					  alert('카테고리를 선택해주세요.'); 
+						return false;			
+				  }else{
+						  var is_empty = false;
+						  $('form').find('input[type=file]').each(function(){
+						      if(!$(this).val()) {
+						          is_empty = true;
+						      }
+						  });
+						   
+						  if(is_empty) {
+							  alert('사진을 업로드해주세요'); 
+						  }else{						  
+							  $('#joinform').submit(); //등록해라....제발
+						  }
+						  			  		  
+				  }
 		
-		  if($(".cate:checked").length <1){  
-			  alert('카테고리를 선택해주세요.'); 
-				return false;			
-		  }
 		
-		  if(!fileCheck){
-				  alert('사진을 한 장이상 선택해주세요.'); 
-					return false;			
-		  }
-		  
 		  
 	  });
 		
@@ -103,7 +111,7 @@ $(function(){
 
 <article class="p-5">
 <form action="coachJoin.do" method="post" enctype="multipart/form-data" id="joinform">
-<div class="col-sm-3 col-md-offset-3">
+<div class="col-sm-4 col-md-offset-3">
 <h3>코치정보 등록</h3>
 <hr>
 	<div class="form-group">
@@ -159,7 +167,7 @@ $(function(){
 	  	<div>
 	    <div class="form-check form-check-inline">
 		  <input class="form-check-input cate"
-		   name="cate_name" type="checkbox" value="퍼스널트레이닝">
+		   name="cate_name" type="checkbox" value="퍼스널트레이닝" checked="checked">
 		  <label class="form-check-label" for="inlineCheckbox1">퍼스널트레이닝</label>
 		</div>
 		<div class="form-check form-check-inline">
@@ -194,14 +202,20 @@ $(function(){
 	function plus(){
 		var wrapul=document.getElementById("fileUl");	
 		var newLi=document.createElement("li");
-		newLi.innerHTML='올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png">';
-		wrapul.appendChild(newLi);
-		
+		if($('input[type=file]').length >5){
+            //그리고 해당 아이템은 6개 이상 생성할수 없도록 제한
+                alert("6장 이상 사진을 추가 하실 수 없습니다.");
+         }else{
+        	 newLi.innerHTML='올릴파일:<input type="file" name="upload" accept="image/gif, image/jpeg, image/png">';
+ 	  		wrapul.appendChild(newLi);
+         }
+	
+	
 	}
    </script>
 
 	<!-- 코치 정보 입력하기 -->
-	<div><input type="submit" value="코치로 가입하기" class="btn btn-lg btn-primary"></div>
+	<div><input type="button" value="코치로 가입하기" class="btn btn-lg btn-primary coachJoinbtn"></div>
 
 </div>
 

@@ -239,9 +239,8 @@ public class MemberController {
    }
 
    @RequestMapping("/logout.do")
-   public String logout(HttpServletRequest req) {
-      
-      HttpSession session=req.getSession();
+   public String logout( HttpSession session ) {
+     
       session.invalidate();
       return "redirect:/index.do";
    }

@@ -404,7 +404,6 @@ function showResult(){
 
 </head>
 <body>
-   <%@include file="../_include/head.jsp" %>
    <%@include file="../header2.jsp"%>
    <div class="member-join-container">
    <article>
