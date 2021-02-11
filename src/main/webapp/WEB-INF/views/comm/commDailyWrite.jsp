@@ -38,7 +38,6 @@
 	<div id="contents">
 		<form name="dailyWrite" action="commDailyWrite.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="ex_comm_idx" value="${com_idx}">
-
 		<style>
 			.white_talbe_01 {border-top: 1px solid #333333;}
 			.white_talbe_01 tbody tr th {width: 200px; padding: 10px 20px; background: #f7f7f7; border-bottom: 1px solid #dddddd;}
