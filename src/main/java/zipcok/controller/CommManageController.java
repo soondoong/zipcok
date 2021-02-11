@@ -89,6 +89,7 @@ public class CommManageController {
 	public ModelAndView coachMyPagememPlus(String uc_mem_id, int uc_comm_idx) {
 		String com_name=commManageDao.getCommName(uc_comm_idx);
 		int result=commManageDao.commMemPlus(uc_mem_id, uc_comm_idx, com_name);
+		int sum=commManageDao.commMemSumPlus(uc_comm_idx);
 		String msg=result>0?"수강생 추가가 완료되었습니다.":"수강생 추가 실패!";
 		
 		ModelAndView mav=new ModelAndView();

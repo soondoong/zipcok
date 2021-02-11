@@ -62,18 +62,21 @@ public class CommManageDAOImple implements CommManageDAO {
 		return result;
 	}
 	
+	//커뮤니티 유저 찾기
 	@Override
 	public List<MemberDTO> commUserIdSearch(String mem_id) {
 		List<MemberDTO> list=sqlMap.selectList("commUserIdSearchSQL",mem_id);
 		return list;
 	}
 	
+	//커뮤니티 이름 찾기
 	@Override
 	public String getCommName(int uc_comm_idx) {
 		String uc_name=sqlMap.selectOne("getCommNameSQL",uc_comm_idx);
 		return uc_name;
 	}
 	
+	//수강생 추가
 	@Override
 	public int commMemPlus(String uc_mem_id, int uc_comm_idx, String com_name) {
 		Map map=new HashMap();
@@ -81,6 +84,13 @@ public class CommManageDAOImple implements CommManageDAO {
 		map.put("uc_comm_idx", uc_comm_idx);
 		map.put("uc_name", com_name);
 		int result=sqlMap.insert("commMemPlusSQL",map);
+		return result;
+	}
+	
+	//총 수강생 수 더하기
+	@Override
+	public int commMemSumPlus(int com_idx) {
+		int result=sqlMap.update("commMemSumPlusSQL",com_idx);
 		return result;
 	}
 

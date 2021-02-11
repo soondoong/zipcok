@@ -87,6 +87,15 @@
 	'활성화'	
 	)
 </insert>
+
+<update id="commMemSumPlusSQL">
+	update
+		community
+	set
+		com_mem_sum=com_mem_sum+1 
+	where
+		com_idx=#{com_idx}
+</update>
 	
 
 </mapper>

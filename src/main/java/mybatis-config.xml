@@ -19,6 +19,8 @@
     <mapper resource="sql/csSQL.xml"/>
     <mapper resource="sql/ChatRoomSQL.xml"/>
     <mapper resource="sql/AdminMemberSQL.xml"/>
+    <mapper resource="sql/AdminCoachMatchSQL.xml"/>
+
     
   </mappers>
 </configuration>
