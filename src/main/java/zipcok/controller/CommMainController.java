@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.comm.model.CommunityDTO;
+import zipcok.comm.model.ExBbsDAO;
 import zipcok.comm.model.CommunityDAO;
 import zipcok.comm.model.ExBbsDTO;
 
@@ -22,6 +23,8 @@ public class CommMainController {
 	
 	@Autowired
 	private CommunityDAO communityDao;
+	@Autowired
+	private ExBbsDAO exBbsDao;
 	
 	@Autowired
 	ServletContext c;
@@ -76,8 +79,11 @@ public class CommMainController {
 	session.setAttribute("com_opendate",dto.getCom_opendate());
 	session.setAttribute("coach_name",coachname);
 	
+	ExBbsDTO recentCnt=exBbsDao.recentCoachContent(dto.getCom_idx(), dto.getCom_coach_id());
+	
 	ModelAndView mav=new ModelAndView();
 	mav.addObject("comminfo", dto);
+	mav.addObject("recentCnt", recentCnt);
 	mav.addObject("mem_name",coachname);
 	mav.addObject("com_idx",dto.getCom_idx());
 	

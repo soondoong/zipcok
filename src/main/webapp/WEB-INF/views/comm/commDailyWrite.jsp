@@ -43,7 +43,8 @@
 			.white_talbe_01 tbody tr th {width: 200px; padding: 10px 20px; background: #f7f7f7; border-bottom: 1px solid #dddddd;}
 			.white_talbe_01 tbody tr td {padding: 10px 20px; border-bottom: 1px solid #dddddd;}
 		</style>
-		
+		<c:set var="dto" value="${recentCnt}" />
+		<c:set var="ex_id" value="${ex_id}" />
 		<div class="white_talbe_01">
 				<table>
 					<tbody>
@@ -51,14 +52,26 @@
 							<th>제목</th>
 							<td colspan="2"><input type="text" name="ex_subject"></td>
 						</tr>
-						<tr>
-							<th>오늘의 운동 :</th>
-							<td colspan="2"><input type="text" name="ex_name"></td>
-						</tr>
-						<tr>
-							<th>오늘의 소비 칼로리 :</th>
-							<td colspan="2"><input type="text" name="ex_cal"><input type="button" value="수정"></td>
-						</tr>
+						<c:if test="${dto.ex_id ne ex_id}">
+							<tr>
+								<th>오늘의 운동 :</th>
+								<td colspan="2"><input type="text" name="ex_name" value="${dto.ex_name}" readonly></td>
+							</tr>
+							<tr>
+								<th>오늘의 소비 칼로리 :</th>
+								<td colspan="2"><input type="text" name="ex_cal" value="${dto.ex_cal}" readonly><input type="button" value="수정"></td>
+							</tr>
+						</c:if>
+						<c:if test="${dto.ex_id eq ex_id}">
+							<tr>
+								<th>오늘의 운동 :</th>
+								<td colspan="2"><input type="text" name="ex_name"></td>
+							</tr>
+							<tr>
+								<th>오늘의 소비 칼로리 :</th>
+								<td colspan="2"><input type="text" name="ex_cal"><input type="button" value="수정"></td>
+							</tr>
+						</c:if>
 						<tr>
 							<td colspan="3"><textarea cols="120" rows="10" name="ex_content" placeholder="내용을 입력해주세요" style="height: 300px; white-space: pre-line;"></textarea></td>
 						</tr>

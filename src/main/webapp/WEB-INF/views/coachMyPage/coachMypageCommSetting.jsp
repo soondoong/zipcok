@@ -27,7 +27,7 @@ function memplus(uc_comm_idx){
 			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>커뮤니티 이름</h6>
+				<%-- <h6>커뮤니티 이름</h6>
 				<table border="1" cellspacing="0" class="commList">
 				<thead>
 					<tr>
@@ -54,7 +54,7 @@ function memplus(uc_comm_idx){
 					</tr>
 				</c:forEach>
 				</tbody>
-			</table>
+			</table> --%>
 			</div>
 				
 			<div class="mypage_comm_table">
@@ -64,7 +64,7 @@ function memplus(uc_comm_idx){
 			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>수강생</h6> <input type="button" value="수강생 추가" onclick="memplus(${uc_comm_idx})">
+				<h6>수강생 관리</h6> <input type="button" value="수강생 추가" onclick="memplus(${uc_comm_idx})">
 				<table border="1" cellspacing="0" class="commList">
 				<thead>
 					<tr>
@@ -78,7 +78,7 @@ function memplus(uc_comm_idx){
 					<c:if test="${empty commlist}">
 						<tr>
 							<td colspan="4" align="center">
-								생성된 커뮤니티가 없습니다
+								소속된 수강생이 없습니다.
 							</td>
 						</tr>
 					</c:if>

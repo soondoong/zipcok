@@ -42,11 +42,12 @@ public class CommDailyController {
 	//일일 운동 게시판 목록보기
 	@RequestMapping("commDailyList.do")
 	public ModelAndView dailyList(HttpSession session, @RequestParam(value="cp",defaultValue = "1")int cp) {
-		int totalCnt=exBbsDao.getTotalCnt();
+		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		int totalCnt=exBbsDao.getTotalCnt(ex_comm_idx);
 		int listSize=5;
 		int pageSize=5;
 		String pageStr=zipcok.page.CommPageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
-		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		
 		String com_coach_id=(String)session.getAttribute("com_coach_id");
 		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize, ex_comm_idx);
 		for(int i=0;i<list.size();i++) {
@@ -64,8 +65,20 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 글쓰기 입장
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.GET)
-	public String dailyWriteForm() {
-		return "comm/commDailyWrite";
+	public ModelAndView dailyWriteForm(HttpSession session) {
+		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		String com_coach_id=(String)session.getAttribute("com_coach_id");
+		ExBbsDTO recentCnt=exBbsDao.recentCoachContent(ex_comm_idx, com_coach_id);
+		String ex_id=(String)session.getAttribute("coachId");
+		if(ex_id==null) {
+			ex_id=(String)session.getAttribute("sid");
+		}
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("recentCnt", recentCnt);
+		mav.addObject("ex_id", ex_id);
+		mav.setViewName("comm/commDailyWrite");
+		return mav;
+		
 	}
 	
 	//일일 운동 게시판 글쓰기 실행 & 파일첨부

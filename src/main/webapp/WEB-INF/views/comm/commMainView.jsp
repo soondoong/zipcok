@@ -44,6 +44,8 @@
 			    <div id="cal_tab" class="cal">
 			    </div>
 			</div>
+			<c:set var="dto" value="${recentCnt}" />
+			${dto.ex_subject}
 			<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
 		</div>
 	
