@@ -141,12 +141,12 @@ rownum between #{start} and #{end}
 	
 	</insert>
 		
-	<delete id="deleteCurri"  parameterType="HashMap">
+	<delete id="deleteCurri"  parameterType="zipcok.coach.model.CurriDTO">
 	delete from coach_curriculum
 	where
-	curri_mem_id =#{cate_mem_id}
+	curri_mem_id =#{curri_mem_id}
 	and
-	curri_catename=#{cate_name}
+	curri_catename=#{curri_catename}
 	</delete>
 	
 	<insert id="curriInsert" parameterType="zipcok.coach.model.CurriDTO">

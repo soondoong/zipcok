@@ -29,7 +29,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 /*커리큘럼css*/
     .nocurriWrap{display:flex; width:400px; margin-top:20px;}
 	.catenameDiv .catename{font-size:17px;font-weight: bold;} 
-	.currimore{cursor: pointer;margin-right: 20px;}
+	.currimore{cursor: pointer;margin-right: 10px;}
 	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
 	.showinputs{display:none;}
 	.showinputs input{ width: 300px;}
@@ -37,6 +37,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
     .showinputs ol,.showinputs li{ list-style: decimal;width: 300px; }
     .showinputs li{ margin-top:15px;}
     .plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:5px 0 0 5px; cursor: pointer;}
+	.minusbtn{font-size:21px; margin-left:3px; color:#ce0c0c;}
 	.plusbtn span{font-size:15px;  }
 	.currititle{display:inline-block;}
 	.curriesInputAll{display:block; border:0px;  border-radius: 5px; padding: 0 15px; width: 300px; font-weight: 400; font-size: 14px;}
@@ -196,6 +197,9 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 					</c:if>	
 							<i class="fas fa-plus-square plusbtn"></i>
 						</div>
+					<c:if test="${c.cate_name eq oneList.get(0).curri_catename ||  c.cate_name eq twoList.get(0).curri_catename }">			
+						<i class="fas fa-minus-square minusbtn" onclick="thisCurriDelete('${c.cate_name }')"></i>
+					</c:if>
 				</div>				
 					<div  class="showinputs" id="${c.cate_name }1">
 						<ol>
@@ -267,6 +271,13 @@ function coachMypageEmailUpdate(){
 }
 function coachMypagePhoneUpdate(){
 	window.open('coachMypagePhoneUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
+}
+function thisCurriDelete(str){
+	var result=confirm('등록하신 커리큘럼을 삭제하시겠습니까?');
+	if(result){
+		location.href='DeleteCurri.do?cate_name='+str;
+	}
+	
 }
 
 /*카테고리수정*/

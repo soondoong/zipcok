@@ -455,6 +455,19 @@ ServletContext c;
 	}
 	
 	
+	/*커리큘럼 삭제*/
+	@RequestMapping("DeleteCurri.do")
+	public ModelAndView deleteCurri(HttpSession session,@RequestParam("cate_name")String catename) {
+		ModelAndView mav =new ModelAndView();
+		CurriDTO cdto = new CurriDTO();
+		cdto.setCurri_mem_id((String)session.getAttribute("coachId"));
+		cdto.setCurri_catename(catename);
+		cdao.curriDelete(cdto);
+		mav.addObject("msg", "커리큘럼이 삭제되었습니다.");	
+		mav.addObject("gopage", "coachMyPage.do");	
+		mav.setViewName("coach/joinMsg");
+		return mav;
+	}
 	
 	
 	
