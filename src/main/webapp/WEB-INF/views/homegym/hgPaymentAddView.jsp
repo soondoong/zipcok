@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-#paymentAddForm input{
-width:300px;
-}
-</style>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
 <script>
 function paymentAddCheck(check){
 
@@ -23,9 +16,11 @@ function paymentAddCheck(check){
 	}
 }
 </script>
-</head>
-<body>
-<%@include file="../header2.jsp" %>
+<style>
+#paymentAddForm input{
+width:300px;
+}
+</style>
 <h1>홈짐 결제 계좌 등록</h1>
 <form id = "paymentAddForm" action = "HomeGymPaymentAdd.do" method = "post">
 <input type = "hidden" name = "hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
@@ -40,6 +35,4 @@ function paymentAddCheck(check){
 	<input type = "button" value = "등록하기" onclick = "javascript:paymentAddCheck(true);">
 	<input type = "button" value = "나중에 작성하기" onclick = "javascript:paymentAddCheck(false);">
 </form>
-
-</body>
-</html>
+<%@include file="../_include/footer.jsp" %>

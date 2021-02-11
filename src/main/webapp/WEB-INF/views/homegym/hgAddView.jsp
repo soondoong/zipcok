@@ -2,48 +2,16 @@
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-<style>
-.HomeGymAddLabel {
-	width: 200px;
-	text-align: right;
-	vertical-align: top;
-}
-
-ul {
-	list-style-type: none;
-}
-
-textarea {
-	resize: none;
-}
-#date_div {
-width:600px;
-height:300;
-z-index: 1;
-}
-.ui-datepicker {
-width:600px;
-height:270px;
-top:30px;
-z-index: 2;
-}
-#block_data_div{
-position: absolute;
-height:270px;
-width : 600px;
-
-}
-</style>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/httpRequest.js"></script>
 <script>
 	var count = 0;
 	
-	function homegym_setting(){
+	window.addEventListener('load', function() {
 		var today = getTimeStamp() ;
 		$( '#start_Date' ).attr('min', today);
 		$( '#start_Date' ).val(today);
-	}
+	});
 
 	jQuery.browser = {};
 	(function () {
@@ -99,8 +67,9 @@ width : 600px;
 		var eq_name = document.getElementById('eq_name_temp').value; 
 		var eq_count = document.getElementById('eq_count_temp').value;
 		var eq_div = document.createElement('div');
-		eq_div.setAttribute("id", count);
-		var eq_text = document.createTextNode(eq_name + ":" + eq_count);
+		eq_div.setAttribute('id', count);
+		eq_div.setAttribute('class', 'eq_add_list');
+		var eq_text = document.createTextNode(eq_name + " : " + eq_count);
 		var eq_name_check = document.createElement('input');
 		eq_name_check.setAttribute('type', 'checkbox');
 		eq_name_check.setAttribute('name', 'eq_name');
@@ -115,7 +84,7 @@ width : 600px;
 		eq_count_check.setAttribute('style', 'display:none;')
 		var eq_delete_bt = document.createElement('input');
 		eq_delete_bt.setAttribute('type','button');
-		eq_delete_bt.setAttribute('value','-');
+		eq_delete_bt.setAttribute('value','삭제');
 		eq_delete_bt.setAttribute('onclick','javascript:ListItemDelete('+count+')');
 		eq_div.appendChild(eq_text);
 		eq_div.appendChild(eq_name_check);
@@ -126,7 +95,10 @@ width : 600px;
 	}
 	function plus(){
 		var Li=document.getElementById('imgItem');
-		Li.innerHTML += '<br><input type="file" name="upload">';		
+		var plusli = document.createElement('input');
+		plusli.setAttribute('type','file');
+		plusli.setAttribute('name','upload');
+		Li.appendChild(plusli);
 	}
 	
 	function ListItemDelete(count){
@@ -216,91 +188,126 @@ width : 600px;
 		}
 	}
 </script>
+<style>
+.homegymAddArea label {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
+textarea {resize: none;}
+#date_div {width:800px; height:300; z-index: 1; }
+.ui-datepicker {width:800px; height:300px; top:30px; z-index: 2; }
+.ui-datepicker .ui-datepicker-title {line-height: 41px; vertical-align: middle; }
+.ui-datepicker select.ui-datepicker-year {width:25%;}
+.ui-datepicker select.ui-datepicker-month {width:25%;}
+.ui-datepicker td {height:40px;}
+.ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {height:35px; }
+#block_data_div{ position: absolute; height:300px; width : 800px; }
+.homegymAddArea {width: 50%; margin:auto; }
+.homegymAddArea {margin-bottom: 20px;}
+.homegymAddArea input[type=text] {width: 200px; }
+.homegymAddArea select {width: 200px; }
+.homegymAddArea input[type=date] {width: 200px; }
+.homegymAddArea textarea {width: 300px; height:150px; }
+.homegymADdArea .eq_add_list {font-size: 25px; font-weight: 300; color: gary;}
+.homegymAddArea .dateInfo {margin-bottom: 30px; }
+.homegymAddArea .dateInfo th {width: 200px;}
+
+</style>
+<div class = "homegymAddArea">
 	<h1>홈짐 등록하기</h1>
 	<form name="HomeGymAddForm" id="addForm" action="HomeGymAdd.do"
 		method="post" enctype="multipart/form-data">
 		<h5>기본 정보</h5>
-		<ul>
-			
+		<ul class = "commonInfo">
 			<li>
-			<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
-			<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
-			<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
-			<input type="button" value="중복 확인" onclick = "javascript:nicknameCheck();">
-			<br><span id = "nicknameCheckText"></span>
-			<input type="hidden" id="nickname_overlap" value="0">
+				<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
+				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
+				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
+				<input type="button" value="중복 확인" onclick = "javascript:nicknameCheck();">
+				<div id = "nicknameCheckText"></div>
+				<input type="hidden" id="nickname_overlap" value="0">
 			</li>
 			<li>
-			<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
+				<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
 			<li>
-			<label class="HomeGymAddLabel">홈짐 주소</label>
-			<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
-			<input type="button"value="주소 검색" onclick="javascript:addrPopupOpen();">
+				<label class="HomeGymAddLabel">홈짐 주소</label>
+				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
+				<input type="button"value="주소 검색" onclick="javascript:addrPopupOpen();">
 			</li>
 			<li>
-			<label class="HomeGymAddLabel">상세주소</label>
-			<input type="text" name="hg_saddr"id = "saddr" readonly="readonly">
+				<label class="HomeGymAddLabel">상세주소</label>
+				<input type="text" name="hg_saddr"id = "saddr" readonly="readonly">
 			</li>
-			<li><label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야</li>
-			<li><label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.</li>
-			<li><label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.</li>
 			<li>
-			<label class="HomeGymAddLabel">가까운 역</label>
-			<select	name="hg_station">
+				<label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야
+			</li>
+			<li>
+				<label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.
+			</li>
+			<li>
+				<label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.
+			</li>
+			<li>
+				<label class="HomeGymAddLabel">가까운 역</label>
+				<select	name="hg_station">
 					<option value="역 1">역 1</option>
 					<option value="역 2">역 2</option>
 					<option value="역 3">역 3</option>
 					<option value="역 4">역 4</option>
-			</select>
+				</select>
 			</li>
 			<li>
-			<label class="HomeGymAddLabel">오시는 길</label>
-			<textarea rows="5" cols="20" name="hg_comeinfo"></textarea>
+				<label class="HomeGymAddLabel">오시는 길</label>
+				<textarea rows="5" cols="20" name="hg_comeinfo"></textarea>
 			</li>
 			<li>
-			<label class="HomeGymAddLabel">수용 인원</label>
-			<select	name="hg_person_count">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-			</select>
+				<label class="HomeGymAddLabel">수용 인원</label>
+				<select	name="hg_person_count">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
 			</li>
 		</ul>
 		<h5>보유 기구</h5>
-		<ul>
+		<ul class = "eqInfo">
 			<li>
-			<label class="HomeGymAddLabel">보유 운동 기구</label>
-			<select	name="eq_name_temp" id = "eq_name_temp">
-					<option value="eq1">기구 1</option>
-					<option value="eq2">기구 2</option>
-					<option value="eq3">기구 3</option>
-					<option value="eq4">기구 4</option>
-					<option value="eq5">기구 5</option>
-			</select>
-			<label class="HomeGymAddLabel">보유 수</label>
-			<select name="eq_count_temp" id = "eq_count_temp">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-			</select>
-			<input type="button" value="+" onclick = "javascript:addEq();">
+				<label class="HomeGymAddLabel">보유 운동 기구</label>
+				<select	name="eq_name_temp" id = "eq_name_temp">
+						<option value="armcurl">암 컬</option>
+						<option value="chestpress">체스트 프레스</option>
+						<option value="dumbbell">덤벨</option>
+						<option value="halfract">하프 렉</option>
+						<option value="latpulldown">렛 풀 다운</option>
+						<option value="legcurl">레그 컬</option>
+						<option value="smithmachine">스미스머신</option>
+						<option value="pullup">풀업</option>
+						<option value="running">런닝머신</option>
+				</select>
 			</li>
 			<li>
-			<label class="HomeGymAddLabel"></label>
-			<div id = "eq_List">보유중인 운동 기구를 추가해주세요.</div>
+				<label class="HomeGymAddLabel">보유 수</label>
+				<select name="eq_count_temp" id = "eq_count_temp">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+				</select>
+				<input type="button" value="추가" onclick = "javascript:addEq();">
 			</li>
-			<li><label class="HomeGymAddLabel">기타 설명</label> <textarea
-					rows="5" cols="20" name="hg_info"></textarea></li>
+			<li>
+				<label class="HomeGymAddLabel"></label>
+				<div id = "eq_List">보유중인 운동 기구를 추가해주세요.</div>
+			</li>
+			<li>
+				<label class="HomeGymAddLabel">기타 설명</label>
+				<textarea rows="5" cols="20" name="hg_info"></textarea>
+			</li>
 		</ul>
 		<h5>소개 사진 등록</h5>
-		<ul>
-			<li id = "imgItem"><label class="HomeGymAddLabel">사진 등록하기</label><br>
-			<input type="file" name="upload">
-			</li>
+		<ul class = "imgInfo">
+			<li><label class="HomeGymAddLabel">사진 등록하기</label></li>
+			<li id = "imgItem"><input type="file" name="upload"></li>
 			<li>
 				<div id="HomeGymAddImgDiv">
 				<input type="button" value="파일추가" onclick="plus();">
@@ -308,18 +315,19 @@ width : 600px;
 			</li>
 		</ul>
 		<h5>예약 날짜</h5>
-		<table>
+		<table class = "dateInfo">
 			<tr>
 				<th>시작일</th>
 				<td>
 				<input type="date" id="start_date" name="hg_start_date" onchange="javascript:start_change();">
 				</td>
+			</tr>
+			<tr>
 				<th>마감일</th>
 				<td>
 				<input type="date" id="end_date" name="hg_end_date" onchange="javascript:end_change();">
 				</td>
 			</tr>
-
 			<tr>
 				<th>불가능한 날짜</th>
 				<td><select name="hg_not_date" id = "not_date" onchange = "not_change();">
@@ -332,12 +340,12 @@ width : 600px;
 			</tr>
 		</table>
 		<div id = "date_div">
-		<div id = "block_data_div"></div><!-- 달력 클릭 못하게 덮는 용도 -->
+		<!-- <div id = "block_data_div"></div><!-- 달력 클릭 못하게 덮는 용도 -->
 		</div>
 		
-		<ul>
+		<ul class = "timeInfo">
 			<li>
-			<label class="HomeGymAddLabel">예약 가능 시간</label>
+			<label>예약 가능 시간</label>
 			<select name="hg_start_time">
 					<option value="9">09</option>
 					<option value="10">10</option>
@@ -351,7 +359,7 @@ width : 600px;
 			</select>
 			</li>
 			<li>
-			<label class="HomeGymAddLabel">요금 설정/시간</label>
+			<label>요금 설정/시간</label>
 			<input type="text" name="hg_price">
 			<input type="button" value="평균 요금 확인하기" onclick = "javascript:avgPrice();">
 			<label class="HomeGymAddLabel">평균 요금 : <span id = "price">----</span>원</label>
@@ -359,4 +367,5 @@ width : 600px;
 		</ul>
 		<input type="button" value="홈짐 등록 신청" onclick="javascript:addSubmit();">
 	</form>
+</div>
 <%@include file="../_include/footer.jsp" %>

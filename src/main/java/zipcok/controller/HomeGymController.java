@@ -98,6 +98,7 @@ public class HomeGymController {
 		options.put("person_count", person_count);
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);	
 		for(int i = 0 ; i < list.size() ; i++) {
+			list.get(i).setHg_faddr(list.get(i).getHg_faddr().substring(0, list.get(i).getHg_faddr().indexOf("구")+1));
 			String file_upload = homegymDAO.HomeGymIdImgSelect(list.get(i).getHg_mem_id());
 			list.get(i).setHg_upload(file_upload);
 			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
@@ -126,6 +127,7 @@ public class HomeGymController {
 	public ModelAndView HomeGymContent(
 			@RequestParam(value = "hg_mem_id")String homegymId) {
 		HomeGymDTO hgContent = homegymDAO.HomeGymContent(homegymId);
+		hgContent.setHg_faddr(hgContent.getHg_faddr().substring(0, hgContent.getHg_faddr().indexOf("구")+1));
 		List<HomeGymEquipmentDTO> eqContent = homegymeqDAO.HomeGymEquipmentContent(homegymId);
 		List<CoachFileDTO> imgContent = homegymDAO.HomeGymImageContent(homegymId);
 		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(homegymId);
@@ -298,17 +300,20 @@ public class HomeGymController {
 			Payment_detailsDTO dto,
 			HttpSession session) {
 		int pd_result = homegympdDAO.PaymentListAdd(dto);
-		String msg = pd_result>0?"정상적으로 결제 되었습니다.":"";
 		String goPage = "";
+		if(pd_result>0) {
 		if(session.getAttribute("sid")!=null) {
 			goPage = "memberProfileForm.do";
 		}else if(session.getAttribute("coach")!=null) {
 			goPage = "coachMyPage.do";
 		}
+		}else {
+			goPage = "index.do";
+		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg", msg);
+		mav.addObject("pd_result", pd_result);
 		mav.addObject("goPage", goPage);
-		mav.setViewName("homegym/hgMsg");
+		mav.setViewName("homegym/hgPayListMsg");
 		return mav;
 	}
 }

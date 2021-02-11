@@ -2,31 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
-<style>
-.eq_options {border:1px solid black;font-size: 20px;border-radius: 8px;width:200px;height:30px;}
-.ListItem{border:1px solid black;}
-.top_search_wrap {padding: 100px 0;background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
-.top_search_wrap .top_search_inner {display: inline-block;}
-.top_search_wrap select {width: 200px; height: 40px;}
-.top_search_wrap input[type=date] {width: 200px; height: 40px;}
-.top_search_wrap input[type=submit] {width: 150px; height: 40px;}
-.homegym_wrap {display: flex;}
-.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
-.homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
-.homegym_wrap .homegym_search_wrap .eq_list {}
-.homegym_wrap .homegym_search_wrap .eq_list label {display: inline-block; cursor: pointer; position: relative; padding: 0 0 0 24px;}
-.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
-.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
-.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
-
-.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
-</style>
 <script>
 window.addEventListener('load', function() {
 	var eq_options = '${keywordMap.eq_options}';
@@ -62,10 +41,43 @@ function ContentEnter(id){
 	location.href = 'HomeGymContent.do?hg_mem_id='+id;
 }
 </script>
-</head>
-<body>
-<%@include file="../header2.jsp" %>
 
+<style>
+.eq_options {border:1px solid black;font-size: 20px;border-radius: 8px;width:200px;height:30px;}
+.ListItem{border:1px solid black;}
+.top_search_wrap {padding: 100px 0;background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
+.top_search_wrap .top_search_inner {display: inline-block;}
+.top_search_wrap select {width: 200px; height: 40px;}
+.top_search_wrap input[type=date] {width: 200px; height: 40px;}
+.top_search_wrap input[type=submit] {width: 150px; height: 40px;}
+.homegym_wrap {display: flex;}
+.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
+.homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
+.homegym_wrap .homegym_search_wrap .left_option select {width:80%;}
+.homegym_wrap .homegym_search_wrap .left_option .left_option_person_count_label {height:40px; line-height:40px; vertical-align: middle;}
+.homegym_wrap .homegym_search_wrap .eq_list {}
+.homegym_wrap .homegym_search_wrap .eq_list label {display: inline-block; cursor: pointer; position: relative; padding: 0 0 0 24px;}
+.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
+.homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
+.homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
+
+.homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging {margin: 40px 0 0; text-align: center;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging a:not(:first-child) {margin-left: 5px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item {display:flex; padding: 20px; width:800px;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img {padding:10px; width : 150px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img img { width:130px; height: 130px;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content {padding: 10px; width:610px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; height:100px; vertical-align: middle;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist .eqdiv { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:435px; top: -85px; height:35px; width:150px; text-align:right; }
+
+</style>
 	<!-- 상단 조건바 -->
 	<form id = "option_fm" action = "HomeGymList.do" method = "post">
 	<div class="top_search_wrap">
@@ -80,10 +92,8 @@ function ContentEnter(id){
 				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
 			</select>
 			<input type="date" name="top_option_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
-			<input type="submit" value="검색하기">
 		</div>
 	</div>
-	
 	<div class="homegym_wrap">
 		<div class="homegym_search_wrap">
 			
@@ -93,16 +103,15 @@ function ContentEnter(id){
 				<hr>
 				<div id = "eq_list" class="eq_list">
 					<h6>기구</h6>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq1" id = "eq1" onclick = "javascript:sendOption();"><span>기구 1</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq2" id = "eq2" onclick = "javascript:sendOption();"><span>기구 2</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq3" id = "eq3" onclick = "javascript:sendOption();"><span>기구 3</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq4" id = "eq4" onclick = "javascript:sendOption();"><span>기구 4</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq5" id = "eq5" onclick = "javascript:sendOption();"><span>기구 5</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq6" id = "eq6" onclick = "javascript:sendOption();"><span>기구 6</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq7" id = "eq7" onclick = "javascript:sendOption();"><span>기구 7</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq8" id = "eq8" onclick = "javascript:sendOption();"><span>기구 8</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq9" id = "eq9" onclick = "javascript:sendOption();"><span>기구 9</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "eq10" id = "eq10" onclick = "javascript:sendOption();"><span>기구 10</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "armcurl" id = "armcurl" onclick = "javascript:sendOption();"><span>암 컬</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "chestpress" id = "chestpress" onclick = "javascript:sendOption();"><span>체스트 프레스</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "dumbbell" id = "dumbbell" onclick = "javascript:sendOption();"><span>덤벨</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "halfract" id = "halfract" onclick = "javascript:sendOption();"><span>하프 렉</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "latpulldown" id = "latpulldown" onclick = "javascript:sendOption();"><span>렛 풀 다운</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "legcurl" id = "legcurl" onclick = "javascript:sendOption();"><span>레그 컬</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "smithmachine" id = "smithmachine" onclick = "javascript:sendOption();"><span>스미스머신</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "pullup" id = "pullup" onclick = "javascript:sendOption();"><span>풀 업</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "running" id = "running" onclick = "javascript:sendOption();"><span>런닝머신</span></label>
 				</div>
 				<hr>
 				<h6>가격</h6>
@@ -122,7 +131,8 @@ function ContentEnter(id){
 					<option value = "4" <c:if test="${keywordMap.person_count==4}">selected="selected"</c:if>>4</option>
 					<option value = "5" <c:if test="${keywordMap.person_count==5}">selected="selected"</c:if>>5</option>
 					<option value = "6" <c:if test="${keywordMap.person_count==6}">selected="selected"</c:if>>6</option>
-				</select><label>명 이상</label>
+				</select>
+				<label class ="left_option_person_count_label">명 이상</label>
 				</div>
 				<hr>
 			</div>
@@ -141,43 +151,33 @@ function ContentEnter(id){
 							<div class="homegym_search_result_list_item" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
 								<div class = "homegym_search_result_list_item_img"><img src = "upload/homegymInfo/${dto.hg_upload }"></div>
 								<div class = "homegym_search_result_list_item_content">
-									${dto.hg_nickname } 님의 홈짐<br>
-									
+									<h4>${dto.hg_nickname } 님의 홈짐</h4>
+									<h5>${dto.hg_faddr } / ${dto.hg_station }</h5>
+									<p>수용 가능 인원 : ${dto.hg_person_count }
+									</p>
 									<div class = "homegym_search_result_list_item_content_eqlist">
 									<c:if test = "${empty dto.hg_eq_list }">
 									<h6>등록된 기구가 없습니다.</h6>
 									</c:if>
 									<c:forEach var = "eq_list" items="${dto.hg_eq_list }">
-										<div class = "homegym_search_result_list_item_option_${eq_list.eq_name }">
+										<div class = "homegym_search_result_list_item_option_${eq_list.eq_name } eqdiv">
 											${eq_list.eq_name } : ${eq_list.eq_count }
 										</div>
 									</c:forEach>
-										<div class = "homegym_search_result_list_item_content_price">
-										가격 : ${dto.hg_price }<br>
-										</div>		
+										
 									</div>
+									<div class = "homegym_search_result_list_item_content_price">
+										가격 : ${dto.hg_price }<br>
+									</div>	
 								</div>
 							</div>
 							<hr>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>	
-				<style>
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item {display:flex; border:1px solid gray; padding: 20px; width:800px;}
-
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img {padding:10px; width : 150px; height: 150px;}
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img img { width:130px; height: 130px;}
-
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content {padding: 10px; width:610px; height: 150px;}
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; border: 1px solid gary; height:100px; vertical-align: middle;}
-
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist div { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
-
-</style>
+				<div class = "homegym_search_result_list_paging"><h6>${pageStr }</h6></div>
 			</div>
-			<h6>${pageStr }</h6>
 		</div>
 	</div>
 	</form>
-</body>
-</html>
+<%@include file="../_include/footer.jsp" %>
