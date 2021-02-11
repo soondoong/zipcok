@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.homegym.model.HomeGymDAO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
@@ -37,6 +38,9 @@ public class MemberController {
    
    @Autowired
    private MypageDAO mpdao;   //수연채팅방필요
+   
+   @Autowired
+   private HomeGymDAO homegymDAO;
    
    @Autowired
    ServletContext c;
@@ -165,7 +169,8 @@ public class MemberController {
       
       if(str!=null) {
          String str2=mdao.pwdCheck(mem_id);
-         
+         String hg_check = homegymDAO.HomeGymCheck(mem_id);
+         if(hg_check=="true")session.setAttribute("hg_check", hg_check);
          if(str2.equals(mem_pwd)) {
             String type=mdao.typeCheck(mem_id);
             if(type.equals("일반회원")) {

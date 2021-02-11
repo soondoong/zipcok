@@ -35,6 +35,7 @@ import zipcok.homegym.model.PaymentDAO;
 import zipcok.homegym.model.PaymentDTO;
 import zipcok.homegym.model.Payment_detailsDAO;
 import zipcok.homegym.model.Payment_detailsDTO;
+import zipcok.member.model.MemberDTO;
 
 @Controller
 public class HomeGymController {
@@ -171,26 +172,16 @@ public class HomeGymController {
 		return "homegym/hgUseNotice";
 	}
 	
-	@RequestMapping("HomeGymAddNoitce.do")
-	public String HomeGymAddNoticeFrom() {
-		return "homegym/hgAddNotice";
+	@RequestMapping("HomeGymAddNotice.do")
+	public ModelAndView HomeGymAddNoticeForm(
+			HttpSession session) {
+		int check_result = 0;
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("check_result", check_result);
+		mav.setViewName("homegym/hgAddNotice");
+		return mav;
 	}
-	
-//	@RequestMapping("HomeGymAddNotice.do")
-//	public ModelAndView HomeGymAddNoticeForm(
-//			HttpSession session) {
-//		boolean check_result = false;
-//		
-//		if(session.getAttribute("sid")!=null) {
-//			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("sid"));
-//		}else if(session.getAttribute("coachid")!=null) {
-//			check_result = homegymDAO.HomeGymCheck((String)session.getAttribute("coachid"));
-//		}
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("check_result", check_result);
-//		mav.setViewName("homegym/hgAddNotice");
-//		return mav;
-//	}
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.GET)
 	public String HomeGymAddForm() {

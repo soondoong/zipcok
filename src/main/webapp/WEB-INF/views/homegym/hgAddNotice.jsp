@@ -2,12 +2,7 @@
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <script>
-function login_check(){
-	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
-		window.alert('로그인이 필요한 페이지 입니다.');
-		location.href='loginForm.do';
-		return;
-	}
+function homegymAddEnter(){
 	location.href = 'HomeGymAdd.do';
 }
 </script>
@@ -64,10 +59,5 @@ function login_check(){
 		</ul>
 	</article>
 </div>
-<c:if test = "${!check_result }">
-<input type = "button" value = "내 홈짐 보러가기">
-</c:if>
-<c:if test = "${check_result }">
-<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:login_check();">
-</c:if>
+<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:homegymAddEnter();">
 <%@include file="../_include/footer.jsp" %>

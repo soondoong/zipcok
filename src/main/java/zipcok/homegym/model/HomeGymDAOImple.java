@@ -22,9 +22,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public boolean HomeGymCheck(String id) {
+	public String HomeGymCheck(String id) {
 		int result = sqlMap.selectOne("homegymCheckSQL", id);
-		return result==1?false:true;
+		return result==0?"false":"true";
 	}
 	@Override
 	public HomeGymDTO HomeGymContent(String homegymId) {

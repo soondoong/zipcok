@@ -6,8 +6,13 @@
 <%@include file="../header2.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
+<script src = "	
+http://openapi.seoul.go.kr:8088/sample/xml/SearchSTNBySubwayLineInfo/1/5/"></script>
 <script>
 window.addEventListener('load', function() {
+	var today = getTimeStamp();
+	$('#choice_date').attr('min', today);
+	$('#choice_date').val(today);
 	var eq_options = '${keywordMap.eq_options}';
 	if(eq_options != ''){
 		var eq_options_split = eq_options.split(',');
@@ -22,6 +27,29 @@ window.addEventListener('load', function() {
 		}
 	}
 });
+
+function getTimeStamp() {
+
+    var d = new Date();
+    var s =
+        leadingZeros(d.getFullYear(), 4) + '-' +
+        leadingZeros(d.getMonth() + 1, 2) + '-' +
+        leadingZeros(d.getDate(), 2);
+
+    return s;
+}
+
+function leadingZeros(n, digits) {
+
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+        for (i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
 
 function priceOption(){	
 	var left_price_span = document.getElementById('price').value;
@@ -89,9 +117,28 @@ function ContentEnter(id){
 				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected</c:if>>강북구</option>
 				<option value="강서구" <c:if test="${keywordMap.location=='강서구'}">selected</c:if>>강서구</option>
 				<option value="관악구" <c:if test="${keywordMap.location=='관악구'}">selected</c:if>>관악구</option>
-				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='광진구'}">selected</c:if>>광진구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='구로구'}">selected</c:if>>구로구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='금천구'}">selected</c:if>>금천구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='노원구'}">selected</c:if>>노원구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='도봉구'}">selected</c:if>>도봉구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='동대문구'}">selected</c:if>>동대문구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='동작구'}">selected</c:if>>동작구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='마포구'}">selected</c:if>>마포구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='서대문구'}">selected</c:if>>서대문구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='서초구'}">selected</c:if>>서초구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='성동구'}">selected</c:if>>성동구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='성북구'}">selected</c:if>>성북구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='송파구'}">selected</c:if>>송파구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='양천구'}">selected</c:if>>양천구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='용산구'}">selected</c:if>>용산구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='은평구'}">selected</c:if>>은평구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='종로구'}">selected</c:if>>종로구</option>
+				<option value="관악구" <c:if test="${keywordMap.location=='중구'}">selected</c:if>>중구</option>
+				<option value="영등포구" <c:if test="${keywordMap.location=='중랑구'}">selected</c:if>>중랑구</option>
 			</select>
-			<input type="date" name="top_option_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
+			<input type="date" name="top_option_date" id = "choice_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
 		</div>
 	</div>
 	<div class="homegym_wrap">

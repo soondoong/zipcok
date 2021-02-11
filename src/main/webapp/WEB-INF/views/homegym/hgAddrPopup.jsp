@@ -23,9 +23,7 @@
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                document.getElementById("faddr").value = roadAddr;
             }
         }).open();
     }
