@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 <script>
-function hgContent_setting(){
+window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
 	start_date = start_date.substring(0,10);
 	var end_date = '${hgContent.hg_end_date}';
@@ -38,7 +38,38 @@ function hgContent_setting(){
 		person_count_option.innerText = i;
 		document.getElementById('choice_person_count').appendChild(person_count_option);
 	}
-}
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    draggable: false,
+	    level: 4 // 지도의 확대 레벨
+	};  
+
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	function setZoomable() {
+	    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+	    map.setZoomable(false);    
+	}
+
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	//주소로 좌표를 검색합니다
+	geocoder.addressSearch('${hgContent.hg_faddr}', function(result, status) {
+
+	// 정상적으로 검색이 완료됐으면 
+	 if (status === kakao.maps.services.Status.OK) {
+
+	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    map.setCenter(coords);
+	} 
+	}); 
+});
+
 function end_time_click(){
 	var start_time = document.getElementById('choice_start_time').value;
 	if(start_time == '-'){
@@ -112,9 +143,6 @@ function reservation_callback(){
   			var msg = data.msg;
   			var check = data.check;
   			var idx = data.this_idx;
-  			window.alert(msg);
-  			window.alert(check);
-  			window.alert(idx);
   			if(check){
   				location.href = 'HomeGymPayPage.do?reser_idx='+idx;
   			}
@@ -122,58 +150,41 @@ function reservation_callback(){
 	}
 }
 </script>
-
 <style>
-#top_info{
-background-color:blue;
-width:100%;
-height:50px; 
-}
-#reservationArea{
-border: 1px solid black;
-width: 400px;
-margin-bottom: 120px;
-}
-#imgArea{
-border: 1px solid black;
-width:300px;
-height:300px;
-padding: 10px;
-margin-right: 100px;
-}
-#imgArea img{
-width:250px;
-height:250px;
-}
-.eqList{
-border:1px solid black;
-}
-#reservationInfo_click{
-display:none;
-}
+.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px;}
+.top_contentArea{width:80%; height:50%; display:flex; margin:auto;}
+.top_contentArea .top_contentArea_img{width:500px; height:500px; margin-right: 100px; }
+.top_contentArea .top_contentArea_img img {width:350px; height:350px; }
+.top_contentArea .top_contentArea_reservationArea {width: 500px; height:500px;}
+.top_contentArea .top_contentArea_reservationArea li {height:40px;}
+.top_contentArea .top_contentArea_reservationArea select {width:49%;}
+.top_contentArea .top_contentArea_reservationArea #reservationInfo_click{ display:none;}
+.bottom_contentArea .hgContent {width: 80%; margin: auto;}
+.bottom_contentArea .eqlistArea {width: 80%; margin: auto;}
+.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex;}
+.bottom_contentArea .eqlistArea .eqlistArea_list img {width:50px; height:50px;}
+.bottom_contentArea .reserNoticeArea {width: 80%; margin: auto;}
+.bottom_contentArea .mapArea {width: 80%; margin: auto;}
+.bottom_contentArea .reviewArea {width: 80%; margin: auto;}
 </style>
-</head>
-<body onload = "javascript:hgContent_setting();">
-<%@include file="../header2.jsp" %>
-<div id = "top_info">
-${hgContent.hg_nickname }님의 홈짐<br>
-${hgContent.hg_faddr }/${hgContent.hg_station }
+<div class = "top_info">
+	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
+	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
 </div>
-<div id = "imgArea">
-<c:forEach var = "img" items = "${imgContent }">
-<img src = "upload/homegymInfo/${img.mfile_upload }">
-</c:forEach>
-</div>
-<input type = "button" value = "목록으로" onclick = "javascript:location.href='HomeGymList.do'">
-<div id = "reservationArea">
-	${hgContent.hg_nickname }님의 홈짐<br>
-	<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
+<div class = "top_contentArea">
+	<div class = "top_contentArea_img">
+		<c:forEach var = "img" items = "${imgContent }">
+		<img src = "upload/homegymInfo/${img.mfile_upload }">
+		</c:forEach>
+	</div>
+	<div class = "top_contentArea_reservationArea">
+		<p>${hgContent.hg_nickname }님의 홈짐</p>
+		<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
 		<ul id = "reservationInfo">
 			<li>이용 일자</li>
 			<li><input id = "choice_date" name = "reser_date" type = "date"></li>
 			<li>이용 시간</li>
-			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>
-				-
+			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
 				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();"><option value = "">종료 시간</option></select></li>
 			<li>이용 인원</li>
 			<li><select id = "choice_person_count" name = "reser_person_count"></select></li>
@@ -183,8 +194,7 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 		</ul>
 		<ul id = "reservationInfo_click">
 			<li>이용 일자</li>
-			<li id = "use_date">
-			</li>
+			<li id = "use_date"></li>
 			<li>이용 시간</li>
 			<li id = "use_time"></li>
 			<li>이용 인원</li>
@@ -196,73 +206,53 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 			<input type = "button" value = "돌아가기" onclick = "javascript:reservation_back_click();">
 			</li>
 		</ul>
+	</div>
 </div>
-<div id = "hgContent">
-	<h3>홈짐 소개</h3>
-	${hgContent.hg_info }
-	<hr>
-	<h5>이용 요금(1시간 당) : ${hgContent.hg_price }</h5>
-	<hr>
-	<h5>보유 운동 기구</h5>
-	<c:forEach var = "eqDTO" items = "${eqContent }">
-		<div class = "eqList">
-			사진 들어갈 영역(기구의 이름을 기준으로)<br>
-			${eqDTO.eq_name }<br>
-			${eqDTO.eq_count}
+<div class = "bottom_contentArea">
+	<div class = "hgContent">
+		<h3>홈짐 소개</h3>
+		${hgContent.hg_info }
+		<hr>
+		<h5>이용 요금(1시간 당) : ${hgContent.hg_price }</h5>
+		<hr>
+	</div>
+	<div class ="eqlistArea">
+		<h5>보유 운동 기구</h5>
+		<div class = "eqlistArea_list">
+		<c:forEach var = "eqDTO" items = "${eqContent }">
+			<div class = "eqList">
+				<img src = "img/homegym/${eqDTO.eq_name }.jpg">
+				<p>${eqDTO.eq_name }</p>
+				<p>${eqDTO.eq_count}</p>
+			</div>
+		</c:forEach>
 		</div>
-	</c:forEach>
-	<h5>예약 시 주의사항</h5>
-	<table>
-		<tr>
-			<th>주의사항</th>
-			<td>주의사항 내용</td>
-		</tr>
-		<tr>
-			<th>예약정책</th>
-			<td>주의사항 내용</td>
-		</tr>
-		<tr>
-			<th>취소/환불 정책</th>
-			<td>주의사항 내용</td>
-		</tr>
-	</table>
-	<h3>오시는 길</h3>
-	<div id="map" style="width:50%;height:350px;"></div>
-	<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	    draggable: false,
-	    level: 4 // 지도의 확대 레벨
-	};  
-
-	//지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-	function setZoomable() {
-	    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
-	    map.setZoomable(false);    
-	}
-
-	//주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-
-	//주소로 좌표를 검색합니다
-	geocoder.addressSearch('${hgContent.hg_faddr}', function(result, status) {
-
-	// 정상적으로 검색이 완료됐으면 
-	 if (status === kakao.maps.services.Status.OK) {
-
-	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	    map.setCenter(coords);
-	} 
-	}); 
-	</script>
-		<div id = "review_DIV">
+	</div>
+	<div class = "reserNoticeArea">
+		<h5>예약 시 주의사항</h5>
+		<table> 
+			<tr>
+				<th>주의사항</th>
+				<td>주의사항 내용</td>
+			</tr>
+			<tr>
+				<th>예약정책</th>
+				<td>주의사항 내용</td>
+			</tr>
+			<tr>
+				<th>취소/환불 정책</th>
+				<td>주의사항 내용</td>
+			</tr>
+		</table>
+	</div>
+	<div class = "mapArea">
+		<h3>지도</h3>
+		<div id="map" style="width:50%;height:350px;"></div>
+	</div>
+	<div id = "reviewArea">
 		<h3>이용 후기</h3>
 		<c:if test = "${empty reviewList }">
-		<div>작성된 후기가 없습니다.</div>
+			<div>작성된 후기가 없습니다.</div>
 		</c:if>
 		<c:if test = "${!empty reviewList }">
 			<c:forEach var = "dto" items="${reviewList }">
@@ -273,7 +263,3 @@ ${hgContent.hg_faddr }/${hgContent.hg_station }
 		</c:if>
 	</div>
 </div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
-<script type="text/javascript" src="js/httpRequest.js"></script>
-</body>
-</html>

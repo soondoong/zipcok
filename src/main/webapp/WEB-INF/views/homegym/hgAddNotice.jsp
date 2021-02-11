@@ -11,9 +11,7 @@ function login_check(){
 	location.href = 'HomeGymAdd.do';
 }
 </script>
-<h1>홈짐 등록 안내</h1>
-<div id="container">
-	<style>
+<style>
 	.matching_info_view {}
 	.matching_info_view h2 {text-align: center; margin-bottom: 100px;}
 	.matching_info_view ul {}
@@ -25,11 +23,11 @@ function login_check(){
 	.matching_info_view ul li .desc h3 {margin: 0;}
 	.matching_info_view ul li .desc p {margin: 24px 0 0;}
 	</style>
-	
+<h1>홈짐 등록 안내</h1>
+<div id="container">
 	<!-- 등장 이벤트 주고싶은 element에 class : _motion
 		_left, _right, _top, _bottom, _spin
 	 -->
-
 	<article class="matching_info_view">
 		<h2>부담없이 편한 장소에서 <br>운동을 시작해보세요</h2>
 		<ul>
@@ -67,7 +65,7 @@ function login_check(){
 	</article>
 </div>
 <c:if test = "${!check_result }">
-<input type = "button" value = "내 홈짐 보러가기" onclick = "#">
+<input type = "button" value = "내 홈짐 보러가기">
 </c:if>
 <c:if test = "${check_result }">
 <input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:login_check();">

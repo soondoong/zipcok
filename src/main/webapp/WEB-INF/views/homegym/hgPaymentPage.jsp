@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-function pg_setting(){
+window.addEventListener('load', function() {
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp05175150'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-}
+});
 function pg_check(){
 	 var pg_method = document.getElementsByName('pg_method');
 	 var pg_choice_method = '';
@@ -34,7 +31,6 @@ function pg_check(){
 	    buyer_postcode : '${sessionScope.loginAll.mem_zipcode}',
 	}, function(rsp) {
 	    if ( rsp.success ) {
-	        var msg = '결제가 완료되었습니다.';
 			var params = '?pd_req_idx='+${reservationInfo.reser_idx};
 		    params += '&pd_code='+rsp.merchant_uid;
 		    params += '&pd_target_id='+'${reservationInfo.hg_mem_id}';
@@ -49,9 +45,6 @@ function pg_check(){
 	});
 }
 </script>
-</head>
-<body onload = "javscript:pg_setting();">
-
 <h1>결제 페이지</h1>
 <div>
 예약 번호  : ${reservationInfo.reser_idx }<br>
@@ -79,6 +72,4 @@ function pg_check(){
 </div>
 <input type = "button" value = "결제하기" onclick = "javascript:pg_check();">
 <input type = "button" value = "돌아가기">
-</body>
-
-</html>
+<%@include file="../_include/footer.jsp" %>

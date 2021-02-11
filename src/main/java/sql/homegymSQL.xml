@@ -140,7 +140,7 @@
 	select * from homegym where hg_mem_id = #{value}
 	</select>
 	<select id = "hgEquipmentContentSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymEquipmentDTO">
-	select * from homegym_equipment where eq_mem_id = #{value}
+	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
 	</select>
 	<select id = "hgImageContentSQL" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
 		select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value}
