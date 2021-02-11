@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="mo.adminMember">
+  
+  
+  	<select id = "totalCnt" parameterType="hashMap" resultType="Integer">
+	
+	select count(*) from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member where
+    <choose>
+        <when test = "mem_type =='전체'"></when>
+        <when test = "mem_type !='전체'">
+   		 mem_type like '%${mem_type}%'
+   		 and
+    	</when>
+    </choose>
+    <choose>
+    	<when test = "mem_id ==''"></when>
+   	 	<when test = "mem_type !=''">
+ 		mem_id like '%${mem_id}%'
+	 	and
+    	</when>
+    </choose>
+    )a)b)c
+    
+	</select>
+  
+  
+	<select id="adminMemberList" parameterType="hashMap" resultType="zipcok.member.model.MemberDTO">
+	
+	select * from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member where
+    <choose>
+        <when test = "mem_type =='전체'"></when>
+        <when test = "mem_type !='전체'">
+   		 mem_type like '%${mem_type}%'
+   		 and
+    	</when>
+    </choose>
+    <choose>
+    	<when test = "mem_id ==''"></when>
+   	 	<when test = "mem_type !=''">
+ 		mem_id like '%${mem_id}%'
+	 	and
+    	</when>
+    </choose>
+    order by mem_idx desc)a)b)c
+    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+    
+	</select>
+
+  </mapper>

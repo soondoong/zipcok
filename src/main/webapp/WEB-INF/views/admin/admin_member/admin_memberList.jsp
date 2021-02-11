@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,23 +24,36 @@
 					<h3>회원목록</h3>
 				</div>
 				<div>
-					<form action="#">
+					<form action="adminMemberListAction.do">
 						<ul class="test-inline">
-							<li>조건 검색</li>
-							<li><select><option>회원등급</option></select></li>
-							<li><select><option>고객명</option></select></li>
-							<li><input type="text" placeholder="내용을 입력해주세요"></li>
+							<li>조건 검색&nbsp;&nbsp;&nbsp;</li>
+							<li>등급 : </li>
+							<li>
+							<select name="type">
+							<option>전체</option>
+							<option>일반회원</option>
+							<option>코치회원</option>
+							</select>
+							</li>
+							<li><input type="text" placeholder="고객명" name="name"></li>
 							<li><input type="submit" value="검색"></li>
 						</ul>
 					</form>
 				</div>
+				
+				
+				
+				
+				
+				
 				<div>
 					<ul	class="test-inline">
 						<li>총 회원수: </li>
 						<li>검색 회원수: </li>
 					</ul>
 				</div>
-				<div><!-- 회원목록부분 테이블 div -->
+				<div>			
+				<!-- 회원목록부분 테이블 div -->
 					<table border="1" cellspacing="0">
 						<thead>
 							<tr>
@@ -53,6 +67,14 @@
 							</tr>
 						</thead>
 						<tbody>
+						<c:if test="${empty list}">
+							<tr>
+								<td colspan="7" align="center">
+								검색된 회원이 없습니다.
+								</td>
+							</tr>
+						</c:if>
+						<c:forEach var="dto" items="${list }">
 							<tr>
 								<td>1</td>
 								<td>구병모</td>
@@ -62,16 +84,20 @@
 								<td>2021.01.12</td>
 								<td>2021.01.21</td>
 							</tr>
+						</c:forEach>
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="7">페이징 들어갈 자리</td>
+								<td colspan="7" align="center">페이징 들어갈 자리</td>
 							</tr>
 						</tfoot>
 					</table>
 				</div>
 				<div>
 					<div>
+					
+					<br><br>
+				
 						<h3>회원관리</h3>
 					</div>
 					<div><!-- 회원관리부분 div -->
