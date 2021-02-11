@@ -153,6 +153,13 @@ public class CoachController {
 		return "coach/coachRegistView";
 	}
 	
+	/*코치가입 후 다시로그인 이동*/
+	@RequestMapping("ReLogin.do")
+		public String ReLogin(HttpSession session) {
+		 session.invalidate();
+		return "member/login";
+	}
+	
 	
 	
 	/*코치가입하기 기능*/
@@ -207,16 +214,18 @@ public class CoachController {
 		ModelAndView mav=new ModelAndView();
 		String msg="";
 		if(result>0) {
-			msg="코치로 등록되었습니다. 다시 로그인 해주세요~";
+			msg="코치로 등록되었습니다. 다시 로그인 해주세요!";
 			mav.addObject("msg", msg);
-			session.invalidate();
+			mav.addObject("gopage", "ReLogin.do");
+			mav.setViewName("coach/joinMsg");
+			
 		}else {
 			msg="코치 등록 실패!";
 			mav.addObject("msg", msg);
+			mav.addObject("gopage", "index.do");
+			mav.setViewName("coach/joinMsg");
 		}
-		mav.addObject("gopage", "index.do");
-		mav.setViewName("coach/joinMsg");
-	
+		
 		return mav;
 	}
 	
