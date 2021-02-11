@@ -18,6 +18,7 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
+	//최근글 idx구하기
 	@Override
 	public int getMaxExIdx() {
 		int count=sqlMap.selectOne("getMaxExIdxSQL");
@@ -72,6 +73,40 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
+	//이전글다음글하기위한로우넘구하는메서드
+	@Override
+	public int findRownum(int ex_idx,int ex_comm_idx) {
+		Map map=new HashMap();
+		map.put("ex_idx", ex_idx);
+		map.put("ex_comm_idx", ex_comm_idx);
+		int result=sqlMap.selectOne("ex_findrownumSQL",map);
+		return result;
+	}
+	
+	//이전글다음글
+	@Override
+	public ExBbsDTO dailyPrevNext(int rnum,int ex_comm_idx) {
+		Map map=new HashMap();
+		map.put("rnum", rnum);
+		map.put("ex_comm_idx", ex_comm_idx);
+		ExBbsDTO dto=sqlMap.selectOne("ex_prevnextSQL", map);
+		return dto;
+		
+	}
+	
+	@Override
+	public ExBbsDTO recentCoachContent(int ex_comm_idx, String ex_id) {
+		Map map=new HashMap();
+		map.put("ex_comm_idx", ex_comm_idx);
+		map.put("ex_id", ex_id);
+		ExBbsDTO dto=sqlMap.selectOne("recentCoachContentSQL",map);
+		return dto;
+	}
+	
+	
+	
+	
+	//댓글관련//////////////////////////////////////////////////////
 	//댓글 최대 순번 구하기
 	@Override
 	public int dailyGetMaxSunbun(int re_idx) {

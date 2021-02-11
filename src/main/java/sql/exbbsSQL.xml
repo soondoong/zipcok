@@ -188,6 +188,35 @@
 				#{re_group})
 	</insert>
 	
+	<select id="ex_findrownumSQL" resultType="Integer">
+        select * 
+        from
+        (select rownum as rnum,a.*
+        from 
+        ( select * from exer_bbs where ex_comm_idx=#{ex_comm_idx} order by ex_idx)a)b
+        where 
+        ex_idx=#{ex_idx}
+   </select>
+   
+   <select id="ex_prevnextSQL" resultType="zipcok.comm.model.ExBbsDTO">
+        select * 
+        from 
+        (select rownum as rnum,a.*
+        from 
+        ( select * from exer_bbs where ex_comm_idx=#{ex_comm_idx} order by ex_idx)a)b
+        where 
+        rnum=#{rnum}
+     </select>
+     
+     <select id="getCoachIdSQL" parameterType="String" resultType="String">
+		select
+			com_coach_name
+		from
+			community
+		where
+			com_idx=#{value}
+	</select>
+	
 	
 	
 </mapper>
