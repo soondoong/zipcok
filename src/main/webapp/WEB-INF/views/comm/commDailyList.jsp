@@ -19,10 +19,7 @@
 			.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
 			.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
 			
-			.community_wrap .community_list {flex: 1 1 auto; padding: 30px;}
-			
-			
-			
+			.community_wrap .community_list {flex: 1 1 auto; padding: 30px;}	
 	</style>
 	
 	<div class="community_wrap">
@@ -56,22 +53,44 @@
 							</tr>
 						</c:if>
 						<c:forEach var="dto" items="${list}">
-							<tr>
-								<td>${dto.ex_idx}</td>
-								<c:url var="contentUrl" value="commDailyList.do">
-									<c:param name="idx">${dto.ex_idx}</c:param>
-								</c:url>
-								<c:set var="recnt" value="(${dto.ex_recnt})" />
-								<c:choose>
-								<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
-								</c:choose>
-								<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
-								<td>${dto.ex_cal}cal</td>
-								<td>${dto.ex_id}</td>
-								<td>${dto.ex_readnum}</td>
-								<td>${dto.ex_writedate}</td>
-							</tr>
+							<c:if test="${dto.ex_id eq com_coach_id}">
+								<tr>
+									<td>코치</td>
+										<c:url var="contentUrl" value="commDailyList.do">
+											<c:param name="idx">${dto.ex_idx}</c:param>
+										</c:url>
+										<c:set var="recnt" value="(${dto.ex_recnt})" />
+										<c:choose>
+											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
+										</c:choose>
+									<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
+									<td>${dto.ex_cal}cal</td>
+									<td>${dto.ex_id}</td>
+									<td>${dto.ex_readnum}</td>
+									<td>${dto.ex_writedate}</td>
+								</tr>
+							</c:if>
 						</c:forEach>
+						<c:forEach var="dto" items="${list}">
+							<c:if test="${dto.ex_id ne com_coach_id}">
+								<tr>
+									<td>${dto.ex_idx}</td>
+										<c:url var="contentUrl" value="commDailyList.do">
+											<c:param name="idx">${dto.ex_idx}</c:param>
+										</c:url>
+										<c:set var="recnt" value="(${dto.ex_recnt})" />
+										<c:choose>
+											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
+										</c:choose>
+									<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
+									<td>${dto.ex_cal}cal</td>
+									<td>${dto.ex_id}</td>
+									<td>${dto.ex_readnum}</td>
+									<td>${dto.ex_writedate}</td>
+								</tr>
+							</c:if>
+						</c:forEach>	
+						
 					</tbody>
 			</table>
 		</div>

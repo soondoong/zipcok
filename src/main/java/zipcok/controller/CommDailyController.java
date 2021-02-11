@@ -47,6 +47,7 @@ public class CommDailyController {
 		int pageSize=5;
 		String pageStr=zipcok.page.CommPageModule.makePage("commDailyList.do", totalCnt, cp, listSize, pageSize);
 		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		String com_coach_id=(String)session.getAttribute("com_coach_id");
 		List<ExBbsDTO> list=exBbsDao.dailyList(cp, listSize, ex_comm_idx);
 		for(int i=0;i<list.size();i++) {
 			int idx=list.get(i).getEx_idx();
@@ -56,6 +57,7 @@ public class CommDailyController {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("list", list);
 		mav.addObject("pageStr", pageStr);
+		mav.addObject("com_coach_id", com_coach_id);
 		mav.setViewName("comm/commDailyList");
 		return mav;
 	}
@@ -172,14 +174,22 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 글보기
 	@RequestMapping("commDailyContent.do")
-	public ModelAndView dailyContent(int ex_idx) {
+	public ModelAndView dailyContent(int ex_idx, HttpSession session) {
 		int result=exBbsDao.dailyReadnum(ex_idx);
 		ExBbsDTO dto=exBbsDao.dailyContent(ex_idx);
 		List list=exBbsDao.dailyReList(ex_idx);
 		int recnt=exBbsDao.dailyGetTotalRe(ex_idx);
 		int bfile_bbs=1;
 		List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
+		int ex_comm_idx=(int)session.getAttribute("com_idx");
+		int rnum=exBbsDao.findRownum(ex_idx,ex_comm_idx);
+		ExBbsDTO prev=exBbsDao.dailyPrevNext(rnum-1,ex_comm_idx);
+		ExBbsDTO next=exBbsDao.dailyPrevNext(rnum+1,ex_comm_idx);
+
+	
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("prev", prev);
+		mav.addObject("next", next);
 		mav.addObject("dto", dto);
 		mav.addObject("list", list);
 		mav.addObject("recnt", recnt);

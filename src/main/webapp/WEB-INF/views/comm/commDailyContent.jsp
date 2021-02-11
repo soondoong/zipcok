@@ -39,6 +39,11 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		.community_daily_summary tbody tr td {padding: 10px; border-bottom: 1px solid #dddddd;}
 		
 		.community_contents .view_body {padding: 30px 20px 50px;}
+		
+		.community_wrap .view_navi {border-top: 1px solid #dddddd;}
+        .community_wrap .view_navi dl {position: relative; padding: 0 0 0 160px; margin: 0;}
+        .community_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
+        .community_wrap .view_navi dd {margin: 0; padding: 0 20px; line-height: 40px; border-bottom: 1px solid #dddddd;}
 	</style>
 
 	<%-- <c:if test="${mem_name eq '로그인필요' }">
@@ -228,18 +233,31 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				</form>
 			</div>
 			<!-- 댓글 종료 -->
-			
+			<div class="view_navi">
+	            <dl>
+	               <dt>이전 글</dt>
+	            <c:choose>
+	               <c:when test="${empty prev}">
+	                  <dd>이전 글이 없습니다.</dd>
+	               </c:when>
+	               <c:otherwise>
+	                  <dd><a href="commDailyContent.do?ex_idx=${prev.ex_idx}">${prev.ex_subject}</a></dd>
+	               </c:otherwise>
+	            </c:choose>
+	            </dl>
+	            <dl>
+	               <dt>다음 글</dt>
+	            <c:choose>
+	               <c:when test="${empty next}">
+	                  <dd>다음 글이 없습니다.</dd>
+	               </c:when>
+	               <c:otherwise>
+	                  <dd><a href="commDailyContent.do?ex_idx=${next.ex_idx}">${next.ex_subject}</a></dd>
+	               </c:otherwise>
+	            </c:choose>
+	            </dl>
+         	</div> 
 			<table>
-				<tr>
-					<td>이전글</td>
-					<td>위화살표</td>
-					<td colspan="6"><a href="#">이전글</a></td>
-				</tr>
-				<tr>
-					<td>다음글</td>
-					<td>아래화살표</td>
-					<td colspan="6"><a href="#">다음글</a></td>
-				</tr>
 				<tr>
 					<td><input type="button" value="삭제"
 						onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
