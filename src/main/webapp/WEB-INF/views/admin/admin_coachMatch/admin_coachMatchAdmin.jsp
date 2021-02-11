@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,12 +25,51 @@
 				<div>
 					<ul class="test_inline">
 						<li>코치 검색</li>
-						<li><select><option>번호</option></select></li>
-						<li><input type="radio" value="남자">남자 <input type="radio" value="여자">여자</li>
+						<li><select name="choice"><option>번호</option></select></li>
+						<li><input type="radio" name="mem_gender" value="남자">남자 <input type="radio" name="mem_gender" value="여자">여자</li>
 						<li><input type="text"></li>
-						<li><input type="button" value="검색"></li>
+						<li><input type="button" onclick="location.href='admin_coachMatchAdminSearch.do'" value="검색"></li>
 					</ul>
 				</div>
+				<div><!--  테이블 div -->
+					<table border="1" cellspacing="0">
+						<thead>
+							<tr>
+								<th>회원번호</th>
+								<th>이름</th>
+								<th>아이디</th>
+								<th>휴대폰번호</th>
+								<th>이메일</th>
+								<th>생년월일</th>
+								<th>가입일</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:if test="${empty List}">
+						<tr>
+							<td colspan="7">등록된 코치가 없습니다</td>
+						</tr>
+						</c:if>
+						<c:forEach var="list" items="${List}">
+							<tr>
+								<td>${list.mem_idx}</td>
+								<td>${list.mem_name}</td>
+								<td><a href="#">${list.mem_id}</a></td>
+								<td>${list.mem_phone}</td>
+								<td>${list.mem_email }</td>
+								<td>${list.mem_birth }</td>
+								<td>${list.mem_joindate}</td>
+							</tr>
+						</c:forEach>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="7">페이징 들어갈 자리</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<div><!-- 코치의 세부정보 부분 div -->
 				<div>
 					<ul class="test_inline">
 						<li><img alt="profileImg" src="img/notice/01.png" style="width:30px; height:30px;"></li>
@@ -42,38 +82,6 @@
 						</li>
 					</ul>
 				</div>
-				<div><!--  테이블 div -->
-					<table border="1" cellspacing="0">
-						<thead>
-							<tr>
-								<th>회원번호</th>
-								<th>이름</th>
-								<th>아이디</th>
-								<th>휴대폰번호</th>
-								<th>이메일</th>
-								<th>관리 회원 수</th>
-								<th>가입일</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>구병모</td>
-								<td><a href="#">qudah123</a></td>
-								<td>123456789</td>
-								<td>a@naver.com</td>
-								<td>2021.01.12</td>
-								<td>2021.01.21</td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="7">페이징 들어갈 자리</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
-				<div><!-- 코치의 세부정보 부분 div -->
 				<form>
 					<ul>
 						<li>
