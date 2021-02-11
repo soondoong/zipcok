@@ -2,15 +2,27 @@
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/httpRequest.js"></script>
 <script>
+	if('${sessionScope.login.mem_id}'==''){
+		window.alert('로그인이 필요한 페이지입니다.');
+		location.href = 'login.do';	
+	}else{
+		if('${sessionScope.hg_check}' == 'true'){
+			window.alert('회원님의 계정으로 조회되는 홈짐이 있습니다.');
+			window.alert('내 홈짐 보기 페이지로 이동합니다.');
+			location.href = 'index.do';
+		}
+	}
 	var count = 0;
 	
 	window.addEventListener('load', function() {
-		var today = getTimeStamp() ;
-		$( '#start_Date' ).attr('min', today);
-		$( '#start_Date' ).val(today);
+		var today = getTimeStamp();
+		$('#start_date').attr('min', today);
+		$('#start_date').val(today);
+		$("#date_div").datepicker( "option", "minDate", today );
 	});
 
 	jQuery.browser = {};
@@ -208,6 +220,21 @@
 			return;
 		}
 	}
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("faddr").value = roadAddr;
+            }
+        }).open();
+    }
 </script>
 <style>
 .homegymAddArea label {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
@@ -228,13 +255,13 @@ textarea {resize: none;}
 .homegymAddArea .imgInfo {margin: 10px auto;}
 .homegymAddArea .dateInfo {margin: 10px auto;}
 .homegymAddArea input[type=text] {width: 200px; }
-.homegymAddArea select {width: 200px; }
+.homegymAddArea select {width: 200px; size:landscape;}
 .homegymAddArea input[type=date] {width: 200px; }
 .homegymAddArea textarea {width: 300px; height:150px; }
 .homegymADdArea .eq_add_list {font-size: 25px; font-weight: 300; color: gary;}
 .homegymAddArea .dateInfo {margin-bottom: 30px; }
 .homegymAddArea .dateInfo th {width: 200px;}
-.homegymAddArea .button_div {text-align: center; margin-bottom: 30px;}
+.homegymAddArea .button_div {text-align: center; margin: 30px 0px;}
 
 </style>
 <div class = "homegymAddArea">
@@ -248,19 +275,19 @@ textarea {resize: none;}
 				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
 				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
 				<input type="button" class = "btn btn-primary btn-lg sbtn" value="중복 확인" onclick = "javascript:nicknameCheck();">
-				<div id = "nicknameCheckText"></div>
+				<span id = "nicknameCheckText"></span>
 				<input type="hidden" id="nickname_overlap" value="0">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
 			<li>
-				<label class="HomeGymAddLabel">홈짐 주소</label>
+				<label class="HomeGymAddLabel">도로명 주소</label>
 				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
-				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="javascript:addrPopupOpen();">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="sample4_execDaumPostcode()">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">상세주소</label>
-				<input type="text" name="hg_saddr"id = "saddr" readonly="readonly">
+				<input type="text" name="hg_saddr"id = "saddr">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야
@@ -378,57 +405,57 @@ textarea {resize: none;}
 			<label></label>
 			<select name="hg_start_time" id = "start_time">
 					<option value="-">시간을 선택해주세요</option>
-					<option value="0">00</option>
-					<option value="1">01</option>
-					<option value="2">02</option>
-					<option value="3">03</option>
-					<option value="4">04</option>
-					<option value="5">05</option>
-					<option value="6">06</option>
-					<option value="7">07</option>
-					<option value="8">08</option>
-					<option value="9">09</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">11</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
-					<option value="22">22</option>
-					<option value="23">23</option>
+					<option value="0">00:00</option>
+					<option value="1">01:00</option>
+					<option value="2">02:00</option>
+					<option value="3">03:00</option>
+					<option value="4">04:00</option>
+					<option value="5">05:00</option>
+					<option value="6">06:00</option>
+					<option value="7">07:00</option>
+					<option value="8">08:00</option>
+					<option value="9">09:00</option>
+					<option value="10">10:00</option>
+					<option value="11">11:00</option>
+					<option value="12">12:00</option>
+					<option value="13">13:00</option>
+					<option value="14">14:00</option>
+					<option value="15">15:00</option>
+					<option value="16">16:00</option>
+					<option value="17">17:00</option>
+					<option value="18">18:00</option>
+					<option value="19">19:00</option>
+					<option value="20">20:00</option>
+					<option value="21">21:00</option>
+					<option value="22">22:00</option>
+					<option value="23">23:00</option>
 			</select>
 			<select name="hg_end_time" id = "end_time" onclick="javascript:end_time_click();" onchange="javascript:time_check();">
 					<option value="-">시간을 선택해주세요</option>
-					<option value="0">00</option>
-					<option value="1">01</option>
-					<option value="2">02</option>
-					<option value="3">03</option>
-					<option value="4">04</option>
-					<option value="5">05</option>
-					<option value="6">06</option>
-					<option value="7">07</option>
-					<option value="8">08</option>
-					<option value="9">09</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">11</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
-					<option value="22">22</option>
-					<option value="23">23</option>
+					<option value="0">00:00</option>
+					<option value="1">01:00</option>
+					<option value="2">02:00</option>
+					<option value="3">03:00</option>
+					<option value="4">04:00</option>
+					<option value="5">05:00</option>
+					<option value="6">06:00</option>
+					<option value="7">07:00</option>
+					<option value="8">08:00</option>
+					<option value="9">09:00</option>
+					<option value="10">10:00</option>
+					<option value="11">11:00</option>
+					<option value="12">12:00</option>
+					<option value="13">13:00</option>
+					<option value="14">14:00</option>
+					<option value="15">15:00</option>
+					<option value="16">16:00</option>
+					<option value="17">17:00</option>
+					<option value="18">18:00</option>
+					<option value="19">19:00</option>
+					<option value="20">20:00</option>
+					<option value="21">21:00</option>
+					<option value="22">22:00</option>
+					<option value="23">23:00</option>
 			</select>
 			</li>
 			<li>

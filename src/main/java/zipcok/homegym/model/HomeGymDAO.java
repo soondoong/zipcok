@@ -8,7 +8,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
 
 public interface HomeGymDAO {
-	public boolean HomeGymCheck(String id);
+	public String HomeGymCheck(String id);
 	public int HomeGymAdd(HomeGymDTO dto);
 	public List<HomeGymDTO> HomeGymList(Map<String, Object> options);
 	public int HomeGymTotalCnt(Map<String, Object> options);
