@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mo.mypage">
+<mapper namespace="zipcok.mypage">
 
    <select id="memberProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">
    select * from zipcok_member where mem_id=#{mem_id}
