@@ -23,21 +23,21 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 .nomalInfo div{width: 500px; padding: 15px 0; font-size: 19px; border-bottom:1px solid #e4e4e4;}
 .nomalInfo div span{ font-weight: 550; padding-right: 50px;}
 .rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
-.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
+
 /*코치프로필 css*/
 .coachInfo{width:500px;flex-direction: row; margin-left:100px;}
-/*커리큘럼css*/
-    .nocurriWrap{display:flex; width:400px; margin-top:20px;}
-	.catenameDiv .catename{font-size:17px;font-weight: bold;} 
+
+/*커리큘럼수정*/
+	.allcurriWrap{display:flex; padding:50px;}
+	.nocurriWrap{display:flex; width:400px; margin-top:20px;}
+	.catenameDiv .catename{font-size:20px;font-weight: bold;} 
 	.currimore{cursor: pointer;margin-right: 20px;}
 	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
 	.showinputs{display:none;}
 	.showinputs input{ width: 300px;}
 	.showinputs textarea{ width: 300px; height: 100px;}
-    .showinputs ol,.showinputs li{ list-style: decimal;width: 300px; }
+    .showinputs ol,li{ list-style: decimal;}
     .showinputs li{ margin-top:15px;}
-    .plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:5px 0 0 5px; cursor: pointer;}
-	.plusbtn span{font-size:15px;  }
 </style>
 
 
@@ -175,53 +175,18 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 					
 			<!-- 커리큘럼영역 -->
 			<div  style="margin-top:30px;">
-					<p class="ptitle"><span>커리큘럼</span></p>
-					<c:if test="${!empty curri}">
-						<input type="button"value="수정" class="rebtn crebtn" onclick="curriRewrite();">
-					</c:if>				
-			<c:if test="${empty curri}">
-			<c:forEach var="c" items="${catelist }">
-			<form name="${c.cate_name }form" action="nodataCurriInsert.do">
-				<div class="nocurriWrap">
-						<div class="catenameDiv">
-							<p class="catename">${c.cate_name }</p>
-						</div>
-						<div class="currimore"  id="${c.cate_name }">							
-							<span class="curriP">커리큘럼 추가하기</span>
-							<i class="fas fa-plus-square plusbtn"></i>
-						</div>
-				</div>	
-					<div  class="showinputs" id="${c.cate_name }1">
-						<ol>
-							<li>
-								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-								<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="1">
-								<input type="text" name="curri_name" id="${c.cate_name }11" placeholder="운동제목"><br>
-								<textarea name="curri_content"  id="${c.cate_name }12" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
-							
-							<li>
-								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-								<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="2">	
-								<input type="text" name="curri_name" id="${c.cate_name }21" placeholder="운동제목"><br>
-								<textarea name="curri_content"  id="${c.cate_name }22"placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
-						    </li>	
-						    <li>	
-						    	<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-						    	<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="3">
-						    	<input type="text" name="curri_name" id="${c.cate_name }31" placeholder="운동제목"><br>
-								<textarea name="curri_content"  id="${c.cate_name }32" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
-							</li>	
-						</ol>	
-			
-					<input type="button" value="수정완료" class="okbtn nodataOKbtn" name="${c.cate_name }form">
-										
-				 </div>
-			</form>							
-			</c:forEach>	
-			</c:if>			
+					<p class="ptitle"><span>커리큘럼</span></p><input type="button"value="${empty curri?'등록':'수정'}" style="${empty curri?'background-color:#257cda;color:white;':''}" class="rebtn crebtn" onclick="curriRewrite();">				
+					<c:if test="${empty curri}">
+						<div class="nocurriWrap">
+							<div class="catenameDiv">
+								<p class="catename">${c.cate_name }</p>
+							</div>
+							<div class="currimore"  id="${c.cate_name }">							
+								<span class="curriP">커리큘럼 추가하기</span>
+								<i class="fas fa-plus-square plusbtn"></i>
+							</div>
+				     	</div>	
+					</c:if>			
 					 
 					<table style="margin-top:20px;">
 					<tr>
@@ -287,7 +252,7 @@ function coachMypagePhoneUpdate(){
 }
 /*커리큘럼수정*/
 function curriRewrite(){
-	location.href='curriReWrite.do';	
+	location.href='curriReWrite.do';
 }
 /*카테고리수정*/
 function cateUpdate(){
@@ -313,98 +278,11 @@ function changeValue(obj){ //사진선택하면
 /*프사수정===============*/	
 
 }
+
+
+
 </script>
-<script>
-	$(function(){
-		var input1= '';
-		var textarea1='';  
-		var input2='';
-		var textarea2= '';
-		var input3='';
-		var textarea3= '';
-			
-		
-		/*커리큘럼 toggle*/
-		$('.currimore').on('click',function(){
-			var ww = document.getElementById($(this).attr('id')+"1");
-				if($(ww).hasClass('toggle')){
-					ww.style.display='none';
-					$(ww).removeClass('toggle');
-				}else{
-					$(ww).addClass('toggle');
-					ww.style.display='block';			
-				}			
-						
-				 input1= $(this).attr('id')+"11";
-				 textarea1= $(this).attr('id')+"12";
-				 input2=$(this).attr('id')+"21";
-				textarea2= $(this).attr('id')+"22";
-				input3= $(this).attr('id')+"31";
-				 textarea3= $(this).attr('id')+"32";
-					
-	
-				$('#'+textarea1).on('focus',function(){
-							if($('#'+input1).val()==''){
-								$('#'+input1).focus();
-							}
-				    });
-					
-				$('#'+input2).on('focus',function(){
-					if($('#'+input1).val()==''){
-						$('#'+input1).focus();
-					}
-				});
-				
-				$('#'+input3).on('focus',function(){
-					if($('#'+input1).val()==''){
-						$('#'+input1).focus();
-					}else if($('#'+input2).val()==''){
-						$('#'+input2).focus();
-					}
-				});
-				
-					$('#'+textarea2).on('focus',function(){
-						if($('#'+input1).val()==''){
-							$('#'+input1).focus();
-						}else if($('#'+textarea1).val()==''){
-							$('#'+textarea1).focus();
-						}else if($('#'+input2).val()==''){
-							$('#'+input2).focus();
-						}
-					  });	
-						$('#'+textarea3).on('focus',function(){
-							if($('#'+input1).val()==''){
-								$('#'+input1).focus();
-							}else if($('#'+textarea1).val()==''){
-								$('#'+textarea1).focus();
-							}else if($('#'+input2).val()==''){
-								$('#'+input2).focus();
-							}else if($('#'+textarea2).val()==''){
-								$('#'+textarea2).focus();
-							}else if($('#'+input3).val()==''){
-								$('#'+input3).focus();
-							}	
-			  		  });
-				
-		});
-		
-		/*커리큘럼 등록기능*/
-		$('.nodataOKbtn').on('click',function(){
-			var formname=$(this).attr('name');
-			if( $('#'+input1).val()=='' || $('#'+input2).val()=='' ||  $('#'+input3).val()==''|| $('#'+textarea1).val()=='' || $('#'+textarea2).val()=='' || $('#'+textarea3).val()==''){			
-				alert('내용을 모두 작성해주세요');
-				return false;
-			}else{
-				$('form[name='+formname+']').submit();
-			}	
-		});
-		
-		
-		
-});
-	
-	
-	</script>	
+
 
 
  <%@include file="../_include/footer.jsp" %>

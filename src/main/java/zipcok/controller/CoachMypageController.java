@@ -18,11 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import zipcok.coach.model.CategoryDTO;
-import zipcok.coach.model.CoachDAO;
-import zipcok.coach.model.CoachFileDTO;
-import zipcok.coach.model.CurriDTO;
-import zipcok.coach.model.RequestFormDTO;
+import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.member.model.MemberDTO;
 
@@ -46,7 +42,8 @@ ServletContext c;
 		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));
 		
 		HashMap<String, Object> resultMap = dao.coachProfile((String)session.getAttribute("coachId"));
-		
+		 List<CategoryDTO> list = cdao.categoryFind((String)session.getAttribute("coachId"));
+	     mav.addObject("catelist", list);
 		//커리큘럼 2개면 분할해서 보내주기
 		if(resultMap.get("curriList") !=null ) {   //등록한 커리큘럼이 있다면
 		List<CurriDTO> cr=(List<CurriDTO>)resultMap.get("curriList");
@@ -355,7 +352,7 @@ ServletContext c;
 	}
 	
 	
-	/*커리큘럼 수정하기*/
+	/*커리큘럼 수정하기view*/
 	@RequestMapping("curriReWrite.do")
 	public ModelAndView curriReWrite(HttpSession session) {
 		ModelAndView mav=new ModelAndView();
@@ -397,9 +394,39 @@ ServletContext c;
 		mav.addObject("mdto", mdto);
 		mav.addObject("resultMap", resultMap);	
 		
-		mav.setViewName("coachMyPage/curriRewrite");
+		mav.setViewName("coachMyPage/curriUpdateView");
 		return mav;
 	}
+	
+	
+	/*운동커리큘럼새로등록기능*/
+	@RequestMapping("nodataCurriInsert.do")
+	public ModelAndView nodataCurriInsert(HttpServletRequest req) {
+		String[] curri_mem_ids=req.getParameterValues("curri_mem_id");
+		String[] curri_catenames=req.getParameterValues("curri_catename");
+		String[] curri_orders=req.getParameterValues("curri_order");
+		String[] curri_names=req.getParameterValues("curri_name");
+		String[] curri_contents=req.getParameterValues("curri_content");
+		
+		for(int i=0; i<curri_mem_ids.length; i++) {
+			String curri_mem_id = curri_mem_ids[i];
+			String curri_catename = curri_catenames[i];
+			String curri_orderss = curri_orders[i];
+			int curri_order=Integer.parseInt(curri_orderss);
+			String curri_name = curri_names[i];
+			String curri_content = curri_contents[i];
+			
+			CurriDTO cdto=new CurriDTO(0, curri_mem_id, curri_catename, curri_order, curri_name, curri_content);
+			cdao.curriInsert(cdto);
+		}
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", "커리큘럼이 수정되었습니다.");	
+		mav.addObject("gopage", "coachMyPage.do");	
+		mav.setViewName("coach/joinMsg");
+		return mav;
+	}
+	
+	
 	
 	
 	

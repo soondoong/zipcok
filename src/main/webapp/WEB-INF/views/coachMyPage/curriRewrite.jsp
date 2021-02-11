@@ -5,6 +5,75 @@
 <%@include file="../_include/head.jsp" %>
 <link href="assets/css/mypage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+<script>
+	$(function(){
+		$('.currimore').on('click',function(){
+			var ww = document.getElementById($(this).attr('id')+"1");
+				if($(ww).hasClass('toggle')){
+					ww.style.display='none';
+					$(ww).removeClass('toggle');
+				}else{
+					$(ww).addClass('toggle');
+					ww.style.display='block';			
+				}			
+						
+				var input1= $(this).attr('id')+"11";
+				var textarea1= $(this).attr('id')+"12";
+				var input2=$(this).attr('id')+"21";
+				var textarea2= $(this).attr('id')+"22";
+				var input3= $(this).attr('id')+"31";
+				var textarea3= $(this).attr('id')+"32";
+					
+								
+				$('#'+textarea1).on('focus',function(){
+							if($('#'+input1).val()==''){
+								$('#'+input1).focus();
+							}
+				    });
+					
+				$('#'+input2).on('focus',function(){
+					if($('#'+input1).val()==''){
+						$('#'+input1).focus();
+					}
+				});
+				
+				$('#'+input3).on('focus',function(){
+					if($('#'+input1).val()==''){
+						$('#'+input1).focus();
+					}else if($('#'+input2).val()==''){
+						$('#'+input2).focus();
+					}
+				});
+				
+					$('#'+textarea2).on('focus',function(){
+						if($('#'+input1).val()==''){
+							$('#'+input1).focus();
+						}else if($('#'+textarea1).val()==''){
+							$('#'+textarea1).focus();
+						}else if($('#'+input2).val()==''){
+							$('#'+input2).focus();
+						}
+					  });	
+						$('#'+textarea3).on('focus',function(){
+							if($('#'+input1).val()==''){
+								$('#'+input1).focus();
+							}else if($('#'+textarea1).val()==''){
+								$('#'+textarea1).focus();
+							}else if($('#'+input2).val()==''){
+								$('#'+input2).focus();
+							}else if($('#'+textarea2).val()==''){
+								$('#'+textarea2).focus();
+							}else if($('#'+input3).val()==''){
+								$('#'+input3).focus();
+							}	
+			  		  });
+				
+		});
+		
+});
+	
+	
+	</script>	
 <body>
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
@@ -29,6 +98,7 @@
 	.catenameDiv .catename{font-size:20px;font-weight: bold;} 
 	.currimore{cursor: pointer;margin-right: 20px;}
 	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
+	.showinputs{display:none;}
 	.showinputs input{ width: 300px;}
 	.showinputs textarea{ width: 300px; height: 100px;}
     .showinputs ol,li{ list-style: decimal;}
@@ -38,13 +108,14 @@
 						
 					
 			<!-- 커리큘럼영역 -->
-		<form id="curriform" action="coachCurriInsert.do">
+	
 	
 					<p class="ptitle"><span>커리큘럼</span></p>		
 					
 					<!-- 등록된커리큘럼이 없는경우 -->		
 					<c:if test="${empty curri}">
-<div class="allcurriWrap">		  
+	<form id="nodataform" action="nodataCurriInsert.do">					
+	<div class="allcurriWrap">		  
 			<c:forEach var="c" items="${catelist }">
 			<div class="plzWrap">			
 				<div class="nocurriWrap">
@@ -59,44 +130,35 @@
 					<div  class="showinputs" id="${c.cate_name }1">
 						<ol>
 							<li>
-								<input type="text" name="curri_name" placeholder="운동제목"><br>
-								<textarea name="curri_content" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
+								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
+								<input type="hidden" name="curri_order" value="1">
+								<input type="text" name="curri_name" id="${c.cate_name }11" placeholder="운동제목"><br>
+								<textarea name="curri_content"  id="${c.cate_name }12" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
 							
-							<li>	
-								<input type="text" name="curri_name" placeholder="운동제목"><br>
-								<textarea name="curri_content" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
+							<li>
+								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
+								<input type="hidden" name="curri_order" value="2">	
+								<input type="text" name="curri_name" id="${c.cate_name }21" placeholder="운동제목"><br>
+								<textarea name="curri_content"  id="${c.cate_name }22"placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
 						    </li>	
 						    <li>	
-						    	<input type="text" name="curri_name" placeholder="운동제목"><br>
-								<textarea name="curri_content" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
+						    	<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
+								<input type="hidden" name="curri_order" value="3">
+						    	<input type="text" name="curri_name" id="${c.cate_name }31" placeholder="운동제목"><br>
+								<textarea name="curri_content"  id="${c.cate_name }32" placeholder="간단한 설명을 적어주세요(최대100자)"></textarea>
 							</li>	
 						</ol>					
 				 </div>
 			</div>							
 			</c:forEach>	
-		</div><!-- allWrap -->															
+		</div><!-- allcurriWrap -->															
 						<div class="lastDIV">
-							<input type="button" value="수정완료" class="rebtn crebtn okbtn"  onclick="">
+							<input type="submit" value="수정완료" class="rebtn crebtn okbtn nodataOKbtn">
 						</div>
-						
+				</form>		
 					</c:if>			
 					 <!-- 등록된커리큘럼이 없는경우 -->					 
-	<script>
-	$(function(){
-		$('.currimore').on('click',function(){
-			var ww = document.getElementById($(this).attr('id')+"1");
-				if($(ww).hasClass('toggle')){
-					ww.style.display='none';
-					$(ww).removeClass('toggle');
-				}else{
-					$(ww).addClass('toggle');
-					ww.style.display='block';			
-				}	
-				
-		});
-		
-	});
-	</script>				 
+				 
 					 
 					 
 					 
@@ -140,7 +202,7 @@
 					
 					</table>
 			
-		</form>
+		
 	
 							
 </body>

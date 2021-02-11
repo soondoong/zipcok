@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.CurriDTO;
 import zipcok.member.model.MemberDTO;
 
 @Service
@@ -157,6 +158,12 @@ public int categoryinsert(CategoryDTO dto) {
 public int curriDelete(HashMap<String, String> map) {
 	// TODO Auto-generated method stub
 	return 0;
+}
+
+/*커리큘럼 등록*/
+@Override
+public void curriInsert(CurriDTO cdto) {
+	 sqlMap.insert("curriInsert",cdto);		
 }
 	
 }
