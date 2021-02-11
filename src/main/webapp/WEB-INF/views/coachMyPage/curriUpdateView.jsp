@@ -23,25 +23,21 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 .nomalInfo div{width: 500px; padding: 15px 0; font-size: 19px; border-bottom:1px solid #e4e4e4;}
 .nomalInfo div span{ font-weight: 550; padding-right: 50px;}
 .rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
-.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
+
 /*코치프로필 css*/
 .coachInfo{width:500px;flex-direction: row; margin-left:100px;}
-/*커리큘럼css*/
-    .nocurriWrap{display:flex; width:400px; margin-top:20px;}
-	.catenameDiv .catename{font-size:17px;font-weight: bold;} 
+
+/*커리큘럼수정*/
+	.allcurriWrap{display:flex; padding:50px;}
+	.nocurriWrap{display:flex; width:400px; margin-top:20px;}
+	.catenameDiv .catename{font-size:20px;font-weight: bold;} 
 	.currimore{cursor: pointer;margin-right: 20px;}
 	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
 	.showinputs{display:none;}
 	.showinputs input{ width: 300px;}
 	.showinputs textarea{ width: 300px; height: 100px;}
-    .showinputs ol,.showinputs li{ list-style: decimal;width: 300px; }
+    .showinputs ol,li{ list-style: decimal;}
     .showinputs li{ margin-top:15px;}
-    .plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:5px 0 0 5px; cursor: pointer;}
-	.plusbtn span{font-size:15px;  }
-	.currititle{display:inline-block;}
-	.curriesInputAll{display:block; border:0px;  border-radius: 5px; padding: 0 15px; width: 300px; font-weight: 400; font-size: 14px;}
-	.curriOneDIV .curri_name_input{margin:13px 0 12px 0; font-size: 17px; font-weight:bold; }
-	.curriOneDIV .curri_content_input{margin:0 0 25px 0; font-size: 14px; width: 300px; }
 </style>
 
 
@@ -179,67 +175,53 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 					
 			<!-- 커리큘럼영역 -->
 			<div  style="margin-top:30px;">
-					<p class="ptitle"><span>커리큘럼</span></p>			
-			
-			<c:forEach var="c" items="${catelist }">
-			<form name="${c.cate_name }form">
-				<div class="nocurriWrap">
-						<div class="catenameDiv">
-							<p class="catename">${c.cate_name }</p>
+					<p class="ptitle"><span>커리큘럼</span></p><input type="button"value="${empty curri?'등록':'수정'}" style="${empty curri?'background-color:#257cda;color:white;':''}" class="rebtn crebtn" onclick="curriRewrite();">				
+					<c:if test="${empty curri}">
+						<div class="nocurriWrap">
+							<div class="catenameDiv">
+								<p class="catename">${c.cate_name }</p>
+							</div>
+							<div class="currimore"  id="${c.cate_name }">							
+								<span class="curriP">커리큘럼 추가하기</span>
+								<i class="fas fa-plus-square plusbtn"></i>
+							</div>
+				     	</div>	
+					</c:if>			
+					 
+					<table style="margin-top:20px;">
+					<tr>
+					<td style="width:360px; text-align: left;">
+					<c:if test="${!empty oneList}">
+						<div  style="width:360px; height:300px;" >
+							<p class="currititle">${oneList.get(0).curri_catename}</p>
+						<ul>					
+						<c:forEach var="one" items="${oneList }">
+							<li style="margin-left:10px;"><p style="font-weight:bold;">${one.curri_name }</p><p style="margin-left:10px;">${one.curri_content }</p></li>
+						</c:forEach>
+							</ul>
 						</div>
-						<div class="currimore"  id="${c.cate_name }">	
-						<c:if test="${c.cate_name ne oneList.get(0).curri_catename && c.cate_name ne twoList.get(0).curri_catename }">						
-							<span class="curriP">커리큘럼 추가하기</span>
-						</c:if>
-						<c:if test="${c.cate_name eq oneList.get(0).curri_catename || c.cate_name eq twoList.get(0).curri_catename }">						
-							<span class="curriP">${c.cate_name eq oneList.get(0).curri_catename?"커리큘럼 수정하기":"커리큘럼 추가하기" }</span>
-						</c:if>	
-							<i class="fas fa-plus-square plusbtn"></i>
-						</div>
-				</div>				
-					<div  class="showinputs" id="${c.cate_name }1">
-						<ol>
-							<li>
-								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-								<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="1">
-								<input type="text" name="curri_name" id="${c.cate_name }11" placeholder="운동제목" 
-								value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(0).curri_name:twoList.get(0).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }12" placeholder="간단한 설명을 적어주세요(최대100자)">
-								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(0).curri_content:twoList.get(0).curri_content}</textarea>
-							
-							<li>
-								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-								<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="2">	
-								<input type="text" name="curri_name" id="${c.cate_name }21" placeholder="운동제목"
-								value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(1).curri_name:twoList.get(1).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }22"placeholder="간단한 설명을 적어주세요(최대100자)">
-								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(1).curri_content:twoList.get(1).curri_content}</textarea>
-						    </li>	
-						    <li>	
-						    	<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
-						    	<input type="hidden" name="curri_catename" value="${c.cate_name }">
-								<input type="hidden" name="curri_order" value="3">
-						    	<input type="text" name="curri_name" id="${c.cate_name }31" placeholder="운동제목"
-						    	value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(2).curri_name:twoList.get(2).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }32" placeholder="간단한 설명을 적어주세요(최대100자)">
-								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(2).curri_content:twoList.get(2).curri_content}</textarea>
-							</li>	
-						</ol>	
-					<c:if test="${c.cate_name ne oneList.get(0).curri_catename && c.cate_name ne twoList.get(0).curri_catename  }">
-					<input type="button" value="등록완료" class="okbtn nodataOKbtn" name="${c.cate_name }form">
 					</c:if>
-					<c:if test="${c.cate_name eq oneList.get(0).curri_catename || c.cate_name eq twoList.get(0).curri_catename  }">
-					<input type="button" value="수정완료" class="okbtn nodataOKbtn" name="${c.cate_name }form">
-					</c:if>							
-				 </div>
-			</form>							
-			</c:forEach>	
-				
-			
+					</td>
 								
-</div>	<!-- 커리큘럼영역 -->	
+					<td style="width:360px; text-align: left;">
+					<c:if test="${!empty twoList}">
+						<div style="width:360px; height:300px;" >
+							<p class="currititle">${twoList.get(0).curri_catename}</p>
+						<ul>
+						<c:forEach var="two" items="${twoList }">
+							<li style="margin-left:10px;">
+								<p style="font-weight:bold;">${two.curri_name }</p>
+								<p style="margin-left:10px;">${two.curri_content }</p>
+							</li>		
+						</c:forEach>
+							</ul>
+						</div>
+					</c:if>
+					</td>
+					</tr>
+					
+					</table>
+			</div>	<!-- 커리큘럼영역 -->	
 							
 						<div style="margin-top:30px;">
 							<p class="ptitle">준비물</p>
@@ -268,7 +250,10 @@ function coachMypageEmailUpdate(){
 function coachMypagePhoneUpdate(){
 	window.open('coachMypagePhoneUpdateForm.do?mem_id=${sessionScope.coachId}','emailUpdate','width=550,height=300');
 }
-
+/*커리큘럼수정*/
+function curriRewrite(){
+	location.href='curriReWrite.do';
+}
 /*카테고리수정*/
 function cateUpdate(){
 	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=200, top=100, width=400, height=200');	
@@ -293,106 +278,11 @@ function changeValue(obj){ //사진선택하면
 /*프사수정===============*/	
 
 }
+
+
+
 </script>
-<script>
-	$(function(){
-		var input1= '';
-		var textarea1='';  
-		var input2='';
-		var textarea2= '';
-		var input3='';
-		var textarea3= '';
-			
-		
-		/*커리큘럼 toggle*/
-		$('.currimore').on('click',function(){
-			var ww = document.getElementById($(this).attr('id')+"1");
-				if($(ww).hasClass('toggle')){
-					ww.style.display='none';
-					$(ww).removeClass('toggle');
-				}else{
-					$(ww).addClass('toggle');
-					ww.style.display='block';			
-				}			
-						
-				 input1= $(this).attr('id')+"11";
-				 textarea1= $(this).attr('id')+"12";
-				 input2=$(this).attr('id')+"21";
-				textarea2= $(this).attr('id')+"22";
-				input3= $(this).attr('id')+"31";
-				 textarea3= $(this).attr('id')+"32";
-					
-	
-				$('#'+textarea1).on('focus',function(){
-							if($('#'+input1).val()==''){
-								$('#'+input1).focus();
-							}
-				    });
-					
-				$('#'+input2).on('focus',function(){
-					if($('#'+input1).val()==''){
-						$('#'+input1).focus();
-					}
-				});
-				
-				$('#'+input3).on('focus',function(){
-					if($('#'+input1).val()==''){
-						$('#'+input1).focus();
-					}else if($('#'+input2).val()==''){
-						$('#'+input2).focus();
-					}
-				});
-				
-					$('#'+textarea2).on('focus',function(){
-						if($('#'+input1).val()==''){
-							$('#'+input1).focus();
-						}else if($('#'+textarea1).val()==''){
-							$('#'+textarea1).focus();
-						}else if($('#'+input2).val()==''){
-							$('#'+input2).focus();
-						}
-					  });	
-						$('#'+textarea3).on('focus',function(){
-							if($('#'+input1).val()==''){
-								$('#'+input1).focus();
-							}else if($('#'+textarea1).val()==''){
-								$('#'+textarea1).focus();
-							}else if($('#'+input2).val()==''){
-								$('#'+input2).focus();
-							}else if($('#'+textarea2).val()==''){
-								$('#'+textarea2).focus();
-							}else if($('#'+input3).val()==''){
-								$('#'+input3).focus();
-							}	
-			  		  });
-				
-		});
-		
-		/*커리큘럼 등록기능*/
-		$('.nodataOKbtn').on('click',function(){
-			
-					var formname=$(this).attr('name');
-					if( $('#'+input1).val()=='' || $('#'+input2).val()=='' ||  $('#'+input3).val()==''|| $('#'+textarea1).val()=='' || $('#'+textarea2).val()=='' || $('#'+textarea3).val()==''){			
-						alert('내용을 모두 작성해주세요');
-						return false;
-					}else{
-						
-							if($('.nodataOKbtn').attr('name')== '등록완료'){						
-								$('form[name='+formname+']').action="NodataCurriInsert.do";												
-							}else{
-								$('form[name='+formname+']').action="DataCurriInsert.do";			
-							}
-						
-						
-					}	
-		});
-		
-		
-		
-});
-	
-	
-	</script>	
+
 
 
  <%@include file="../_include/footer.jsp" %>

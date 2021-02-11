@@ -149,5 +149,30 @@ rownum between #{start} and #{end}
 	curri_catename=#{cate_name}
 	</delete>
 	
+	<insert id="curriInsert" parameterType="zipcok.coach.model.CurriDTO">
+		insert into  coach_curriculum
+		values(
+			coach_curriculum_curri_idx.nextval,
+			#{curri_mem_id},
+			#{curri_catename},
+			#{curri_order},
+			#{curri_name},
+			#{curri_content}
+		)	
+	</insert>
+	
+	<update id="curriUpdate" parameterType="zipcok.coach.model.CurriDTO">
+		update  coach_curriculum
+		set
+			curri_name =#{curri_name},
+			curri_content =#{curri_content}
+		where
+			curri_mem_id=#{curri_mem_id}
+			and
+			curri_catename =	#{curri_catename}
+			and
+			curri_order =#{curri_order}
+		)	
+	</update>
 	
   </mapper>
