@@ -3,21 +3,73 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.admin">
-  	<select id="adminSearchCoach" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
-  	
-  	select
-  	*
-  	from
-  	zipcok_member
+  	<select id="cTotalCnt" parameterType="HashMap" resultType="Integer">
+  	select count(*) from
+    zipcok_member
   	where
-  	mem_type='코치회원'
-  	and
+     <choose>
+	    <when test="choice=='전체'"></when>
+	  	<when test="choice=='번호'">mem_idx = #{searchText}and mem_gender=#{mem_gender} and</when>
+	  	<when test="choice=='id'">mem_id=#{searchText}and mem_gender=#{mem_gender} and</when>
+	  	<when test="choice=='이름'">mem_name=#{searchText}and mem_gender=#{mem_gender} and</when>
+     </choose>
+     mem_type='코치회원'
+  	</select>
+  
+  
+  
+  	<select id="adminSearchCoach" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">	    
+  	select * from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member
+     where
   	<choose>
-  	<when test="choice=='번호'">mem_idx=#{searchText}	</when>
-  	<when test="choice=='id'">mem_id=#{searchText}</when>
-  	<when test="choice=='이름'">mem_name=#{searchText}</when>
+	  	<when test="choice=='전체'"></when>
+	  	<when test="choice=='번호'">
+		  	<choose>
+		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0</when>
+		  		<when test="searchText!=''">mem_idx = #{searchText}</when>
+		  	</choose>
+		  	and
+	  	</when>
+	  	<when test="choice=='id'">
+	  		<choose>
+		  		<when test="searchText==''">mem_id like '%%'</when>
+		  		<when test="searchText!=''">mem_id=#{searchText}</when>
+		  	</choose>
+		  	and
+  		</when>
+	  	<when test="choice=='이름'">
+	  		<choose>
+		  		<when test="searchText==''">mem_name like '%%'</when>
+		  		<when test="searchText!=''">mem_name=#{searchText}</when>
+		  	</choose>
+		  	and
+	  	</when>
   	</choose>
-  	and
-  	mem_gender=#{mem_gender}
+  	
+  	<choose>
+	  	<when test="mem_gender==''">mem_gender='%%' and</when>
+	  	<when test="mem_gender!=''">mem_gender=#{mem_gender} and</when>
+  	</choose>
+  	mem_type='코치회원'
+  	order by mem_idx
+  	)a)b
+  	where
+  	rnum between #{start} and #{end}
+  	</select>
+  	
+  	<select id="adminCoachProfile" parameterType="String" resultType="zipcok.coach.model.CoachDTO">
+  		select * from 
+  		coach_regist
+  		where
+  		coach_mem_id = #{coach_mem_id}
+  	</select>
+  	<select id="adminToCharDate" parameterType="String" resultType="List">
+  		select to_char(coach_joindate,'yyyy-mm-dd') as coach_joindate, to_char(coach_change,'yyyy-mm-dd') as coach_change 
+  		from 
+  		coach_regist
+  		 where
+  		  coach_mem_id = #{coach_mem_id}
   	</select>
   </mapper>
