@@ -9,5 +9,6 @@ public interface AdminMemberDAO {
 	public int adminMemberTotalCnt(HashMap<String, Object> map);
 	public List<MemberDTO> adminMemberList(HashMap<String, Object> map);
 	public MemberDTO adminMemberManage(String mem_id);
+	public int adminMemberPwdUpdate(String mem_id);
 	
 }
