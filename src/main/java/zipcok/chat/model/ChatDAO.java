@@ -3,6 +3,7 @@ package zipcok.chat.model;
 import java.util.List;
 
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 
 public interface ChatDAO {
 
@@ -18,14 +19,17 @@ public interface ChatDAO {
 	public MessageDTO getRecentMessage(int croom_idx);
 	//public String isGetMessageList(String str)throws Exception;
 	
-	public String getTutorId(String str)throws Exception;
-	public List<ChatRoomDTO> getRoomListTutor(String str)throws Exception;
+	
+	
+	/*결제요청서*/
+	public int paymentReqInsert(Payment_RequestDTO prdto); //등록
+	
+	
+	
 	public void updateReadTime(int req_idx , String user_id , String Coach_user_id)throws Exception;
 	public void updateReadTimeTutor(int req_idx , String user_id , String  Coach_user_id)throws Exception;
 	
 	public int getUnReadCount(String  Coach_user_id, int req_idx, String user_id)throws Exception;
 	public int getUnReadCountTutor(String Coach_user_id, int req_idx, String user_id)throws Exception;
-	
-	public int getAllCount(String str);
-	
+
 }

@@ -82,13 +82,31 @@ public class Websocket extends TextWebSocketHandler {
 
 			  Map<String, Object> map = null;
 		      MessageDTO msgdto = MessageDTO.convertMessage(message.getPayload()); //msg정보다들어있는 dto
-		      
+		      int unreadCnt = 1;
 		      
 		      
 		      if(msgdto.getMsg_type().equals("텍스트")) {
-						      
+		    	  
+		    	  //1단계 메시지먼저보내기
+			      for (WebSocketSession websocketSession : sessionList) {
+			        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
+			    	
+					        String realid= (String)map.get("realid"); //접속자아이디
+					        int roomidx = (int)map.get("roomidx"); 		
+					         //받는사람
+					        if ( realid.equals(msgdto.getMsg_receiver()) && roomidx == msgdto.getMsg_croom_idx()) {
+				
+					            Gson gson = new Gson();
+					            String msgJson = gson.toJson(msgdto);
+					            websocketSession.sendMessage(new TextMessage(msgJson));
+					            unreadCnt = 0;
+					         }
+
+			      }
+		    	  
+				//2단계		      
 					      System.out.println("메세지 : " + msgdto.toString());
-					      
+					      msgdto.setUnReadCount(unreadCnt);
 					      int result =0;
 							try {
 								result = chatdao.insertMessage(msgdto);
@@ -100,21 +118,6 @@ public class Websocket extends TextWebSocketHandler {
 						 
 					    
 				
-					      for (WebSocketSession websocketSession : sessionList) {
-					        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
-					    	
-					        String realid= (String)map.get("realid"); //접속자아이디
-					        int roomidx = (int)map.get("roomidx"); 		
-					         //받는사람
-					         if ( realid.equals(msgdto.getMsg_receiver()) && roomidx == msgdto.getMsg_croom_idx()) {
-				
-					            Gson gson = new Gson();
-					            String msgJson = gson.toJson(msgdto);
-					            websocketSession.sendMessage(new TextMessage(msgJson));
-					         }
-				
-				
-					      }
 		      }
 		      
 		
