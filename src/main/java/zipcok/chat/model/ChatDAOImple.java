@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 
 
 @Service
@@ -76,7 +77,7 @@ public class ChatDAOImple implements ChatDAO{
 		return dto;
 	}
 
-
+	/*메세지리스트가져오기*/
 	@Override
 	public List<MessageDTO> getMessageList(int croom_idx) {
 	
@@ -87,34 +88,35 @@ public class ChatDAOImple implements ChatDAO{
 	}
 
 
-
+/*최근메세지불러오기*/
 	@Override
 	public MessageDTO getRecentMessage(int croom_idx) {
 
 		return sqlMap.selectOne("getRecentMessage" , croom_idx);
 	}
 
-
-
-	@Override
-	public String getTutorId(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectOne("getTutorId" , str) ;
-	}
-
-
-
-	@Override
-	public List<ChatRoomDTO> getRoomListTutor(String str) throws Exception {
-		// TODO Auto-generated method stub
-		return sqlMap.selectList("getRoomListTutor" , str);
-	}
-
-
-
+/*결제요청서*/
+@Override
+public int paymentReqInsert(Payment_RequestDTO prdto) {
+	int count = sqlMap.insert("paymentReqInsert",prdto);
+	return count;
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void updateReadTime(int req_idx, String user_id, String Coach_user_id) throws Exception {
-		// TODO Auto-generated method stub
 		
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 		
@@ -125,65 +127,31 @@ public class ChatDAOImple implements ChatDAO{
 	}
 
 
-
 	@Override
-	public int getUnReadCount(String Coach_user_id, int req_idx, String user_id) throws Exception {
-		// TODO Auto-generated method stub
+	public int getUnReadCount(String Coach_user_id, int croom_idx, String user_id) throws Exception {
 		HashMap<String, Object> map = new HashMap<String, Object> ();
 		
 		map.put("Coach_user_id", Coach_user_id);
 		map.put("user_id", user_id);
-		map.put("req_idx", req_idx);
+		map.put("req_idx", croom_idx);
 		
 		
 		return sqlMap.selectOne("getUnReadCount" , map);
 	}
 
-
-
-	@Override
-	public int getAllCount(String str) {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> map = new HashMap<String, Object> ();
-		
-		map.put("USER_user_id", str);
-		map.put("TUTOR_USER_user_id", str);
-		if(sqlMap.selectOne("getAllCount" ,map) ==null) {
-			return 0;
-		}else {
-			
-			return sqlMap.selectOne("getAllCount" ,map);
-		}
-		
-	}
+@Override
+public int getUnReadCountTutor(String Coach_user_id, int req_idx, String user_id) throws Exception {
+	// TODO Auto-generated method stub
+	return 0;
+}
+@Override
+public void updateReadTimeTutor(int req_idx, String user_id, String Coach_user_id) throws Exception {
+	// TODO Auto-generated method stub
+	
+}
 
 
 
-	@Override
-	public void updateReadTimeTutor(int req_idx , String user_id , String Coach_user_id) throws Exception {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> map = new HashMap<String, Object> ();
-		
-		map.put("Coach_user_id", Coach_user_id);
-		map.put("user_id", user_id);
-		map.put("req_idx", req_idx);
-		sqlMap.update("updateReadTimeTutor" , map);
-	}
-
-
-
-	@Override
-	public int getUnReadCountTutor(String Coach_user_id, int req_idx, String user_id) throws Exception {
-		// TODO Auto-generated method stub
-		HashMap<String, Object> map = new HashMap<String, Object> ();
-		
-		map.put("Coach_user_id", Coach_user_id);
-		map.put("user_id", user_id);
-		map.put("req_idx", req_idx);
-		
-		
-		return sqlMap.selectOne("getUnReadCountTutor" , map);
-	}
 
 
 

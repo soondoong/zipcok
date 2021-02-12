@@ -159,8 +159,8 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 					</div>	
 					
 					<div style="margin-top:30px;">
-						<p class="ptitle">소개글 제목</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
-						<p>${dto.coach_intro_sub }</p>
+						<p class="ptitle">소개글 제목</p><span class="subspan"><input type="button"value="수정" class="rebtn crebtn" onclick="subrewrite()"></span>
+						<p><input type="text" id="sub" value="${dto.coach_intro_sub }" readonly="readonly"></p>
 					</div>
 					<div  style="margin-top:30px;">
 						<p class="ptitle">소개글</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
@@ -284,6 +284,18 @@ function thisCurriDelete(str){
 function cateUpdate(){
 	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=200, top=100, width=400, height=200');	
 }
+$(function () { 
+function subrewrite(){
+	$('#sub').attr('readonly',false);
+	$('.subspan').html('');
+	$('.subspan').html("<input type='button'   value='수정완료' class='rebtn crebtn' >");
+	
+	
+}
+function gosubmit() {
+	$('#폼아이이넣엉').attr("action", "어쩌구.do").submit();
+};
+});
 
 /*프사수정=============*/
 $(function () { //사진수정버튼

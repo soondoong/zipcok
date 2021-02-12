@@ -111,7 +111,7 @@ $(document).ready(function(){
 	var byear=birthdate.substring(0,4);
 	var today = new Date();
 	var ages = today.getFullYear() - byear;
-	var teen =Math.floor(ages/10); //몇십대인지 ex)10대 20대 30대
+	var teen =Math.floor(ages/10);/*몇십대인지*/
 	var teeninfo= teen*10+'대';
 	$('span[class="type"]').html(teeninfo);
 })
@@ -136,7 +136,7 @@ $(document).ready(function(){
 		   <c:if test="${empty  coachdto }">
 		  <div class="infos">
 		  	  <h3>요청인 : ${rdto.mem_name}</h3>
-		  	  <p><span>수업형태: ${reqdto.req_type }</span><span class="rightgt">/</span><span>카테고리 : ${reqdto.req_category }</span></p>
+		  	  <p><span>수업 형태: ${reqdto.req_type }</span><span class="rightgt">/</span><span>카테고리 : ${reqdto.req_category }</span></p>
 		  	  <div>
 		  		  <span class="type">몇십대</span>
 		  		  <span class="gender">${rdto.mem_gender }자</span>
@@ -206,7 +206,9 @@ $(document).ready(function(){
 		  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
 		  </div>
 		  <div  style="float:left;">
-		  <a href="#" class="afile" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
+		  <c:if test="${!empty sessionScope.coachId }">
+		  <a href="#" class="afile" id="pr_icon" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
+		  </c:if>
 		  </div>
 		</div>
 		<input type="file" id="file" name="file" onchange="changeValue(this);">
@@ -251,6 +253,91 @@ $(document).ready(function(){
  </div><!-- allchatWrap -->	
 </div>
 <!-- 채팅컨텐츠 -->
+		<!-- 결제요청서폼 -->
+			<div class="pmDiv" id="pmDiv">
+			<%@include file="./paymentRequestForm.jsp" %>
+			</div>
+			<!-- 결제요청서폼 -->
+			
+<script>
+
+/*상담요청서 작성폼 띄우기*/
+
+function showForm(){
+	
+	$('.pmDiv').css('display','block');
+}	
+
+function close(){
+	$('.pmDiv').css('display','none');
+	$("#prForm")[0].reset();
+}
+
+
+/*---------------------------------------------------*/
+
+/*yyyy-mm-dd 포맷날짜가져오기*/
+
+function getTimeStamp() {
+
+    var d = new Date();
+    var s =
+        leadingZeros(d.getFullYear(), 4) + '-' +
+        leadingZeros(d.getMonth() + 1, 2) + '-' +
+        leadingZeros(d.getDate(), 2);
+
+    return s;
+}
+
+function leadingZeros(n, digits) {
+
+    var zero = '';
+    n = n.toString();
+
+    if (n.length < digits) {
+        for (i = 0; i < digits - n.length; i++)
+            zero += '0';
+    }
+    return zero + n;
+}
+
+var today = getTimeStamp() ;
+$( '#startDate' ).attr('min', today);
+$( '#startDate' ).val(today);
+$( '#startDate' ).on('change', function(){
+	$( '#endDate' ).attr('min', $( '#startDate' ).val());	
+	$( '#endDate' ).val($( '#startDate' ).val());	
+});
+
+/*-----------------------------------------------------*/
+
+
+/*null값전송막기*/
+ $('#requestForm').on('submit',function(){
+         
+         if ( $( '#startDate' ).val() =='' ) {
+             
+             alert('희망 시작일을 선택해주세요');
+             $( '#startDate' ).focus();
+             return false;
+          } 
+         
+   });
+ /*-----------------------------------------------------*/
+/*상담요청서 글자수 제한*/
+function lengthLimit(){
+    var content = $('#requestText').val();
+
+    if (content.length > 200){
+        alert("최대 200자까지 입력 가능합니다.");
+        $('#requestText').val(content.substring(0, 200));
+    }
+}
+</script>
+			
+
+
+
 <script type="text/javascript">
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -279,17 +366,24 @@ function openSocket() {
 	
 	// 서버와 연결이 완료된후 자동호출됨
 	sock.onopen = function (event) {
-
 		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	}
 	
 	// onmessage는 서버로부터 메시지를 받았을때 호출됨======================onMessage
-	sock.onmessage = function (event) {
-			
+	sock.onmessage = function (event) {		
 			console.log('event.data : ' + event.data);
 			var msg = event.data;
-			var str = message.msg_content  + '\n';
-			appendOtherMessage(str);
+			var str = msg.msg_content  + '\n';
+			if(msg.msg_type=='텍스트'){
+				appendOtherMessage(str);
+				
+			}else if(msg.msg_type=='결제요청서' ){
+				appendOtherMessagePR(msg);
+				alert(msg.msg_type);
+			}else if(msg.msg_type=='사진' ){
+				
+			}
+			
 			$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	};
 	
@@ -314,47 +408,6 @@ function createObjectURL (blob) {
   return null;
  }
 }
-
-
-
-
-function sendFile(){
-	var file = document.getElementById('file').files[0]; //파일오브젝트
-	var fileValue = $("#file").val().split("\\");
-	var fileName = fileValue[fileValue.length-1]; // 파일명
-
-	var t = getTimeStamp(); //현재시간
-	var fileReader = new FileReader();
-	fileReader.readAsArrayBuffer(file);
-	fileReader.onload = function() {
-		var param = {
-				msg_idx:1,
-				msg_croom_idx : roomidx,
-				msg_req_idx : '${cdto.croom_req_idx}',
-				msg_sender :'${myid}', //구분키중요
-				msg_receiver : yourid, //받을상대아이디;구분키중요
-				msg_content : 'nomsg',
-				msg_userid: '${myid}',
-				msg_coachid: yourid, //받을상대아이디;
-				msg_file_upload : fileName,
-				msg_file_path : 'filepath',
-				user_name : '${login.mem_name}',
-				receiver_user_name : '${rdto.mem_name}',
-				msg_sendtime : t,
-				msg_readtime : t,
-				unReadCount: 1,//default
-				msg_type: '사진'	
-				
-				
-			}	
-			sock.send(JSON.stringify(param)); //파일 보내기전 메시지를 보내서 파일을 보냄을 명시한다.
-		
-		arrayBuffer = this.result;
-	     sock.send(arrayBuffer); //파일 소켓 전송
-	};
-	
-}
-
 
 
 
@@ -397,6 +450,50 @@ function send() {
 	$('#file').val('');		//파일창리셋
 	 $('#image_sectionDIV').css('display', 'none');  //이미지미리보여주기리셋
 }
+
+function sendPR() {
+	
+	var t = getTimeStamp(); //현재시간
+	
+	/*메세지데이터 전송json타입 */
+	var message = {};
+	message.msg_idx=1; //defalut;
+	message.msg_croom_idx = roomidx;
+	message.msg_req_idx = '${cdto.croom_req_idx}';
+	message.msg_sender ='${myid}'; //구분키중요
+	message.msg_receiver = yourid; //받을상대아이디;구분키중요
+	message.msg_content = '결제요청서';
+	message.msg_userid = '${myid}';
+	message.msg_coachid = yourid; //받을상대아이디;
+	message.msg_file_upload = 'noimg.png';
+	message.msg_file_path = 'noimg.png'; 
+    message.user_name = '${login.mem_name}';
+    message.receiver_user_name = '${rdto.mem_name}';
+    message.msg_sendtime = t;
+    message.msg_readtime = t;
+    message.unReadCount= 1;//default
+	message.msg_type= '결제요청서';
+
+	sock.send(JSON.stringify(message)); //서버에 json형태로메세지보내기
+	
+	var str = message.msg_content  + '\n';
+
+	appendMyMessagePR(); //채팅창에 내가보낸메세지 추가해줌	
+
+	scroll();	
+	$('#message-input').val(''); //메세지입력창 리셋
+	$('#file').val('');		//파일창리셋
+	 $('#image_sectionDIV').css('display', 'none');  //이미지미리보여주기리셋
+}
+
+
+
+
+
+
+
+
+
 
 
 function scroll() {
@@ -486,11 +583,91 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 }
  }
 
+ 
+ /*채팅방에 결제요청서붙여주기*/
+ function appendMyMessagePR() {  //내메세지는 오른쪽
+
+ 	 var t = getTimeStamp(); //지금시간
+ 	 var price = $('.price_input').val();
+ 	 var start=$('#startDate').val();
+ 	 var end=$('#endDate').val();
+ 	 var cont=$('#requestText').val();
+ 	 
+ 	 $("#chatMessageArea").append(
+ 			 "<div class='OnechatfromMe'>"+
+ 				"<div class = 'ContentWrap' >"+
+ 					 "<div class = 'cont mymsg' >"+
+ 					 		"<div class='mprWrap' style='width:320px;>"+
+ 					 				"<p style='margin-bottom:30px;margin-top:0;'><i class='fas fa-won-sign mn'></i><span class='mprtitle mprhead'>결제요청서</span></p>"+
+ 					 				
+										"<p>고객님 안녕하세요. 상담내용에 따른 예상금액입니다.</p><hr>"+
+										"<p><span class='mprtitle'>예상금액</span><span class='mprprice'>"+price+"원</span></p>"+
+										"<p><span class='mprtitle'>서비스 시작일</span><span>"+start+"</span></p>"+
+										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
+										"<p  class='mprtitle'>서비스 상세설명</p>"+
+										"<p>"+cont+"</p>"+									
+										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-primary'></p>"+									
+									
+ 					 		"</div>"+
+ 					 	"</div>"+
+ 					 	"<div class='sendtime' > "+t+"</div>"+
+ 			 	"</div>"+		 
+ 					" <div class='chatimgdiv' >"+
+ 					"<img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >"+
+ 					 "<div>${login.mem_name}</div>"+
+		 		"</div>"+
+		 	"</div>");
 
 
+ 	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+  }
+ 
+ function appendOtherMessagePR(msg) {   //상대메세지는 왼쪽
+
+	 var t = getTimeStamp(); //지금시간
+ 	 var price = $('.price_input').val();
+ 	 var start=$('#startDate').val();
+ 	 var end=$('#endDate').val();
+ 	 var cont=$('#requestText').val();
+ 	 
+ 	 $("#chatMessageArea").append(
+ 			 "<div class='OnechatfromMe'>"+
+ 				"<div class = 'ContentWrap' >"+
+ 					 "<div class = 'cont mymsg' >"+
+ 					 		"<div class='mprWrap' style='width:320px;>"+
+ 					 				"<p style='margin-bottom:30px;margin-top:0;'><i class='fas fa-won-sign mn'></i><span class='mprtitle mprhead'>결제요청서</span></p>"+
+ 					 				
+										"<p>고객님 안녕하세요. 상담내용에 따른 예상금액입니다.</p><hr>"+
+										"<p><span class='mprtitle'>예상금액</span><span class='mprprice'>"+price+"원</span></p>"+
+										"<p><span class='mprtitle'>서비스 시작일</span><span>"+start+"</span></p>"+
+										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
+										"<p  class='mprtitle'>서비스 상세설명</p>"+
+										"<p>"+cont+"</p>"+									
+										"<p><input type='button' value='결제하러가기' class='btn btn-primary'></p>"+									
+									
+ 					 		"</div>"+
+ 					 	"</div>"+
+ 					 	"<div class='sendtime' > "+t+"</div>"+
+ 			 	"</div>"+		 
+ 					" <div class='chatimgdiv' >"+
+ 					"<img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >"+
+ 					 "<div>${login.mem_name}</div>"+
+		 		"</div>"+
+		 	"</div>");
+
+
+ 	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
+ }
+ 
+ 
+ 
+ 
+ 
 
 /*웹소켓연결단*/
 $(document).ready(function () {
+	$( '#endDate' ).attr('min', $( '#startDate' ).val());
+	$( '#endDate' ).val($( '#startDate' ).val());	
 		openSocket(); //입장버튼없이 바로연결
 
 	$('#btnClose').on('click', function (event) {
@@ -508,6 +685,55 @@ $(document).ready(function () {
 	});	
 });
 
+
+
+/*결제요청서 관련~~~~~~~~~~~~~~~~~*/
+$('#pr_icon').on('click',function(){
+	 $('.pmDiv').css('display','block');
+});
+
+/*요청서전송버튼을 누르면 1. 메세지전송 2.결제요청서등록*/
+$('#pr_OKbtn').on('click',function(){
+	 var price = $('.price_input').val();
+ 	 var start=$('#startDate').val();
+ 	 var end=$('#endDate').val();
+ 	 var cont=$('#requestText').val();
+ 	 
+	 	 if(price == '' || start == '' || end == '' || cont == ''){
+	 		 alert('모든 사항을 작성해주세요');
+	 	 }else{
+	 		 
+		 		var result=confirm('결제요청서를 전송하시겠습니까?');
+		 		if(result){
+		 			 sendPR() ; //채팅창에붙이기
+		 			/*ajax로 결제요청서등록하기*/
+		 			//	  to_ajax();
+		 		}	
+			 		 
+	 	 }
+ 	 
+ 	
+});
+
+function to_ajax(){
+	  var formData = $("#prForm").serialize();
+   $.ajax({
+       type : 'post',
+       url : 'paymentReqInsert.do',
+       data : formData,
+       contentType : "application/x-www-form-urlencoded; charset=utf-8",
+       dataType : "json",
+       error: function(xhr, status, error){
+           alert(error);
+       },
+       success : function(data){
+           alert(data.msg);
+           $('.pmDiv').css('display','none');
+           $("#prForm")[0].reset();
+       }
+   });
+
+}
 </script>
 </div>
  <%@include file="../../_include/footer.jsp" %>

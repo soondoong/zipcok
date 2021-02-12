@@ -48,4 +48,9 @@
 .chatWriteWrap textarea{width:600px; height:80px; border: 0px; }
 #btnSend{width:60px; height:60px;cursor: pointer; color: white; font-size: 48px; padding: 17px 0 0 0; transform : rotate(28deg);}
 
-
+/*결제요청서 div*/
+.pmDiv{position:absolute; margin:0 auto; top:100px; left:30%; width:400px;height:550px; display: block; }
+.mn{ font-size:17px; color: #256abf; border:3px solid #256abf; border-radius: 6px;margin:3px 15px 0 0;}
+.mprtitle{margin-right: 20px; font-size: 16px; font-weight: bold;}
+.mprprice{font-size:17px; margin-right: 10px;}
+.mprhead{ font-size:19px;}

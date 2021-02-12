@@ -82,39 +82,70 @@ public class Websocket extends TextWebSocketHandler {
 
 			  Map<String, Object> map = null;
 		      MessageDTO msgdto = MessageDTO.convertMessage(message.getPayload()); //msg정보다들어있는 dto
-		      
+		      int unreadCnt = 1;
 		      
 		      
 		      if(msgdto.getMsg_type().equals("텍스트")) {
-						      
-					      System.out.println("메세지 : " + msgdto.toString());
-					      
-					      int result =0;
-							try {
-								result = chatdao.insertMessage(msgdto);
-							} catch (Exception e) {
+		    	  
+					    	  //1단계 메시지먼저보내기
+						      for (WebSocketSession websocketSession : sessionList) {
+						        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
+						    	
+								        String realid= (String)map.get("realid"); //접속자아이디
+								        int roomidx = (int)map.get("roomidx"); 		
+								         //받는사람
+								        if ( realid.equals(msgdto.getMsg_receiver()) && roomidx == msgdto.getMsg_croom_idx()) {
 							
-								e.printStackTrace();
-							}
-							    if(result>0) {System.out.println("===msg저장성공====");}
-						 
-					    
-				
+								            Gson gson = new Gson();
+								            String msgJson = gson.toJson(msgdto);
+								            websocketSession.sendMessage(new TextMessage(msgJson));
+								            unreadCnt = 0;
+								         }			
+						      }
+					    	  
+							//2단계		      
+								      System.out.println("메세지 : " + msgdto.toString());
+								      msgdto.setUnReadCount(unreadCnt);
+								      int result =0;
+										try {
+											result = chatdao.insertMessage(msgdto);
+										} catch (Exception e) {
+										
+											e.printStackTrace();
+										}
+										    if(result>0) {System.out.println("===일반msg저장성공====");}
+
+		      }else if(msgdto.getMsg_type().equals("결제요청서")){
+				    	  
+				     	  //1단계 결제요청서타입인거 확인만해서 채팅방에다시뿌려주기
 					      for (WebSocketSession websocketSession : sessionList) {
 					        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
 					    	
-					        String realid= (String)map.get("realid"); //접속자아이디
-					        int roomidx = (int)map.get("roomidx"); 		
-					         //받는사람
-					         if ( realid.equals(msgdto.getMsg_receiver()) && roomidx == msgdto.getMsg_croom_idx()) {
-				
-					            Gson gson = new Gson();
-					            String msgJson = gson.toJson(msgdto);
-					            websocketSession.sendMessage(new TextMessage(msgJson));
-					         }
-				
-				
+							        String realid= (String)map.get("realid"); //접속자아이디
+							        int roomidx = (int)map.get("roomidx"); 		
+							         //받는사람
+							        if ( realid.equals(msgdto.getMsg_receiver()) && roomidx == msgdto.getMsg_croom_idx()) {
+						
+							            Gson gson = new Gson();
+							            String msgJson = gson.toJson(msgdto);
+							            websocketSession.sendMessage(new TextMessage(msgJson));
+							            unreadCnt = 0;
+							         }			
 					      }
+				    	  
+						//2단계		      
+							      System.out.println("메세지 : " + msgdto.toString());
+							      msgdto.setUnReadCount(unreadCnt);
+							      int result =0;
+									try {
+										result = chatdao.insertMessage(msgdto);
+									} catch (Exception e) {
+									
+										e.printStackTrace();
+									}
+									    if(result>0) {System.out.println("===결제요청서msg저장성공====");}
+				    	  
+		    	  
 		      }
 		      
 		

@@ -17,6 +17,7 @@ import zipcok.chat.model.*;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.*;
 import zipcok.mypage.model.MypageDAO;
 
@@ -136,6 +137,20 @@ public class ChatController {
 			return mav;
 		}
 	
-
+		
+		
+		/*결제요청서 등록하기 ajax*/
+		@RequestMapping("paymentReqInsert.do")
+		public ModelAndView paymentReqInsert(Payment_RequestDTO prdto) {		
+			System.out.println("-----결제요청컨트롤러진입------"+prdto.getPr_start());
+			int result=chatdao.paymentReqInsert(prdto);
+			String msg=result>0?"결제요청서가 전송되었습니다":"전송실패";
+			System.out.println("-----기능수행------"+msg);
+			ModelAndView mav=new ModelAndView();
+			mav.addObject("msg", msg);
+			mav.setViewName("jsonView");
+			return mav;
+		}
+		
 		
 }
