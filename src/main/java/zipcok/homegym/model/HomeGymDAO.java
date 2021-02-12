@@ -8,7 +8,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
 
 public interface HomeGymDAO {
-	public String HomeGymCheck(String id);
+	public boolean HomeGymCheck(String id);
 	public int HomeGymAdd(HomeGymDTO dto);
 	public List<HomeGymDTO> HomeGymList(Map<String, Object> options);
 	public int HomeGymTotalCnt(Map<String, Object> options);
@@ -19,4 +19,8 @@ public interface HomeGymDAO {
 	public List<CoachFileDTO> HomeGymImageContent(String homegymId);
 	public List<ReviewDTO> HomeGymReview(String homegymId);
 	public String HomeGymIdImgSelect(String homegymId);
+	public int HomeGymLikeSelect(Map<String, String> map);
+	public int HomeGymLikeInsert(Map<String, String> map);
+	public int HomeGymLikeDelete(Map<String, String> map);
+	public int HomeGymReviewStarAvg(String homegymId);
 }

@@ -22,9 +22,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 	}
 	
 	@Override
-	public String HomeGymCheck(String id) {
+	public boolean HomeGymCheck(String id) {
 		int result = sqlMap.selectOne("homegymCheckSQL", id);
-		return result==0?"false":"true";
+		return result==0?false:true;
 	}
 	@Override
 	public HomeGymDTO HomeGymContent(String homegymId) {
@@ -83,4 +83,25 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		String file_upload = sqlMap.selectOne("homegymImgUploadSelectSQL", homegymId);
 		return file_upload;
 	}
+	@Override
+	public int HomeGymLikeDelete(Map<String, String> map) {
+		int result = sqlMap.delete("homegymLikeDeleteSQL", map);
+		return result;
+	}
+	@Override
+	public int HomeGymLikeInsert(Map<String, String> map) {
+		int result = sqlMap.insert("homegymLikeInsertSQL", map);
+		return result;
+	}
+	@Override
+	public int HomeGymLikeSelect(Map<String, String> map) {
+		int result = sqlMap.selectOne("homegymLikeSelectSQL", map);
+		return result;
+	}
+	@Override
+	public int HomeGymReviewStarAvg(String homegymId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }

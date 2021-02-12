@@ -169,8 +169,6 @@ public class MemberController {
       
       if(str!=null) {
          String str2=mdao.pwdCheck(mem_id);
-         String hg_check = homegymDAO.HomeGymCheck(mem_id);
-         if(hg_check=="true")session.setAttribute("hg_check", hg_check);
          if(str2.equals(mem_pwd)) {
             String type=mdao.typeCheck(mem_id);
             if(type.equals("일반회원")) {

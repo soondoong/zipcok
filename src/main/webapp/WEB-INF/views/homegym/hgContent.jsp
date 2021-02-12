@@ -3,9 +3,32 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css'>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
+$('.top_contentArea_img_slide_single').slick({
+	  slidesToShow: 1,
+	  slidesToScroll: 1,
+	  arrows: false,
+	  fade: true,
+	  asNavFor: '.top_contentArea_img_slide_nav',
+		 autoplay: true
+	});
+	$('.top_contentArea_img_slide_nav').slick({
+	  slidesToShow: 3,
+	  slidesToScroll: 1,
+	  asNavFor: '.top_contentArea_img_slide_single',
+	  dots: false,
+	  centerMode: true,
+	  focusOnSelect: true
+
+	});
+
 window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
 	start_date = start_date.substring(0,10);
@@ -84,7 +107,7 @@ function price_result(){
 	var reservation_time = end_time - start_time;
 	if(reservation_time<1){
 		window.alert('종료 시간은 시작시간보다 커여합니다.');
-		document.getElementById('choice_end_time').value = '-';
+		document.getElementById('choice_end_time')[0].selected = true;
 		return;
 	}
 
@@ -153,8 +176,6 @@ function reservation_callback(){
 <style>
 .top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px;}
 .top_contentArea{width:80%; height:50%; display:flex; margin:auto;}
-.top_contentArea .top_contentArea_img{width:500px; height:500px; margin-right: 100px; }
-.top_contentArea .top_contentArea_img img {width:350px; height:350px; }
 .top_contentArea .top_contentArea_reservationArea {width: 500px; height:500px;}
 .top_contentArea .top_contentArea_reservationArea li {height:40px;}
 .top_contentArea .top_contentArea_reservationArea select {width:49%;}
@@ -166,15 +187,29 @@ function reservation_callback(){
 .bottom_contentArea .reserNoticeArea {width: 80%; margin: auto;}
 .bottom_contentArea .mapArea {width: 80%; margin: auto;}
 .bottom_contentArea .reviewArea {width: 80%; margin: auto;}
+
+.top_contentArea_img_slide_single{	width: 500px;	height: 250px;	margin: 30px auto 1px;	overflow: hidden;}
+.top_contentArea_img_slide_single img{	width: 100%;	min-height: 100%;}
+.top_contentArea_img_slide_nav{	width: 500px;	height: 85px;	margin: auto;}
+.top_contentArea_img_slide_nav img{	width: 100%;	min-height: 100%;}
+.top_contentArea_img_slide_nav .slick-track{	height: 85px;}
+.slick-arrow{	position: absolute;    top: 50%;    z-index: 50;    margin-top: -12px;}
+.slick-prev{	left: 0;}
+.slick-next{	right: 0;}
 </style>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
 	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
 </div>
 <div class = "top_contentArea">
-	<div class = "top_contentArea_img">
+	<div class = "top_contentArea_img_slide_single">
 		<c:forEach var = "img" items = "${imgContent }">
-		<img src = "upload/homegymInfo/${img.mfile_upload }">
+		<div class = "item"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
+		</c:forEach>
+	</div>
+	<div class = "top_contentArea_img_slide_nav">
+		<c:forEach var = "img" items = "${imgContent }">
+		<div class = "item"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
 		</c:forEach>
 	</div>
 	<div class = "top_contentArea_reservationArea">
@@ -221,7 +256,7 @@ function reservation_callback(){
 		<div class = "eqlistArea_list">
 		<c:forEach var = "eqDTO" items = "${eqContent }">
 			<div class = "eqList">
-				<img src = "img/homegym/${eqDTO.eq_name }.jpg">
+				<img src = "img/homegym/homegym_content_${eqDTO.eq_name }.jpg">
 				<p>${eqDTO.eq_name }</p>
 				<p>${eqDTO.eq_count}</p>
 			</div>

@@ -62,7 +62,8 @@ public class HomeGymController {
 			@RequestParam(value="top_option_location", defaultValue = "전체")String location,
 			@RequestParam(value="left_opton_price", defaultValue = "10")int price,
 			@RequestParam(value="left_option_person_count", defaultValue = "1")int person_count,
-			HttpServletRequest req
+			HttpServletRequest req,
+			HttpSession session
 			) {
 		String keywords = "";
 		keywords += "&top_option_location="+location;
@@ -97,6 +98,8 @@ public class HomeGymController {
 		options.put("choice_date_d", java.sql.Date.valueOf(date));
 		options.put("price", price);
 		options.put("person_count", person_count);
+		Map<String, String> like_option = new HashMap<String, String>();
+		
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);	
 		for(int i = 0 ; i < list.size() ; i++) {
 			list.get(i).setHg_faddr(list.get(i).getHg_faddr().substring(0, list.get(i).getHg_faddr().indexOf("구")+1));
@@ -104,6 +107,8 @@ public class HomeGymController {
 			list.get(i).setHg_upload(file_upload);
 			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
 			list.get(i).setHg_eq_list(eq_list);
+//			int like_status = homegymDAO.HomeGymLikeSelect(map);
+//			list.get(i).setHg_like(hg_like);
 		}
 		int totalCnt = homegymDAO.HomeGymTotalCnt(options)==0?1:homegymDAO.HomeGymTotalCnt(options);
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
@@ -184,8 +189,18 @@ public class HomeGymController {
 	}
 	
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.GET)
-	public String HomeGymAddForm() {
-		return "homegym/hgAddView";
+	public ModelAndView HomeGymAddForm(HttpSession session) {
+		String mem_id = "";
+		if(session.getAttribute("sid")!=null) {
+			mem_id = (String)session.getAttribute("sid");
+		}else if(session.getAttribute("coachId")!=null) {
+			mem_id = (String)session.getAttribute("coachId");
+		}
+		boolean hg_check = homegymDAO.HomeGymCheck(mem_id);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hg_check", hg_check);
+		mav.setViewName("homegym/hgAddView");
+		return mav;
 	}
 	
 	@RequestMapping(value = "HomeGymNickNameCheck.do")

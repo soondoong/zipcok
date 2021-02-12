@@ -24,6 +24,8 @@ public class HomeGymDTO {
 	private String hg_eq;
 	private List<HomeGymEquipmentDTO> hg_eq_list;
 	private String hg_upload;
+	private int hg_like;
+	private int star_avg;
 	
 	public HomeGymDTO() {
 		// TODO Auto-generated constructor stub
@@ -189,12 +191,28 @@ public class HomeGymDTO {
 	public void setHg_upload(String hg_upload) {
 		this.hg_upload = hg_upload;
 	}
+	
+	public int getHg_like() {
+		return hg_like;
+	}
+
+	public void setHg_like(int hg_like) {
+		this.hg_like = hg_like;
+	}
+
+	public int getStar_avg() {
+		return star_avg;
+	}
+
+	public void setStar_avg(int star_avg) {
+		this.star_avg = star_avg;
+	}
 
 	public HomeGymDTO(String hg_mem_id, String hg_nickname, String hg_faddr, String hg_saddr, String hg_station,
 			String hg_comeinfo, int hg_person_count, String hg_info, String hg_start_date, String hg_end_date,
 			String hg_not_date, int hg_start_time, int hg_end_time, int hg_price, String hg_approved_check,
 			Date hg_approved_date, String hg_status, String hg_eq, List<HomeGymEquipmentDTO> hg_eq_list,
-			String hg_upload) {
+			String hg_upload, int hg_like, int star_avg) {
 		super();
 		this.hg_mem_id = hg_mem_id;
 		this.hg_nickname = hg_nickname;
@@ -216,7 +234,7 @@ public class HomeGymDTO {
 		this.hg_eq = hg_eq;
 		this.hg_eq_list = hg_eq_list;
 		this.hg_upload = hg_upload;
+		this.hg_like = hg_like;
+		this.star_avg = star_avg;
 	}
-
-	
 }

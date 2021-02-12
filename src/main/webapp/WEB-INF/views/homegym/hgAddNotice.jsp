@@ -1,29 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
+
 <script>
 function homegymAddEnter(){
+	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}' == ''){
+		window.alert('로그인 정보가 필요한 페이지입니다.');
+		location.href = 'loginForm.do';
+		return;
+	}
 	location.href = 'HomeGymAdd.do';
 }
 </script>
 <style>
-	.matching_info_view {}
-	.matching_info_view h2 {text-align: center; margin-bottom: 100px;}
-	.matching_info_view ul {}
-	.matching_info_view ul li {display: flex; align-items: center;}
-	.matching_info_view ul li:not(:first-child) {margin-top: 100px;}
-	.matching_info_view ul li .visual {width: 500px; height: 364px; margin: 0 30px; background: #f7f7f7;}
-	.matching_info_view ul li .visual img {width: 500px;}
-	.matching_info_view ul li .desc {}
-	.matching_info_view ul li .desc h3 {margin: 0;}
-	.matching_info_view ul li .desc p {margin: 24px 0 0;}
+	.homegym_info_view {}
+	.homegym_info_view h2 {text-align: center; margin-bottom: 100px;}
+	.homegym_info_view ul {}
+	.homegym_info_view ul li {display: flex; align-items: center;}
+	.homegym_info_view ul li:not(:first-child) {margin-top: 100px;}
+	.homegym_info_view ul li .visual {width: 500px; height: 364px; margin: 0 30px; background: #f7f7f7;}
+	.homegym_info_view ul li .visual img {width: 500; height: 364px;}
+	.homegym_info_view ul li .desc {}
+	.homegym_info_view ul li .desc h3 {margin: 0;}
+	.homegym_info_view ul li .desc p {margin: 24px 0 0;}
+	.homegym_enter_bt {text-align: center;}
 	</style>
 <h1>홈짐 등록 안내</h1>
 <div id="container">
 	<!-- 등장 이벤트 주고싶은 element에 class : _motion
 		_left, _right, _top, _bottom, _spin
 	 -->
-	<article class="matching_info_view">
+	<article class="homegym_info_view">
 		<h2>부담없이 편한 장소에서 <br>운동을 시작해보세요</h2>
 		<ul>
 			<li>
@@ -58,6 +65,9 @@ function homegymAddEnter(){
 			</li>
 		</ul>
 	</article>
+	<div class = "homegym_enter_bt">
+		<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "홈짐 등록하러 가기" onclick = "javascript:homegymAddEnter();">
+	</div>
 </div>
-<input type = "button" value = "홈짐 등록하러 가기" onclick = "javascript:homegymAddEnter();">
+
 <%@include file="../_include/footer.jsp" %>
