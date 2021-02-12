@@ -98,7 +98,7 @@ public class Websocket extends TextWebSocketHandler {
 									e.printStackTrace();
 								}
 								    if(result>0) {System.out.println("===일반msg저장성공====");}
-
+								    
 		    	  
 		    	  
 					    	  //2단계 메시지보내기

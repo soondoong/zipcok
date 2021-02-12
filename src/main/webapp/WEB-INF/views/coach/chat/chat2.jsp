@@ -49,7 +49,7 @@ $(function () {
 	});
 
 </script>
-   
+ 
 </head>
 <%@include file="../../header2.jsp" %>
 <link href="css/coach/chat.css" rel="stylesheet">
@@ -186,7 +186,7 @@ $(document).ready(function(){
 												<p>고객님 안녕하세요. 상담내용에 따른 예상금액입니다.</p><hr>
 												<p><span class='mprtitle'>예상금액</span><span class='mprprice'>${msgdto.msg_file_upload }원</span></p>
 												<p><span class='mprtitle'>서비스 시작일</span><span>${msgdto.msg_file_path}</span></p>
-												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.user_name}</span></p><hr>
+												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
 												<p><input type='button' value='결제요청서 삭제하기' class='btn btn-primary'></p>															
@@ -207,8 +207,9 @@ $(document).ready(function(){
 				
 					
 				<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->	
-									
-						<div class='OnechatfromMe OnechatNotMe '>
+						<c:choose>
+						<c:when test="${msgdto.msg_type eq '텍스트' }">
+						   <div class='OnechatfromMe OnechatNotMe '>
 							<div class='chatimgdiv' >
 										 <img  src='/zipcok/upload/member/${rdto.mfile_upload}'  >
 										 <div>${msgdto.user_name}</div>
@@ -217,7 +218,34 @@ $(document).ready(function(){
 								 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
 								 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
 							 </div>		
-						</div>			
+						</div>										
+						</c:when>
+						<c:when test="${msgdto.msg_type eq '결제요청서' }">
+						<div class='OnechatfromMe OnechatNotMe'>
+						<div class='chatimgdiv' >
+							 <img  src='/zipcok/upload/member/${rdto.mfile_upload}'  >
+							 <div>${msgdto.user_name}</div>
+						 </div>
+								<div class = 'ContentWrap' >
+								     <div class = 'cont mymsg' >
+										<div class='mprWrap' style='width:320px;'>
+									 			<p style='margin-bottom:30px;margin-top:0;'><i class='fas fa-won-sign mn'></i><span class='mprtitle mprhead'>결제요청서</span></p>
+									 					 				
+												<p>고객님 안녕하세요. 상담내용에 따른 예상금액입니다.</p><hr>
+												<p><span class='mprtitle'>예상금액</span><span class='mprprice'>${msgdto.msg_file_upload }원</span></p>
+												<p><span class='mprtitle'>서비스 시작일</span><span>${msgdto.msg_file_path}</span></p>
+												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
+												<p  class='mprtitle'>서비스 상세설명</p>
+												<p>${msgdto.msg_content}</p>								
+												<p><input type='button' value='결제하러가기' class='btn btn-primary'></p>															
+									 	   </div>
+										</div>
+										<div class='sendtime' >${msgdto.msg_sendtime}</div>
+									</div>
+						</div>		     
+						</c:when>
+						<c:when test="${msgdto.msg_type eq '사진' }"></c:when>					
+					</c:choose>			
 					
 				</c:if>	
 									
@@ -379,6 +407,7 @@ function openSocket() {
 	
 	// 서버와 연결이 완료된후 자동호출됨
 	sock.onopen = function (event) {
+		$( '#endDate' ).val($( '#startDate' ).val());
 		$("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 	}
 	
@@ -487,8 +516,8 @@ function sendPR() { //결제요청서 메세지에담아보내기
 	message.msg_coachid = yourid; //받을상대아이디;
 	message.msg_file_upload = price;
 	message.msg_file_path = start; 
-    message.user_name =end;
-    message.receiver_user_name = '${rdto.mem_name}';
+    message.user_name ='${login.mem_name}';;
+    message.receiver_user_name =end;
     message.msg_sendtime = t;
     message.msg_readtime = t;
     message.unReadCount= 1;//default
@@ -586,11 +615,11 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 }else{
 	 var t = getTimeStamp();
 	  
-
+	 var otherid = '${rdto.mem_name}';
 	 $("#chatMessageArea").append("<div class='OnechatfromMe OnechatNotMe '>"+
 		"<div class='chatimgdiv' >"+
 			" <img  src='/zipcok/upload/member/${rdto.mfile_upload}' >"+
-		     "<div>"+yourid+"</div>"+
+		     "<div>"+otherid+"</div>"+
 	   " </div>"+
 		"<div class = 'ContentWrap' >"+
 			 "<div class = 'cont mymsg' >"+msg+"</div>"+
@@ -613,6 +642,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  	 var end=$('#endDate').val();
  	 var cont=$('#requestText').val();
  	 
+ 	
  	 $("#chatMessageArea").append(
  			 "<div class='OnechatfromMe'>"+
  				"<div class = 'ContentWrap' >"+
@@ -648,14 +678,15 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 var t = getTimeStamp(); //지금시간
  	 var price = msg.msg_file_upload;
  	 var start=msg.msg_file_path;
- 	 var end=msg.user_name;
+ 	 var end=msg.receiver_user_name;
  	 var cont=msg.msg_content;
  	 
+ 	 var otherid = '${rdto.mem_name}';
  	 $("#chatMessageArea").append(
  			 "<div class='OnechatfromMe OnechatNotMe'>"+
  			"<div class='chatimgdiv' >"+
 				" <img  src='/zipcok/upload/member/${rdto.mfile_upload}' >"+
-		  		   "<div>"+yourid+"</div>"+
+		  		   "<div>"+otherid+"</div>"+
 		   " </div>"+
  				"<div class = 'ContentWrap' >"+
  					 "<div class = 'cont mymsg' >"+
@@ -727,7 +758,7 @@ $('#pr_OKbtn').on('click',function(){
 		 		if(result){
 		 			 sendPR() ; //채팅창에붙이기
 		 			/*ajax로 결제요청서등록하기*/
-		 			//	  to_ajax();
+		 				  to_ajax();
 		 		}	
 			 		 
 	 	 }
@@ -746,10 +777,10 @@ function to_ajax(){
        error: function(xhr, status, error){
            alert(error);
        },
-       success : function(data){
-           alert(data.msg);
+       success : function(data){         
            $('.pmDiv').css('display','none');
            $("#prForm")[0].reset();
+           alert(data.msg);
        }
    });
 
