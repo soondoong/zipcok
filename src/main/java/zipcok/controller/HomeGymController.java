@@ -97,18 +97,32 @@ public class HomeGymController {
 		options.put("choice_date", date);
 		options.put("choice_date_d", java.sql.Date.valueOf(date));
 		options.put("price", price);
-		options.put("person_count", person_count);
-		Map<String, String> like_option = new HashMap<String, String>();
-		
+		options.put("person_count", person_count);		
 		List<HomeGymDTO> list = homegymDAO.HomeGymList(options);	
+
 		for(int i = 0 ; i < list.size() ; i++) {
 			list.get(i).setHg_faddr(list.get(i).getHg_faddr().substring(0, list.get(i).getHg_faddr().indexOf("구")+1));
 			String file_upload = homegymDAO.HomeGymIdImgSelect(list.get(i).getHg_mem_id());
 			list.get(i).setHg_upload(file_upload);
 			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());
 			list.get(i).setHg_eq_list(eq_list);
-//			int like_status = homegymDAO.HomeGymLikeSelect(map);
-//			list.get(i).setHg_like(hg_like);
+			Map<String, String> like_option = new HashMap<String, String>();
+			if((String)session.getAttribute("sid")!=null) {
+				String user_id = (String)session.getAttribute("sid");
+				String target_id = list.get(i).getHg_mem_id();
+				like_option.put("like_mem_id", user_id);
+				like_option.put("like_target_id", target_id);
+				int result = homegymDAO.HomeGymLikeSelect(like_option);
+				list.get(i).setHg_like(result);
+			}
+			else if((String)session.getAttribute("coachId")!=null) {
+				String user_id = (String)session.getAttribute("coachId");
+				String target_id = list.get(i).getHg_mem_id();
+				like_option.put("like_mem_id", user_id);
+				like_option.put("like_target_id", target_id);
+				int result = homegymDAO.HomeGymLikeSelect(like_option);
+				list.get(i).setHg_like(result);
+			}
 		}
 		int totalCnt = homegymDAO.HomeGymTotalCnt(options)==0?1:homegymDAO.HomeGymTotalCnt(options);
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymList.do", totalCnt, cp, listSize, pageSize, keywords );
@@ -329,6 +343,32 @@ public class HomeGymController {
 		mav.addObject("pd_result", pd_result);
 		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgPayListMsg");
+		return mav;
+	}
+	@RequestMapping("HomegymLikeOn.do")
+	public ModelAndView HomeGymLikeOn(
+			@RequestParam("user_id")String user_id,
+			@RequestParam("target_id")String target_id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("like_mem_id", user_id);
+		map.put("like_target_id", target_id);
+		int result = homegymDAO.HomeGymLikeInsert(map);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("on_check", result);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	@RequestMapping("HomegymLikeOff.do")
+	public ModelAndView HomeGymLikeOff(
+			@RequestParam("user_id")String user_id,
+			@RequestParam("target_id")String target_id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("like_mem_id", user_id);
+		map.put("like_target_id", target_id);
+		int result = homegymDAO.HomeGymLikeDelete(map);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("off_check", result);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 }

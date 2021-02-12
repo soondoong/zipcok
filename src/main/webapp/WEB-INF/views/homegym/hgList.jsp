@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script src = "	
@@ -26,6 +27,29 @@ window.addEventListener('load', function() {
 			}
 		}
 	}
+});
+
+$(document).on('click','.ia', function() {
+	var userid='${login.mem_id}';
+		if(userid ==null || userid == ''){ //비로그인시
+			alert('회원만 가능한 서비스입니다');
+		}else{ //로그인시				
+			var targetid= $(this).attr('id');	
+			//alert(targetid);	
+		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+	             $(this).removeClass("toggleStyle");
+	             $(this).html('<i class="far fa-heart likeicon"></i>');
+	             ajaxUnLike(userid,targetid);	     
+	         }else{ //좋아요햇을시
+	        	 
+	             $(this).addClass("toggleStyle");
+	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+	            
+	        	ajaxLike(userid,targetid);	           
+	             //좋아요하면 insert 취소하면 delete            
+	             
+	         }			 	
+		}	
 });
 
 function getTimeStamp() {
@@ -68,6 +92,32 @@ function ContentEnter(id){
 	}
 	location.href = 'HomeGymContent.do?hg_mem_id='+id;
 }
+function ajaxLike(userid, targetid){
+	var params = 'user_id='+userid+'&target_id='+targetid;
+	sendRequest('HomegymLikeOn.do', params, ajaxLike_rq, 'GET');
+}
+function ajaxUnLike(userid, targetid){
+	var params = 'user_id='+userid+'&target_id='+targetid;
+	sendRequest('HomegymLikeOff.do', params, ajaxUnLike_rq, 'GET');
+}
+function ajaxLike_rq(){
+  	if(XHR.readyState==4){
+  			if(XHR.status==200){
+  				var data=XHR.responseText;
+  				data=eval('('+data+')');
+  			    alert("좋아요 목록에 추가되었습니다");	
+  			}
+  	}
+}
+function ajaxUnLike_rq(){
+  	if(XHR.readyState==4){
+  			if(XHR.status==200){
+  				var data=XHR.responseText;
+  				data=eval('('+data+')');
+  			    alert("좋아요 목록에서 삭제되었습니다");	
+  			}
+  	}
+}
 </script>
 
 <style>
@@ -96,10 +146,12 @@ function ContentEnter(id){
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging a:not(:first-child) {margin-left: 5px;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item {display:flex; padding: 20px; width:800px;}
 
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img {padding:10px; width : 150px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_like {position: relative; left:30px; top: 15px; z-index: 0;}
+
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img {padding:10px; margin-right:20px; width : 150px; height: 150px;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_img img { width:130px; height: 130px;}
 
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content {padding: 10px; width:610px; height: 150px;}
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content {padding: 10px; width:610px; height: 150px; z-index: 2;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; height:100px; vertical-align: middle;}
 
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist .eqdiv { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
@@ -195,10 +247,21 @@ function ContentEnter(id){
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="dto" items="${HomeGymList }">
-							<div class="homegym_search_result_list_item" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">
-								<div class = "homegym_search_result_list_item_img"><img src = "upload/homegymInfo/${dto.hg_upload }"></div>
-								<div class = "homegym_search_result_list_item_content">
-									<h4>${dto.hg_nickname } 님의 홈짐</h4>
+							<div class="homegym_search_result_list_item">
+								<div class = homegym_search_result_list_item_like>
+									<c:if test="${dto.hg_like ==0 }">
+										<a href="#" class="ia" id="${ dto.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+									</c:if>
+									<c:if test="${dto.hg_like ==1 }">
+										<a href="#" class="ia toggleStyle" id="${ dto.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+									</c:if>	
+								</div>
+								<div class = "homegym_search_result_list_item_img" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');"><img src = "upload/homegymInfo/${dto.hg_upload }"></div>
+								<div class = "homegym_search_result_list_item_content" onclick = "javascript:ContentEnter('${dto.hg_mem_id}');">						
+									<h4>
+									${dto.hg_nickname } 님의 홈짐
+
+									</h4>
 									<h5>${dto.hg_faddr } / ${dto.hg_station }</h5>
 									<p>수용 가능 인원 : ${dto.hg_person_count }
 									</p>

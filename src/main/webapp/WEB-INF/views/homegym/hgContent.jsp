@@ -172,6 +172,55 @@ function reservation_callback(){
 		}
 	}
 }
+$(document).on('click','.ia', function() {
+	var userid='${login.mem_id}';
+		if(userid ==null || userid == ''){ //비로그인시
+			alert('회원만 가능한 서비스입니다');
+		}else{ //로그인시				
+			var targetid= $(this).attr('id');	
+			//alert(targetid);	
+		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+	             $(this).removeClass("toggleStyle");
+	             $(this).html('<i class="far fa-heart likeicon"></i>');
+	             ajaxUnLike(userid,targetid);	     
+	         }else{ //좋아요햇을시
+	        	 
+	             $(this).addClass("toggleStyle");
+	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+	            
+	        	ajaxLike(userid,targetid);	           
+	             //좋아요하면 insert 취소하면 delete            
+	             
+	         }			 	
+		}	
+});
+
+function ajaxLike(userid, targetid){
+	var params = 'user_id='+userid+'&target_id='+targetid;
+	sendRequest('HomegymLikeOn.do', params, ajaxLike_rq, 'GET');
+}
+function ajaxUnLike(userid, targetid){
+	var params = 'user_id='+userid+'&target_id='+targetid;
+	sendRequest('HomegymLikeOff.do', params, ajaxUnLike_rq, 'GET');
+}
+function ajaxLike_rq(){
+  	if(XHR.readyState==4){
+  			if(XHR.status==200){
+  				var data=XHR.responseText;
+  				data=eval('('+data+')');
+  			    alert("좋아요 목록에 추가되었습니다");	
+  			}
+  	}
+}
+function ajaxUnLike_rq(){
+  	if(XHR.readyState==4){
+  			if(XHR.status==200){
+  				var data=XHR.responseText;
+  				data=eval('('+data+')');
+  			    alert("좋아요 목록에서 삭제되었습니다");	
+  			}
+  	}
+}
 </script>
 <style>
 .top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px;}
@@ -200,14 +249,17 @@ function reservation_callback(){
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
 	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
+	<div class = "top_info_like">
+		<c:if test="${likeContent.hg_like ==0 }">
+			<a href="#" class="ia" id="${ dto.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+		</c:if>
+		<c:if test="${likeContent.hg_like ==1 }">
+			<a href="#" class="ia toggleStyle" id="${ dto.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+		</c:if>	
+	</div>
 </div>
 <div class = "top_contentArea">
 	<div class = "top_contentArea_img_slide_single">
-		<c:forEach var = "img" items = "${imgContent }">
-		<div class = "item"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
-		</c:forEach>
-	</div>
-	<div class = "top_contentArea_img_slide_nav">
 		<c:forEach var = "img" items = "${imgContent }">
 		<div class = "item"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
 		</c:forEach>
