@@ -155,41 +155,71 @@ $(document).ready(function(){
 	
 	<!-- 채팅 내용 -->
 	
-	<div class="AreaAll" id = "chatArea">
-		<div id="chatMessageArea">
+<div class="AreaAll" id = "chatArea">
+	<div id="chatMessageArea">
 					
-				<c:if test="${!empty msglist}">
-				<c:forEach var="msgdto" items="${msglist}">					
-					<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
+	<c:if test="${!empty msglist}">
+		<c:forEach var="msgdto" items="${msglist}">					
+			<c:if test="${msgdto.msg_sender eq login.mem_id }"> <!-- 보낸이가 나라면 -->
+					<c:choose>
+						<c:when test="${msgdto.msg_type eq '텍스트' }">
+						    <div class='OnechatfromMe'>
+									<div class = 'ContentWrap' >
+										 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
+										 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
+									 </div>
+									 
+									 <div class='chatimgdiv' >
+											 <img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
+											 <div>${login.mem_name}</div>
+									</div>
+							</div>						
+						
+						</c:when>
+						<c:when test="${msgdto.msg_type eq '결제요청서' }">
+						<div class='OnechatfromMe'>
+								<div class = 'ContentWrap' >
+								     <div class = 'cont mymsg' >
+										<div class='mprWrap' style='width:320px;'>
+									 			<p style='margin-bottom:30px;margin-top:0;'><i class='fas fa-won-sign mn'></i><span class='mprtitle mprhead'>결제요청서</span></p>
+									 					 				
+												<p>고객님 안녕하세요. 상담내용에 따른 예상금액입니다.</p><hr>
+												<p><span class='mprtitle'>예상금액</span><span class='mprprice'>${msgdto.msg_file_upload }원</span></p>
+												<p><span class='mprtitle'>서비스 시작일</span><span>${msgdto.msg_file_path}</span></p>
+												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.user_name}</span></p><hr>
+												<p  class='mprtitle'>서비스 상세설명</p>
+												<p>${msgdto.msg_content}</p>								
+												<p><input type='button' value='결제요청서 삭제하기' class='btn btn-primary'></p>															
+									 	   </div>
+										</div>
+										<div class='sendtime' >${msgdto.msg_sendtime}</div>
+									</div>
+									<div class='chatimgdiv' >
+								 	     <img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
+								 	     <div>${login.mem_name}</div>
+								     </div>	
+						</div>		     
+						</c:when>
+						<c:when test="${msgdto.msg_type eq '사진' }"></c:when>					
+					</c:choose>
+						
+				</c:if>
+				
 					
-				<div class='OnechatfromMe'>
-						<div class = 'ContentWrap' >
-							 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
-							 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
-						 </div>
-						 
-						 <div class='chatimgdiv' >
-								 <img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >
-								 <div>${login.mem_name}</div>
-						</div>
-				</div>	
-			</c:if>
-				
-				
-			<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->	
-								
-					<div class='OnechatfromMe OnechatNotMe '>
-						<div class='chatimgdiv' >
-									 <img  src='/zipcok/upload/member/${rdto.mfile_upload}'  >
-									 <div>${msgdto.user_name}</div>
-					    </div>
-						<div class = 'ContentWrap' >
-							 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
-							 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
-						 </div>		
-					</div>			
-				
-			</c:if>	
+				<c:if test="${msgdto.msg_sender ne login.mem_id }"> <!-- 보낸이가 상대라면 -->	
+									
+						<div class='OnechatfromMe OnechatNotMe '>
+							<div class='chatimgdiv' >
+										 <img  src='/zipcok/upload/member/${rdto.mfile_upload}'  >
+										 <div>${msgdto.user_name}</div>
+						    </div>
+							<div class = 'ContentWrap' >
+								 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
+								 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
+							 </div>		
+						</div>			
+					
+				</c:if>	
 									
 	</c:forEach>
 </c:if>
