@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zipcok.comm">
 
-	<insert id="dailyWriteSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+	<insert id="dailyWriteCoachSQL" parameterType="zipcok.comm.model.ExBbsDTO">
 		insert into
 			exer_bbs
 		values(exer_bbs_idx.nextval,
@@ -15,10 +15,33 @@
 				#{ex_cal},
 				sysdate,
 				sysdate,
-				'말머리',
+				'코치',
 				0,
 				#{ex_name},
-				0)
+				0,
+				exer_bbs_group.nextval,
+				1,
+				1)
+	</insert>
+	
+	<insert id="dailyWriteMemberSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+		insert into
+			exer_bbs
+		values(exer_bbs_idx.nextval,
+				#{ex_comm_idx},
+				#{ex_id},
+				#{ex_subject},
+				#{ex_content},
+				#{ex_cal},
+				sysdate,
+				sysdate,
+				'인증',
+				0,
+				#{ex_name},
+				0,
+				#{ex_group},
+				2,
+				#{ex_sunbun}+1)
 	</insert>
 	
 	<select id="getMaxExIdxSQL" resultType="Integer">
@@ -28,11 +51,39 @@
 			exer_bbs		
 	</select>
 	
+	<select id="getExSunbunSQL" resultType="Integer">
+		select
+			nvl(max(ex_sunbun),0)
+		from 
+			exer_bbs
+		where
+			ex_comm_idx=#{ex_comm_idx}
+		and
+			ex_group=#{ex_group}
+	</select>
+	
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">
-		select * from
-		(select rownum as rnum,a.* from
-		(select * from exer_bbs where ex_comm_idx=#{ex_comm_idx} order by ex_idx desc) a) b
-		where rnum <![CDATA[>=]]> #{start} and rnum <![CDATA[<=]]> #{end}
+		select 
+			* 
+		from
+			(select 
+				rownum as rnum,a.* 
+			from
+				(select 
+					* 
+				from 
+					exer_bbs 
+				where 
+					ex_comm_idx=#{ex_comm_idx} 
+				order by 
+					ex_group desc,
+					ex_lev,
+					ex_sunbun desc
+				) a) b
+		where 
+			rnum <![CDATA[>=]]> #{start} 
+		and 
+			rnum <![CDATA[<=]]> #{end}
 	</select>
 	
 	<select id="bbsContentSQL" parameterType="Integer" resultType="zipcok.comm.model.ExBbsDTO">
@@ -68,6 +119,22 @@
 			exer_bbs
 		where
 			ex_idx=#{ex_idx}
+	</delete>
+	
+	<select id="dailyGetGroupSQL" resultType="Integer">
+		select 
+			ex_group 
+		from 
+			exer_bbs 
+		where 
+			ex_idx=#{ex_idx}
+	</select>
+	
+	<delete id="dailyDeleteCoachSQL">
+		delete from
+			exer_bbs
+		where
+			ex_group=#{ex_group}
 	</delete>
 	
 	<update id="bbsReadnumSQL" parameterType="zipcok.comm.model.ExBbsDTO">

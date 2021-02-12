@@ -44,6 +44,15 @@
 			.white_talbe_01 tbody tr td {padding: 10px 20px; border-bottom: 1px solid #dddddd;}
 		</style>
 		<c:set var="dto" value="${recentCnt}" />
+		<c:choose>
+			<c:when test="${empty dto }">
+				<input type="hidden" name="ex_group" value="0">
+			</c:when>
+			<c:when test="${!empty dto }">
+				<input type="hidden" name="ex_group" value="${dto.ex_group}">
+			</c:when>
+		</c:choose>
+		
 		<c:set var="ex_id" value="${ex_id}" />
 		<div class="white_talbe_01">
 				<table>
@@ -52,7 +61,8 @@
 							<th>제목</th>
 							<td colspan="2"><input type="text" name="ex_subject"></td>
 						</tr>
-						<c:if test="${dto.ex_id ne ex_id}">
+						<c:if test="${dto.ex_id ne ex_id and !empty dto}">
+						<input  type="hidden" name="ex_id" value="${ex_id}">
 							<tr>
 								<th>오늘의 운동 :</th>
 								<td colspan="2"><input type="text" name="ex_name" value="${dto.ex_name}" readonly></td>
@@ -62,7 +72,8 @@
 								<td colspan="2"><input type="text" name="ex_cal" value="${dto.ex_cal}" readonly><input type="button" value="수정"></td>
 							</tr>
 						</c:if>
-						<c:if test="${dto.ex_id eq ex_id}">
+						<c:if test="${dto.ex_id eq ex_id or empty dto}">
+						<input  type="hidden" name="ex_id" value="${ex_id}">
 							<tr>
 								<th>오늘의 운동 :</th>
 								<td colspan="2"><input type="text" name="ex_name"></td>
@@ -76,7 +87,7 @@
 							<td colspan="3"><textarea cols="120" rows="10" name="ex_content" placeholder="내용을 입력해주세요" style="height: 300px; white-space: pre-line;"></textarea></td>
 						</tr>
 						<tr>
-							<td colspan="3" style="text-align: right"><input type="reset" value="처음부터 쓰기"><input type="submit" value="글쓰기"></td>
+							<td colspan="3" style="text-align: right"><input type="reset" value="다시 작성"><input type="submit" value="글쓰기"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -93,5 +104,5 @@
 		</form>		
 	</div>
 </div>
-	
+
 <%@include file="../_include/footer.jsp" %>

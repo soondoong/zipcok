@@ -4,13 +4,16 @@ import java.util.*;
 
 public interface ExBbsDAO {
 	
-	public int dailyWrite(ExBbsDTO dto);//글쓰기
+	public int dailyWrite(ExBbsDTO dto,String coachid);//글쓰기
 	public int getMaxExIdx();//최근글 idx구하기
+	public int getExSunbun(int ex_comm_idx,int group);//그룹 내 최대 순번 구하기
 	public List dailyList(int cp,int ls,int ex_comm_idx);//글목록 불러오기
 	public int getTotalCnt(int ex_comm_idx);//총 게시물 수 구하기
 	public ExBbsDTO dailyContent(int idx);//글 보기
 	public int dailyUpdate(ExBbsDTO dto);//글 수정
-	public int dailyDelete(int ex_idx);//글 삭제
+	public int dailyDelete(int ex_idx);//글 삭제(멤버)
+	public int dailyGetGroup(int ex_idx);//그룹값 가져오기
+	public int dailyDeleteCoach(int ex_group);//글 삭제(코치)
 	public int dailyReadnum(int ex_idx);//조회수 불러오기
 	public int findRownum(int ex_idx,int ex_comm_idx);//이전글다음글하기위한로우넘구하는메서드
 	public ExBbsDTO dailyPrevNext(int rnum,int ex_comm_idx);//이전글다음글

@@ -31,7 +31,7 @@
 	<%@include file="./commSideMenu.jsp" %>
 		<div class="com_main">
 			<div class="com_top">
-			<h1>커뮤니티 메인</h1>
+			<h1>${com_name}</h1>
 			<h3>코치 : ${coach_name} 코치</h3>
 			</div>
 			<div class="calendar">

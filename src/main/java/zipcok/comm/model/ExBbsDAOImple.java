@@ -13,15 +13,31 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	//글쓰기
 	@Override
-	public int dailyWrite(ExBbsDTO dto) {	
-		int count=sqlMap.insert("dailyWriteSQL", dto);
+	public int dailyWrite(ExBbsDTO dto,String coachid) {	
+		int count=0;
+		if(dto.getEx_id().equals(coachid)) {
+			count=sqlMap.insert("dailyWriteCoachSQL", dto);	
+		}else {
+			count=sqlMap.insert("dailyWriteMemberSQL", dto);	
+		}
 		return count;
+		
 	}
 	
 	//최근글 idx구하기
 	@Override
 	public int getMaxExIdx() {
 		int count=sqlMap.selectOne("getMaxExIdxSQL");
+		return count;
+	}
+	
+	//그룹 내 최대 순번 구하기
+	@Override
+	public int getExSunbun(int ex_comm_idx,int group) {
+		Map map=new HashMap();
+		map.put("ex_comm_idx", ex_comm_idx);
+		map.put("ex_group", group);
+		int count=sqlMap.selectOne("getExSunbunSQL",map);
 		return count;
 	}
 	
@@ -59,10 +75,24 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
-	//글 삭제
+	//글 삭제(멤버)
 	@Override
 	public int dailyDelete(int ex_idx) {
 		int count=sqlMap.delete("bbsDeleteSQL",ex_idx);
+		return count;
+	}
+	
+	//그룹값 가져오기
+	@Override
+	public int dailyGetGroup(int ex_idx) {
+		int ex_group=sqlMap.selectOne("dailyGetGroupSQL",ex_idx);
+		return ex_group;
+	}
+	
+	//글 삭제(코치)
+	@Override
+	public int dailyDeleteCoach(int ex_group) {
+		int count=sqlMap.delete("dailyDeleteCoachSQL",ex_group);
 		return count;
 	}
 	

@@ -5,7 +5,7 @@ import java.sql.*;
 public class ExBbsDTO {
 	
 	private int ex_idx;
-	private String ex_comm_idx;
+	private int ex_comm_idx;
 	private String ex_id;
 	private String ex_subject;
 	private String ex_content;
@@ -16,14 +16,18 @@ public class ExBbsDTO {
 	private int ex_readnum;
 	private String ex_name;
 	private int ex_recnt;
+	private int ex_group;
+	private int ex_lev;
+	private int ex_sunbun;
 	
 	public ExBbsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ExBbsDTO(int ex_idx, String ex_comm_idx, String ex_id, String ex_subject, String ex_content, String ex_cal,
-			Date ex_writedate, Date ex_moddate, String ex_head, int ex_readnum, String ex_name, int ex_recnt) {
+	public ExBbsDTO(int ex_idx, int ex_comm_idx, String ex_id, String ex_subject, String ex_content, String ex_cal,
+			Date ex_writedate, Date ex_moddate, String ex_head, int ex_readnum, String ex_name, int ex_recnt,
+			int ex_group, int ex_lev, int ex_sunbun) {
 		super();
 		this.ex_idx = ex_idx;
 		this.ex_comm_idx = ex_comm_idx;
@@ -37,6 +41,9 @@ public class ExBbsDTO {
 		this.ex_readnum = ex_readnum;
 		this.ex_name = ex_name;
 		this.ex_recnt = ex_recnt;
+		this.ex_group = ex_group;
+		this.ex_lev = ex_lev;
+		this.ex_sunbun = ex_sunbun;
 	}
 
 	public int getEx_idx() {
@@ -47,11 +54,11 @@ public class ExBbsDTO {
 		this.ex_idx = ex_idx;
 	}
 
-	public String getEx_comm_idx() {
+	public int getEx_comm_idx() {
 		return ex_comm_idx;
 	}
 
-	public void setEx_comm_idx(String ex_comm_idx) {
+	public void setEx_comm_idx(int ex_comm_idx) {
 		this.ex_comm_idx = ex_comm_idx;
 	}
 
@@ -134,6 +141,34 @@ public class ExBbsDTO {
 	public void setEx_recnt(int ex_recnt) {
 		this.ex_recnt = ex_recnt;
 	}
+
+	public int getEx_group() {
+		return ex_group;
+	}
+
+	public void setEx_group(int ex_group) {
+		this.ex_group = ex_group;
+	}
+
+	public int getEx_lev() {
+		return ex_lev;
+	}
+
+	public void setEx_lev(int ex_lev) {
+		this.ex_lev = ex_lev;
+	}
+
+	public int getEx_sunbun() {
+		return ex_sunbun;
+	}
+
+	public void setEx_sunbun(int ex_sunbun) {
+		this.ex_sunbun = ex_sunbun;
+	}
+
+	
+
+	
 	
 	
 	
