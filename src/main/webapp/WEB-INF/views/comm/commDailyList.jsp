@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/comm/commDailyListLayout.css">
 </head>
-<body onload="writebtn(${sid});">
+<body>
 	<%@include file="../header2.jsp" %>
 	
 	<style>
@@ -21,6 +21,9 @@
 			
 			.community_wrap .community_list {display: block; flex: 1 1 auto;}	
 			.community_wrap .community_list .com_top {background-color: #ccc; height: 150px; padding: 15px;}
+			
+			.community_wrap .community_list .bbs .exrecontent {text-indent: 20px;}
+			.community_wrap .community_list .bbs .coachCnt {background-color: #E5E5FF;}
 	</style>
 	
 	<div class="community_wrap">
@@ -56,10 +59,10 @@
 								</td>
 							</tr>
 						</c:if>
-						<c:forEach var="dto" items="${list}">
+						<c:forEach var="dto" items="${list}" begin="0" end="0">
 							<c:if test="${dto.ex_id eq com_coach_id}">
-								<tr>
-									<td>코치</td>
+								<tr class="coachCnt">
+									<td>오늘의 운동</td>
 										<c:url var="contentUrl" value="commDailyList.do">
 											<c:param name="idx">${dto.ex_idx}</c:param>
 										</c:url>
@@ -67,16 +70,15 @@
 										<c:choose>
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 										</c:choose>
-									<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
+									<td class="coach"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
 									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
-									<td>${dto.ex_id}</td>
+									<td class="coachid">${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
 									<td>${dto.ex_writedate}</td>
 								</tr>
 							</c:if>
 						</c:forEach>
 						<c:forEach var="dto" items="${list}">
-							<c:if test="${dto.ex_id ne com_coach_id}">
 								<tr>
 									<td>${dto.ex_idx}</td>
 										<c:url var="contentUrl" value="commDailyList.do">
@@ -86,13 +88,20 @@
 										<c:choose>
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 										</c:choose>
-									<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
-									<td>${dto.ex_cal}cal</td>
+									<c:choose>
+										<c:when test="${dto.ex_lev eq 1 }">
+											<td class="coach"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
+										</c:when>
+										<c:when test="${dto.ex_lev eq 2 }">
+											<td class="exrecontent"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
+										</c:when>
+									</c:choose>
+									
+									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
 									<td>${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
 									<td>${dto.ex_writedate}</td>
 								</tr>
-							</c:if>
 						</c:forEach>	
 						
 					</tbody>
@@ -101,12 +110,26 @@
 	</div>
 	
 	<script>
+	$(function(){
+		
+		writebtn('${sid}')
+		
+	});
+	
 	function writebtn(sid){
 		if(sid==null){
 			$("#button").show();
 		}else{
 			$("#button").hide();
 		}
+		
+		coachbold()
+	}
+	
+	
+	
+	function coachbold(){
+		$('.coach').css('font-weight','bold');
 	}
 	</script>
 	

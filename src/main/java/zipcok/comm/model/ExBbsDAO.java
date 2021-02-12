@@ -6,7 +6,7 @@ public interface ExBbsDAO {
 	
 	public int dailyWrite(ExBbsDTO dto,String coachid);//글쓰기
 	public int getMaxExIdx();//최근글 idx구하기
-	public int getMaxExSunbun(int ex_comm_idx);//최대 순번 구하기
+	public int getExSunbun(int ex_comm_idx,int group);//그룹 내 최대 순번 구하기
 	public List dailyList(int cp,int ls,int ex_comm_idx);//글목록 불러오기
 	public int getTotalCnt(int ex_comm_idx);//총 게시물 수 구하기
 	public ExBbsDTO dailyContent(int idx);//글 보기

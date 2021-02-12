@@ -15,7 +15,6 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	@Override
 	public int dailyWrite(ExBbsDTO dto,String coachid) {	
 		int count=0;
-		
 		if(dto.getEx_id().equals(coachid)) {
 			count=sqlMap.insert("dailyWriteCoachSQL", dto);	
 		}else {
@@ -32,10 +31,13 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
-	//최대 순번 구하기
+	//그룹 내 최대 순번 구하기
 	@Override
-	public int getMaxExSunbun(int ex_comm_idx) {
-		int count=sqlMap.selectOne("getMaxExSunbunSQL",ex_comm_idx);
+	public int getExSunbun(int ex_comm_idx,int group) {
+		Map map=new HashMap();
+		map.put("ex_comm_idx", ex_comm_idx);
+		map.put("ex_group", group);
+		int count=sqlMap.selectOne("getExSunbunSQL",map);
 		return count;
 	}
 	

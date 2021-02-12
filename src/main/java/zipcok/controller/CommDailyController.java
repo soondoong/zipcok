@@ -85,20 +85,20 @@ public class CommDailyController {
 	@RequestMapping(value="commDailyWrite.do", method=RequestMethod.POST)
 	public ModelAndView DailyWriteSubmit(ExBbsDTO dto, @RequestParam("upload")List<MultipartFile> list,HttpSession session) {
 		String ex_id="";
-		String coachid=(String)session.getAttribute("com_caoch_id");
+		String coachid=(String)session.getAttribute("com_coach_id");
 		ex_id=(String)session.getAttribute("sid");
 		if(ex_id==null) {
 			ex_id=(String)session.getAttribute("coachId");
 		}
 		dto.setEx_id(ex_id);
-		int maxSunbun=exBbsDao.getMaxExSunbun(dto.getEx_comm_idx());
-		if(maxSunbun==0) {
+		int momSunbun=exBbsDao.getExSunbun(dto.getEx_comm_idx(),dto.getEx_group());
+		if(momSunbun==0) {
 			dto.setEx_sunbun(1);
 		}else {
-			dto.setEx_sunbun(maxSunbun);
+			dto.setEx_sunbun(momSunbun);
 		}
 		int result=exBbsDao.dailyWrite(dto,coachid);
-		String msg=result>0?"글쓰기 성공!":"글쓰기 실패!";
+		String msg=result>0?"게시글이 작성되었습니다.":"글쓰기 실패!";
 		int bfile_size=0;
 
 		ArrayList<BbsFileDTO> fileArr=new ArrayList<BbsFileDTO>();
@@ -237,7 +237,7 @@ public class CommDailyController {
 		int ex_idx=Integer.parseInt(idx_s);
 		dto.setEx_idx(ex_idx);
 		int result=exBbsDao.dailyUpdate(dto);
-		String msg=result>0?"글수정 성공!":"글수정 실패!";
+		String msg=result>0?"글이 수정되었습니다.":"글수정 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
@@ -250,7 +250,7 @@ public class CommDailyController {
 	public ModelAndView dailyDelete(String ex_idx) {
 		int ex_idx2=Integer.parseInt(ex_idx);
 		int result=exBbsDao.dailyDelete(ex_idx2);
-		String msg=result>0?"글삭제 성공!":"글삭제 실패!";
+		String msg=result>0?"글이 삭제되었습니다.":"글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyList.do");
@@ -269,7 +269,7 @@ public class CommDailyController {
 		}
 		dto.setRe_bbs_idx(ex_idx);
 		int result=exBbsDao.dailyReWrite(dto);
-		String msg=result>0?"댓글 작성 성공!":"댓글 작성 실패!";
+		String msg=result>0?"댓글이 작성되었습니다.":"댓글 작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
@@ -287,7 +287,7 @@ public class CommDailyController {
 		}else if(re_lev_p==2) {
 			result=exBbsDao.dailyReReDelete(re_idx);
 		}
-		String msg=result>0?"댓글삭제 성공!":"댓글삭제 실패!";
+		String msg=result>0?"댓글이 삭제되었습니다.":"댓글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);
@@ -302,7 +302,7 @@ public class CommDailyController {
 		exBbsDao.dailyReUpdate(re_bbs_idx, re_sunbun_p+1);
 		dto.setRe_sunbun(re_sunbun_p+1);
 		int result=exBbsDao.dailyReReWrite(dto);
-		String msg=result>0?"대댓글작성 성공!":"대댓글작성 실패!";
+		String msg=result>0?"대댓글이 작성되었습니다.":"대댓글작성 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
 		mav.addObject("gopage", "commDailyContent.do?ex_idx="+ex_idx);

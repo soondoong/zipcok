@@ -44,6 +44,7 @@
 			.white_talbe_01 tbody tr td {padding: 10px 20px; border-bottom: 1px solid #dddddd;}
 		</style>
 		<c:set var="dto" value="${recentCnt}" />
+		<input type="hidden" name="ex_group" value="${dto.ex_group}">
 		<c:set var="ex_id" value="${ex_id}" />
 		<div class="white_talbe_01">
 				<table>
@@ -53,7 +54,6 @@
 							<td colspan="2"><input type="text" name="ex_subject"></td>
 						</tr>
 						<c:if test="${dto.ex_id ne ex_id and !empty dto}">
-						<input  type="hidden" name="ex_group" value="${ex_group}">
 						<input  type="hidden" name="ex_id" value="${ex_id}">
 							<tr>
 								<th>오늘의 운동 :</th>
@@ -96,5 +96,5 @@
 		</form>		
 	</div>
 </div>
-	
+
 <%@include file="../_include/footer.jsp" %>
