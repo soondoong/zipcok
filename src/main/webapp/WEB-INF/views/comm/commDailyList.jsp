@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/comm/commDailyListLayout.css">
 </head>
-<body>
+<body onload="writebtn(${sid});">
 	<%@include file="../header2.jsp" %>
 	
 	<style>
@@ -36,7 +36,7 @@
 						<tr>
 							<th>글 번호</th>
 							<th>제목</th>
-							<th>소비칼로리</th>
+							<th>운동명</th>
 							<th>작성자</th>
 							<th>조회수</th>
 							<th>작성일</th>
@@ -45,7 +45,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="5" align="center">${pageStr}</td>
-							<td><input id="button" type="button" onclick="location.href='commDailyWrite.do'" value="글쓰기"></td>
+							<td><input id="button" type="button" onclick="location.href='commDailyWrite.do'" value="글쓰기" style="display:none;"></td>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -68,7 +68,7 @@
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 										</c:choose>
 									<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">${dto.ex_subject}${recnt}</a></td>
-									<td>${dto.ex_cal}cal</td>
+									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
 									<td>${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
 									<td>${dto.ex_writedate}</td>
@@ -99,5 +99,16 @@
 			</table>
 		</div>
 	</div>
+	
+	<script>
+	function writebtn(sid){
+		if(sid==null){
+			$("#button").show();
+		}else{
+			$("#button").hide();
+		}
+	}
+	</script>
+	
 </body>
 </html>

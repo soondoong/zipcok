@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zipcok.comm">
 
-	<insert id="dailyWriteSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+	<insert id="dailyWriteCoachSQL" parameterType="zipcok.comm.model.ExBbsDTO">
 		insert into
 			exer_bbs
 		values(exer_bbs_idx.nextval,
@@ -15,10 +15,33 @@
 				#{ex_cal},
 				sysdate,
 				sysdate,
-				'말머리',
+				'코치',
 				0,
 				#{ex_name},
-				0)
+				0,
+				exer_bbs_group.nextval
+				1,
+				#{ex_sunbun}+1)
+	</insert>
+	
+	<insert id="dailyWriteMemberSQL" parameterType="zipcok.comm.model.ExBbsDTO">
+		insert into
+			exer_bbs
+		values(exer_bbs_idx.nextval,
+				#{ex_comm_idx},
+				#{ex_id},
+				#{ex_subject},
+				#{ex_content},
+				#{ex_cal},
+				sysdate,
+				sysdate,
+				'인증',
+				0,
+				#{ex_name},
+				0,
+				#{ex_group},
+				2,
+				)
 	</insert>
 	
 	<select id="getMaxExIdxSQL" resultType="Integer">
@@ -26,6 +49,15 @@
 			max(ex_idx)
 		from 
 			exer_bbs		
+	</select>
+	
+	<select id="getMaxExSunbunSQL" resultType="Integer">
+		select
+			nvl(max(ex_sunbun),0)
+		from 
+			exer_bbs
+		where
+			ex_comm_idx=#{ex_comm_idx}
 	</select>
 	
 	<select id="dailyListSQL" parameterType="Map" resultType="zipcok.comm.model.ExBbsDTO">

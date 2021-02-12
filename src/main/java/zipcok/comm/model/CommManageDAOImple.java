@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zipcok.member.model.MemberDTO;
-import zipcok.test.model.Payment_Request_TestDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 
 @Service
 public class CommManageDAOImple implements CommManageDAO {
@@ -20,14 +20,14 @@ public class CommManageDAOImple implements CommManageDAO {
 	
 	//결제한 수강생 내역 가져오기
 	@Override
-	public List<Payment_Request_TestDTO> paymentList(String pr_receiver_test) {
-		List<Payment_Request_TestDTO> list=sqlMap.selectList("paymentListSQL",pr_receiver_test);
+	public List<Payment_RequestDTO> paymentList(String pr_receiver) {
+		List<Payment_RequestDTO> list=sqlMap.selectList("paymentListSQL",pr_receiver);
 		return list;
 	}
 	
 	@Override
-	public List<Payment_Request_TestDTO> paymentList_finish(String pr_receiver_test) {
-		List<Payment_Request_TestDTO> list=sqlMap.selectList("paymentList_finishSQL",pr_receiver_test);
+	public List<Payment_RequestDTO> paymentList_finish(String pr_receiver) {
+		List<Payment_RequestDTO> list=sqlMap.selectList("paymentList_finishSQL",pr_receiver);
 		return list;
 	}
 	

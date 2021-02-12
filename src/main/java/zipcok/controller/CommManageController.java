@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.comm.model.CommManageDAO;
-import zipcok.test.model.Payment_Request_TestDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.comm.model.CommunityDTO;
 import zipcok.comm.model.Users_communityDTO;
 import zipcok.member.model.MemberDTO;
@@ -26,7 +26,7 @@ public class CommManageController {
 	@RequestMapping("coachMyPageCommManage.do")
 	public ModelAndView coachMyPageCommManage(HttpSession session) {
 		String id=""+session.getAttribute("coachId");
-		List<Payment_Request_TestDTO> list=commManageDao.paymentList(id);
+		List<Payment_RequestDTO> list=commManageDao.paymentList(id);
 		List<CommunityDTO> list2=commManageDao.manageCommList(id);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("paymentlist", list);
@@ -75,7 +75,7 @@ public class CommManageController {
 	@RequestMapping("coachMyPageMemPlusForm.do")
 	public ModelAndView coachMyPagememPlusForm(HttpSession session, int uc_comm_idx) {
 		String id=""+session.getAttribute("coachId");
-		List<Payment_Request_TestDTO> list=commManageDao.paymentList_finish(id);
+		List<Payment_RequestDTO> list=commManageDao.paymentList_finish(id);
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("paymentlist", list);

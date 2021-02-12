@@ -21,8 +21,8 @@
 				<td>
 				<select name="uc_mem_id">
 				<c:forEach var="dto" items="${paymentlist}" varStatus="i">
-				<c:if test="${dto.pr_status_test eq '결제완료' }">
-				<option value="${dto.pr_sender_test}">${dto.pr_sender_test}</option>
+				<c:if test="${dto.pr_status eq '결제완료' }">
+				<option value="${dto.pr_sender}">${dto.pr_sender}</option>
 				</c:if>
 				</c:forEach>
 				</select>

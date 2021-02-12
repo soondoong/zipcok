@@ -46,10 +46,10 @@ function commplus(){
 					</c:if>
 					<c:forEach var="dto" items="${paymentlist}">
 					<tr>
-						<td>${dto.pr_idx_test }</td>
-						<td>${dto.pr_sender_test }</td>
-						<td>${dto.pr_status_test }</td>
-						<td>${dto.pr_end_test }</td>
+						<td>${dto.pr_idx }</td>
+						<td>${dto.pr_sender }</td>
+						<td>${dto.pr_status }</td>
+						<td>${dto.pr_end }</td>
 					</tr>
 				</c:forEach>
 				</tbody>

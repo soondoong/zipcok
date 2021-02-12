@@ -13,15 +13,29 @@ public class ExBbsDAOImple implements ExBbsDAO {
 	
 	//글쓰기
 	@Override
-	public int dailyWrite(ExBbsDTO dto) {	
-		int count=sqlMap.insert("dailyWriteSQL", dto);
+	public int dailyWrite(ExBbsDTO dto,String coachid) {	
+		int count=0;
+		
+		if(dto.getEx_id().equals(coachid)) {
+			count=sqlMap.insert("dailyWriteCoachSQL", dto);	
+		}else {
+			count=sqlMap.insert("dailyWriteMemberSQL", dto);	
+		}
 		return count;
+		
 	}
 	
 	//최근글 idx구하기
 	@Override
 	public int getMaxExIdx() {
 		int count=sqlMap.selectOne("getMaxExIdxSQL");
+		return count;
+	}
+	
+	//최대 순번 구하기
+	@Override
+	public int getMaxExSunbun(int ex_comm_idx) {
+		int count=sqlMap.selectOne("getMaxExSunbunSQL",ex_comm_idx);
 		return count;
 	}
 	
