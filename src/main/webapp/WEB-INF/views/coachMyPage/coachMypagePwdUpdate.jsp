@@ -63,7 +63,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<%@include file="../_include/head.jsp" %>
 	<%@include file="../header2.jsp"%>
 	<div class="mypage_wrap">
 	<%@include file="./coachMypageSideMenu.jsp"%>

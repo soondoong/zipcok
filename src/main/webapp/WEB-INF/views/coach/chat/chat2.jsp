@@ -92,7 +92,8 @@ $(function () {
 							<li class="sidemenuli" id="sideFont"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.sid}" id="sideFont">결제내역</a></li>
 						</ul>
 					</div>
-	    </c:if>  
+	    </c:if>
+ 
 <!-- 메뉴바 --> 
 
 <script>
@@ -190,67 +191,48 @@ $(document).ready(function(){
 				
 			</c:if>	
 									
-			</c:forEach>
-		</c:if>
+	</c:forEach>
+</c:if>
 		
 			
-	</div>
-</div>
+	</div><!-- chatMessageArea -->
+</div><!-- AreaAll -->
 
 	
-<!--채팅치는부분 -->
-<div class="chatWriteWrap">
-		<!-- 파일첨부 결제요청서 -->
-		<div id="filemenu">
-		  <div style="float:left;">
-		  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
-		  </div>
-		  <div  style="float:left;">
-		  <c:if test="${!empty sessionScope.coachId }">
-		  <a href="#" class="afile" id="pr_icon" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
-		  </c:if>
-		  </div>
-		</div>
-		<input type="file" id="file" name="file" onchange="changeValue(this);">
-		
-
-
-
-		<!-- 전송메세지 입력창 -->
-		<div class="messageinputDIV" >
-			<div id="image_sectionDIV" >
-				<img id="image_section" src="" style="width:140px"/>
-				<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>			
+	<!--채팅치는부분 -->
+	<div class="chatWriteWrap">
+			<!-- 파일첨부 결제요청서 -->
+			<div id="filemenu">
+			  <div style="float:left;">
+			  <a href="#"  class="afile" id="btn-upload" data-bs-toggle="tooltip" data-bs-placement="top" title="사진전송하기"><i class="far fa-image"></i></a>
+			  </div>
+			  <div  style="float:left;">
+			  <c:if test="${!empty sessionScope.coachId }">
+			  <a href="#" class="afile" id="pr_icon" data-bs-toggle="tooltip" data-bs-placement="top" title="결제요청서 보내기"><i class="fas fa-receipt"></i></a>
+			  </c:if>
+			  </div>
 			</div>
-		
-			<textarea class="form-control" placeholder="Enter ..."  id="message-input"> </textarea>
-		</div>
-		
-		<!-- 전송버튼 -->
-		    <i class="fas fa-paper-plane " id="btnSend"></i>
-		
-	
-	
-	
-</div><!-- chatWriteWrap -->	
-	
-	
-			<!-- 사진전송버튼 
-				<div class="col-2"style="float: left; margin-top: 20px; margin-bottom: 20px;" >	
-			<button type="button" class="btn btn-primary btn-lg" id="btnSendFile" >사진파일전송</button>		
-			</div>		
+			<input type="file" id="file" name="file" onchange="changeValue(this);">
 			
+	
+	
+	
+			<!-- 전송메세지 입력창 -->
+			<div class="messageinputDIV" >
+				<div id="image_sectionDIV" >
+					<img id="image_section" src="" style="width:140px"/>
+					<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>			
+				</div>
 			
-			<div  style="clear:both;" >
-			<button type="button" class="btn btn-warning" id="btnClose" 
-			onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'">목록으로가기</button>
-
-			
+				<textarea class="form-control" placeholder="Enter ..."  id="message-input"> </textarea>
 			</div>
-			-->
-		
-    <!-- 전송버튼 -->
- </div><!-- allchatWrap -->	
+			
+			<!-- 전송버튼 -->
+			    <i class="fas fa-paper-plane " id="btnSend"></i>
+			
+	</div><!-- chatWriteWrap -->	
+
+  </div><!-- allchatWrap -->	
 </div>
 <!-- 채팅컨텐츠 -->
 		<!-- 결제요청서폼 -->
@@ -258,7 +240,8 @@ $(document).ready(function(){
 			<%@include file="./paymentRequestForm.jsp" %>
 			</div>
 			<!-- 결제요청서폼 -->
-			
+	
+		
 <script>
 
 /*상담요청서 작성폼 띄우기*/
@@ -370,16 +353,20 @@ function openSocket() {
 	}
 	
 	// onmessage는 서버로부터 메시지를 받았을때 호출됨======================onMessage
-	sock.onmessage = function (event) {		
+	sock.onmessage = function (event) {	
+		
 			console.log('event.data : ' + event.data);
-			var msg = event.data;
+			var data = event.data;
+			var msg = JSON.parse(data);
 			var str = msg.msg_content  + '\n';
+			
 			if(msg.msg_type=='텍스트'){
+				
 				appendOtherMessage(str);
 				
 			}else if(msg.msg_type=='결제요청서' ){
 				appendOtherMessagePR(msg);
-				alert(msg.msg_type);
+			
 			}else if(msg.msg_type=='사진' ){
 				
 			}
@@ -451,10 +438,13 @@ function send() {
 	 $('#image_sectionDIV').css('display', 'none');  //이미지미리보여주기리셋
 }
 
-function sendPR() {
+function sendPR() { //결제요청서 메세지에담아보내기
 	
 	var t = getTimeStamp(); //현재시간
-	
+	 var price = $('.price_input').val();
+ 	 var start=$('#startDate').val();
+ 	 var end=$('#endDate').val();
+ 	 var cont=$('#requestText').val();
 	/*메세지데이터 전송json타입 */
 	var message = {};
 	message.msg_idx=1; //defalut;
@@ -462,12 +452,12 @@ function sendPR() {
 	message.msg_req_idx = '${cdto.croom_req_idx}';
 	message.msg_sender ='${myid}'; //구분키중요
 	message.msg_receiver = yourid; //받을상대아이디;구분키중요
-	message.msg_content = '결제요청서';
+	message.msg_content = cont;
 	message.msg_userid = '${myid}';
 	message.msg_coachid = yourid; //받을상대아이디;
-	message.msg_file_upload = 'noimg.png';
-	message.msg_file_path = 'noimg.png'; 
-    message.user_name = '${login.mem_name}';
+	message.msg_file_upload = price;
+	message.msg_file_path = start; 
+    message.user_name =end;
     message.receiver_user_name = '${rdto.mem_name}';
     message.msg_sendtime = t;
     message.msg_readtime = t;
@@ -585,7 +575,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 
  
  /*채팅방에 결제요청서붙여주기*/
- function appendMyMessagePR() {  //내메세지는 오른쪽
+ function appendMyMessagePR() {  //내메세지는 오른쪽 ==결제요청서코치
 
  	 var t = getTimeStamp(); //지금시간
  	 var price = $('.price_input').val();
@@ -622,16 +612,21 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
   }
  
- function appendOtherMessagePR(msg) {   //상대메세지는 왼쪽
-
+ 
+ function appendOtherMessagePR(msg) {   //상대메세지는 왼쪽  ==결제요청서고객
+	/*message dto 재활용중이라 어쩔수없음 ㅠ*/
 	 var t = getTimeStamp(); //지금시간
- 	 var price = $('.price_input').val();
- 	 var start=$('#startDate').val();
- 	 var end=$('#endDate').val();
- 	 var cont=$('#requestText').val();
+ 	 var price = msg.msg_file_upload;
+ 	 var start=msg.msg_file_path;
+ 	 var end=msg.user_name;
+ 	 var cont=msg.msg_content;
  	 
  	 $("#chatMessageArea").append(
- 			 "<div class='OnechatfromMe'>"+
+ 			 "<div class='OnechatfromMe OnechatNotMe'>"+
+ 			"<div class='chatimgdiv' >"+
+				" <img  src='/zipcok/upload/member/${rdto.mfile_upload}' >"+
+		  		   "<div>"+yourid+"</div>"+
+		   " </div>"+
  				"<div class = 'ContentWrap' >"+
  					 "<div class = 'cont mymsg' >"+
  					 		"<div class='mprWrap' style='width:320px;>"+
@@ -648,11 +643,6 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  					 		"</div>"+
  					 	"</div>"+
  					 	"<div class='sendtime' > "+t+"</div>"+
- 			 	"</div>"+		 
- 					" <div class='chatimgdiv' >"+
- 					"<img  src='/zipcok/upload/member/${loginAll.mfile_upload}'  >"+
- 					 "<div>${login.mem_name}</div>"+
-		 		"</div>"+
 		 	"</div>");
 
 
