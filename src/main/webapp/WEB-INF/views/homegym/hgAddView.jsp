@@ -5,22 +5,19 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="js/httpRequest.js"></script>
+<c:if test = "${hg_check }">
+	<script>
+		window.alert('등록된 홈짐 정보가 있습니다.');
+		location.href='index.do';
+	</script>
+</c:if>
 <script>
-	if('${sessionScope.login.mem_id}'==''){
-		window.alert('로그인이 필요한 페이지입니다.');
-		location.href = 'login.do';	
-	}else{
-		if('${sessionScope.hg_check}' == 'true'){
-			window.alert('회원님의 계정으로 조회되는 홈짐이 있습니다.');
-			window.alert('내 홈짐 보기 페이지로 이동합니다.');
-			location.href = 'index.do';
-		}
-	}
 	var count = 0;
 	
 	window.addEventListener('load', function() {
 		var today = getTimeStamp();
 		$('#start_date').attr('min', today);
+		$('#end_date').attr('min', today);
 		$('#start_date').val(today);
 		$("#date_div").datepicker( "option", "minDate", today );
 	});
@@ -81,7 +78,8 @@
 		var eq_div = document.createElement('div');
 		eq_div.setAttribute('id', count);
 		eq_div.setAttribute('class', 'eq_add_list');
-		var eq_text = document.createTextNode(eq_name + " : " + eq_count);
+		var eq_text = document.createElement('span');
+		eq_text.innerText = eq_name + ' : ' + eq_count;
 		var eq_name_check = document.createElement('input');
 		eq_name_check.setAttribute('type', 'checkbox');
 		eq_name_check.setAttribute('name', 'eq_name');
@@ -97,6 +95,7 @@
 		var eq_delete_bt = document.createElement('input');
 		eq_delete_bt.setAttribute('type','button');
 		eq_delete_bt.setAttribute('value','삭제');
+		eq_delete_bt.setAttribute('class', 'btn btn-primary btn-lg sbtn');
 		eq_delete_bt.setAttribute('onclick','javascript:ListItemDelete('+count+')');
 		eq_div.appendChild(eq_text);
 		eq_div.appendChild(eq_name_check);
@@ -120,12 +119,24 @@
 		window.open('HomeGymAddrPopup.do', 'addrPopup', 'width=300, height=400, left=30%, top=30%');
 	}
 	function addSubmit() {
-		var hg_nickname = document.getElementById('hg_nickname').value;
 		var nicknameCheck = document.getElementById('nickname_overlap').value;
 		if(nicknameCheck=='0'){
 			window.alert('닉네임 중복 체크를 해주세요.');
 			return;
 		}
+		if(document.getElementById('eq_List').innerHTML=='보유중인 운동 기구를 추가해주세요.'){
+			window.alert('보유중인 기구를 등록해주세요.');
+			return;
+		}
+
+	    var fileCheck = document.getElementsByName("upload");
+	    for(var i = 0 ; i < fileCheck.length; i++){
+	    	window.alert(fileCheck[i].value);
+	    	if(!fileCheck[i].value){
+	    		window.alert('첨부하려는 파일을 다시 확인해주세요.');
+	    		return;
+	    	}
+	    }
 		document.getElementById('addForm').submit();
 	}
 	function start_change(){
@@ -216,7 +227,7 @@
 		var time_dv = end_time - start_time;
 		if(time_dv<1){
 			window.alert('종료 시간은 시작시간보다 커여합니다.');
-			document.getElementById('end_time').value = '시간을 선택해주세요';
+			document.getElementById('end_time')[0].selected = true;
 			return;
 		}
 	}
@@ -237,7 +248,7 @@
     }
 </script>
 <style>
-.homegymAddArea label {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
+.homegymAddArea .HomeGymAddLabel {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
 textarea {resize: none;}
 .homegymAddArea #nicknameCheckText {text-align: center;}
 #date_div {width:800px; height:300; z-index: 1; margin-bottom: 30px;}
@@ -252,13 +263,17 @@ textarea {resize: none;}
 .homegymAddArea {width: 50%; margin:auto; }
 .homegymAddArea .commonInfo {margin: 10px auto;}
 .homegymAddArea .eqInfo {margin: 10px auto;}
+.homegymAddArea .eqInfo .eq_List {padding-left: 200px; font-size: 20px; font-weight: 200;}
+.homegymAddArea .eqInfo .eq_List .eq_add_list {font-size: 20px; font-weight: 200; vertical-align: middle; margin-bottom: 10px;}
+.homegymAddArea .eqInfo .eq_List .eq_add_list span {font-size: 20px; font-weight: 200; vertical-align: middle;}
+.homegymAddArea .eqInfo .eq_List .eq_add_list input[type=button] {margin-left: 20px;}
+
 .homegymAddArea .imgInfo {margin: 10px auto;}
 .homegymAddArea .dateInfo {margin: 10px auto;}
 .homegymAddArea input[type=text] {width: 200px; }
 .homegymAddArea select {width: 200px; size:landscape;}
 .homegymAddArea input[type=date] {width: 200px; }
 .homegymAddArea textarea {width: 300px; height:150px; }
-.homegymADdArea .eq_add_list {font-size: 25px; font-weight: 300; color: gary;}
 .homegymAddArea .dateInfo {margin-bottom: 30px; }
 .homegymAddArea .dateInfo th {width: 200px;}
 .homegymAddArea .button_div {text-align: center; margin: 30px 0px;}
@@ -273,10 +288,9 @@ textarea {resize: none;}
 			<li>
 				<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
 				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
-				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자">
+				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자" required="required">
 				<input type="button" class = "btn btn-primary btn-lg sbtn" value="중복 확인" onclick = "javascript:nicknameCheck();">
-				<span id = "nicknameCheckText"></span>
-				<input type="hidden" id="nickname_overlap" value="0">
+				<span id = "nicknameCheckText"></span><input type="hidden" id="nickname_overlap" value="0">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
@@ -287,7 +301,7 @@ textarea {resize: none;}
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">상세주소</label>
-				<input type="text" name="hg_saddr"id = "saddr">
+				<input type="text" name="hg_saddr"id = "saddr" required="required">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야
@@ -300,16 +314,16 @@ textarea {resize: none;}
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">가까운 역</label>
-				<select	name="hg_station">
-					<option value="역 1">역 1</option>
-					<option value="역 2">역 2</option>
-					<option value="역 3">역 3</option>
-					<option value="역 4">역 4</option>
-				</select>
+				<input type = "text" name = "hg_station" required="required">
 			</li>
 			<li>
+				<label class="HomeGymAddLabel"></label>**역 까지 작성해주세요.
+			</li>
+			<li>
+				<label class="HomeGymAddLabel"></label>지하철 역의 전체 이름을 작성해주세요
+			<li>
 				<label class="HomeGymAddLabel">오시는 길</label>
-				<textarea rows="5" cols="20" name="hg_comeinfo"></textarea>
+				<textarea rows="5" cols="20" name="hg_comeinfo" required="required"></textarea>
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">수용 인원</label>
@@ -350,8 +364,7 @@ textarea {resize: none;}
 				<input type="button" class = "btn btn-primary btn-lg sbtn" value="추가" onclick = "javascript:addEq();">
 			</li>
 			<li>
-				<label class="HomeGymAddLabel"></label>
-				<div id = "eq_List">보유중인 운동 기구를 추가해주세요.</div>
+				<div class = "eq_List" id = "eq_List">보유중인 운동 기구를 추가해주세요.</div>
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">기타 설명</label>
@@ -402,7 +415,7 @@ textarea {resize: none;}
 			<label>예약 가능 시간</label>
 			</li>
 			<li>
-			<label></label>
+			<label class= "HomeGymAddLabel"></label>
 			<select name="hg_start_time" id = "start_time">
 					<option value="-">시간을 선택해주세요</option>
 					<option value="0">00:00</option>

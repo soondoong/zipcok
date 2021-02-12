@@ -93,7 +93,6 @@
         rnum between ${start} and ${end}
 	</select>
 	
-	
 	<select id = "totalCntSQL" parameterType="hashMap" resultType="Integer">
 	select count(*) from 
         (select rownum as rnum, b.* from
@@ -200,4 +199,13 @@
 		(select rownum as rnum, a.* from 
 		(select * from member_file where mfile_mem_id = #{value} and mfile_key = '홈짐') a)b where rnum = 1 
 	</select>
+	<select id = "homegymLikeSelectSQL" parameterType="hashMap" resultType="Integer">
+		select count(*) from zipcok_like where like_mem_id = #{like_mem_id} and like_target_id = #{like_target_id} and like_key = '홈짐'
+	</select>
+	<insert id="homegymLikeInsertSQL" parameterType="hashMap">
+		insert into zipcok_like values(like_idx.nextval, '홈짐', #{like_mem_id}, #{like_target_id}, sysdate)
+	</insert>
+	<delete id="homegymLikeDeleteSQL" parameterType="hashMap">
+		delete from zipcok_like where like_mem_id = #{like_mem_id}	and like_target_id = #{like_target_id}
+	</delete>
 </mapper>
