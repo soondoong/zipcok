@@ -37,8 +37,8 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	}
 	
 	@Override
-	public List<String> adminToCharDate(String id) {
-		List<String> dto2=sqlMap.selectOne("adminToCharDate",id);
+	public PyoAdDTO adminToCharDate(String id) {
+		PyoAdDTO dto2=sqlMap.selectOne("adminToCharDate",id);
 		
 		return dto2;
 	}

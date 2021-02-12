@@ -21,8 +21,8 @@ function showResult(){
          data=eval('('+data+')');
          var coachProfileDiv=document.getElementById('coachProfileLayer');
          coachProfileDiv.style.display='';
-         document.getElementById('coach_joindatetext').value=data.dto2[0];
-         document.getElementById('coach_changetext').value=data.dto2[1];
+         document.getElementById('coach_joindatetext').value=data.dto2.joindate;
+         document.getElementById('coach_changetext').value=data.dto2.change;
          document.getElementById('coach_floctext').value=data.coachdto.coach_floc;
          document.getElementById('coach_intro_subtext').value=data.coachdto.coach_intro_sub;
          document.getElementById('coach_intro_conttext').value=data.coachdto.coach_intro_cont;

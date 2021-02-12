@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.admin.model.AdminCoachMatchDAO;
+import zipcok.admin.model.PyoAdDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.member.model.MemberAllDTO;
 
@@ -84,7 +85,7 @@ public class AdminCoachMatchController {
 	//코치 아이디 눌렀을때 코치프로필 나오게 하기
 	@RequestMapping("adminCoachProfile.do")
 	public ModelAndView adminCoachProfile(String coach_mem_id) {
-		List<String> dto2=adminCoachMatchDao.adminToCharDate(coach_mem_id);
+		PyoAdDTO dto2=adminCoachMatchDao.adminToCharDate(coach_mem_id);
 		
 		CoachDTO dto=adminCoachMatchDao.adminCoachProfile(coach_mem_id);
 		

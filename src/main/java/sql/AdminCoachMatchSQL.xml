@@ -65,11 +65,11 @@
   		where
   		coach_mem_id = #{coach_mem_id}
   	</select>
-  	<select id="adminToCharDate" parameterType="String" resultType="List">
-  		select to_char(coach_joindate,'yyyy-mm-dd') as coach_joindate, to_char(coach_change,'yyyy-mm-dd') as coach_change 
+  	<select id="adminToCharDate" parameterType="String" resultType="zipcok.admin.model.PyoAdDTO">
+  		select to_char(coach_joindate,'yyyy-mm-dd') as joindate, to_char(coach_change,'yyyy-mm-dd') as change 
   		from 
   		coach_regist
   		 where
-  		  coach_mem_id = #{coach_mem_id}
+  		  coach_mem_id = #{value}
   	</select>
   </mapper>
