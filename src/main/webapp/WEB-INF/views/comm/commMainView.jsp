@@ -47,6 +47,20 @@
 			<c:set var="dto" value="${recentCnt}" />
 			${dto.ex_subject}
 			<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
+			<div class="commMember_Wrap">
+				<div class="commMember_List">
+					<c:forEach var="commMember" items="${memberlist}">
+						<div class="member">
+							<div class="member_pic">
+								${commMember.mfile_upload}	
+							</div>
+							<div class="member_name">
+								${commMember.mem_name}
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
 		</div>
 	
 	<script type="text/javascript">
