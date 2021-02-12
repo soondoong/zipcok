@@ -393,7 +393,7 @@ var type='${mtype}';  //나의회원타입
 var yourid= '${yourid}';   //채팅상대아이디
 var myid='${myid}';   //로그인한나의아이디
 var roomidx = '${cdto.croom_idx}';  //채팅방번호
-
+var pr_msg_idx='';
 
 function openSocket() {
 	if (sock != null && sock !== undefined && sock.readyState !== WebSocket.CLOSED) {
@@ -425,7 +425,7 @@ function openSocket() {
 				
 			}else if(msg.msg_type=='결제요청서' ){
 				appendOtherMessagePR(msg);
-			
+				
 			}else if(msg.msg_type=='사진' ){
 				
 			}
@@ -756,9 +756,14 @@ $('#pr_OKbtn').on('click',function(){
 	 		 
 		 		var result=confirm('결제요청서를 전송하시겠습니까?');
 		 		if(result){
-		 			 sendPR() ; //채팅창에붙이기
+		 			 sendPR() ; 
+		 			 $('.pmDiv').css('display','none');
+		 	           $("#prForm")[0].reset();
+		 			/*	pr_msg_idx = msg.msg_req_idx;
+					$('#pr_msg_idx').val(pr_msg_idx);
 		 			/*ajax로 결제요청서등록하기*/
-		 				  to_ajax();
+		 				/*	  to_ajax();*/
+		 			
 		 		}	
 			 		 
 	 	 }
@@ -777,10 +782,11 @@ function to_ajax(){
        error: function(xhr, status, error){
            alert(error);
        },
-       success : function(data){         
+       success : function(data){    
+    	   alert(data.msg);
            $('.pmDiv').css('display','none');
            $("#prForm")[0].reset();
-           alert(data.msg);
+           
        }
    });
 

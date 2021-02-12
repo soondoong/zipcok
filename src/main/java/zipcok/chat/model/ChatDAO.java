@@ -1,5 +1,6 @@
 package zipcok.chat.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import zipcok.coach.model.RequestFormDTO;
@@ -23,7 +24,7 @@ public interface ChatDAO {
 	
 	/*결제요청서*/
 	public int paymentReqInsert(Payment_RequestDTO prdto); //등록
-	
+	public int RecentPrMsgIdx(HashMap<String,Object> map); //방금등록된결제요청서msg idx 하나값
 	
 	
 	public void updateReadTime(int req_idx , String user_id , String Coach_user_id)throws Exception;

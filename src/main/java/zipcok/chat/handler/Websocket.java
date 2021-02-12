@@ -28,6 +28,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 import zipcok.chat.model.*;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.MemberDTO;
 
 
@@ -119,8 +120,39 @@ public class Websocket extends TextWebSocketHandler {
 					    	  
 						
 		      }else if(msgdto.getMsg_type().equals("결제요청서")){
-				    	  
-				     	  //1단계 결제요청서타입인거 확인만해서 채팅방에다시뿌려주기
+				  
+		    	  
+		    	  	//1단계 결제요청서타입인거 확인 후 메시지 저장후 채팅방에다시뿌려주기		      
+								      System.out.println("메세지 : " + msgdto.toString());
+								     
+								      int result =0;
+										try {
+											result = chatdao.insertMessage(msgdto);
+										} catch (Exception e) {
+										
+											e.printStackTrace();
+										}
+										    if(result>0) {System.out.println("===결제요청서msg저장성공====");}
+					    	  //2단계  방금만들어진 메시지 idx를 넣어서 dto수정해야함
+										HashMap<String, Object> prkeymap = new HashMap<String, Object>();
+										int croom_idx = msgdto.getMsg_croom_idx();
+										String type=msgdto.getMsg_type();
+										prkeymap.put("msg_type",type);
+										prkeymap.put("croom_idx",croom_idx);
+										int prmsg_idx=chatdao.RecentPrMsgIdx(prkeymap);
+				     	 
+										int pr_msg_idx = prmsg_idx;
+										int pr_req_idx = msgdto.getMsg_req_idx();
+										String pr_price=msgdto.getMsg_file_upload();
+										String pr_start = msgdto.getMsg_file_path();
+										String pr_end = msgdto.getReceiver_user_name();
+										String pr_content=msgdto.getMsg_content();
+										String pr_sender = msgdto.getMsg_sender();
+										String pr_receiver = msgdto.getMsg_receiver();
+										Payment_RequestDTO prdto = new Payment_RequestDTO(0, pr_msg_idx, pr_req_idx, pr_price, pr_start, pr_end, pr_content, "d", "d", pr_sender, pr_receiver) ;
+										
+										int result22=chatdao.paymentReqInsert(prdto);
+										
 					      for (WebSocketSession websocketSession : sessionList) {
 					        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
 					    	
@@ -135,19 +167,7 @@ public class Websocket extends TextWebSocketHandler {
 							           
 							         }			
 					      }
-				    	  
-						//2단계		      
-							      System.out.println("메세지 : " + msgdto.toString());
-							     
-							      int result =0;
-									try {
-										result = chatdao.insertMessage(msgdto);
-									} catch (Exception e) {
-									
-										e.printStackTrace();
-									}
-									    if(result>0) {System.out.println("===결제요청서msg저장성공====");}
-				    	  
+			
 		    	  
 		      }
 		      

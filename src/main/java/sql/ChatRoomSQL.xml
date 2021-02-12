@@ -195,5 +195,17 @@ sysdate,
 
 </insert>
 
+<select id="RecentPrMsgIdx" parameterType="HashMap" resultType="Integer">
+select * from
+(select msg_idx
+from message
+where
+msg_type = #{msg_type}
+and
+msg_croom_idx = #{croom_idx}
+order by msg_sendtime desc)
+where
+rownum = 1
+</select>
 
   </mapper>
