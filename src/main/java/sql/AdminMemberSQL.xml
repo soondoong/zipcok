@@ -19,8 +19,8 @@
 	and
     mem_name like
     <choose>
-    	<when test = "name =='noinputmsg'">'%%'</when>
-   	 	<when test = "name !='noinputmsg'">'%${name}%'</when>
+    	<when test = "name ==''">'%%'</when>
+   	 	<when test = "name !=''">'%${name}%'</when>
     </choose>
     )a)b
     
@@ -52,6 +52,10 @@
 	<select id="adminMemberManage" parameterType="String" resultType="zipcok.member.model.MemberDTO">
 	select * from zipcok_member where mem_id=#{mem_id}
 	</select>
+	
+	<update id="adminMemberPwdUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+   </update>
 
 
 

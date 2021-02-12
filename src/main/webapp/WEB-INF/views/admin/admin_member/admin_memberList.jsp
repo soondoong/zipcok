@@ -12,6 +12,36 @@
    display: inline-flex;
 }
 </style>
+
+<!-- 제이슨 부분 -->
+<script src="js/httpRequest.js"></script>
+<script>
+function show(id){
+	var params='mem_id='+id;
+	sendRequest('adminMemberManage.do',params,showResult,'GET');
+}
+function showResult(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data=XHR.responseText;
+			data=eval('('+data+')');
+					var contentDiv=document.getElementById('contentLayer');
+					contentDiv.style.display='';
+					document.getElementById('idxTd').value=data.dto2.mem_idx;
+					document.getElementById('nameTd').value=data.dto2.mem_name;
+					document.getElementById('idTd').value=data.dto2.mem_id;
+					document.getElementById('pwdTd').value=data.dto2.mem_pwd;
+					document.getElementById('phoneTd').value=data.dto2.mem_phone;
+					document.getElementById('typeTd').value=data.dto2.mem_type;
+		}
+	}
+}
+</script>
+
+<!-- 제이슨 부분 -->
+
+
+
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
@@ -20,6 +50,7 @@
 		<%@include file="../adminSideMenu.jsp"%>
 		<div class="container adminPage_contents">
 			<div class="adminPage_main">
+			<br>
 				<div>
 					<h3>회원목록</h3>
 				</div>
@@ -30,27 +61,20 @@
 							<li>등급 : </li>
 							<li>
 							<select name="type">
-							<option>전체</option>
-							<option>일반회원</option>
-							<option>코치회원</option>
+							<option <c:if test="${keyword.keywordType=='전체'}">selected="selected"</c:if>>전체</option>
+							<option <c:if test="${keyword.keywordType=='일반회원'}">selected="selected"</c:if>>일반회원</option>
+							<option <c:if test="${keyword.keywordType=='코치회원'}">selected="selected"</c:if>>코치회원</option>
 							</select>
 							</li>
-							<li><input type="text" placeholder="고객명" name="name"></li>
+							<li><input type="text" placeholder="고객명" name="name" value="${keyword.keywordName }"></li>
 							<li><input type="submit" value="검색"></li>
 						</ul>
 					</form>
 				</div>
-						
+				<br>
 				
-				
-				<div>
-					<ul	class="test-inline">
-						<li>총 회원수: </li>
-						<li>검색 회원수: </li>
-					</ul>
-				</div>
+
 				<div>	
-						
 				<!-- 회원목록부분 테이블 div -->
 					<table border="1" cellspacing="0">
 						<thead>
@@ -74,7 +98,7 @@
 						</c:if>
 						<c:forEach var="dto" items="${list }">
 							<tr>
-								<td><a href="adminMemberManage.do?mem_id=${dto.mem_id }" style="color: blue">${dto.mem_idx }</a></td>
+								<td><a href="javascript:show('${dto.mem_id}')" class="memidx"style="color: blue">${dto.mem_idx }</a></td>
 								<td>${dto.mem_name }</td>
 								<td>${dto.mem_id }</td>
 								<td>${dto.mem_phone }</td>
@@ -91,32 +115,46 @@
 						</tfoot>
 					</table>
 				</div>
-				 <div>
-					<div>
-					
-					<br><br>
+				<br>
 				
+					
+					<div id="contentLayer">
+					<form id="updateOkPwd">
 						<h3>회원관리</h3>
-					</div>
-					<div>
 						<table>
+						<tbody>
 							<tr>
-								<th>회원번호<input type="text" value="${dto2.mem_idx }" readonly="readonly" style="background-color : lightgray;"></th>
+								<td>회원번호<input type="text" name="mem_idx" id="idxTd" readonly="readonly" style="background-color : whitesmoke;" ></td>
+								<td>아이디<input type="text" name="mem_id" id="idTd" readonly="readonly" style="background-color : whitesmoke;"></td>
 							</tr>
 							<tr>
-								<th>아이디<input type="text" value="${dto2.mem_name }" readonly="readonly" style="background-color : lightgray;"></th>
-								<th>비밀번호<input type="text" value="* * * *" readonly="readonly" style="background-color : lightgray;"></th>
+								<td>
+								비밀번호<input type="password" name="mem_pwd" id="pwdTd" readonly="readonly" style="background-color : whitesmoke;">
+								<p class="updateGoGoPwd"><input type="button" value="수정"  name="btnpwdgogo" onclick="pwdUpdateGoGo();"></p>
+								</td>
+								<td>
+								이름<input type="text" name="mem_name" id="nameTd" readonly="readonly" style="background-color : whitesmoke;">
+								<input type="button" value="수정">
+								</td>
 							</tr>
 							<tr>
-								<th>이름<input type="text" value="${dto2.mem_name }" readonly="readonly" style="background-color : lightgray;"></th>
-								<th>회원등급<input type="text" value="${dto2.mem_type }" readonly="readonly" style="background-color : lightgray;"></th>
+								<td>
+								휴대폰번호<input type="text" name="mem_phone" id="phoneTd" readonly="readonly" style="background-color : whitesmoke;">
+								<input type="button" value="수정">
+								</td>
+								<td>
+								회원등급<input type="text" name="mem_type" id="typeTd" readonly="readonly" style="background-color : whitesmoke;">
+								<input type="button" value="수정">
+								</td>
 							</tr>
-							<tr>
-								<td>휴대폰번호 <input type="text" value="${dto2.mem_phone }" readonly="readonly" style="background-color : lightgray;"></td>
-								<th>상호평가 점수 <input type="text" readonly="readonly" readonly="readonly" style="background-color : lightgray;"></th>
-							</tr>
+						</tbody>
 						</table>
+						</form>
 					</div>
+					<br>
+				
+					
+					<!-- 
 					<div>
 						<ul class="test-inline">
 							<li>검색 조건</li>
@@ -155,9 +193,37 @@
 						</tfoot>
 					</table>
 				</div>
-				</div>
+				 -->
 			</div>
 		</div>
    </div>
+   
+ <script>
+
+	function pwdUpdateGoGo(){
+	   $('#pwdTd').attr('readonly',false);
+	   $('.updateGoGoPwd').html('');
+	   $('.updateGoGoPwd').html("<input type='button' onclick='pwdUpdateSubmit();' name='btnpwdgogo' value='수정완료'>");
+	}
+	
+	function pwdUpdateSubmit() {
+	   $('#updateOkPwd').attr("action", "adminMemberPwdUpdate.do").submit();
+	};
+	
+$(function(){
+		/*다시모든걸 리셋해야함*/
+		$('.memidx').on('click',function(){
+			if($('input[name=btnpwdgogo]').val()== '수정완료'){
+				$('.updateGoGoPwd').html("<input type='button' value='수정' name='btnpwdgogo' onclick='pwdUpdateGoGo();'>");
+				
+				
+				$('input[type=text]').attr('readonly',true);
+				$('input[type=password]').attr('readonly',true);
+			}
+		});
+			
+});
+	
+</script> 
 
 <%@include file="../../_include/footer.jsp" %>
