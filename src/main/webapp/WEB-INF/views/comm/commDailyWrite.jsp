@@ -44,7 +44,15 @@
 			.white_talbe_01 tbody tr td {padding: 10px 20px; border-bottom: 1px solid #dddddd;}
 		</style>
 		<c:set var="dto" value="${recentCnt}" />
-		<input type="hidden" name="ex_group" value="${dto.ex_group}">
+		<c:choose>
+			<c:when test="${empty dto }">
+				<input type="hidden" name="ex_group" value="0">
+			</c:when>
+			<c:when test="${!empty dto }">
+				<input type="hidden" name="ex_group" value="${dto.ex_group}">
+			</c:when>
+		</c:choose>
+		
 		<c:set var="ex_id" value="${ex_id}" />
 		<div class="white_talbe_01">
 				<table>

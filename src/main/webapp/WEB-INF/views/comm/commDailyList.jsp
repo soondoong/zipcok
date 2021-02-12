@@ -110,20 +110,21 @@
 	</div>
 	
 	<script>
+	
 	$(function(){
 		
-		writebtn('${sid}')
+		writebtn('${sid}');
 		
 	});
 	
 	function writebtn(sid){
-		if(sid==null){
+		if(sid==""){
 			$("#button").show();
 		}else{
 			$("#button").hide();
 		}
 		
-		coachbold()
+		coachbold();
 	}
 	
 	

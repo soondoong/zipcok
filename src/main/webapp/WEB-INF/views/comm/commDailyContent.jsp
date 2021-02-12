@@ -259,7 +259,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
          	</div> 
 			<table>
 				<tr>
-					<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}'"></td>
+					<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'"></td>
 					<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
 					<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
 					<td><input type="button" value="운동하기" onclick="location.href='commDailyWrite.do'"></td>

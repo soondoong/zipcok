@@ -247,9 +247,17 @@ public class CommDailyController {
 	
 	//일일 운동 게시판 글삭제
 	@RequestMapping("commDailyDelete.do")
-	public ModelAndView dailyDelete(String ex_idx) {
+	public ModelAndView dailyDelete(String ex_idx, String coach_id, HttpSession session) {
 		int ex_idx2=Integer.parseInt(ex_idx);
-		int result=exBbsDao.dailyDelete(ex_idx2);
+		String id=(String)session.getAttribute("coachId");
+		int ex_group=exBbsDao.dailyGetGroup(ex_idx2);
+		int result=0;
+		if(id.equals(coach_id)) {
+			result=exBbsDao.dailyDeleteCoach(ex_group);
+		}else {
+			result=exBbsDao.dailyDelete(ex_idx2);
+		}
+		
 		String msg=result>0?"글이 삭제되었습니다.":"글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);

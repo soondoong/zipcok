@@ -121,6 +121,22 @@
 			ex_idx=#{ex_idx}
 	</delete>
 	
+	<select id="dailyGetGroupSQL" resultType="Integer">
+		select 
+			ex_group 
+		from 
+			exer_bbs 
+		where 
+			ex_idx=#{ex_idx}
+	</select>
+	
+	<delete id="dailyDeleteCoachSQL">
+		delete from
+			exer_bbs
+		where
+			ex_group=#{ex_group}
+	</delete>
+	
 	<update id="bbsReadnumSQL" parameterType="zipcok.comm.model.ExBbsDTO">
 		update
 			exer_bbs

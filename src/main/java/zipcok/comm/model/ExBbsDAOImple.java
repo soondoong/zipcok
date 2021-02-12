@@ -75,10 +75,24 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
-	//글 삭제
+	//글 삭제(멤버)
 	@Override
 	public int dailyDelete(int ex_idx) {
 		int count=sqlMap.delete("bbsDeleteSQL",ex_idx);
+		return count;
+	}
+	
+	//그룹값 가져오기
+	@Override
+	public int dailyGetGroup(int ex_idx) {
+		int ex_group=sqlMap.selectOne("dailyGetGroupSQL",ex_idx);
+		return ex_group;
+	}
+	
+	//글 삭제(코치)
+	@Override
+	public int dailyDeleteCoach(int ex_group) {
+		int count=sqlMap.delete("dailyDeleteCoachSQL",ex_group);
 		return count;
 	}
 	
