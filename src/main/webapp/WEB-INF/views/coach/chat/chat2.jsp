@@ -116,43 +116,19 @@ $(document).ready(function(){
 })
 </script>	
 <!-- 채팅컨텐츠 -->
-<div class="container newcont">
+<div class="newcont">
 
 	     
 <div class="allchatWrap">
-	<div class="othermanInfo">	  
-		 
-		 	 <img src="/zipcok/upload/member/${rdto.mfile_upload}">
-		  <c:if test="${!empty  coachdto }">
-		  <div class="infos">
-		  	  <h3>${rdto.mem_name}코치</h3>
-		  	  <p>${coachdto.cate_name}</p>
-		  	  <p style="font-size:1.3rem; font-weight: 300;"><img src=""  id="starimg">${coachdto.avg }</p>
-		  	  <p>${coachdto.coach_intro_sub }</p>
-		  </div>
-		  </c:if>
-		  
-		   <c:if test="${empty  coachdto }">
-		  <div class="infos">
-		  	  <h3>요청인 : ${rdto.mem_name}</h3>
-		  	  <p><span>수업 형태: ${reqdto.req_type }</span><span class="rightgt">/</span><span>카테고리 : ${reqdto.req_category }</span></p>
-		  	  <div>
-		  		  <span class="type">몇십대</span>
-		  		  <span class="gender">${rdto.mem_gender }자</span>
-		  	  </div>
-		  	  <p class="reqcont">문의내용 : ${reqdto.req_cont }</p>
-		  </div>
-		  </c:if>
-		  
-		<!-- 목록으로버튼 -->  
-		  
+
+	<div class="chatTitle">
+		<i class="fas fa-comment-dots chattitleIcon"></i>
+		<span>${rdto.mem_name}님과의 채팅</span>
+			<!-- 목록으로버튼 -->  
 		  	<i class="fas fa-bars hammenu" onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'"></i>
-		 
-	</div><!-- othermanInfo -->  
+	</div>
 	
-	
-	<!-- 채팅 내용 -->
-	
+<!-- 채팅 내용 -->	
 <div class="AreaAll" id = "chatArea">
 	<div id="chatMessageArea">
 					
@@ -187,7 +163,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-primary'></p>															
+												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-danger'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -235,7 +211,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제하러가기' onclick="gotoPay('${msgdto.msg_idx}')"class='btn btn-primary'></p>															
+												<p><input type='button' value='결제하러가기' onclick="gotoPay('${msgdto.msg_idx}')"class='btn btn-danger'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -289,13 +265,78 @@ $(document).ready(function(){
 	</div><!-- chatWriteWrap -->	
 
   </div><!-- allchatWrap -->	
-</div>
+  
+  
+  
+  		<div class="othermanInfo">	  
+		 
+		  
+		  <c:if test="${!empty  coachdto }">
+				  <div class="infos">
+				    <img src="/zipcok/upload/member/${rdto.mfile_upload}">
+						<div class="inner_info">
+						  	  <h3>${rdto.mem_name}코치</h3>
+						  	  <p>${coachdto.cate_name}</p>
+						  	  <p style="font-size:1.3rem; font-weight: 300;"><img src=""  id="starimg">${coachdto.avg }</p>
+						 </div>
+				  </div>
+				  <hr>
+				  <div class="onelineInfo">
+				  		<p class="title">한 줄 소개</p>
+					  	<p>${coachdto.coach_intro_sub }</p>				
+		   		 </div>
+		   		   <div class="serviceInfo">
+				  		<p class="title">기본정보</p>
+					  	<p>본인인증</p>				
+					  	<p>3회 고용됨</p>				
+					  	<p>${coachdto.coach_floc }</p>				
+		   		 </div>
+		   		  <div class="extraInfo">
+				  		<p class="title">추가정보</p>							
+					  	<p>경력 ${coachdto.coach_year }년</p>		
+					  	<p>${coachdto.coach_ex_type}수업 가능(대면/비대면)</p>		
+		   		 </div>
+
+		  </c:if>
+		  
+		 <c:if test="${empty  coachdto }">
+		   <div class="infos">
+				      <img src="/zipcok/upload/member/${rdto.mfile_upload}">
+						<div class="inner_info">
+						  	    <h3>요청인 : ${rdto.mem_name}</h3>
+						  	 	<p><span> ${reqdto.req_type }</span><span class="rightgt">/</span><span>${reqdto.req_category }</span></p>
+						  	 	<div>
+						  		  <span class="type">몇십대</span>
+						  		  <span class="gender">${rdto.mem_gender }자</span>
+						  	  	</div>
+						 </div>						 
+				  </div>
+				  <hr>
+				  <div class="onelineInfo">
+				  		<p class="title">문의 내용</p>
+					  	<p>${reqdto.req_cont }</p>				
+		   		 </div>
+ 	
+		  </c:if>
+		  
+		 
+	</div><!-- othermanInfo -->  
+  
+  
+  
+</div><!-- newcont -->	
 <!-- 채팅컨텐츠 -->
 		<!-- 결제요청서폼 -->
 			<div class="pmDiv" id="pmDiv">
 			<%@include file="./paymentRequestForm.jsp" %>
 			</div>
 			<!-- 결제요청서폼 -->
+
+
+
+
+
+
 	
 		
 <script>
@@ -654,7 +695,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
 										"<p>"+cont+"</p>"+									
-										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-primary'></p>"+									
+										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-danger'></p>"+									
 									
  					 		"</div>"+
  					 	"</div>"+
@@ -697,7 +738,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
 										"<p>"+cont+"</p>"+									
-										"<p><input type='button' value='결제하러가기' class='btn btn-primary' onclick='gotoPay("+msgidx+")'></p>"+									
+										"<p><input type='button' value='결제하러가기' class='btn btn-danger' onclick='gotoPay("+msgidx+")'></p>"+									
 									
  					 		"</div>"+
  					 	"</div>"+
@@ -717,9 +758,13 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	location.href='gotoCoachPaymentView.do?'+param;
  }
  
- //요청서삭제로고고(코치만가능)
- function deltoPay(msgidx){	 
-		alert(msgidx);
+ //요청서삭제로 고고(코치만가능)
+ function deltoPay(msgidx){
+	var reqidx = '${cdto.croom_req_idx}';  //채팅방번호
+	var roomidx= '${cdto.croom_idx}';  
+	var param='msg_idx='+msgidx+'&req_idx='+reqidx+'&croom_idx='+roomidx;
+	location.href='gotoCoachPaymentDelete.do?'+param;
+	
  }
  
  

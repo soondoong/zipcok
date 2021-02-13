@@ -217,6 +217,33 @@ rownum = 1
 	pr_req_idx = #{pr_req_idx}
 </select>
 
+<select id="isPaymentCount" parameterType="zipcok.cpayment.model.Payment_RequestDTO" resultType="Integer" >
+select count(pr_idx)
+from payment_request
+where
+pr_msg_idx = #{pr_msg_idx}
+and
+pr_req_idx =  #{pr_req_idx}
+</select>
+
+<delete id="deletePaymentrequest" parameterType="zipcok.cpayment.model.Payment_RequestDTO">
+delete from payment_request
+where
+pr_msg_idx = #{pr_msg_idx}
+and
+pr_req_idx =  #{pr_req_idx}
+</delete>
+
+<update id="paymentRequestStatusChange" parameterType="HashMap">
+update payment_request
+set
+pr_status = '결제완료'
+where
+pr_msg_idx = #{pr_msg_idx}
+and
+pr_req_idx =  #{pr_req_idx}
+</update>
+
 <insert id="paymentOKListAdd" parameterType="zipcok.homegym.model.Payment_detailsDTO" >
 		insert into zipcok_payment_details values(
 		zipcok_payment_details_pd_idx.nextval,

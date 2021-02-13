@@ -184,8 +184,14 @@ public class ChatController {
 		
 		/*실제 결제하기*/
 		@RequestMapping("CoachPayOKListAdd.do")
-		public ModelAndView CoachPayOKListAdd(	Payment_detailsDTO dto,HttpSession session) {
-			int pd_result = chatdao.paymentOKListAdd(dto);
+		public ModelAndView CoachPayOKListAdd(	Payment_detailsDTO dto,HttpSession session,
+				@RequestParam("pr_msg_idx")int pr_msg_idx) {
+			int pd_result = chatdao.paymentOKListAdd(dto);//결제내역서에 등록
+			
+			HashMap<String,Object> map = new HashMap<String, Object>();
+			map.put("pr_msg_idx",pr_msg_idx);
+			map.put("pr_req_idx",dto.getPd_req_idx());
+			int count = chatdao.prStatusChangetoOK(map);//결제요청서상태를 상담중 -> 결제완료로 바꿔주기
 			String msg=pd_result>0?msg="결제가 완료되었습니다.":"결제실패";
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("msg", msg);
@@ -194,4 +200,29 @@ public class ChatController {
 			return mav;
 		}
 		
+		@RequestMapping("gotoCoachPaymentDelete.do")
+		public ModelAndView gotoCoachPaymentDelete(@RequestParam("msg_idx")int msg_idx,
+				@RequestParam("croom_idx")int croom_idx,
+				@RequestParam("req_idx")int req_idx,
+				@RequestParam("coach_id")String coach_id,HttpSession session) {
+			String msg="";
+			Payment_RequestDTO prdto = new Payment_RequestDTO();
+			prdto.setPr_msg_idx(msg_idx);
+			prdto.setPr_req_idx(req_idx);
+			int result = chatdao.isPaymentCount(prdto);
+			if(result>0) {
+				//존재하면 삭제가능
+				result=chatdao.deletePaymentrequest(prdto);
+				 msg=result>0?"결제요청서가 삭제되었습니다.":"결제 완료된 요청서는 삭제하실 수 없습니다!";
+		
+			}else {
+			msg="이미 삭제된 결제요청서입니다.";
+			}
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("msg", msg);
+			mav.addObject("gopage", "gotoChat.do?croom_idx="+croom_idx+"&req_idx="+req_idx+"&type=코치회원");
+			mav.setViewName("coach/joinMsg");
+			return mav;
+			
+		}
 }

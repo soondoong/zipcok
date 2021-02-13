@@ -41,7 +41,8 @@ function pg_check(){
 				    params += '&pd_target_id='+'${prdto.pr_receiver}';
 				    params += '&pd_mem_id='+'${sessionScope.loginAll.mem_name}';
 				    params += '&pd_method='+pg_choice_method;
-				    params += '&pd_price='+'${prdto.pr_price}';
+				    params += '&pd_price='+'${prdto.pr_price}'
+				    params += '&pr_msg_idx='+'${prdto.pr_msg_idx}';
 				  
 			    } else {
 			        var msg = '결제에 실패하였습니다.';

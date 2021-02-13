@@ -120,9 +120,26 @@ public Payment_RequestDTO findOnePaymentRequest(Payment_RequestDTO prdto) {
 		int count = sqlMap.insert("paymentOKListAdd",dto);
 		return count;
 	}	
-	
-	
-	
+/*결제요청서상태바꿔주기*/
+@Override
+public int prStatusChangetoOK(HashMap<String, Object> map) {
+	int count=sqlMap.update("paymentRequestStatusChange",map); //상담중 ->결제완료로 수정
+	return count;
+}
+
+/*존재하는지확인*/	
+@Override
+	public int isPaymentCount(Payment_RequestDTO prdto) {
+	int count = sqlMap.insert("isPaymentCount",prdto);
+	return count;
+	}
+/*삭제*/
+	@Override
+	public int deletePaymentrequest(Payment_RequestDTO prdto) {
+		//상태가 결제완료이면 삭제할수 없게하기
+		int count = sqlMap.insert("deletePaymentrequest",prdto);
+		return count;
+	}
 	
 	
 	
