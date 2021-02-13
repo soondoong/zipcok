@@ -69,6 +69,7 @@
 						<c:forEach var="dto" items="${list }">
 							<tr>
 								<td><a href="javascript:show('${dto.mem_id}')" class="memidx" style="color: blue">${dto.mem_idx }</a></td>
+								<input type="hidden" id="moUserId" value="${dto.mem_id}">
 								<td>${dto.mem_name }</td>
 								<td>${dto.mem_id }</td>
 								<td>${dto.mem_phone }</td>
@@ -109,21 +110,36 @@
 							</tr>
 							<tr>
 								<td>
+								이메일<input type="text" name="mem_email" id="emailTd" readonly="readonly" style="background-color : lightgray;">
+								<p class="updateGoGoEmail" id="emailUpdateP"></p>
+								</td>
+								<td>
 								휴대폰번호<input type="text" name="mem_phone" id="phoneTd" readonly="readonly" style="background-color : lightgray;">
 								<p class="updateGoGoPhone" id="phoneUpdateP"></p>
 								</td>
-								<td>
-								회원등급<input type="text" name="mem_type" id="typeTd" readonly="readonly" style="background-color : lightgray;">
-								<p class="updateGoGoType" id="typeUpdateP"></p>
-								</td>
 							</tr>
+							<tr>
+								<td>
+								주소<input type="text" name="mem_addr" id="addrTd" readonly="readonly" style="background-color : lightgray;">
+								<p class="updateGoGoAddr" id="addrUpdateP"></p>
+								</td>
+								<td>
+								회원등급
+								<select name="mem_type" id="typeTd" style="background-color : lightgray;" disabled="disabled">
+								<option value="선택"></option>
+								<option value="일반회원">일반회원</option>
+								<option value="코치회원">코치회원</option>
+								</select>
+								<p class="updateGoGoType" id="typeUpdateP"></p>
+								</td>	
+							</tr>
+							<!-- <input type="text" name="mem_type" id="typeTd" readonly="readonly" style="background-color : lightgray;"> -->
 						</tbody>
 						</table>
 						</form>
 					</div>
 					<br>
 				
-					
 					<!-- 
 					<div>
 						<ul class="test-inline">
@@ -171,8 +187,8 @@
 <!-- 제이슨 부분 -->
 <script src="js/httpRequest.js"></script>
 <script>
-function show(id){
-	var params='mem_id='+id;
+function show(mem_id){
+	var params='mem_id='+mem_id;
 	sendRequest('adminMemberManage.do',params,showResult,'GET');
 }
 function showResult(){
@@ -187,11 +203,28 @@ function showResult(){
 					document.getElementById('idTd').value=data.dto2.mem_id;
 					document.getElementById('pwdTd').value=data.dto2.mem_pwd;
 					document.getElementById('phoneTd').value=data.dto2.mem_phone;
+					document.getElementById('emailTd').value=data.dto2.mem_email;
+					document.getElementById('addrTd').value=data.dto2.mem_addr+" "+data.dto2.mem_detailaddr;
 					document.getElementById('typeTd').value=data.dto2.mem_type;
 					document.getElementById('pwdUpdateP').innerHTML="<input type='button' value='수정'  name='btnpwdgogo' onclick='pwdUpdateGoGo();''>";
 					document.getElementById('nameUpdateP').innerHTML="<input type='button' value='수정'  name='btnnamegogo' onclick='nameUpdateGoGo();''>";
 					document.getElementById('phoneUpdateP').innerHTML="<input type='button' value='수정'  name='btnphonegogo' onclick='phoneUpdateGoGo();''>";
+					document.getElementById('emailUpdateP').innerHTML="<input type='button' value='수정'  name='btnemailgogo' onclick='emailUpdateGoGo();''>";
+					document.getElementById('addrUpdateP').innerHTML="<input type='button' value='수정'  name='btnaddrgogo' onclick='adminAddrUpdateForm();''>";
 					document.getElementById('typeUpdateP').innerHTML="<input type='button' value='수정'  name='btntypegogo' onclick='typeUpdateGoGo();''>";
+					$("#pwdTd").attr("readonly",true);
+					$('#pwdTd').css('background-color', 'lightgray');
+					$("#nameTd").attr("readonly",true);
+					$('#nameTd').css('background-color', 'lightgray');
+					$("#phoneTd").attr("readonly",true);
+					$('#phoneTd').css('background-color', 'lightgray');
+					$("#emailTd").attr("readonly",true);
+					$('#emailTd').css('background-color', 'lightgray');
+					$("#addrTd").attr("readonly",true);
+					$('#addrTd').css('background-color', 'lightgray');
+					$("#typeTd").attr("disabled",true);
+					$('#typeTd').css('background-color', 'lightgray');
+					
 		}
 	}
 }
@@ -208,79 +241,133 @@ function showResult(){
 	   $('#pwdTd').css('background-color', 'whitesmoke');
 	}
 	
+	function pwdUpdateSubmitAjax(){
+		var params='mem_pwd='+$('#pwdTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberPwdUpdateAjax.do',params,showResultAjax,'POST');
+	}
 	
 	/*function pwdUpdateSubmit() {
 	   $('#updateGoGoOk').attr("action", "adminMemberPwdUpdate.do").submit();
 	};*/
 	
-	function pwdUpdateSubmitAjax(){
-		var params='mem_pwd='+$('#pwdTd').val()+"&mem_id="+$('#idTd').val();
-		sendRequest('adminMemberPwdUpdateAjax.do',params,showResultpwdAjax,'POST');
+	
+	function nameUpdateGoGo(){
+		$('#nameTd').attr('readonly',false);
+		$('.updateGoGoName').html('');
+		$('.updateGoGoName').html("<input type='button' onclick='nameUpdateSubmitAjax();' name='btnnamegogo' value='수정완료'>");
+		$('#nameTd').css('background-color', 'whitesmoke');
 	}
-	function showResultpwdAjax(){
+		
+	function nameUpdateSubmitAjax(){
+		var params='mem_name='+$('#nameTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberNameUpdateAjax.do',params,showResultAjax,'POST');
+	}
+	
+	/*function nameUpdateSubmit() {
+	   $('#updateGoGoOk').attr("action", "adminMemberNameUpdate.do").submit();
+	};*/
+	
+	
+	function phoneUpdateGoGo(){
+		$('#phoneTd').attr('readonly',false);
+		$('.updateGoGoPhone').html('');
+		$('.updateGoGoPhone').html("<input type='button' onclick='phoneUpdateSubmitAjax();' name='btnphonegogo' value='수정완료'>");
+		$('#phoneTd').css('background-color', 'whitesmoke');
+	}
+	
+	function phoneUpdateSubmitAjax(){
+		var params='mem_phone='+$('#phoneTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberPhoneUpdateAjax.do',params,showResultAjax,'POST');
+	}
+		
+	/*function phoneUpdateSubmit() {
+	   $('#updateGoGoOk').attr("action", "adminMemberPhoneUpdate.do").submit();
+	};*/
+	
+	function emailUpdateGoGo(){
+		$('#emailTd').attr('readonly',false);
+		$('.updateGoGoEmail').html('');
+		$('.updateGoGoEmail').html("<input type='button' onclick='emailUpdateSubmitAjax();' name='btnemailgogo' value='수정완료'>");
+		$('#emailTd').css('background-color', 'whitesmoke');
+	}
+	
+	function emailUpdateSubmitAjax(){
+		var params='mem_email='+$('#emailTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberEmailUpdateAjax.do',params,showResultAjax,'POST');
+	}
+		 
+	
+	function typeUpdateGoGo(){
+		$('#typeTd').attr('disabled',false);
+		$('.updateGoGoType').html('');
+		$('.updateGoGoType').html("<input type='button' onclick='typeUpdateSubmitAjax();' name='btntypegogo' value='수정완료'>");
+		$('#typeTd').css('background-color', 'whitesmoke');
+	}
+	
+	function typeUpdateSubmitAjax(){
+		var params='mem_type='+$('#typeTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberTypeUpdateAjax.do',params,showResultAjax,'POST');
+	}
+		
+	/*function typeUpdateSubmit() {
+	   $('#updateGoGoOk').attr("action", "adminMemberTypeUpdate.do").submit();
+	};*/
+	
+	
+	function showResultAjax(){
 		if(XHR.readyState==4){
 			if(XHR.status==200){
 				var data=XHR.responseText;
 				data=eval('('+data+')');
 				alert(data.msg);
-				show(data.mem_id);				
+				show(data.mem_id);
 			}
 		}
 	}
 	
-	
-	function nameUpdateGoGo(){
-		$('#nameTd').attr('readonly',false);
-		$('.updateGoGoName').html('');
-		$('.updateGoGoName').html("<input type='button' onclick='nameUpdateSubmit();' name='btnnamegogo' value='수정완료'>");
-		$('#nameTd').css('background-color', 'whitesmoke');
-	}
-		
-	function nameUpdateSubmit() {
-	   $('#updateGoGoOk').attr("action", "adminMemberNameUpdate.do").submit();
-	};
-	
-	function phoneUpdateGoGo(){
-		$('#phoneTd').attr('readonly',false);
-		$('.updateGoGoPhone').html('');
-		$('.updateGoGoPhone').html("<input type='button' onclick='phoneUpdateSubmit();' name='btnphonegogo' value='수정완료'>");
-		$('#phoneTd').css('background-color', 'whitesmoke');
-	}
-		
-	function phoneUpdateSubmit() {
-	   $('#updateGoGoOk').attr("action", "adminMemberPhoneUpdate.do").submit();
-	};
-	
-	function typeUpdateGoGo(){
-		$('#typeTd').attr('readonly',false);
-		$('.updateGoGoType').html('');
-		$('.updateGoGoType').html("<input type='button' onclick='typeUpdateSubmit();' name='btntypegogo' value='수정완료'>");
-		$('#typeTd').css('background-color', 'whitesmoke');
-	}
-		
-	function typeUpdateSubmit() {
-	   $('#updateGoGoOk').attr("action", "adminMemberTypeUpdate.do").submit();
-	};
-	
+/* 다른거 눌렀을때 초기화면으로해야함 */
 $(function(){
 		/*다시모든걸 리셋해야함*/
 		$('.memidx').on('click',function(){
 			if($('input[name=btnpwdgogo]').val()== '수정완료'){
-				$('.updateGoGoPwd').html("<input type='button' value='수정' name='btnpwdgogo' onclick='pwdUpdateGoGo();'>");
-				$('.updateGoGoName').html("<input type='button' value='수정' name='btnnamegogo' onclick='nameUpdateGoGo();'>");
-				$('.updateGoGoPhone').html("<input type='button' value='수정' name='btnphonegogo' onclick='phoneUpdateGoGo();'>");
-				$('.updateGoGoType').html("<input type='button' value='수정' name='btntypegogo' onclick='typeUpdateGoGo();'>");
+				$('.updateGoGoPwd').html("<input type='button' value='수정' name='btnpwdgogo' onclick='pwdUpdateGoGo();'>");		
 				$('#pwdTd').css('background-color', 'lightgray');
-				$('#nameTd').css('background-color', 'lightgray');
-				$('#phoneTd').css('background-color', 'lightgray');
-				$('#typeTd').css('background-color', 'lightgray');
-				
-				$('input[type=text]').attr('readonly',true);
 				$('input[type=password]').attr('readonly',true);
-			}
-		});
+				
+			}else if($('input[name=btnnamegogo]').val()== '수정완료'){
+				$('.updateGoGoName').html("<input type='button' value='수정' name='btnnamegogo' onclick='nameUpdateGoGo();'>");
+				$('#nameTd').css('background-color', 'lightgray');
+				$('input[type=text]').attr('readonly',true);
+				
+			}else if($('input[name=btnphonegogo]').val()== '수정완료'){
+				$('.updateGoGoPhone').html("<input type='button' value='수정' name='btnphonegogo' onclick='phoneUpdateGoGo();'>");
+				$('#phoneTd').css('background-color', 'lightgray');
+				$('input[type=text]').attr('readonly',true);
+				
+			}else if($('input[name=btnemailgogo]').val()== '수정완료'){
+				$('.updateGoGoEmail').html("<input type='button' value='수정' name='btnemailgogo' onclick='emailUpdateGoGo();'>");
+				$('#emailTd').css('background-color', 'lightgray');
+				$('input[type=text]').attr('readonly',true);
+				
+			}else if($('input[name=btnaddrgogo]').val()== '수정완료'){
+				$('.updateGoGoAddr').html("<input type='button' value='수정' name='btnaddrgogo' onclick='addrUpdateGoGo();'>");
+				$('#addrTd').css('background-color', 'lightgray');
+				$('input[type=text]').attr('readonly',true);
 			
+			}else if($('input[name=btntypegogo]').val()== '수정완료'){
+				$('.updateGoGoType').html("<input type='button' value='수정' name='btntypegogo' onclick='typeUpdateGoGo();'>");
+				$('#typeTd').css('background-color', 'lightgray');
+				$('#typeTd').attr('disabled',true);
+			}
+			
+		});
+	
 });
+
+function adminAddrUpdateForm(){
+	var id = document.getElementById('moUserId').value
+	window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdate', 'width=550,height=300');
+}
 
 
 </script> 

@@ -12,7 +12,8 @@ public interface AdminMemberDAO {
 	public int adminMemberPwdUpdate(MemberDTO dto);
 	public int adminMemberNameUpdate(MemberDTO dto);
 	public int adminMemberPhoneUpdate(MemberDTO dto);
+	public int adminMemberEmailUpdate(MemberDTO dto);
 	public int adminMemberTypeUpdate(MemberDTO dto);
-	
+	public int adminMemberAddrUpdate(MemberDTO dto);
 	
 }
