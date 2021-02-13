@@ -204,13 +204,30 @@ function showResult(){
 	function pwdUpdateGoGo(){
 	   $('#pwdTd').attr('readonly',false);
 	   $('.updateGoGoPwd').html('');
-	   $('.updateGoGoPwd').html("<input type='button' onclick='pwdUpdateSubmit();' name='btnpwdgogo' value='수정완료'>");
+	   $('.updateGoGoPwd').html("<input type='button' onclick='pwdUpdateSubmitAjax();' name='btnpwdgogo' value='수정완료'>");
 	   $('#pwdTd').css('background-color', 'whitesmoke');
 	}
 	
-	function pwdUpdateSubmit() {
+	
+	/*function pwdUpdateSubmit() {
 	   $('#updateGoGoOk').attr("action", "adminMemberPwdUpdate.do").submit();
-	};
+	};*/
+	
+	function pwdUpdateSubmitAjax(){
+		var params='mem_pwd='+$('#pwdTd').val()+"&mem_id="+$('#idTd').val();
+		sendRequest('adminMemberPwdUpdateAjax.do',params,showResultpwdAjax,'POST');
+	}
+	function showResultpwdAjax(){
+		if(XHR.readyState==4){
+			if(XHR.status==200){
+				var data=XHR.responseText;
+				data=eval('('+data+')');
+				alert(data.msg);
+				show(data.mem_id);				
+			}
+		}
+	}
+	
 	
 	function nameUpdateGoGo(){
 		$('#nameTd').attr('readonly',false);
