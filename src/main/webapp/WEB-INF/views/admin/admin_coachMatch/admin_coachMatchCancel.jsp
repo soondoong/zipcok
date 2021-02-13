@@ -26,10 +26,8 @@
 					</div>
 					<div>
 						<ul class="test-inline">
-							<li>성별</li>
-							<li><select><option>남자</option></select></li>
-							<li>지역</li>
-							<li><select><option>강서구</option></select></li>
+							<li>상태</li>
+							<li><select><option>환불요청중</option></select></li>
 						</ul>
 					</div>
 					<div>
@@ -42,49 +40,7 @@
 					</div>
 				</form>
 			</div>
-			<div>
-				<ul	class="test-inline">
-					<li>총 코치수: </li>
-					<li>검색 코치수: </li>
-				</ul>
-			</div>
-			<div><!-- 검색결과  테이블 div -->
-				<table border="1" cellspacing="0">
-					<thead>
-						<tr>
-							<th><input type="radio"></th>
-							<th>번호</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>휴대폰번호</th>
-							<th>이메일</th>
-							<th>관리 회원 수</th>
-							<th>가입일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="radio"></td>
-							<td>1</td>
-							<td>구병모</td>
-							<td>qudah123</td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td>50</td>
-							<td>2021.01.12</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-						<tr>
-							<td colspan="8" align="right"><input type="button" value="내역보기"></td>
-						</tr>
-					</tfoot>
-				</table>
-				<hr>
-			</div>
+			<hr>
 			<div><!-- 코치의 취소 내역  테이블 div -->
 				<div>
 					<h5>구병모 코치 매칭 회원내역</h5>

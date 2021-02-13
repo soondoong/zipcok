@@ -68,8 +68,7 @@ function execPostCode() {
                 fullRoadAddr += extraRoadAddr;
             }
 
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            console.log(data.zonecode);
+            // 주소 정보를 해당 필드에 넣는다.
             console.log(fullRoadAddr);
          /*      var a = console.log(data.zonecode);
             var b = console.log(fullRoadAddr);
@@ -80,51 +79,53 @@ function execPostCode() {
             }   */
             
             
-            $("[name=mem_zipcode]").val(data.zonecode);
-            $("[name=mem_addr]").val(fullRoadAddr);
+            $("[name=coach_floc]").val(fullRoadAddr);
             
-            document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('mem_addr').value = fullRoadAddr;
+            document.getElementById('coach_floc').value = fullRoadAddr;
 
             //document.getElementById('mem_detailaddr').value = data.jibunAddress; 
         }
      }).open();
  }
+function formSubmit(){
+	opener.document.getElementById('coach_floctext').value = document.getElementById('coach_floc').value;
+	document.getElementById('addrForm').submit();
+	window.self.close();
+}
 </script>
 
 </head>
 <body>
 	<article>
-		<form action="adminAddrUpdate.do">
+		<form id = "addrForm" action="flocUpdate.do">
 			<h4>주소변경</h4>
 			<hr>
 			<div class="col-sm-3 col-md-offset-3">
 			
 				<div class="form-group">
-					<input class="form-control" style="width: 40%; display: inline;"
-						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
-						readonly="readonly">
+				
 					<button type="button" class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
 						onclick="execPostCode();">
-						<i class="fa fa-search"></i> 우편번호 찾기
+						<i class="fa fa-search"></i> 주소찾기
 					</button>
 				</div>
 
 
 				<div class="form-group">
 					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
-						name="mem_addr" id="mem_addr" type="text" readonly="readonly" />
+						name="coach_floc" id="coach_floc" type="text" readonly="readonly" />
 				</div>
 
 
 				<div class="form-group">
-					<input class="form-control" placeholder="상세주소"
-						name="mem_detailaddr" id="mem_detailaddr" type="text" />
+					<input class="form-control" required="required" placeholder="상세주소"
+						name="coach_sloc" id="coach_sloc" type="text" />
 				</div>
+				<input type="hidden" name="coach_mem_id" value="${coach_mem_id}">
 
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="button" class="btn btn-primary" onclick = "javascript:formSubmit();">변경하기</button>
 					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 				</div>
 			</div>

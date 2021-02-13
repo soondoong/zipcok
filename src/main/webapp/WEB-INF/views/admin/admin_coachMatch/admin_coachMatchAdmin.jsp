@@ -7,33 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
-<!-- 제이슨 부분 -->
-<script src="js/httpRequest.js"></script>
-<script>
-function show(id){
-   var params='coach_mem_id='+id;
-   sendRequest('adminCoachProfile.do',params,showResult,'GET');
-}
-function showResult(){
-   if(XHR.readyState==4){
-      if(XHR.status==200){
-         var data=XHR.responseText;
-         data=eval('('+data+')');
-         var coachProfileDiv=document.getElementById('coachProfileLayer');
-         coachProfileDiv.style.display='';
-         document.getElementById('coach_joindatetext').value=data.dto2.joindate;
-         document.getElementById('coach_changetext').value=data.dto2.change;
-         document.getElementById('coach_floctext').value=data.coachdto.coach_floc;
-         document.getElementById('coach_intro_subtext').value=data.coachdto.coach_intro_sub;
-         document.getElementById('coach_intro_conttext').value=data.coachdto.coach_intro_cont;
-         document.getElementById('coach_mattext').value=data.coachdto.coach_mat;
-         document.getElementById('coach_ex_typetext').value=data.coachdto.coach_ex_type;
-         document.getElementById('coach_yeartext').value=data.coachdto.coach_year;
-      }
-   }
-}
-</script>
-<!-- 제이슨 부분 -->
+
 <style type="text/css">
 .test_inline{
 	display: inline-flex;
@@ -87,7 +61,10 @@ function showResult(){
 								<td>${dto.mem_idx}</td>
 								<td>${dto.mem_name}</td>
 							
-								<td><a href="javascript:show('${dto.mem_id}')">${dto.mem_id}</a></td>
+								<td>
+								<a href="javascript:show('${dto.mem_id}')">${dto.mem_id}</a>
+								<input type = "hidden" id="coachId" name="coachidText" value = "${dto.mem_id }">
+								</td>
 								<td>${dto.mem_phone}</td>
 								<td>${dto.mem_email }</td>
 								<td>${dto.mem_birth }</td>
@@ -102,7 +79,7 @@ function showResult(){
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="7">${pageStr }</td>
+								<td colspan="7" align="center">${pageStr }</td>
 							</tr>
 						</tfoot>
 					</table>
@@ -120,7 +97,7 @@ function showResult(){
 						</li>
 					</ul>
 				</div>
-				<form>
+				<form id="coachUpdateForm">
 					<ul>
 						<li>
 							<h5>활동지역</h5>
@@ -128,16 +105,16 @@ function showResult(){
 							<ul>
 								<li><input type="text" id="coach_floctext" readonly="readonly"></li>
 							</ul>	
-							<input type="button" value="활동지역 수정">
+							<p id="flocUpdateP" class="flocUpdatePClass"></p>
 						</li>
 						<li>
 							<h5>소개글</h5>
 							
 							<ul>
-								<li><input type="text" id="coach_intro_subtext" readonly="readonly"></li>
-								<li><input type="text" id="coach_intro_conttext" readonly="readonly"></li>
+								<li><input type="text" id="coach_intro_subtext" class="coach_intro_subtextClass" name="coach_intro_sub" readonly="readonly"></li>
+								<li><input type="text" id="coach_intro_conttext" class="coach_intro_conttextClass" name="coach_intro_cont" readonly="readonly"></li>
 							</ul>
-							<input type="button" value="소개글 수정">
+							<p id="introUpdateP" class="introUpdatePClass"></p>
 						</li>
 						<li>
 							<h5>카테고리</h5>
@@ -155,7 +132,7 @@ function showResult(){
 							<ul>
 								<li><input type="text" id="coach_mattext" readonly="readonly"></li>
 							</ul>
-							<input type="button" value="준비물 수정">
+							<p id="matUpdateP" class="matUpdatePClass"></p>
 						</li>
 						<li>
 							<h5>강의유형</h5>
@@ -163,14 +140,14 @@ function showResult(){
 							<ul>
 								<li><input type="text" id="coach_ex_typetext" readonly="readonly"></li>
 							</ul>
-							<input type="button" value="강의유형 수정">
+							<p id="extypeUpdateP" class="extypeUpdatePClass"></p>
 						</li>
 						<li>
 							<h5>경력</h5>
 							<ul>
-								<li><input type="text" id="coach_yeartext" readonly="readonly"></li>
+								<li><input type="number" min="0" max="100" id="coach_yeartext" readonly="readonly"></li>
 							</ul>
-							<input type="button" value="경력 수정">
+							<p id="yearUpdateP" class="yearUpdatePClass"></p>
 						</li>
 						<li>
 							<h5>코치 소개 사진</h5>
@@ -189,11 +166,134 @@ function showResult(){
 							</ul>
 						</li>
 					</ul>
-					<input type="submit" value="저장하기">
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- 제이슨 부분 -->
+<script src="js/httpRequest.js"></script>
+<script>
+function show(id){
+   var params='coach_mem_id='+id;
+   sendRequest('adminCoachProfile.do',params,showResult,'GET');
+}
+function showResult(){
+   if(XHR.readyState==4){
+      if(XHR.status==200){
+         var data=XHR.responseText;
+         data=eval('('+data+')');
+         var coachProfileDiv=document.getElementById('coachProfileLayer');
+         coachProfileDiv.style.display='';
+         document.getElementById('coach_joindatetext').value=data.dto2.joindate;
+         document.getElementById('coach_changetext').value=data.dto2.change;
+         document.getElementById('coach_floctext').value=data.coachdto.coach_floc;
+         document.getElementById('coach_intro_subtext').value=data.coachdto.coach_intro_sub;
+         document.getElementById('coach_intro_conttext').value=data.coachdto.coach_intro_cont;
+         document.getElementById('coach_mattext').value=data.coachdto.coach_mat;
+         document.getElementById('coach_ex_typetext').value=data.coachdto.coach_ex_type;
+         document.getElementById('coach_yeartext').value=data.coachdto.coach_year;
+         document.getElementById('introUpdateP').innerHTML="<input type='button' value='소개글 수정' name='introReset' onclick='javascript:introUpdateGo();'>";
+         document.getElementById('matUpdateP').innerHTML="<input type='button' value='준비물 수정' name='matReset' onclick='javascript:matUpdateGo();'>";
+         document.getElementById('extypeUpdateP').innerHTML="<input type='button' value='강의유형 수정' name='extypeReset' onclick='javascript:extypeUpdateGo();'>";
+         document.getElementById('yearUpdateP').innerHTML="<input type='button' value='경력 수정' name='yearReset' onclick='javascript:yearUpdateGo();'>";
+         document.getElementById('flocUpdateP').innerHTML="<input type='button' value='활동지역 수정' name='flocReset' onclick='javascript:flocUpdateGo();'>";
+         $('#coach_intro_subtext').attr("readonly",true);
+         $('#coach_intro_conttext').attr("readonly",true);
+         $('#coach_mattext').attr("readonly",true);
+         $('#coach_yeartext').attr("readonly",true);
+      }
+   }
+}
+
+</script>
+
+<script>
+//활동지역 수정버튼누를때 팝업창 열기
+function flocUpdateGo(){
+	var id = document.getElementById('coachId').value;
+	window.open('flocUpdatePopup.do?coachidText='+id,'floc','width=550,height=300');
+}
+//소개글수정 버튼누를때 수정완료버튼 생기고 리드온리 풀리는 함수
+function introUpdateGo(){
+	$('#coach_intro_subtext').attr('readonly',false);
+	$('#coach_intro_conttext').attr('readonly',false);
+	$('#introUpdateP').html('');
+	$('#introUpdateP').html("<input type='button' value='수정완료' onclick='javascript:introUpdateSubmitAjax();' name='btnintrogo'>");
+}
+//소개글수정 수정완료버튼누를때 파람넘겨주는 함수
+function introUpdateSubmitAjax(){
+	var params='coach_intro_sub='+$('#coach_intro_subtext').val()+'&coach_intro_cont='+$('#coach_intro_conttext').val()+"&coach_mem_id="+$('#coachId').val();
+	window.alert(params);
+	sendRequest('introUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+//준비물수정 버튼누를때 수정완료버튼 생기고 리드온리 풀리는 함수
+function matUpdateGo(){
+	$('#coach_mattext').attr('readonly',false);
+	$('#matUpdateP').html('');
+	$('#matUpdateP').html("<input type='button' value='수정완료' onclick='javascript:matUpdateSubmitAjax();' name='btnintrogo'>");
+}
+//준비물수정 수정버튼 누를때 파람넘겨주는 함수
+function matUpdateSubmitAjax(){
+	var params = 'coach_mat='+$('#coach_mattext').val()+'&coach_mem_id='+$('#coachId').val();
+	sendRequest('matUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+//강의유형 수정 버튼누를때 수정완료버튼 생기고 리드온리 풀리는 함수
+function extypeUpdateGo(){
+	$('#coach_ex_typetext').attr('readonly',false);
+	$('#extypeUpdateP').html('');
+	$('#extypeUpdateP').html("<input type='button' value='수정완료' onclick='javascript:extypeUpdateSubmitAjax();' name='btnintrogo'>");
+}
+//강의유형 수정 수정버튼 누를때 파람넘겨주는 함수
+function extypeUpdateSubmitAjax(){
+	var params = 'coach_ex_type='+$('#coach_ex_typetext').val()+'&coach_mem_id='+$('#coachId').val();
+	sendRequest('extypeUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+}
+	
+////////////////////////////////////////////////////////////////////////////////////////
+//경력 수정 버튼누를때 수정완료버튼 생기고 리드온리 풀리는 함수
+function yearUpdateGo(){
+	$('#coach_yeartext').attr('readonly',false);
+	$('#yearUpdateP').html('');
+	$('#yearUpdateP').html("<input type='button' value='수정완료' onclick='javascript:yearUpdateSubmitAjax();' name='btnintrogo'>");
+}
+//경력 수정 수정버튼 누를때 파람넘겨주는 함수
+function yearUpdateSubmitAjax(){
+	var params = 'coach_year='+$('#coach_yeartext').val()+'&coach_mem_id='+$('#coachId').val();
+	sendRequest('yearUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+}
+////////////////////////////////////////////////////////////////////////////////////////
+//수정되고 넘어왔을때 다시 mem_id로 show 돌려주는 함수
+function showResultIntroAjax(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data=XHR.responseText;
+			data=eval('('+data+')');
+			alert(data.msg);
+			show(data.mem_id);
+		}
+	}
+}
+
+$(function(){
+	/*다시모든걸 리셋해야함*/
+	$('#coachId').on('click',function(){
+		if($('input[name=introReset]').val()== '수정완료'){
+			$('.introUpdatePClass').html("<input type='button' value='소개글 수정' name='introReset' onclick='javascript:introUpdateGo();'>");
+
+			$('input[type=text]').attr('readonly',true);
+		}
+	});
+		
+});
+</script>
+
+
+<!-- 제이슨 부분 -->
 </body>
 </html>

@@ -22,7 +22,6 @@
             <h3>홈짐 조회</h3>
             <form action="#">
                   <ul class="test-inline">
-                     <li><select><option>전체</option></select></li>
                      <li><select><option>아이디</option></select></li>
                      <li><input type="text" value="내용을입력해주세요"></li>
                      <li><input type="submit" value="검색"></li>
