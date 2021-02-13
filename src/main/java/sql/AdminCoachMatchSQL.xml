@@ -72,4 +72,12 @@
   		 where
   		  coach_mem_id = #{value}
   	</select>
+  	<update id="adminCoachAddrUpdate" parameterType="String">
+  	  update zipcok_member set
+         mem_zipcode=#{mem_zipcode},
+         mem_addr=#{mem_addr},
+         mem_detailaddr#{mem_deatailaddr}
+         where 
+         mem_id=#{id}
+  	</update>
   </mapper>

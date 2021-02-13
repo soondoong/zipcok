@@ -42,5 +42,10 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 		
 		return dto2;
 	}
+	@Override
+	public int adminCoachProfileAddrUpdate(String coach_mem_id) {
+		int count=sqlMap.update("adminCoachAddrUpdate", coach_mem_id);
+		return count;
+	}
 
 }

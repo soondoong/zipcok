@@ -13,4 +13,5 @@ public interface AdminCoachMatchDAO {
 	public List<MemberAllDTO> coachMatchSearch(HashMap<String, Object> map);//코치관리페이지 리스트 뽑기
 	public CoachDTO adminCoachProfile(String id);
 	public PyoAdDTO adminToCharDate(String id);
+	public int adminCoachProfileAddrUpdate(String id);
 }
