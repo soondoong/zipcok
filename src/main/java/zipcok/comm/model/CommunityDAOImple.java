@@ -1,7 +1,9 @@
 package zipcok.comm.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,28 @@ public class CommunityDAOImple implements CommunityDAO {
 	public MemberAllDTO memberList(String mem_id) {
 		MemberAllDTO memberList=sqlMap.selectOne("memberListSQL",mem_id);
 		return memberList;
+	}
+	
+	//날짜에 맞는 게시물 찾기
+	@Override
+	public ExBbsDTO getDayContent(String ex_id, String ex_writedate, int ex_comm_idx) {
+		Map map=new HashMap();
+		map.put("ex_id", ex_id);
+		map.put("ex_writedate", ex_writedate);
+		map.put("ex_comm_idx", ex_comm_idx);
+		ExBbsDTO dayContent=sqlMap.selectOne("getDayContentSQL",map);
+		return dayContent;
+	}
+	
+	//운동글에 답글 달았는지 찾기 -> 리턴값 날짜로
+	@Override
+	public List<Integer> getDayGroup(String ex_id, int ex_comm_idx, int ex_group) {
+		Map map=new HashMap();
+		map.put("ex_id", ex_id);
+		map.put("ex_comm_idx", ex_comm_idx);
+		map.put("ex_group", ex_group);
+		List<Integer> getDayGroup=sqlMap.selectList("getDayGroupSQL",map);
+		return getDayGroup;
 	}
 
 }
