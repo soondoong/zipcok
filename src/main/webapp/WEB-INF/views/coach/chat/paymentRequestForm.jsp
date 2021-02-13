@@ -11,7 +11,7 @@
 </style>
 <!-- 결제요청서 영역 -->
 <form id="prForm" action="paymentReqInsert.do" method="post">  
-<input type="hidden" name="pr_msg_idx" value="1"><!-- 메세지 번호 -->
+<input type="hidden" name="pr_msg_idx" id="pr_msg_idx" value="1"><!-- 메세지 번호 -->
 <input type="hidden" name="pr_req_idx" value="${reqdto.req_idx }"><!-- 요청서번호 -->
 <input type="hidden" name="pr_receiver" value="${rdto.mem_id }"><!-- 받는이 아이디 -->
 <input type="hidden" name="pr_sender" value="${login.mem_id }"><!-- 보내는이 아이디 -->

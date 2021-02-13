@@ -12,7 +12,7 @@
 .allchatWrap .othermanInfo .infos .type,.gender { margin-right: 5px; background: #318dea; color: #ffffff; border-radius: 10px; padding: 0 10px; line-height: 20px;}
 .allchatWrap .othermanInfo .infos .rightgt{margin:0 6px 0 6px;}
 .allchatWrap .othermanInfo .infos .reqcont {margin:10px 0 0 0;}
-.allchatWrap .othermanInfo .hammenu{font-size:30px; position: relative; left:44%; color:#323335; cursor: pointer;}
+.allchatWrap .othermanInfo .hammenu{font-size:30px;  position: relative; left:48%;  color:#323335; cursor: pointer;}
 
 
 
@@ -49,7 +49,7 @@
 #btnSend{width:60px; height:60px;cursor: pointer; color: white; font-size: 48px; padding: 17px 0 0 0; transform : rotate(28deg);}
 
 /*결제요청서 div*/
-.pmDiv{position:absolute; margin:0 auto; top:100px; left:30%; width:400px;height:550px; display: block; }
+.pmDiv{position:absolute; margin:0 auto; top:100px; left:30%; width:400px;height:550px; display: none; }
 .mn{ font-size:17px; color: #256abf; border:3px solid #256abf; border-radius: 6px;margin:3px 15px 0 0;}
 .mprtitle{margin-right: 20px; font-size: 16px; font-weight: bold;}
 .mprprice{font-size:17px; margin-right: 10px;}

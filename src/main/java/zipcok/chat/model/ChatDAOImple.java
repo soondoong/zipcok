@@ -102,7 +102,11 @@ public int paymentReqInsert(Payment_RequestDTO prdto) {
 	return count;
 }
 	
-	
+@Override
+	public int RecentPrMsgIdx(HashMap<String, Object> map) {
+		int prmsg_idx = sqlMap.selectOne("RecentPrMsgIdx", map);
+		return prmsg_idx;
+	}	
 	
 	
 	

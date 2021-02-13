@@ -28,6 +28,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.google.gson.Gson;
 import zipcok.chat.model.*;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.MemberDTO;
 
 
@@ -82,12 +83,26 @@ public class Websocket extends TextWebSocketHandler {
 
 			  Map<String, Object> map = null;
 		      MessageDTO msgdto = MessageDTO.convertMessage(message.getPayload()); //msg정보다들어있는 dto
-		      int unreadCnt = 1;
-		      
-		      
+		  
+		      	      
 		      if(msgdto.getMsg_type().equals("텍스트")) {
 		    	  
-					    	  //1단계 메시지먼저보내기
+		    	  
+					    		//1단계		      
+						      System.out.println("메세지 : " + msgdto.toString());
+						      
+						      int result =0;
+								try {
+									result = chatdao.insertMessage(msgdto);
+								} catch (Exception e) {
+								
+									e.printStackTrace();
+								}
+								    if(result>0) {System.out.println("===일반msg저장성공====");}
+								    
+		    	  
+		    	  
+					    	  //2단계 메시지보내기
 						      for (WebSocketSession websocketSession : sessionList) {
 						        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
 						    	
@@ -99,13 +114,17 @@ public class Websocket extends TextWebSocketHandler {
 								            Gson gson = new Gson();
 								            String msgJson = gson.toJson(msgdto);
 								            websocketSession.sendMessage(new TextMessage(msgJson));
-								            unreadCnt = 0;
+								        
 								         }			
 						      }
 					    	  
-							//2단계		      
+						
+		      }else if(msgdto.getMsg_type().equals("결제요청서")){
+				  
+		    	  
+		    	  	//1단계 결제요청서타입인거 확인 후 메시지 저장후 채팅방에다시뿌려주기		      
 								      System.out.println("메세지 : " + msgdto.toString());
-								      msgdto.setUnReadCount(unreadCnt);
+								     
 								      int result =0;
 										try {
 											result = chatdao.insertMessage(msgdto);
@@ -113,11 +132,27 @@ public class Websocket extends TextWebSocketHandler {
 										
 											e.printStackTrace();
 										}
-										    if(result>0) {System.out.println("===일반msg저장성공====");}
-
-		      }else if(msgdto.getMsg_type().equals("결제요청서")){
-				    	  
-				     	  //1단계 결제요청서타입인거 확인만해서 채팅방에다시뿌려주기
+										    if(result>0) {System.out.println("===결제요청서msg저장성공====");}
+					    	  //2단계  방금만들어진 메시지 idx를 넣어서 dto수정해야함
+										HashMap<String, Object> prkeymap = new HashMap<String, Object>();
+										int croom_idx = msgdto.getMsg_croom_idx();
+										String type=msgdto.getMsg_type();
+										prkeymap.put("msg_type",type);
+										prkeymap.put("croom_idx",croom_idx);
+										int prmsg_idx=chatdao.RecentPrMsgIdx(prkeymap);
+				     	 
+										int pr_msg_idx = prmsg_idx;
+										int pr_req_idx = msgdto.getMsg_req_idx();
+										String pr_price=msgdto.getMsg_file_upload();
+										String pr_start = msgdto.getMsg_file_path();
+										String pr_end = msgdto.getReceiver_user_name();
+										String pr_content=msgdto.getMsg_content();
+										String pr_sender = msgdto.getMsg_sender();
+										String pr_receiver = msgdto.getMsg_receiver();
+										Payment_RequestDTO prdto = new Payment_RequestDTO(0, pr_msg_idx, pr_req_idx, pr_price, pr_start, pr_end, pr_content, "d", "d", pr_sender, pr_receiver) ;
+										
+										int result22=chatdao.paymentReqInsert(prdto);
+										
 					      for (WebSocketSession websocketSession : sessionList) {
 					        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
 					    	
@@ -129,80 +164,16 @@ public class Websocket extends TextWebSocketHandler {
 							            Gson gson = new Gson();
 							            String msgJson = gson.toJson(msgdto);
 							            websocketSession.sendMessage(new TextMessage(msgJson));
-							            unreadCnt = 0;
+							           
 							         }			
 					      }
-				    	  
-						//2단계		      
-							      System.out.println("메세지 : " + msgdto.toString());
-							      msgdto.setUnReadCount(unreadCnt);
-							      int result =0;
-									try {
-										result = chatdao.insertMessage(msgdto);
-									} catch (Exception e) {
-									
-										e.printStackTrace();
-									}
-									    if(result>0) {System.out.println("===결제요청서msg저장성공====");}
-				    	  
+			
 		    	  
 		      }
 		      
 		
 	  }
 
-	
-	
-	@Override
-	protected void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
-		// 파일메세지
-		//바이너리 메시지 발송
-		           
-		System.out.println("binarymsg!!!"+message.getPayload());
-			
-			
-			 
-				ByteBuffer byteBuffer = message.getPayload();
-				String fileName = "temp.jpg"; 
-				String file_path=c.getRealPath("/upload/coach/"); 
-				File dir = new File(file_path);
-				
-				if(!dir.exists()) {
-					dir.mkdirs();
-				}
-				
-				File file = new File(file_path, fileName);
-				FileOutputStream out = null;
-				FileChannel outChannel = null;
-				try {
-					byteBuffer.flip(); //byteBuffer를 읽기 위해 세팅
-					out = new FileOutputStream(file, true); //생성을 위해 OutputStream을 연다.
-					outChannel = out.getChannel(); //채널을 열고
-					byteBuffer.compact(); //파일을 복사한다.
-					outChannel.write(byteBuffer); //파일을 쓴다.
-				}catch(Exception e) {
-					System.out.println("파일쓰기오류");
-					e.printStackTrace();
-				}finally {
-					try {
-						if(out != null) {
-							out.close();
-						}
-						if(outChannel != null) {
-							outChannel.close();
-						}
-					}catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				
-				byteBuffer.position(0); //파일을 저장하면서 position값이 변경되었으므로 0으로 초기화한다.
-			
-			
-				
-				
-			
-	}	
 	
 	
 	@Override
