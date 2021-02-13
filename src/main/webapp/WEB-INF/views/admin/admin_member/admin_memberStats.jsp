@@ -34,31 +34,7 @@
             <br><br><br><br>
             
             
-			<h3>회원 등급별 통계</h3>
-            <div><!-- 회원목록부분 테이블 div -->
-               <table border="1" cellspacing="0">
-                  <thead>
-                     <tr>
-                        <th>회원 등급</th>
-                        <th>회원 수</th>
-                        <th>비율</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>일반회원</td>
-                        <td>83명</td>
-                        <td>70%</td>
-                     </tr>
-                     <tr>
-                        <td>코치회원</td>
-                        <td>20명</td>
-                        <td>30%</td>
-                     </tr>
-                  </tbody>
-              
-               </table>
-            </div>
+			
             
          </div>
       </div>

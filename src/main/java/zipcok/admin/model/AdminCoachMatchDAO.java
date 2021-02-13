@@ -13,5 +13,10 @@ public interface AdminCoachMatchDAO {
 	public List<MemberAllDTO> coachMatchSearch(HashMap<String, Object> map);//코치관리페이지 리스트 뽑기
 	public CoachDTO adminCoachProfile(String id);
 	public PyoAdDTO adminToCharDate(String id);
-	public int adminCoachProfileAddrUpdate(String id);
+	public int adminCoachIntroUpdate(HashMap<String, Object> map);
+	public int adminCoachMatUpdate(HashMap<String, Object> map);
+	public int adminCoachExtypeUpdate(HashMap<String, Object> map);
+	public int adminCoachYearUpdate(HashMap<String, Object> map);
+	public int adminCoachFlocUpdate(HashMap<String, Object> map);
+	
 }

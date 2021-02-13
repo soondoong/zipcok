@@ -52,7 +52,6 @@
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr>
-							<th><input type="radio"></th>
 							<th>번호</th>
 							<th>이름</th>
 							<th>아이디</th>
@@ -65,7 +64,6 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="radio"></td>
 							<td>1</td>
 							<td>구병모</td>
 							<td>qudah123</td>
@@ -78,10 +76,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="9">페이징 들어갈 자리</td>
-						</tr>
-						<tr>
-							<td colspan="9" align="right"><input type="button" value="내역보기"></td>
+							<td colspan="8">페이징 들어갈 자리</td>
 						</tr>
 					</tfoot>
 				</table>

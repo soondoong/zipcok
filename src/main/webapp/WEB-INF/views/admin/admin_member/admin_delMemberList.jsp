@@ -49,27 +49,23 @@
                <table border="1" cellspacing="0">
                   <thead>
                      <tr>
-                        <th><input type="checkbox"></th>
                         <th>번호</th>
                         <th>이름</th>
                         <th>회원등급</th>
                         <th>탈퇴일</th>
-                        <th>관리</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr>
-                        <td><input type="checkbox"></td>
                         <td>1</td>
                         <td>구병모</td>
                         <td>일반회원</td>
                         <td>2021.02.10</td>
-                        <td><input type="button" value="복원"></td>
                      </tr>
                   </tbody>
                   <tfoot>
                      <tr>
-                        <td colspan="6" align="center">페이징 들어갈 자리</td>
+                        <td colspan="4" align="center">페이징 들어갈 자리</td>
                      </tr>
                   </tfoot>
                </table>

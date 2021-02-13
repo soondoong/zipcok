@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,15 +98,114 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
-	//코치 프로필 활동지역 수정
-	@RequestMapping("adminAddrUpdate.do")
-	public ModelAndView adminAddrUpdate(String coach_mem_id) {
-		ModelAndView mav=new ModelAndView();
-		int result=adminCoachMatchDao.adminCoachProfileAddrUpdate(coach_mem_id);
-		mav.setViewName("admin/admin_coachMatchAdmin");
+	//코치 프로필 활동지역 수정팝업띄우기
+	@RequestMapping("flocUpdatePopup.do")
+	public ModelAndView adminFlocUpdateForm(
+			@RequestParam("coachidText")String coach_mem_id) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("coach_mem_id", coach_mem_id);
+		mav.setViewName("admin/admin_coachMatch/adminAddrUpdate");
+		return mav;
+	}
+	//코치프로필 활동지역 실제 수정하기
+	@RequestMapping("flocUpdate.do")
+	public ModelAndView adminFlocUpdate(
+			@RequestParam("coach_floc")String coach_floc,
+			@RequestParam("coach_sloc")String coach_sloc,
+			@RequestParam("coach_mem_id")String coach_mem_id) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("coach_floc", coach_floc);
+		map.put("coach_sloc", coach_sloc);
+		map.put("coach_mem_id", coach_mem_id);
+		
+		int result = adminCoachMatchDao.adminCoachFlocUpdate(map);
+		String msg = result>0?"활동지역을 수정하였습니다	":"에베베베베베베";
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	
+	//코치 프로필 소개글 수정
+	@RequestMapping("introUpdateSubmitAjax.do")
+	public ModelAndView adminCoachIntroUpdate(
+			@RequestParam("coach_intro_sub")String coach_intro_sub,
+			@RequestParam("coach_intro_cont")String coach_intro_cont,
+			@RequestParam("coach_mem_id")String coach_mem_id) {
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("coach_intro_sub", coach_intro_sub);
+		map.put("coach_intro_cont", coach_intro_cont);
+		map.put("coach_mem_id", coach_mem_id);
+		
+		int result=adminCoachMatchDao.adminCoachIntroUpdate(map);
+		System.out.println(coach_mem_id);
+		String msg=result>0?"소개글을 수정하였습니다":"에베베베베베";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",msg);
+		mav.addObject("mem_id",coach_mem_id);
+		
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	//코치프로필 준비물 수정
+	@RequestMapping("matUpdateSubmitAjax.do")
+	public ModelAndView adminCoachMatUpdate(
+			@RequestParam("coach_mem_id")String coach_mem_id,
+			@RequestParam("coach_mat")String coach_mat) {
+		
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("coach_mat", coach_mat);
+		map.put("coach_mem_id", coach_mem_id);
+		
+		int result=adminCoachMatchDao.adminCoachMatUpdate(map);
+		String msg=result>0?"준비물을 수정하였습니다":"에베베베베베베";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("mem_id", coach_mem_id);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	//코치프로필 강의유형 수정
+	@RequestMapping("extypeUpdateSubmitAjax.do")
+	public ModelAndView adminCoachExtypeUpdate(
+			@RequestParam("coach_mem_id")String coach_mem_id,
+			@RequestParam("coach_ex_type")String coach_ex_type) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("coach_mem_id", coach_mem_id);
+		map.put("coach_ex_type", coach_ex_type);
+		
+		int result=adminCoachMatchDao.adminCoachExtypeUpdate(map);
+		String msg = result>0?"강의유형을 수정하였습니다":"에베베베베베베";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("mem_id", coach_mem_id);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	//코치프로필 경력 수정
+	@RequestMapping("yearUpdateSubmitAjax.do")
+	public ModelAndView adminCoachYearUpdate(
+			@RequestParam("coach_year")int coach_year,
+			@RequestParam("coach_mem_id")String coach_mem_id) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("coach_year", coach_year);
+		map.put("coach_mem_id", coach_mem_id);
+		int result = adminCoachMatchDao.adminCoachYearUpdate(map);
+		String msg = result>0?"코치 경력을 수정하였습니다":"에베베베베베베";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("mem_id", coach_mem_id);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 	
 	

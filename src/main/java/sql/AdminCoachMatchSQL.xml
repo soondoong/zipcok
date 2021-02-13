@@ -72,12 +72,37 @@
   		 where
   		  coach_mem_id = #{value}
   	</select>
-  	<update id="adminCoachAddrUpdate" parameterType="String">
-  	  update zipcok_member set
-         mem_zipcode=#{mem_zipcode},
-         mem_addr=#{mem_addr},
-         mem_detailaddr#{mem_deatailaddr}
-         where 
-         mem_id=#{id}
+  	
+  	<update id="adminCoachIntroUpdate" parameterType="HashMap">
+  		update coach_regist set
+  		coach_intro_sub=#{coach_intro_sub},
+  		coach_intro_cont=#{coach_intro_cont}
+  		where
+  		coach_mem_id = #{coach_mem_id}
+  	</update>
+  	<update id="adminCoachMatUpdate" parameterType="HashMap">
+  		update coach_regist set
+  		coach_mat=#{coach_mat}
+  		where
+  		coach_mem_id = #{coach_mem_id}
+  	</update>
+  	<update id="adminCoachExtypeUpdate" parameterType="HashMap">
+  		update coach_regist set
+  		coach_ex_type=#{coach_ex_type}
+  		where
+  		coach_mem_id = #{coach_mem_id}
+  	</update>
+  	<update id="adminCoachYearUpdate" parameterType="HashMap">
+  		update coach_regist set
+  		coach_year=#{coach_year}
+  		where
+  		coach_mem_id = #{coach_mem_id}
+  	</update>
+  	<update id="adminCoachFlocUpdate" parameterType="HashMap">
+  		update coach_regist set
+  		coach_floc=#{coach_floc},
+  		coach_sloc=#{coach_sloc}
+  		where
+  		coach_mem_id = #{coach_mem_id}
   	</update>
   </mapper>
