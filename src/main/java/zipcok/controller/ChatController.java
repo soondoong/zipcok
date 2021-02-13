@@ -113,39 +113,52 @@ public class ChatController {
 				list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
-					d.setMsg_idx(dto.getMsg_idx());
-					d.setMsg_croom_idx(dto.getMsg_croom_idx());
-					d.setMsg_req_idx(dto.getMsg_req_idx());
-					d.setMsg_sender(dto.getMsg_sender());
-					d.setMsg_receiver(dto.getMsg_receiver());
-					d.setMsg_content(dto.getMsg_content());
-					d.setMsg_sendtime(dto.getMsg_sendtime());
-					d.setMsg_userid(dto.getMsg_userid());
-					d.setMsg_coachid(dto.getMsg_coachid());
-					d.setUser_name(dto.getUser_name());
-					d.setReceiver_user_name(dto.getReceiver_user_name());
-					d.setMsg_type(dto.getMsg_type());;
+					if(dto == null) {
+						mav.addObject("chatList", list);		
+						mav.setViewName("coachMyPage/chatList");
+						return mav;
+					}else {
+						d.setMsg_idx(dto.getMsg_idx());
+						d.setMsg_croom_idx(dto.getMsg_croom_idx());
+						d.setMsg_req_idx(dto.getMsg_req_idx());
+						d.setMsg_sender(dto.getMsg_sender());
+						d.setMsg_receiver(dto.getMsg_receiver());
+						d.setMsg_content(dto.getMsg_content());
+						d.setMsg_sendtime(dto.getMsg_sendtime());
+						d.setMsg_userid(dto.getMsg_userid());
+						d.setMsg_coachid(dto.getMsg_coachid());
+						d.setUser_name(dto.getUser_name());
+						d.setReceiver_user_name(dto.getReceiver_user_name());
+						d.setMsg_type(dto.getMsg_type());
+					}
 				}
 				mav.addObject("chatList", list);
-				mav.setViewName("mypage/chatRoomList");		
-				
+				//mav.setViewName("mypage/chatRoomList");		
+				mav.setViewName("coachMyPage/chatList");
 			}else { //코치회원용 채팅방목록
 									
 				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");							
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
-					d.setMsg_idx(dto.getMsg_idx());
-					d.setMsg_croom_idx(dto.getMsg_croom_idx());
-					d.setMsg_req_idx(dto.getMsg_req_idx());
-					d.setMsg_sender(dto.getMsg_sender());
-					d.setMsg_receiver(dto.getMsg_receiver());
-					d.setMsg_content(dto.getMsg_content());
-					d.setMsg_sendtime(dto.getMsg_sendtime());
-					d.setMsg_userid(dto.getMsg_userid());
-					d.setMsg_coachid(dto.getMsg_coachid());
-					d.setUser_name(dto.getUser_name());
-					d.setReceiver_user_name(dto.getReceiver_user_name());
-					d.setMsg_type(dto.getMsg_type());
+					if(dto == null) {
+						mav.addObject("chatList", list);		
+						mav.setViewName("coachMyPage/chatList");
+						return mav;
+					}else {
+						d.setMsg_idx(dto.getMsg_idx());
+						d.setMsg_croom_idx(dto.getMsg_croom_idx());
+						d.setMsg_req_idx(dto.getMsg_req_idx());
+						d.setMsg_sender(dto.getMsg_sender());
+						d.setMsg_receiver(dto.getMsg_receiver());
+						d.setMsg_content(dto.getMsg_content());
+						d.setMsg_sendtime(dto.getMsg_sendtime());
+						d.setMsg_userid(dto.getMsg_userid());
+						d.setMsg_coachid(dto.getMsg_coachid());
+						d.setUser_name(dto.getUser_name());
+						d.setReceiver_user_name(dto.getReceiver_user_name());
+						d.setMsg_type(dto.getMsg_type());
+					}
+					
 					
 				}
 				mav.addObject("chatList", list);		

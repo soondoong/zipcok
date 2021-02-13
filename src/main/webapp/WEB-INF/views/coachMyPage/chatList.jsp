@@ -44,30 +44,32 @@
 				<p class="noreq"> 현재 상담 중인 채팅방이 존재하지 않습니다!</p>
 				</c:if> 
 				
+	
 				
-		<c:if test="${!empty list }">		
+		<c:if test="${!empty list }">	
+		<c:if test="${!empty sessionScope.coachId }">
 		<c:forEach var="cdto" items="${list}" >
-
-								<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
-									<c:url value="/gotoChat.do" var="url">
-										 <c:param name="croom_idx" value="${cdto.croom_idx }" />
-									 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
-									 	<c:param name="type" value="${loginAll.mem_type}" />
-									</c:url>
-									
-									<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
-										<c:url value="/roomDelete.do" var="delurl">
-										 <c:param name="id" value="${sessionScope.coachId}" />	 
-									 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
-									 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
-									</c:url>
+						<!--코치버전 대화하기 버튼 클릭시 넘길 파라미터 -->
+							<c:url value="/gotoChat.do" var="url">
+								 <c:param name="croom_idx" value="${cdto.croom_idx }" />
+							 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+							 	<c:param name="type" value="${loginAll.mem_type}" />
+							</c:url>
+							
+							<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
+								<c:url value="/roomDelete.do" var="delurl">
+								 <c:param name="id" value="${sessionScope.coachId}" />	 
+							 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+							 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+							</c:url>
+				
 			<!-- dto시작 -->						
 					<div class="onechat" onclick="javascript:location.href='${url}'">	
 								<div class="chatprofile">
 									<img src="upload/member/${cdto.mfile_upload }" >
 								</div>		
 								
-								<c:if test="${!empty cdto.msg_idx}">
+								<c:if test="${cdto.msg_idx ne ''}">
 									<div class="chatcontents">
 										 <p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<c:choose>
@@ -82,7 +84,7 @@
 									</div>
 								 </c:if>
 									 
-								 <c:if test="${empty cdto.msg_idx}">
+								 <c:if test="${cdto.msg_idx eq ''}">
 								   <div class="chatcontents">
 									 	<p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<p  class="talk">아직 채팅이 시작되지않았습니다!</p>
@@ -90,11 +92,72 @@
 								 </c:if>
 									<div class="opendate">
 										<p>생성일 ${cdto.croom_opendate }</p>
-										<i class="fas fa-door-open btnout"></i>			
+										<i class="fas fa-door-open btnout coachoutbtn"></i>			
 									</div>
 									
 					</div>				 
 					</c:forEach>
+					</c:if>
+					
+		<c:if test="${!empty sessionScope.sid }">
+		<c:forEach var="cdto" items="${list}" >
+
+											<!--일반회원버전 대화하기 버튼 클릭시 넘길 파라미터 -->
+											<c:url value="/gotoChat.do" var="nurl">
+												 <c:param name="croom_idx" value="${cdto.croom_idx }" />
+											 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+											 	 <c:param name="type" value="${login.mem_type}" />
+											</c:url>
+											
+											<!-- 나가기 버튼 클릭시 넘길 파라미터 -->
+												<c:url value="/roomDelete.do" var="ndelurl">
+												 <c:param name="id" value="${sessionScope.sid}" />	 
+											 	<c:param name="croom_idx" value="${cdto.croom_idx}" />
+											 	<c:param name="req_idx" value="${cdto.croom_req_idx}" />
+											</c:url>
+					
+			
+			<!-- dto시작 -->						
+					<div class="onechat" onclick="javascript:location.href='${nurl}'">	
+								<div class="chatprofile">
+									<img src="upload/member/${cdto.mfile_upload }" >
+								</div>		
+								
+								<c:if test="${cdto.msg_idx ne ''}">
+									<div class="chatcontents">
+										 <p class="name">${cdto.mem_name }님과의 채팅방</p>
+										<c:choose>
+										 <c:when test="${cdto.msg_type == '텍스트' }">
+										<p  class="talk" name="msgContent_p" >${cdto.msg_content }</p>
+										</c:when>
+										 <c:when test="${cdto.msg_type == '결제요청서' }">
+										<p class="talk">[결제요청서]</p>
+										</c:when>
+										</c:choose>
+										<p class="talktime">${cdto.msg_sendtime }</p>
+									</div>
+								 </c:if>
+									 
+								 <c:if test="${cdto.msg_idx eq ''}">
+								   <div class="chatcontents">
+									 	<p class="name">${cdto.mem_name }님과의 채팅방</p>
+										<p  class="talk">아직 채팅이 시작되지않았습니다!</p>
+									</div>
+								 </c:if>
+									<div class="opendate">
+										<p>생성일 ${cdto.croom_opendate }</p>
+										<i class="fas fa-door-open btnout normaloutbtn"></i>			
+									</div>
+									
+					</div>				 
+					</c:forEach>
+					</c:if>
+						
+					
+					
+					
+					
+						
 					</c:if>
 				</div><!-- chats -->
 			</div>
@@ -102,11 +165,21 @@
 </div>
 
 <script>
-$('.btnout').on('click',function(e){
+$('.coachoutbtn').on('click',function(e){
 	e.stopPropagation();
 	var result=confirm('채팅방을 나가시겠습니까?');
 	if(result){
 		location.href='${delurl}';
+	}else{
+		
+	}
+});
+
+$('.normaloutbtn').on('click',function(e){
+	e.stopPropagation();
+	var result=confirm('채팅방을 나가시겠습니까?');
+	if(result){
+		location.href='${ndelurl}';
 	}else{
 		
 	}
