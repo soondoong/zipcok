@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import zipcok.member.model.MemberAllDTO;
+
 @Service
 public class CommunityDAOImple implements CommunityDAO {
 
@@ -45,6 +47,20 @@ public class CommunityDAOImple implements CommunityDAO {
 	public CommunityDTO getComInfo(int com_idx) {
 		CommunityDTO dto=sqlMap.selectOne("getComInfoSQL",com_idx);
 		return dto;
+	}
+	
+	//커뮤니티 소속 멤버 아이디 가져오기
+	@Override
+	public List<String> getMemberId(int uc_comm_idx) {
+		List<String> memberIdList=sqlMap.selectList("getMemberIdSQL",uc_comm_idx);
+		return memberIdList;
+	}
+	
+	//회원 정보 가져오기
+	@Override
+	public MemberAllDTO memberList(String mem_id) {
+		MemberAllDTO memberList=sqlMap.selectOne("memberListSQL",mem_id);
+		return memberList;
 	}
 
 }

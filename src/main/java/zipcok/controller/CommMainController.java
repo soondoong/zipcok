@@ -17,6 +17,7 @@ import zipcok.comm.model.CommunityDTO;
 import zipcok.comm.model.ExBbsDAO;
 import zipcok.comm.model.CommunityDAO;
 import zipcok.comm.model.ExBbsDTO;
+import zipcok.member.model.MemberAllDTO;
 
 @Controller
 public class CommMainController {
@@ -68,7 +69,7 @@ public class CommMainController {
 	
 	@RequestMapping("commMain.do") 
 	public ModelAndView mainView(HttpSession session, @RequestParam("com_idx")int com_idx) {	 
-	
+	//커뮤니티 정보 가져와서 세션에 저장
 	CommunityDTO dto=communityDao.getComInfo(com_idx);
 	String coachname=communityDao.getCaochName(dto.getCom_coach_id());
 	session.setAttribute("com_idx",dto.getCom_idx());
@@ -78,15 +79,24 @@ public class CommMainController {
 	session.setAttribute("com_status",dto.getCom_status());
 	session.setAttribute("com_opendate",dto.getCom_opendate());
 	session.setAttribute("coach_name",coachname);
-	
+	//코치 가장 최신글 불러오기
 	ExBbsDTO recentCnt=exBbsDao.recentCoachContent(dto.getCom_idx(), dto.getCom_coach_id());
+	//커뮤니티 멤버 리스트 가져오기
+	List<String> memberIdList=communityDao.getMemberId(com_idx);
+	List<MemberAllDTO> memberList=new ArrayList<MemberAllDTO>();
+	for(int i=0;i<memberIdList.size();i++) {
+		String id=memberIdList.get(i);
+		MemberAllDTO memberdto=communityDao.memberList(id);
+		memberList.add(memberdto);
+	}
+	
 	
 	ModelAndView mav=new ModelAndView();
 	mav.addObject("comminfo", dto);
 	mav.addObject("recentCnt", recentCnt);
 	mav.addObject("mem_name",coachname);
 	mav.addObject("com_idx",dto.getCom_idx());
-	
+	mav.addObject("memberlist",memberList);
 	mav.setViewName("comm/commMainView"); 
 	return mav; 
 	}
