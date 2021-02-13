@@ -34,10 +34,30 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	}
 	
 	@Override
-	public int adminMemberPwdUpdate(String mem_id) {
-		int count = sqlMap.update("adminMemberPwdUpdate", mem_id);
+	public int adminMemberPwdUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberPwdUpdate", dto);
 	      return count;
 	}
+	
+	@Override
+	public int adminMemberNameUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberNameUpdate", dto);
+	      return count;
+	}
+	
+	@Override
+	public int adminMemberPhoneUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberPhoneUpdate", dto);
+	      return count;
+	}
+	
+	@Override
+	public int adminMemberTypeUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberTypeUpdate", dto);
+	      return count;
+	}
+	
+	
 	
 	
 }

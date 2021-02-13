@@ -77,15 +77,18 @@ public class AdminMemberController {
 		return mav;
 	}
 	
+	
+	//관리자 회원 비밀번호 수정
 	@RequestMapping("adminMemberPwdUpdate.do")
 	public ModelAndView adminMemberPwdUpdate(
+			MemberDTO dto,
 			@RequestParam("mem_id") String mem_id,
 			@RequestParam("mem_pwd") String mem_pwd) {
 		
 		ModelAndView mav=new ModelAndView();
 		String msg="";
 		if(mem_pwd!="") {
-			int result=dao.adminMemberPwdUpdate(mem_id);
+			int result=dao.adminMemberPwdUpdate(dto);
 			if(result>0){
 				msg="관리자님이 회원님의 비밀번호를 수정하였습니다.";			
 			}else {
@@ -95,8 +98,91 @@ public class AdminMemberController {
 			msg="관리자님 비밀번호에 공백은 안돼요~.";		
 		}
 		
+		mav.addObject("mem_id", mem_id);
 		mav.addObject("msg", msg);
-		mav.addObject("gourl", "adminMemberManage.do");
+		mav.addObject("gourl", "admin_memberList.do");
+		mav.setViewName("admin/admin_member/admin_memberMsg");
+		return mav;
+	}
+	
+	//관리자 회원 이름 수정
+	@RequestMapping("adminMemberNameUpdate.do")
+	public ModelAndView adminMemberNameUpdate(
+			MemberDTO dto,
+			@RequestParam("mem_id") String mem_id,
+			@RequestParam("mem_name") String mem_name) {
+		
+		ModelAndView mav=new ModelAndView();
+		String msg="";
+		if(mem_name!="") {
+			int result=dao.adminMemberNameUpdate(dto);
+			if(result>0){
+				msg="관리자님이 회원님의 이름을 수정하였습니다.";			
+			}else {
+				msg="뭐하냐 똑디해라";		
+			}		
+		}else{
+			msg="관리자님 이름에 공백은 안돼요~.";		
+		}
+		
+		mav.addObject("mem_id", mem_id);
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "admin_memberList.do");
+		mav.setViewName("admin/admin_member/admin_memberMsg");
+		return mav;
+	}
+	
+	//관리자 회원 폰번호 수정
+	@RequestMapping("adminMemberPhoneUpdate.do")
+	public ModelAndView adminMemberPhoneUpdate(
+			MemberDTO dto,
+			@RequestParam("mem_id") String mem_id,
+			@RequestParam("mem_phone") String mem_phone) {
+		
+		ModelAndView mav=new ModelAndView();
+		String msg="";
+		if(mem_phone!="") {
+			int result=dao.adminMemberPhoneUpdate(dto);
+			if(result>0){
+				msg="관리자님이 회원님의 휴대폰번호를 수정하였습니다.";			
+			}else {
+				msg="뭐하냐 똑디해라";		
+			}		
+		}else{
+			msg="관리자님 휴대폰번호에 공백은 안돼요~.";		
+		}
+		
+		mav.addObject("mem_id", mem_id);
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "admin_memberList.do");
+		mav.setViewName("admin/admin_member/admin_memberMsg");
+		return mav;
+	}
+	
+	
+	//관리자 회원 타입 수정
+	@RequestMapping("adminMemberTypeUpdate.do")
+	public ModelAndView adminMemberTypeUpdate(
+			MemberDTO dto,
+			@RequestParam("mem_id") String mem_id,
+			@RequestParam("mem_type") String mem_type) {
+		
+		ModelAndView mav=new ModelAndView();
+		String msg="";
+		if(mem_type=="일반회원" || mem_type=="코치회원") {
+			int result=dao.adminMemberTypeUpdate(dto);
+			if(result>0){
+				msg="관리자님이 회원님의 회원타입을 수정하였습니다.";			
+			}else {
+				msg="뭐하냐 똑디해라";		
+			}		
+		}else{
+			msg="관리자님 회원타입은 일반회원과 코치회원만 입력가능해요~.";		
+		}
+		
+		mav.addObject("mem_id", mem_id);
+		mav.addObject("msg", msg);
+		mav.addObject("gourl", "admin_memberList.do");
 		mav.setViewName("admin/admin_member/admin_memberMsg");
 		return mav;
 	}
