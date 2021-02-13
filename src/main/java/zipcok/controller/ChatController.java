@@ -111,25 +111,44 @@ public class ChatController {
 			if(mdto.getMem_type().equals("일반회원")) { //일반회원용 채팅방목록
 						
 				list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
-				mav.addObject("chatList", list);
-				ArrayList<MessageDTO> msgarr= new ArrayList<MessageDTO>();
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
-					msgarr.add(dto);
+					d.setMsg_idx(dto.getMsg_idx());
+					d.setMsg_croom_idx(dto.getMsg_croom_idx());
+					d.setMsg_req_idx(dto.getMsg_req_idx());
+					d.setMsg_sender(dto.getMsg_sender());
+					d.setMsg_receiver(dto.getMsg_receiver());
+					d.setMsg_content(dto.getMsg_content());
+					d.setMsg_sendtime(dto.getMsg_sendtime());
+					d.setMsg_userid(dto.getMsg_userid());
+					d.setMsg_coachid(dto.getMsg_coachid());
+					d.setUser_name(dto.getUser_name());
+					d.setReceiver_user_name(dto.getReceiver_user_name());
+					d.setMsg_type(dto.getMsg_type());;
 				}
-				mav.addObject("recentMsgArr", msgarr);
+				mav.addObject("chatList", list);
 				mav.setViewName("mypage/chatRoomList");		
 				
 			}else { //코치회원용 채팅방목록
 									
-				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");	
-				mav.addObject("chatList", list);
-				ArrayList<MessageDTO> msgarr= new ArrayList<MessageDTO>();
+				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");							
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
-					msgarr.add(dto);
+					d.setMsg_idx(dto.getMsg_idx());
+					d.setMsg_croom_idx(dto.getMsg_croom_idx());
+					d.setMsg_req_idx(dto.getMsg_req_idx());
+					d.setMsg_sender(dto.getMsg_sender());
+					d.setMsg_receiver(dto.getMsg_receiver());
+					d.setMsg_content(dto.getMsg_content());
+					d.setMsg_sendtime(dto.getMsg_sendtime());
+					d.setMsg_userid(dto.getMsg_userid());
+					d.setMsg_coachid(dto.getMsg_coachid());
+					d.setUser_name(dto.getUser_name());
+					d.setReceiver_user_name(dto.getReceiver_user_name());
+					d.setMsg_type(dto.getMsg_type());
+					
 				}
-				mav.addObject("recentMsgArr", msgarr);
+				mav.addObject("chatList", list);		
 				mav.setViewName("coachMyPage/chatList");
 			}
 				

@@ -30,7 +30,6 @@
 </style>
 </head>
 <body>
-<c:set var = "msg" value="${recentMsgArr }"/>
 <%@include file="../header2.jsp" %>
 <div class="mypage_wrap">	
 		<%@include file="./coachMypageSideMenu.jsp"%>
@@ -47,7 +46,7 @@
 				
 				
 		<c:if test="${!empty list }">		
-		<c:forEach var="cdto" items="${list}"  varStatus="status">
+		<c:forEach var="cdto" items="${list}" >
 
 								<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
 									<c:url value="/gotoChat.do" var="url">
@@ -68,20 +67,22 @@
 									<img src="upload/member/${cdto.mfile_upload }" >
 								</div>		
 								
-								<c:if test="${!empty msg[status.index].msg_idx}">
+								<c:if test="${!empty cdto.msg_idx}">
 									<div class="chatcontents">
 										 <p class="name">${cdto.mem_name }님과의 채팅방</p>
-										 <c:if test="${msg[status.index].msg_type eq '텍스트' }">
-										<p  class="talk"  name="msgContent_p">${msg[status.index].msg_content }</p>
-										</c:if>
-										 <c:if test="${msg[status.index].msg_type eq '결제요청서' }">
+										<c:choose>
+										 <c:when test="${cdto.msg_type == '텍스트' }">
+										<p  class="talk" name="msgContent_p" >${cdto.msg_content }</p>
+										</c:when>
+										 <c:when test="${cdto.msg_type == '결제요청서' }">
 										<p class="talk">[결제요청서]</p>
-										</c:if>
-										<p class="talktime">${msg[status.index].msg_sendtime }</p>
+										</c:when>
+										</c:choose>
+										<p class="talktime">${cdto.msg_sendtime }</p>
 									</div>
 								 </c:if>
 									 
-								 <c:if test="${empty msg[status.index].msg_idx}">
+								 <c:if test="${empty cdto.msg_idx}">
 								   <div class="chatcontents">
 									 	<p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<p  class="talk">아직 채팅이 시작되지않았습니다!</p>
@@ -111,11 +112,15 @@ $('.btnout').on('click',function(e){
 	}
 });
 $(function(){
-	var content=$('p[name=msgContent_p]').text();
-	if(content.length>25){
-		var cutcontent = content.substring(0,25);
-		$('p[name=msgContent_p]').text(cutcontent);
+	var conts = $('p[name=msgContent_p]');
+	for(var i=0; i<conts.length; i++){
+		var content=conts.eq(i).text();
+		if(content.length>25){
+			var newcont=content.substring(0,25);
+			conts.eq(i).text(newcont);
+		}
 	}
+
 });
 </script>
 
