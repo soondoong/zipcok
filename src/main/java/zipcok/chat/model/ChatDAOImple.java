@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.cpayment.model.Payment_RequestDTO;
+import zipcok.homegym.model.Payment_detailsDTO;
 
 
 @Service
@@ -95,19 +96,30 @@ public class ChatDAOImple implements ChatDAO{
 		return sqlMap.selectOne("getRecentMessage" , croom_idx);
 	}
 
-/*결제요청서*/
+/*결제요청서등록*/
 @Override
 public int paymentReqInsert(Payment_RequestDTO prdto) {
 	int count = sqlMap.insert("paymentReqInsert",prdto);
 	return count;
 }
-	
+/*결제요청서 하나찾기*/
+@Override
+public Payment_RequestDTO findOnePaymentRequest(Payment_RequestDTO prdto) {
+	Payment_RequestDTO dto = sqlMap.selectOne("findOnePaymentRequest", prdto);
+	return dto;
+}
+/*결제요청서등록할때 이용한 msgidx가져오기*/
 @Override
 	public int RecentPrMsgIdx(HashMap<String, Object> map) {
 		int prmsg_idx = sqlMap.selectOne("RecentPrMsgIdx", map);
 		return prmsg_idx;
+	}
+/*결제하고 내역등록*/
+@Override
+	public int paymentOKListAdd(Payment_detailsDTO dto) {
+		int count = sqlMap.insert("paymentOKListAdd",dto);
+		return count;
 	}	
-	
 	
 	
 	

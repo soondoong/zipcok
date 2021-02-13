@@ -152,7 +152,7 @@ public class Websocket extends TextWebSocketHandler {
 										Payment_RequestDTO prdto = new Payment_RequestDTO(0, pr_msg_idx, pr_req_idx, pr_price, pr_start, pr_end, pr_content, "d", "d", pr_sender, pr_receiver) ;
 										
 										int result22=chatdao.paymentReqInsert(prdto);
-										
+										msgdto.setUnReadCount(prmsg_idx); //msg에 방금생성된 msgidx넣어서보내주기
 					      for (WebSocketSession websocketSession : sessionList) {
 					        map = websocketSession.getAttributes(); //인터셉터에서 받은파라미터정보들
 					    	

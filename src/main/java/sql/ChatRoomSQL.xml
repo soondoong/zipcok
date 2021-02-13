@@ -208,4 +208,27 @@ where
 rownum = 1
 </select>
 
+<select id="findOnePaymentRequest" parameterType="zipcok.cpayment.model.Payment_RequestDTO" resultType="zipcok.cpayment.model.Payment_RequestDTO">
+	select * from 
+	payment_request
+	where
+	pr_msg_idx = #{pr_msg_idx}
+	and
+	pr_req_idx = #{pr_req_idx}
+</select>
+
+<insert id="paymentOKListAdd" parameterType="zipcok.homegym.model.Payment_detailsDTO" >
+		insert into zipcok_payment_details values(
+		zipcok_payment_details_pd_idx.nextval,
+		#{pd_req_idx},
+		#{pd_key},
+		#{pd_code},
+		#{pd_target_id},
+		#{pd_mem_id},
+		#{pd_method},
+		sysdate,
+		'결제완료',
+		#{pd_price}
+		)
+</insert>			
   </mapper>

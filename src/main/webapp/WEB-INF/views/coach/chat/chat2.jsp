@@ -44,8 +44,6 @@ $(function () {
 		 $('#image_sectionDIV').css('display', 'none');  
 			});
 
-	
-	
 	});
 
 </script>
@@ -150,7 +148,7 @@ $(document).ready(function(){
 		  
 		  	<i class="fas fa-bars hammenu" onclick="location.href='chatRoomList.do?mem_id=${login.mem_id}'"></i>
 		 
-	</div>
+	</div><!-- othermanInfo -->  
 	
 	
 	<!-- 채팅 내용 -->
@@ -189,7 +187,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제요청서 삭제하기' class='btn btn-primary'></p>															
+												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-primary'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -237,7 +235,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제하러가기' class='btn btn-primary'></p>															
+												<p><input type='button' value='결제하러가기' onclick="gotoPay('${msgdto.msg_idx}')"class='btn btn-primary'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -680,7 +678,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  	 var start=msg.msg_file_path;
  	 var end=msg.receiver_user_name;
  	 var cont=msg.msg_content;
- 	 
+ 	 var msgidx=msg.unReadCount; //결제요청서가담긴메세지번호 ajax로받음
  	 var otherid = '${rdto.mem_name}';
  	 $("#chatMessageArea").append(
  			 "<div class='OnechatfromMe OnechatNotMe'>"+
@@ -699,7 +697,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
 										"<p>"+cont+"</p>"+									
-										"<p><input type='button' value='결제하러가기' class='btn btn-primary'></p>"+									
+										"<p><input type='button' value='결제하러가기' class='btn btn-primary' onclick='gotoPay("+msgidx+")'></p>"+									
 									
  					 		"</div>"+
  					 	"</div>"+
@@ -710,7 +708,19 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  	 $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
  }
  
+ //결제로고고(고객만가능)
+ function gotoPay(msgidx){	 
+	//alert(msgidx);
+	var reqidx = '${cdto.croom_req_idx}';  //채팅방번호
+	var coachid= '${cdto.croom_coachid}';  
+	var param='msg_idx='+msgidx+'&req_idx='+reqidx+'&coach_id='+coachid;
+	location.href='gotoCoachPaymentView.do?'+param;
+ }
  
+ //요청서삭제로고고(코치만가능)
+ function deltoPay(msgidx){	 
+		alert(msgidx);
+ }
  
  
  
@@ -758,7 +768,8 @@ $('#pr_OKbtn').on('click',function(){
 		 		if(result){
 		 			 sendPR() ; 
 		 			 $('.pmDiv').css('display','none');
-		 	           $("#prForm")[0].reset();
+		 	          // $("#prForm")[0].reset();
+		 	           window.location.reload();
 		 			/*	pr_msg_idx = msg.msg_req_idx;
 					$('#pr_msg_idx').val(pr_msg_idx);
 		 			/*ajax로 결제요청서등록하기*/

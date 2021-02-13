@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,9 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.chat.model.*;
 import zipcok.coach.model.CoachDAO;
+import zipcok.coach.model.MainCoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.cpayment.model.Payment_RequestDTO;
+import zipcok.homegym.model.PaymentDTO;
+import zipcok.homegym.model.Payment_detailsDTO;
 import zipcok.member.model.*;
 import zipcok.mypage.model.MypageDAO;
 
@@ -152,5 +157,41 @@ public class ChatController {
 			return mav;
 		}
 		
+		
+		/*고객 결제하는 화면으로이동*/
+		@RequestMapping("gotoCoachPaymentView.do")
+		public ModelAndView gotoCoachPaymentView(@RequestParam("msg_idx")int msg_idx,
+				@RequestParam("req_idx")int req_idx,
+				@RequestParam("coach_id")String coach_id,HttpSession session) {
+			String mem_id=(String)session.getAttribute("sid");
+			//1단계 결제요청서정보가져오기
+			Payment_RequestDTO prdto = new Payment_RequestDTO();
+			prdto.setPr_msg_idx(msg_idx);
+			prdto.setPr_req_idx(req_idx);
+			Payment_RequestDTO dto = chatdao.findOnePaymentRequest(prdto); //결제요청서정보
+			//2단계 코치정보가져오기
+			 HashMap<String, Object> coachmap=  coachdao.coachProfile(coach_id);
+			 //3단계 고객정보가져오기
+			 MemberAllDTO memdto = myPagedao.memberAllProfile(mem_id);
+			ModelAndView mav=new ModelAndView();
+			
+			mav.addObject("prdto", dto);
+			mav.addObject("coachmap", coachmap);
+			mav.addObject("memdto", memdto);
+			mav.setViewName("coach/coachPaymentView");
+			return mav;
+		}
+		
+		/*실제 결제하기*/
+		@RequestMapping("CoachPayOKListAdd.do")
+		public ModelAndView CoachPayOKListAdd(	Payment_detailsDTO dto,HttpSession session) {
+			int pd_result = chatdao.paymentOKListAdd(dto);
+			String msg=pd_result>0?msg="결제가 완료되었습니다.":"결제실패";
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("msg", msg);
+			mav.addObject("gopage", "mypageCoachMatchPayList.do?mem_id="+(String)session.getAttribute("sid"));
+			mav.setViewName("coach/joinMsg");
+			return mav;
+		}
 		
 }
