@@ -9,25 +9,28 @@
 <link href="assets/css/mypage.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <style>
-.chatroomDiv{ display:flex; max-width: 1000px;}
-.chatroomDiv .chattt{ justify-content: center; padding:60px 0 100px 60px;}
-.chatroomDiv .chattt .chats .onechat{ display:flex; cursor:pointer; border:1px solid #e5e6e8; border-radius:7px; margin:0 0 10px 0; box-shadow: 5px 5px 5px #e5e6e8; }
+.chatroomDiv{ display:flex; max-width:1000px; width:800px; }
+.chatroomDiv .chattt{ width:inherit;  justify-content: center; padding:60px 0 60px 60px;}
+.chatroomDiv .chattt .chats .onechat{  display:flex; justify-content:space-between; height:160px;   cursor:pointer; border-top:4px solid #257cda; border-bottom:1px solid #e5e6e8; margin:0 0 10px 0; box-shadow: 5px 5px 5px #e5e6e8; }
 .chatroomDiv .chattt .zipcoktalk:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
 .chatroomDiv .chattt .zipcoktalk{font-weight: 550; color:#12151d; margin-bottom:20px;}
 .chatroomDiv .chattt hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 .onechat .chatprofile{padding:10px;}
 .onechat .chatprofile img{width:120px; height: 120px; object-fit: cover; padding:10px; border-radius:50%; }
-.onechat .chatcontents{position: relative; top:34px; left:21px; width:261px;height:140px;}
+.onechat .chatcontents{position:relative; top:14px;  width:300px;height:inherit;}
 .onechat .chatcontents p{margin:0; padding:0;}
-.onechat .chatcontents .name{font-weight: 600; font-size: 19px; color:#12151d; }
-.onechat .chatcontents .talk{font-size: 14px; color:#12151d; margin:10px 0 0 0;}
-.onechat .opendate{font-size: 12px;color:##6f6f71;padding:10px 0 0 0; position:relative; left:17px;}
-.onechat .btnout{position:relative; top:88px; right:15px; font-size: 28px; color:#1a346d;cursor: pointer;}
-.onechat .talktime{font-size: 11px; color:#54545f;}
+.onechat .chatcontents .name{font-weight: 600; font-size: 22px; color:#12151d; }
+.onechat .chatcontents .talk{font-size: 20px; color:#12151d; margin:10px 0 0 10px;}
+.onechat .opendate{font-size: 12px;color:##6f6f71;padding:10px 0 0 0; justify-content: flex-end;}
+.onechat .talktime{font-size: 11px; color:#54545f;position:absolute; right:10px;}
 .noreq{margin:70px 0 0 50px;}
+.opendate{ position:relative; height: 100%; }
+.opendate p{ position:relative;right:20px; font-size: 16px;}
+.onechat .btnout{font-size: 35px; color:#1a346d;cursor: pointer; position:absolute; bottom:20px;right:20px;}
 </style>
 </head>
 <body>
+<c:set var = "msg" value="${recentMsgArr }"/>
 <%@include file="../header2.jsp" %>
 <div class="mypage_wrap">	
 		<%@include file="./coachMypageSideMenu.jsp"%>
@@ -44,7 +47,8 @@
 				
 				
 		<c:if test="${!empty list }">		
-		<c:forEach var="cdto" items="${list}">
+		<c:forEach var="cdto" items="${list}"  varStatus="status">
+
 								<!-- 대화하기 버튼 클릭시 넘길 파라미터 -->
 									<c:url value="/gotoChat.do" var="url">
 										 <c:param name="croom_idx" value="${cdto.croom_idx }" />
@@ -64,27 +68,29 @@
 									<img src="upload/member/${cdto.mfile_upload }" >
 								</div>		
 								
-								<c:if test="${!empty cdto.user_name}">
+								<c:if test="${!empty msg[status.index].msg_idx}">
 									<div class="chatcontents">
 										 <p class="name">${cdto.mem_name }님과의 채팅방</p>
-										<p class="talk">${cdto.user_name} : ${cdto.msg_content }</p>
-										<p class="talktime">${cdto.msg_sendtime }</p>
+										 <c:if test="${msg[status.index].msg_type eq '텍스트' }">
+										<p  class="talk"  name="msgContent_p">${msg[status.index].msg_content }</p>
+										</c:if>
+										 <c:if test="${msg[status.index].msg_type eq '결제요청서' }">
+										<p class="talk">[결제요청서]</p>
+										</c:if>
+										<p class="talktime">${msg[status.index].msg_sendtime }</p>
 									</div>
 								 </c:if>
 									 
-								 <c:if test="${empty cdto.user_name}">
+								 <c:if test="${empty msg[status.index].msg_idx}">
 								   <div class="chatcontents">
 									 	<p class="name">${cdto.mem_name }님과의 채팅방</p>
 										<p  class="talk">아직 채팅이 시작되지않았습니다!</p>
 									</div>
 								 </c:if>
 									<div class="opendate">
-										<label>생성일 ${cdto.croom_opendate }</label>
+										<p>생성일 ${cdto.croom_opendate }</p>
+										<i class="fas fa-door-open btnout"></i>			
 									</div>
-																	
-															
-										<i class="fas fa-door-open btnout"></i>														
-									
 									
 					</div>				 
 					</c:forEach>
@@ -104,7 +110,13 @@ $('.btnout').on('click',function(e){
 		
 	}
 });
-
+$(function(){
+	var content=$('p[name=msgContent_p]').text();
+	if(content.length>25){
+		var cutcontent = content.substring(0,25);
+		$('p[name=msgContent_p]').text(cutcontent);
+	}
+});
 </script>
 
  <%@include file="../_include/footer.jsp" %>

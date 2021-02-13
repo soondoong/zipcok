@@ -98,69 +98,37 @@ croom_req_idx = #{croom_req_idx}
 
 <select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 
-select
-modu.*,zm.mem_name,mf.mfile_upload
-from 
-
-(select * from 
-(select * from chatroom where croom_userid = #{id})room left outer join 
-
-(select 
-a.*
+select room.*,mem_name,mfile_upload
 from
-(select *
-from message
-order by msg_sendtime desc)a
-where 
-rownum = 1)msg
-
-on
-room.croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
-
-where
+(select * from
+ chatroom 
+ where 
+ croom_userid = #{id} )room,member_file mf,zipcok_member zm
+ where
 croom_coachid = mf.mfile_mem_id
 and
 mf.mfile_key = '회원프로필'
 and
 croom_coachid = zm.mem_id
 order by croom_req_idx desc
-
-
-
-
 </select>
 
 
 <select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
 
-select
-modu.*,zm.mem_name,mf.mfile_upload
-from 
-
-(select * from 
-(select * from chatroom where croom_coachid = #{id})room left outer join 
-
-(select 
-a.*
+select room.*,mem_name,mfile_upload
 from
-(select *
-from message
-order by msg_sendtime desc)a
-where 
-rownum = 1)msg
-
-on
-room.croom_idx= msg_croom_idx(+))modu, member_file mf,zipcok_member zm
-
-where
+(select * from
+ chatroom 
+ where 
+ croom_coachid = #{id} )room,member_file mf,zipcok_member zm
+ where
 croom_userid = mf.mfile_mem_id
 and
 mf.mfile_key = '회원프로필'
 and
 croom_userid = zm.mem_id
 order by croom_req_idx desc
-
-
 </select>
 
 
@@ -217,8 +185,8 @@ rownum = 1
 	pr_req_idx = #{pr_req_idx}
 </select>
 
-<select id="isPaymentCount" parameterType="zipcok.cpayment.model.Payment_RequestDTO" resultType="Integer" >
-select count(pr_idx)
+<select id="isPaymentCount" parameterType="zipcok.cpayment.model.Payment_RequestDTO" resultType="zipcok.cpayment.model.Payment_RequestDTO" >
+select *
 from payment_request
 where
 pr_msg_idx = #{pr_msg_idx}
@@ -232,6 +200,8 @@ where
 pr_msg_idx = #{pr_msg_idx}
 and
 pr_req_idx =  #{pr_req_idx}
+and
+pr_status = '상담중'
 </delete>
 
 <update id="paymentRequestStatusChange" parameterType="HashMap">
@@ -239,9 +209,8 @@ update payment_request
 set
 pr_status = '결제완료'
 where
-pr_msg_idx = #{pr_msg_idx}
-and
-pr_req_idx =  #{pr_req_idx}
+pr_idx = #{pr_idx}
+
 </update>
 
 <insert id="paymentOKListAdd" parameterType="zipcok.homegym.model.Payment_detailsDTO" >

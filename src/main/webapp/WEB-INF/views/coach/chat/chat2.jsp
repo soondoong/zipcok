@@ -163,7 +163,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-danger'></p>															
+												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-danger delbtn'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -211,7 +211,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
 												<p>${msgdto.msg_content}</p>								
-												<p><input type='button' value='결제하러가기' onclick="gotoPay('${msgdto.msg_idx}')"class='btn btn-danger'></p>															
+												<p><input type='button' value='결제하러가기' onclick="gotoPay('${msgdto.msg_idx}')"class='btn btn-primary gotopaybtn'></p>															
 									 	   </div>
 										</div>
 										<div class='sendtime' >${msgdto.msg_sendtime}</div>
@@ -256,7 +256,7 @@ $(document).ready(function(){
 					<a href="#" id="imgDel" ><i class="fas fa-minus-square" style="font-size:2rem;"></i></a>			
 				</div>
 			
-				<textarea class="form-control" placeholder="Enter ..."  id="message-input"> </textarea>
+				<textarea class="form-control" placeholder="Enter ..."  id="message-input" onkeyup="lengthLimit()"> </textarea>
 			</div>
 			
 			<!-- 전송버튼 -->
@@ -407,12 +407,18 @@ $( '#startDate' ).on('change', function(){
 /*상담요청서 글자수 제한*/
 function lengthLimit(){
     var content = $('#requestText').val();
-
+    var msgcontent = $('#message-input').val();
     if (content.length > 200){
         alert("최대 200자까지 입력 가능합니다.");
         $('#requestText').val(content.substring(0, 200));
     }
+    
+    if (msgcontent.length > 150){
+        alert("최대 150자까지 입력 가능합니다.");
+        $('#message-input').text(content.substring(0,150));
+    }
 }
+
 </script>
 			
 
@@ -695,7 +701,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
 										"<p>"+cont+"</p>"+									
-										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-danger'></p>"+									
+										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-danger delbtn'></p>"+									
 									
  					 		"</div>"+
  					 	"</div>"+
@@ -738,7 +744,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
 										"<p>"+cont+"</p>"+									
-										"<p><input type='button' value='결제하러가기' class='btn btn-danger' onclick='gotoPay("+msgidx+")'></p>"+									
+										"<p><input type='button' value='결제하러가기' class='btn btn-primary gotopaybtn' onclick='gotoPay("+msgidx+")'></p>"+									
 									
  					 		"</div>"+
  					 	"</div>"+
@@ -752,15 +758,16 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
  //결제로고고(고객만가능)
  function gotoPay(msgidx){	 
 	//alert(msgidx);
-	var reqidx = '${cdto.croom_req_idx}';  //채팅방번호
+	var reqidx = '${cdto.croom_req_idx}';  
+	var roomidx= '${cdto.croom_idx}'; 
 	var coachid= '${cdto.croom_coachid}';  
-	var param='msg_idx='+msgidx+'&req_idx='+reqidx+'&coach_id='+coachid;
+	var param='msg_idx='+msgidx+'&req_idx='+reqidx+'&coach_id='+coachid+'&croom_idx='+roomidx;
 	location.href='gotoCoachPaymentView.do?'+param;
  }
  
  //요청서삭제로 고고(코치만가능)
  function deltoPay(msgidx){
-	var reqidx = '${cdto.croom_req_idx}';  //채팅방번호
+	var reqidx = '${cdto.croom_req_idx}'; 
 	var roomidx= '${cdto.croom_idx}';  
 	var param='msg_idx='+msgidx+'&req_idx='+reqidx+'&croom_idx='+roomidx;
 	location.href='gotoCoachPaymentDelete.do?'+param;
