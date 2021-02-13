@@ -59,14 +59,42 @@
 	</select>
 	
 	<select id="memberListSQL" resultType="zipcok.member.model.MemberAllDTO">
-		select
-			*
-		from
-			zipcok_member
-		where
+		select 
+			z.* ,mfile_upload
+		from 
+			zipcok_member z,member_file m
+		where 
 			mem_id=#{mem_id}
+		and
+			mfile_mem_id=#{mem_id}
+		and
+			mfile_key='회원프로필'
 	</select>
 	
-
+	<select id="getDayContentSQL" parameterType="HashMap"  resultType="zipcok.comm.model.ExBbsDTO">
+		select 
+			* 
+		from 
+			exer_bbs a 
+		where 
+			ex_id=#{ex_id}
+		and
+			ex_comm_idx=#{ex_comm_idx}
+		and 
+			to_char(a.ex_writedate,'yyyymmdd')=#{ex_writedate}
+	</select>
+	
+	<select id="getDayGroupSQL" parameterType="HashMap"  resultType="Integer">
+		select 
+			to_char(ex_writedate,'yyyymmdd')ex_writedate 
+		from 
+			exer_bbs 
+		where 
+			ex_id=#{ex_id}
+		and 
+			ex_comm_idx=#{ex_comm_idx} 
+		and 
+			ex_group=#{ex_group}
+	</select>
 
 </mapper>
