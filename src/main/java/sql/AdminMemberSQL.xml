@@ -64,9 +64,21 @@
 	<update id="adminMemberPhoneUpdate" parameterType="zipcok.member.model.MemberDTO">
       update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
    </update>
+   
+   <update id="adminMemberEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
+   </update>
 
 	<update id="adminMemberTypeUpdate" parameterType="zipcok.member.model.MemberDTO">
       update zipcok_member set mem_type=#{mem_type} where mem_id=#{mem_id}
+   </update>
+   
+      <update id="adminMemberAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set
+         mem_zipcode=#{mem_zipcode},
+         mem_addr=#{mem_addr},
+         mem_detailaddr=#{mem_detailaddr}
+         where mem_id=#{mem_id}
    </update>
 
   </mapper>

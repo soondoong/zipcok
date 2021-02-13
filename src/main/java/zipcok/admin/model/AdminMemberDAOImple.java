@@ -51,13 +51,26 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	      return count;
 	}
 	
+	
+	@Override
+	public int adminMemberEmailUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberEmailUpdate", dto);
+		return count;
+	}
+	
+	
 	@Override
 	public int adminMemberTypeUpdate(MemberDTO dto) {
 		int count = sqlMap.update("adminMemberTypeUpdate", dto);
 	      return count;
 	}
 	
-	
+	@Override
+	public int adminMemberAddrUpdate(MemberDTO dto) {
+		int count = sqlMap.update("adminMemberAddrUpdate", dto);
+		return count;
+	}
+
 	
 	
 }
