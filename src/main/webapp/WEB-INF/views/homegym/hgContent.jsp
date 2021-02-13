@@ -5,6 +5,7 @@
 <%@include file="../header2.jsp" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css'>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -100,10 +101,11 @@ function end_time_click(){
 		return;
 	}
 }
-function price_result(){
+function time_price_result(){
 	var homegym_price = ${hgContent.hg_price};
 	var start_time = document.getElementById('choice_start_time').value;
 	var end_time = document.getElementById('choice_end_time').value;
+	var person_count = document.getElementById('choice_person_count').value;
 	var reservation_time = end_time - start_time;
 	if(reservation_time<1){
 		window.alert('종료 시간은 시작시간보다 커여합니다.');
@@ -112,7 +114,12 @@ function price_result(){
 	}
 
 	var recent_price = document.getElementById('expect_price');
-	recent_price.innerText = homegym_price * reservation_time;
+	recent_price.innerText = homegym_price * reservation_time * person_count;
+}
+function person_count_price_result(){
+	var person_count = document.getElementById('choice_person_count').value;
+	var recent_price = document.getElementById('expect_price');
+	recent_price.innerText = recent_price.innerText * person_count;
 }
 function reservation(){
 	var use_date = document.getElementById('choice_date').value;
@@ -223,38 +230,36 @@ function ajaxUnLike_rq(){
 }
 </script>
 <style>
-.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px;}
-.top_contentArea{width:80%; height:50%; display:flex; margin:auto;}
+.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 40px; padding-top: 10px;}
+.top_info .top_info_like {position: relative; left:-25px; top:-60px; z-index: 1; }
+.top_contentArea {width:1200px; height:600px; display:flex; margin:auto;}
+.top_contentArea .top_contentArea_img_slide_single {width:600px; height: 350px; margin: 30px auto 1px; overflow: hidden;}
+.top_contentArea .top_contentArea_img_slide_single img {	width: 100%;	min-height: 100%;}
 .top_contentArea .top_contentArea_reservationArea {width: 500px; height:500px;}
 .top_contentArea .top_contentArea_reservationArea li {height:40px;}
-.top_contentArea .top_contentArea_reservationArea select {width:49%;}
+.top_contentArea .top_contentArea_reservationArea select {width:240px;}
+.top_contentArea .top_contentArea_reservationArea input[type=date] {width:240px;}
+.top_contentArea .top_contentArea_reservationArea .expect_price_span {color:red;}
 .top_contentArea .top_contentArea_reservationArea #reservationInfo_click{ display:none;}
-.bottom_contentArea .hgContent {width: 80%; margin: auto;}
-.bottom_contentArea .eqlistArea {width: 80%; margin: auto;}
+.bottom_contentArea {width:1200px; margin:0px auto;}
+.bottom_contentArea .hgContent {text-align: center;}
+.bottom_contentArea .eqlistArea {text-align: center;}
 .bottom_contentArea .eqlistArea .eqlistArea_list{display:flex;}
-.bottom_contentArea .eqlistArea .eqlistArea_list img {width:50px; height:50px;}
-.bottom_contentArea .reserNoticeArea {width: 80%; margin: auto;}
-.bottom_contentArea .mapArea {width: 80%; margin: auto;}
-.bottom_contentArea .reviewArea {width: 80%; margin: auto;}
-
-.top_contentArea_img_slide_single{	width: 500px;	height: 250px;	margin: 30px auto 1px;	overflow: hidden;}
-.top_contentArea_img_slide_single img{	width: 100%;	min-height: 100%;}
-.top_contentArea_img_slide_nav{	width: 500px;	height: 85px;	margin: auto;}
-.top_contentArea_img_slide_nav img{	width: 100%;	min-height: 100%;}
-.top_contentArea_img_slide_nav .slick-track{	height: 85px;}
-.slick-arrow{	position: absolute;    top: 50%;    z-index: 50;    margin-top: -12px;}
-.slick-prev{	left: 0;}
-.slick-next{	right: 0;}
+.bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 25px; font-weight: 300;}
+.bottom_contentArea .eqlistArea .eqlistArea_list img {width:200px; height:100px;}
+.bottom_contentArea .reserNoticeArea {text-align:center;}
+.bottom_contentArea .mapArea {text-align:center;}
+.bottom_contentArea .reviewArea {text-align:center;}
 </style>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
 	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
 	<div class = "top_info_like">
-		<c:if test="${likeContent.hg_like ==0 }">
-			<a href="#" class="ia" id="${ dto.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+		<c:if test="${like_result ==0 }">
+			<a href="#" class="ia" id="${ hgContent.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
 		</c:if>
-		<c:if test="${likeContent.hg_like ==1 }">
-			<a href="#" class="ia toggleStyle" id="${ dto.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+		<c:if test="${like_result ==1 }">
+			<a href="#" class="ia toggleStyle" id="${ hgContent.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
 		</c:if>	
 	</div>
 </div>
@@ -272,11 +277,11 @@ function ajaxUnLike_rq(){
 			<li><input id = "choice_date" name = "reser_date" type = "date"></li>
 			<li>이용 시간</li>
 			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
-				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:price_result();"><option value = "">종료 시간</option></select></li>
+				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:time_price_result();"><option value = "">종료 시간</option></select></li>
 			<li>이용 인원</li>
-			<li><select id = "choice_person_count" name = "reser_person_count"></select></li>
+			<li><select id = "choice_person_count" name = "reser_person_count" onchange = "javscript:person_count_price_result();"></select></li>
 			<li>결제 예상 금액</li>
-			<li><label id = "expect_price">${hgContent.hg_price }</label>원</li>
+			<li><span class = "expect_price_span"><label id = "expect_price">${hgContent.hg_price }</label>원</span></li>
 			<li><input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
 		</ul>
 		<ul id = "reservationInfo_click">
@@ -287,7 +292,7 @@ function ajaxUnLike_rq(){
 			<li>이용 인원</li>
 			<li id = "use_person_count"></li>
 			<li>결제 예상 금액</li>
-			<li><label id = "use_price"></label>원</li>
+			<li><span class = "expect_price_span"><label id = "use_price"></label>원</span></li>
 			<li>
 			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약하기" onclick = "javascript:reservation_ajax();">
 			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "돌아가기" onclick = "javascript:reservation_back_click();">
@@ -300,7 +305,7 @@ function ajaxUnLike_rq(){
 		<h3>홈짐 소개</h3>
 		${hgContent.hg_info }
 		<hr>
-		<h5>이용 요금(1시간 당) : ${hgContent.hg_price }</h5>
+		<h5>이용 요금(1시간 당) : ${hgContent.hg_price } 원</h5>
 		<hr>
 	</div>
 	<div class ="eqlistArea">
@@ -350,3 +355,4 @@ function ajaxUnLike_rq(){
 		</c:if>
 	</div>
 </div>
+<%@include file="../_include/footer.jsp" %>

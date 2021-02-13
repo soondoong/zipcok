@@ -145,17 +145,35 @@ public class HomeGymController {
 	
 	@RequestMapping("HomeGymContent.do")
 	public ModelAndView HomeGymContent(
-			@RequestParam(value = "hg_mem_id")String homegymId) {
+			@RequestParam(value = "hg_mem_id")String homegymId,
+			HttpSession session) {
 		HomeGymDTO hgContent = homegymDAO.HomeGymContent(homegymId);
 		hgContent.setHg_faddr(hgContent.getHg_faddr().substring(0, hgContent.getHg_faddr().indexOf("구")+1));
 		List<HomeGymEquipmentDTO> eqContent = homegymeqDAO.HomeGymEquipmentContent(homegymId);
 		List<CoachFileDTO> imgContent = homegymDAO.HomeGymImageContent(homegymId);
 		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(homegymId);
+		Map<String, String> like_option = new HashMap<String, String>();
+		int like_result = 0;
+		if((String)session.getAttribute("sid")!=null) {
+			String user_id = (String)session.getAttribute("sid");
+			String target_id = hgContent.getHg_mem_id();
+			like_option.put("like_mem_id", user_id);
+			like_option.put("like_target_id", target_id);
+			like_result = homegymDAO.HomeGymLikeSelect(like_option);
+		}
+		else if((String)session.getAttribute("coachId")!=null) {
+			String user_id = (String)session.getAttribute("coachId");
+			String target_id = hgContent.getHg_mem_id();
+			like_option.put("like_mem_id", user_id);
+			like_option.put("like_target_id", target_id);
+			like_result = homegymDAO.HomeGymLikeSelect(like_option);
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);
 		mav.addObject("eqContent", eqContent);
 		mav.addObject("imgContent", imgContent);
 		mav.addObject("reviewList", reviewList);
+		mav.addObject("like_result", like_result);
 		mav.setViewName("homegym/hgContent");
 		return mav;
 	}
