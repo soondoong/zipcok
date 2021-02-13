@@ -96,6 +96,15 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
+	//코치 프로필 활동지역 수정
+	@RequestMapping("adminAddrUpdate.do")
+	public ModelAndView adminAddrUpdate(String coach_mem_id) {
+		ModelAndView mav=new ModelAndView();
+		int result=adminCoachMatchDao.adminCoachProfileAddrUpdate(coach_mem_id);
+		mav.setViewName("admin/admin_coachMatchAdmin");
+		return mav;
+	}
+	
 	
 	
 	
