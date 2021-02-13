@@ -99,9 +99,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		return result;
 	}
 	@Override
-	public int HomeGymReviewStarAvg(String homegymId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double HomeGymReviewStarAvg(String homegymId) {
+		double result =  sqlMap.selectOne("hgReviewStarAvg", homegymId);
+		return result;
 	}
 	
 }

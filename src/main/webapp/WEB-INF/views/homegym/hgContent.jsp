@@ -347,10 +347,13 @@ function ajaxUnLike_rq(){
 			<div>작성된 후기가 없습니다.</div>
 		</c:if>
 		<c:if test = "${!empty reviewList }">
+			<div>${star_avg }</div>
 			<c:forEach var = "dto" items="${reviewList }">
-				작성자 : ${dto.rev_mem_id }/ 작성 날짜 : ${dto.rev_writedate } / 별점 : ${dto.rev_star }<br>
-				제목 : ${dto.rev_sub }<br>
-				${dto.rev_cont }
+				<div>
+					작성자 : ${dto.rev_mem_id }/ 작성 날짜 : ${dto.rev_writedate } / 별점 : ${dto.rev_star }<br>
+					제목 : ${dto.rev_sub }<br>
+					${dto.rev_cont }
+				</div>
 			</c:forEach>
 		</c:if>
 	</div>

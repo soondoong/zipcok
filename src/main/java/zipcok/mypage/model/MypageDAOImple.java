@@ -6,6 +6,9 @@ import org.apache.commons.collections.map.HashedMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -167,5 +170,40 @@ public class MypageDAOImple implements MypageDAO {
 //         int count = sqlMap.delete("memberPhotoDelete", mem_id);
 //         return count;
 //      }
-   
+  @Override
+	public List<HomeGymEquipmentDTO> mypageHomeGymEqInfo(String user_id) {
+		List<HomeGymEquipmentDTO> list = sqlMap.selectList("mypageHomeGymEqInfoSQL", user_id);
+		return list;
+	}
+   @Override
+	public List<CoachFileDTO> mypageHomeGymImgInfo(String user_id) {
+	   List<CoachFileDTO> list = sqlMap.selectList("mypageHomeGymImgInfoSQL", user_id);
+	   return list;
+	}
+   @Override
+	public HomeGymDTO mypageHomeGymInfo(String user_id) {
+	   HomeGymDTO dto = sqlMap.selectOne("mypageHomeGymInfoSQL", user_id);
+	   return dto;
+	}
+   @Override
+	public int mypageHomeGymLikeCount(String user_id) {
+	   int count = sqlMap.selectOne("mypageHomeGymLikeCount", user_id);
+	   return count;
+	}
+	@Override
+	public List<ReviewDTO> HomeGymReview(String homegymId) {
+		List<ReviewDTO> list = sqlMap.selectList("mypageHomeGymReviewSelectSQL", homegymId);
+		return list;
+	}
+	@Override
+		public int mypageHomeGymStautsChange(Map<String, String> map) {
+		int result = sqlMap.update("mypageHomeGymStatusChangeSQL", map);
+		return result;
+	}
+	@Override
+		public int mypageHomeGymAddrUpdate(Map<String, String> map) {
+		int result = sqlMap.update("mypageHomeGymAddrUpdateSQL", map);
+			return result;
+		}
+	
 }

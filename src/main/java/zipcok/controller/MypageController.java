@@ -20,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.LikeDTO;
@@ -350,7 +353,25 @@ public class MypageController {
 //         }
 //         return mav;
 //      }
-      
+      @RequestMapping("/myHomeGymCheck.do")
+      public ModelAndView myHomeGymEnter(
+    		  @RequestParam("mem_id")String user_id) {
+    	  HomeGymDTO hgContent = dao.mypageHomeGymInfo(user_id);
+    	  hgContent.setHg_start_date(hgContent.getHg_start_date().substring(0, 10));
+    	  hgContent.setHg_end_date(hgContent.getHg_end_date().substring(0, 10));
+    	  List<HomeGymEquipmentDTO> eqContent = dao.mypageHomeGymEqInfo(user_id);
+    	  List<CoachFileDTO> imgContent = dao.mypageHomeGymImgInfo(user_id);
+    	  int like_count = dao.mypageHomeGymLikeCount(user_id);
+    	  List<ReviewDTO> reviewContent = dao.HomeGymReview(user_id);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("hgContent", hgContent);
+    	  mav.addObject("eqContent", eqContent);
+    	  mav.addObject("imgContent", imgContent);
+    	  mav.addObject("like_count", like_count);
+    	  mav.addObject("reviewContent", reviewContent);
+    	  mav.setViewName("mypage/mypageHomeGymInfo");
+    	  return mav;
+      }
       
       @RequestMapping("checkPMRequest.do")
       public ModelAndView checkPMRequest(@RequestParam("id")String id) {
@@ -358,6 +379,45 @@ public class MypageController {
          mav.setViewName("mypage/PMrequestList");
          return mav;
       }
+      @RequestMapping("changeStatus.do")
+      public ModelAndView homegymStatusChange(
+    		  @RequestParam("hg_status")String hg_status,
+    		  @RequestParam("hg_mem_id")String hg_mem_id ) {
+    	  Map<String, String> map = new HashMap<String, String>();
+    	  map.put("hg_status", hg_status);
+    	  map.put("hg_mem_id", hg_mem_id);
+    	  int result = dao.mypageHomeGymStautsChange(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("hg_status", result);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
       
-   
+      @RequestMapping("mypageHomeGymAddrUpdateForm.do")
+      public ModelAndView mypageHomeGymAddrUpdateForm(
+    		  @RequestParam("hg_mem_id")String hg_mem_id) {
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("hg_mem_id", hg_mem_id);
+    	  mav.setViewName("mypage/mypageHomeGymAddrUpdate");
+    	  return mav;
+      }
+      
+      @RequestMapping("homegymAddrUpdate.do")
+      public ModelAndView mypageHomeGymAddrUpdate(
+    		  	 @RequestParam("hg_mem_id")String hg_mem_id,
+    	         @RequestParam("hg_faddr")String hg_faddr,
+    	         @RequestParam("hg_saddr")String hg_saddr) {
+    	  Map<String, String> map = new HashMap<String, String>();
+    	  map.put("hg_mem_id", hg_mem_id);
+    	  map.put("hg_faddr", hg_faddr);
+    	  map.put("hg_saddr", hg_saddr);
+    	  int result = dao.mypageHomeGymAddrUpdate(map);
+    	  String msg = result>0?"홈짐 주소가 정상적으로 수정되었습니다.":"홈짐 주소 수정에 오류가 발생하였습니다.";
+    	  String goUrl = "myHomeGymCheck.do?hg_mem_id="+hg_mem_id;
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("msg", msg);
+    	  mav.addObject("gourl", goUrl);
+    	  mav.setViewName("mypage/mypagePopupMsg");
+    	  return mav;
+    	  }
 }
