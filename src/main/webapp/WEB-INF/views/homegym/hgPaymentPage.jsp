@@ -13,10 +13,12 @@ function pg_check(){
 	 var pg_method = document.getElementsByName('pg_method');
 	 var pg_choice_method = '';
 	 for(var i = 0 ; i < pg_method.length; i++){
+
 		 if(pg_method[i].checked == true){
 			 pg_choice_method = pg_method[i].value;
 		 }
 	 }
+	 window.alert('메서드로 들어온 정보는 : '+pg_choice_method);
 	IMP.request_pay({
 	    pg : 'kakaopay', // version 1.1.0부터 지원.
 	    cid : 'A52CY',

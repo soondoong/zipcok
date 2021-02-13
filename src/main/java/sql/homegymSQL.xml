@@ -147,6 +147,9 @@
 	<select id = "homegymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
 	select * from star_review where rev_key = '회원이홈짐' and rev_target_id = #{value} order by rev_writedate
 	</select>
+	<select id = "hgReviewStarAvg" parameterType = "String" resultType="Double">
+		select round(nvl(avg(rev_star),0),2) from star_review where rev_key = '회원이홈짐' and rev_target_id = #{value}
+	</select>
 	<select id="homegymCheckSQL" parameterType="String" resultType="Integer">
 	select count(*) from homegym where hg_mem_id = #{value}
 	</select>
@@ -170,7 +173,7 @@
 	#{reser_end_time},
 	#{reser_person_count},
 	sysdate,
-	'예약됨',
+	'예약완료',
 	#{reser_price}
 	)
 	</insert>
@@ -190,7 +193,7 @@
 		#{pd_mem_id},
 		#{pd_method},
 		sysdate,
-		'결제됨',
+		'결제완료',
 		#{pd_price}
 		)
 	</insert>
@@ -206,6 +209,6 @@
 		insert into zipcok_like values(like_idx.nextval, '홈짐', #{like_mem_id}, #{like_target_id}, sysdate)
 	</insert>
 	<delete id="homegymLikeDeleteSQL" parameterType="hashMap">
-		delete from zipcok_like where like_mem_id = #{like_mem_id}	and like_target_id = #{like_target_id}
+		delete from zipcok_like where like_mem_id = #{like_mem_id}	and like_target_id = #{like_target_id} and like_key = '홈짐'
 	</delete>
 </mapper>

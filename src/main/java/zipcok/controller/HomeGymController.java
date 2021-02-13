@@ -168,12 +168,14 @@ public class HomeGymController {
 			like_option.put("like_target_id", target_id);
 			like_result = homegymDAO.HomeGymLikeSelect(like_option);
 		}
+		double star_avg = homegymDAO.HomeGymReviewStarAvg(homegymId);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);
 		mav.addObject("eqContent", eqContent);
 		mav.addObject("imgContent", imgContent);
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("like_result", like_result);
+		mav.addObject("star_avg", star_avg);
 		mav.setViewName("homegym/hgContent");
 		return mav;
 	}

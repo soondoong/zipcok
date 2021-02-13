@@ -3,6 +3,9 @@ package zipcok.mypage.model;
 import java.util.*;
 
 import zipcok.coach.model.CoachFileDTO;
+import zipcok.coach.model.ReviewDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -26,5 +29,12 @@ public interface MypageDAO {
    public int moInsertProfileImg(CoachFileDTO dto); //프로필파일수정
    //public int memberDelete(String mem_id);
    //public int memberPhotoDelete(String mem_id);
+   public HomeGymDTO mypageHomeGymInfo(String user_id);
+   public List<HomeGymEquipmentDTO> mypageHomeGymEqInfo(String user_id);
+   public List<CoachFileDTO> mypageHomeGymImgInfo(String user_id);
+   public int mypageHomeGymLikeCount(String user_id);
+   public List<ReviewDTO> HomeGymReview(String homegymId);
+   public int mypageHomeGymStautsChange(Map<String, String> map);
+   public int mypageHomeGymAddrUpdate(Map<String, String> map);
 
 }

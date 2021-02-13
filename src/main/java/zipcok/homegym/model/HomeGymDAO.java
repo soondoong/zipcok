@@ -22,5 +22,5 @@ public interface HomeGymDAO {
 	public int HomeGymLikeSelect(Map<String, String> map);
 	public int HomeGymLikeInsert(Map<String, String> map);
 	public int HomeGymLikeDelete(Map<String, String> map);
-	public int HomeGymReviewStarAvg(String homegymId);
+	public double HomeGymReviewStarAvg(String homegymId);
 }
