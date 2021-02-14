@@ -6,6 +6,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -36,5 +37,10 @@ public interface MypageDAO {
    public List<ReviewDTO> HomeGymReview(String homegymId);
    public int mypageHomeGymStautsChange(Map<String, String> map);
    public int mypageHomeGymAddrUpdate(Map<String, String> map);
-
+   /*결제내역*/
+  public List<Pd_AllDTO> coachPaymentList(HashMap<String,Object> map);
+  public int getTotalCntPaymentList(HashMap<String,Object> map);
+ /*후기추가*/
+  public int coachStarReviewAdd(ReviewDTO rdto);
+  
 }

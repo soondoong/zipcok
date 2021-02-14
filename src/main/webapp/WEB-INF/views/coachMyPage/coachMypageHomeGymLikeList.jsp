@@ -10,11 +10,11 @@
 <body>
 
 <%@include file="../header2.jsp"%>
-<div class="mypage_wrap">	
+<div class="mypage_wrap ">	
 
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-         <div class="mypage_main">
+         <div class="mypage_main LikePageMainSize ">
 		<h3>${sessionScope.sname }님의 홈짐 좋아요 목록</h3>
 		<hr>
 		<table width="700px">

@@ -12,7 +12,9 @@ public class ReviewDTO {
 	private String rev_sub;
 	private String rev_cont;
 	private Date rev_writedate;
-	private Date rev_rewritedate;
+	private Date rev_rewritedate;    
+	private String rev_pd_idx;    
+	
 	
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
@@ -90,8 +92,16 @@ public class ReviewDTO {
 		this.rev_rewritedate = rev_rewritedate;
 	}
 
+	public String getRev_pd_idx() {
+		return rev_pd_idx;
+	}
+
+	public void setRev_pd_idx(String rev_pd_idx) {
+		this.rev_pd_idx = rev_pd_idx;
+	}
+
 	public ReviewDTO(int rev_idx, String rev_key, String rev_mem_id, String rev_target_id, int rev_star, String rev_sub,
-			String rev_cont, Date rev_writedate, Date rev_rewritedate) {
+			String rev_cont, Date rev_writedate, Date rev_rewritedate, String rev_pd_idx) {
 		super();
 		this.rev_idx = rev_idx;
 		this.rev_key = rev_key;
@@ -102,9 +112,10 @@ public class ReviewDTO {
 		this.rev_cont = rev_cont;
 		this.rev_writedate = rev_writedate;
 		this.rev_rewritedate = rev_rewritedate;
+		this.rev_pd_idx = rev_pd_idx;
 	}
 
-	
+
 	
 	
 	

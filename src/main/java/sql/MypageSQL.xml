@@ -161,4 +161,83 @@ mfile_key='회원프로필'
 	<update id="mypageHomeGymAddrUpdateSQL" parameterType="hashMap">
 		update homegym set hg_faddr = #{hg_faddr}, hg_saddr = #{hg_saddr} where hg_mem_id = #{hg_mem_id}
 	</update>
+	
+	
+	
+	
+	<select id="fromNormalPaymentList" parameterType="HashMap" resultType="zipcok.homegym.model.Pd_AllDTO">
+	select * from
+	(select rownum as rnum,aaa.*  from
+	
+	(select * from
+	
+	(select * from
+	zipcok_payment_details
+	where 
+	pd_mem_id = #{mem_id})pd,
+	
+	(select m.mem_id,m.mem_name,catename
+	from
+	(select req_receive_id,req_category as catename
+from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
+	where
+	ct.req_receive_id= m.mem_id)nameinfo,
+	payment_request pr
+	
+	where
+		pd.pd_target_id = nameinfo.mem_id
+		and
+		pd.pd_req_idx = pr.pr_idx
+		order by pd.pd_payment_date desc)aaa)sunbun
+		where
+		rnum between #{start} and  #{end}
+	
+	</select>
+	
+	<select id="getTotalCntPaymentList" resultType="Integer" parameterType="HashMap">
+		select count(*) from
+	(select rownum as rnum,aaa.*  from
+	
+	(select * from
+	
+	(select * from
+	zipcok_payment_details
+	where 
+	pd_mem_id = #{mem_id})pd,
+	
+	(select m.mem_id,m.mem_name,catename
+	from
+	(select req_receive_id,req_category as catename
+from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
+	where
+		ct.req_receive_id = m.mem_id)nameinfo,
+	payment_request pr
+	
+	where
+		pd.pd_target_id = nameinfo.mem_id
+		and
+		pd.pd_req_idx = pr.pr_idx
+		order by pd.pd_payment_date desc)aaa)sunbun
+		where
+		rnum between #{start} and  #{end}
+	</select>
+	
+	<insert id="coachStarReviewAdd" parameterType="zipcok.coach.model.ReviewDTO">
+		insert into star_review
+		values(
+		star_review_idx.nextval,
+		'코치',
+		#{rev_mem_id},
+		#{rev_target_id},
+		#{rev_star},
+		#{rev_sub},
+		#{rev_cont},
+		sysdate,
+		sysdate,
+		#{rev_pd_idx}
+		)
+		
+	</insert>
+	
+	
 </mapper>

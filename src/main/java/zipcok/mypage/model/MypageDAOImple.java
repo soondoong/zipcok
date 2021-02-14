@@ -9,6 +9,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -205,5 +206,41 @@ public class MypageDAOImple implements MypageDAO {
 		int result = sqlMap.update("mypageHomeGymAddrUpdateSQL", map);
 			return result;
 		}
+	
+	
+	
+	/*결제요청서내역리스트 출력*/
+@Override
+	public List<Pd_AllDTO> coachPaymentList(HashMap<String, Object> map) {
+		int cp = (int)map.get("cp");
+		int ls = (int)map.get("ls");
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		map.put("start",start);
+		map.put("end",end);
+		List<Pd_AllDTO> list= sqlMap.selectList("fromNormalPaymentList", map);
+		return list;
+	}
+	/*결제내역서 총 토탈카운트구하기*/
+	@Override
+		public int getTotalCntPaymentList(HashMap<String, Object> map) {
+		int cp = (int)map.get("cp");
+		int ls = (int)map.get("ls");
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		map.put("start",start);
+		map.put("end",end);
+			int count = sqlMap.selectOne("getTotalCntPaymentList", map);
+			return count;
+		}
+	/*코치후기작성*/
+	@Override
+		public int coachStarReviewAdd(ReviewDTO rdto) {
+			int count= sqlMap.insert("coachStarReviewAdd",rdto);
+			return count;
+		}
+	
 	
 }
