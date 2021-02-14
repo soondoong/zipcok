@@ -251,7 +251,7 @@ public class MypageController {
    @RequestMapping("mypageCoachMatchPayList.do")
    public ModelAndView mypageCoachMatchPayList(@RequestParam("mem_id")String mem_id,
 		   @RequestParam(value="cp", defaultValue = "1")int cp) {
-	   //추가할내용 -> 후기가 작성되엇는지 체크해서 그여부 보내주기
+	   
 		int listSize=5;
 		int pageSize=5;
 	      HashMap<String,Object> map = new HashMap<String, Object>();
@@ -266,6 +266,10 @@ public class MypageController {
 		 
 		List<Pd_AllDTO> pdList=dao.coachPaymentList(map);
 		ModelAndView mav= new ModelAndView();
+		
+		//후기존재하는지여부체크
+		List review_idxList= dao.reviewExistCheck(map);
+		mav.addObject("review_idxList", review_idxList);
 		mav.addObject("pdList", pdList);
 		mav.addObject("pageStr", pageStr);
 		mav.setViewName("mypage/mypageCoachMatchPayList");
@@ -288,9 +292,10 @@ public class MypageController {
 	   mav.setViewName("mypage/ReviewWritePopup");
 	   return mav;
    }
-   /*후기작성하기*/
+   /*코치후기작성하기*/
    @RequestMapping("coachStarReviewAdd.do")
-   public ModelAndView coachStarReviewAdd(ReviewDTO rdto) {
+   public ModelAndView coachStarReviewAdd(ReviewDTO rdto,HttpServletRequest req) {
+	   //String starnum_s = req.getParameter("");
 	   int result=dao.coachStarReviewAdd(rdto);
 	   String msg=result>0?"후기가 등록되었습니다":"후기등록 실패";
 	   ModelAndView mav=new ModelAndView();
@@ -300,8 +305,26 @@ public class MypageController {
 	   return mav;
    }
    
-   
-   
+
+   /*코치후기작성한거 보기*/
+  @RequestMapping("seeCoachReviewPopup.do")
+   public ModelAndView seeCoachReviewPopup(@RequestParam("pd_idx")int pd_idx,
+		   @RequestParam("coach_name")String coach_name,
+		   @RequestParam("coach_id")String coach_id,
+		   @RequestParam("catename")String catename,
+		   @RequestParam("rev_idx")int rev_idx) {
+	   ModelAndView mav= new ModelAndView();
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("pd_idx", pd_idx);
+	   map.put("coach_name", coach_name);
+	   map.put("coach_id", coach_id);
+	   map.put("catename", catename);
+	   mav.addObject("map", map);
+	   	ReviewDTO revdto= dao.showReview(rev_idx);
+	   mav.addObject("revdto", revdto);
+	   mav.setViewName("mypage/coachReviewViewPopup");
+	   return mav;
+   }
    
    
    

@@ -239,5 +239,30 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 		
 	</insert>
 	
+	<select id="reviewExistCheckCoach" parameterType="HashMap" resultType="String">
+	
+	select revidx from
+	(select rownum as rnum,aa.revidx from
+			(select nvl(rev_idx,0) as revidx from 
+		    (select * from
+		    zipcok_payment_details
+		    where 
+		    pd_mem_id = #{mem_id}
+		    and
+		    pd_key = '코치')pd,star_review
+			where
+			pd.pd_idx = rev_pd_idx(+)
+	        order by pd_payment_date desc)aa)bb
+		where
+		rnum between #{start} and  #{end}
+
+	</select>
+	
+	<select id="showReview" parameterType="Integer" resultType="zipcok.coach.model.ReviewDTO">
+	select * from star_review
+	where
+	rev_idx = #{rev_idx}	
+	</select>
+	
 	
 </mapper>

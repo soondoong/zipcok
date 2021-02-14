@@ -32,6 +32,7 @@ function mypageCoachMatchPayList(){
 		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
 		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
 		.table th{font-weight: bold; border-color:#848282;}
+		.revbtn{width:72px; height: 25px; }
 		</style>		
 			<ul>
 				<li><button type="button" onclick="mypageHomeGymPayList()">홈짐 결제내역</button></li>
@@ -59,9 +60,11 @@ function mypageCoachMatchPayList(){
 			<td colspan="9" align="center"><a>1</a></td>
 		</tr>
 		</c:if>
+		<c:if test="${!empty pdList}">
 		<tr>
 			<td colspan="9" align="center">${pageStr}</td>
 		</tr>
+		</c:if>
 	</tfoot>
 	<tbody>
 		<c:if test="${empty pdList}">
@@ -71,17 +74,27 @@ function mypageCoachMatchPayList(){
 				</td>
 			</tr>
 		</c:if>
-		<c:forEach var="p" items="${pdList }" >
+		<c:forEach var="p" items="${pdList }"  varStatus="st">
 		<tr>
 			<td>${p.pd_idx }</td>
 			<td>${p.mem_name }</td>
 			<td>${p.catename }</td>
 			<td>${p.pr_start }</td>
 			<td>${p.pr_end }</td>
-			<td>${p.pd_price }</td>
+			<td>${p.pd_price }원</td>
 			<td>${p.pd_status }</td>
-			<td><input type="button" value="후기작성" onclick="writeReview('${p.pd_status}','${p.pr_end }','${p.pd_idx }','${p.mem_name }','${p.catename }','${p.pr_sender}'  );"></td>
-			<td><input type="button" value="결제취소"></td>
+			<td>
+			
+				<c:if test="${ review_idxList[st.index] == 0 }">
+				<input type="button" class="revbtn" value="후기작성" onclick="writeReview('${p.pd_status}','${p.pr_end }','${p.pd_idx }','${p.mem_name }','${p.catename }','${p.pr_sender}'  );">
+				</c:if>
+				
+				<c:if test="${ review_idxList[st.index] != 0  }">
+				<input type="button" class="revbtn" value="보기" onclick="seeReview('${p.pd_idx }','${p.mem_name }','${p.catename }','${p.pr_sender}', '${review_idxList[st.index] }');">
+				</c:if>
+			
+			</td>
+			<td><input type="button" class="revbtn"  value="결제취소"></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -93,10 +106,10 @@ function mypageCoachMatchPayList(){
 	<script>
 	function writeReview(status,date,idx,name,cate,coachid){
 		//첫번째 조건-서비스종료일이 지낫는지
-		var date = new Date();		 
-	    var year = date.getFullYear(); //년도
-	    var month = date.getMonth()+1; //월
-	    var day = date.getDate()+1; //일
+		var d = new Date();		 
+	    var year = d.getFullYear(); //년도
+	    var month = d.getMonth()+1; //월
+	    var day = d.getDate(); //일
 	 	
 	    if ((day+"").length < 2) {       // 일이 한자리 수인 경우 앞에 0을 붙여주기 위해
 	        day = "0" + day;
@@ -109,7 +122,7 @@ function mypageCoachMatchPayList(){
 
 				if(status == '결제완료'){
 					var params="pd_idx="+idx+"&coach_name="+name+"&catename="+cate+"&coach_id="+coachid;
-					window.open("CoachReviewWritePopup.do?"+params, "ReviewWritePopup","width=400,height=370,top=100,left=100");
+					window.open("CoachReviewWritePopup.do?"+params, "ReviewWritePopup","width=450,height=470,top=100,left=500");
 
 				}else if(status == '취소요청중'){
 					
@@ -123,6 +136,12 @@ function mypageCoachMatchPayList(){
 
 
 		
+	}
+	
+	function seeReview(idx,name,cate,coachid,revidx){
+		
+		var params="pd_idx="+idx+"&coach_name="+name+"&catename="+cate+"&coach_id="+coachid+"&rev_idx="+revidx
+		window.open("seeCoachReviewPopup.do?"+params, "seeCoachReviewPopup","width=450,height=470,top=100,left=500");
 	}
 	</script>
 	   <%@include file="../_include/footer.jsp" %>

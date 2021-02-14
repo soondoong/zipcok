@@ -222,6 +222,21 @@ public class MypageDAOImple implements MypageDAO {
 		List<Pd_AllDTO> list= sqlMap.selectList("fromNormalPaymentList", map);
 		return list;
 	}
+	
+	//후기존재여부체크 결제요청서리스트랑연관됨
+	@Override
+		public List reviewExistCheck(HashMap<String,Object> map) {
+			int cp = (int)map.get("cp");
+			int ls = (int)map.get("ls");
+			int start=(cp-1)*ls+1;
+			int end=cp*ls;
+			
+			map.put("start",start);
+			map.put("end",end);
+			List rev_idxList=sqlMap.selectList("reviewExistCheckCoach",map);
+			return rev_idxList;
+		}
+	
 	/*결제내역서 총 토탈카운트구하기*/
 	@Override
 		public int getTotalCntPaymentList(HashMap<String, Object> map) {
@@ -241,6 +256,14 @@ public class MypageDAOImple implements MypageDAO {
 			int count= sqlMap.insert("coachStarReviewAdd",rdto);
 			return count;
 		}
+
+	/*후기보여주기*/
+		@Override
+			public ReviewDTO showReview(int rev_idx) {
+				ReviewDTO dto = sqlMap.selectOne("showReview", rev_idx);
+				return dto;
+			}
+	
 	
 	
 }
