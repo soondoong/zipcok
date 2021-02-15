@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 # Header
 --------------------------------------------------------------*/
 /*수연*/
-.headerContainer{ width:1600px;margin:0px 0px 0px 70px; padding:0;}
+.headerContainer{ margin:0px 0px 0px 70px; padding:0;}
 .infoLi{margin-left: 50px;}
 .headerContainer a{ text-decoration: none;}
 /*수연*/

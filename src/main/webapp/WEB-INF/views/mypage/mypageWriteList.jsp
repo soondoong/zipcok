@@ -18,16 +18,15 @@ function mypageCommWriteList() {
 </script>
 </head>
 <body>
-	<%@include file="../_include/head.jsp" %>
-	<%@include file="../header2.jsp"%>
-	<div class="mypage_wrap">
-	<%@include file="./mypageSideMenu.jsp"%>
+<%@include file="../header2.jsp"%>
+<div class="mypage_wrap">
+<%@include file="./mypageSideMenu.jsp"%>
 	<div class="mypage_contents">
          <div class="mypage_main">
 	<br>
 	<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>
-		.mypage_main .tab_style_01 {}
+	
 		.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
 		.mypage_main .tab_style_01 li {flex: 1 1 auto;}
 		.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}

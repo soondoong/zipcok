@@ -16,12 +16,11 @@ function mypageCoachMatchPayList(){
 </script>
 </head>
 <body>
-	<%@include file="../_include/head.jsp" %>
-	<%@include file="../header2.jsp"%>
-	<div class="mypage_wrap">
-	<%@include file="./mypageSideMenu.jsp"%>
+<%@include file="../header2.jsp"%>
+<div class="mypage_wrap">
+<%@include file="./mypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-         <div class="mypage_main">
+         <div class="mypage_main paymentMain">
 		<br>
 		<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>

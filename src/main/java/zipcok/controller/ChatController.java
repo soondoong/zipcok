@@ -111,13 +111,57 @@ public class ChatController {
 			if(mdto.getMem_type().equals("일반회원")) { //일반회원용 채팅방목록
 						
 				list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
+				for(ChatRoomListDTO d : list ) {
+					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
+					if(dto == null) {
+						mav.addObject("chatList", list);		
+						mav.setViewName("coachMyPage/chatList");
+						return mav;
+					}else {
+						d.setMsg_idx(dto.getMsg_idx());
+						d.setMsg_croom_idx(dto.getMsg_croom_idx());
+						d.setMsg_req_idx(dto.getMsg_req_idx());
+						d.setMsg_sender(dto.getMsg_sender());
+						d.setMsg_receiver(dto.getMsg_receiver());
+						d.setMsg_content(dto.getMsg_content());
+						d.setMsg_sendtime(dto.getMsg_sendtime());
+						d.setMsg_userid(dto.getMsg_userid());
+						d.setMsg_coachid(dto.getMsg_coachid());
+						d.setUser_name(dto.getUser_name());
+						d.setReceiver_user_name(dto.getReceiver_user_name());
+						d.setMsg_type(dto.getMsg_type());
+					}
+				}
 				mav.addObject("chatList", list);
-				mav.setViewName("mypage/chatRoomList");		
-				
+				//mav.setViewName("mypage/chatRoomList");		
+				mav.setViewName("coachMyPage/chatList");
 			}else { //코치회원용 채팅방목록
 									
-				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");				
-				mav.addObject("chatList", list);
+				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");							
+				for(ChatRoomListDTO d : list ) {
+					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
+					if(dto == null) {
+						mav.addObject("chatList", list);		
+						mav.setViewName("coachMyPage/chatList");
+						return mav;
+					}else {
+						d.setMsg_idx(dto.getMsg_idx());
+						d.setMsg_croom_idx(dto.getMsg_croom_idx());
+						d.setMsg_req_idx(dto.getMsg_req_idx());
+						d.setMsg_sender(dto.getMsg_sender());
+						d.setMsg_receiver(dto.getMsg_receiver());
+						d.setMsg_content(dto.getMsg_content());
+						d.setMsg_sendtime(dto.getMsg_sendtime());
+						d.setMsg_userid(dto.getMsg_userid());
+						d.setMsg_coachid(dto.getMsg_coachid());
+						d.setUser_name(dto.getUser_name());
+						d.setReceiver_user_name(dto.getReceiver_user_name());
+						d.setMsg_type(dto.getMsg_type());
+					}
+					
+					
+				}
+				mav.addObject("chatList", list);		
 				mav.setViewName("coachMyPage/chatList");
 			}
 				
@@ -161,25 +205,48 @@ public class ChatController {
 		/*고객 결제하는 화면으로이동*/
 		@RequestMapping("gotoCoachPaymentView.do")
 		public ModelAndView gotoCoachPaymentView(@RequestParam("msg_idx")int msg_idx,
+				@RequestParam("croom_idx")int croom_idx,
 				@RequestParam("req_idx")int req_idx,
 				@RequestParam("coach_id")String coach_id,HttpSession session) {
+			ModelAndView mav = new ModelAndView();
 			String mem_id=(String)session.getAttribute("sid");
-			//1단계 결제요청서정보가져오기
 			Payment_RequestDTO prdto = new Payment_RequestDTO();
 			prdto.setPr_msg_idx(msg_idx);
 			prdto.setPr_req_idx(req_idx);
-			Payment_RequestDTO dto = chatdao.findOnePaymentRequest(prdto); //결제요청서정보
-			//2단계 코치정보가져오기
-			 HashMap<String, Object> coachmap=  coachdao.coachProfile(coach_id);
-			 //3단계 고객정보가져오기
-			 MemberAllDTO memdto = myPagedao.memberAllProfile(mem_id);
-			ModelAndView mav=new ModelAndView();
+			//0단계 결제가능한 요청서인지 확인하기
+			Payment_RequestDTO resultdto = chatdao.isPaymentCount(prdto);
+			if(resultdto != null) {
+				//존재하고 상태가 상담중이면 이동가능
+					 if(resultdto.getPr_status().equals("상담중")) {
+							//1단계 결제요청서정보가져오기
+							Payment_RequestDTO dto = chatdao.findOnePaymentRequest(prdto); //결제요청서정보
+							//2단계 코치정보가져오기
+							 HashMap<String, Object> coachmap=  coachdao.coachProfile(coach_id);
+							 //3단계 고객정보가져오기
+							 MemberAllDTO memdto = myPagedao.memberAllProfile(mem_id);
+							mav.addObject("prdto", dto);
+							mav.addObject("coachmap", coachmap);
+							mav.addObject("memdto", memdto);
+							mav.setViewName("coach/coachPaymentView");
+					 }else if(resultdto.getPr_status().equals("결제완료")) {
+							//존재하지않으면
+							String msg="이미 결제하신 결제요청서입니다.";
+							mav.addObject("msg", msg);
+							mav.addObject("gopage", "gotoChat.do?croom_idx="+croom_idx+"&req_idx="+req_idx+"&type=일반회원");
+							mav.setViewName("coach/joinMsg");
+					 }
+					return mav;
+			}else {
+				//존재하지않으면
+				String msg="이미 삭제된 결제요청서입니다.";
+				
+				mav.addObject("msg", msg);
+				mav.addObject("gopage", "gotoChat.do?croom_idx="+croom_idx+"&req_idx="+req_idx+"&type=일반회원");
+				mav.setViewName("coach/joinMsg");
+				return mav;
+			}
 			
-			mav.addObject("prdto", dto);
-			mav.addObject("coachmap", coachmap);
-			mav.addObject("memdto", memdto);
-			mav.setViewName("coach/coachPaymentView");
-			return mav;
+			
 		}
 		
 		/*실제 결제하기*/
@@ -189,9 +256,12 @@ public class ChatController {
 			int pd_result = chatdao.paymentOKListAdd(dto);//결제내역서에 등록
 			
 			HashMap<String,Object> map = new HashMap<String, Object>();
-			map.put("pr_msg_idx",pr_msg_idx);
-			map.put("pr_req_idx",dto.getPd_req_idx());
-			int count = chatdao.prStatusChangetoOK(map);//결제요청서상태를 상담중 -> 결제완료로 바꿔주기
+			map.put("pr_idx",dto.getPd_req_idx());
+		
+			if(pd_result>0) {
+				int count = chatdao.prStatusChangetoOK(map);//결제요청서상태를 상담중 -> 결제완료로 바꿔주기
+				System.out.println("preq상태바꾸기"+count);
+			}
 			String msg=pd_result>0?msg="결제가 완료되었습니다.":"결제실패";
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("msg", msg);
@@ -204,21 +274,27 @@ public class ChatController {
 		public ModelAndView gotoCoachPaymentDelete(@RequestParam("msg_idx")int msg_idx,
 				@RequestParam("croom_idx")int croom_idx,
 				@RequestParam("req_idx")int req_idx,
-				@RequestParam("coach_id")String coach_id,HttpSession session) {
+				HttpSession session) {
+			ModelAndView mav = new ModelAndView();
 			String msg="";
 			Payment_RequestDTO prdto = new Payment_RequestDTO();
 			prdto.setPr_msg_idx(msg_idx);
 			prdto.setPr_req_idx(req_idx);
-			int result = chatdao.isPaymentCount(prdto);
-			if(result>0) {
-				//존재하면 삭제가능
-				result=chatdao.deletePaymentrequest(prdto);
-				 msg=result>0?"결제요청서가 삭제되었습니다.":"결제 완료된 요청서는 삭제하실 수 없습니다!";
+			Payment_RequestDTO resultdto  = chatdao.isPaymentCount(prdto);
+			if(resultdto != null) {
+				//존재하고 상태가 상담중이면 삭제가능
+				 if(resultdto.getPr_status().equals("상담중")) {
+					 int result=chatdao.deletePaymentrequest(prdto);						
+						 msg="결제요청서가 삭제되었습니다.";
+				 }else if(resultdto.getPr_status().equals("결제완료")) {
+					 msg="결제 완료된 요청서는 삭제하실 수 없습니다!";
+				 }
+				
 		
 			}else {
 			msg="이미 삭제된 결제요청서입니다.";
 			}
-			ModelAndView mav = new ModelAndView();
+			
 			mav.addObject("msg", msg);
 			mav.addObject("gopage", "gotoChat.do?croom_idx="+croom_idx+"&req_idx="+req_idx+"&type=코치회원");
 			mav.setViewName("coach/joinMsg");

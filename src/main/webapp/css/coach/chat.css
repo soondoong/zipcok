@@ -23,7 +23,7 @@
 
 /*메세지css관련=======*/
 
-.AreaAll{padding :20px 40px 50px 40px; background-color: #eae9e8;height:80%;  overflow-y:scroll}
+.AreaAll{padding :20px 40px 50px 40px; background-color: #f1f1f1;height:80%;  overflow-y:scroll}
 #chatMessageArea{  width:800px; }
 /*내메세지*/
 .OnechatfromMe{display:flex; justify-content:flex-end;  height : auto; margin-top : 10px;}
@@ -40,8 +40,8 @@
 .OnechatNotMe .chatimgdiv img{ border-radius: 5px 0 0 5px;}
 .OnechatNotMe .sendtime{float:left;}
 
-	
-
+.gotopaybtn{width:100%;}	
+.delbtn{width:100%;}
 /*메세지입력하고보내는부분 ==========*/
 .chatWriteWrap{display:flex;  background-color: #256abf;padding:15px; justify-content:space-around;}
 .chatWriteWrap #filemenu{display:flex;flex-direction: column; justify-content: center; align-items: center}
