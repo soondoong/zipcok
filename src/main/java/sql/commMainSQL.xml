@@ -84,9 +84,9 @@
 			to_char(a.ex_writedate,'yyyymmdd')=#{ex_writedate}
 	</select>
 	
-	<select id="getDayGroupSQL" parameterType="HashMap"  resultType="Integer">
+	<select id="getDayGroupSQL" parameterType="HashMap"  resultType="String">
 		select 
-			to_char(ex_writedate,'yyyymmdd')ex_writedate 
+			to_char(ex_writedate,'yyyy-mm-dd')ex_writedate 
 		from 
 			exer_bbs 
 		where 

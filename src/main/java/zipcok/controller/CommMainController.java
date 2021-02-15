@@ -189,16 +189,16 @@ public class CommMainController {
 	//그 날짜에 운동 했는지 안했는지 찾기
 	String id="";
 	id=(String)session.getAttribute("sid");
-	System.out.println(id);
-	List<Integer> getDayGroup=new ArrayList<Integer>();
+	
+	List<String> getDayGroup=new ArrayList<String>();
 	if(id!=null) {
 		for(int i=0;i<group.size();i++) {
 			System.out.println(group.get(i));
-			getDayGroup.addAll(communityDao.getDayGroup(id, com_idx, group.get(0)));
+			getDayGroup.addAll(communityDao.getDayGroup(id, com_idx, group.get(i)));
 		}	
 	}
 	
-	System.out.println(getDayGroup.size());
+	
 	
 	ModelAndView mav=new ModelAndView();
 	mav.addObject("comminfo", dto); //커뮤니티 정보
