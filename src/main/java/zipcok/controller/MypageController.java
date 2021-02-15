@@ -492,6 +492,7 @@ public class MypageController {
 //      public ModelAndView myHomeGymHavingCheck(
 //    		  @RequestParam("mem_id")String user_id) {
 //    	  boolean check = dao.mypageHomeGymCheck(user_id);
+//    	  String msg = check?"":"";
 //    	  ModelAndView mav = new ModelAndView();
 //    	  
 //    	  

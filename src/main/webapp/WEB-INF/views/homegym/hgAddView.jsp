@@ -277,7 +277,7 @@
     	    map.setCenter(coords);
     		// 장소 검색 객체를 생성합니다
            	var ps = new kakao.maps.services.Places(map); 
-			document.getElementById('map').style.display='none';
+			//document.getElementById('map').style.display='none';
            	// 카테고리로 은행을 검색합니다
            	ps.categorySearch('SW8', placesSearchCB, {useMapBounds:true}); 
 			
@@ -292,7 +292,13 @@
            	            optionTag.innerText = data[i].place_name;
            	            stationSelect.appendChild(optionTag);
            	        }
-
+           	    }else{
+           	    	var stationSelect = document.getElementById('stationSelect');
+       				while ( stationSelect.hasChildNodes() ) { stationSelect.removeChild( stationSelect.firstChild ); }
+       	            var optionTag = document.createElement('option');
+       	            optionTag.setAttribute('value', '조회된 주변 역 없음.');
+       	            optionTag.innerText = '조회된 주변 역 없음';
+       	            stationSelect.appendChild(optionTag);
            	    }
            	}
     	 }
