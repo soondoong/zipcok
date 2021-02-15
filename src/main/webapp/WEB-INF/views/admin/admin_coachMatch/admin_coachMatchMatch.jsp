@@ -84,7 +84,7 @@
 			</div>
 			<div><!-- 코치의 매칭된 회원내역  테이블 div -->
 				<div>
-					<h5>구병모 코치 매칭 회원내역</h5>
+					<h5>회원 상담내역</h5>
 				</div>
 				<table border="1" cellspacing="0">
 					<thead>
@@ -94,21 +94,19 @@
 							<th>아이디</th>
 							<th>휴대폰번호</th>
 							<th>이메일</th>
-							<th>가입일</th>
-							<th>매칭일</th>
+							<th>요청일</th>
 							<th>상태</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>1</td>
-							<td>구병모</td>
-							<td>qudah123</td>
+							<td>박수연</td>
+							<td>soo</td>
 							<td>123456789</td>
 							<td>a@naver.com</td>
-							<td>2021.01.12</td>
 							<td>2021.01.21</td>
-							<td>대화중</td>
+							<td>상담중</td> <!-- 대기중 상담중 결제완료 -->
 						</tr>
 					</tbody>
 					<tfoot>
