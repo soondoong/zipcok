@@ -54,6 +54,7 @@ public interface MypageDAO {
   public int coachStarReviewAdd(ReviewDTO rdto);
   public List reviewExistCheck(HashMap<String,Object> map); //후기가잇는지 존재여부체크
   public ReviewDTO showReview(int rev_idx);//후기보여주기
+  public boolean mypageHomeGymCheck(String id);
   
 
 }

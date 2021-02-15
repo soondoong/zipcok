@@ -311,6 +311,10 @@ public class MypageDAOImple implements MypageDAO {
 				return dto;
 			}
 	
-	
+	@Override
+		public boolean mypageHomeGymCheck(String id) {
+		int result = sqlMap.selectOne("mypageHomeGymCheckSQL", id);
+		return result==0?false:true;
+		}
 	
 }

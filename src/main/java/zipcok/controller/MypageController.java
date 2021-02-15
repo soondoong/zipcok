@@ -488,6 +488,14 @@ public class MypageController {
 //         }
 //         return mav;
 //      }
+//      @RequestMapping("myHomeGymHavingCheck.do")
+//      public ModelAndView myHomeGymHavingCheck(
+//    		  @RequestParam("mem_id")String user_id) {
+//    	  boolean check = dao.mypageHomeGymCheck(user_id);
+//    	  ModelAndView mav = new ModelAndView();
+//    	  
+//    	  
+//      }
       @RequestMapping("/myHomeGymCheck.do")
       public ModelAndView myHomeGymEnter(
     		  @RequestParam("mem_id")String user_id) {
