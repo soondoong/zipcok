@@ -14,6 +14,11 @@ public interface AdminMemberDAO {
 	public int adminMemberPhoneUpdate(MemberDTO dto);
 	public int adminMemberEmailUpdate(MemberDTO dto);
 	public int adminMemberTypeUpdate(MemberDTO dto);
-	public int adminMemberAddrUpdate(MemberDTO dto);
+	public int adminMemberAddrUpdate(HashMap<String, Object> map);
+	public int adminDelMemberTotalCnt(HashMap<String, Object> map);
+	public List<MemberDTO> adminDelMemberList(HashMap<String, Object> map);
+	public int adminDelMemberDateTotalCnt(HashMap<String, Object> map);
+	public List<MemberDTO> adminDelMemberDate(HashMap<String, Object> map);
+	
 	
 }
