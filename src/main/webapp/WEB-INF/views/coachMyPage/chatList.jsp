@@ -10,7 +10,7 @@
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <style>
 .chatroomDiv{ display:flex; max-width:1000px; width:800px; }
-.chatroomDiv .chattt{ width:inherit;  justify-content: center; padding:60px 0 60px 60px;}
+.chatroomDiv .chattt{ width:inherit;  justify-content: center; padding:40px 0 100px 80px;}
 .chatroomDiv .chattt .chats .onechat{  display:flex; justify-content:space-between; height:160px;   cursor:pointer; border-top:4px solid #257cda; border-bottom:1px solid #e5e6e8; margin:0 0 10px 0; box-shadow: 5px 5px 5px #e5e6e8; }
 .chatroomDiv .chattt .zipcoktalk:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
 .chatroomDiv .chattt .zipcoktalk{font-weight: 550; color:#12151d; margin-bottom:20px;}
@@ -36,35 +36,12 @@
 <%@include file="../header2.jsp" %>
 <!-- 메뉴바 -->
 <div class="mypage_wrap">
-	 <c:if test="${login.mem_type =='코치회원' }">
-				<div class="mypage_sidebar">
-					<ul>
-						<li class="sidemenuli"><a href="coachMyPage.do?id=${sessionScope.coachId }">내 프로필</a></li>
-						<li class="sidemenuli"><a href="#">내 홈짐보기</a></li>
-						<li class="sidemenuli" ><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>
-						<li class="sidemenuli" ><a href="chatRoomList.do?mem_id=${sessionScope.coachId}">채팅방</a></li>
-						<li class="sidemenuli" ><a href="#">운동 커뮤니티 관리</a></li>
-						<li class="sidemenuli"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
-						<li class="sidemenuli"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
-						<li class="sidemenuli"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.coachId}">결제내역</a></li>
-						<li class="sidemenuli"><a href="coachMyPageCommManage.do">커뮤니티 관리</a></li>
-					</ul>
-				</div>
-	   </c:if>  
-   
-	    <c:if test="${ login.mem_type =='일반회원' }">
-					<div class="mypage_sidebar">
-						<ul>
-							<li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>
-							<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>		
-							<li><a href="myRequestList.do?mem_id=${sessionScope.sid}">보낸 요청서보기</a></li>			
-							<li class="sidemenuli" id="sideFont"><a href="chatRoomList.do?mem_id=${sessionScope.sid}">채팅방</a></li>
-							<li class="sidemenuli"><a href="mypageHomeGymLikeList.do?mem_id=${sessionScope.sid}" id="sideFont">좋아요 목록</a></li>
-							<li class="sidemenuli"><a href="mypageWriteList.do?mem_id=${sessionScope.sid}" id="sideFont">작성글관리</a></li>
-							<li class="sidemenuli" id="sideFont"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.sid}" id="sideFont">결제내역</a></li>
-						</ul>
-					</div>
-	    </c:if>
+	 <c:if test="${!empty sessionScope.coachId }">	
+	<%@include file="./coachMypageSideMenu.jsp"%>
+	</c:if>
+	<c:if test="${!empty sessionScope.sid }">	
+	<%@include file="../mypage/mypageSideMenu.jsp"%>
+	</c:if>
  
 <!-- 메뉴바 --> 
 
