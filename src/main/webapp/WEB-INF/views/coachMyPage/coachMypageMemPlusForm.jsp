@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="selectCheck();">
 <div class="memplus_wrap">
 	<div class="memplus_title">
 		<h1>수강생 추가</h1>
@@ -20,11 +20,11 @@
 				<td>수강생 아이디</td>
 				<td>
 				<select name="uc_mem_id">
-				<c:forEach var="dto" items="${paymentlist}" varStatus="i">
-				<c:if test="${dto.pr_status eq '결제완료' }">
-				<option value="${dto.pr_sender}">${dto.pr_sender}</option>
-				</c:if>
-				</c:forEach>
+					<c:forEach var="dto" items="${paymentlist}" varStatus="i">
+						<c:if test="${dto.pr_status eq '결제완료' }">
+							<option value="${dto.pr_sender}">${dto.pr_sender}</option>
+						</c:if>
+					</c:forEach>
 				</select>
 				</td>
 			</tr>
@@ -35,5 +35,17 @@
 	</div>
 	</form>
 </div>
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script>
+
+	var usedNames = {};
+	$("select > option").each(function () {
+	  if(usedNames[this.text]) {
+	     $(this).remove();
+	 } else {
+	     usedNames[this.text] = this.value;
+	 }});
+
+</script>
 </body>
 </html>

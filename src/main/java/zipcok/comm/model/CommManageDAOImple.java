@@ -25,6 +25,7 @@ public class CommManageDAOImple implements CommManageDAO {
 		return list;
 	}
 	
+	//결제 완료한 수강생 내역 가져오기
 	@Override
 	public List<Payment_RequestDTO> paymentList_finish(String pr_receiver) {
 		List<Payment_RequestDTO> list=sqlMap.selectList("paymentList_finishSQL",pr_receiver);
