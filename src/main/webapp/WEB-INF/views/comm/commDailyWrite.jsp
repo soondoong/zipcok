@@ -59,7 +59,7 @@
 					<tbody>
 						<tr>
 							<th>제목</th>
-							<td colspan="2"><input type="text" name="ex_subject"></td>
+							<td colspan="2"><input type="text" name="ex_subject" required="required"></td>
 						</tr>
 						<c:if test="${dto.ex_id ne ex_id and !empty dto}">
 						<input  type="hidden" name="ex_id" value="${ex_id}">
@@ -76,15 +76,15 @@
 						<input  type="hidden" name="ex_id" value="${ex_id}">
 							<tr>
 								<th>오늘의 운동 :</th>
-								<td colspan="2"><input type="text" name="ex_name"></td>
+								<td colspan="2"><input type="text" name="ex_name" required="required"></td>
 							</tr>
 							<tr>
 								<th>오늘의 소비 칼로리 :</th>
-								<td colspan="2"><input type="text" name="ex_cal"><input type="button" value="수정"></td>
+								<td colspan="2"><input type="text" name="ex_cal" required="required"><input type="button" value="수정"></td>
 							</tr>
 						</c:if>
 						<tr>
-							<td colspan="3"><textarea cols="120" rows="10" name="ex_content" placeholder="내용을 입력해주세요" style="height: 300px; white-space: pre-line;"></textarea></td>
+							<td colspan="3"><textarea cols="120" rows="10" name="ex_content" placeholder="내용을 입력해주세요" style="height: 300px; white-space: pre-line;" required="required"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="3" style="text-align: right"><input type="reset" value="다시 작성"><input type="submit" value="글쓰기"></td>

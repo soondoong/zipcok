@@ -42,6 +42,12 @@
 			.before_after_month{margin: 10px; font-weight: bold;}
 			.before_after_year{font-weight: bold;}
 			.this_month{margin: 10px;}
+			
+			.com_main .commMember_Wrap{width: 80%; margin: auto;}
+			.com_main .commMember_Wrap .commMember_List{background-color: #f1cd43; display: flex;}
+			.com_main .commMember_Wrap .member{padding: 5%; margin: auto;}
+			.com_main .commMember_Wrap .member .member_pic img{width:150px;}
+			.com_main .commMember_Wrap .member .member_name {width:150px; text-align: center; padding: 5%; color: lightslategray; font-size: 20px;}
 	</style>	
 
 	<div class="community_wrap">
@@ -129,7 +135,7 @@
 								<td class="today">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}" begin="0" end="1">
+											<c:forEach var="dto4" items="${getDayGroup}">
 												<c:if test="${datetest eq dto4}">
 												 운동함
 												</c:if>
@@ -158,7 +164,7 @@
 								<td class="sat_day">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}" begin="0" end="1">
+											<c:forEach var="dto4" items="${getDayGroup}">
 												<c:if test="${datetest eq dto4}">
 												 운동함
 												</c:if>
@@ -222,7 +228,7 @@
 									<td class="today">
 										<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}" begin="0" end="1">
+											<c:forEach var="dto4" items="${getDayGroup}">
 												<c:if test="${datetest eq dto4}">
 												 운동함
 												</c:if>
@@ -250,7 +256,7 @@
 								<td class="normal_day">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}" begin="0" end="1">
+											<c:forEach var="dto4" items="${getDayGroup}">
 												<c:if test="${datetest eq dto4}">
 												 운동함
 												</c:if>
@@ -281,13 +287,14 @@
 			</div>
 			
 			
-			<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
+			
 			<div class="commMember_Wrap">
+			<h3>함께 운동을 하는 운동 메이트들입니다!!</h3>
 				<div class="commMember_List">
 					<c:forEach var="commMember" items="${memberlist}">
 						<div class="member">
 							<div class="member_pic">
-								<img src="/zipcok/upload/member/${commMember.mfile_upload}" style="width:10%;">
+								<img src="/zipcok/upload/member/${commMember.mfile_upload}">
 							</div>
 							<div class="member_name">
 								${commMember.mem_name}

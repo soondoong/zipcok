@@ -14,6 +14,7 @@ public interface ExBbsDAO {
 	public int dailyDelete(int ex_idx);//글 삭제(멤버)
 	public int dailyGetGroup(int ex_idx);//그룹값 가져오기
 	public int dailyDeleteCoach(int ex_group);//글 삭제(코치)
+	public int dailyDelRe(int re_bbs_idx);//글 지울때 댓글 지우기
 	public int dailyReadnum(int ex_idx);//조회수 불러오기
 	public int findRownum(int ex_idx,int ex_comm_idx);//이전글다음글하기위한로우넘구하는메서드
 	public ExBbsDTO dailyPrevNext(int rnum,int ex_comm_idx);//이전글다음글
