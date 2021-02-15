@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.admin.model.AdminCoachMatchDAO;
+import zipcok.admin.model.AdminPaymentDetailsDTO;
 import zipcok.admin.model.PyoAdDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.member.model.MemberAllDTO;
@@ -207,14 +208,9 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
+	////////////////////////////////////////
 	
-	
-	
-	
-	
-	
-	
-	
+
 	//코치매칭 매칭내역관리 페이지이동
 	@RequestMapping("admin_coachMatchMatch.do")
 	public ModelAndView coachMatchMatch() {
@@ -223,6 +219,7 @@ public class AdminCoachMatchController {
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchMatch");
 		return mav;
 	}
+	///////////////////////////////////////
 	
 	
 	//코치매칭 취소환불관리 페이지이동
@@ -234,6 +231,47 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
+	//셀렉트박스값으로 리스트 뽑기
+	@RequestMapping("coachListSearch.do")
+	public ModelAndView coachMatchCancelList(
+			@RequestParam("cancelSelect")String cancelSelect) {
+		String id="";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("cancelSelect", cancelSelect);
+		List<AdminPaymentDetailsDTO> paymentlist=adminCoachMatchDao.coachMatchCancelList(map);
+		
+		
+		
+		
+		
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("paymentlist", paymentlist);
+		mav.addObject("cancelSelect",cancelSelect);
+		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCancel");
+		return mav;
+	}
+	
+	//코치검색으로 리스트 뽑기
+	@RequestMapping("coachCancelSearch.do")
+	public ModelAndView coachMatchCancelSearch(
+			@RequestParam(value="searchCon",defaultValue = "회원번호")String searchCon,
+			@RequestParam("searchT")String searchT) {
+		
+		String id="";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchCon", searchCon);
+		map.put("searchT", searchT);
+		List<AdminPaymentDetailsDTO> memlist = adminCoachMatchDao.adminCoachCancleSearchPd(map);
+		
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("memlist",memlist);
+		mav.addObject("searchCon",searchCon);
+		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCancel");
+		return mav;
+	}
+	///////////////////////////////////////
 	//코치매칭 개설커뮤니티관리 페이지이동
 	@RequestMapping("admin_coachMatchCommunity.do")
 	public ModelAndView coachMatchCommunity() {
