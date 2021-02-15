@@ -20,7 +20,9 @@ public interface AdminCoachMatchDAO {
 	public int adminCoachFlocUpdate(HashMap<String, Object> map);//활동지역수정
 	
 	//////////////////////////////////취소환불관리//////////////////////////////////////
-	public int coachMatchCancelTotalCnt(HashMap<String, Object> map);
+	public int CanTotalCnt(HashMap<String, Object> map);//환불여부로 총게시물 수 구하기
 	public List<AdminPaymentDetailsDTO> coachMatchCancelList(HashMap<String, Object> map);//환불여부로 정보 가져오기
-	public List<AdminPaymentDetailsDTO> adminCoachCancleSearchPd(HashMap<String, Object> map);//아이디로 환불정보 가져오기
+	public int CanSearchTotalCnt(HashMap<String, Object> map);//검색으로 총게시물 수 구하기
+	public List<AdminPaymentDetailsDTO> adminCoachCancelSearchPd(HashMap<String, Object> map);//아이디로 환불정보 가져오기
+	public int adminCoachCancelUpdateStatus(int pd_idx);
 }

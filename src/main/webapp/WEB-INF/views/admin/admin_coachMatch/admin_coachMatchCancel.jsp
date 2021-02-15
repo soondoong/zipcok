@@ -12,6 +12,8 @@
 	
        display: flex;
 }
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
 <script type="text/javascript">
 function showList(){
@@ -37,8 +39,8 @@ function showList(){
 							<li>
 								<select id="cancelSelect" onchange="javascript:showList();">
 									<option <c:if test="${cancelSelect=='전체'}">selected="selected"</c:if> >전체</option>
-									<option <c:if test="${cancelSelect=='환불요청중'}">selected="selected"</c:if> >환불요청중</option>
-									<option <c:if test="${cancelSelect=='환불완료'}">selected="selected"</c:if> >환불완료</option>
+									<option <c:if test="${cancelSelect=='취소요청중'}">selected="selected"</c:if> >취소요청중</option>
+									<option <c:if test="${cancelSelect=='결제취소완료'}">selected="selected"</c:if> >결제취소완료</option>
 									<option <c:if test="${cancelSelect=='결제완료'}">selected="selected"</c:if> >결제완료</option>
 								</select>
 							</li>
@@ -73,7 +75,6 @@ function showList(){
 						<tr>
 							<th>결제번호</th>
 							<th>요청서번호</th>
-							<th>결제코드</th>
 							<th>금액</th>
 							<th>회원아이디</th>
 							<th>코치아이디</th>
@@ -85,35 +86,75 @@ function showList(){
 					</thead>
 					<tbody>
 					<c:set var="paymentlist" value="${paymentlist }"></c:set>
-					<c:set var="memlist" value="${memlist}"></c:set>
-						<c:if test="${empty paymentlist && empty memlist}">
+						<c:if test="${empty paymentlist}">
 						<tr>
-							<th colspan="8">검색된 회원이 없습니다</th>
+							<th colspan="9">검색된 회원이 없습니다</th>
 						</tr>
 						</c:if>
-						<c:forEach var="memlist" items="${memlist}" varStatus="status">
+						<c:forEach var="list" items="${paymentlist}">
+						<input type="hidden" value=""${list.pd_code}>
 						<tr>
-							<td>${memlist.mem_idx}</td>
-							<td>${memlist.mem_name}</td>
-							<td>${paymentlist[status.index].pd_mem_id}</td>
-							<td>${memlist.mem_phone}</td>
-							<td>${memlist.mem_email}</td>
-							<td>${paymentlist[status.index].pd_payment_date }</td>
-							<td>${paymentlist[status.index].pd_status}</td>
-							<td><input type="button" value="환불 승인"></td>
+							<td>${list.pd_idx}</td>
+							<td>${list.pd_req_idx}</td>
+							<td>${list.pd_price}</td>
+							<td>${list.pd_mem_id}</td>
+							<td>${list.pd_target_id}</td>
+							<td>${list.pd_payment_date}</td>
+							<td>${list.pd_method}</td>
+							<td id="${list.pd_idx}_pd_status">${list.pd_status}</td>
+							<td id="${list.pd_idx}_pd_btn">
+								<c:if test="${list.pd_status=='취소요청중'}">
+									
+									<input type="button" value="취소 승인" onclick="javascript:updateStatus(${list.pd_idx});">
+								</c:if>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
+				<div class="paging">
+	               <c:if test="${!empty pageStr }">
+	               ${pageStr}
+	               </c:if>
+	           </div>
 				<hr>
 			</div>
          </div>
       </div>
    </div>
+<script src="js/httpRequest.js"></script>
+<script type="text/javascript">
+function updateStatus(idx){
+	var result = confirm('취소요청을 승인하시겠습니까?');
+	if(result){
+		location.href='javascript:show('+idx+');';
+	}
+}
+function show(idx){
+	var params='pd_idx='+idx;
+	sendRequest('updateStatus.do',params,showResult,'GET');
+}
+function showResult(){
+	   if(XHR.readyState==4){
+	      if(XHR.status==200){
+	         var data=XHR.responseText;
+	         data=eval('('+data+')');
+	         var idx=data.pd_idx;
+	         var msg=data.result;
+	         if(msg>0){
+	        	 window.alert('결제취소가 승인되었습니다');
+	        	 document.getElementById(idx+'_pd_status').innerText='결제취소완료';
+	        	 document.getElementById(idx+'_pd_btn').innerHTML='';
+	        	
+	         }else{
+	        	 window.alert('에베베베베베');
+	         }
+	         
+	         
+	      }
+	   }
+	}
 
+
+</script>
 <%@include file="../../_include/footer.jsp" %>

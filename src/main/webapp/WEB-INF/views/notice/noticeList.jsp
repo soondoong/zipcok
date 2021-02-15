@@ -84,7 +84,7 @@
 							<tr>
 								<td>${dto.bbs_idx }</td>
 								<c:url var="contentUrl" value="noticeContent.do">
-					            <c:param name="bbs_idx">${dto.bbs_idx}</c:param>
+					            	<c:param name="bbs_idx">${dto.bbs_idx}</c:param>
 					        	</c:url>
 								<td><a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
 								<td>${dto.bbs_mem_id}</td>
