@@ -303,7 +303,9 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 	where
 	rev_idx = #{rev_idx}	
 	</select>
-	
+	<select id="mypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
+		select count(*) from homegym where hg_mem_id = #{value}
+	</select>
 	
 
 </mapper>
