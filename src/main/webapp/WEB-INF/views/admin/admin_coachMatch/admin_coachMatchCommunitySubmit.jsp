@@ -104,7 +104,7 @@
 							<td>${memInfo.mem_email }</td>
 							<td>?</td>
 							<td>${memInfo.mem_joindate }</td>
-							<td><input type="button" value="가기"></td>
+							<td><input type="button" value="가기" onclick="location.href='http://localhost:9090/zipcok/admin_coachMatchAdminSearch.do?choice=id&searchText=${memInfo.mem_id}'"></td>
 						</tr>
 					</tbody>
 					<tfoot>

@@ -21,4 +21,13 @@
 		where 
 			mem_id=#{mem_id}
 	</select>
+	
+	<select id="getCommMemberSQL" resultType="String">
+		select 
+			uc_mem_id 
+		from 
+			users_community 
+		where 
+			uc_comm_idx=#{uc_comm_idx}
+	</select>
 </mapper>
