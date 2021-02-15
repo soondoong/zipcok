@@ -148,7 +148,7 @@ public class CoachDAOImple implements CoachDAO {
 	
 	@Override
 	public int getTotalCnt(HashMap map) {
-		
+	
 		String sqlKey=(String)(map.get("methodKey"));
 		int count=0;
 		 switch (sqlKey) {
@@ -158,6 +158,8 @@ public class CoachDAOImple implements CoachDAO {
                   break;
          case "sendReqRequest":count=sqlMap.selectOne("sendRequestListTotalCnt",map); 
          			break;
+         case "mypageHomeGymPayListTotal":count=sqlMap.selectOne("mypageHomeGymPayListTotalCnt",map); 
+			break;
   
      }
 		

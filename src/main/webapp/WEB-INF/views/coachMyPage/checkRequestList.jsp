@@ -11,14 +11,14 @@
 
 <style>
 .requestroomDiv{ display:flex; max-width: 1000px;}
-.requestroomDiv .reqwrap{  justify-content: center; padding:40px 0 100px 80px;}
+.requestroomDiv .reqwrap{ min-width:800px; justify-content: center; padding:40px 0 100px 80px;}
 .requestroomDiv .reqwrap h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
 .requestroomDiv .reqwrap h2{font-weight: 550; color:#12151d; margin-bottom:20px;}
 .requestroomDiv .reqwrap hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
-.requestroomDiv .reqwrap .noreq{margin:70px 0 0 50px;}
+.requestroomDiv .reqwrap .noreq{margin:50px 0 70px 300px;}
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
-.reqListwrap{display: flex; }
+.reqListwrap{display: flex;}
 .reqListwrap .card{width:300px; margin-right: 20px; box-shadow: 3px 11px 9px #d8d8d8;}
 .icondiv{background-color: #569be2; width: 100%; text-align: center; padding:3px 0; border-radius:0 0 7px 7px;margin-bottom: 20px;}
 .dumbbellicon{font-size:25px; color:white; }

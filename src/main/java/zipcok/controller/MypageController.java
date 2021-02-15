@@ -241,13 +241,38 @@ public class MypageController {
       
    }
    
-   
+   /*홈짐 결제내역리스트*/
    @RequestMapping("mypageHomeGymPayList.do")
-   public String mypageHomeGymPayList() {
-      
-      return "mypage/mypageHomeGymPayList";
+   public ModelAndView mypageHomeGymPayList(@RequestParam("mem_id")String mem_id,
+		   @RequestParam(value="cp", defaultValue = "1")int cp) {
+	   
+	   int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("mem_id",mem_id);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+	      map.put("methodKey", "mypageHomeGymPayListTotal");
+		/*페이지설정*/
+		int totalCnt=cdao.getTotalCnt(map);
+
+		String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("mypageHomeGymPayList.do", totalCnt, cp, listSize, pageSize,keywords);
+		 
+		List<Pd_AllDTO> pdList=dao.coachPaymentList(map);
+		ModelAndView mav= new ModelAndView();
+		
+		//후기존재하는지여부체크
+		List review_idxList= dao.reviewExistCheck(map);
+		mav.addObject("review_idxList", review_idxList);
+		mav.addObject("pdList", pdList);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("mypage/mypageHomeGymPayList");
+     return mav;
    }
    
+   
+   /*코치매칭 결제내역리스트*/
    @RequestMapping("mypageCoachMatchPayList.do")
    public ModelAndView mypageCoachMatchPayList(@RequestParam("mem_id")String mem_id,
 		   @RequestParam(value="cp", defaultValue = "1")int cp) {
@@ -276,6 +301,8 @@ public class MypageController {
       return mav;
    }
    
+   
+   /*코치매칭 후기작성용 팝업창이동*/
    @RequestMapping("CoachReviewWritePopup.do")
    public ModelAndView  CoachReviewWritePopup (@RequestParam("pd_idx")int pd_idx,
 		   @RequestParam("coach_name")String coach_name,
