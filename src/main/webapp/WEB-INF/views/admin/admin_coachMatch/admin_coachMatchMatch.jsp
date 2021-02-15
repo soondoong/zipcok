@@ -7,14 +7,17 @@
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
 <style type="text/css">
-.test-inline {
-	
-       display: flex;
-}
+.test-inline { display: flex;}
 </style>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+<style>
+		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+		.table th{font-weight: bold; border-color:#848282;}
+		a{cursor:pointer;}
+</style>		
+		
    <div class="adminPage_wrap">
       <%@include file="../adminSideMenu.jsp"%>
       <div class="container adminPage_contents">
@@ -22,7 +25,7 @@
 			<div><!-- 검색하는 부분 div -->
 				<form action="#">
 					<div>
-						<h5>[매칭 내역 관리]</h5>
+						<h5>[코치매칭 내역 관리]</h5>
 					</div>
 					<div>
 						<ul class="test-inline">
@@ -43,16 +46,16 @@
 				</form>
 			</div>
 			<div>
-				<ul	class="test-inline">
+				<ul>
 					<li>총 코치수: </li>
 					<li>검색 코치수: </li>
 				</ul>
 			</div>
 			<div><!-- 검색결과  테이블 div -->
-				<table border="1" cellspacing="0">
+				<table  align="center" class="table table-hover">
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>코치번호</th>
 							<th>이름</th>
 							<th>아이디</th>
 							<th>휴대폰번호</th>
@@ -86,7 +89,7 @@
 				<div>
 					<h5>구병모 코치 매칭 회원내역</h5>
 				</div>
-				<table border="1" cellspacing="0">
+				<table  align="center" class="table table-hover">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -123,7 +126,7 @@
 				<div>
 					<h5>구병모 코치 매칭 회원 거래내역</h5>
 				</div>	
-				<table border="1" cellspacing="0">
+				<table   align="center" class="table table-hover">
 					<thead>
 						<tr>
 							<th>번호</th>
