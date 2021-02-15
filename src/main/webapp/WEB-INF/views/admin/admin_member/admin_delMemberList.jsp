@@ -18,7 +18,7 @@
 .table th{font-weight: bold; border-color:#848282;}
 </style>
 	<div class="adminPage_wrap">
-		<%@include file="../adminSideMenu.jsp"%>
+		<%@include file="../adminSideBar.jsp"%>
 		<div class="container adminPage_contents">
 			<div class="adminPage_main">
 				<br>

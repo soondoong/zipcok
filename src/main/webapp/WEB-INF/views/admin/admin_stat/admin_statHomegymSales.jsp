@@ -15,7 +15,7 @@
 <body>
 <%@include file="../../header2.jsp" %>
    <div class="adminPage_wrap">
-      <%@include file="../adminSideMenu.jsp"%>
+      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          <hr>

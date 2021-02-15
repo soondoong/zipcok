@@ -15,7 +15,7 @@
 <body>
 <%@include file="../../header2.jsp" %>
    <div class="adminPage_wrap">
-      <%@include file="../adminSideMenu.jsp"%>
+      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div><!-- 검색하는 부분 div -->
