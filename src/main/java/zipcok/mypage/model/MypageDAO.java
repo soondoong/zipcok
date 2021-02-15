@@ -37,6 +37,11 @@ public interface MypageDAO {
    public List<ReviewDTO> HomeGymReview(String homegymId);
    public int mypageHomeGymStautsChange(Map<String, String> map);
    public int mypageHomeGymAddrUpdate(Map<String, String> map);
+
+   public int mypageHomeGymStationUpdate(Map<String, String> map);
+   public int mypageHomeGymPerson_countUpdate(Map<String, Object> map);
+   public int mypageHomeGymPriceUpdate(Map<String, Object> map);
+
    /*결제내역*/
   public List<Pd_AllDTO> coachPaymentList(HashMap<String,Object> map);
   public int getTotalCntPaymentList(HashMap<String,Object> map);
@@ -45,4 +50,5 @@ public interface MypageDAO {
   public List reviewExistCheck(HashMap<String,Object> map); //후기가잇는지 존재여부체크
   public ReviewDTO showReview(int rev_idx);//후기보여주기
   
+
 }

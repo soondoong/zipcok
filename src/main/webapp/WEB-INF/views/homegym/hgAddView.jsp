@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script src="js/httpRequest.js"></script>
 <c:if test = "${hg_check }">
 	<script>
@@ -20,7 +21,7 @@
 		$('#end_date').attr('min', today);
 		$('#start_date').val(today);
 		$("#date_div").datepicker( "option", "minDate", today );
-	});
+		}); 
 
 	jQuery.browser = {};
 	(function () {
@@ -246,6 +247,55 @@
             }
         }).open();
     }
+    function stationSelect(){
+    	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    	mapOption = {
+    	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    	    draggable: false,
+    	    level: 5 // 지도의 확대 레벨
+    	};  
+		//지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		function setZoomable() {
+		    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
+		    map.setZoomable(false);    
+		}
+
+		//주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		var hg_faddr = document.getElementById('faddr').value;
+		//주소로 좌표를 검색합니다
+		geocoder.addressSearch(hg_faddr, function(result, status) {
+
+		// 정상적으로 검색이 완료됐으면 
+		 if (status === kakao.maps.services.Status.OK) {
+
+		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		    map.setCenter(coords);
+			}
+		});
+		// 장소 검색 객체를 생성합니다
+		var ps = new kakao.maps.services.Places(map); 
+
+		// 카테고리로 은행을 검색합니다
+		ps.categorySearch('SW8', placesSearchCB, {useMapBounds:true}); 
+
+		// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+		function placesSearchCB (data, status, pagination) {
+		    if (status === kakao.maps.services.Status.OK) {
+		    	var station_div = document.getElementById('stationSelect');
+		        for (var i=0; i<data.length; i++) {
+		        	window.alert(data[i].place_name);
+					var optionTag = doument.createElement('option');
+					optionTag.setAttribute('value', data[i].place_name);
+					optionTag.innerText = data[i].place_name;
+		        	station_div.appendChild(optionTag);
+		        }       
+		    }
+		}
+    }
 </script>
 <style>
 .homegymAddArea .HomeGymAddLabel {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
@@ -297,7 +347,7 @@ textarea {resize: none;}
 			<li>
 				<label class="HomeGymAddLabel">도로명 주소</label>
 				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
-				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="sample4_execDaumPostcode()">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="sample4_execDaumPostcode()" onchange = "javascript:stationSelect();">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">상세주소</label>
@@ -313,14 +363,10 @@ textarea {resize: none;}
 				<label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.
 			</li>
 			<li>
+				<div id = "map" style = "width:300px; height: 300px;"></div>
 				<label class="HomeGymAddLabel">가까운 역</label>
-				<input type = "text" name = "hg_station" required="required">
+				<select id = "stationSelect" required="required"></select>
 			</li>
-			<li>
-				<label class="HomeGymAddLabel"></label>**역 까지 작성해주세요.
-			</li>
-			<li>
-				<label class="HomeGymAddLabel"></label>지하철 역의 전체 이름을 작성해주세요
 			<li>
 				<label class="HomeGymAddLabel">오시는 길</label>
 				<textarea rows="5" cols="20" name="hg_comeinfo" required="required"></textarea>
