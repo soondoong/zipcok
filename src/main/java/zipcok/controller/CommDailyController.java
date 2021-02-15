@@ -196,6 +196,7 @@ public class CommDailyController {
 		int recnt=exBbsDao.dailyGetTotalRe(ex_idx);
 		int bfile_bbs=1;
 		List<BbsFileDTO> filelist=bbsFileDao.bbsFileList(bfile_bbs, ex_idx);
+		session.setAttribute("com_idx", dto.getEx_comm_idx());
 		int ex_comm_idx=(int)session.getAttribute("com_idx");
 		int rnum=exBbsDao.findRownum(ex_idx,ex_comm_idx);
 		ExBbsDTO prev=exBbsDao.dailyPrevNext(rnum-1,ex_comm_idx);
