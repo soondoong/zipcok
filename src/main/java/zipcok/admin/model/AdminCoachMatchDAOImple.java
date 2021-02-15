@@ -81,5 +81,28 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 		int count = sqlMap.update("adminCoachYearUpdate", map);
 		return count;
 	}
+//////////////////////////////////취소환불관리//////////////////////////////////////
+	
+	//총게시물 수 구하기
+	@Override
+	public int coachMatchCancelTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("canTotalCnt",map);
+		return totalCnt;
+	}
+	//결제정보테이블에서 가져오기
+	@Override
+	public List<AdminPaymentDetailsDTO> coachMatchCancelList(HashMap<String, Object> map) {
+		List<AdminPaymentDetailsDTO> list = sqlMap.selectList("adminCoachCancelAllList",map);
+		return list;
+	}
 
+	
+	
+	
+	//결제정보테이블에서 가져오기
+	@Override
+	public List<AdminPaymentDetailsDTO> adminCoachCancleSearchPd(HashMap<String, Object> map) {
+		List<AdminPaymentDetailsDTO> list=sqlMap.selectOne("adminCoachCancleSearchPd",map);
+		return list;
+	}
 }

@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.admin">
+  <!-- 코치 정보 관리 시작-->
   	<select id="cTotalCnt" parameterType="HashMap" resultType="Integer">
   	select count(*) from
     zipcok_member
@@ -30,33 +31,30 @@
 		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0</when>
 		  		<when test="searchText!=''">mem_idx = #{searchText}</when>
 		  	</choose>
-		  	and
 	  	</when>
 	  	<when test="choice=='id'">
 	  		<choose>
 		  		<when test="searchText==''">mem_id like '%%'</when>
 		  		<when test="searchText!=''">mem_id=#{searchText}</when>
 		  	</choose>
-		  	and
   		</when>
 	  	<when test="choice=='이름'">
 	  		<choose>
 		  		<when test="searchText==''">mem_name like '%%'</when>
 		  		<when test="searchText!=''">mem_name=#{searchText}</when>
 		  	</choose>
-		  	and
 	  	</when>
   	</choose>
-  	
+  	 and
   	<choose>
-	  	<when test="mem_gender==''">mem_gender='%%' and</when>
+	  	<when test="mem_gender==''">mem_gender like '%%' and</when>
 	  	<when test="mem_gender!=''">mem_gender=#{mem_gender} and</when>
   	</choose>
-  	mem_type='코치회원'
-  	order by mem_idx
-  	)a)b
-  	where
-  	rnum between #{start} and #{end}
+	  	mem_type='코치회원'
+	  	order by mem_idx
+	  	)a)b
+	  	where
+	  	rnum between #{start} and #{end}
   	</select>
   	
   	<select id="adminCoachProfile" parameterType="String" resultType="zipcok.coach.model.CoachDTO">
@@ -105,4 +103,82 @@
   		where
   		coach_mem_id = #{coach_mem_id}
   	</update>
+  	<!-- 코치 정보 관리 끝-->
+  	
+  	<!-- 취소 환불 관리 시작-->
+  	<select id="canTotalCnt" parameterType="HashMap" resultType="Integer">
+  		select count(*) 
+  		from
+  		zipcok_payment_details
+  		where
+  		pd_key='코치'
+  		<choose>
+	  		<when test="cancelSelect=='전체'"></when>
+	  		<when test="cancelSelect=='환불요청중'">and pd_status='환불요청중'</when>
+	  		<when test="cancelSelect=='환불완료'">and pd_status='환불완료'</when>
+	  		<when test="cancelSelect=='결제완료'">and pd_status='결제완료'</when>
+  		</choose>
+  	</select>
+  	<select id="adminCoachCancelAllList" parameterType="HashMap" resultType="zipcok.admin.model.AdminPaymentDetailsDTO">
+  		select * from (select rownum as rnum,a.* from (select * from zipcok_payment_details
+  		where
+  		pd_key='코치'
+  		<choose>
+	  		<when test="cancelSelect=='전체'"></when>
+	  		<when test="cancelSelect=='환불요청중'">and pd_status='환불요청중'</when>
+	  		<when test="cancelSelect=='환불완료'">and pd_status='환불완료'</when>
+	  		<when test="cancelSelect=='결제완료'">and pd_status='결제완료'</when>
+  		</choose>
+  		order by payment_details_idx)a)b
+  		where
+	  	rnum between #{start} and #{end}
+  	</select>
+
+  	<select id="canSearchTotalCnt" parameterType="HashMap" resultType="Integer">
+  		select count(*) from (select * from zipcok_payment_details
+  		where
+  		<choose>
+		  	<when test="searchCon=='코치아이디'">
+		  		and
+		  		<choose>
+			  		<when test="searchT==''">pd_target_id like '%%'</when>
+			  		<when test="searchT!=''">pd_target_id = #{searchT}</when>
+		  		</choose>
+		  	</when>
+		  	<when test="searchCon=='회원아이디'">
+		  		and
+		  		<choose>
+			  		<when test="searchT==''">pd_mem_id like '%%'</when>
+			  		<when test="searchT!=''">pd_mem_id=#{searchT}</when>
+		  		</choose>
+		  	</when>
+     	</choose>
+     	)
+  	</select>
+  	<select id="adminCoachCancelSearchPd" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
+  		select * from (select rownum as rnum,a.* from(select * from zipcok_payment_details
+  		where
+  		pd_key='코치'
+  		<choose>
+		  	<when test="searchCon=='코치아이디'">
+		  		and
+		  		<choose>
+			  		<when test="searchT==''">pd_target_id like '%%'</when>
+			  		<when test="searchT!=''">pd_target_id = #{searchT}</when>
+		  		</choose>
+		  	</when>
+		  	<when test="searchCon=='회원아이디'">
+		  		and
+		  		<choose>
+			  		<when test="searchT==''">pd_mem_id like '%%'</when>
+			  		<when test="searchT!=''">pd_mem_id=#{searchT}</when>
+		  		</choose>
+		  	</when>
+     	</choose>
+     	order by pd_idx)a)b
+  		where
+	  	rnum between #{start} and #{end}
+  	</select>
+  	
+  	<!-- 취소 환불 관리 끝-->
   </mapper>
