@@ -102,6 +102,7 @@ public class HomeGymController {
 
 		for(int i = 0 ; i < list.size() ; i++) {
 			list.get(i).setHg_faddr(list.get(i).getHg_faddr().substring(0, list.get(i).getHg_faddr().indexOf("구")+1));
+
 			String file_upload = homegymDAO.HomeGymIdImgSelect(list.get(i).getHg_mem_id());
 			list.get(i).setHg_upload(file_upload);
 			List<HomeGymEquipmentDTO> eq_list = homegymeqDAO.UserEquipmentList(list.get(i).getHg_mem_id());

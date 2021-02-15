@@ -15,12 +15,15 @@
 <script>
 	var count = 0;
 	
+
+	
 	window.addEventListener('load', function() {
 		var today = getTimeStamp();
 		$('#start_date').attr('min', today);
 		$('#end_date').attr('min', today);
 		$('#start_date').val(today);
 		$("#date_div").datepicker( "option", "minDate", today );
+		
 		}); 
 
 	jQuery.browser = {};
@@ -241,60 +244,59 @@
                 // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var roadAddr = data.roadAddress; // 도로명 주소 변수
-
+                stationSelectOptionAdd(roadAddr);
+           		
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("faddr").value = roadAddr;
+                document.getElementById("faddr").value = roadAddr;                
             }
         }).open();
+
     }
-    function stationSelect(){
-    	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    	mapOption = {
-    	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-    	    draggable: false,
-    	    level: 5 // 지도의 확대 레벨
-    	};  
+    function stationSelectOptionAdd(addr){
+    	document.getElementById('map').style.display = 'block';
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		    draggable: false,
+		    level: 5 // 지도의 확대 레벨
+		};  
+
 		//지도를 생성합니다    
 		var map = new kakao.maps.Map(mapContainer, mapOption); 
-		
-		function setZoomable() {
-		    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
-		    map.setZoomable(false);    
-		}
+        //주소-좌표 변환 객체를 생성합니다
+    	var geocoder = new kakao.maps.services.Geocoder();
 
-		//주소-좌표 변환 객체를 생성합니다
-		var geocoder = new kakao.maps.services.Geocoder();
-		var hg_faddr = document.getElementById('faddr').value;
-		//주소로 좌표를 검색합니다
-		geocoder.addressSearch(hg_faddr, function(result, status) {
+    	//주소로 좌표를 검색합니다
+    	geocoder.addressSearch(addr, function(result, status) {
 
-		// 정상적으로 검색이 완료됐으면 
-		 if (status === kakao.maps.services.Status.OK) {
+    	// 정상적으로 검색이 완료됐으면 
+    	 if (status === kakao.maps.services.Status.OK) {
 
-		    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-		    map.setCenter(coords);
-			}
-		});
-		// 장소 검색 객체를 생성합니다
-		var ps = new kakao.maps.services.Places(map); 
+    	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    	 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    	    map.setCenter(coords);
+    		// 장소 검색 객체를 생성합니다
+           	var ps = new kakao.maps.services.Places(map); 
+			document.getElementById('map').style.display='none';
+           	// 카테고리로 은행을 검색합니다
+           	ps.categorySearch('SW8', placesSearchCB, {useMapBounds:true}); 
+			
+           	// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+           	function placesSearchCB (data, status, pagination) {
+           	    if (status === kakao.maps.services.Status.OK) {
+       				var stationSelect = document.getElementById('stationSelect');
+       				while ( stationSelect.hasChildNodes() ) { stationSelect.removeChild( stationSelect.firstChild ); }
+           	        for (var i=0; i<data.length; i++) {
+           	            var optionTag = document.createElement('option');
+           	            optionTag.setAttribute('value', data[i].place_name);
+           	            optionTag.innerText = data[i].place_name;
+           	            stationSelect.appendChild(optionTag);
+           	        }
 
-		// 카테고리로 은행을 검색합니다
-		ps.categorySearch('SW8', placesSearchCB, {useMapBounds:true}); 
-
-		// 키워드 검색 완료 시 호출되는 콜백함수 입니다
-		function placesSearchCB (data, status, pagination) {
-		    if (status === kakao.maps.services.Status.OK) {
-		    	var station_div = document.getElementById('stationSelect');
-		        for (var i=0; i<data.length; i++) {
-		        	window.alert(data[i].place_name);
-					var optionTag = doument.createElement('option');
-					optionTag.setAttribute('value', data[i].place_name);
-					optionTag.innerText = data[i].place_name;
-		        	station_div.appendChild(optionTag);
-		        }       
-		    }
-		}
+           	    }
+           	}
+    	 }
+    	});
     }
 </script>
 <style>
@@ -328,6 +330,7 @@ textarea {resize: none;}
 .homegymAddArea .dateInfo th {width: 200px;}
 .homegymAddArea .button_div {text-align: center; margin: 30px 0px;}
 
+#map {position:absolute; width: 400px; height: 200px; top:100%; display:none;}
 </style>
 <div class = "homegymAddArea">
 	<h1>홈짐 등록하기</h1>
@@ -346,24 +349,22 @@ textarea {resize: none;}
 				<label class="HomeGymAddLabel"></label> ex)곰돌이 님의 홈짐</li>
 			<li>
 				<label class="HomeGymAddLabel">도로명 주소</label>
-				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly">
-				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="sample4_execDaumPostcode()" onchange = "javascript:stationSelect();">
+				<input type="text" name="hg_faddr" id = "faddr" readonly="readonly" required="required">
+				<input type="button" class = "btn btn-primary btn-lg sbtn" value="주소 검색" onclick="sample4_execDaumPostcode()">
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">상세주소</label>
-				<input type="text" name="hg_saddr"id = "saddr" required="required">
+				<input type="text" name="hg_saddr"id = "saddr" required="required" >
 			</li>
 			<li>
-				<label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야
+				<label class="HomeGymAddLabel"></label> 주소를 명확히 작성하셔야<br>
+				<label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.<br>
+				<label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.<br>
 			</li>
 			<li>
-				<label class="HomeGymAddLabel"></label> 예약자가 찾아갈 때 혼선이 없습니다.
+				<div id = "map"></div>
 			</li>
 			<li>
-				<label class="HomeGymAddLabel"></label> 상세 주소는 결제 완료 후 예약자 페이지에서 확인 가능합니다.
-			</li>
-			<li>
-				<div id = "map" style = "width:300px; height: 300px;"></div>
 				<label class="HomeGymAddLabel">가까운 역</label>
 				<select id = "stationSelect" required="required"></select>
 			</li>

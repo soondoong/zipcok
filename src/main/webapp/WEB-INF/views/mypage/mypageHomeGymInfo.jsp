@@ -13,14 +13,6 @@
 .titlee:before {content: "";display: inline-block;background-color: #257cda;width: 11px;height: 41px;}
 .titlee hr {border-top: 1px solid #d1d1d4;margin-bottom: 30px;}
 
-#date_div {width:750px; height:400px; z-index: 1; margin: 15px 0px;}
-.ui-datepicker {width:750px; height:400px; top:30px; z-index: 2; }
-.ui-datepicker .ui-datepicker-title {line-height: 41px; vertical-align: middle; }
-.ui-datepicker select.ui-datepicker-year {width:150px;}
-.ui-datepicker select.ui-datepicker-month {width:150px;;}
-.ui-datepicker td {height:50px;}
-.ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {height:35px; }
-#block_date_div{ position: relative; height:245px; width : 600px; top: -275px;}
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js"	crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
@@ -180,23 +172,70 @@ function person_countUpdateCancel(){
 }
 function mypageHomeGymEquipementListChangeForm(){
 	var eq_list = document.getElementById('eq_list');
-	eq_list.innerHTML = '';
-
-	eq_list.innerHTML += '<c:forEach var = "dto" items = "${eqContent}">';
-		eq_list.innerHTML += '<div id = "${dto.eq_name}">';
-			eq_list.innerHTML += '<span>${dto.eq_name}</span>';
-			eq_list.innerHTML += '<select id = "${dto.eq_name}_eq_count" style = "width:200px;">'
-			+ '<option value = "1" <c:if test="${dto.eq_count==1}">selected</c:if>>1</option>'
-			+ '<option value = "2" <c:if test="${dto.eq_count==2}">selected</c:if>>2</option>'
-			+ '<option value = "3" <c:if test="${dto.eq_count==3}">selected</c:if>>3</option>'
-			+ '<option value = "4" <c:if test="${dto.eq_count==4}">selected</c:if>>4</option>'
-			+ '<option value = "5" <c:if test="${dto.eq_count==5}">selected</c:if>>5</option>'
-			+ '</select>';
-			eq_list.innerHTML += '<input type = "button" value = "삭제" class = "rebtn" onclick = "javascript:mypageEq_itemDelete("${dto.eq_name}");"><br>';	
-		eq_list.innerHTML += '</div>';
-	eq_list.innerHTML += '</c:forEach>';
+	eq_list.innerHTML = '';	
+	eq_list.innerHTML += '<select style = "width:200px;"	name="eq_name_temp" id = "eq_name_temp">'
+		+'<option value="armcurl">암 컬</option>'
+		+'<option value="chestpress">체스트 프레스</option>'
+		+'<option value="dumbbell">덤벨</option>'
+		+'<option value="halfract">하프 렉</option>'
+		+'<option value="latpulldown">렛 풀 다운</option>'
+		+'<option value="legcurl">레그 컬</option>'
+		+'<option value="smithmachine">스미스머신</option>'
+		+'<option value="pullup">풀업</option>'
+		+'<option value="running">런닝머신</option>'
+		+'</select>';
+	eq_list.innerHTML += '<select style = "width:200px;" name="eq_count_temp" id = "eq_count_temp">'
+		+'<option value="1">1</option>'
+		+'<option value="2">2</option>'
+		+'<option value="3">3</option>'
+		+'<option value="4">4</option>'
+		+'<option value="5">5</option>'
+		+'</select>';
+	eq_list.innerHTML += '<input type = "button" value = "추가" class = "rebtn" onclick = "javascript:eq_add();">';
+	eq_list.innerHTML += '<div id = "eq_list_items">';
+		eq_list.innerHTML += '<c:forEach var = "dto" items = "${eqContent}">';
+			eq_list.innerHTML += '<div id = "${dto.eq_name}">';
+				eq_list.innerHTML += '<span class = "dateName">${dto.eq_name} : </span> <input type ="hidden" name = "eq_name"  value = "${dto.eq_name}">';
+				eq_list.innerHTML += '<span class = "dateName">${dto.eq_count} EA</span> <input type ="hidden" name = "eq_count"  value = "${dto.eq_name}">';
+				eq_list.innerHTML += '<input type = "button" value = "삭제" class = "rebtn" onclick = "javascript:mypageEq_itemDelete("${dto.eq_name}");"><br>';	
+			eq_list.innerHTML += '</div>';
+		eq_list.innerHTML += '</c:forEach>';
+	eq_list.innerHTML += '</div>';
 	eq_list.innerHTML += '<input type = "button" value = "수정 완료" class = "rebtn" onclick = "">'
 	eq_list.innerHTML += '<input type = "button" value = "수정 취소" class = "rebtn" onclick = "">'
+}
+function eq_add(){
+	var eq_name = document.getElementById('eq_name_temp').value;
+	var eq_count = document.getElementById('eq_count_temp').value;
+	var eq_list_items = document.getElementById('eq_list_items');
+	var eq_name_div = document.createElement('div');
+	eq_name_div.setAttribute('id', eq_name);
+	var eq_name_span = document.createElement('span');
+	eq_name_span.setAttribute('class', 'dateName');
+	eq_name_span.innerText = eq_name+' : ';
+	var eq_name_hidden = document.createElement('input');
+	eq_name_hidden.setAttribute('type', 'hidden');
+	eq_name_hidden.setAttribute('value', eq_name);
+	eq_name_hidden.setAttribute('name', 'eq_name');
+	var eq_count_span = document.createElement('span');
+	eq_count_span.setAttribute('class', 'dateName');
+	eq_count_span.innerText = eq_count+'EA';
+	var eq_count_hidden = document.createElement('input');
+	eq_count_hidden.setAttribute('type', 'hidden');
+	eq_count_hidden.setAttribute('value', eq_count);
+	eq_count_hidden.setAttribute('name', 'eq_count');
+	var eq_delete_btn = document.createElement('input');
+	eq_delete_btn.setAttribute('type', 'button');
+	eq_delete_btn.setAttribute('class', 'rebtn');
+	eq_delete_btn.setAttribute('value', '삭제');
+	eq_delete_btn.setAttribute('onclick', 'javascript:mypageEq_itemDelete('+eq_name+')');
+	eq_name_div.appendChild(eq_name_span);
+	eq_name_div.appendChild(eq_name_hidden);
+	eq_name_div.appendChild(eq_count_span);
+	eq_name_div.appendChild(eq_count_hidden);
+	eq_name_div.appendChild(eq_delete_btn);
+	eq_list_items.appendChild(eq_name_div);
+	
 }
 function mypageEq_itemDelete(eq_name){
 	var eq_mem_id = document.getElementById('hg_mem_id').value;
@@ -260,8 +299,7 @@ function person_countUpdateCancel(){
 </head>
 <body>
 <style>
-.nomalAllWrap {width: 1400px;}
-.homegym_main {width: 1300px; padding: 10px 0 0 60px;}
+.homegym_main { padding: 10px 0 0 60px;}
 .homegym_main .profileIMG {overflow: hidden; width: 100px; height: 75px; margin: 0 auto 50px;}
 .homegym_main .profileIMG img {width:75px; height:75px;}
 .homegym_main .profile_info {padding: 0 0 0 100px;}
@@ -273,11 +311,12 @@ function person_countUpdateCancel(){
 .hgIMG .hgMainIMG img {width: 500px; height:200px;}
 .hgIMG .hgSubIMG {height:100px;}
 .hgIMG .hgSubIMG img {width: 100px; height:100px;}
-.normalInfo{ padding: 0 0 50px 40px;}
-.hgLeftDIV infodiv{width: 550px; font-size: 19px; border-bottom:1px solid #e4e4e4;}
-.hgRightDIV infodiv{width: 750px; font-size: 19px; border-bottom:1px solid #e4e4e4;}
-.hgLeftDIV infodiv span{ font-weight: 550; padding-right: 50px;}
-.hgRightDIV infodiv span{ font-weight: 550; padding-right: 50px;}
+.hgLeftDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
+.hgRightDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
+.hgLeftDIV .infoDIV .dateName{font-size:20px;}
+.hgRightDIV .infoDIV .dateName{font-size:20px;}
+.hgLeftDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
+.hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
 .rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
 .okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
 </style>
@@ -290,13 +329,10 @@ function person_countUpdateCancel(){
 					<hr>
 					<div class="hgDIV">
 						<div class = "hgLeftDIV">
-							<div class="profileIMG infoDIV">
-								<img src="/zipcok/img/homegym/common_homegym_img.jpg">
-							</div>
 							<div class="profileInfo infoDIV">
-								<h3>${hgContent.hg_nickname } 네 홈짐</h3>
+								<h3>${hgContent.hg_nickname } 님의 홈짐</h3>
 								<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
-								<h5>좋아요 수 : ${like_count }</h5>
+								<h6>좋아요 수 : ${like_count }</h6>
 								<span>홈짐 검색 활성화 : <input id = "hg_status" type = "checkbox" <c:if test = "${hgContent.hg_status == '1' }">checked = "checked"</c:if> onchange = "javascript:status_change();">								</span>
 							</div>
 							<div class = "hgIMG infoDIV">
@@ -309,12 +345,12 @@ function person_countUpdateCancel(){
 							</div>
 							<div class="normalInfo">
 								<div class="location infoDIV">
-									<span>홈짐 위치</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymAddrUpdate();"><br>
-									<span id = "hg_location_span">${hgContent.hg_faddr }<br>${hgContent.hg_saddr }</span>
+									<span class = "labelName">홈짐 위치</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymAddrUpdate();"><br>
+									<span class = "dateName" id = "hg_location_span">${hgContent.hg_faddr }<br>${hgContent.hg_saddr }</span>
 								</div>
 								<div class="station infoDIV">
-									<span>가까운 역</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymStationChangeForm();"><br>
-									<span id = "hg_station_span">${hgContent.hg_station }</span>
+									<span class = "labelName">가까운 역</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymStationChangeForm();"><br>
+									<span class = "dateName"  id = "hg_station_span">${hgContent.hg_station }</span>
 								</div>
 								<div class = "mapArea">
 									<div id="map"></div>
@@ -323,28 +359,29 @@ function person_countUpdateCancel(){
 						</div>
 						<div class = "hgRightDIV">
 							<div class="person_count infoDIV">
-								<span>수용 인원</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPerson_countChangeForm();"><br>
-								<span id = "hg_person_count_span">${hgContent.hg_person_count }</span>
+								<span class = "labelName">수용 인원</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPerson_countChangeForm();"><br>
+								<span class = "dateName"  id = "hg_person_count_span">${hgContent.hg_person_count }</span>
 							</div>
 							<div class = "eq_list infoDIV">
-								<span>보유 기구</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymEquipementListChangeForm();">
+								<span class = "labelName">보유 기구</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymEquipementListChangeForm();">
 								<div id = "eq_list">
 									<ul>
 									<c:forEach var = "list" items = "${eqContent }">
-										<li class = "showList">${list.eq_name } : ${list.eq_count } EA</li>
+										<li class = "showList dateName">${list.eq_name } : ${list.eq_count } EA</li>
 									</c:forEach>
 									</ul>
 								</div>
 							</div>
-							<div class = "reserInfo" id = "reserInfo">
-								<span>예약 가능 날짜/불가능한 날짜</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseDateChangeForm();">
-								<p>${hgContent.hg_start_date } ~ ${hgContent.hg_end_date } / ${hgContent.hg_not_date }</p>
-								<span>예약 가능 시간</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseTimeChangeForm();">
-								<p>${hgContent.hg_start_time }:00 ~ ${hgContent.hg_end_time }:00</p>
-							<div class = "date" id = "date_div"></div>
+							<div class = "reserInfo infoDIV" id = "reserInfo">
+								<span class = "labelName">예약 가능 날짜/불가능한 날짜</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseDateChangeForm();"><br>
+								<span class = "dateName" >${hgContent.hg_start_date } ~ ${hgContent.hg_end_date } / ${hgContent.hg_not_date }</span><br>
+								<span class = "labelName">예약 가능 시간</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseTimeChangeForm();"><br>
+								<span class = "dateName" >${hgContent.hg_start_time }:00 ~ ${hgContent.hg_end_time }:00</span>
+							</div>
+							<div class = "date infoDIV" id = "date_div"></div>
 							<div class="price infoDIV">
-								<span>대여 비용</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPriceChangeForm();"><br>
-								<span id = "hg_price_span">${hgContent.hg_price }</span>
+								<span class = "labelName">대여 비용</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPriceChangeForm();"><br>
+								<span class = "dateName"  id = "hg_price_span">${hgContent.hg_price }</span>
 							</div>
 							<div id = "reviewArea">
 								<h3>이용 후기</h3>
@@ -365,8 +402,8 @@ function person_countUpdateCancel(){
 			</div>
 			<!--nomalAllWrap-->
 		</div>
-		</div>
 	</div>
+
 	<%@include file="../_include/footer.jsp"%>
 </body>
 </html>
