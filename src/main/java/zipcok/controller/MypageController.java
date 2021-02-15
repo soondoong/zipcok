@@ -23,6 +23,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.LikeDTO;
@@ -248,10 +249,84 @@ public class MypageController {
    }
    
    @RequestMapping("mypageCoachMatchPayList.do")
-   public String mypageCoachMatchPayList() {
-      
-      return "mypage/mypageCoachMatchPayList";
+   public ModelAndView mypageCoachMatchPayList(@RequestParam("mem_id")String mem_id,
+		   @RequestParam(value="cp", defaultValue = "1")int cp) {
+	   
+		int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("mem_id",mem_id);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+		/*페이지설정*/
+		int totalCnt=dao.getTotalCntPaymentList(map);
+
+		String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("mypageCoachMatchPayList.do", totalCnt, cp, listSize, pageSize,keywords);
+		 
+		List<Pd_AllDTO> pdList=dao.coachPaymentList(map);
+		ModelAndView mav= new ModelAndView();
+		
+		//후기존재하는지여부체크
+		List review_idxList= dao.reviewExistCheck(map);
+		mav.addObject("review_idxList", review_idxList);
+		mav.addObject("pdList", pdList);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("mypage/mypageCoachMatchPayList");
+      return mav;
    }
+   
+   @RequestMapping("CoachReviewWritePopup.do")
+   public ModelAndView  CoachReviewWritePopup (@RequestParam("pd_idx")int pd_idx,
+		   @RequestParam("coach_name")String coach_name,
+		   @RequestParam("coach_id")String coach_id,
+		   @RequestParam("catename")String catename) {
+	   
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("pd_idx", pd_idx);
+	   map.put("coach_name", coach_name);
+	   map.put("coach_id", coach_id);
+	   map.put("catename", catename);
+	   ModelAndView mav= new ModelAndView();
+	   mav.addObject("map", map);
+	   mav.setViewName("mypage/ReviewWritePopup");
+	   return mav;
+   }
+   /*코치후기작성하기*/
+   @RequestMapping("coachStarReviewAdd.do")
+   public ModelAndView coachStarReviewAdd(ReviewDTO rdto,HttpServletRequest req) {
+	   //String starnum_s = req.getParameter("");
+	   int result=dao.coachStarReviewAdd(rdto);
+	   String msg=result>0?"후기가 등록되었습니다":"후기등록 실패";
+	   ModelAndView mav=new ModelAndView();
+	   mav.addObject("msg", msg);
+	   mav.addObject("gourl", "mypageCoachMatchPayList.do?mem_id="+rdto.getRev_mem_id());
+	   mav.setViewName("mypage/mypagePopupMsg");
+	   return mav;
+   }
+   
+
+   /*코치후기작성한거 보기*/
+  @RequestMapping("seeCoachReviewPopup.do")
+   public ModelAndView seeCoachReviewPopup(@RequestParam("pd_idx")int pd_idx,
+		   @RequestParam("coach_name")String coach_name,
+		   @RequestParam("coach_id")String coach_id,
+		   @RequestParam("catename")String catename,
+		   @RequestParam("rev_idx")int rev_idx) {
+	   ModelAndView mav= new ModelAndView();
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   map.put("pd_idx", pd_idx);
+	   map.put("coach_name", coach_name);
+	   map.put("coach_id", coach_id);
+	   map.put("catename", catename);
+	   mav.addObject("map", map);
+	   	ReviewDTO revdto= dao.showReview(rev_idx);
+	   mav.addObject("revdto", revdto);
+	   mav.setViewName("mypage/coachReviewViewPopup");
+	   return mav;
+   }
+   
+   
    
    //마이페이지 F&A/고객센터 작성글 목록
    @RequestMapping("/mypageWriteList.do")

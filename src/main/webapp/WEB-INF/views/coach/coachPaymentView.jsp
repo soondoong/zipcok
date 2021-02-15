@@ -38,8 +38,8 @@ function pg_check(){
 					var params = '?pd_req_idx='+${prdto.pr_idx};
 				    params += '&pd_code='+rsp.merchant_uid;
 				    params += '&pd_key=코치';
-				    params += '&pd_target_id='+'${prdto.pr_receiver}';
-				    params += '&pd_mem_id='+'${sessionScope.loginAll.mem_name}';
+				    params += '&pd_target_id='+'${prdto.pr_sender}';
+				    params += '&pd_mem_id='+'${sessionScope.loginAll.mem_id}';
 				    params += '&pd_method='+pg_choice_method;
 				    params += '&pd_price='+'${prdto.pr_price}'
 				    params += '&pr_msg_idx='+'${prdto.pr_msg_idx}';

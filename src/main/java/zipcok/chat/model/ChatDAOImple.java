@@ -129,15 +129,14 @@ public int prStatusChangetoOK(HashMap<String, Object> map) {
 
 /*존재하는지확인*/	
 @Override
-	public int isPaymentCount(Payment_RequestDTO prdto) {
-	int count = sqlMap.insert("isPaymentCount",prdto);
+	public Payment_RequestDTO isPaymentCount(Payment_RequestDTO prdto) {
+	Payment_RequestDTO count = sqlMap.selectOne("isPaymentCount",prdto);
 	return count;
 	}
 /*삭제*/
 	@Override
 	public int deletePaymentrequest(Payment_RequestDTO prdto) {
-		//상태가 결제완료이면 삭제할수 없게하기
-		int count = sqlMap.insert("deletePaymentrequest",prdto);
+		int count = sqlMap.delete("deletePaymentrequest",prdto);
 		return count;
 	}
 	

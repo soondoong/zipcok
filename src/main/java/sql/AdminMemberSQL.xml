@@ -11,6 +11,8 @@
     (select rownum as rnum,a.* from
     (select * from zipcok_member
     where
+    mem_out=0
+    and
   	mem_type like
     <choose>
         <when test = "type =='전체'">'%%'</when>
@@ -33,19 +35,22 @@
     (select rownum as rnum,a.* from
     (select * from zipcok_member
     where
+    mem_out=0
+    and
     mem_type like
     <choose>
-        <when test = "type =='전체'">'%%'</when>
-        <when test = "type !='전체'">'%${type}%'</when>
+        <when test = "type=='전체'">'%%'</when>
+        <when test = "type!='전체'">'%${type}%'</when>
     </choose>
     and
     mem_name like
     <choose>
-    	<when test = "name =='noinputmsg'">'%%'</when>
-   	 	<when test = "name !='noinputmsg'">'%${name}%'</when>
+    	<when test = "name ==''">'%%'</when>
+   	 	<when test = "name !=''">'%${name}%'</when>
     </choose>
+    order by mem_idx
  	)a)b
-    
+    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
 	
 	
@@ -73,12 +78,83 @@
       update zipcok_member set mem_type=#{mem_type} where mem_id=#{mem_id}
    </update>
    
-      <update id="adminMemberAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
-      update zipcok_member set
-         mem_zipcode=#{mem_zipcode},
+    <update id="adminMemberAddrUpdate" parameterType="HashMap">
+     update zipcok_member set
+       	 mem_zipcode=#{mem_zipcode},
          mem_addr=#{mem_addr},
          mem_detailaddr=#{mem_detailaddr}
          where mem_id=#{mem_id}
    </update>
+   
+
+	<select id="adminDelMemberTotalCnt" parameterType="HashMap" resultType="Integer">
+	
+	select count(*) from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member 
+	where
+	<choose>
+    	<when test="type=='전체'">
+     	   mem_id like '%%' and
+  	 	</when>
+   	 	<when test="type=='회원이름'">
+   	    	mem_name like '%${searchContent}%' and
+   		</when>
+    	<when test="type=='회원아이디'">
+        	mem_id like '%${searchContent}%' and
+    	</when>
+	</choose>
+	mem_out=1
+    )a)b
+    
+	</select>
+
+
+   	<select id="adminDelMemberList" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
+	
+	select * from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member 
+	where
+	<choose>
+    	<when test="type=='전체'">
+     	   mem_id like '%%' and
+  	 	</when>
+   	 	<when test="type=='회원이름'">
+   	    	mem_name like '%${searchContent}%' and
+   		</when>
+    	<when test="type=='회원아이디'">
+        	mem_id like '%${searchContent}%' and
+    	</when>
+	</choose>
+	mem_out=1
+    order by mem_idx
+ 	)a)b
+    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
+	
+	
+	
+	
+	
+	
+	<select id="adminDelMemberDateTotalCnt" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
+	select count(*) from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member
+	where mem_out=1 and
+    mem_outdate between #{start_date} and #{end_date}
+    )a)b
+	</select>
+	
+	<select id="adminDelMemberDate" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
+	select * from
+    (select rownum as rnum,a.* from
+    (select * from zipcok_member
+	where mem_out=1 and
+    mem_outdate between #{start_date} and #{end_date}
+    )a)b
+    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
 
   </mapper>

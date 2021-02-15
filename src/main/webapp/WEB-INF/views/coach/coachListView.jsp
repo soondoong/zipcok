@@ -16,16 +16,16 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 		.topSearchWrap .searchDiv select {width: 200px; height:50px; margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
 		.topSearchWrap .searchDiv .sbtn { box-shadow: 3px 3px 5px #1f47a2;}
 		
-		.result_contents_wrap {  max-width:1490px;padding: 30px; margin: 0 auto;}		
+		.result_contents_wrap {  max-width:1490px;padding:30px; margin: 0 auto;}		
 		.result_contents_wrap h3:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
 		.result_contents_wrap h3{font-weight: 550; color:#12151d; margin-top:20px;}
 		
 		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1400px;}		
-		.result_contents_wrap .contentsWrap .listWrap {overflow: hidden; margin: 0 -30px -30px 0;}
-		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
-		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
-		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
-		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
+		.result_contents_wrap .contentsWrap .listWrap,.listWrap2 {overflow: hidden; margin: 0 -30px -30px 0;}
+		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; border-radius:7px 7px 0 0; align-items: center; width: 240px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover; border-radius:7px 7px 0 0;}
+		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white; border-bottom: 1px solid #dddddd;border-left: 1px solid #dddddd;border-right: 1px solid #dddddd; border-radius: 0 0 7px 7px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
@@ -105,8 +105,10 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 
 <!-- 리스트 영역  -->
 <div class="result_contents_wrap">
-		<h3>&nbsp;나도 몸짱! 고강도 전신운동</h3>
 		
+		<h3>&nbsp;나도 몸짱! 고강도 전신운동<span class="badge bg-warning rounded-pill" style="margin-left:20px;   width:80px;">New</span></h3>
+		
+	
   			<div class="contentsWrap">		
 				<div class="listWrap">
 					<c:forEach var="dto" items="${map.pt }">			
@@ -145,8 +147,8 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 					</div> 
 			</div>
 </div>
-<div class="result_contents_wrap">	
-	<h3>&nbsp;나를 위한, 힐링의 시간</h3>
+<div class="result_contents_wrap" style="padding-bottom:60px;">	
+	<h3>&nbsp;나를 위한, 힐링의 시간<span class="badge bg-warning rounded-pill" style="margin-left:20px;   width:80px;">New</span></h3>
  <div class="contentsWrap">
 	<div class="listWrap2">
 		<c:forEach var="dto2" items="${map.yoga }">
@@ -180,7 +182,7 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 							</div>  
 		  
 
-</c:forEach> 
+			</c:forEach> 
 		
 	</div>
 </div>
@@ -251,6 +253,6 @@ function likeminus(){
 	  	}
 }
 </script>
-
+	<%@include file="../_include/footer.jsp"%>
 </body>
 </html>

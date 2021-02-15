@@ -13,9 +13,7 @@ public class ChatRoomListDTO {
     
 	private String mfile_upload; //현재유저플필사진 완전 현재사진임
 	private String mem_name; //상대이름
-
-
-	//메세지
+   
 	private int msg_idx; //메세지idx
 	private int msg_croom_idx; //채팅방idx
 	private int msg_req_idx; //요청서idx
@@ -251,6 +249,7 @@ public class ChatRoomListDTO {
 		this.unReadCount = unReadCount;
 		this.msg_type = msg_type;
 	}
+
 
 	
 

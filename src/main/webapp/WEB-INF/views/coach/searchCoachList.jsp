@@ -25,10 +25,11 @@
 		.result_contents_wrap .hgroup .h5search {margin-top: 15px; font-size: 16px;}		
 		.result_contents_wrap .contentsWrap .secondWrap {overflow: hidden; margin: 0 -30px -30px 0;}
 		.secondAjaxWrap{overflow: hidden; margin: 0 -30px -30px 0;}
-		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; border: 1px solid #dddddd;}
-		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
-		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover;}
-		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;}
+		.contentsWrap{margin-bottom:60px}
+		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; }
+		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; border-radius:7px 7px 0 0; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
+		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover; border-radius:7px 7px 0 0;}
+		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;border-bottom: 1px solid #dddddd;border-left: 1px solid #dddddd;border-right: 1px solid #dddddd; border-radius: 0 0 7px 7px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}

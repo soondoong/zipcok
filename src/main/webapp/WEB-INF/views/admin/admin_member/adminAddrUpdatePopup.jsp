@@ -93,7 +93,9 @@ function execPostCode() {
  
  
  function formSubmit(){
-	 opener.document.getElementById('addrTd').value = document.getElementById('mem_detailaddr').value;
+	opener.document.getElementById('addrTd').value = document.getElementById('mem_addr').value+" "+document.getElementById('mem_detailaddr').value;
+	document.getElementById('adminAddrGoGoGo').submit();
+	window.self.close();
  }
  
 </script>
@@ -101,12 +103,13 @@ function execPostCode() {
 </head>
 <body>
 	<article>
-		<form action="mypageAddrUpdate.do">
+		<form id="adminAddrGoGoGo" action="adminAddrUpdateAction.do">
 			<h4>주소변경</h4>
 			<hr>
 			<div class="col-sm-3 col-md-offset-3">
 			
 				<div class="form-group">
+					<input type="hidden" name="mem_id" value="${mem_id }">
 					<input class="form-control" style="width: 40%; display: inline;"
 						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
 						readonly="readonly">
@@ -130,7 +133,7 @@ function execPostCode() {
 				</div>
 
 				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="button" class="btn btn-primary" onclick = "javascript:formSubmit();">변경하기</button>
 					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 				</div>
 			</div>
