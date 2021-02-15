@@ -229,6 +229,13 @@ rownum = 1
 	pr_req_idx = #{pr_req_idx}
 </select>
 
+<select id="findOnePaymentRequestByPrIdx" parameterType="Integer" resultType="zipcok.cpayment.model.Payment_RequestDTO">
+	select * from 
+	payment_request
+	where
+	pr_idx = #{pr_idx}
+</select>
+
 <select id="isPaymentCount" parameterType="zipcok.cpayment.model.Payment_RequestDTO" resultType="zipcok.cpayment.model.Payment_RequestDTO" >
 select *
 from payment_request

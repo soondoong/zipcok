@@ -10,10 +10,10 @@
 
 <script>
 function mypageHomeGymPayList(){
-	location.href='mypageHomeGymPayList.do?mem_id=${sessionScope.sid}';
+	location.href='CmHomeGymPayList.do?mem_id=${sessionScope.coachId}';
 }
 function mypageCoachMatchPayList(){
-	location.href='mypageCoachMatchPayList.do?mem_id=${sessionScope.sid}';
+	location.href='CmPaymentList.do?mem_id=${sessionScope.coachId}';
 }
 </script>
 </head>
@@ -33,10 +33,11 @@ function mypageCoachMatchPayList(){
 		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
 		.table th{font-weight: bold; border-color:#848282;}
 		.revbtn{width:72px; height: 25px; }
+		.table a,.table a:hover,.table a:link{color:blue;}
 		</style>		
 			<ul>
 				<li><button type="button" onclick="mypageHomeGymPayList()">홈짐 결제내역</button></li>
-				<li class="on"><button type="button" onclick="mypageCoachMatchPayList()">코치매치 결제내역</button></li>
+				<li class="on"><button type="button" onclick="mypageCoachMatchPayList()">코치매칭완료내역</button></li>
 			</ul>
 		</div>
 		<div class="mypage_main_table">
@@ -44,6 +45,7 @@ function mypageCoachMatchPayList(){
 	<thead>
 		<tr>
 			<th>결제번호</th>
+			<th>결제요청서번호</th>
 			<th>회원명</th>
 			<th>요청 카테고리</th>
 			<th>서비스시작일</th>
@@ -56,13 +58,13 @@ function mypageCoachMatchPayList(){
 	</thead>
 	<tfoot>	
 		<tr>
-			<td colspan="8" align="center">${pageStr}</td>
+			<td colspan="9" align="center">${pageStr}</td>
 		</tr>
 	</tfoot>
 	<tbody>
 		<c:if test="${empty pdList}">
 			<tr>
-				<td colspan="8" align="center">
+				<td colspan="9" align="center">
 					등록된 결제내역이 없습니다.
 				</td>
 			</tr>
@@ -70,6 +72,7 @@ function mypageCoachMatchPayList(){
 		<c:forEach var="p" items="${pdList }"  varStatus="st">
 		<tr>
 			<td>${p.pd_idx }</td>
+			<td><a href="javascript:showPayreqPopup('${p.pr_idx }','${p.mem_name }','${p.catename }');">${p.pr_idx }</a></td>
 			<td>${p.mem_name }</td>
 			<td>${p.catename }</td>
 			<td>${p.pr_start }</td>
@@ -97,6 +100,11 @@ function mypageCoachMatchPayList(){
 		var coachname='${sessionScope.login.mem_name}';
 		var params="pd_idx="+idx+"&coach_name="+coachname+"&catename="+cate+"&coach_id="+coachid+"&rev_idx="+revidx;
 		window.open("seeCoachReviewPopup.do?"+params, "seeCoachReviewPopup","width=450,height=470,top=100,left=500");
+	}
+	
+	function showPayreqPopup(pr_idx,mem_name,catename){	
+		var params="pr_idx="+pr_idx+"&mem_name="+mem_name+"&catename="+catename;
+		window.open("seePayreqPopup.do?"+params, "seePayreqPopup","width=450,height=470,top=100,left=500");
 	}
 	</script>
 	   <%@include file="../_include/footer.jsp" %>

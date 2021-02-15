@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -34,6 +36,8 @@ public class CoachMypageController {
 	private MypageDAO myPagedao;
 	@Autowired
 	private CoachDAO dao;
+	@Autowired
+	private ChatDAO chatdao;
 
 	@Autowired
 ServletContext c;
@@ -70,6 +74,24 @@ ServletContext c;
 		return mav;
 	}
 	
+	@RequestMapping("seePayreqPopup.do")
+	public ModelAndView seePayreqPopup(@RequestParam("pr_idx")int pr_idx,
+			@RequestParam("mem_name")String mem_name,@RequestParam("catename")String catename) {
+				
+		 ModelAndView mav= new ModelAndView();
+		   HashMap<String, Object> map = new HashMap<String, Object>();
+		   map.put("pr_idx", pr_idx);
+		   map.put("mem_name",mem_name);
+		   map.put("catename",catename);
+		   Payment_RequestDTO prdto= chatdao.findOnePaymentRequestByPrIdx(pr_idx);
+		  map.put("prdto", prdto);
+		  
+		  
+		   mav.addObject("map", map);		
+		   mav.setViewName("coachMyPage/CmPayreqViewPopup");
+		
+		return mav;
+	}
 	
 	
 	@RequestMapping("/coachMyPage.do")
