@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
 
@@ -36,6 +37,40 @@ public class CoachMypageController {
 
 	@Autowired
 ServletContext c;
+	
+	
+	
+	@RequestMapping("CmPaymentList.do")
+	public ModelAndView CmPaymentList(@RequestParam("mem_id")String mem_id,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		ModelAndView mav=new ModelAndView();
+		int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("mem_id",mem_id);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+	      map.put("methodKey","CmPaymentListTotal");
+		/*페이지설정*/
+		int totalCnt=dao.getTotalCnt(map);
+
+		String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
+		String pageStr=zipcok.page.CoachPageModule.makePage("CmPaymentList.do", totalCnt, cp, listSize, pageSize,keywords);
+		 
+		List<Pd_AllDTO> pdList=cdao.CmPaymentList(map);
+	
+		//후기존재하는지여부체크
+		map.put("pdSenderKey","pd_target_id");
+		map.put("pdKey","코치");
+		List review_idxList= myPagedao.reviewExistCheck(map);
+		mav.addObject("review_idxList", review_idxList);
+		mav.addObject("pdList", pdList);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("coachMyPage/CoachMatchPayList");
+		return mav;
+	}
+	
+	
 	
 	@RequestMapping("/coachMyPage.do")
 	public ModelAndView coachMypageProfile(HttpSession session) {

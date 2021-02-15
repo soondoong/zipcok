@@ -287,9 +287,9 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 		    (select * from
 		    zipcok_payment_details
 		    where 
-		    pd_mem_id = #{mem_id}
+		    ${pdSenderKey} = #{mem_id}
 		    and
-		    pd_key = '코치')pd,star_review
+		    pd_key = #{pdKey} )pd,star_review
 			where
 			pd.pd_idx = rev_pd_idx(+)
 	        order by pd_payment_date desc)aa)bb

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
 @Service
@@ -161,11 +162,6 @@ public int categoryinsert(CategoryDTO dto) {
 	return count;
 }
 
-@Override
-public int curriDelete(HashMap<String, String> map) {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 /*커리큘럼 등록*/
 @Override
@@ -183,6 +179,20 @@ public void curriUpdate(CurriDTO cdto) {
 @Override
 public void curriDelete(CurriDTO cdto) {
 	sqlMap.delete("deleteCurri",cdto);
+}
+
+//코치결제내역서 리스트
+@Override
+public List<Pd_AllDTO> CmPaymentList(HashMap<String, Object> map) {
+	int cp = (int)map.get("cp");
+	int ls = (int)map.get("ls");
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	
+	map.put("start",start);
+	map.put("end",end);
+	 List<Pd_AllDTO>  list = sqlMap.selectList(	"CmPaymentList", map);
+	return list;
 }
 
 }

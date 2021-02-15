@@ -264,6 +264,8 @@ public class MypageController {
 		ModelAndView mav= new ModelAndView();
 		
 		//후기존재하는지여부체크
+		map.put("pdSenderKey","pd_mem_id");
+		map.put("pdKey","코치");
 		List review_idxList= dao.reviewExistCheck(map);
 		mav.addObject("review_idxList", review_idxList);
 		mav.addObject("pdList", pdList);

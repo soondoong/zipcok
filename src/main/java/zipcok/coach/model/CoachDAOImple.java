@@ -160,6 +160,8 @@ public class CoachDAOImple implements CoachDAO {
          			break;
          case "mypageHomeGymPayListTotal":count=sqlMap.selectOne("mypageHomeGymPayListTotalCnt",map); 
 			break;
+         case "CmPaymentListTotal":count=sqlMap.selectOne("CmPaymentListTotalCnt",map); 
+			break;
   
      }
 		

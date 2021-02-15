@@ -58,11 +58,10 @@
 							<th>코치번호</th>
 							<th>이름</th>
 							<th>아이디</th>
-							<th>휴대폰번호</th>
+							<th>카테고리</th>
 							<th>이메일</th>
 							<th>관리 회원 수</th>
-							<th>가입일</th>
-							<th>마지막 접속일</th>
+							<th>등록일</th>
 						</tr>
 					</thead>
 					<tbody>
