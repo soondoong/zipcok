@@ -41,10 +41,24 @@ public class ChatDAOImple implements ChatDAO{
 	
 	/*채팅방목록 뽑아오기*/
 	@Override
-	public List<ChatRoomListDTO> allChatRoomList(String id,String sqlkey) {
-		 List<ChatRoomListDTO> list= sqlMap.selectList(sqlkey,id);
+	public List<ChatRoomListDTO> allChatRoomList(String sqlkey,HashMap<String,Object> map) {
+		int cp = (int)map.get("cp");
+		int ls = (int)map.get("ls");
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		map.put("start",start);
+		map.put("end",end);
+		 List<ChatRoomListDTO> list= sqlMap.selectList(sqlkey,map);
 		 			
 		return list;
+	}
+	/*채팅방목록 토탈*/
+	@Override
+	public int getTotalCntChatRoomList(String sqlkey, HashMap<String, Object> map) {	
+		int count =sqlMap.selectOne(sqlkey, map);
+		System.out.println("채팅방총갯수:"+count);
+		return count==0?1 :count;
 	}
 	
 	/*요청서1개정보가져오기*/

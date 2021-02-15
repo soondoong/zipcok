@@ -27,6 +27,9 @@
 .opendate{ position:relative; height: 100%; }
 .opendate p{ position:relative;right:20px; font-size: 16px;}
 .onechat .btnout{font-size: 35px; color:#1a346d;cursor: pointer; position:absolute; bottom:20px;right:20px;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+
 </style>
 </head>
 <body>
@@ -44,6 +47,7 @@
 						<li class="sidemenuli"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
 						<li class="sidemenuli"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
 						<li class="sidemenuli"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.coachId}">결제내역</a></li>
+						<li class="sidemenuli"><a href="coachMyPageCommManage.do">커뮤니티 관리</a></li>
 					</ul>
 				</div>
 	   </c:if>  
@@ -52,7 +56,8 @@
 					<div class="mypage_sidebar">
 						<ul>
 							<li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>
-							<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>					
+							<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>		
+							<li><a href="myRequestList.do?mem_id=${sessionScope.sid}">보낸 요청서보기</a></li>			
 							<li class="sidemenuli" id="sideFont"><a href="chatRoomList.do?mem_id=${sessionScope.sid}">채팅방</a></li>
 							<li class="sidemenuli"><a href="mypageHomeGymLikeList.do?mem_id=${sessionScope.sid}" id="sideFont">좋아요 목록</a></li>
 							<li class="sidemenuli"><a href="mypageWriteList.do?mem_id=${sessionScope.sid}" id="sideFont">작성글관리</a></li>
@@ -189,8 +194,14 @@
 					
 						
 					</c:if>
-				</div><!-- chats -->
-			</div>
+				</div>
+				<div class="paging">
+					<c:if test="${!empty pageStr }">
+					${pageStr }
+					</c:if>
+				</div>
+				
+			</div><!-- chattt -->
 		</div>		
 </div>
 

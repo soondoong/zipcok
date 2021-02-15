@@ -74,6 +74,7 @@ $(function () {
 						<li class="sidemenuli"><a href="coachMypageHomeGymLikeList.do?mem_id=${sessionScope.coachId}">좋아요 목록</a></li>
 						<li class="sidemenuli"><a href="coachMypageWriteList.do?mem_id=${sessionScope.coachId}">작성글관리</a></li>
 						<li class="sidemenuli"><a href="mypageHomeGymPayList.do?mem_id=${sessionScope.coachId}">결제내역</a></li>
+						<li class="sidemenuli"><a href="coachMyPageCommManage.do">커뮤니티 관리</a></li>
 					</ul>
 				</div>
 	   </c:if>  
@@ -83,7 +84,7 @@ $(function () {
 						<ul>
 							<li class="sidemenuli"><a href="memberProfileForm.do?mem_id=${sessionScope.sid}" id="sideFont">내 프로필</a></li>
 							<li class="sidemenuli" id="sideFont"><a href="#">내 홈짐보기</a></li>
-							<li class="sidemenuli" id="sideFont"><a href="checkPMRequest.do?id=${sessionScope.sid}">받은 견적 보기</a></li>
+							<li><a href="myRequestList.do?mem_id=${sessionScope.sid}">보낸 요청서보기</a></li>
 							<li class="sidemenuli" id="sideFont"><a href="chatRoomList.do?mem_id=${sessionScope.sid}">채팅방</a></li>
 							<li class="sidemenuli"><a href="mypageHomeGymLikeList.do?mem_id=${sessionScope.sid}" id="sideFont">좋아요 목록</a></li>
 							<li class="sidemenuli"><a href="mypageWriteList.do?mem_id=${sessionScope.sid}" id="sideFont">작성글관리</a></li>

@@ -207,8 +207,6 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 	
 	<select id="getTotalCntPaymentList" resultType="Integer" parameterType="HashMap">
 		select count(*) from
-	(select rownum as rnum,aaa.*  from
-	
 	(select * from
 	
 	(select * from
@@ -228,9 +226,7 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 		pd.pd_target_id = nameinfo.mem_id
 		and
 		pd.pd_req_idx = pr.pr_idx
-		order by pd.pd_payment_date desc)aaa)sunbun
-		where
-		rnum between #{start} and  #{end}
+		order by pd.pd_payment_date desc)aaa
 	</select>
 	
 	<insert id="coachStarReviewAdd" parameterType="zipcok.coach.model.ReviewDTO">

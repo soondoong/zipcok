@@ -103,14 +103,27 @@ public class ChatController {
 	
 	
 		@RequestMapping("chatRoomList.do")
-	   public ModelAndView chatRoomList(@RequestParam("mem_id")String id) {
+	   public ModelAndView chatRoomList(@RequestParam("mem_id")String mem_id, @RequestParam(value="cp", defaultValue = "1")int cp) {
 			ModelAndView mav=new ModelAndView();
-			
+			int listSize=5;
+			int pageSize=5;
+		      HashMap<String,Object> map = new HashMap<String, Object>();
+		      map.put("mem_id",mem_id);
+		      map.put("cp",cp);
+		      map.put("ls",listSize);
+		 
 			List<ChatRoomListDTO> list=  null; //채팅방리스트
-			MemberDTO mdto=myPagedao.memberProfile(id); //코치회원인지 일반회원인지 판단		
+			MemberDTO mdto=myPagedao.memberProfile(mem_id); //코치회원인지 일반회원인지 판단		
 			if(mdto.getMem_type().equals("일반회원")) { //일반회원용 채팅방목록
 						
-				list= chatdao.allChatRoomList(id,"nomalChatRoomListSQL");
+			    /*페이지설정*/
+							int totalCnt=chatdao.getTotalCntChatRoomList("nomalChatRoomTotal", map);
+
+							String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
+							String pageStr=zipcok.page.CoachPageModule.makePage("chatRoomList.do", totalCnt, cp, listSize, pageSize,keywords);
+							mav.addObject("pageStr", pageStr);
+				
+				list= chatdao.allChatRoomList("nomalChatRoomListSQL",map);
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
 					if(dto == null) {
@@ -136,8 +149,15 @@ public class ChatController {
 				//mav.setViewName("mypage/chatRoomList");		
 				mav.setViewName("coachMyPage/chatList");
 			}else { //코치회원용 채팅방목록
-									
-				list = chatdao.allChatRoomList(id,"coachChatRoomListSQL");							
+							
+				  /*페이지설정*/
+				int totalCnt=chatdao.getTotalCntChatRoomList("coachChatRoomTotal", map);
+
+				String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
+				String pageStr=zipcok.page.CoachPageModule.makePage("chatRoomList.do", totalCnt, cp, listSize, pageSize,keywords);
+				mav.addObject("pageStr", pageStr);
+				
+				list = chatdao.allChatRoomList("coachChatRoomListSQL",map);							
 				for(ChatRoomListDTO d : list ) {
 					MessageDTO dto =	chatdao.getRecentMessage(d.getCroom_idx());
 					if(dto == null) {
