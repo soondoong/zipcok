@@ -174,23 +174,18 @@ public class CommDailyController {
 		
 		
 	// 진짜 첨부 파일 삭제
-	@RequestMapping("commFileDel.do")
-	public ModelAndView realdeleteFile(BbsFileDTO dto) {
-		fileDel(dto.getBfile_path(),dto.getBfile_rename()); 
-		//int result=bbsFileDao.db삭제하는 dao메소드
-		//String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
-		ModelAndView mav=new ModelAndView();
-		//mav.addObject("msg", msg);
-		return mav;
-	}
-	
-		private void fileDel(String path,String name) {
-			File f=new File(path+'/'+name);
-			if(f.isFile()) {
-				f.delete();
-			}
-		
-	}
+	/*
+	 * @RequestMapping("commFileDel.do") public ModelAndView
+	 * realdeleteFile(BbsFileDTO dto) {
+	 * fileDel(dto.getBfile_path(),dto.getBfile_rename()); int
+	 * result=bbsFileDao.db삭제하는 dao메소드 String msg=result>0?"파일 삭제 성공!":"파일 삭제 실패!";
+	 * ModelAndView mav=new ModelAndView(); mav.addObject("msg", msg); return mav; }
+	 * 
+	 * private void fileDel(String path,String name) { File f=new
+	 * File(path+'/'+name); if(f.isFile()) { f.delete(); }
+	 * 
+	 * }
+	 */
 	
 	//일일 운동 게시판 글보기
 	@RequestMapping("commDailyContent.do")
@@ -257,7 +252,7 @@ public class CommDailyController {
 		}else {
 			result=exBbsDao.dailyDelete(ex_idx2);
 		}
-		
+		exBbsDao.dailyDelRe(ex_idx2);
 		String msg=result>0?"글이 삭제되었습니다.":"글삭제 실패!";
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);

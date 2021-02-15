@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
+import zipcok.cs.model.CsDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
@@ -116,6 +117,42 @@ public class MypageDAOImple implements MypageDAO {
       
       return list;
    }
+   
+   //작성글 삭제
+   @Override
+	public int mypageWriteDelete(String checkArr) {
+	   int count =sqlMap.delete("mypageWriteDelete", checkArr);
+	   return count;
+	}
+   
+   //커뮤니티 작성글 총 수
+   @Override
+	public int mypageCommWriteListTotalCnt(String ex_id) {
+	   int count=sqlMap.selectOne("mypageCommWriteListTotalCnt", ex_id);
+	   return count==0?1:count;
+	}
+   
+   //커뮤니티 작성글 목록
+   @Override
+	public List mypageCommWriteList(int cp, int ls, String ex_id) {
+	   int start=(cp-1)*ls+1;
+	      int end=cp*ls;
+	      Map map=new HashedMap();
+	      map.put("ex_id", ex_id);
+	      map.put("start", start);
+	      map.put("end", end);
+	      List list = sqlMap.selectList("mypageCommWriteList", map);
+	      
+	      return list;
+	   }
+   
+   //커뮤니티 작성글 삭제
+   @Override
+	public int mypageCommWriteDelete(String checkArr) {
+	   int count =sqlMap.delete("mypageCommWriteDelete", checkArr);
+	   return count;
+	}
+   
    
    //홈짐 좋아요 총 수
    @Override

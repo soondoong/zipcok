@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.coach.model.CoachDAO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
+import zipcok.cs.model.CsDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
@@ -361,8 +362,8 @@ public class MypageController {
          @RequestParam(value = "cp", defaultValue = "1")int cp) {
       
       int totalCnt=dao.mypageWriteListTotalCnt((String)session.getAttribute("sid"));
-      int listSize=3;
-      int pageSize=3;
+      int listSize=5;
+      int pageSize=5;
       String pageStr=zipcok.page.MypagePageModule.makePage("mypageWriteList.do", totalCnt, cp, listSize, pageSize);
       List list = dao.mypageWriteList(cp, listSize, (String)session.getAttribute("sid"));
       ModelAndView mav = new ModelAndView();
@@ -373,11 +374,43 @@ public class MypageController {
       return mav;
    }
    
+ //마이페이지 커뮤니티 작성글 목록
    @RequestMapping("/mypageCommWriteList.do")
-   public String mypageCommWriteList() {
+   public ModelAndView mypageCommWriteList(HttpSession session,
+         @RequestParam(value = "cp", defaultValue = "1")int cp) {
       
-      return "mypage/mypageCommWriteList";
+      int totalCnt=dao.mypageCommWriteListTotalCnt((String)session.getAttribute("sid"));
+      int listSize=5;
+      int pageSize=5;
+      String pageStr=zipcok.page.MypagePageModule.makePage("mypageCommWriteList.do", totalCnt, cp, listSize, pageSize);
+      List list = dao.mypageCommWriteList(cp, listSize, (String)session.getAttribute("sid"));
+      ModelAndView mav = new ModelAndView();
+      mav.addObject("list", list);
+      mav.addObject("pageStr", pageStr);
+      mav.setViewName("mypage/mypageCommWriteList");
+      
+      return mav;
    }
+   
+   //마이페이지 작성글 삭제
+   @RequestMapping("mypageCheckDel.do")
+   public ModelAndView mypageWriteDelete(
+		   HttpServletRequest req) {
+	   
+	   String[] checkArr=req.getParameterValues("checkRow");
+	   ModelAndView mav=new ModelAndView();
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   int count =0;
+	   for(int i=0; i<checkArr.length; i++) {
+		   count+=dao.mypageWriteDelete(checkArr[i]);
+	   }
+	   
+	   mav.addObject("msg", "게시글이 삭제되었습니다.");
+	   mav.addObject("gourl", "mypageWriteList.do");
+	   mav.setViewName("mypage/mypageMsg");
+	   return mav;
+   }
+   
    
    
    //마이페이지 홈짐 좋아요 목록
@@ -386,8 +419,8 @@ public class MypageController {
          @RequestParam(value = "cp", defaultValue = "1")int cp) {
       
       int totalCnt=dao.mypageHomeGymLikeListTotalCnt((String)session.getAttribute("sid"));
-      int listSize=3;
-      int pageSize=3;
+      int listSize=5;
+      int pageSize=5;
       String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
       List list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
       ModelAndView mav = new ModelAndView();
@@ -405,8 +438,8 @@ public class MypageController {
             @RequestParam(value = "cp", defaultValue = "1")int cp) {
          System.out.println("코치좋아요목록");
          int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
-         int listSize=3;
-         int pageSize=3;
+         int listSize=5;
+         int pageSize=5;
          String pageStr2=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
          List list2=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
          ModelAndView mav = new ModelAndView();

@@ -96,6 +96,12 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		return count;
 	}
 	
+	@Override
+	public int dailyDelRe(int re_bbs_idx) {
+		int count=sqlMap.delete("dailyDelReSQL",re_bbs_idx);
+		return count;
+	}
+	
 	//조회수 불러오기
 	@Override
 	public int dailyReadnum(int ex_idx) {

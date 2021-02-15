@@ -28,24 +28,24 @@
 	  	<when test="choice=='전체'"></when>
 	  	<when test="choice=='번호'">
 		  	<choose>
-		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0</when>
-		  		<when test="searchText!=''">mem_idx = #{searchText}</when>
+		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0 and</when>
+		  		<when test="searchText!=''">mem_idx = #{searchText} and</when>
 		  	</choose>
 	  	</when>
 	  	<when test="choice=='id'">
 	  		<choose>
-		  		<when test="searchText==''">mem_id like '%%'</when>
-		  		<when test="searchText!=''">mem_id=#{searchText}</when>
+		  		<when test="searchText==''">mem_id like '%%' and</when>
+		  		<when test="searchText!=''">mem_id=#{searchText} and</when>
 		  	</choose>
   		</when>
 	  	<when test="choice=='이름'">
 	  		<choose>
-		  		<when test="searchText==''">mem_name like '%%'</when>
-		  		<when test="searchText!=''">mem_name=#{searchText}</when>
+		  		<when test="searchText==''">mem_name like '%%' and</when>
+		  		<when test="searchText!=''">mem_name=#{searchText} and</when>
 		  	</choose>
 	  	</when>
   	</choose>
-  	 and
+  	 
   	<choose>
 	  	<when test="mem_gender==''">mem_gender like '%%' and</when>
 	  	<when test="mem_gender!=''">mem_gender=#{mem_gender} and</when>
@@ -114,9 +114,9 @@
   		pd_key='코치'
   		<choose>
 	  		<when test="cancelSelect=='전체'"></when>
-	  		<when test="cancelSelect=='환불요청중'">and pd_status='환불요청중'</when>
-	  		<when test="cancelSelect=='환불완료'">and pd_status='환불완료'</when>
-	  		<when test="cancelSelect=='결제완료'">and pd_status='결제완료'</when>
+	  		<when test="cancelSelect=='취소요청중'">and pd_status=#{cancelSelect}</when>
+	  		<when test="cancelSelect=='결제취소완료'">and pd_status=#{cancelSelect}</when>
+	  		<when test="cancelSelect=='결제완료'">and pd_status=#{cancelSelect}</when>
   		</choose>
   	</select>
   	<select id="adminCoachCancelAllList" parameterType="HashMap" resultType="zipcok.admin.model.AdminPaymentDetailsDTO">
@@ -125,11 +125,11 @@
   		pd_key='코치'
   		<choose>
 	  		<when test="cancelSelect=='전체'"></when>
-	  		<when test="cancelSelect=='환불요청중'">and pd_status='환불요청중'</when>
-	  		<when test="cancelSelect=='환불완료'">and pd_status='환불완료'</when>
-	  		<when test="cancelSelect=='결제완료'">and pd_status='결제완료'</when>
+	  		<when test="cancelSelect=='취소요청중'">and pd_status=#{cancelSelect}</when>
+	  		<when test="cancelSelect=='결제취소완료'">and pd_status=#{cancelSelect}</when>
+	  		<when test="cancelSelect=='결제완료'">and pd_status=#{cancelSelect}</when>
   		</choose>
-  		order by payment_details_idx)a)b
+  		order by pd_idx)a)b
   		where
 	  	rnum between #{start} and #{end}
   	</select>
@@ -137,41 +137,38 @@
   	<select id="canSearchTotalCnt" parameterType="HashMap" resultType="Integer">
   		select count(*) from (select * from zipcok_payment_details
   		where
+  		pd_key='코치'
   		<choose>
 		  	<when test="searchCon=='코치아이디'">
-		  		and
 		  		<choose>
-			  		<when test="searchT==''">pd_target_id like '%%'</when>
-			  		<when test="searchT!=''">pd_target_id = #{searchT}</when>
+			  		<when test="searchT==''">and pd_target_id like '%%'</when>
+			  		<when test="searchT!=''">and pd_target_id = #{searchT}</when>
 		  		</choose>
 		  	</when>
 		  	<when test="searchCon=='회원아이디'">
-		  		and
 		  		<choose>
-			  		<when test="searchT==''">pd_mem_id like '%%'</when>
-			  		<when test="searchT!=''">pd_mem_id=#{searchT}</when>
+			  		<when test="searchT==''">and pd_mem_id like '%%'</when>
+			  		<when test="searchT!=''">and pd_mem_id=#{searchT}</when>
 		  		</choose>
 		  	</when>
      	</choose>
      	)
   	</select>
-  	<select id="adminCoachCancelSearchPd" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
+  	<select id="adminCoachCancleSearchPd" parameterType="HashMap" resultType="zipcok.admin.model.AdminPaymentDetailsDTO">
   		select * from (select rownum as rnum,a.* from(select * from zipcok_payment_details
   		where
   		pd_key='코치'
   		<choose>
 		  	<when test="searchCon=='코치아이디'">
-		  		and
 		  		<choose>
-			  		<when test="searchT==''">pd_target_id like '%%'</when>
-			  		<when test="searchT!=''">pd_target_id = #{searchT}</when>
+			  		<when test="searchT==''">and pd_target_id like '%%'</when>
+			  		<when test="searchT!=''">and pd_target_id = #{searchT}</when>
 		  		</choose>
 		  	</when>
 		  	<when test="searchCon=='회원아이디'">
-		  		and
 		  		<choose>
-			  		<when test="searchT==''">pd_mem_id like '%%'</when>
-			  		<when test="searchT!=''">pd_mem_id=#{searchT}</when>
+			  		<when test="searchT==''">and pd_mem_id like '%%'</when>
+			  		<when test="searchT!=''">and pd_mem_id=#{searchT}</when>
 		  		</choose>
 		  	</when>
      	</choose>
@@ -180,5 +177,12 @@
 	  	rnum between #{start} and #{end}
   	</select>
   	
+  	<update id="updateStatus" parameterType="Integer">
+  		update zipcok_payment_details
+  		set
+  		pd_status='결제취소완료'
+  		where
+  		pd_idx=#{pd_idx}
+  	</update>
   	<!-- 취소 환불 관리 끝-->
   </mapper>

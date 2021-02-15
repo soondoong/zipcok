@@ -4,6 +4,7 @@ import java.util.*;
 
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.ReviewDTO;
+import zipcok.cs.model.CsDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
@@ -19,8 +20,12 @@ public interface MypageDAO {
    public int mypageAddrUpdate(MemberDTO dto);
    public int mypageEmailUpdate(MemberDTO dto);
    public int mypagePhoneUpdate(MemberDTO dto);
-   public int mypageWriteListTotalCnt(String mem_id);
-   public List mypageWriteList(int cp, int ls, String mem_id);
+   public int mypageWriteListTotalCnt(String mem_id);//작성글 수
+   public List mypageWriteList(int cp, int ls, String mem_id);//작성글 목록
+   public int mypageWriteDelete(String checkArr);//작성글 삭제
+   public int mypageCommWriteListTotalCnt(String ex_id);//커뮤니티 작성글 수
+   public List mypageCommWriteList(int cp, int ls, String ex_id);//커뮤니티 작성글 목록
+   public int mypageCommWriteDelete(String checkArr);//커뮤니티 작성글 삭제
    public int mypageHomeGymLikeListTotalCnt(String mem_id);
    public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
    public int mypageCoachMatchLikeListTotalCnt(String mem_id);

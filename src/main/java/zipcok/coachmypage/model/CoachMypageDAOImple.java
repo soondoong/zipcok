@@ -100,6 +100,13 @@ public CoachFileDTO findProfileDTO(String id) {
 		return list;
 	}
 	
+	//작성글 삭제
+	@Override
+	public int coachMypageWriteDelete(String checkArr) {
+		int count =sqlMap.delete("coachMypageWriteDelete", checkArr);
+		return count;
+	}
+	
 	//코치마이페이지 일반프로필
 	@Override
 	public MemberDTO coachMypageProfile(String mem_id) {

@@ -85,24 +85,34 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	
 	//총게시물 수 구하기
 	@Override
-	public int coachMatchCancelTotalCnt(HashMap<String, Object> map) {
+	public int CanTotalCnt(HashMap<String, Object> map) {
 		int totalCnt = sqlMap.selectOne("canTotalCnt",map);
-		return totalCnt;
+		return totalCnt==0?1:totalCnt;
 	}
-	//결제정보테이블에서 가져오기
+	//결제정보테이블에서 가져오기(셀렉트박스)
 	@Override
 	public List<AdminPaymentDetailsDTO> coachMatchCancelList(HashMap<String, Object> map) {
 		List<AdminPaymentDetailsDTO> list = sqlMap.selectList("adminCoachCancelAllList",map);
 		return list;
 	}
 
-	
-	
-	
-	//결제정보테이블에서 가져오기
 	@Override
-	public List<AdminPaymentDetailsDTO> adminCoachCancleSearchPd(HashMap<String, Object> map) {
-		List<AdminPaymentDetailsDTO> list=sqlMap.selectOne("adminCoachCancleSearchPd",map);
+	public int CanSearchTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("canSearchTotalCnt", map);
+		return totalCnt==0?1:totalCnt;
+	}
+	
+	
+	//결제정보테이블에서 가져오기(검색)
+	@Override
+	public List<AdminPaymentDetailsDTO> adminCoachCancelSearchPd(HashMap<String, Object> map) {
+		List<AdminPaymentDetailsDTO> list=sqlMap.selectList("adminCoachCancleSearchPd",map);
 		return list;
+	}
+	//결제정보 승인으로 바꿔주기
+	@Override
+	public int adminCoachCancelUpdateStatus(int pd_idx) {
+		int count = sqlMap.update("updateStatus", pd_idx);
+		return count;
 	}
 }

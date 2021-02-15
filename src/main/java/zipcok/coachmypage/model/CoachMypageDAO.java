@@ -15,6 +15,7 @@ public interface CoachMypageDAO {
 	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id);
 	public int coachMypageWriteListTotalCnt(String mem_id);
 	public List coachMypageWriteList(int cp, int ls, String mem_id);
+	public int coachMypageWriteDelete(String checkArr);//작성글 삭제
 	public MemberDTO coachMypageProfile(String mem_id);
 	public int coachMypagePwdUpdate(MemberDTO dto);
 	public int coachMypageAddrUpdate(MemberDTO dto);

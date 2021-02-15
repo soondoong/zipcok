@@ -22,7 +22,9 @@ function mypageCoachMatchPayList(){
 <div class="mypage_wrap">
 <%@include file="./mypageSideMenu.jsp"%>
 	<div class="mypage_contents">
+
          <div class="mypage_main paymentMain">
+
 		<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>
 		.paymentMain{width:1000px;}
@@ -39,8 +41,10 @@ function mypageCoachMatchPayList(){
 				<li class="on"><button type="button" onclick="mypageCoachMatchPayList()">코치매치 결제내역</button></li>
 			</ul>
 		</div>
+
 		<div class="mypage_main_table">
 		<table class="table table-hover" > 
+
 	<thead>
 		<tr>
 			<th>결제번호</th>
