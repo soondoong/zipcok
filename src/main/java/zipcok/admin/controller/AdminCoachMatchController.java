@@ -234,18 +234,30 @@ public class AdminCoachMatchController {
 	//셀렉트박스값으로 리스트 뽑기
 	@RequestMapping("coachListSearch.do")
 	public ModelAndView coachMatchCancelList(
-			@RequestParam("cancelSelect")String cancelSelect) {
-		String id="";
+			@RequestParam(value="cancelSelect",defaultValue = "")String cancelSelect,
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
+		
+		
+		int listSize=5;
+	    int pageSize=5;
+	    int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		
+		
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("cancelSelect", cancelSelect);
+		map.put("start", start);
+		map.put("end", end);
+		String keywords="&cancelSelect="+cancelSelect;
+		int totalCnt = adminCoachMatchDao.CanTotalCnt(map);
 		List<AdminPaymentDetailsDTO> paymentlist=adminCoachMatchDao.coachMatchCancelList(map);
 		
-		
-		
-		
-		
+		String pageStr = zipcok.page.CoachPageModule.makePage("coachListSearch.do", totalCnt, cp, listSize, pageSize, keywords);
 		
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("pageStr",pageStr);
 		mav.addObject("paymentlist", paymentlist);
 		mav.addObject("cancelSelect",cancelSelect);
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCancel");
@@ -255,20 +267,46 @@ public class AdminCoachMatchController {
 	//코치검색으로 리스트 뽑기
 	@RequestMapping("coachCancelSearch.do")
 	public ModelAndView coachMatchCancelSearch(
-			@RequestParam(value="searchCon",defaultValue = "회원번호")String searchCon,
+			@RequestParam(value="searchCon",defaultValue = "코치아이디")String searchCon,
+			@RequestParam(value="cp",defaultValue = "1")int cp,
 			@RequestParam("searchT")String searchT) {
 		
-		String id="";
+		
+		int listSize=5;
+	    int pageSize=5;
+	    int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("searchCon", searchCon);
 		map.put("searchT", searchT);
-		List<AdminPaymentDetailsDTO> memlist = adminCoachMatchDao.adminCoachCancleSearchPd(map);
-		
+		map.put("start", start);
+		map.put("end", end);
+		List<AdminPaymentDetailsDTO> paymentlist = adminCoachMatchDao.adminCoachCancelSearchPd(map);
+		int totalCnt=adminCoachMatchDao.CanSearchTotalCnt(map);
+		System.out.println(searchT);
+		String keywords = "&searchCon="+searchCon+"&searchT="+searchT;
+		String pageStr = zipcok.page.CoachPageModule.makePage("coachCancelSearch.do", totalCnt, cp, listSize, pageSize, keywords);
 		
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("memlist",memlist);
+		mav.addObject("paymentlist",paymentlist);
 		mav.addObject("searchCon",searchCon);
+		mav.addObject("pageStr",pageStr);
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCancel");
+		return mav;
+	}
+	
+	//결제정보 바꿔주기
+	@RequestMapping("updateStatus.do")
+	public ModelAndView adminCoachCancelUpdateStatus(
+			@RequestParam("pd_idx")int pd_idx) {
+		
+		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("result",result);
+		mav.addObject("pd_idx",pd_idx);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	///////////////////////////////////////
