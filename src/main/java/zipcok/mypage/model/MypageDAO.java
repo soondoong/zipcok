@@ -36,5 +36,7 @@ public interface MypageDAO {
    public List<ReviewDTO> HomeGymReview(String homegymId);
    public int mypageHomeGymStautsChange(Map<String, String> map);
    public int mypageHomeGymAddrUpdate(Map<String, String> map);
-
+   public int mypageHomeGymStationUpdate(Map<String, String> map);
+   public int mypageHomeGymPerson_countUpdate(Map<String, Object> map);
+   public int mypageHomeGymPriceUpdate(Map<String, Object> map);
 }

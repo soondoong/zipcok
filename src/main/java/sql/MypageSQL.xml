@@ -161,4 +161,13 @@ mfile_key='회원프로필'
 	<update id="mypageHomeGymAddrUpdateSQL" parameterType="hashMap">
 		update homegym set hg_faddr = #{hg_faddr}, hg_saddr = #{hg_saddr} where hg_mem_id = #{hg_mem_id}
 	</update>
+	<update id="mypageHomeGymStationUpdateSQL" parameterType="hashMap">
+		update homegym set hg_station = #{hg_station} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="mypageHomeGymPerson_countUpdateSQL" parameterType="hashMap">
+		update homegym set hg_person_count = #{hg_person_count} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="mypageHomeGymPriceUpdateSQL" parameterType="hashMap">
+		update homegym set hg_price = #{hg_price} where hg_mem_id = #{hg_mem_id}
+	</update>
 </mapper>

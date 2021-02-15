@@ -420,4 +420,50 @@ public class MypageController {
     	  mav.setViewName("mypage/mypagePopupMsg");
     	  return mav;
     	  }
+      
+      @RequestMapping("changeStation.do")
+      public ModelAndView mypageHomeGymStationUpdate(
+    		  @RequestParam("hg_mem_id")String hg_mem_id,
+    		  @RequestParam("hg_station")String hg_station
+    		  ) {
+    	  Map<String, String> map = new HashMap<String, String>();
+    	  map.put("hg_mem_id", hg_mem_id);
+    	  map.put("hg_station", hg_station);
+    	  int result = dao.mypageHomeGymStationUpdate(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", result);
+    	  mav.addObject("change_station", hg_station);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
+      @RequestMapping("changePerson_count.do")
+      public ModelAndView mypageHomeGymPerson_countUpdate(
+    		  @RequestParam("hg_mem_id")String hg_mem_id,
+    		  @RequestParam("hg_person_count")int hg_person_count
+    		  ) {
+    	  Map<String, Object> map = new HashMap<String, Object>();
+    	  map.put("hg_mem_id", hg_mem_id);
+    	  map.put("hg_person_count", hg_person_count);
+    	  int result = dao.mypageHomeGymPerson_countUpdate(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", result);
+    	  mav.addObject("change_person_count", hg_person_count);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
+      @RequestMapping("changePrice.do")
+      public ModelAndView mypageHomeGymPriceUpdate(
+    		  @RequestParam("hg_mem_id")String hg_mem_id,
+    		  @RequestParam("hg_price")int hg_price
+    		  ) {
+    	  Map<String, Object> map = new HashMap<String, Object>();
+    	  map.put("hg_mem_id", hg_mem_id);
+    	  map.put("hg_price", hg_price);
+    	  int result = dao.mypageHomeGymPriceUpdate(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", result);
+    	  mav.addObject("change_price", hg_price);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
 }

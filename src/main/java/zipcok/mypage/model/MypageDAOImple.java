@@ -205,5 +205,20 @@ public class MypageDAOImple implements MypageDAO {
 		int result = sqlMap.update("mypageHomeGymAddrUpdateSQL", map);
 			return result;
 		}
+	@Override
+		public int mypageHomeGymStationUpdate(Map<String, String> map) {
+		int result = sqlMap.update("mypageHomeGymStationUpdateSQL", map);
+		return result;
+		}
+	@Override
+	public int mypageHomeGymPerson_countUpdate(Map<String, Object> map) {
+		int result = sqlMap.update("mypageHomeGymPerson_countUpdateSQL", map);
+		return result;
+	}
+	@Override
+	public int mypageHomeGymPriceUpdate(Map<String, Object> map) {
+		int result = sqlMap.update("mypageHomeGymPriceUpdateSQL", map);
+		return result;
+	}
 	
 }
