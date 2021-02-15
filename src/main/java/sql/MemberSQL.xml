@@ -43,7 +43,6 @@
       
    </insert>
    
-   
    <select id="idCheck" resultType="String" parameterType="zipcok.member.model.MemberDTO">
       select mem_id from zipcok_member where mem_id = #{mem_id} 
    </select>

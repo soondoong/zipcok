@@ -36,7 +36,7 @@
 							<option <c:if test="${keyword.keywordType=='코치회원'}">selected="selected"</c:if>>코치회원</option>
 							</select>
 							</li>
-							<li><input type="text" placeholder="고객명" name="name" value="${keyword.keywordName }"></li>
+							<li><input type="text" placeholder="고객명" name="name"></li>
 							<li><input type="submit" value="검색"></li>
 						</ul>
 					</form>
@@ -121,6 +121,8 @@
 							<tr>
 								<td>
 								주소<input type="text" name="mem_addr" id="addrTd" readonly="readonly" style="background-color : lightgray;">
+								<input type="hidden" name="mem_zipcode" id="zipcodeTd">
+								<input type="hidden" name="mem_detailaddr" id="detailaddrTd">
 								<p class="updateGoGoAddr" id="addrUpdateP"></p>
 								</td>
 								<td>
@@ -233,6 +235,7 @@ function showResult(){
 <!-- 제이슨 부분 -->
  <script>
 
+ 	//비밀번호 수정
 	function pwdUpdateGoGo(){
 	   $('#pwdTd').attr('readonly',false);
 	   $('.updateGoGoPwd').html('');
@@ -250,6 +253,8 @@ function showResult(){
 	};*/
 	
 	
+	
+	//이름 수정
 	function nameUpdateGoGo(){
 		$('#nameTd').attr('readonly',false);
 		$('.updateGoGoName').html('');
@@ -267,6 +272,7 @@ function showResult(){
 	};*/
 	
 	
+	//휴대폰번호 수정
 	function phoneUpdateGoGo(){
 		$('#phoneTd').attr('readonly',false);
 		$('.updateGoGoPhone').html('');
@@ -283,6 +289,8 @@ function showResult(){
 	   $('#updateGoGoOk').attr("action", "adminMemberPhoneUpdate.do").submit();
 	};*/
 	
+	
+	//이메일 수정
 	function emailUpdateGoGo(){
 		$('#emailTd').attr('readonly',false);
 		$('.updateGoGoEmail').html('');
@@ -296,6 +304,27 @@ function showResult(){
 	}
 		 
 	
+	//주소 수정
+	
+	function adminAddrUpdateForm(){
+		var id = document.getElementById('moUserId').value
+		window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdate', 'width=550,height=300');
+		/*
+		$('.updateGoGoAddr').html('');
+		$('.updateGoGoAddr').html("<input type='button' onclick='addrUpdateSubmitAjax();' name='btnaddrgogo' value='수정완료'>");
+		$('#addrTd').css('background-color', 'whitesmoke');
+		*/
+	}
+	/*
+	function addrUpdateSubmitAjax(){
+		var params='mem_addr='+$('#addrTd').val()+'&mem_id='+$('#idTd').val()+'&mem_zipcode='+$('#zipcodeTd').val()+'&mem_zipcode='+$('#zipcodeTd').val();
+		sendRequest('adminMemberAddrUpdateAjax.do',params,showResultAjax,'POST');
+	}
+	*/
+	
+	
+	
+	//타입 수정
 	function typeUpdateGoGo(){
 		$('#typeTd').attr('disabled',false);
 		$('.updateGoGoType').html('');
@@ -313,6 +342,8 @@ function showResult(){
 	};*/
 	
 	
+	
+	//아작스 리절트 함수
 	function showResultAjax(){
 		if(XHR.readyState==4){
 			if(XHR.status==200){
@@ -363,10 +394,7 @@ $(function(){
 	
 });
 
-function adminAddrUpdateForm(){
-	var id = document.getElementById('moUserId').value
-	window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdate', 'width=550,height=300');
-}
+
 
 
 </script> 

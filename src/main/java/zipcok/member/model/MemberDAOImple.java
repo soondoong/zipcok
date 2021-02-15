@@ -73,6 +73,5 @@ public class MemberDAOImple implements MemberDAO {
       return str==null?0:1;
    }
    
-   
 }
 
