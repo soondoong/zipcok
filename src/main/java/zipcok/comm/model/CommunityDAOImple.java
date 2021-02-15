@@ -78,12 +78,12 @@ public class CommunityDAOImple implements CommunityDAO {
 	
 	//운동글에 답글 달았는지 찾기 -> 리턴값 날짜로
 	@Override
-	public List<Integer> getDayGroup(String ex_id, int ex_comm_idx, int ex_group) {
+	public List<String> getDayGroup(String ex_id, int ex_comm_idx, int ex_group) {
 		Map map=new HashMap();
 		map.put("ex_id", ex_id);
 		map.put("ex_comm_idx", ex_comm_idx);
 		map.put("ex_group", ex_group);
-		List<Integer> getDayGroup=sqlMap.selectList("getDayGroupSQL",map);
+		List<String> getDayGroup=sqlMap.selectList("getDayGroupSQL",map);
 		return getDayGroup;
 	}
 
