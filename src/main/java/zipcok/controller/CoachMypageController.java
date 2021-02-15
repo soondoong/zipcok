@@ -163,6 +163,27 @@ ServletContext c;
 			return mav;
 		}
 		
+		
+		//코치마이페이지 작성글 삭제
+		   @RequestMapping("coachMypageCheckDel.do")
+		   public ModelAndView coachMypageWriteDelete(
+				   HttpServletRequest req) {
+			   
+			   String[] checkArr=req.getParameterValues("checkRow");
+			   ModelAndView mav=new ModelAndView();
+			   HashMap<String, Object> map = new HashMap<String, Object>();
+			   int count =0;
+			   for(int i=0; i<checkArr.length; i++) {
+				   count+=cdao.coachMypageWriteDelete(checkArr[i]);
+			   }
+			   
+			   mav.addObject("msg", "게시글이 삭제되었습니다.");
+			   mav.addObject("gourl", "coachMypageWriteList.do");
+			   mav.setViewName("coachMyPage/coachMypageMsg");
+			   return mav;
+		   }
+		
+		
 		@RequestMapping("/coachMypageCommWriteList.do")
 		public String coachMypageCommWriteList() {
 			

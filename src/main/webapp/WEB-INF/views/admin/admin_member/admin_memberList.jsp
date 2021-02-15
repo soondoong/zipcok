@@ -7,14 +7,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<%@include file="../../header2.jsp" %>
 <style type="text/css">
 .test-inline {
    display: inline-flex;
 }
+.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+.table th{font-weight: bold; border-color:#848282;}
 </style>
-</head>
-<body>
-<%@include file="../../header2.jsp" %>
 
 	<div class="adminPage_wrap">
 		<%@include file="../adminSideMenu.jsp"%>
@@ -46,8 +48,8 @@
 
 				<div>	
 				<!-- 회원목록부분 테이블 div -->
-					<table border="1" cellspacing="0">
-						<thead>
+					<table class="table" class="table table-hover">
+						<thead style="background-color : whitesmoke;">
 							<tr>
 								<th>회원번호</th>
 								<th>이름</th>
