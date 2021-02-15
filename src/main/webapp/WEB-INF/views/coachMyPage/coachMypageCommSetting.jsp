@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
 
 <link href="assets/css/mypage.css" rel="stylesheet">
-
-<%@include file="../_include/head.jsp" %>
-	
 <script>
 function memplus(uc_comm_idx){
 	var url='coachMyPageMemPlusForm.do?uc_comm_idx='+uc_comm_idx;

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<link href="assets/css/mypage.css" rel="stylesheet">
-
-<%@include file="../_include/head.jsp" %>
-	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="assets/css/mypage.css" rel="stylesheet">	
 <script>
 function commplus(){
 	window.open('coachMyPageCommPlusForm.do?com_coach_id=${sessionScope.coachId}','commUpdate','width=550,height=300');
