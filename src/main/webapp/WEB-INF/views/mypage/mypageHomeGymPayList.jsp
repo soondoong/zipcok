@@ -20,23 +20,25 @@ function mypageCoachMatchPayList(){
 <div class="mypage_wrap">
 <%@include file="./mypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-         <div class="mypage_main paymentMain">
-		<br>
+        <div class="mypage_main paymentMain">
 		<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>
-		.mypage_main .tab_style_01 {}
-		.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
+		.paymentMain{width:1000px;}
+		.mypage_main .tab_style_01 ul {display: flex; }
 		.mypage_main .tab_style_01 li {flex: 1 1 auto;}
 		.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
 		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
+		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+		.table th{font-weight: bold; border-color:#848282;}
+		.revbtn{width:72px; height: 25px; }
 		</style>		
 			<ul>
 				<li class="on"><button type="button" onclick="mypageHomeGymPayList()">홈짐 결제내역</button></li>
 				<li><button type="button" onclick="mypageCoachMatchPayList()">코치매치 결제내역</button></li>
 			</ul>
 		</div>
-		<div class="mypage_main_table">
-		<table border="1" cellspacing="0">
+	<div class="mypage_main_table">
+	<table class="table table-hover" >
 	<thead>
 		<tr>
 			<th>결제일자</th>

@@ -22,25 +22,30 @@ function coachMypageCommWriteList() {
 	<div class="mypage_wrap">
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-         <div class="mypage_main">
+         <div class="mypage_main writeMain">
 	<br>
 	<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>
-		.mypage_main .tab_style_01 {}
-		.mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
+		.writeMain{width:1000px;}
+		.mypage_main .tab_style_01 ul {display: flex; }
 		.mypage_main .tab_style_01 li {flex: 1 1 auto;}
 		.mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
 		.mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
-		</style>		
+		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+		.table th{font-weight: bold; border-color:#848282;}
+		.revbtn{width:72px; height: 25px; }
+		</style>
 			<ul>
 				<li class="on"><button type="button" onclick="coachMypageWriteList()">F&A / 고객센터 작성글</button></li>
 				<li><button type="button" onclick="coachMypageCommWriteList()">커뮤니티 작성글</button></li>
 			</ul>
 		</div>
 <div class="mypage_main_table">
-	<table border="1" cellspacing="0">
+	<form action="coachMypageCheckDel.do" id="checkConfirm">
+	<table class="table table-hover">
 	<thead>
 		<tr>
+			<th><input type="checkbox" name="checkAll" id="th_checkAll" onclick='selectAll(this)'/></th>
 			<th>게시판</th>
 			<th>카테고리</th>
 			<th>제목</th>
@@ -50,7 +55,7 @@ function coachMypageCommWriteList() {
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="5" align="center">${pageStr }</td>
+			<td colspan="6"><span style="float: left;"><input type="submit" value="선택삭제" id="delbtn"></span><span>${pageStr } </span></td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -63,6 +68,7 @@ function coachMypageCommWriteList() {
 		</c:if>
 		<c:forEach var="dto" items="${list }">
 		<tr>
+			<td><input type="checkbox" name="checkRow" value="${dto.bbs_idx}" /></td>
 			<td>${dto.bbs_key }</td>
 			<td>${dto.bbs_category }</td>
 			<td>${dto.bbs_subject }</td>
@@ -72,10 +78,37 @@ function coachMypageCommWriteList() {
 	</c:forEach>
 	</tbody>
 </table>
+</form>
 </div>
 	</div>
 	</div>
 	</div>
+	
+<script>
+//전체선택,해제
+function selectAll(selectAll)  {
+  const checkboxes 
+     = document.querySelectorAll('input[type="checkbox"]');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked
+  })
+}
+
+$(function(){
+	$('#delbtn').on('click',function(){
+		var cbx=$("input[name='checkRow']:checked").length;
+		if(!cbx>0){
+			alert('하나 이상 선택해주세요.');
+			return false;
+		}else{
+			return true;
+		}
+	});
+});
+
+</script>	
+	
 	   <%@include file="../_include/footer.jsp" %>
 </body>
 </html>
