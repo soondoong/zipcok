@@ -292,15 +292,10 @@ public class MypageDAOImple implements MypageDAO {
 	/*결제내역서 총 토탈카운트구하기*/
 	@Override
 		public int getTotalCntPaymentList(HashMap<String, Object> map) {
-		int cp = (int)map.get("cp");
-		int ls = (int)map.get("ls");
-		int start=(cp-1)*ls+1;
-		int end=cp*ls;
-		
-		map.put("start",start);
-		map.put("end",end);
+
+
 			int count = sqlMap.selectOne("getTotalCntPaymentList", map);
-			return count;
+			return count==0?1:count;
 		}
 	/*코치후기작성*/
 	@Override

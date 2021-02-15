@@ -4,20 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="mo.coachmypage">
   
-  <select id="searchRequestList" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
-select
-rownum,a.*,m.mem_name,m.mem_addr,m.mem_birth 
+  <select id="receiveRequestListSQL" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
+
+select * from
+(select rownum as rnum,aaa.* from
+(select a.*,m.mem_name,m.mem_addr,m.mem_birth 
 from
 zipcok_member m,
 (select 
 r.* from
 request_form r
 where
-req_receive_id= #{id} )a
+req_receive_id= #{id})a
 where
 m.mem_id= a.req_mem_id
-and
-rownum between #{start} and #{end}
+order by req_date desc)aaa)bbb
+where
+rnum between #{start} and #{end}
+
+
+ </select>
+ 
+ <select id="sendRequestListSQL" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
+
+select * from
+(select rownum as rnum,aaa.* from
+(select a.*,m.mem_name,m.mem_addr,m.mem_birth 
+from
+zipcok_member m,
+(select 
+r.* from
+request_form r
+where
+req_mem_id= #{id})a
+where
+m.mem_id= a.req_receive_id
+order by req_date desc)aaa)bbb
+where
+rnum between #{start} and #{end}
 
  </select>
  

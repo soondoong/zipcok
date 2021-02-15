@@ -96,14 +96,58 @@ croom_req_idx = #{croom_req_idx}
 
 
 
-<select id ="nomalChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
+<select id ="nomalChatRoomListSQL" parameterType="HashMap" resultType = "zipcok.chat.model.ChatRoomListDTO">
 
-select room.*,mem_name,mfile_upload
+select * from
+(select rownum as rnum, aaa.* from
+(select room.*,mem_name,mfile_upload
 from
 (select * from
  chatroom 
  where 
- croom_userid = #{id} )room,member_file mf,zipcok_member zm
+ croom_userid = #{mem_id} )room,member_file mf,zipcok_member zm
+ where
+croom_coachid = mf.mfile_mem_id
+and
+mf.mfile_key = '회원프로필'
+and
+croom_coachid = zm.mem_id
+order by croom_req_idx desc)aaa)bbb
+where
+rnum between #{start} and #{end}
+</select>
+
+
+<select id ="coachChatRoomListSQL" parameterType="HashMap" resultType = "zipcok.chat.model.ChatRoomListDTO">
+
+select * from
+(select rownum as rnum, aaa.* from
+(select room.*,mem_name,mfile_upload
+from
+(select * from
+ chatroom 
+ where 
+ croom_coachid = #{mem_id} )room,member_file mf,zipcok_member zm
+ where
+croom_userid = mf.mfile_mem_id
+and
+mf.mfile_key = '회원프로필'
+and
+croom_userid = zm.mem_id
+order by croom_req_idx desc)aaa)bbb
+where
+rnum between #{start} and #{end}
+</select>
+
+
+<select id="nomalChatRoomTotal" parameterType="HashMap" resultType="Integer">
+
+select count(*)
+from
+(select * from
+ chatroom 
+ where 
+ croom_userid = #{mem_id} )room,member_file mf,zipcok_member zm
  where
 croom_coachid = mf.mfile_mem_id
 and
@@ -113,15 +157,13 @@ croom_coachid = zm.mem_id
 order by croom_req_idx desc
 </select>
 
-
-<select id ="coachChatRoomListSQL" parameterType="String" resultType = "zipcok.chat.model.ChatRoomListDTO">
-
-select room.*,mem_name,mfile_upload
+<select id="coachChatRoomTotal" parameterType="HashMap" resultType="Integer" >
+select count(*)
 from
 (select * from
  chatroom 
  where 
- croom_coachid = #{id} )room,member_file mf,zipcok_member zm
+ croom_coachid = #{mem_id} )room,member_file mf,zipcok_member zm
  where
 croom_userid = mf.mfile_mem_id
 and
@@ -130,6 +172,8 @@ and
 croom_userid = zm.mem_id
 order by croom_req_idx desc
 </select>
+
+
 
 
 <delete id="roomDelete">

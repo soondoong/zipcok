@@ -148,14 +148,18 @@ public class CoachDAOImple implements CoachDAO {
 	
 	@Override
 	public int getTotalCnt(HashMap map) {
-		
+	
 		String sqlKey=(String)(map.get("methodKey"));
 		int count=0;
 		 switch (sqlKey) {
-         case "searchCoach": count=sqlMap.selectOne("searchCoachtotalCnt",map); ;
+         case "searchCoach": count=sqlMap.selectOne("searchCoachtotalCnt",map); 
                   break;
-         case "checkRequest":count=sqlMap.selectOne("requestListTotalCnt",map); ;
+         case "receiveReqRequest":count=sqlMap.selectOne("receiveRequestListTotalCnt",map); 
                   break;
+         case "sendReqRequest":count=sqlMap.selectOne("sendRequestListTotalCnt",map); 
+         			break;
+         case "mypageHomeGymPayListTotal":count=sqlMap.selectOne("mypageHomeGymPayListTotalCnt",map); 
+			break;
   
      }
 		
@@ -275,9 +279,8 @@ public class CoachDAOImple implements CoachDAO {
 		
 		keys.put("start",start);
 		keys.put("end",end);	
-		
-		
-		List<RequestFormDTO> list=sqlMap.selectList("searchRequestList", keys);
+		//코치일땐 받은요청서 목록 , 일반일땐 보낸요청서목록 나옴
+		List<RequestFormDTO> list=sqlMap.selectList((String)keys.get("sqlKey"), keys);		
 		
 		return list;
 	}

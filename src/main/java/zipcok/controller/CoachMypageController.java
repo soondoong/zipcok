@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.MypageDAO;
 
 
 @Controller
@@ -28,7 +29,8 @@ public class CoachMypageController {
 
 	@Autowired
 	private CoachMypageDAO cdao;
-	
+	@Autowired
+	private MypageDAO myPagedao;
 	@Autowired
 	private CoachDAO dao;
 
@@ -87,25 +89,46 @@ ServletContext c;
 	@RequestMapping("checkRequest.do")
 	public ModelAndView checkRequest(@RequestParam("id")String id,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
-		
 		ModelAndView mav=new ModelAndView();
-		
-		HashMap<String, Object> map=new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("methodKey","checkRequest");
-		
-		/*페이지설정*/
-		int totalCnt=dao.getTotalCnt(map); //테이블명써주기
-		int listSize=4;
-		int pageSize=5;
-		String keywords="";  //페이지이동시 검색키워드파라미터로보내기
-		String pageStr=zipcok.page.CoachPageModule.makePage("checkRequest.do", totalCnt, cp, listSize, pageSize,keywords);
-		
+		//코치인지 일반회원인지 체크후 보내기
+		MemberDTO mdto=myPagedao.memberProfile(id); //코치회원인지 일반회원인지 판단		
+		if(mdto.getMem_type().equals("일반회원")) { //일반회원용 보낸요청목록
+			HashMap<String, Object> map=new HashMap<String, Object>();
+			map.put("id", id);
+			//coachDAOImple에 토탈카운트 switch로 찾음
+			map.put("methodKey","sendReqRequest");
+			map.put("sqlKey", "sendRequestListSQL");
+			/*페이지설정*/
+			int totalCnt=dao.getTotalCnt(map); //테이블명써주기
+			int listSize=3;
+			int pageSize=5;
+			String keywords="&id="+id;  //페이지이동시 검색키워드파라미터로보내기
+			String pageStr=zipcok.page.CoachPageModule.makePage("checkRequest.do", totalCnt, cp, listSize, pageSize,keywords);
+			mav.addObject("pageStr", pageStr);
+				
+			List<RequestFormDTO> list=	dao.searchRequestList(map, cp,listSize); //받은요청서목록정보
+			mav.addObject("requestList", list);
+			mav.setViewName("coachMyPage/checkRequestList");
 			
-		List<RequestFormDTO> list=	dao.searchRequestList(map, cp,listSize); //받은요청서목록정보
-		mav.addObject("requestList", list);
-	
-		mav.setViewName("coachMyPage/checkRequestList");
+		}else {//코치회원용 받은요청목록
+			HashMap<String, Object> map=new HashMap<String, Object>();
+			map.put("id", id);
+			map.put("methodKey","receiveReqRequest");
+			map.put("sqlKey", "receiveRequestListSQL");
+			
+			/*페이지설정*/
+			int totalCnt=dao.getTotalCnt(map); //테이블명써주기
+			int listSize=3;
+			int pageSize=5;
+			String keywords="&id="+id;  //페이지이동시 검색키워드파라미터로보내기
+			String pageStr=zipcok.page.CoachPageModule.makePage("checkRequest.do", totalCnt, cp, listSize, pageSize,keywords);
+			mav.addObject("pageStr", pageStr);
+				
+			List<RequestFormDTO> list=	dao.searchRequestList(map, cp,listSize); //받은요청서목록정보
+			mav.addObject("requestList", list);
+			mav.setViewName("coachMyPage/checkRequestList");
+		}
+		
 		return mav;		
 	}
 	

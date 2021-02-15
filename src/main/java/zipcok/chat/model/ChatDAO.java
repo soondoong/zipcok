@@ -10,7 +10,9 @@ import zipcok.homegym.model.Payment_detailsDTO;
 public interface ChatDAO {
 
 	public int createRoom(ChatRoomDTO dto); //채팅방생성데이터등록
-	public List<ChatRoomListDTO> allChatRoomList(String id,String sqlkey);   //채팅방목록불러오기
+	public List<ChatRoomListDTO> allChatRoomList(String sqlkey,HashMap<String,Object> map);   //채팅방목록불러오기
+	public int getTotalCntChatRoomList(String sqlkey,HashMap<String,Object> map);
+	
 	public RequestFormDTO findRequestForm(int req_idx); //요청서1개정보가져오기 
 	public ChatRoomDTO isRoom(ChatRoomDTO dto); //이미속해있는채팅방잇나보기
 	public int roomDelete(int croom_idx); //채팅방나가기

@@ -54,23 +54,16 @@ function mypageCoachMatchPayList(){
 			<th>기타</th>
 		</tr>
 	</thead>
-	<tfoot>
-		<c:if test="${empty pdList}">
-		<tr>
-			<td colspan="9" align="center"><a>1</a></td>
-		</tr>
-		</c:if>
-		<c:if test="${!empty pdList}">
+	<tfoot>	
 		<tr>
 			<td colspan="9" align="center">${pageStr}</td>
 		</tr>
-		</c:if>
 	</tfoot>
 	<tbody>
 		<c:if test="${empty pdList}">
 			<tr>
 				<td colspan="9" align="center">
-					등록된 게시글이 없습니다.
+					등록된 결제내역이 없습니다.
 				</td>
 			</tr>
 		</c:if>
@@ -140,7 +133,7 @@ function mypageCoachMatchPayList(){
 	
 	function seeReview(idx,name,cate,coachid,revidx){
 		
-		var params="pd_idx="+idx+"&coach_name="+name+"&catename="+cate+"&coach_id="+coachid+"&rev_idx="+revidx
+		var params="pd_idx="+idx+"&coach_name="+name+"&catename="+cate+"&coach_id="+coachid+"&rev_idx="+revidx;
 		window.open("seeCoachReviewPopup.do?"+params, "seeCoachReviewPopup","width=450,height=470,top=100,left=500");
 	}
 	</script>
