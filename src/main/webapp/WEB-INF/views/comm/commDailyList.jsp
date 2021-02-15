@@ -38,11 +38,11 @@
 				<thead>
 						<tr>
 							<th>글 번호</th>
+							<th>작성일</th>
 							<th>제목</th>
 							<th>운동명</th>
 							<th>작성자</th>
 							<th>조회수</th>
-							<th>작성일</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -66,7 +66,8 @@
 										<c:url var="contentUrl" value="commDailyList.do">
 											<c:param name="idx">${dto.ex_idx}</c:param>
 										</c:url>
-										<c:set var="recnt" value="(${dto.ex_recnt})" />
+										<td>${dto.ex_writedate}</td>
+										<c:set var="recnt" value="(${dto.ex_recnt})" />	
 										<c:choose>
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 										</c:choose>
@@ -74,7 +75,7 @@
 									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
 									<td class="coachid">${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
-									<td>${dto.ex_writedate}</td>
+									
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -84,6 +85,7 @@
 										<c:url var="contentUrl" value="commDailyList.do">
 											<c:param name="idx">${dto.ex_idx}</c:param>
 										</c:url>
+										<td>${dto.ex_writedate}</td>
 										<c:set var="recnt" value="(${dto.ex_recnt})" />
 										<c:choose>
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
@@ -100,7 +102,6 @@
 									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
 									<td>${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
-									<td>${dto.ex_writedate}</td>
 								</tr>
 						</c:forEach>	
 						

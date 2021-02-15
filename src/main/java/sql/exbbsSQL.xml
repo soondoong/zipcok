@@ -136,6 +136,13 @@
 		where
 			ex_group=#{ex_group}
 	</delete>
+		
+	<delete id="dailyDelReSQL">
+		delete from
+			bbs_rebbs
+		where
+			re_bbs_idx=#{re_bbs_idx}
+	</delete>
 	
 	<update id="bbsReadnumSQL" parameterType="zipcok.comm.model.ExBbsDTO">
 		update

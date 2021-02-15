@@ -84,22 +84,25 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						</c:forEach>
 					</tr> --%>	
 					<tr>
-						<th >오늘의 운동</th>
-						<td colspan="3">${dto.ex_name}</td>
-					</tr>
-					<tr>
+						<th>오늘의 운동</th>
+						<td>${dto.ex_name}</td>
 						<th>오늘의 소비 칼로리</th>
-						<td colspan="3">${dto.ex_cal}</td>
+						<td>${dto.ex_cal}</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="view_body">
 				<c:forEach var="filelist" items="${filelist}" varStatus="i">
 				<div>
-				<img src="/zipcok/upload/comm/${filelist.bfile_rename}" style="width:80%;">
+					<c:if test="${filelist.bfile_type eq 'image/png' or filelist.bfile_type eq 'image/jpeg'}">
+						<img src="/zipcok/upload/comm/${filelist.bfile_rename}" style="width:60%;">
+					</c:if>
+					<c:if test="${filelist.bfile_type eq 'video/mp4'}">
+						<video src="/zipcok/upload/comm/${filelist.bfile_rename}" controls style="width:80%;"></video>
+					</c:if>
 				</div>
 				</c:forEach>
-				<div class="view_content">${dto.ex_content }</div>
+				<div class="view_content"><textarea style="height: 300px; white-space: pre-line; border: none;" readonly="readonly">${dto.ex_content }</textarea></div>
 			</div>
 			<c:if test="${!empty filelist}">
 			<div id="fileList">
@@ -167,7 +170,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						</c:when>
 					</c:choose>
 						<div class="comment_area" style="display: none;">
-							<textarea placeholder="답글을 입력해주세요." id="rere_content${i.index}"></textarea>
+							<textarea placeholder="답글을 입력해주세요." id="rere_content${i.index}" required="required"></textarea>
 							<button type="button" class="reply_confirm" onclick="bbsRereWrite(${dto2.re_group},${dto2.re_bbs_idx},${i.index})">작성완료</button>
 						</div>
 					</div>
@@ -180,7 +183,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 					<div class="reply_writearea">
 					<ul class="replewrite">
 						<li><input type="hidden" name="re_id" id="re_id" value="${sessionScope.sname}" readonly>
-						<input type="text" name="re_content" id="re_content"></li>
+						<input type="text" name="re_content" id="re_content" required="required"></li>
 						<li><input type="button" value="댓글달기" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
 					</ul>
 					</div>
@@ -233,6 +236,14 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				</form>
 			</div>
 			<!-- 댓글 종료 -->
+			<table>
+				<tr>
+					<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'"></td>
+					<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
+					<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
+					<td><input type="button" value="운동하기" onclick="location.href='commDailyWrite.do'"></td>
+				</tr>
+			</table>
 			<div class="view_navi">
 	            <dl>
 	               <dt>이전 글</dt>
@@ -257,14 +268,6 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 	            </c:choose>
 	            </dl>
          	</div> 
-			<table>
-				<tr>
-					<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'"></td>
-					<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
-					<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
-					<td><input type="button" value="운동하기" onclick="location.href='commDailyWrite.do'"></td>
-				</tr>
-			</table>
 		</div>
 	</div>
 </body>
