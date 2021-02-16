@@ -8,9 +8,13 @@
 		select 
 			* 
 		from 
-			community 
+			community
 		where 
-			com_name=#{com_name}
+			com_name like 
+		<choose>
+			<when test="com_name ==''">'%%'</when>
+			<when test="com_name != ''">'%${com_name}%'</when>
+		</choose>
 	</select>
 	
 	<select id="searchMemberSQL" resultType="zipcok.member.model.MemberDTO">
