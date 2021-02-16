@@ -22,6 +22,8 @@ import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.cpayment.model.Payment_RequestDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -663,5 +665,180 @@ ServletContext c;
 	    mav.setViewName("coachMyPage/coachMypagePopupMsg");
 		return mav;
 	}
-	
+//    @RequestMapping("coachmyHomeGymHavingCheck.do")
+//    public ModelAndView myHomeGymHavingCheck(
+//  		  @RequestParam("mem_id")String user_id) {
+//  	  boolean check = cdao.coachmypageHomeGymCheck(user_id);
+//  	  String goPage = check?"myHomeGymCheck.do?mem_id="+user_id:"HomeGymAdd.do";
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("check", check);
+//  	  mav.addObject("goPage", goPage);
+//  	  mav.setViewName("coachMypage/mypageHomeGymCheckMsg");
+//  	  return mav;
+//    }
+//    @RequestMapping("/coachmyHomeGymCheck.do")
+//    public ModelAndView myHomeGymEnter(
+//  		  @RequestParam("mem_id")String user_id) {
+//  	  HomeGymDTO hgContent = cdao.coachmypageHomeGymInfo(user_id);
+//  	  hgContent.setHg_start_date(hgContent.getHg_start_date().substring(0, 10));
+//  	  hgContent.setHg_end_date(hgContent.getHg_end_date().substring(0, 10));
+//  	  List<HomeGymEquipmentDTO> eqContent = cdao.coachmypageHomeGymEqInfo(user_id);
+//  	  List<CoachFileDTO> imgContent = cdao.coachmypageHomeGymImgInfo(user_id);
+//  	  int like_count = cdao.coachmypageHomeGymLikeCount(user_id);
+//  	  List<ReviewDTO> reviewContent = cdao.coachHomeGymReview(user_id);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("hgContent", hgContent);
+//  	  mav.addObject("eqContent", eqContent);
+//  	  mav.addObject("imgContent", imgContent);
+//  	  mav.addObject("like_count", like_count);
+//  	  mav.addObject("reviewContent", reviewContent);
+//  	  mav.setViewName("mypage/mypageHomeGymInfo");
+//  	  return mav;
+//    }
+//    @RequestMapping("coachchangeStatus.do")
+//    public ModelAndView homegymStatusChange(
+//  		  @RequestParam("hg_status")String hg_status,
+//  		  @RequestParam("hg_mem_id")String hg_mem_id ) {
+//  	  Map<String, String> map = new HashMap<String, String>();
+//  	  map.put("hg_status", hg_status);
+//  	  map.put("hg_mem_id", hg_mem_id);
+//  	  int result = cdao.coachmypageHomeGymStautsChange(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("hg_status", result);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    
+//    @RequestMapping("coachmypageHomeGymAddrUpdateForm.do")
+//    public ModelAndView mypageHomeGymAddrUpdateForm(
+//  		  @RequestParam("hg_mem_id")String hg_mem_id) {
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("hg_mem_id", hg_mem_id);
+//  	  mav.setViewName("mypage/mypageHomeGymAddrUpdate");
+//  	  return mav;
+//    }
+//    
+//    @RequestMapping("coachhomegymAddrUpdate.do")
+//    public ModelAndView mypageHomeGymAddrUpdate(
+//  		  	 @RequestParam("hg_mem_id")String hg_mem_id,
+//  	         @RequestParam("hg_faddr")String hg_faddr,
+//  	         @RequestParam("hg_saddr")String hg_saddr) {
+//  	  Map<String, String> map = new HashMap<String, String>();
+//  	  map.put("hg_mem_id", hg_mem_id);
+//  	  map.put("hg_faddr", hg_faddr);
+//  	  map.put("hg_saddr", hg_saddr);
+//  	  int result = cdao.coachmypageHomeGymAddrUpdate(map);
+//  	  String msg = result>0?"홈짐 주소가 정상적으로 수정되었습니다.":"홈짐 주소 수정에 오류가 발생하였습니다.";
+//  	  String goUrl = "myHomeGymCheck.do?hg_mem_id="+hg_mem_id;
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("msg", msg);
+//  	  mav.addObject("gourl", goUrl);
+//  	  mav.setViewName("mypage/mypagePopupMsg");
+//  	  return mav;
+//  	  }
+//    
+//    @RequestMapping("coachchangeStation.do")
+//    public ModelAndView mypageHomeGymStationUpdate(
+//  		  @RequestParam("hg_mem_id")String hg_mem_id,
+//  		  @RequestParam("hg_station")String hg_station
+//  		  ) {
+//  	  Map<String, String> map = new HashMap<String, String>();
+//  	  map.put("hg_mem_id", hg_mem_id);
+//  	  map.put("hg_station", hg_station);
+//  	  int result = cdao.coachmypageHomeGymStationUpdate(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", result);
+//  	  mav.addObject("change_station", hg_station);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    @RequestMapping("coachchangePerson_count.do")
+//    public ModelAndView mypageHomeGymPerson_countUpdate(
+//  		  @RequestParam("hg_mem_id")String hg_mem_id,
+//  		  @RequestParam("hg_person_count")int hg_person_count
+//  		  ) {
+//  	  Map<String, Object> map = new HashMap<String, Object>();
+//  	  map.put("hg_mem_id", hg_mem_id);
+//  	  map.put("hg_person_count", hg_person_count);
+//  	  int result = cdao.coachmypageHomeGymPerson_countUpdate(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", result);
+//  	  mav.addObject("change_person_count", hg_person_count);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    @RequestMapping("coachchangePrice.do")
+//    public ModelAndView mypageHomeGymPriceUpdate(
+//  		  @RequestParam("hg_mem_id")String hg_mem_id,
+//  		  @RequestParam("hg_price")int hg_price
+//  		  ) {
+//  	  Map<String, Object> map = new HashMap<String, Object>();
+//  	  map.put("hg_mem_id", hg_mem_id);
+//  	  map.put("hg_price", hg_price);
+//  	  int result = cdao.coachmypageHomeGymPriceUpdate(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", result);
+//  	  mav.addObject("change_price", hg_price);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    @RequestMapping("coachmypageEqListUpdate.do")
+//    public ModelAndView mypageHomeGymEqListUpdate(
+//  		  HttpServletRequest req,
+//  		  @RequestParam("mem_id")String mem_id) {
+//  	  String eq_name[] = req.getParameterValues("eq_name");
+//  	  String eq_count[] = req.getParameterValues("eq_count");
+//  	  cdao.coachmypageHomeGymEqAllDelete(mem_id);
+//  	  int eq_update_count = 0;
+//  	  for(int i = 0 ; i < eq_name.length ; i++) {
+//  		  Map<String, String> eq_data = new HashMap<String, String>();
+//  		  eq_data.put("eq_mem_id", mem_id);
+//  		  eq_data.put("eq_name", eq_name[i]);
+//  		  eq_data.put("eq_count", eq_count[i]);
+//  		  eq_update_count += cdao.coachmypageHomeGymEqUpdate(eq_data);
+//  	  }
+//  	  List<HomeGymEquipmentDTO> list = cdao.coachmypageHomeGymEqInfo(mem_id);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", eq_update_count);
+//  	  mav.addObject("change_eqlist", list);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    @RequestMapping("coachmypageUseDateUpdate.do")
+//    public ModelAndView mypageHomeGymUseDateUpdate(
+//  		  @RequestParam("hg_mem_id")String mem_id,
+//  		  @RequestParam("choice_start_date")String start_date,
+//  		  @RequestParam("choice_end_date")String end_date,
+//  		  @RequestParam("choice_not_date")String not_date) {
+//  	  Map<String, Object> map = new HashMap<String, Object>();
+//  	  map.put("hg_mem_id", mem_id);
+//  	  map.put("start_date", java.sql.Date.valueOf(start_date));
+//  	  map.put("end_date", java.sql.Date.valueOf(end_date));
+//  	  map.put("not_date", not_date);
+//  	  int result = cdao.coachmypageHomeGymUseDateUpdate(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", result);
+//  	  mav.addObject("change_start_date", start_date);
+//  	  mav.addObject("change_end_date", end_date);
+//  	  mav.addObject("change_not_date", not_date);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
+//    @RequestMapping("mypageUseTimeUpdate.do")
+//    public ModelAndView mypageHomeGymUseTimeUpdate(
+//  		  @RequestParam("hg_mem_id")String mem_id,
+//  		  @RequestParam("choice_start_time")int start_time,
+//  		  @RequestParam("choice_end_time")int end_time) {
+//  	  Map<String, Object> map = new HashMap<String, Object>();
+//  	  map.put("hg_mem_id", mem_id);
+//  	  map.put("start_time", start_time);
+//  	  map.put("end_time", end_time);
+//  	  int result = cdao.coachmypageHomeGymUseTimeUpdate(map);
+//  	  ModelAndView mav = new ModelAndView();
+//  	  mav.addObject("change_result", result);
+//  	  mav.addObject("change_start_time", start_time);
+//  	  mav.addObject("change_end_time", end_time);
+//  	  mav.setViewName("jsonView");
+//  	  return mav;
+//    }
 }

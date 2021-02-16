@@ -20,7 +20,7 @@
 	<insert id="hgEqAddSQL"
 		parameterType="zipcok.homegym.model.HomeGymEquipmentDTO">
 		insert into homegym_equipment values(
-		eq_idx.nextval,
+		homegym_equipment_idx.nextval,
 		#{eq_mem_id}, #{eq_name}, #{eq_count})
 	</insert>
 	<insert id="hgImgAddSQL"
