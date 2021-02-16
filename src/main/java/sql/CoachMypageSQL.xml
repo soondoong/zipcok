@@ -284,6 +284,15 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		rnum between #{start} and  #{end}
 	
 	</select>
+	<select id="coachmypageHomeGymInfoSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymDTO">
+    	select * from homegym where hg_mem_id = #{value}
+    </select>
+    <select id="coachmypageHomeGymEqInfoSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymEquipmentDTO">
+		select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
+	</select>
+	<select id="coachmypageHomeGymImgInfoSQL" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
+		select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value} order by mfile_idx
+	</select>
 	<select id = "coachmypageHomeGymLikeCount" parameterType="String" resultType="Integer">
     	select count(*) from zipcok_like where like_target_id = #{value} and like_key = '홈짐'
     </select> 

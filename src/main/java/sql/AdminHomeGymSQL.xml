@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.admin">
+  
+  <select id="adminHomeGymReservationSearchTotalCnt" parameterType="HashMap" resultType="Integer">
+  
+    select count(*) from
+  (select rownum as rnum,a.* from
+  (select * form homegym_reservation
+  where
+  <choose>
+  	<when test="type=='전체'">
+  	mem_id like '%%'
+  	</when>
+  	<when test="type=='예약자아이디'">
+  	mem_id like '%${searchContent}%'
+  	</when>
+  	<when test="type=='제공자아이디'">
+  	hg_mem_id like '%${searchContent}%'
+  	</when>
+  </choose>
+  )a)b
+  
+  </select>  
+  
+  <select id="adminHomeGymReservationSearch" parameterType="HashMap" resultType="zipcok.homegym.model.HomeGymReservationDTO">
+  
+  select * from
+  (select rownum as rnum,a.* from
+  (select * form homegym_reservation
+  where
+  <choose>
+  	<when test="type=='전체'">
+  	mem_id like '%%'
+  	</when>
+  	<when test="type=='예약자아이디'">
+  	mem_id like '%${searchContent}%'
+  	</when>
+  	<when test="type=='제공자아이디'">
+  	hg_mem_id like '%${searchContent}%'
+  	</when>
+  </choose>
+  order by reser_idx)a)b
+  where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  
+  </select>
+  
+  
+  </mapper>

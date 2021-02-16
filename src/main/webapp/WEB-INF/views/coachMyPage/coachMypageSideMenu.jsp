@@ -5,7 +5,7 @@
 	<ul>
 
 		<li class="sidemenuli"><a href="coachMyPage.do?id=${sessionScope.coachId }">내 프로필</a></li>
-		<li class="sidemenuli"><a href="coachmyHomeGymHavingCheck.do">내 홈짐보기</a></li>
+		<li class="sidemenuli"><a href="coachmyHomeGymHavingCheck.do?mem_id=${sessionScope.coachId }">내 홈짐보기</a></li>
 		<li class="sidemenuli" ><a href="checkRequest.do?id=${sessionScope.coachId}">받은 요청 보기</a></li>
 		<li class="sidemenuli" ><a href="chatRoomList.do?mem_id=${sessionScope.coachId}">채팅방</a></li>
 		<li class="sidemenuli"><a href="coachMyPageCommManage.do">커뮤니티 관리</a></li>

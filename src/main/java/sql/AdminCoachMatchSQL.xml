@@ -106,17 +106,27 @@
   	<!-- 코치 정보 관리 끝-->
   	<!-- 코치매칭관리 시작 -->
   	<select id="ajaxCmTotalCnt" parameterType="HashMap" resultType="Integer">
-  		select count(*) from request_form
-  		where req_receive_id = #{req_receive_id}
+  		select  count(*) from
+		(select * from
+		request_form,zipcok_member
+		where
+		req_receive_id = #{req_receive_id}
+		and
+		req_mem_id =mem_id)a
   	</select>
-  	<select id="reqFormData" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
-  		select * from request_form
-  		where req_receive_id = #{req_receive_id}
+  	<select id="reqFormMemberData" parameterType="HashMap" resultType="zipcok.admin.model.ReqFormMemberDTO">
+  		select * from
+		(select rownum as rnum, a.* from
+		(select * from
+		request_form,zipcok_member
+		where
+		req_receive_id = #{req_receive_id}
+		and
+		req_mem_id =mem_id)a)b
+		where
+		rnum between #{start} and #{end}
   	</select>
-  	<select id="memberData" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
-  		select * from zipcok_member
-  		where mem_id = #{mem_id}
-  	</select>
+  	
   	<!-- 코치매칭관리 끝 -->
   	<!-- 취소 환불 관리 시작-->
   	<select id="canTotalCnt" parameterType="HashMap" resultType="Integer">
