@@ -17,6 +17,26 @@
 		</choose>
 	</select>
 	
+	<select id="allCommCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			community
+	</select>
+	
+	<select id="searchCommCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			community
+		where 
+			com_name like 
+		<choose>
+			<when test="com_name ==''">'%%'</when>
+			<when test="com_name != ''">'%${com_name}%'</when>
+		</choose>
+	</select>
+	
 	<select id="adminGetCoachIdSQL" resultType="String">
 		select
 			com_coach_id
@@ -98,5 +118,27 @@
 			ex_comm_idx=#{ex_comm_idx} 
 		and 
 			ex_id=#{ex_id} 
+	</select>
+	
+	<select id="getCommListSQL" resultType="String">
+		select 
+			uc_name 
+		from 
+			users_community 
+		where 
+			uc_mem_id=#{uc_mem_id}
+	</select>
+	
+	<select id="getBbsAvgCountSQL" resultType="Double">
+		select 
+			nvl(avg(count(*)),0) ex_writedateCount
+		from 
+			exer_bbs
+		where 
+			ex_comm_idx=#{ex_comm_idx}
+		group by 
+			TO_CHAR(ex_writedate, 'YYYYMMDD')
+		order by 
+			TO_CHAR(ex_writedate, 'YYYYMMDD')
 	</select>
 </mapper>

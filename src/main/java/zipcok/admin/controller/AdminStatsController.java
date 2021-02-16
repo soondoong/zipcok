@@ -32,6 +32,7 @@ public class AdminStatsController {
 		return mav;
 	}
 	
+
 	@RequestMapping("searchCoachTongGye.do")
 	public ModelAndView searchCoachTongGye(@RequestParam("startDate") String startDate,
 			@RequestParam("endDate") String endDate) {
@@ -54,6 +55,7 @@ public class AdminStatsController {
 		return mav;
 	}
 	
+
 	@RequestMapping("admin_statCoachRegist.do")
 	public ModelAndView statCoachRegist() {
 		

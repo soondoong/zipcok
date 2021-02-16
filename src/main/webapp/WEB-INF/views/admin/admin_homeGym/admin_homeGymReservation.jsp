@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
+
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
@@ -29,6 +31,19 @@
 					<br>
 					</div>
 					<div>
+						<ul class="test-inline">
+							<li>상태&nbsp;</li>
+							<li>
+							<select id="reservationSelect" onchange="javascript:showList();">
+							<option <c:if test="${keyword.reservationSelect=='--'}">selected="selected"</c:if>>--</option>
+							<option <c:if test="${keyword.reservationSelect=='예약완료'}">selected="selected"</c:if>>예약완료</option>
+							<option <c:if test="${keyword.reservationSelect=='취소요청중'}">selected="selected"</c:if>>취소요청중</option>
+							<option <c:if test="${keyword.reservationSelect=='예약취소완료'}">selected="selected"</c:if>>예약취소완료</option>
+							</select>
+							</li>
+						</ul>
+					</div>
+					<div>
 					<form action="adminHomeGymReservationSearch.do">
 						<ul class="test-inline">
 							<li>조건 검색&nbsp;</li>
@@ -44,11 +59,17 @@
 					</form>
 					</div>
 				<div>
-				<form action="adminDelMemberDate.do">
+				<form action="adminHomeGymReservationDate.do">
 					<ul class="test-inline">
-						<li>조건 검색&nbsp;</li>
-						<li><input type="date" id="start_date" name="start_date" onchange="javascript:start_change();" required="required"></li>~
-						<li><input type="date" id="end_date" name="end_date" onchange="javascript:end_change();" required="required"></li>
+						<li>날짜 검색&nbsp;</li>
+						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
+						<li><input type="date" id="end_date" name="end_date" value="${keyword.keywordEnd }" required="required"></li>
+						<!-- 
+						<li><input type="date" id="start_date" name="start_date" onchange="javascript:start_change();"
+						value="${keyword.keywordStart }" required="required"></li>~
+						<li><input type="date" id="end_date" name="end_date" onchange="javascript:end_change();"
+						value="${keyword.keywordEnd }" required="required"></li>
+						 -->
 					</ul>
 					<input type="submit" value="검색">
 				</form>
@@ -62,7 +83,6 @@
 						<tr>
 							<th>예약번호</th>
 							<th>예약일</th>
-							<th>예약일자</th>
 							<th>이용시간</th>
 							<th>제공자아이디</th>
 							<th>예약자아이디</th>
@@ -72,24 +92,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						
-						
+						<c:if test="${empty list}">
+								<tr>
+									<td colspan="8" align="center">검색된 예약목록 없습니다.</td>
+								</tr>
+						</c:if>
+						<c:forEach var="dto" items="${list }">
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>${dto.reser_idx }</td>
+							<td>${dto.reser_date }</td>
+							<td>${dto.reser_start_time }:00 ~ ${dto.reser_end_time }:00</td>
+							<td>${dto.hg_mem_id }</td>
+							<td>${dto.mem_id }</td>
+							<td>${dto.reser_price }</td>
+							<td>${dto.reser_status }</td>
 							<td><input type="button" value="취소승인"></td>
 						</tr>
-						
+						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="9" class="paging">${pageStr }</td>
+							<td colspan="8" class="paging">${pageStr }</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -97,5 +120,11 @@
          </div>
       </div>
    </div>
-
+<script type="text/javascript">
+function showList(){
+	var reservationSelect=document.getElementById('reservationSelect').value;
+	
+	location.href='adminHomeGymReservationSelect.do?reservationSelect='+reservationSelect;
+}
+</script>
 <%@include file="../../_include/footer.jsp" %>

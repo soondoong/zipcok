@@ -25,7 +25,6 @@
 				<ul class="submenu">
 					<li class="submenuList"><a href="admin_homeGymAdmin.do">홈짐 정보 관리</a></li>
 					<li class="submenuList"><a href="admin_homeGymReservation.do">예약 조회</a></li>
-					<li class="submenuList"><a href="admin_homeGymReserveCancel.do">결제 관리</a></li>
 				</ul>
 			</li>		
 			<li class="adminTitleLi"><b style="font-size: 22px;margin-top:20px; ">통계 관리</b></li>

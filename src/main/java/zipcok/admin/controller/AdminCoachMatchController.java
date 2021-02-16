@@ -378,9 +378,15 @@ public class AdminCoachMatchController {
 		//결제내역서상태바꿔주기
 		
 		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
+
 		RequestFormDTO reqdto= adminCoachMatchDao.findRequestByPd_idx(pd_idx);
 		int reqcount=coachmpdao.reqStatusChangetoOk(reqdto.getReq_idx(),"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
 		 System.out.println("상담요청서상태결제취소완료로:"+reqcount);
+
+		
+		//coachmpdao.reqStatusChangetoOk(pr_req_idx,"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
+		 
+
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("result",result);
 		mav.addObject("pd_idx",pd_idx);
