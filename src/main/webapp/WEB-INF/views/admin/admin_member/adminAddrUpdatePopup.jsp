@@ -93,8 +93,10 @@ function execPostCode() {
  
  
  function formSubmit(){
-	opener.document.getElementById('addrTd').value = document.getElementById('mem_addr').value+" "+document.getElementById('mem_detailaddr').value;
-	document.getElementById('adminAddrGoGoGo').submit();
+	opener.document.getElementById('addrTd').value = "("+document.getElementById('mem_zipcode').value+") "+document.getElementById('mem_addr').value+" "+document.getElementById('mem_detailaddr').value;
+	opener.document.getElementById('addrTdH').value = document.getElementById('mem_addr').value
+	opener.document.getElementById('zipcodeTd').value =  document.getElementById('mem_zipcode').value
+	opener.document.getElementById('detailaddrTd').value = document.getElementById('mem_detailaddr').value
 	window.self.close();
  }
  
@@ -103,7 +105,7 @@ function execPostCode() {
 </head>
 <body>
 	<article>
-		<form id="adminAddrGoGoGo" action="adminAddrUpdateAction.do">
+		<form id="adminAddrGoGoGo">
 			<h4>주소변경</h4>
 			<hr>
 			<div class="col-sm-3 col-md-offset-3">
@@ -128,7 +130,7 @@ function execPostCode() {
 
 				<div class="form-group">
 					<input class="form-control" placeholder="상세주소"
-						name="mem_detailaddr" id="mem_detailaddr" type="text" />
+						name="mem_detailaddr" id="mem_detailaddr" type="text" required="required"/>
 				</div>
 				<input type="hidden" name="mem_id" value="${mem_id}">
 

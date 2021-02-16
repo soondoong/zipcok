@@ -17,7 +17,7 @@
 .table { border-spacing: ''; table-layout: auto; text-align: center;} 
 .table th{font-weight: bold; border-color:#848282;}
 .paging {margin: 40px 0 0; text-align: center;}
-		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
 
 	<div class="adminPage_wrap">
@@ -127,6 +127,7 @@
 							<tr>
 								<td>
 								주소<input type="text" name="mem_addr" id="addrTd" readonly="readonly" style="background-color : lightgray;">
+								<input type="hidden" name="mem_addrH" id="addrTdH">
 								<input type="hidden" name="mem_zipcode" id="zipcodeTd">
 								<input type="hidden" name="mem_detailaddr" id="detailaddrTd">
 								<p class="updateGoGoAddr" id="addrUpdateP"></p>
@@ -212,7 +213,10 @@ function showResult(){
 					document.getElementById('pwdTd').value=data.dto2.mem_pwd;
 					document.getElementById('phoneTd').value=data.dto2.mem_phone;
 					document.getElementById('emailTd').value=data.dto2.mem_email;
-					document.getElementById('addrTd').value=data.dto2.mem_addr+" "+data.dto2.mem_detailaddr;
+					document.getElementById('addrTd').value="("+data.dto2.mem_zipcode+") "+data.dto2.mem_addr+" "+data.dto2.mem_detailaddr;
+					document.getElementById('addrTdH').value=data.dto2.mem_addr;
+					document.getElementById('zipcodeTd').value=data.dto2.mem_zipcode;
+					document.getElementById('detailaddrTd').value=data.dto2.mem_detailaddr;
 					document.getElementById('typeTd').value=data.dto2.mem_type;
 					document.getElementById('pwdUpdateP').innerHTML="<input type='button' value='수정'  name='btnpwdgogo' onclick='pwdUpdateGoGo();''>";
 					document.getElementById('nameUpdateP').innerHTML="<input type='button' value='수정'  name='btnnamegogo' onclick='nameUpdateGoGo();''>";
@@ -228,6 +232,8 @@ function showResult(){
 					$('#phoneTd').css('background-color', 'lightgray');
 					$("#emailTd").attr("readonly",true);
 					$('#emailTd').css('background-color', 'lightgray');
+					$("#addrTd").attr("readonly",true);
+					$('#addrTd').css('background-color', 'lightgray');
 					$("#typeTd").attr("disabled",true);
 					$('#typeTd').css('background-color', 'lightgray');
 					
@@ -313,18 +319,18 @@ function showResult(){
 	function adminAddrUpdateForm(){
 		var id = document.getElementById('moUserId').value
 		window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdategogogogo', 'width=550,height=300');
-		/*
+		
 		$('.updateGoGoAddr').html('');
 		$('.updateGoGoAddr').html("<input type='button' onclick='addrUpdateSubmitAjax();' name='btnaddrgogo' value='수정완료'>");
 		$('#addrTd').css('background-color', 'whitesmoke');
-		*/
+		
 	}
-	/*
+	
 	function addrUpdateSubmitAjax(){
-		var params='mem_addr='+$('#addrTd').val()+'&mem_id='+$('#idTd').val()+'&mem_zipcode='+$('#zipcodeTd').val()+'&mem_zipcode='+$('#zipcodeTd').val();
+		var params='mem_id='+$('#idTd').val()+'&mem_zipcode='+$('#zipcodeTd').val()+'&mem_addr='+$('#addrTdH').val()+'&mem_detailaddr='+$('#detailaddrTd').val();
 		sendRequest('adminMemberAddrUpdateAjax.do',params,showResultAjax,'POST');
 	}
-	*/
+	
 	
 	
 	
