@@ -277,7 +277,7 @@
     	    map.setCenter(coords);
     		// 장소 검색 객체를 생성합니다
            	var ps = new kakao.maps.services.Places(map); 
-			//document.getElementById('map').style.display='none';
+			document.getElementById('map').style.display='none';
            	// 카테고리로 은행을 검색합니다
            	ps.categorySearch('SW8', placesSearchCB, {useMapBounds:true}); 
 			
@@ -372,7 +372,7 @@ textarea {resize: none;}
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">가까운 역</label>
-				<select id = "stationSelect" required="required"></select>
+				<select id = "stationSelect" name ="hg_station" required="required"></select>
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">오시는 길</label>

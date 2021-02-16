@@ -190,7 +190,7 @@ mfile_key='회원프로필'
     	select count(*) from zipcok_like where like_target_id = #{value} and like_key = '홈짐'
     </select> 
     	<select id = "mypageHomeGymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
-	select * from star_review where rev_key = '회원이홈짐' and rev_target_id = #{value} order by rev_writedate
+	select * from star_review where rev_key = '홈짐' and rev_target_id = #{value} order by rev_writedate
 	</select>
 	<update id="mypageHomeGymStatusChangeSQL" parameterType="hashMap">
 		update homegym set hg_status = #{hg_status} where hg_mem_id = #{hg_mem_id}

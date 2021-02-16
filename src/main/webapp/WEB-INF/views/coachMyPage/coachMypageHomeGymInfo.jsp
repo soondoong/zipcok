@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+</head>
+<body>
 <link href="assets/css/mypage.css" rel="stylesheet">
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <%@include file="../header2.jsp"%>
@@ -583,7 +585,7 @@ function priceUpdateCancel(){
 </head>
 <body>
 	<div class="mypage_wrap">
-		<%@include file="./mypageSideMenu.jsp"%>
+		<%@include file="./coachMypageSideMenu.jsp"%>
 		<div class="mypage_contents">
 			<div class="homegym_main">
 				<div class="nomalAllWrap">
