@@ -378,7 +378,7 @@ public class AdminCoachMatchController {
 		
 		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
 		
-		coachmpdao.reqStatusChangetoOk(pr_req_idx,"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
+		//coachmpdao.reqStatusChangetoOk(pr_req_idx,"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
 		 
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("result",result);
