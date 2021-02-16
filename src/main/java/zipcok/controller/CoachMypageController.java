@@ -24,10 +24,10 @@ import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.cpayment.model.Payment_RequestDTO;
 
 import zipcok.homegym.model.PaymentDTO;
-
+import zipcok.homegym.model.Payment_detailsDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
-
+import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -48,7 +48,35 @@ public class CoachMypageController {
 	@Autowired
 ServletContext c;
 	
-	
+	@RequestMapping("CmHomeGymPayList.do")
+	public ModelAndView HmPaymentList(@RequestParam("mem_id")String mem_id,
+			@RequestParam(value = "cp", defaultValue = "1")int cp) {
+		int listSize=5;
+		int pageSize=5;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mem_id", mem_id);
+		map.put("cp", cp);
+		map.put("ls", listSize);
+		map.put("methodKey", "mypageHomeGymPayListTotalCnt");
+		
+		int totalCnt = cdao.coachmypageHomeGymPayListTotalCnt(map);
+		
+		String keywords = "mem_id"+mem_id;
+		
+		String pageStr = zipcok.page.CoachPageModule.makePage("CmHomeGymPayList.do", totalCnt, cp, listSize, pageSize, keywords);
+		List<HomeGymPayListDTO> list = cdao.coachmypageHomeGymPayList(map);
+		for(int i = 0 ; i < list.size() ; i++) {
+			boolean ck = cdao.coachmypageHomeGymReviewCheck(list.get(i).getPd_idx());
+			list.get(i).setReviewCheck(ck);
+			String hg_nickname = cdao.coachmypageHomeGymNickname(list.get(i).getPd_target_id());
+			list.get(i).setHg_nickname(hg_nickname);
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("list", list);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("coachMyPage/CoachHomeGymPayList");
+		return mav;
+	}
 	
 	@RequestMapping("CmPaymentList.do")
 	public ModelAndView CmPaymentList(@RequestParam("mem_id")String mem_id,
@@ -68,7 +96,6 @@ ServletContext c;
 		String pageStr=zipcok.page.CoachPageModule.makePage("CmPaymentList.do", totalCnt, cp, listSize, pageSize,keywords);
 		 
 		List<Pd_AllDTO> pdList=cdao.CmPaymentList(map);
-	
 		//후기존재하는지여부체크
 		map.put("pdSenderKey","pd_target_id");
 		map.put("pdKey","코치");

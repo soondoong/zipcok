@@ -342,5 +342,20 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 	<update id="coachmypageHomeGymUseTimeUpdate" parameterType="hashMap">
 		update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
 	</update>
-
+	<select id="coachmypageHomeGymPayListTotalCnt" parameterType="hashMap" resultType="Integer">
+		select count(*) from zipcok_payment_details where pd_key = '홈짐' and pd_target_id = #{mem_id}
+	</select>
+	<select id ="coachmypageHomeGymPayList" parameterType="hashMap" resultType="zipcok.homegym.model.HomeGymPayListDTO">
+		select * from(
+		select rownum as rnum, a.* from(
+		select * from zipcok_payment_details pd, homegym_reservation r
+		where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_target_id = #{mem_id})a)b
+		where rnum between #{start} and #{end}
+	</select>
+	<select id ="coachmypageHomeGymReviewCheck" parameterType="Integer" resultType = "String">
+		select rev_sub from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
+	</select>
+	<select id="coachmypageHomeGymNickname" parameterType="String" resultType="String">
+		select hg_nickname from homegym where hg_mem_id = #{value}
+	</select>
   </mapper>
