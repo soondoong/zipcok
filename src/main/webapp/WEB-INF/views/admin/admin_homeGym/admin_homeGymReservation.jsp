@@ -29,13 +29,14 @@
 					<br>
 					</div>
 					<div>
-					<form>
+					<form action="adminHomeGymReservationSearch.do">
 						<ul class="test-inline">
-							<li>예약자 검색&nbsp;</li>
+							<li>조건 검색&nbsp;</li>
 							<li>
 							<select name="type">
-									<option>전체</option>
-									<option>예약자아이디</option>
+									<option <c:if test="${keyword.keywordType=='전체'}">selected="selected"</c:if>>전체</option>
+									<option <c:if test="${keyword.keywordType=='예약자아이디'}">selected="selected"</c:if>>예약자아이디</option>
+									<option <c:if test="${keyword.keywordType=='제공자아이디'}">selected="selected"</c:if>>제공자아이디</option>
 							</select>
 							<li><input type="text" name="searchContent" placeholder="내용을 입력해주세요."></li>
 							<li><input type="submit" value="검색"></li>
@@ -60,21 +61,19 @@
 						<thead style="background-color : whitesmoke;">
 						<tr>
 							<th>예약번호</th>
-							<th>결제일</th>
-							<th>예약자아이디</th>
+							<th>예약일</th>
 							<th>예약일자</th>
 							<th>이용시간</th>
+							<th>제공자아이디</th>
+							<th>예약자아이디</th>
 							<th>결제금액</th>
-							<th>결제상태</th>
+							<th>상태</th>
+							<th>취소</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${empty list}">
-							<tr>
-								<td colspan="7" align="center">검색된 홈짐예약 목록이 없습니다.</td>
-							</tr>
-						</c:if>
-						<c:forEach var="dto" items="${list }">
+						
+						
 						<tr>
 							<td></td>
 							<td></td>
@@ -84,13 +83,13 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td></td>
+							<td><input type="button" value="취소승인"></td>
 						</tr>
-						</c:forEach>
+						
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="7" class="paging">${pageStr }</td>
+							<td colspan="9" class="paging">${pageStr }</td>
 						</tr>
 					</tfoot>
 				</table>

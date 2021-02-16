@@ -245,56 +245,33 @@ public class AdminMemberController {
 		return mav;
 	}
 	
-	//관리자 주소 수정
-	@RequestMapping("adminAddrUpdateAction.do")
-	public ModelAndView adminAddrUpdateAction(
+
+	//관리자 회원 타입 수정 아작스
+	@RequestMapping("adminMemberAddrUpdateAjax.do")
+	public ModelAndView adminMemberAddrUpdateAjax(
 			@RequestParam("mem_id") String mem_id,
 			@RequestParam("mem_zipcode") String mem_zipcode,
 			@RequestParam("mem_addr") String mem_addr,
 			@RequestParam("mem_detailaddr") String mem_detailaddr) {
 		
-		 ModelAndView mav = new ModelAndView();
-		 HashMap<String, Object> map = new HashMap<String, Object>();
-		 map.put("mem_id", mem_id);
-		 map.put("mem_zipcode", mem_zipcode);
-		 map.put("mem_addr", mem_addr);
-		 map.put("mem_detailaddr", mem_detailaddr);
-	      
-	      int result = dao.adminMemberAddrUpdate(map);
-	      String msg=result>0?"관리자님이 회원님의 주소를 변경하였습니다.!":"관리자형 뭐해?";
-	      mav.addObject("msg", msg);
-	      mav.setViewName("jsonView");
-	      return mav;
-	 }
-	
-	
-	//관리자 회원 타입 수정 아작스
-//	@RequestMapping("adminMemberAddrUpdateAjax.do")
-//	public ModelAndView adminMemberAddrUpdateAjax(
-//			MemberDTO dto,
-//			@RequestParam("mem_id") String mem_id,
-//			@RequestParam("mem_zipcode") String mem_zipcode,
-//			@RequestParam("mem_addr") String mem_addr,
-//			@RequestParam("mem_detailaddr") String mem_detailaddr) {
-//		
-//		ModelAndView mav=new ModelAndView();
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		String msg="";
-//		map.put("mem_id", mem_id);
-//		map.put("mem_zipcode", mem_zipcode);
-//		map.put("mem_addr", mem_addr);
-//		map.put("mem_detailaddr", mem_detailaddr);
-//
-//		
-//		int result=dao.adminMemberAddrUpdate(map);
-//			
-//		msg="관리자님이 회원님의 주소를 수정하였습니다.";			
-//		
-//		mav.addObject("mem_id", mem_id);
-//		mav.addObject("msg", msg);
-//		mav.setViewName("jsonView");
-//		return mav;
-//	}
+		ModelAndView mav=new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String msg="";
+		map.put("mem_id", mem_id);
+		map.put("mem_zipcode", mem_zipcode);
+		map.put("mem_addr", mem_addr);
+		map.put("mem_detailaddr", mem_detailaddr);
+
+		
+		int result=dao.adminMemberAddrUpdate(map);
+			
+		msg="관리자님이 회원님의 주소를 수정하였습니다.";			
+		
+		mav.addObject("mem_id", mem_id);
+		mav.addObject("msg", msg);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 
 	//관리자 탈퇴회원관리 페이지 이동
