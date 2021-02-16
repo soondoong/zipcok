@@ -23,12 +23,14 @@
 				<h5>[커뮤니티 관리]</h5>
 			</div>
 			<div>
-				<ul class="test-inline">
-					<li>커뮤니티 검색</li>
-					<li><select><option>커뮤니티 이름</option></select></li>
-					<li><input type="text"></li>
-					<li><input type="button" value="검색하기"></li>
-				</ul>
+				<form name="adminCommSearchList" action="admin_coachMatchCommunityList.do">
+					<ul class="test-inline">
+						<li>커뮤니티 검색</li>
+						<li><select><option>커뮤니티 이름</option></select></li>
+						<li><input type="text" name="com_name"></li>
+						<li><input type="submit" value="검색하기"></li>
+					</ul>
+				</form>
 			</div>
 			<div>
 				<ul	class="test-inline">
@@ -51,23 +53,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>123</td>
-							<td>커뮤니티1</td>
-							<td>구병모</td>
-							<td>30</td>
-							<td>2021.01.12</td>
-							<td>2021.01.12</td>
-							<td><input type="button" value="보기"></td>
+							<td colspan="7" style="text-align: center">커뮤니티 이름을 검색해주세요</td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="7">페이징 들어갈 자리</td>
-						</tr>
-						<tr>
-							<td colspan="7" align="right"><input type="button" value="내역보기"></td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
@@ -90,21 +78,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>구병모</td>
-							<td>qudah123</td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td>50</td>
-							<td>2021.01.12</td>
-							<td><input type="button" value="가기"></td>
+							<td colspan="8" style="text-align: center"></td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
@@ -127,27 +103,15 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
-							<td>구병모</td>
-							<td>qudah123</td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td><select><option>커뮤니티 이름</option></select></td>
-							<td>2021.01.12</td>
-							<td><input type="button" value="가기"></td>
+							<td colspan="8" style="text-align: center"></td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
 			<div><!-- 커뮤니티 게시판정보 테이블 div -->
 				<div>
-					<h5>커뮤니티 회원정보</h5>
+					<h5>커뮤니티 게시판정보</h5>
 				</div>
 				<table border="1" cellspacing="0">
 					<thead>
@@ -164,21 +128,9 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>일일 운동 게시판</td>
-							<td>50</td>
-							<td>3</td>
-							<td>50</td>
-							<td>5</td>
-							<td>2021.01.12</td>
-							<td>10</td>
-							<td><input type="button" value="가기"></td>
+							<td colspan="8" style="text-align: center"> </td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
