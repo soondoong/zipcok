@@ -29,13 +29,14 @@ public class AdminCommController {
 			String actDate=adminCommDao.getActDate(commInfo.get(i).getCom_idx());
 			commInfo.get(i).setCom_actdate(actDate);
 		}
-		
-		//최근 활동날짜 구해서 넣기
-		
+		int allCommCount=adminCommDao.allCommCount();
+		int searchCommCount=adminCommDao.searchCommCount(com_name);
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("commInfo", commInfo);
 		mav.addObject("com_name", com_name);
+		mav.addObject("allCommCount", allCommCount);
+		mav.addObject("searchCommCount", searchCommCount);
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCommunityList");
 		return mav;
 	}
@@ -52,6 +53,8 @@ public class AdminCommController {
 			String actDate=adminCommDao.getActDate(commInfo.get(i).getCom_idx());
 			commInfo.get(i).setCom_actdate(actDate);
 		}
+		int allCommCount=adminCommDao.allCommCount();
+		int searchCommCount=adminCommDao.searchCommCount(com_name);
 		
 		//1. 코치정보
 		//커뮤니티 idx로 코치정보 가져오기
@@ -70,10 +73,22 @@ public class AdminCommController {
 		for(int i=0;i<memList.size();i++) {
 			commMembers.add(adminCommDao.searchMember(memList.get(i)));
 		}
+		//커뮤니티 목록 가져오기
+		List<List> commList=new ArrayList<List>();
+		for(int i=0;i<memList.size();i++) {
+			commList.add(adminCommDao.getCommList(memList.get(i)));
+		}
+			
 		//활동 시작일 가져오기
 		List<String> startDate=new ArrayList<String>();
 		for(int i=0;i<memList.size();i++) {
-			startDate.addAll(adminCommDao.getStartDate(com_idx, memList.get(i)));
+			String start=adminCommDao.getStartDate(com_idx, memList.get(i));
+			if(start==null) {
+				startDate.add("활동 시작 없음");
+			}else {
+				startDate.add(adminCommDao.getStartDate(com_idx, memList.get(i)));
+			}
+			
 		}
 		
 		//3. 게시판정보
@@ -81,21 +96,29 @@ public class AdminCommController {
 		int allBbsCount=adminCommDao.getAllBbsCount(com_idx);
 		//총 댓글 수 가져오기
 		int allRepleCount=adminCommDao.getAllRepleCount(com_idx);
-		
+		//일일 평균 게시물 가져오기
+		double bbsAvgCount=adminCommDao.getBbsAvgCount(com_idx);
 		//최근 작성일 가져오기
 		String act_date=adminCommDao.getActDate(com_idx);
 		//활동 회원 수 가져오기
 		int act_mem_count=adminCommDao.getActMemSum(com_idx);
 		
+		
+		
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("allCommCount", allCommCount);
+		mav.addObject("searchCommCount", searchCommCount);
 		mav.addObject("commInfo", commInfo);
 		mav.addObject("com_name", com_name);
 		mav.addObject("com_idx", com_idx);
 		mav.addObject("coach", coach);//코치정보
 		mav.addObject("mem_sum", mem_sum);//코치정보
 		mav.addObject("commMembers", commMembers);//커뮤니티 회원 정보
+		mav.addObject("commList", commList);//소속 커뮤니티 리스트
+		mav.addObject("startDate", startDate);//최근 활동 일
 		mav.addObject("allBbsCount",allBbsCount);//총 게시물 수
 		mav.addObject("allRepleCount",allRepleCount);//총 댓글 수
+		mav.addObject("bbsAvgCount",bbsAvgCount);//일일 평균 게시글 갯수
 		mav.addObject("act_date",act_date);//최근 게시물 올린 날짜
 		mav.addObject("act_mem_count",act_mem_count);//활동 회원 수
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchCommunitySubmit");

@@ -16,7 +16,7 @@
 <body>
 <%@include file="../../header2.jsp" %>
    <div class="adminPage_wrap">
-      <%@include file="../adminSideMenu.jsp"%>
+      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div>
@@ -34,8 +34,9 @@
 			</div>
 			<div>
 				<ul	class="test-inline">
-					<li>총 커뮤니티 수: </li>
-					<li>검색 커뮤니티 수: </li>
+					<li>총 커뮤니티 수: ${allCommCount }</li>
+					<li>&nbsp;&nbsp;</li>
+					<li>검색 커뮤니티 수: ${searchCommCount }</li>
 				</ul>
 			</div>
 			<div><!-- 검색결과  테이블 div -->
@@ -78,9 +79,6 @@
 						</c:forEach>
 					</tbody>
 					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
 						<tr>
 							<td colspan="8" align="right"><input type="submit" value="내역보기"></td>
 						</tr>
@@ -136,11 +134,6 @@
 							<td colspan="8" style="text-align: center"></td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>

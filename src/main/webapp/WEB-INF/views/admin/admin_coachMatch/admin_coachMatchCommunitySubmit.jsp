@@ -11,12 +11,13 @@
 	
        display: flex;
 }
+.comtab{width: 18%}
 </style>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
    <div class="adminPage_wrap">
-      <%@include file="../adminSideMenu.jsp"%>
+      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div>
@@ -34,8 +35,9 @@
 			</div>
 			<div>
 				<ul	class="test-inline">
-					<li>총 커뮤니티 수: </li>
-					<li>검색 커뮤니티 수: </li>
+					<li>총 커뮤니티 수: ${allCommCount }</li>
+					<li>&nbsp;&nbsp;</li>
+					<li>검색 커뮤니티 수: ${searchCommCount }</li>
 				</ul>
 			</div>
 			<div><!-- 검색결과  테이블 div -->
@@ -77,9 +79,6 @@
 						</c:forEach>
 					</tbody>
 					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
 						<tr>
 							<td colspan="8" align="right"><input type="submit" value="내역보기"></td>
 						</tr>
@@ -133,31 +132,43 @@
 							<th>이름</th>
 							<th>아이디</th>
 							<th>휴대폰번호</th>
-							<th>이메일</th>
-							<th>소속 커뮤니티</th>
-							<th>활동 시작일</th>
+							<th class="comtab">이메일</th>
+							<th class="comtab">소속 커뮤니티</th>
+							<th class="comtab">활동 시작일</th>
 							<th>회원관리보기</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="dto3" items="${commMembers}">
+						<c:forEach var="dto3" items="${commMembers}" varStatus="i">
 							<tr>
 								<td>${dto3.mem_idx }</td>
 								<td>${dto3.mem_name }</td>
 								<td>${dto3.mem_id }</td>
 								<td>${dto3.mem_phone }</td>
 								<td>${dto3.mem_email }</td>
-								<td><select><option>!!!</option></select></td>
-								<td>!!!!!!!!!!!!!!!</td>
+								
+								<c:forEach var="commListdto" items="${commList}" varStatus="c">
+									<c:if test="${i.index eq c.index }">
+										<td>
+										<select>
+										<c:forEach var="bb" items="${c.current }" >
+										<option>${bb}</option>
+										</c:forEach>
+										</select>
+										</td>
+									</c:if>
+								</c:forEach>
+								
+								<c:forEach var="startList" items="${startDate}" varStatus="j">
+									<c:if test="${i.index eq j.index }">
+										<td>${j.current }</td>
+									</c:if>
+								</c:forEach>
+								
 								<td><input type="button" value="가기" onclick="location.href='http://localhost:9090/zipcok/adminMemberListAction.do?type=전체&name=${dto3.mem_name}'"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
@@ -182,7 +193,7 @@
 							<td>일일 운동 게시판</td>
 							<td>${allBbsCount }</td>
 							<td>${allRepleCount }</td>
-							<td>!!!!!!!!!!!!!!!</td>
+							<td>${bbsAvgCount }</td>
 							<td>${act_date }</td>
 							<td>${act_mem_count }</td>
 							<td><input type="button" value="가기"></td>

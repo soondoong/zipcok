@@ -34,8 +34,6 @@
 			</div>
 			<div>
 				<ul	class="test-inline">
-					<li>총 커뮤니티 수: </li>
-					<li>검색 커뮤니티 수: </li>
 				</ul>
 			</div>
 			<div><!-- 검색결과  테이블 div -->

@@ -26,6 +26,22 @@ public class AdminCommDAOImple implements AdminCommDAO {
 		return dto;
 	}
 	
+	//모든 커뮤니티 갯수 구하기
+	@Override
+	public int allCommCount() {
+		int count=sqlMap.selectOne("allCommCountSQL");
+		return count;
+	}
+	
+	//검색 커뮤니티 갯수 구하기
+	@Override
+	public int searchCommCount(String com_name) {
+		Map map=new HashMap();
+		map.put("com_name", com_name);
+		int count=sqlMap.selectOne("searchCommCountSQL",map);
+		return count;
+	}
+	
 	//커뮤니티 번호로 코치 아이디 가져오기
 	@Override
 	public String adminGetCoachId(int com_idx) {
@@ -84,12 +100,26 @@ public class AdminCommDAOImple implements AdminCommDAO {
 	
 	//최근 활동 날짜 구하기
 	@Override
-	public List<String> getStartDate(int ex_comm_idx, String ex_id) {
+	public String getStartDate(int ex_comm_idx, String ex_id) {
 		Map map=new HashMap();
 		map.put("ex_comm_idx", ex_comm_idx);
 		map.put("ex_id", ex_id);
-		List<String> startDate=sqlMap.selectList("getStartDateSQL",map);
+		String startDate=sqlMap.selectOne("getStartDateSQL",map);
 		return startDate;
 	}
 
+	//소속 커뮤니티 목록 구하기
+	@Override
+	public List<String> getCommList(String uc_mem_id) {
+		List<String> commList=sqlMap.selectList("getCommListSQL",uc_mem_id);
+		return commList;
+	}
+	
+	//일일 평균 게시물 갯수 구하기
+	@Override
+	public double getBbsAvgCount(int ex_comm_idx) {
+		double bbsAvgCount=sqlMap.selectOne("getBbsAvgCountSQL",ex_comm_idx);
+		return bbsAvgCount;
+		
+	}
 }
