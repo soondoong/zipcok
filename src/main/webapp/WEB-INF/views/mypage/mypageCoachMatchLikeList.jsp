@@ -31,6 +31,9 @@ function mypageCoachMatchLikeList(){
       .mypage_main .tab_style_01 li {flex: 1 1 auto;}
       .mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
       .mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
+      .paging {margin: 40px 0 0; text-align: center;}
+		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+      
       </style>      
          <ul>
             <li><button type="button" onclick="mypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
@@ -64,7 +67,7 @@ function mypageCoachMatchLikeList(){
          </tbody>
          <tfoot>
          <tr>
-         <td colspan="3" align="center">${pageStr2 }</td>
+         <td colspan="3" class="paging">${pageStr2 }</td>
          </tr>
          </tfoot>
       </table>

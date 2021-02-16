@@ -74,7 +74,7 @@ function mypageCommWriteList() {
 			<td>${dto.bbs_key }</td>
 			<td>${dto.bbs_category }</td>
 			<td><a href="csContent.do?bbs_idx=${dto.bbs_idx}" style="color : blue;">${dto.bbs_subject }</a></td>
-			<td>${dto.bbs_category }</td>
+			<td>${dto.bbs_mem_id }</td>
 			<td>${dto.bbs_writedate }</td>
 		</tr>
 	</c:forEach>

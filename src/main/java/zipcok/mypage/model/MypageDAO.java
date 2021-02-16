@@ -26,6 +26,7 @@ public interface MypageDAO {
    public int mypageCommWriteListTotalCnt(String ex_id);//커뮤니티 작성글 수
    public List mypageCommWriteList(int cp, int ls, String ex_id);//커뮤니티 작성글 목록
    public int mypageCommWriteDelete(String checkArr);//커뮤니티 작성글 삭제
+   public int mypageCommWriteDeleteRebbs(String checkArr);//커뮤니티 작성글 댓글삭제
    public int mypageHomeGymLikeListTotalCnt(String mem_id);
    public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
    public int mypageCoachMatchLikeListTotalCnt(String mem_id);

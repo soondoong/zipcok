@@ -112,7 +112,7 @@ mfile_key='회원프로필'
        (select * from exer_bbs where ex_id=#{ex_id} order by ex_idx desc)a)b
    </select>
    
-   <!-- F&A/고객센터 글목록 -->
+   <!-- 커뮤니티 글목록 -->
    <select id="mypageCommWriteList"  resultType="zipcok.comm.model.ExBbsDTO">
       select * from
       (select rownum as rnum,a.* from
@@ -120,10 +120,17 @@ mfile_key='회원프로필'
       where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
    </select>
    
-   <!-- 작성글 삭제 -->
+   <!-- 커뮤니티 글삭제 -->
    <delete id="mypageCommWriteDelete" parameterType="String">
    	delete from exer_bbs where ex_idx=#{ex_idx}
    </delete>
+   <!-- 커뮤니티 댓글삭제 -->
+   <delete id="mypageCommWriteDeleteRebbs" parameterType="String">
+   	delete from bbs_rebbs where re_bbs_idx=#{re_bbs_idx}
+   </delete>
+
+   
+   
    
    
   

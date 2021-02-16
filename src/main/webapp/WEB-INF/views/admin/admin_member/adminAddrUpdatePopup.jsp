@@ -109,7 +109,6 @@ function execPostCode() {
 			<div class="col-sm-3 col-md-offset-3">
 			
 				<div class="form-group">
-					<input type="hidden" name="mem_id" value="${mem_id }">
 					<input class="form-control" style="width: 40%; display: inline;"
 						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
 						readonly="readonly">
@@ -131,6 +130,7 @@ function execPostCode() {
 					<input class="form-control" placeholder="상세주소"
 						name="mem_detailaddr" id="mem_detailaddr" type="text" />
 				</div>
+				<input type="hidden" name="mem_id" value="${mem_id}">
 
 				<div class="form-group text-center">
 					<button type="button" class="btn btn-primary" onclick = "javascript:formSubmit();">변경하기</button>

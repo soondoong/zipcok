@@ -374,7 +374,29 @@ public class MypageController {
       return mav;
    }
    
- //마이페이지 커뮤니티 작성글 목록
+   
+   //마이페이지 작성글 삭제
+   @RequestMapping("mypageCheckDel.do")
+   public ModelAndView mypageWriteDelete(
+		   HttpServletRequest req) {
+	   
+	   String[] checkArr=req.getParameterValues("checkRow");
+	   ModelAndView mav=new ModelAndView();
+	   HashMap<String, Object> map = new HashMap<String, Object>();
+	   int count =0;
+	   for(int i=0; i<checkArr.length; i++) {
+		   count+=dao.mypageWriteDelete(checkArr[i]);
+	   }
+	   
+	   mav.addObject("msg", "게시글이 삭제되었습니다.");
+	   mav.addObject("gourl", "mypageWriteList.do");
+	   mav.setViewName("mypage/mypageMsg");
+	   return mav;
+   }
+   
+   
+   
+   //마이페이지 커뮤니티 작성글 목록
    @RequestMapping("/mypageCommWriteList.do")
    public ModelAndView mypageCommWriteList(HttpSession session,
          @RequestParam(value = "cp", defaultValue = "1")int cp) {
@@ -392,9 +414,10 @@ public class MypageController {
       return mav;
    }
    
-   //마이페이지 작성글 삭제
-   @RequestMapping("mypageCheckDel.do")
-   public ModelAndView mypageWriteDelete(
+   
+   //마이페이지 커뮤니티 작성글 삭제
+   @RequestMapping("mypageCommCheckDel.do")
+   public ModelAndView mypageCommWriteDelete(
 		   HttpServletRequest req) {
 	   
 	   String[] checkArr=req.getParameterValues("checkRow");
@@ -402,11 +425,12 @@ public class MypageController {
 	   HashMap<String, Object> map = new HashMap<String, Object>();
 	   int count =0;
 	   for(int i=0; i<checkArr.length; i++) {
-		   count+=dao.mypageWriteDelete(checkArr[i]);
+		   count+=dao.mypageCommWriteDelete(checkArr[i]);
+		   count+=dao.mypageCommWriteDeleteRebbs(checkArr[i]);
 	   }
 	   
 	   mav.addObject("msg", "게시글이 삭제되었습니다.");
-	   mav.addObject("gourl", "mypageWriteList.do");
+	   mav.addObject("gourl", "mypageCommWriteList.do");
 	   mav.setViewName("mypage/mypageMsg");
 	   return mav;
    }

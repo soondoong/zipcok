@@ -70,8 +70,10 @@
 						</c:if>
 						<c:forEach var="dto" items="${list }">
 							<tr>
-								<td><a href="javascript:show('${dto.mem_id}')" class="memidx" style="color: blue">${dto.mem_idx }</a></td>
-								<input type="hidden" id="moUserId" value="${dto.mem_id}">
+								<td>
+								<a href="javascript:show('${dto.mem_id}')" class="memidx" style="color: blue">${dto.mem_idx }</a>
+								<input type="hidden" id="moUserId" name="mem_idText" value="${dto.mem_id}">
+								</td>
 								<td>${dto.mem_name }</td>
 								<td>${dto.mem_id }</td>
 								<td>${dto.mem_phone }</td>
@@ -224,8 +226,6 @@ function showResult(){
 					$('#phoneTd').css('background-color', 'lightgray');
 					$("#emailTd").attr("readonly",true);
 					$('#emailTd').css('background-color', 'lightgray');
-					$("#addrTd").attr("readonly",true);
-					$('#addrTd').css('background-color', 'lightgray');
 					$("#typeTd").attr("disabled",true);
 					$('#typeTd').css('background-color', 'lightgray');
 					
@@ -310,7 +310,7 @@ function showResult(){
 	
 	function adminAddrUpdateForm(){
 		var id = document.getElementById('moUserId').value
-		window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdate', 'width=550,height=300');
+		window.open('adminAddrUpdateForm.do?mem_id='+id, 'addrUpdategogogogo', 'width=550,height=300');
 		/*
 		$('.updateGoGoAddr').html('');
 		$('.updateGoGoAddr').html("<input type='button' onclick='addrUpdateSubmitAjax();' name='btnaddrgogo' value='수정완료'>");

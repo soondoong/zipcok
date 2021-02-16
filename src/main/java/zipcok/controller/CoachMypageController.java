@@ -173,9 +173,9 @@ ServletContext c;
 		public ModelAndView coachMypageWriteList(HttpSession session,
 				@RequestParam(value = "cp", defaultValue = "1")int cp) {
 			
-			int totalCnt=cdao.coachMypageHomeGymLikeListTotalCnt((String)session.getAttribute("coachId"));
-			int listSize=3;
-			int pageSize=3;
+			int totalCnt=cdao.coachMypageWriteListTotalCnt((String)session.getAttribute("coachId"));
+			int listSize=5;
+			int pageSize=5;
 			String pageStr=zipcok.page.MypagePageModule.makePage("coachMypageWriteList.do", totalCnt, cp, listSize, pageSize);
 			List list = cdao.coachMypageWriteList(cp, listSize, (String)session.getAttribute("coachId"));
 			ModelAndView mav = new ModelAndView();
@@ -206,13 +206,43 @@ ServletContext c;
 			   return mav;
 		   }
 		
-		
+		//코치마이페이지 커뮤니티 작성글 목록
 		@RequestMapping("/coachMypageCommWriteList.do")
-		public String coachMypageCommWriteList() {
+		public ModelAndView coachMypageCommWriteList(HttpSession session,
+				@RequestParam(value = "cp", defaultValue = "1")int cp) {
 			
-			return "coachMyPage/coachMypageCommWriteList";
+			int totalCnt=cdao.coachMypageCommWriteListTotalCnt((String)session.getAttribute("coachId"));
+			int listSize=5;
+			int pageSize=5;
+			String pageStr=zipcok.page.MypagePageModule.makePage("coachMypageCommWriteList.do", totalCnt, cp, listSize, pageSize);
+			List list = cdao.coachMypageCommWriteList(cp, listSize, (String)session.getAttribute("coachId"));
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("list", list);
+			mav.addObject("pageStr", pageStr);
+			mav.setViewName("coachMyPage/coachMypageCommWriteList");
+			
+			return mav;
 		}
 		
+		//코치마이페이지 커뮤니티 작성글 삭제
+		   @RequestMapping("coachMypageCommCheckDel.do")
+		   public ModelAndView coachMypageCommWriteDelete(
+				   HttpServletRequest req) {
+			   
+			   String[] checkArr=req.getParameterValues("checkRow");
+			   ModelAndView mav=new ModelAndView();
+			   HashMap<String, Object> map = new HashMap<String, Object>();
+			   int count =0;
+			   for(int i=0; i<checkArr.length; i++) {
+				   System.out.println(checkArr[i]);
+				   count+=cdao.coachMypageCommWriteDelete(checkArr[i]);
+			   }
+			   
+			   mav.addObject("msg", "게시글이 삭제되었습니다.");
+			   mav.addObject("gourl", "coachMypageCommWriteList.do");
+			   mav.setViewName("coachMyPage/coachMypageMsg");
+			   return mav;
+		   }
 		
 		
 		@RequestMapping("/coachMypagePwdUpdateForm.do")

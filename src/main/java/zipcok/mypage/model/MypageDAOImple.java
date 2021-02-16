@@ -152,6 +152,12 @@ public class MypageDAOImple implements MypageDAO {
 	   int count =sqlMap.delete("mypageCommWriteDelete", checkArr);
 	   return count;
 	}
+   //커뮤니티 작성글 댓글 삭제
+   @Override
+	public int mypageCommWriteDeleteRebbs(String checkArr) {
+	   int count =sqlMap.delete("mypageCommWriteDeleteRebbs", checkArr);
+	   return count;
+	}
    
    
    //홈짐 좋아요 총 수
