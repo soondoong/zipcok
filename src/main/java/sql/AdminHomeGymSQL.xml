@@ -4,11 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.admin">
   
+   <select id="adminHomeGymReservationSelectTotalCnt" parameterType="HashMap" resultType="Integer">
+  select count(*) from
+  (select rownum as rnum,a.* from
+  (select * from homegym_reservation
+  where
+  <choose>
+	  		<when test="reservationSelect=='--'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약완료'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='취소요청중'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약취소완료'">reser_status=#{reservationSelect}</when>
+  </choose>
+  )a)b
+  </select>
+  
+  <select id="adminHomeGymReservationSelect" parameterType="HashMap" resultType="zipcok.homegym.model.HomeGymReservationDTO">	 
+	select * from
+  (select rownum as rnum,a.* from
+  (select * from homegym_reservation
+  where
+  <choose>
+	  		<when test="reservationSelect=='--'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약완료'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='취소요청중'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약취소완료'">reser_status=#{reservationSelect}</when>
+  		</choose>
+  order by reser_idx)a)b
+  where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  </select>
+  
   <select id="adminHomeGymReservationSearchTotalCnt" parameterType="HashMap" resultType="Integer">
   
-    select count(*) from
+  select count(*) from
   (select rownum as rnum,a.* from
-  (select * form homegym_reservation
+  (select * from homegym_reservation
   where
   <choose>
   	<when test="type=='전체'">
@@ -29,7 +58,7 @@
   
   select * from
   (select rownum as rnum,a.* from
-  (select * form homegym_reservation
+  (select * from homegym_reservation
   where
   <choose>
   	<when test="type=='전체'">
@@ -46,6 +75,25 @@
   where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
   
   </select>
+  
+  	<select id="adminHomeGymReservationDateTotalCnt" parameterType="HashMap" resultType="Integer">
+	select count(*) from
+    (select rownum as rnum,a.* from
+    (select * from homegym_reservation
+	where
+    reser_date between #{start_date} and #{end_date}
+    )a)b
+	</select>
+	
+	<select id="adminHomeGymReservationDate" parameterType="HashMap" resultType="zipcok.homegym.model.HomeGymReservationDTO">
+	select * from
+    (select rownum as rnum,a.* from
+    (select * from homegym_reservation
+	where
+    reser_date between #{start_date} and #{end_date}
+    )a)b
+    where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+	</select>
   
   
   </mapper>
