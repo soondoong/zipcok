@@ -28,4 +28,6 @@ public interface AdminCoachMatchDAO {
 	public int CanSearchTotalCnt(HashMap<String, Object> map);//검색으로 총게시물 수 구하기
 	public List<AdminPaymentDetailsDTO> adminCoachCancelSearchPd(HashMap<String, Object> map);//아이디로 환불정보 가져오기
 	public int adminCoachCancelUpdateStatus(int pd_idx);//환불승인버튼누르면 수정해주기
+	public int adminCoachPlzCancelUpdateStatus(int pd_idx);//마이페이지 취소요청중으로 수정해주기
+	public RequestFormDTO findRequestByPd_idx(int pd_idx);//결제내역서 idx로 상담요청서찾기
 }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.swing.ListModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -377,15 +378,44 @@ public class AdminCoachMatchController {
 		//결제내역서상태바꿔주기
 		
 		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
+
+		RequestFormDTO reqdto= adminCoachMatchDao.findRequestByPd_idx(pd_idx);
+		int reqcount=coachmpdao.reqStatusChangetoOk(reqdto.getReq_idx(),"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
+		 System.out.println("상담요청서상태결제취소완료로:"+reqcount);
+
 		
 		//coachmpdao.reqStatusChangetoOk(pr_req_idx,"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
 		 
+
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("result",result);
 		mav.addObject("pd_idx",pd_idx);
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	
+
+	 /*마이페이지!!!!결제내역서 상태정보 취소완료로바꾸기-수연*/
+	@RequestMapping("pdStatusChangetoCancelplz")
+	public ModelAndView pdStatusChangetoCancelplz(
+			@RequestParam("pd_idx")int pd_idx,HttpSession session) {
+		//결제내역서상태바꿔주기
+		
+		int result=adminCoachMatchDao.adminCoachPlzCancelUpdateStatus(pd_idx);
+		RequestFormDTO reqdto= adminCoachMatchDao.findRequestByPd_idx(pd_idx);
+		int reqcount=coachmpdao.reqStatusChangetoOk(reqdto.getReq_idx(),"취소요청중");//상담요청서상태를 결제완료로 바꿔주기
+		 System.out.println("상담요청서상태결제취소완료로:"+reqcount);
+		ModelAndView mav=new ModelAndView();
+		String msg=reqcount>0?"결제취소가 요청되었습니다.":"취소요청실패";
+		mav.addObject("msg", msg);
+		mav.addObject("gopage", "mypageCoachMatchPayList.do?mem_id="+(String)session.getAttribute("sid"));
+		mav.setViewName("coach/joinMsg");
+
+		return mav;
+	}
+	
+	
 	///////////////////////////////////////
 	//코치매칭 개설커뮤니티관리 페이지이동
 	@RequestMapping("admin_coachMatchCommunity.do")

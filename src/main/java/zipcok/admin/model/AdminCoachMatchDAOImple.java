@@ -120,6 +120,13 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	}
 	
 	
+	/*마이페이지취소요청중으로 바꾸기*/
+	@Override
+	public int adminCoachPlzCancelUpdateStatus(int pd_idx) {
+		int count = sqlMap.update("updateStatusToCanclePlz",pd_idx);
+		return count;
+	}
+	
 	//결제정보테이블에서 가져오기(검색)
 	@Override
 	public List<AdminPaymentDetailsDTO> adminCoachCancelSearchPd(HashMap<String, Object> map) {
@@ -131,5 +138,11 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	public int adminCoachCancelUpdateStatus(int pd_idx) {
 		int count = sqlMap.update("updateStatus", pd_idx);
 		return count;
+	}
+	//pd_idx로 상담요청서 가져오기
+	@Override
+	public RequestFormDTO findRequestByPd_idx(int pd_idx) {
+		 RequestFormDTO dto=sqlMap.selectOne("findRequestByPd_idx", pd_idx);
+		return dto;
 	}
 }
