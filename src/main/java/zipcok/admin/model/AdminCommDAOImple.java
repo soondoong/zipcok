@@ -1,6 +1,8 @@
 package zipcok.admin.model;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,10 @@ public class AdminCommDAOImple implements AdminCommDAO {
 	
 	//커뮤니티 정보 가져오기
 	@Override
-	public CommunityDTO searchComm(String com_name) {
-		CommunityDTO dto=sqlMap.selectOne("searchCommSQL",com_name);
+	public List<CommunityDTO> searchComm(String com_name) {
+		Map map=new HashMap();
+		map.put("com_name", com_name);
+		List<CommunityDTO> dto=sqlMap.selectList("searchCommSQL",map);
 		return dto;
 	}
 	

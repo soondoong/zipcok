@@ -10,6 +10,7 @@ public class CommunityDTO {
 	private int com_mem_sum;
 	private String com_status;
 	private Date com_opendate;
+	private String com_coach_name;
 	
 	public CommunityDTO() {
 		super();
@@ -17,7 +18,7 @@ public class CommunityDTO {
 	}
 
 	public CommunityDTO(int com_idx, String com_coach_id, String com_name, int com_mem_sum, String com_status,
-			Date com_opendate) {
+			Date com_opendate,String com_coach_name) {
 		super();
 		this.com_idx = com_idx;
 		this.com_coach_id = com_coach_id;
@@ -25,6 +26,7 @@ public class CommunityDTO {
 		this.com_mem_sum = com_mem_sum;
 		this.com_status = com_status;
 		this.com_opendate = com_opendate;
+		this.com_coach_name = com_coach_name;
 	}
 
 	public int getCom_idx() {
@@ -73,6 +75,14 @@ public class CommunityDTO {
 
 	public void setCom_opendate(Date com_opendate) {
 		this.com_opendate = com_opendate;
+	}
+
+	public String getCom_coach_name() {
+		return com_coach_name;
+	}
+
+	public void setCom_coach_name(String com_coach_name) {
+		this.com_coach_name = com_coach_name;
 	}
 	
 	

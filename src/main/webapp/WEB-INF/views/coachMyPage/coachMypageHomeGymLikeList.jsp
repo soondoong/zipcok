@@ -15,6 +15,10 @@
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
          <div class="mypage_main LikePageMainSize ">
+         <style>
+         .paging {margin: 40px 0 0; text-align: center;}
+		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+         </style>
 		<h3>${sessionScope.sname }님의 홈짐 좋아요 목록</h3>
 		<hr>
 		<table width="700px">
@@ -41,7 +45,7 @@
 			</tbody>
 			<tfoot>
 			<tr>
-			<td colspan="3" align="center">${pageStr }</td>
+			<td colspan="3" class="paging">${pageStr }</td>
 			</tr>
 			</tfoot>
 		</table>

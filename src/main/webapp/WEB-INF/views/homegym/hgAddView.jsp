@@ -346,7 +346,7 @@ textarea {resize: none;}
 		<ul class = "commonInfo">
 			<li>
 				<label class="HomeGymAddLabel">홈짐 공유자 닉네임</label>
-				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
+				<input type="hidden" name="hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachId:sessionScope.sid }">
 				<input type="text" name="hg_nickname" id = "hg_nickname" placeholder="최대 10글자" required="required">
 				<input type="button" class = "btn btn-primary btn-lg sbtn" value="중복 확인" onclick = "javascript:nicknameCheck();">
 				<span id = "nicknameCheckText"></span><input type="hidden" id="nickname_overlap" value="0">
@@ -372,7 +372,9 @@ textarea {resize: none;}
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">가까운 역</label>
+
 				<select id = "stationSelect" name ="hg_station" required="required"></select>
+
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">오시는 길</label>
