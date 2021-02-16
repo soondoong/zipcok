@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.sun.javafx.collections.MappingChange.Map;
 
+import zipcok.homegym.model.PaymentDTO;
 import zipcok.mypage.model.LikeDTO;
 
 public interface CoachDAO {
@@ -25,4 +26,6 @@ public interface CoachDAO {
 	
 	public int insertLike(LikeDTO dto);//좋아요 추가
 	public int deleteLike(LikeDTO dto);//좋아요 삭제
+	
+	public int coachAccountAdd(PaymentDTO dto); //결제계좌등록
 }

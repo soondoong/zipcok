@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.sun.javafx.collections.MappingChange.Map;
 
+import zipcok.homegym.model.PaymentDTO;
 import zipcok.mypage.model.LikeDTO;
 
 
@@ -160,6 +161,8 @@ public class CoachDAOImple implements CoachDAO {
          			break;
          case "mypageHomeGymPayListTotal":count=sqlMap.selectOne("mypageHomeGymPayListTotalCnt",map); 
 			break;
+         case "CmPaymentListTotal":count=sqlMap.selectOne("CmPaymentListTotalCnt",map); 
+			break;
   
      }
 		
@@ -308,6 +311,10 @@ public int deleteLike(LikeDTO dto) {
 	 int count=sqlMap.delete("deletelike",dto);		
 		return count;
 }
- 	
-	
+ 	/*결제계좌등록*/
+	@Override
+	public int coachAccountAdd(PaymentDTO dto) {
+		int count =sqlMap.insert("coachAccountAdd",dto);
+		return count;
+	}
 }

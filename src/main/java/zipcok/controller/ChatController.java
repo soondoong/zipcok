@@ -272,7 +272,8 @@ public class ChatController {
 		/*실제 결제하기*/
 		@RequestMapping("CoachPayOKListAdd.do")
 		public ModelAndView CoachPayOKListAdd(	Payment_detailsDTO dto,HttpSession session,
-				@RequestParam("pr_msg_idx")int pr_msg_idx) {
+				@RequestParam("pr_msg_idx")int pr_msg_idx,
+				@RequestParam("pr_req_idx")int pr_req_idx) {
 			int pd_result = chatdao.paymentOKListAdd(dto);//결제내역서에 등록
 			
 			HashMap<String,Object> map = new HashMap<String, Object>();
@@ -280,6 +281,7 @@ public class ChatController {
 		
 			if(pd_result>0) {
 				int count = chatdao.prStatusChangetoOK(map);//결제요청서상태를 상담중 -> 결제완료로 바꿔주기
+				 count +=cpagedao.reqStatusChangetoOk(pr_req_idx,"결제완료");//상담요청서상태를 결제완료로 바꿔주기
 				System.out.println("preq상태바꾸기"+count);
 			}
 			String msg=pd_result>0?msg="결제가 완료되었습니다.":"결제실패";

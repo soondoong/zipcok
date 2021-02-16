@@ -450,10 +450,20 @@ request_form_idx.nextval,
 #{req_start_date},
 #{req_cont},
 to_char(sysdate,'yyyy-mm-dd'),
-'yet'
+'대기중'
 )
 </insert>
 
+<insert id="coachAccountAdd" parameterType="zipcok.homegym.model.PaymentDTO">
+	insert into zipcok_payment values(
+	pa_idx.nextval,
+	#{hg_mem_id},
+	#{pa_key},
+	#{pa_bankname},
+	#{pa_no},
+	#{pa_username}
+	)
+</insert>
 
 <select id="receiveRequestListTotalCnt" parameterType="Hashmap" resultType="Integer">
 select

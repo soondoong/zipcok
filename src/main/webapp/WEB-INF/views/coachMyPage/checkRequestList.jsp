@@ -90,11 +90,11 @@
 			</c:url>
 				<div class="btnAllDiv">
 					<c:if test="${!empty sessionScope.coachId }">		
-						<input type="button" value="${rdto.req_status eq 'yet'?'상담하기':'상담 중'}" class="btn ${rdto.req_status eq 'yet'?'btn-primary':'btn-warning'}"
-						onclick="location.href='${rdto.req_status eq 'yet'?url:'#'}'">
+						<input type="button" value="${rdto.req_status eq '대기중'?'상담하기':rdto.req_status}" class="btn ${rdto.req_status eq '대기중'?'btn-primary':'btn-warning'}"
+						onclick="location.href='${rdto.req_status eq '대기중'?url:'#'}'">
 					</c:if>
 					<c:if test="${empty sessionScope.coachId }">
-						<input type="button" value="${rdto.req_status eq 'yet'?'대기 중':'상담 중'}" class="btn ${rdto.req_status eq 'yet'?'btn-primary':'btn-warning'}"
+						<input type="button" value="${rdto.req_status}" class="btn ${rdto.req_status eq '대기중'?'btn-primary':'btn-warning'}"
 						onclick="location.href='#'">
 					</c:if>
 						<input type="button" value="삭제" class="btn btn-danger"

@@ -55,7 +55,14 @@ rnum between #{start} and #{end}
 	<update id="requestStatusChange">
 	update request_form
 	set
-	req_status = 'ing'
+	req_status = '상담중'
+	where req_idx = #{req_idx}
+	</update>
+	
+	<update id="reqStatusChangetoOk" parameterType="HashMap">
+	update request_form
+	set
+	req_status = #{status}
 	where req_idx = #{req_idx}
 	</update>
 	
@@ -223,5 +230,61 @@ rnum between #{start} and #{end}
 			and
 			curri_order =#{curri_order}		
 	</update>
+	
+	<select id="CmPaymentListTotalCnt" parameterType="HashMap" resultType="Integer">
+			select count(*) from
+	(select * from
+	
+	(select * from
+	zipcok_payment_details
+	where 
+	pd_target_id = #{mem_id})pd,
+	
+	(select m.mem_id,m.mem_name,catename
+	from
+	(select req_receive_id,req_mem_id,req_category as catename
+from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
+	where
+		ct.req_mem_id = m.mem_id)nameinfo,
+	payment_request pr
+	
+	where
+		pd.pd_mem_id = nameinfo.mem_id
+		and
+		pd.pd_req_idx = pr.pr_idx
+		order by pd.pd_payment_date desc)aaa
+	
+	</select>
+	
+		<select id="CmPaymentList" parameterType="HashMap" resultType="zipcok.homegym.model.Pd_AllDTO">
+	select * from
+	(select rownum as rnum,aaa.*  from
+	
+	(select * from
+	
+	(select * from
+	zipcok_payment_details
+	where 
+	pd_target_id = #{mem_id})pd,
+	
+	(select m.mem_id,m.mem_name,catename
+	from
+	(select req_receive_id,req_mem_id,req_category as catename
+from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
+	where
+	ct.req_mem_id= m.mem_id)nameinfo,
+	payment_request pr
+	
+	where
+		pd.pd_mem_id = nameinfo.mem_id
+		and
+		pd.pd_req_idx = pr.pr_idx
+		order by pd.pd_payment_date desc)aaa)sunbun
+		where
+		rnum between #{start} and  #{end}
+	
+	</select>
+	
+	
 	
   </mapper>

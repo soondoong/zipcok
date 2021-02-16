@@ -26,7 +26,7 @@ function showList(){
 <body>
 <%@include file="../../header2.jsp" %>
    <div class="adminPage_wrap">
-      <%@include file="../adminSideMenu.jsp"%>
+    <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div><!-- 검색하는 부분 div -->
@@ -105,7 +105,7 @@ function showList(){
 							<td id="${list.pd_idx}_pd_btn">
 								<c:if test="${list.pd_status=='취소요청중'}">
 									
-									<input type="button" value="취소 승인" onclick="javascript:updateStatus(${list.pd_idx});">
+									<input type="button" value="취소 승인" onclick="javascript:updateStatus('${list.pd_idx}','${list.pd_req_idx}');">
 								</c:if>
 							</td>
 						</tr>
@@ -124,14 +124,14 @@ function showList(){
    </div>
 <script src="js/httpRequest.js"></script>
 <script type="text/javascript">
-function updateStatus(idx){
+function updateStatus(idx,pr_idx){
 	var result = confirm('취소요청을 승인하시겠습니까?');
 	if(result){
-		location.href='javascript:show('+idx+');';
+		location.href='javascript:show('+idx+','+pr_idx+');';
 	}
 }
-function show(idx){
-	var params='pd_idx='+idx;
+function show(idx,pr_idx){
+	var params='pd_idx='+idx+'&pr_idx='+pr_idx;
 	sendRequest('updateStatus.do',params,showResult,'GET');
 }
 function showResult(){

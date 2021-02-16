@@ -122,6 +122,13 @@ public Payment_RequestDTO findOnePaymentRequest(Payment_RequestDTO prdto) {
 	Payment_RequestDTO dto = sqlMap.selectOne("findOnePaymentRequest", prdto);
 	return dto;
 }
+
+/*결제요청서 pr_idx로 하나찾기*/
+@Override
+public Payment_RequestDTO findOnePaymentRequestByPrIdx(int pr_idx) {
+	Payment_RequestDTO dto = sqlMap.selectOne("findOnePaymentRequestByPrIdx", pr_idx);
+	return dto;
+}
 /*결제요청서등록할때 이용한 msgidx가져오기*/
 @Override
 	public int RecentPrMsgIdx(HashMap<String, Object> map) {

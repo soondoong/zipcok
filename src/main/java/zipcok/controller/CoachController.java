@@ -31,6 +31,7 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 import zipcok.coach.model.MainCoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.homegym.model.PaymentDTO;
 import zipcok.mypage.model.LikeDTO;
 
 @Controller
@@ -145,7 +146,18 @@ public class CoachController {
 		public String gotoCoachRegistInfo() {
 		return "coach/coachRegistInfoView";
 	}
+	
+	/*코치계좌등록ajax*/
+	@RequestMapping("coachAccountAdd.do")
+	public ModelAndView coachAccountAdd(PaymentDTO dto) {
+		ModelAndView mav = new ModelAndView();
 		
+		int result = dao.coachAccountAdd(dto);
+		String msg=result>0?"결제계좌가 등록되었습니다.":"계좌등록실패";
+		mav.addObject("msg", msg);
+		mav.setViewName("jsonView");
+		return mav;		
+	}
 
 	/*코치가입 이동*/
 	@RequestMapping("coachRegistView.do")

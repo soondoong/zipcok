@@ -29,6 +29,7 @@ public interface ChatDAO {
 	public int paymentReqInsert(Payment_RequestDTO prdto); //등록
 	public int RecentPrMsgIdx(HashMap<String,Object> map); //방금등록된결제요청서msg idx 하나값
 	public Payment_RequestDTO findOnePaymentRequest(Payment_RequestDTO prdto); //정보가져오기
+	public Payment_RequestDTO findOnePaymentRequestByPrIdx(int pr_idx); //pr_idx로 dto정보가져오기
 	public int paymentOKListAdd(Payment_detailsDTO dto);//결제하고 내역등록
 	public int prStatusChangetoOK(HashMap<String,Object> map);//요청서 상담중->결제완료로 바꾸기
 	public Payment_RequestDTO isPaymentCount(Payment_RequestDTO prdto);//삭제하기전에 존재하는지부터확인
