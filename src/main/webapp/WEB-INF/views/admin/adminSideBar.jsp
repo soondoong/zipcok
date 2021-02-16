@@ -17,7 +17,7 @@
 				<ul class="submenu" >
 					<li class="submenuList"><a href="admin_coachMatchAdmin.do">코치 정보 관리</a></li>
 					<li class="submenuList"><a href="admin_coachMatchMatch.do">매칭내역 관리</a></li>
-					<li class="submenuList"><a href="admin_coachMatchCancel.do">취소 환불 관리</a></li>
+					<li class="submenuList"><a href="admin_coachMatchCancel.do">결제 관리</a></li>
 					<li class="submenuList"><a href="admin_coachMatchCommunity.do">커뮤니티 관리</a></li>
 				</ul>
 			</li>
@@ -25,7 +25,7 @@
 				<ul class="submenu">
 					<li class="submenuList"><a href="admin_homeGymAdmin.do">홈짐 정보 관리</a></li>
 					<li class="submenuList"><a href="admin_homeGymReservation.do">예약 조회</a></li>
-					<li class="submenuList"><a href="admin_homeGymReserveCancel.do">예약취소 내역</a></li>
+					<li class="submenuList"><a href="admin_homeGymReserveCancel.do">결제 관리</a></li>
 				</ul>
 			</li>		
 			<li class="adminTitleLi"><b style="font-size: 22px;margin-top:20px; ">통계 관리</b></li>

@@ -21,7 +21,7 @@
          	<div><!-- 검색하는 부분 div -->
 				<form action="#">
 					<div>
-						<h5>[예약 취소 내역]</h5>
+						<h5>[결제 내역]</h5>
 					</div>
 					<div>
 						<ul class="test-inline">

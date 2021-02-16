@@ -17,10 +17,17 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.admin.model.AdminCoachMatchDAO;
 import zipcok.admin.model.AdminPaymentDetailsDTO;
 import zipcok.admin.model.PyoAdDTO;
+
+import zipcok.coach.model.CoachDAO;
+
 import zipcok.admin.model.ReqFormMemberDTO;
+
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberAllDTO;
+import zipcok.mypage.model.MypageDAO;
 
 
 @Controller
@@ -28,7 +35,12 @@ public class AdminCoachMatchController {
 
 	@Autowired
 	private AdminCoachMatchDAO adminCoachMatchDao;
-	
+	@Autowired
+	private CoachDAO coachdao;
+	@Autowired
+	private CoachMypageDAO coachmpdao;
+	@Autowired
+	private MypageDAO myPagedao;
 	//코치매칭 코치관리 페이지이동
 	@RequestMapping("admin_coachMatchAdmin.do")
 	public ModelAndView coachMatchAdmin() {
@@ -37,6 +49,38 @@ public class AdminCoachMatchController {
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchAdmin");
 		return mav;
 	}
+	
+	
+	@RequestMapping("searchPdByid.do")
+	public ModelAndView searchPdByid(@RequestParam("mem_id")String mem_id,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		ModelAndView mav=new ModelAndView();
+		int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("mem_id",mem_id);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+	      map.put("methodKey","CmPaymentListTotal");
+		/*페이지설정*/
+		int totalCnt=coachdao.getTotalCnt(map);
+
+		String pageStr=zipcok.page.AjaxPagingModuleSY.makePage(totalCnt, cp, listSize, pageSize,"Pdpageclick");
+		 
+		List<Pd_AllDTO> pdList=coachmpdao.CmPaymentList(map);
+	
+		//후기존재하는지여부체크
+		map.put("pdSenderKey","pd_target_id");
+		map.put("pdKey","코치");
+		List review_idxList= myPagedao.reviewExistCheck(map);
+		mav.addObject("review_idxList", review_idxList);
+		mav.addObject("pdList", pdList);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
 	
 	//코치검색했을 때 나오는 리스트
 	@RequestMapping("admin_coachMatchAdminSearch.do")
@@ -331,8 +375,11 @@ public class AdminCoachMatchController {
 	public ModelAndView adminCoachCancelUpdateStatus(
 			@RequestParam("pd_idx")int pd_idx) {
 		//결제내역서상태바꿔주기
+		
 		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
 		
+		coachmpdao.reqStatusChangetoOk(pr_req_idx,"결제취소완료");//상담요청서상태를 결제완료로 바꿔주기
+		 
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("result",result);
 		mav.addObject("pd_idx",pd_idx);
