@@ -5,10 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
 <link href="assets/css/mypage.css" rel="stylesheet">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
 <%@include file="../header2.jsp"%>
 <style>
 .titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
@@ -48,6 +46,16 @@
 var count = 100;
 window.addEventListener('load', function() {
 
+	jQuery.browser = {};
+	(function () {
+	    jQuery.browser.msie = false;
+	    jQuery.browser.version = 0;
+	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	        jQuery.browser.msie = true;
+	        jQuery.browser.version = RegExp.$1;
+	    }
+	})();
+	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -62,32 +70,20 @@ window.addEventListener('load', function() {
 	    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
 	    map.setZoomable(false);    
 	}
-
+	
 	//주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
-
 	//주소로 좌표를 검색합니다
-	geocoder.addressSearch('${hgContent.hg_faddr}', function(result, status) {
 
+	geocoder.addressSearch('${hgContent.hg_faddr}', function(result, status) {
 	// 정상적으로 검색이 완료됐으면 
 	 if (status === kakao.maps.services.Status.OK) {
-
 	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	    map.setCenter(coords);
 	} 
 	}); 
 
-	
-	jQuery.browser = {};
-	(function () {
-	    jQuery.browser.msie = false;
-	    jQuery.browser.version = 0;
-	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-	        jQuery.browser.msie = true;
-	        jQuery.browser.version = RegExp.$1;
-	    }
-	})();
 	
 	$(function() {
 		$('#date_div').datepicker({
@@ -125,7 +121,7 @@ function status_change(){
 	var hg_mem_id = document.getElementById('hg_mem_id').value;
 	var status_param = status==true?'1':'0';
 	var params = 'hg_mem_id='+hg_mem_id+'&hg_status='+status_param;
-	sendRequest('changeStatus.do', params, status_change_rq, 'GET');
+	sendRequest('coachchangeStatus.do', params, status_change_rq, 'GET');
 }
 function status_change_rq(){
 	if(XHR.readyState==4){
@@ -140,7 +136,7 @@ function status_change_rq(){
 	}
 }
 function mypageHomeGymAddrUpdate() {
-	window.open('mypageHomeGymAddrUpdateForm.do?hg_mem_id=${hgContent.hg_mem_id}',
+	window.open('coachmypageHomeGymAddrUpdateForm.do?hg_mem_id=${hgContent.hg_mem_id}',
 			'addrUpdate', 'width=550,height=300');
 }
 function mypageHomeGymStationChangeForm(){
@@ -157,7 +153,7 @@ function mypageHomeGymStationChange(){
 		return;
 	}
 	var params = 'hg_mem_id='+hg_mem_id+'&hg_station='+hg_station;
-	sendRequest('changeStation.do', params, mypageHomeGymStationChange_rq, 'GET');
+	sendRequest('coachchangeStation.do', params, mypageHomeGymStationChange_rq, 'GET');
 }
 function mypageHomeGymStationChange_rq(){
 	if(XHR.readyState==4){
@@ -191,7 +187,7 @@ function mypageHomeGymPerson_countChange(){
 		return;
 	}
 	var params = 'hg_mem_id='+hg_mem_id+'&hg_person_count='+hg_person_count;
-	sendRequest('changePerson_count.do', params, mypageHomeGymPerson_countChange_rq, 'GET');
+	sendRequest('coachchangePerson_count.do', params, mypageHomeGymPerson_countChange_rq, 'GET');
 }
 function mypageHomeGymPerson_countChange_rq(){
 	if(XHR.readyState==4){
@@ -298,7 +294,7 @@ function eq_listUpdate(){
 		params += '&eq_name='+eq_name_list[i].value;
 		params += '&eq_count='+eq_count_list[i].value;
 	}
-	sendRequest('mypageEqListUpdate.do', params, eq_listUpdate_rq, 'GET');
+	sendRequest('coachmypageEqListUpdate.do', params, eq_listUpdate_rq, 'GET');
 }
 function eq_listUpdate_rq(){
 	if(XHR.readyState==4){
@@ -393,7 +389,7 @@ function useDateUpdate(){
 	window.alert(choice_end_date);
 	window.alert(choice_not_date);
 	var params = 'hg_mem_id='+mem_id+'&choice_start_date='+choice_start_date+'&choice_end_date='+choice_end_date+'&choice_not_date='+choice_not_date;
-	sendRequest('mypageUseDateUpdate.do', params, useDateUpdate_rq, 'GET');
+	sendRequest('coachmypageUseDateUpdate.do', params, useDateUpdate_rq, 'GET');
 }
 function useDateUpdate_rq(){
 	if(XHR.readyState==4){
@@ -512,7 +508,7 @@ function useTimeUpdate(){
 	var start_time = document.getElementById('choice_start_time').value;
 	var end_time = document.getElementById('choice_end_time').value;
 	var params = 'hg_mem_id='+mem_id+'&choice_start_time='+start_time+'&choice_end_time='+end_time;
-	sendRequest('mypageUseTimeUpdate.do', params, useTimeUpdate_rq, 'GET');
+	sendRequest('coachmypageUseTimeUpdate.do', params, useTimeUpdate_rq, 'GET');
 }
 function useTimeUpdate_rq(){
 	if(XHR.readyState==4){
@@ -562,7 +558,7 @@ function mypageHomeGymPriceChange(){
 		return;
 	}
 	var params = 'hg_mem_id='+hg_mem_id+'&hg_price='+hg_price;
-	sendRequest('changePrice.do', params, mypageHomeGymPriceChange_rq, 'GET');
+	sendRequest('coachchangePrice.do', params, mypageHomeGymPriceChange_rq, 'GET');
 }
 function mypageHomeGymPriceChange_rq(){
 	if(XHR.readyState==4){
@@ -638,7 +634,7 @@ function priceUpdateCancel(){
 								<span class = "labelName">예약 가능 날짜/불가능한 날짜</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseDateChangeForm('${hgContent.hg_start_date}','${hgContent.hg_end_date }','${hgContent.hg_not_date }');"><br>
 								<span class = "dateName" id = "reser_date">${hgContent.hg_start_date } ~ ${hgContent.hg_end_date } / ${hgContent.hg_not_date }</span><br>
 								<span class = "labelName">예약 가능 시간</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseTimeChangeForm(${hgContent.hg_start_time}, ${hgContent.hg_end_time });"><br>
-								<span class = "dateName" id = "reser_time">${hgContent.hg_start_time }:00 ~ ${hgContent.hg_end_time }:00</span>
+								<span class = "dateName" id = "reser_time"><c:if test = "${hgContent.hg_start_time<10 }">0</c:if>${hgContent.hg_start_time }:00 ~ <c:if test = "${hgContent.hg_end_time<10 }">0</c:if>${hgContent.hg_end_time }:00</span>
 							</div>
 							<div class = "date infoDIV" id = "date_div"></div>
 							<div class="price infoDIV">

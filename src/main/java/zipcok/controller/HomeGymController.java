@@ -187,15 +187,9 @@ public class HomeGymController {
 		if(session.getAttribute("sid")!=null)user_id = (String)session.getAttribute("sid");
 		else if(session.getAttribute("coachid")!=null)user_id = (String)session.getAttribute("coachid");
 		dto.setMem_id(user_id);
-		int reser_result = homegymreserDAO.HomeGymReservationAdd(dto);
-		int max_idx = homegymreserDAO.HomeGymReservationMaxIdxFind();
-		String msg = reser_result>0?"예약되었습니다.":"예약에 실패하였습니다.";
-		boolean check = reser_result>0;
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("msg", msg);
-		mav.addObject("check", check);
-		mav.addObject("this_idx", max_idx);
-		mav.setViewName("jsonView");
+		mav.addObject("reserInfo", dto);
+		mav.setViewName("homegym/hgPaymentPage");
 		return mav;
 	}
 	@RequestMapping(value = "HomeGymPayPage.do")
