@@ -306,6 +306,18 @@ from request_form where req_mem_id =  #{mem_id})ct,(select mem_id,mem_name from 
 	<select id="mypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
 		select count(*) from homegym where hg_mem_id = #{value}
 	</select>
-	
-
+	<delete id="mypageHomeGymEqAllDeleteSQL" parameterType="String">
+		delete from homegym_equipment where eq_mem_id = #{value}
+	</delete>
+	<insert id="mypageHomeGymEqUpdate" parameterType="hashMap">
+		insert into homegym_equipment values(
+		eq_idx.nextval,
+		#{eq_mem_id}, #{eq_name}, #{eq_count})
+	</insert>
+	<update id="mypageHomeGymUseDateUpdate" parameterType="hashMap">
+		update homegym set hg_start_date = #{start_date}, hg_end_date = #{end_date}, hg_not_date = #{not_date} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="mypageHomeGymUseTimeUpdate" parameterType="hashMap">
+		update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
+	</update>
 </mapper>

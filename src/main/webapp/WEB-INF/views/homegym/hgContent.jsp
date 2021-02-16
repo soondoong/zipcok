@@ -12,24 +12,6 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
-$('.top_contentArea_img_slide_single').slick({
-	  slidesToShow: 1,
-	  slidesToScroll: 1,
-	  arrows: false,
-	  fade: true,
-	  asNavFor: '.top_contentArea_img_slide_nav',
-		 autoplay: true
-	});
-	$('.top_contentArea_img_slide_nav').slick({
-	  slidesToShow: 3,
-	  slidesToScroll: 1,
-	  asNavFor: '.top_contentArea_img_slide_single',
-	  dots: false,
-	  centerMode: true,
-	  focusOnSelect: true
-
-	});
-
 window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
 	start_date = start_date.substring(0,10);
@@ -69,7 +51,8 @@ window.addEventListener('load', function() {
 	    draggable: false,
 	    level: 4 // 지도의 확대 레벨
 	};  
-
+	mapContainer.style.width = '800px';
+	mapContainer.style.height = '300px';
 	//지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
@@ -77,7 +60,7 @@ window.addEventListener('load', function() {
 	    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
 	    map.setZoomable(false);    
 	}
-
+	
 	//주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
 
@@ -230,26 +213,34 @@ function ajaxUnLike_rq(){
 }
 </script>
 <style>
-.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 40px; padding-top: 10px;}
+.top_info{background-color:#0099ff; width:1600px; height:75px; color: white; margin-bottom: 20px; padding-left: 40px; padding-top: 10px;}
 .top_info .top_info_like {position: relative; left:-25px; top:-60px; z-index: 1; }
-.top_contentArea {width:1200px; height:600px; display:flex; margin:auto;}
-.top_contentArea .top_contentArea_img_slide_single {width:600px; height: 350px; margin: 30px auto 1px; overflow: hidden;}
-.top_contentArea .top_contentArea_img_slide_single img {	width: 100%;	min-height: 100%;}
-.top_contentArea .top_contentArea_reservationArea {width: 500px; height:500px;}
+.top_contentArea {width:1600px; height:500px; display:flex; margin:auto;}
+.top_contentArea .top_contentArea_img_slide_single {width:700px; height: 350px; margin: 30px auto 1px; overflow: hidden;}
+.top_contentArea .top_contentArea_img_slide_single img {width: 100%;	min-height: 100%;}
+.top_contentArea .top_contentArea_reservationArea {width: 700px; height:500px; font-size:20px;}
 .top_contentArea .top_contentArea_reservationArea li {height:40px;}
 .top_contentArea .top_contentArea_reservationArea select {width:240px;}
 .top_contentArea .top_contentArea_reservationArea input[type=date] {width:240px;}
 .top_contentArea .top_contentArea_reservationArea .expect_price_span {color:red;}
 .top_contentArea .top_contentArea_reservationArea #reservationInfo_click{ display:none;}
 .bottom_contentArea {width:1200px; margin:0px auto;}
-.bottom_contentArea .hgContent {text-align: center;}
+.bottom_contentArea .hgContent p {font-size: 20px;}
+.bottom_contentArea .hgContent label {color:red; }
 .bottom_contentArea .eqlistArea {text-align: center;}
-.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex;}
+.bottom_contentArea .eqlistArea h {text-align: center;}
+.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px;}
+.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px; margin-right: 5px;}
 .bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 25px; font-weight: 300;}
 .bottom_contentArea .eqlistArea .eqlistArea_list img {width:200px; height:100px;}
-.bottom_contentArea .reserNoticeArea {text-align:center;}
-.bottom_contentArea .mapArea {text-align:center;}
+.bottom_contentArea .reserNoticeArea {font-size:20px;}
+.bottom_contentArea .reserNoticeArea table {width:1200px; border:3px double gray; border-radius: 6px;}
+.bottom_contentArea .reserNoticeArea table th {width:300px; vertical-align: top;}
+.bottom_contentArea .reserNoticeArea h3 {text-align:center;}
+.bottom_contentArea .mapArea {text-align:center; width:800px; height:300px; margin:0px auto;}
 .bottom_contentArea .reviewArea {text-align:center;}
+.bottom_contentArea .reviewArea table {width:1200px; height: 300px;}
+
 </style>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
@@ -303,17 +294,18 @@ function ajaxUnLike_rq(){
 <div class = "bottom_contentArea">
 	<div class = "hgContent">
 		<h3>홈짐 소개</h3>
-		${hgContent.hg_info }
+		<p>${hgContent.hg_info }</p>
 		<hr>
-		<h5>이용 요금(1시간 당) : ${hgContent.hg_price } 원</h5>
+		<h3>이용 요금(1시간 당) : <label>${hgContent.hg_price } 원</label></h3>
 		<hr>
 	</div>
 	<div class ="eqlistArea">
-		<h5>보유 운동 기구</h5>
+		<h3>보유 운동 기구</h3>
 		<div class = "eqlistArea_list">
 		<c:forEach var = "eqDTO" items = "${eqContent }">
 			<div class = "eqList">
 				<img src = "img/homegym/homegym_content_${eqDTO.eq_name }.jpg">
+				<hr>
 				<p>${eqDTO.eq_name }</p>
 				<p>${eqDTO.eq_count}</p>
 			</div>
@@ -321,15 +313,24 @@ function ajaxUnLike_rq(){
 		</div>
 	</div>
 	<div class = "reserNoticeArea">
-		<h5>예약 시 주의사항</h5>
+		<h3>예약 시 주의사항</h3>
 		<table> 
 			<tr>
 				<th>주의사항</th>
-				<td>주의사항 내용</td>
+				<td>
+				<p>
+				예약 방식에는 (i) 신청과 동시에 예약확정&바로결제 유형, (ii) 공유자 예약 승인 후 결제 유형, (iii) 공유쟈 예약 승인 유형이 있습니다.<br>
+				이 중 공유자 예약 승인 유형의 홈짐은 “회사”에서 게스트가 예약만 할 수 있도록 지원할 뿐이므로 대금 지불 등 구체적인 절차는 게스트회원이 해당 호스트회원과 직접 연락하여 처리하여야 하고, 본 정책이 적용되지 않습니다.</p>
+				</td>
 			</tr>
 			<tr>
 				<th>예약정책</th>
-				<td>주의사항 내용</td>
+				<td>
+				<p>
+				1) 스페이스클라우드의 최저결제금액은 1,000원 입니다. 단, 부분 환불시 부분 환불 요율에 따라 1,000원 미만 500원 이상의 결제가 가능합니다.<br>
+				2) 5,000원 미만의 금액에 대해서는 전체 취소, 전체 환불만 가능합니다.
+				</p>
+				</td>
 			</tr>
 			<tr>
 				<th>취소/환불 정책</th>
@@ -348,13 +349,28 @@ function ajaxUnLike_rq(){
 		</c:if>
 		<c:if test = "${!empty reviewList }">
 			<div>${star_avg }</div>
+			<table>
+				<thead>
+					<tr>
+						<th>별점</th>
+						<th>제목</th>
+						<th>내용</th>
+						<th>작성자</th>
+						<th>작성 날짜</th>
+					</tr>
+				</thead>
+				<tbody>
 			<c:forEach var = "dto" items="${reviewList }">
-				<div>
-					작성자 : ${dto.rev_mem_id }/ 작성 날짜 : ${dto.rev_writedate } / 별점 : ${dto.rev_star }<br>
-					제목 : ${dto.rev_sub }<br>
-					${dto.rev_cont }
-				</div>
+					<tr>
+						<td>${dto.rev_star }</td>
+						<td>${dto.rev_sub }</td>
+						<td>${dto.rev_cont }</td>
+						<td>${dto.rev_mem_id }</td>
+						<td>${dto.rev_writedate }</td>
+					</tr>
 			</c:forEach>
+				</tbody>
+			</table>
 		</c:if>
 	</div>
 </div>
