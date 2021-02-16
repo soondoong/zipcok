@@ -285,6 +285,12 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 	
 	</select>
 	
-	
+	<select id="getCoachAccount" parameterType="HashMap"  resultType="zipcok.homegym.model.PaymentDTO">
+	select * from zipcok_payment
+	where 
+	pa_key = #{key}
+	and
+	hg_mem_id = #{mem_id}
+	</select>
 	
   </mapper>

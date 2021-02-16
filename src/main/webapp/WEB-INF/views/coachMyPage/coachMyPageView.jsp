@@ -142,18 +142,22 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 		
 	<style>
 	.ptitle{font-size:20px; font-weight: 550;margin:0 0 10px 0; display: inline-block;}
-	.coachdetails{margin:60px 0 0 30px;}
+	.coachdetails{margin:30px 0 0 30px;}
 	.crebtn{margin: 4px 0 0 30px;}
 	.currititle{font-size:18px; font-weight: 400;}
 	</style>				
 						
 			<div class="coachdetails">
-					<div style="display: inline-block;">
+					<div>
+						<p class="ptitle">결제계좌정보</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
+						<p>${accdto.pa_bankname }&nbsp;${accdto.pa_no }&nbsp;${accdto.pa_username }</p>
+					</div>
+					<div>
 						<p class="ptitle">활동지역</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
 						<p>${dto.coach_floc }</p>
 					</div>
 					
-					<div style="display: inline-block; margin-left:50px;">
+					<div >
 						<p class="ptitle">강의유형</p><input type="button"value="수정" class="rebtn crebtn" onclick="">	
 						<p>${dto.coach_ex_type}</p>
 					</div>	

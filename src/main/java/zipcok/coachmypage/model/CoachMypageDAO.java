@@ -5,6 +5,7 @@ import java.util.*;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
+import zipcok.homegym.model.PaymentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -36,4 +37,5 @@ public interface CoachMypageDAO {
 	public void curriUpdate(CurriDTO cdto);//커리큘럼수정
 	public void curriDelete(CurriDTO cdto);//커리큘럼 삭제
 	public List<Pd_AllDTO> CmPaymentList(HashMap<String,Object> map); //코치매칭된결제내역
+	public PaymentDTO getCoachAccount(String coachId,String key);//코치결제계좌dto찾기
 }

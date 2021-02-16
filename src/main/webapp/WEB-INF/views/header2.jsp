@@ -67,7 +67,7 @@
 						<li><a href="commMainList.do">내 커뮤니티보기</a></li>
 					</ul></li>
 
-				<li class="masterLi"><a href="adminMainPage.do">관리자페이지</a></li>
+				<li class="masterLi"><a href="admin_memberList.do">관리자페이지</a></li>
 
 			</ul>
 			<!-- mainmenu -->
