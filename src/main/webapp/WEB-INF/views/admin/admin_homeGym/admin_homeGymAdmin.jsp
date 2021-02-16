@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="k" %>
+<c:set var="list" value="${list}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +13,8 @@
 .test-inline {
    display: inline-flex;
 }
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
 </head>
 <body>
@@ -20,23 +25,23 @@
          <div class="adminPage_main">
          <br>	
             <h3>홈짐 조회</h3>
-            <form action="#">
+            <form action="adminHomeGymSearch.do">
                   <ul class="test-inline">
                      <li>
-                     	<select id="adminHomeGymSbox">
-                     		<option>전체</option>
-                     		<option>아이디</option>
-                     		<option>닉네임</option>
+                     	<select name="searchType">
+                     		<option <c:if test="${searchType=='전체'}">selected="selected"</c:if> >전체</option>
+                     		<option <c:if test="${searchType=='아이디'}">selected="selected"</c:if> >아이디</option>
+                     		<option <c:if test="${searchType=='닉네임'}">selected="selected"</c:if> >닉네임</option>
                      	</select>
                      </li>
-                     <li><input type="text" value="내용을입력해주세요"></li>
+                     <li><input type="text" name="searchText" placeholder="홈짐이름"></li>
                      <li><input type="submit" value="검색"></li>
                   </ul>
             </form>
             <br>
             <div>
                <ul   class="test-inline">
-                  <li>등록된 홈짐 수 : 12</li>
+                  <li>등록된 홈짐 수 : ${k:length(list)}</li>
                </ul>
             </div>
 			
@@ -54,22 +59,29 @@
                      </tr>
                   </thead>
                   <tbody>
+                  <c:if test="${empty list}">
+                  	<tr>
+                  		<td colspan="7" align="center">등록된 홈짐정보가 없습니다</td>
+                  	</tr>
+                  </c:if>
+                  <c:forEach var="dto" items="${list}">
                      <tr>
-                        <td>1</td>
-                        <td>표승이네건강파크</td>
-                        <td>member</td>
-                        <td>2021.02.11</td>
-                        <td>2021.02.11</td>
-                        <td>미등록</td>
-                        <td><input type="checkbox"></td>
+                        <td>${dto.rnum}</td>
+                        <td>${dto.hg_nickname}</td>
+                        <td>${dto.hg_mem_id}</td>
+                        <td>${dto.hg_regist_date}</td>
+                        <td>${dto.hg_price}</td>
+                        <td>${dto.hg_faddr}</td>
+                        <td>${dto.hg_status}</td>
                      </tr>
+                  </c:forEach>
                   </tbody>
-                  <tfoot>
-                     <tr>
-                        <td colspan="7" align="center">페이징 들어갈 자리</td>
-                     </tr>
-                  </tfoot>
                </table>
+               <div class="paging">
+	               <c:if test="${!empty list }">
+	               ${pageStr}
+	               </c:if>
+	           </div>
             </div>
 			<h3>홈짐 정보 관리</h3>
 			<from>

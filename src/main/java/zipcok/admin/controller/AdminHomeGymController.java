@@ -1,5 +1,6 @@
 package zipcok.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import zipcok.admin.model.AdminHomeGymDAO;
+
+import zipcok.homegym.model.HomeGymDTO;
+
 import zipcok.admin.model.AdminPaymentDetailsDTO;
+
 import zipcok.homegym.model.HomeGymReservationDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -19,12 +24,48 @@ public class AdminHomeGymController {
 	
 	@Autowired
 	private AdminHomeGymDAO dao;
-	
+	/*홈짐관리----------------------------------*/
+	//관리자 홈짐관리 페이지이동
 	@RequestMapping("admin_homeGymAdmin.do")
 	public String adminHomeGymAdmin() {
 		
 		return "admin/admin_homeGym/admin_homeGymAdmin";
 	}
+	
+	//관리자 홈짐관리 리스트출력
+	@RequestMapping("adminHomeGymSearch.do")
+	public ModelAndView adminHomeGymSearch(
+			@RequestParam(value="cp",defaultValue = "1")int cp,
+			@RequestParam(value="searchType",defaultValue = "전체")String searchType,
+			@RequestParam(value="searchText")String searchText) {
+		if(searchText.equals("") || searchText.length()==0) {
+			searchText = "";
+		}
+		int listSize=1;
+	    int pageSize=3;
+	    int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("searchType", searchType);
+		map.put("searchText", searchText);
+		int totalCnt = dao.adminHomeGymSearchTotalCnt(map);
+		List<HomeGymDTO> list = dao.adminHomeGymSearch(map);
+		
+		String keywords = "&searchType="+searchType+"&searchText="+searchText;
+		String pageStr = zipcok.page.CoachPageModule.makePage("adminHomeGymSearch.do", totalCnt, cp, listSize, pageSize, keywords);
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("list",list);
+		mav.addObject("pageStr",pageStr);
+		mav.addObject("searchType",searchType);
+		mav.setViewName("admin/admin_homeGym/admin_homeGymAdmin");
+		return mav;
+	}
+	
+	/*홈짐관리----------------------------------*/
 	
 	@RequestMapping("admin_homeGymList.do")
 	public String adminHomeGymList() {
