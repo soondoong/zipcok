@@ -13,9 +13,12 @@ public interface CoachMypageDAO {
 	public int requestStatusChange(int req_idx) ;
 	public int coachMypageHomeGymLikeListTotalCnt(String mem_id);
 	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id);
-	public int coachMypageWriteListTotalCnt(String mem_id);
-	public List coachMypageWriteList(int cp, int ls, String mem_id);
+	public int coachMypageWriteListTotalCnt(String mem_id);//작성글 수
+	public List coachMypageWriteList(int cp, int ls, String mem_id);//작성글 목록
 	public int coachMypageWriteDelete(String checkArr);//작성글 삭제
+	public int coachMypageCommWriteListTotalCnt(String ex_id);//커뮤니티 작성글 수
+	public List coachMypageCommWriteList(int cp, int ls, String ex_id);//커뮤니티 작성글 목록
+	public int coachMypageCommWriteDelete(String checkArr);//커뮤니티 작성글 삭제
 	public MemberDTO coachMypageProfile(String mem_id);
 	public int coachMypagePwdUpdate(MemberDTO dto);
 	public int coachMypageAddrUpdate(MemberDTO dto);

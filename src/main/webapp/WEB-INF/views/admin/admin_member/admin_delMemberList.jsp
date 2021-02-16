@@ -55,7 +55,9 @@
 					<input type="submit" value="검색">
 				</form>
 				</div>
-				<br><br>
+				<hr>
+				<br>
+				
 				<div>
 					<!-- 회원목록부분 테이블 div -->
 					<table class="table" class="table table-hover">

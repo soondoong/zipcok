@@ -124,6 +124,27 @@ rnum between #{start} and #{end}
    <delete id="coachMypageWriteDelete" parameterType="String">
    	delete from zipcok_bbs where bbs_idx=#{checkRow}
    </delete>
+   
+   
+   <!-- 커뮤니티 총 개시글 수 -->
+   <select id="coachMypageCommWriteListTotalCnt" resultType="Integer">
+      select count(*) from
+       (select rownum as rnum,a.* from
+       (select * from exer_bbs where ex_id=#{ex_id} order by ex_idx desc)a)b
+   </select>
+   <!-- 커뮤니티 글목록 -->
+   <select id="coachMypageCommWriteList"  resultType="zipcok.comm.model.ExBbsDTO">
+      select * from
+      (select rownum as rnum,a.* from
+      (select * from exer_bbs where ex_id=#{ex_id} order by ex_idx desc)a)b
+      where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+   </select>
+   
+   <!-- 커뮤니티 글삭제 -->
+   <delete id="coachMypageCommWriteDelete" parameterType="String">
+   	delete from exer_bbs where ex_group=#{ex_group}
+   </delete>
+   
 	
 	<!-- 코치마이페이지 일반프로필 -->
 	<select id="coachMypageProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">

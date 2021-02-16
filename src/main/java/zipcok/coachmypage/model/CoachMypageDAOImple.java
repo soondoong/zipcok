@@ -107,6 +107,35 @@ public CoachFileDTO findProfileDTO(String id) {
 		return count;
 	}
 	
+	//커뮤니티 작성글 수
+	@Override
+	public int coachMypageCommWriteListTotalCnt(String ex_id) {
+		int count=sqlMap.selectOne("coachMypageCommWriteListTotalCnt", ex_id);
+		return count;
+	}
+	//커뮤니티 작성글 목록
+	@Override
+	public List coachMypageCommWriteList(int cp, int ls, String ex_id) {
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		Map map=new HashedMap();
+		map.put("ex_id", ex_id);
+		map.put("start", start);
+		map.put("end", end);
+		List list = sqlMap.selectList("coachMypageCommWriteList", map);
+		
+		return list;
+	}
+	
+	//커뮤니티 작성글 삭제
+	@Override
+	public int coachMypageCommWriteDelete(String checkArr) {
+		int count = sqlMap.delete("coachMypageCommWriteDelete", checkArr);
+		return count;
+	}
+	
+	
+	
 	//코치마이페이지 일반프로필
 	@Override
 	public MemberDTO coachMypageProfile(String mem_id) {

@@ -55,7 +55,7 @@ function coachMypageCommWriteList() {
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="6"><span style="float: left;"><input type="submit" value="선택삭제" id="delbtn"></span><span>페이징 고고</span></td>
+			<td colspan="6"><span style="float: left;"><input type="submit" value="선택삭제" id="delbtn"></span><span>${pageStr }</span></td>
 		</tr>
 	</tfoot>
 	<tbody>
@@ -68,12 +68,12 @@ function coachMypageCommWriteList() {
 		</c:if>
 		<c:forEach var="dto" items="${list }">
 		<tr>
-			<td><input type="checkbox" name="checkRow"/></td>
-			<td>${dto.bbs_key }</td>
-			<td>${dto.bbs_category }</td>
-			<td>${dto.bbs_subject }</td>
-			<td>${dto.bbs_category }</td>
-			<td>${dto.bbs_writedate }</td>
+			<td><input type="checkbox" name="checkRow" value="${dto.ex_group}" /></td>
+			<td>${dto.ex_id }</td>
+			<td>${dto.ex_head }</td>
+			<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}" style="color : blue;">${dto.ex_subject }</a></td>
+			<td>${dto.ex_content }</td>
+			<td>${dto.ex_writedate }</td>
 		</tr>
 	</c:forEach>
 	</tbody>

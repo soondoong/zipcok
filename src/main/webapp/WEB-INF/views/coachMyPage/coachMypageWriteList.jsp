@@ -72,7 +72,7 @@ function coachMypageCommWriteList() {
 			<td>${dto.bbs_key }</td>
 			<td>${dto.bbs_category }</td>
 			<td>${dto.bbs_subject }</td>
-			<td>${dto.bbs_category }</td>
+			<td>${dto.bbs_mem_id }</td>
 			<td>${dto.bbs_writedate }</td>
 		</tr>
 	</c:forEach>

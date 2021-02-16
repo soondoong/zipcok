@@ -38,8 +38,8 @@ function mypageCommWriteList() {
 				<li class="on"><button type="button" onclick="mypageCommWriteList()">커뮤니티 작성글</button></li>
 			</ul>
 		</div>
-	<div class="mypage_main_table">
-	<form action="mypageCommCheckDel.do" id="checkConfirm">
+<div class="mypage_main_table">
+<form action="mypageCommCheckDel.do" id="checkConfirm">
 	<table class="table table-hover">
 	<thead>
 		<tr>
@@ -66,7 +66,7 @@ function mypageCommWriteList() {
 		</c:if>
 		<c:forEach var="dto" items="${list }">
 		<tr>
-			<td><input type="checkbox" name="checkRow"/></td>
+			<td><input type="checkbox" name="checkRow" value="${dto.ex_idx}" /></td>
 			<td>${dto.ex_id }</td>
 			<td>${dto.ex_head }</td>
 			<td><a href="commDailyContent.do?ex_idx=${dto.ex_idx}" style="color : blue;">${dto.ex_subject }</a></td>
