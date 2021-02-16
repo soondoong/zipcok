@@ -55,7 +55,14 @@ rnum between #{start} and #{end}
 	<update id="requestStatusChange">
 	update request_form
 	set
-	req_status = 'ing'
+	req_status = '상담중'
+	where req_idx = #{req_idx}
+	</update>
+	
+	<update id="reqStatusChangetoOk" parameterType="HashMap">
+	update request_form
+	set
+	req_status = #{status}
 	where req_idx = #{req_idx}
 	</update>
 	

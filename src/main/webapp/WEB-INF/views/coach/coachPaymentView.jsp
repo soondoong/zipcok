@@ -43,6 +43,7 @@ function pg_check(){
 				    params += '&pd_method='+pg_choice_method;
 				    params += '&pd_price='+'${prdto.pr_price}'
 				    params += '&pr_msg_idx='+'${prdto.pr_msg_idx}';
+				    params += '&pr_req_idx='+'${prdto.pr_req_idx}';
 				  
 			    } else {
 			        var msg = '결제에 실패하였습니다.';

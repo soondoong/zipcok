@@ -265,7 +265,7 @@ public class MypageController {
 		
 		//후기존재하는지여부체크
 		map.put("pdSenderKey","pd_mem_id");
-		map.put("pdKey","코치");
+		map.put("pdKey","홈짐");
 		List review_idxList= dao.reviewExistCheck(map);
 		mav.addObject("review_idxList", review_idxList);
 		mav.addObject("pdList", pdList);
@@ -291,7 +291,7 @@ public class MypageController {
 
 		String keywords="&mem_id="+mem_id;  //페이지이동시 검색키워드파라미터로보내기
 		String pageStr=zipcok.page.CoachPageModule.makePage("mypageCoachMatchPayList.do", totalCnt, cp, listSize, pageSize,keywords);
-		 
+		map.put("pdKey","코치");
 		List<Pd_AllDTO> pdList=dao.coachPaymentList(map);
 		ModelAndView mav= new ModelAndView();
 		

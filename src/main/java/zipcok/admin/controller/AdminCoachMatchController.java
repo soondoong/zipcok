@@ -300,7 +300,7 @@ public class AdminCoachMatchController {
 	@RequestMapping("updateStatus.do")
 	public ModelAndView adminCoachCancelUpdateStatus(
 			@RequestParam("pd_idx")int pd_idx) {
-		
+		//결제내역서상태바꿔주기
 		int result=adminCoachMatchDao.adminCoachCancelUpdateStatus(pd_idx);
 		
 		ModelAndView mav=new ModelAndView();

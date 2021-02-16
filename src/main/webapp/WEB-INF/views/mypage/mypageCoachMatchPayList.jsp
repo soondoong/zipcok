@@ -119,7 +119,7 @@ function mypageCoachMatchPayList(){
 
 				}else if(status == '취소요청중'){
 					
-				}else if(status == '취소완료'){
+				}else if(status == '결제취소완료'){
 					
 				}
 					

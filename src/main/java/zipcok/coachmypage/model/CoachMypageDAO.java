@@ -11,7 +11,8 @@ import zipcok.member.model.MemberDTO;
 public interface CoachMypageDAO {
 	
 	public int requestDelete(int req_idx) ;
-	public int requestStatusChange(int req_idx) ;
+	public int requestStatusChange(int req_idx) ; //상담요청서 상태변경
+	public int reqStatusChangetoOk(int req_idx,String status); //상담요청서 상태변경
 	public int coachMypageHomeGymLikeListTotalCnt(String mem_id);
 	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id);
 	public int coachMypageWriteListTotalCnt(String mem_id);

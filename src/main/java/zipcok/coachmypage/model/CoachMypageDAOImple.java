@@ -29,12 +29,23 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 		return count;
 	}
 	
-	/*상담요청서 yet을 ing 상담중으로 전환시키기*/
+	/*상담요청서 대기중을  상담중으로 전환시키기*/
 	@Override
 	public int requestStatusChange(int req_idx) {
 		 int count=sqlMap.update("requestStatusChange", req_idx);
 		return count;
 	}
+	
+	/*상담요청서 상담중을  결제완료로 전환시키기*/
+	@Override
+	public int reqStatusChangetoOk(int req_idx,String status) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("status",status);
+		map.put("req_idx",req_idx);
+		 int count=sqlMap.update("reqStatusChangetoOk", map);
+		return count;
+	}
+	
 	
 	/*코치프로필사진삭제*/
 	@Override
