@@ -22,8 +22,12 @@ import zipcok.chat.model.ChatDAO;
 import zipcok.coach.model.*;
 import zipcok.coachmypage.model.CoachMypageDAO;
 import zipcok.cpayment.model.Payment_RequestDTO;
+
+import zipcok.homegym.model.PaymentDTO;
+
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -101,7 +105,8 @@ ServletContext c;
 		ModelAndView mav=new ModelAndView();
 		
 		MemberDTO mdto=cdao.coachMypageProfile((String)session.getAttribute("coachId"));
-		
+		PaymentDTO accdto=cdao.getCoachAccount((String)session.getAttribute("coachId"),"코치");
+		mav.addObject("accdto", accdto);
 		HashMap<String, Object> resultMap = dao.coachProfile((String)session.getAttribute("coachId"));
 		 List<CategoryDTO> list = cdao.categoryFind((String)session.getAttribute("coachId"));
 	     mav.addObject("catelist", list);

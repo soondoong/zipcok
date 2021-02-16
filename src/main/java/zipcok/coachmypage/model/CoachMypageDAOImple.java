@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
+
+import zipcok.homegym.model.PaymentDTO;
+
 import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
+
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -23,6 +27,15 @@ public class CoachMypageDAOImple implements CoachMypageDAO {
 	public CoachMypageDAOImple(SqlSessionTemplate sqlMap) {
 		super();
 		this.sqlMap = sqlMap;
+	}
+	/*결제계좌 등록한거 찾기*/
+	@Override
+	public PaymentDTO getCoachAccount(String coachId, String key) {
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("mem_id",coachId);
+		map.put("key",key);
+		PaymentDTO dto=sqlMap.selectOne("getCoachAccount", map);
+		return dto;
 	}
 	
 	/*상담요청서 삭제*/

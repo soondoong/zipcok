@@ -86,13 +86,14 @@ $(function(){
 	
 });
  
-
-
 </script>
 </head>
 <body>
 <%@include file="../header2.jsp" %>
-
+	<style>
+		.payment_container {margin:40px auto; vertical-align: middle;}
+		.accountAddBTN{background-color:#007BFF; border:0px; width:100px; padding:10px; border-radius: 5px; color:white;}
+	</style>
  <c:choose>
          <c:when test = "${empty sessionScope.sid && empty sessionScope.coachId }">
            <script>
@@ -122,10 +123,7 @@ $(function(){
 	</div>
 	
 	<!-- 결제계좌등록 -->
-		<style>
-		.payment_container {margin:40px auto; vertical-align: middle;}
-		.accountAddBTN{background-color:#007BFF; border:0px; width:100px; padding:10px; border-radius: 5px; color:white;}
-		</style>
+	
 		<div class = "payment_container">
 			<h5 style="margin-bottom:15px;">코치 결제 계좌 등록</h5>
 			<div class = "payment_info">
@@ -139,7 +137,7 @@ $(function(){
 						<li>예금주 명</li>
 						<li><input type = "text" name = "pa_username" placeholder="계좌의 예금 주 이름을 입력해주세요." required="required"></li>
 					</ul>
-					<input type = "button" class="accountAddBTN" value = "등록하기" >
+					
 			</div>
 		</div>
 		<!-- 결제계좌등록 -->
@@ -234,10 +232,31 @@ $(function(){
 	
 	
 	}
+	
+	
+	/*$("#coachJoinbtnOK").on('click',function(){
+		
+				var formData = $("form").serialize();
+				$.ajax({
+				    type : 'post',
+				    url : 'coachAccountAdd.do',
+				    data : formData,
+				    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+				    dataType : "json",
+				    error: function(xhr, status, error){
+				        alert(error);
+				    },
+				    success : function(data){    
+				 	
+				        
+				    }
+				});
+
+		});*/
    </script>
 
 	<!-- 코치 정보 입력하기 -->
-	<div><input type="button" value="코치로 가입하기" class="btn btn-lg btn-primary coachJoinbtn"></div>
+	<div><input type="button" value="코치로 가입하기" class="btn btn-lg btn-primary coachJoinbtn" ></div>
 
 </div>
 

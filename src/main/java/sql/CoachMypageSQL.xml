@@ -306,6 +306,16 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		update homegym set hg_price = #{hg_price} where hg_mem_id = #{hg_mem_id}
 	</update>
 	
+
+	<select id="getCoachAccount" parameterType="HashMap"  resultType="zipcok.homegym.model.PaymentDTO">
+	select * from zipcok_payment
+	where 
+	pa_key = #{key}
+	and
+	hg_mem_id = #{mem_id}
+	</select>
+	
+
 	<select id="coachmypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
 		select count(*) from homegym where hg_mem_id = #{value}
 	</select>
@@ -323,4 +333,5 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 	<update id="coachmypageHomeGymUseTimeUpdate" parameterType="hashMap">
 		update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
 	</update>
+
   </mapper>

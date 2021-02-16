@@ -176,13 +176,14 @@ public class CoachController {
 	
 	/*코치가입하기 기능*/
 	@RequestMapping("coachJoin.do")
-	public ModelAndView coachJoin(MainCoachDTO dto, @RequestParam("upload")List<MultipartFile> list,
+	public ModelAndView coachJoin(MainCoachDTO dto, PaymentDTO accountdto,@RequestParam("upload")List<MultipartFile> list,
 			HttpServletRequest request,
 			HttpSession session) {
 		
 		
 		HashMap<String, Object> map=new HashMap<String, Object>();
-		
+		int accresult = dao.coachAccountAdd(accountdto);
+		System.out.println( "결제계좌등록"+accresult);
 		ArrayList<CategoryDTO> categoryArr=new ArrayList<CategoryDTO>();
 		/*체크박스 카테고리값*/
 		String[] cateArr = request.getParameterValues("cate_name");
