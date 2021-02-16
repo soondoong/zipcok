@@ -51,21 +51,30 @@
 							<th>소속 회원 수</th>
 							<th>개설일</th>
 							<th>최근 활동일</th>
-							<th>커뮤니티 정보보기</th>
+							<th>커뮤니티 가기</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-						
-							<td><input type="checkbox" name="com_name" value="${commInfo.com_name }" checked></td>
-							<td>${commInfo.com_idx }</td>
-							<td>${commInfo.com_name }</td>
-							<td>${memInfo.mem_name }</td>
-							<td>${commInfo.com_mem_sum }</td>
-							<td>${commInfo.com_opendate }</td>
-							<td>?</td>
-							<td><input type="button" value="보기"></td>
-						</tr>
+						<c:forEach var="dto" items="${commInfo}">
+							<tr>
+							<c:choose>
+								<c:when test="${dto.com_idx eq com_idx }">
+									<td><input type="radio" name="com_idx" value="${dto.com_idx }" checked="checked"></td>
+								</c:when>
+								<c:when test="${dto.com_idx ne com_idx }">
+									<td><input type="radio" name="com_idx" value="${dto.com_idx }"></td>
+								</c:when>
+							</c:choose>
+								
+								<td>${dto.com_idx }</td>
+								<td>${dto.com_name }</td>
+								<td>${dto.com_coach_name }</td>
+								<td>${dto.com_mem_sum }</td>
+								<td>${dto.com_opendate }</td>
+								<td>${dto.com_actdate }</td>
+								<td><input type="button" value="가기"></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
@@ -97,22 +106,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>${memInfo.mem_idx }</td>
-							<td>${memInfo.mem_name }</td>
-							<td>${memInfo.mem_id }</td>
-							<td>${memInfo.mem_phone }</td>
-							<td>${memInfo.mem_email }</td>
-							<td>?</td>
-							<td>${memInfo.mem_joindate }</td>
-							<td><input type="button" value="가기" onclick="location.href='http://localhost:9090/zipcok/admin_coachMatchAdminSearch.do?choice=id&searchText=${memInfo.mem_id}'"></td>
-						</tr>
+						
+							<tr>
+								<td>${coach.mem_idx }</td>
+								<td>${coach.mem_name}</td>
+								<td>${coach.mem_id}</td>
+								<td>${coach.mem_phone}</td>
+								<td>${coach.mem_email}</td>
+								<td>${mem_sum }</td>
+								<td>${coach.mem_joindate}</td>
+								<td><input type="button" value="가기" onclick="location.href='http://localhost:9090/zipcok/admin_coachMatchAdminSearch.do?choice=id&searchText=${coach.mem_id}'"></td>
+							</tr>
+						
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
 				<hr>
 			</div>
@@ -129,21 +135,23 @@
 							<th>휴대폰번호</th>
 							<th>이메일</th>
 							<th>소속 커뮤니티</th>
-							<th>합류일</th>
+							<th>활동 시작일</th>
 							<th>회원관리보기</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>구병모</td>
-							<td>qudah123</td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td><select><option>커뮤니티 이름</option></select></td>
-							<td>2021.01.12</td>
-							<td><input type="button" value="가기"></td>
-						</tr>
+						<c:forEach var="dto3" items="${commMembers}">
+							<tr>
+								<td>${dto3.mem_idx }</td>
+								<td>${dto3.mem_name }</td>
+								<td>${dto3.mem_id }</td>
+								<td>${dto3.mem_phone }</td>
+								<td>${dto3.mem_email }</td>
+								<td><select><option>!!!</option></select></td>
+								<td>!!!!!!!!!!!!!!!</td>
+								<td><input type="button" value="가기" onclick="location.href='http://localhost:9090/zipcok/adminMemberListAction.do?type=전체&name=${dto3.mem_name}'"></td>
+							</tr>
+						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>
@@ -172,11 +180,11 @@
 					<tbody>
 						<tr>
 							<td>일일 운동 게시판</td>
-							<td>50</td>
-							<td>50</td>
-							<td>5</td>
-							<td>2021.01.12</td>
-							<td>10</td>
+							<td>${allBbsCount }</td>
+							<td>${allRepleCount }</td>
+							<td>!!!!!!!!!!!!!!!</td>
+							<td>${act_date }</td>
+							<td>${act_mem_count }</td>
 							<td><input type="button" value="가기"></td>
 						</tr>
 					</tbody>
