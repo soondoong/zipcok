@@ -20,8 +20,9 @@ public interface AdminCoachMatchDAO {
 	public int adminCoachYearUpdate(HashMap<String, Object> map);//경력수정
 	public int adminCoachFlocUpdate(HashMap<String, Object> map);//활동지역수정
 	//////////////////////////////////코치매칭관리//////////////////////////////////////
-	public List<RequestFormDTO> reqFormData(HashMap<String, Object> map);
-	public MemberAllDTO memberData(HashMap<String, Object> map);
+	public List<RequestFormDTO> reqFormData(HashMap<String, Object> map);//매칭정보 가져오기
+	public MemberAllDTO memberData(HashMap<String, Object> map);// 가져온 매칭정보에서 아이디로 회원정보가져오기
+	public int ajaxCmTotalCnt(HashMap<String, Object> map); // ajax 페이징하기위해 총 게시물 수 구하기
 	//////////////////////////////////취소환불관리//////////////////////////////////////
 	public int CanTotalCnt(HashMap<String, Object> map);//환불여부로 총게시물 수 구하기
 	public List<AdminPaymentDetailsDTO> coachMatchCancelList(HashMap<String, Object> map);//환불여부로 정보 가져오기
