@@ -248,7 +248,7 @@ public class ChatController {
 							mav.addObject("coachmap", coachmap);
 							mav.addObject("memdto", memdto);
 							mav.setViewName("coach/coachPaymentView");
-					 }else if(resultdto.getPr_status().equals("결제완료")) {
+					 }else  {
 							//존재하지않으면
 							String msg="이미 결제하신 결제요청서입니다.";
 							mav.addObject("msg", msg);
@@ -308,7 +308,7 @@ public class ChatController {
 				 if(resultdto.getPr_status().equals("상담중")) {
 					 int result=chatdao.deletePaymentrequest(prdto);						
 						 msg="결제요청서가 삭제되었습니다.";
-				 }else if(resultdto.getPr_status().equals("결제완료")) {
+				 }else {
 					 msg="결제 완료된 요청서는 삭제하실 수 없습니다!";
 				 }
 				

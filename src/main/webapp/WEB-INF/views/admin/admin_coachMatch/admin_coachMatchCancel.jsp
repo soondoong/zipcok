@@ -25,13 +25,24 @@ function showList(){
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+<style>
+.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+.table th{font-weight: bold; border-color:#848282;}
+a{cursor:pointer;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+	
+		
+</style>
+
+
    <div class="adminPage_wrap">
     <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div><!-- 검색하는 부분 div -->
 					<div>
-						<h5>[취소 환불 관리]</h5>
+						<h5>[결제 관리]</h5>
 					</div>
 					<div>
 						<ul class="test-inline">
@@ -67,10 +78,8 @@ function showList(){
 			</div>
 			<hr>
 			<div><!-- 코치의 취소 내역  테이블 div -->
-				<div>
-					<h5>코치 취소 신청내역</h5>
-				</div>
-				<table border="1" cellspacing="0">
+				
+				<table   align="center" class="table table-hover" >
 					<thead>
 						<tr>
 							<th>결제번호</th>
