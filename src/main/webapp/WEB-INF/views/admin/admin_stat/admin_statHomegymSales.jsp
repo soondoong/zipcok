@@ -24,9 +24,9 @@
          	<div>
          		<ul class="test-inline">
          			<li>조회일</li>
-         			<li><input type="date"></li>
+         			<li><input type="date" min="" max="" id="startDate"></li>
          			<li>~</li>
-         			<li><input type="date"></li>
+         			<li><input type="date" min="" max=""  id="endDate"> </li>
          			<li><input type="button" value="오늘"></li>
          			<li><input type="button" value="일주일"></li>
          			<li><input type="button" value="한달"></li>
@@ -69,4 +69,49 @@
          </div>
       </div>
    </div>
+   
+   
+   
+   
+   
+   
+   <script>
+   /*---------------------------------------------------*/
+
+   /*yyyy-mm-dd 포맷날짜가져오기*/
+
+   function getTimeStamp() {
+
+       var d = new Date();
+       var s =
+           leadingZeros(d.getFullYear(), 4) + '-' +
+           leadingZeros(d.getMonth() + 1, 2) + '-' +
+           leadingZeros(d.getDate(), 2);
+
+       return s;
+   }
+
+   function leadingZeros(n, digits) {
+
+       var zero = '';
+       n = n.toString();
+
+       if (n.length < digits) {
+           for (i = 0; i < digits - n.length; i++)
+               zero += '0';
+       }
+       return zero + n;
+   }
+
+   var today = getTimeStamp() ;
+   $( '#startDate' ).attr('min', today);
+   $( '#startDate' ).val(today);
+   $( '#startDate' ).on('change', function(){
+   	$( '#endDate' ).attr('min', $( '#startDate' ).val());	
+   	$( '#endDate' ).val($( '#startDate' ).val());	
+   });
+
+   /*-----------------------------------------------------*/
+
+   </script>
 <%@include file="../../_include/footer.jsp" %>
