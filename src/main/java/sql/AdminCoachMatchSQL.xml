@@ -105,6 +105,10 @@
   	</update>
   	<!-- 코치 정보 관리 끝-->
   	<!-- 코치매칭관리 시작 -->
+  	<select id="ajaxCmTotalCnt" parameterType="HashMap" resultType="Integer">
+  		select count(*) from request_form
+  		where req_receive_id = #{req_receive_id}
+  	</select>
   	<select id="reqFormData" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
   		select * from request_form
   		where req_receive_id = #{req_receive_id}
@@ -163,6 +167,8 @@
      	</choose>
      	)
   	</select>
+  	
+  	
   	<select id="adminCoachCancleSearchPd" parameterType="HashMap" resultType="zipcok.admin.model.AdminPaymentDetailsDTO">
   		select * from (select rownum as rnum,a.* from(select * from zipcok_payment_details
   		where

@@ -24,7 +24,7 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	@Override
 	public int coachMatchTotalCnt(HashMap<String, Object> map) {
 		int totalCnt=sqlMap.selectOne("cTotalCnt",map);
-		return totalCnt;
+		return totalCnt==0?1:totalCnt;
 	}
 	
 	//코치검색하기
@@ -96,6 +96,12 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	public MemberAllDTO memberData(HashMap<String, Object> map) {
 		MemberAllDTO dto = sqlMap.selectOne("memberData", map);
 		return dto;
+	}
+	
+	@Override
+	public int ajaxCmTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("ajaxCmTotalCnt", map);
+		return totalCnt==0?1:totalCnt;
 	}
 //////////////////////////////////취소환불관리//////////////////////////////////////
 	
