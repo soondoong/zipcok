@@ -6,105 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
+<script src="js/httpRequest.js"></script>
 <style type="text/css">
 .test-inline { display: flex;}
 </style>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
-<style>
-		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
-		.table th{font-weight: bold; border-color:#848282;}
-		a{cursor:pointer;}
-</style>		
-		
-   <div class="adminPage_wrap">
-     <%@include file="../adminSideBar.jsp"%>
-      <div class="container adminPage_contents">
-         <div class="adminPage_main">
-			<div><!-- 검색하는 부분 div -->
-				<form action="#">
-					<div>
-						<h5>[코치매칭 내역 관리]</h5>
-					</div>
-					<div>
-						<ul class="test-inline">
-							<li>성별</li>
-							<li><select><option>남자</option></select></li>
-							<li>지역</li>
-							<li><select><option>강서구</option></select></li>
-						</ul>
-					</div>
-					<div>
-						<ul class="test-inline">
-							<li>코치 검색</li>
-							<li><select><option>회원번호</option></select></li>
-							<li><input type="text" ></li>
-							<li><input type="button" value="검색"></li>
-						</ul>
-					</div>
-				</form>
-			</div>
-			<div>
-				<ul>
-					<li>총 코치수: </li>
-					<li>검색 코치수: </li>
-				</ul>
-			</div>
-			<div><!-- 검색결과  테이블 div -->
-				<table  align="center" class="table table-hover">
-					<thead>
-						<tr>
-							<th>코치번호</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>카테고리</th>
-							<th>이메일</th>
-							<th>관리 회원 수</th>
-							<th>등록일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>구병모</td>
-							<td><a href="javascript:show();">son123</a></td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td>50</td>
-							<td>2021.01.12</td>
-							<td>2021.01.21</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
-				</table>
-				<hr>
-			</div>
-			<div><!-- 코치의 매칭된 회원내역  테이블 div -->
-				<div>
-					<h5>회원 상담내역</h5>
-				</div>
-				<table  align="center" class="table table-hover">
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>휴대폰번호</th>
-							<th>이메일</th>
-							<th>요청일</th>
-							<th>상태</th>
-						</tr>
-					</thead>
-					<script src="js/httpRequest.js"></script>
-					<script>
+			<script>
 				
-					function show(str){
-						var id = $(this).text();
+					function show(id,str){
+					if(id ==null || id ==''){
+						id=$('#searchId').val();
+					}
 						alert(id);
 						  /*cp정의*/
 						  var cp=str;
@@ -112,7 +26,8 @@
 							  cp=1;
 						  }
 						  alert(cp);
-						  var params='req_receive_id='+id+'&cp='+str;
+						  var params='req_receive_id='+id+'&cp='+cp;
+						  alert(id+"/"+cp);
 							sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
 					}	  
 						
@@ -168,13 +83,59 @@
 					         $('#matchtBody').empty();
 					         $('#matchtBody').append(html);
 					         /*페이징추가*/
-				  			var cpage=data.pageStrAjax;
+				  			var cpage=data.pageStr;
 				  			$('#matchtBody').after('<div class="paging">'+cpage+'</div>');
 					      }
 					   }
 					}
 
-					</script>
+	</script>
+<style>
+		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+		.table th{font-weight: bold; border-color:#848282;}
+		a{cursor:pointer;}
+</style>		
+		
+   <div class="adminPage_wrap">
+     <%@include file="../adminSideBar.jsp"%>
+      <div class="container adminPage_contents">
+         <div class="adminPage_main">
+			<div><!-- 검색하는 부분 div -->
+				<form action="#">
+					<div>
+						<h5>[코치매칭 내역 관리]</h5>
+					</div>
+					
+					<div>
+						<ul class="test-inline">
+							<li>코치 검색</li>
+							<li>아이디</li>
+							<li><input type="text" id="searchId"></li>
+							<li><input type="button" value="검색" onclick="show('','');"></li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+			
+			<div><!-- 코치의 매칭된 회원내역  테이블 div -->
+				<div>
+					<h5>회원 상담내역</h5>
+				</div>
+				<table  align="center" class="table table-hover">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>이름</th>
+							<th>아이디</th>
+							<th>휴대폰번호</th>
+							<th>이메일</th>
+							<th>요청일</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					
+		
 					<tbody id="matchtBody">
 						 <tr>
 							<td id="req_number">1</td>
@@ -242,8 +203,8 @@
    <script>
    /*ajax로검색된 div내의 페이지를 클릭하면 호출되는 함수*/
 	  function pageclick(temp){  //temp는 cp값
-	
-		  show(temp);
+		var id=$('#searchId').val();
+		  show(id,temp);
 	  } 
    </script>
 <%@include file="../../_include/footer.jsp" %>
