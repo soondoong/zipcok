@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.admin.model.AdminCoachMatchDAO;
 import zipcok.admin.model.AdminPaymentDetailsDTO;
 import zipcok.admin.model.PyoAdDTO;
+import zipcok.admin.model.ReqFormMemberDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.member.model.MemberAllDTO;
@@ -229,27 +230,22 @@ public class AdminCoachMatchController {
 			@RequestParam(value="cp",defaultValue = "1")int cp) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HashMap<String, Object> map2 = new HashMap<String, Object>();
+				
+		int listSize=2;
+		int pageSize=5;
+		int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		map.put("start", start);
+		map.put("end", end);
 		map.put("req_receive_id", req_receive_id);	
 		int totalCnt = adminCoachMatchDao.ajaxCmTotalCnt(map);
-		List<RequestFormDTO> list = adminCoachMatchDao.reqFormData(map);
-		List<MemberAllDTO> memList = new ArrayList<MemberAllDTO>();
-		
-		int listSize=1;
-		int pageSize=5;
+		List<ReqFormMemberDTO> list = adminCoachMatchDao.reqFormData(map);
 		
 		String pageStr = zipcok.page.AjaxCoachPageModule.makePage(totalCnt, cp, listSize, pageSize);
 		
-		for(int i=0;i<list.size();i++) {
-			String mem_id = list.get(i).getReq_mem_id();
-			map2.put("mem_id", mem_id);
-			MemberAllDTO dto = adminCoachMatchDao.memberData(map2);
-			memList.add(dto);
-		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pageStr",pageStr);
-		mav.addObject("reqList", list);
-		mav.addObject("memList",memList);
+		mav.addObject("reqMemList", list);
 		mav.setViewName("jsonView");
 		return mav;
 	}
