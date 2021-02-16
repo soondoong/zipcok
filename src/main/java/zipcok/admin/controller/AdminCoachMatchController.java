@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.ListModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import zipcok.admin.model.AdminCoachMatchDAO;
 import zipcok.admin.model.AdminPaymentDetailsDTO;
 import zipcok.admin.model.PyoAdDTO;
 import zipcok.coach.model.CoachDTO;
+import zipcok.coach.model.RequestFormDTO;
 import zipcok.member.model.MemberAllDTO;
 
 
@@ -217,6 +219,30 @@ public class AdminCoachMatchController {
 		
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("admin/admin_coachMatch/admin_coachMatchMatch");
+		return mav;
+	}
+	
+	//코치매칭 매칭회원 목록 가져오기
+	@RequestMapping("coachMatchingMemInfo.do")
+	public ModelAndView coachMatchingInfo(
+			@RequestParam("req_receive_id")String req_receive_id) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		map.put("req_receive_id", req_receive_id);		
+		List<RequestFormDTO> list = adminCoachMatchDao.reqFormData(map);
+		
+		List<MemberAllDTO> memList = new ArrayList<MemberAllDTO>();
+		for(int i=0;i<list.size();i++) {
+			String mem_id = list.get(i).getReq_mem_id();
+			map2.put("mem_id", mem_id);
+			MemberAllDTO dto = adminCoachMatchDao.memberData(map2);
+			memList.add(dto);
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("reqList", list);
+		mav.addObject("memList",memList);
+		mav.setViewName("jsonView");
 		return mav;
 	}
 	///////////////////////////////////////

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CoachDTO;
+import zipcok.coach.model.RequestFormDTO;
 import zipcok.member.model.MemberAllDTO;
 
 @Service
@@ -17,6 +18,8 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	@Autowired	
 	private SqlSessionTemplate sqlMap;
 	
+	
+	//////////////////////////////코치관리////////////////////////
 	//총게시물수
 	@Override
 	public int coachMatchTotalCnt(HashMap<String, Object> map) {
@@ -80,6 +83,19 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	public int adminCoachYearUpdate(HashMap<String, Object> map) {
 		int count = sqlMap.update("adminCoachYearUpdate", map);
 		return count;
+	}
+//////////////////////////////////코치매칭관리//////////////////////////////////////
+	
+	@Override
+	public List<RequestFormDTO> reqFormData(HashMap<String, Object> map) {
+		List<RequestFormDTO> list = sqlMap.selectList("reqFormData", map);
+		return list;
+	}
+	
+	@Override
+	public MemberAllDTO memberData(HashMap<String, Object> map) {
+		MemberAllDTO dto = sqlMap.selectOne("memberData", map);
+		return dto;
 	}
 //////////////////////////////////취소환불관리//////////////////////////////////////
 	
