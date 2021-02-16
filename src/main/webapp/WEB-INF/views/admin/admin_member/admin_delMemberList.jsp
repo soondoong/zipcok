@@ -48,11 +48,9 @@
 				<div>
 				<form action="adminDelMemberDate.do">
 					<ul class="test-inline">
-						<li>조건 검색&nbsp;</li>
-						<li><input type="date" id="start_date" name="start_date" onchange="javascript:start_change();"
-						value="${keyword.keywordStart }" required="required"></li>~
-						<li><input type="date" id="end_date" name="end_date" onchange="javascript:end_change();"
-						value="${keyword.keywordEnd }" required="required"></li>
+						<li>날짜 검색&nbsp;</li>
+						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
+						<li><input type="date" id="end_date" name="end_date" value="${keyword.keywordEnd }" required="required"></li>
 					</ul>
 					<input type="submit" value="검색">
 				</form>
@@ -101,61 +99,6 @@
 	</div>
 	
 
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script src="js/httpRequest.js"></script>	
-<script>
-	var count = 0;
-	
 
-	jQuery.browser = {};
-	(function () {
-	    jQuery.browser.msie = false;
-	    jQuery.browser.version = 0;
-	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
-	        jQuery.browser.msie = true;
-	        jQuery.browser.version = RegExp.$1;
-	    }
-	})();
-
-	$(function() {
-		$('#date_div').datepicker({
-			dateFormat: 'yy-mm-dd',
-			prevText: '이전 달',
-			nextText: '다음 달',
-			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-			dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-			dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-			showMonthAfterYear: true,
-			changeMonth:true,
-			changeYear:true,
-			yearSuffix:'년'
-		});
-	});
-	function getTimeStamp() {
-
-	    var d = new Date();
-	    var s =
-	        leadingZeros(d.getFullYear(), 4) + '-' +
-	        leadingZeros(d.getMonth() + 1, 2) + '-' +
-	        leadingZeros(d.getDate(), 2);
-
-	    return s;
-	}
-
-	function leadingZeros(n, digits) {
-
-	    var zero = '';
-	    n = n.toString();
-
-	    if (n.length < digits) {
-	        for (i = 0; i < digits - n.length; i++)
-	            zero += '0';
-	    }
-	    return zero + n;
-	}
-	
-</script>
 
 	<%@include file="../../_include/footer.jsp"%>
