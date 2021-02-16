@@ -16,6 +16,8 @@
 }
 .table { border-spacing: ''; table-layout: auto; text-align: center;} 
 .table th{font-weight: bold; border-color:#848282;}
+.paging {margin: 40px 0 0; text-align: center;}
+		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
 
 	<div class="adminPage_wrap">
@@ -85,7 +87,7 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="7" align="center">${pageStr }</td>
+								<td colspan="7" class="paging">${pageStr }</td>
 							</tr>
 						</tfoot>
 					</table>

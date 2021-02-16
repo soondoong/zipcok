@@ -15,6 +15,8 @@
 }
 .table { border-spacing: ''; table-layout: auto; text-align: center;} 
 .table th{font-weight: bold; border-color:#848282;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
    <div class="adminPage_wrap">
       <%@include file="../adminSideBar.jsp"%>
@@ -33,7 +35,6 @@
 							<li>
 							<select name="type">
 									<option>전체</option>
-									<option>예약자명</option>
 									<option>예약자아이디</option>
 							</select>
 							<li><input type="text" name="searchContent" placeholder="내용을 입력해주세요."></li>
@@ -60,19 +61,17 @@
 						<tr>
 							<th>예약번호</th>
 							<th>결제일</th>
-							<th>예약자명</th>
-							<th>홈짐닉네임</th>
-							<th>이용일</th>
+							<th>예약자아이디</th>
+							<th>예약일자</th>
 							<th>이용시간</th>
 							<th>결제금액</th>
 							<th>결제상태</th>
-							<th>사용여부</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:if test="${empty list}">
 							<tr>
-								<td colspan="9" align="center">검색된 홈짐예약 목록이 없습니다.</td>
+								<td colspan="7" align="center">검색된 홈짐예약 목록이 없습니다.</td>
 							</tr>
 						</c:if>
 						<c:forEach var="dto" items="${list }">
@@ -91,7 +90,7 @@
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="9" align="center">${pageStr }</td>
+							<td colspan="7" class="paging">${pageStr }</td>
 						</tr>
 					</tfoot>
 				</table>
