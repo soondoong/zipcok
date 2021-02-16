@@ -11,11 +11,11 @@ import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 
 import zipcok.homegym.model.PaymentDTO;
-
+import zipcok.homegym.model.Payment_detailsDTO;
 import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
-
+import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -324,5 +324,32 @@ public int coachmypageHomeGymUseDateUpdate(Map<String, Object> map) {
 public int coachmypageHomeGymUseTimeUpdate(Map<String, Object> map) {
 	int result = sqlMap.update("coachmypageHomeGymUseTimeUpdate", map);
 	return result;
+}
+@Override
+public int coachmypageHomeGymPayListTotalCnt(Map<String, Object> map) {
+	int count = sqlMap.selectOne("coachmypageHomeGymPayListTotalCnt", map);
+	return count==0?1:count;
+}
+@Override
+public List<HomeGymPayListDTO> coachmypageHomeGymPayList(Map<String, Object> map) {
+	int cp = (Integer)map.get("cp");
+	int ls = (Integer)map.get("ls");
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	map.put("start", start);
+	map.put("end", end);
+	List<HomeGymPayListDTO> list = sqlMap.selectList("coachmypageHomeGymPayList", map);
+	return list;
+}
+@Override
+public boolean coachmypageHomeGymReviewCheck(int pd_idx) {
+	String ck = "";
+	ck = sqlMap.selectOne("coachmypageHomeGymReviewCheck", pd_idx);
+	return ck==""?false:true;
+}
+@Override
+public String coachmypageHomeGymNickname(String pd_target_id) {
+	String hg_nickname = sqlMap.selectOne("coachmypageHomeGymNickname", pd_target_id);
+	return hg_nickname;
 }
 }

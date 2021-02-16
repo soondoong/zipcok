@@ -32,14 +32,7 @@ function leadingZeros(n, digits) {
 }
 
 function pg_check(){
-	 var pg_method = document.getElementsByName('pg_method');
-	 var pg_choice_method = '';
-	 for(var i = 0 ; i < pg_method.length; i++){
-
-		 if(pg_method[i].checked == true){
-			 pg_choice_method = pg_method[i].value;
-		 }
-	 }
+	var pg_choice_method = $('input:radio[name="pd_method"]:checked').val();
 	 window.alert('메서드로 들어온 정보는 : '+pg_choice_method);
 	IMP.request_pay({
 	    pg : 'kakaopay', // version 1.1.0부터 지원.
@@ -51,16 +44,23 @@ function pg_check(){
 	}, function(rsp) {
 	    if ( rsp.success ) {
 			var params = '?pd_code='+rsp.merchant_uid;
+			
+		    params += '&mem_id='+'${reserInfo.mem_id}';
+		    params += '&hg_mem_id='+'${reserInfo.hg_mem_id}';
+		    params += '&reser_date='+'${reserInfo.reser_date}';
+		    params += '&reser_start_time='+'${reserInfo.reser_start_time}';
+		    params += '&reser_end_time='+'${reserInfo.reser_end_time}';
+		    params += '&reser_person_count='+'${reserInfo.reser_person_count}';
+		    params += '&reser_price='+'${reserInfo.reser_price}';
 		    params += '&pd_target_id='+'${reserInfo.hg_mem_id}';
-		    params += '&pd_mem_id='+'${reserInfo.reser_mem_id}';
+		    params += '&pd_mem_id='+'${reserInfo.mem_id}';
 		    params += '&pd_method='+pg_choice_method;
-		    params += '&pd_price='+'${reservationInfo.reser_price}';
-		    	
+		    params += '&pd_price='+'${reserInfo.reser_price}';
+		    location.href = 'HomeGymPayListAdd.do'+params;
 	    } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '/n에러내용 : ' + rsp.error_msg;
 	    }
-	    location.href = 'HomeGymPayListAdd.do'+params;
 	});
 }
 </script>
