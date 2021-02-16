@@ -121,6 +121,28 @@ $(function(){
 		<div class="eheck_font"></div>
 	</div>
 	
+	<!-- 결제계좌등록 -->
+		<style>
+		.payment_container {margin:40px auto; vertical-align: middle;}
+		.accountAddBTN{background-color:#007BFF; border:0px; width:100px; padding:10px; border-radius: 5px; color:white;}
+		</style>
+		<div class = "payment_container">
+			<h5 style="margin-bottom:15px;">코치 결제 계좌 등록</h5>
+			<div class = "payment_info">
+				<input type = "hidden" name = "hg_mem_id" value = "${sessionScope.sid }">
+				<input type = "hidden" name = "pa_key" value = "코치">
+					<ul>
+						<li>은행 명</li>
+						<li><input type = "text" name = "pa_bankname" placeholder="은행 명을 입력해주세요." required="required"></li>
+						<li>계좌 번호</li>
+						<li><input type = "text" name = "pa_no" placeholder="'-' 없이 번호만 입력해주세요." required="required"></li>
+						<li>예금주 명</li>
+						<li><input type = "text" name = "pa_username" placeholder="계좌의 예금 주 이름을 입력해주세요." required="required"></li>
+					</ul>
+					<input type = "button" class="accountAddBTN" value = "등록하기" >
+			</div>
+		</div>
+		<!-- 결제계좌등록 -->
 	<div class="form-group">
 		<label>소개글 제목</label>
 		<input type="text" class="form-control" id="coach_intro_sub" name="coach_intro_sub">
