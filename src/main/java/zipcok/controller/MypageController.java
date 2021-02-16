@@ -512,15 +512,17 @@ public class MypageController {
 //         }
 //         return mav;
 //      }
-//      @RequestMapping("myHomeGymHavingCheck.do")
-//      public ModelAndView myHomeGymHavingCheck(
-//    		  @RequestParam("mem_id")String user_id) {
-//    	  boolean check = dao.mypageHomeGymCheck(user_id);
-//    	  String msg = check?"":"";
-//    	  ModelAndView mav = new ModelAndView();
-//    	  
-//    	  
-//      }
+      @RequestMapping("myHomeGymHavingCheck.do")
+      public ModelAndView myHomeGymHavingCheck(
+    		  @RequestParam("mem_id")String user_id) {
+    	  boolean check = dao.mypageHomeGymCheck(user_id);
+    	  String goPage = check?"myHomeGymCheck.do?mem_id="+user_id:"HomeGymAdd.do";
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("check", check);
+    	  mav.addObject("goPage", goPage);
+    	  mav.setViewName("mypage/mypageHomeGymCheckMsg");
+    	  return mav;
+      }
       @RequestMapping("/myHomeGymCheck.do")
       public ModelAndView myHomeGymEnter(
     		  @RequestParam("mem_id")String user_id) {
@@ -631,6 +633,65 @@ public class MypageController {
     	  ModelAndView mav = new ModelAndView();
     	  mav.addObject("change_result", result);
     	  mav.addObject("change_price", hg_price);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
+      @RequestMapping("mypageEqListUpdate.do")
+      public ModelAndView mypageHomeGymEqListUpdate(
+    		  HttpServletRequest req,
+    		  @RequestParam("mem_id")String mem_id) {
+    	  String eq_name[] = req.getParameterValues("eq_name");
+    	  String eq_count[] = req.getParameterValues("eq_count");
+    	  dao.mypageHomeGymEqAllDelete(mem_id);
+    	  int eq_update_count = 0;
+    	  for(int i = 0 ; i < eq_name.length ; i++) {
+    		  Map<String, String> eq_data = new HashMap<String, String>();
+    		  eq_data.put("eq_mem_id", mem_id);
+    		  eq_data.put("eq_name", eq_name[i]);
+    		  eq_data.put("eq_count", eq_count[i]);
+    		  eq_update_count += dao.mypageHomeGymEqUpdate(eq_data);
+    	  }
+    	  List<HomeGymEquipmentDTO> list = dao.mypageHomeGymEqInfo(mem_id);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", eq_update_count);
+    	  mav.addObject("change_eqlist", list);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
+      @RequestMapping("mypageUseDateUpdate.do")
+      public ModelAndView mypageHomeGymUseDateUpdate(
+    		  @RequestParam("hg_mem_id")String mem_id,
+    		  @RequestParam("choice_start_date")String start_date,
+    		  @RequestParam("choice_end_date")String end_date,
+    		  @RequestParam("choice_not_date")String not_date) {
+    	  Map<String, Object> map = new HashMap<String, Object>();
+    	  map.put("hg_mem_id", mem_id);
+    	  map.put("start_date", java.sql.Date.valueOf(start_date));
+    	  map.put("end_date", java.sql.Date.valueOf(end_date));
+    	  map.put("not_date", not_date);
+    	  int result = dao.mypageHomeGymUseDateUpdate(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", result);
+    	  mav.addObject("change_start_date", start_date);
+    	  mav.addObject("change_end_date", end_date);
+    	  mav.addObject("change_not_date", not_date);
+    	  mav.setViewName("jsonView");
+    	  return mav;
+      }
+      @RequestMapping("mypageUseTimeUpdate.do")
+      public ModelAndView mypageHomeGymUseTimeUpdate(
+    		  @RequestParam("hg_mem_id")String mem_id,
+    		  @RequestParam("choice_start_time")int start_time,
+    		  @RequestParam("choice_end_time")int end_time) {
+    	  Map<String, Object> map = new HashMap<String, Object>();
+    	  map.put("hg_mem_id", mem_id);
+    	  map.put("start_time", start_time);
+    	  map.put("end_time", end_time);
+    	  int result = dao.mypageHomeGymUseTimeUpdate(map);
+    	  ModelAndView mav = new ModelAndView();
+    	  mav.addObject("change_result", result);
+    	  mav.addObject("change_start_time", start_time);
+    	  mav.addObject("change_end_time", end_time);
     	  mav.setViewName("jsonView");
     	  return mav;
       }

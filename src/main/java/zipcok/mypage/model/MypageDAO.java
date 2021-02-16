@@ -56,6 +56,10 @@ public interface MypageDAO {
   public List reviewExistCheck(HashMap<String,Object> map); //후기가잇는지 존재여부체크
   public ReviewDTO showReview(int rev_idx);//후기보여주기
   public boolean mypageHomeGymCheck(String id);
+  public int mypageHomeGymEqAllDelete(String mem_id);
+  public int mypageHomeGymEqUpdate(Map<String, String> map);
+  public int mypageHomeGymUseDateUpdate(Map<String, Object>map);
+  public int mypageHomeGymUseTimeUpdate(Map<String, Object>map);
   
 
 }

@@ -214,51 +214,61 @@ public class MypageDAOImple implements MypageDAO {
 //         int count = sqlMap.delete("memberPhotoDelete", mem_id);
 //         return count;
 //      }
+      /**홈짐 기구 목록 조회*/
   @Override
 	public List<HomeGymEquipmentDTO> mypageHomeGymEqInfo(String user_id) {
 		List<HomeGymEquipmentDTO> list = sqlMap.selectList("mypageHomeGymEqInfoSQL", user_id);
 		return list;
 	}
+  /**홈짐 이미지 리스트 조회*/
    @Override
 	public List<CoachFileDTO> mypageHomeGymImgInfo(String user_id) {
 	   List<CoachFileDTO> list = sqlMap.selectList("mypageHomeGymImgInfoSQL", user_id);
 	   return list;
 	}
+   /**홈짐 정보 조회*/
    @Override
 	public HomeGymDTO mypageHomeGymInfo(String user_id) {
 	   HomeGymDTO dto = sqlMap.selectOne("mypageHomeGymInfoSQL", user_id);
 	   return dto;
 	}
+   /**ajax 홈짐 좋아요 수 조회*/
    @Override
 	public int mypageHomeGymLikeCount(String user_id) {
 	   int count = sqlMap.selectOne("mypageHomeGymLikeCount", user_id);
 	   return count;
 	}
+   /**홈짐 후기 리스트 조회*/
 	@Override
 	public List<ReviewDTO> HomeGymReview(String homegymId) {
 		List<ReviewDTO> list = sqlMap.selectList("mypageHomeGymReviewSelectSQL", homegymId);
 		return list;
 	}
+	/**ajax 홈짐 활성화 상태 변경*/
 	@Override
 		public int mypageHomeGymStautsChange(Map<String, String> map) {
 		int result = sqlMap.update("mypageHomeGymStatusChangeSQL", map);
 		return result;
 	}
+	/**ajax 홈짐 주소 수정*/
 	@Override
 		public int mypageHomeGymAddrUpdate(Map<String, String> map) {
 		int result = sqlMap.update("mypageHomeGymAddrUpdateSQL", map);
 			return result;
 		}
+	/**ajax 홈짐 가까운 역 수정*/
 	@Override
 		public int mypageHomeGymStationUpdate(Map<String, String> map) {
 		int result = sqlMap.update("mypageHomeGymStationUpdateSQL", map);
 		return result;
 		}
+	/**ajax 홈짐 수용 인원 수정*/
 	@Override
 	public int mypageHomeGymPerson_countUpdate(Map<String, Object> map) {
 		int result = sqlMap.update("mypageHomeGymPerson_countUpdateSQL", map);
 		return result;
 	}
+	/**ajax 홈짐 비용 수정*/
 	@Override
 	public int mypageHomeGymPriceUpdate(Map<String, Object> map) {
 		int result = sqlMap.update("mypageHomeGymPriceUpdateSQL", map);
@@ -316,11 +326,34 @@ public class MypageDAOImple implements MypageDAO {
 				ReviewDTO dto = sqlMap.selectOne("showReview", rev_idx);
 				return dto;
 			}
-	
+	/**마이페이지 내홈짐 보기 접근 시 홈짐 등록 유무 확인*/
 	@Override
 		public boolean mypageHomeGymCheck(String id) {
 		int result = sqlMap.selectOne("mypageHomeGymCheckSQL", id);
 		return result==0?false:true;
 		}
-	
+	/**홈짐 기구 수정 시 기본 데이터 전부 삭제*/
+	@Override
+		public int mypageHomeGymEqAllDelete(String mem_id) {
+		int result = sqlMap.delete("mypageHomeGymEqAllDeleteSQL", mem_id);
+		return result;
+		}
+	/**홈짐 기구 수정 시 데이터 입력(수정x)*/
+	@Override
+		public int mypageHomeGymEqUpdate(Map<String, String> map) {
+		int result = sqlMap.insert("mypageHomeGymEqUpdate", map);
+		return result;
+		}
+	/**ajax 홈짐 시작,종료,불가능 날짜 수정*/
+	@Override
+		public int mypageHomeGymUseDateUpdate(Map<String, Object> map) {
+		int result = sqlMap.update("mypageHomeGymUseDateUpdate", map);
+		return result;
+		}
+	/**ajax 홈짐 시작, 종료 시간 수정*/
+	@Override
+		public int mypageHomeGymUseTimeUpdate(Map<String, Object> map) {
+		int result = sqlMap.update("mypageHomeGymUseTimeUpdate", map);
+		return result;
+		}
 }

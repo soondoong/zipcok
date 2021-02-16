@@ -155,7 +155,7 @@ function ajaxUnLike_rq(){
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; height:100px; vertical-align: middle;}
 
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist .eqdiv { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:435px; top: -85px; height:35px; width:150px; text-align:right; }
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:600px; top: -95px; height:35px; width:150px; text-align:right; }
 
 </style>
 	<!-- 상단 조건바 -->
