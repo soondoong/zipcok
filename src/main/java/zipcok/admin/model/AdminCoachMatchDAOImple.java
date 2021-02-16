@@ -87,16 +87,11 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 //////////////////////////////////코치매칭관리//////////////////////////////////////
 	
 	@Override
-	public List<RequestFormDTO> reqFormData(HashMap<String, Object> map) {
-		List<RequestFormDTO> list = sqlMap.selectList("reqFormData", map);
+	public List<ReqFormMemberDTO> reqFormData(HashMap<String, Object> map) {
+		List<ReqFormMemberDTO> list = sqlMap.selectList("reqFormMemberData", map);
 		return list;
 	}
 	
-	@Override
-	public MemberAllDTO memberData(HashMap<String, Object> map) {
-		MemberAllDTO dto = sqlMap.selectOne("memberData", map);
-		return dto;
-	}
 	
 	@Override
 	public int ajaxCmTotalCnt(HashMap<String, Object> map) {

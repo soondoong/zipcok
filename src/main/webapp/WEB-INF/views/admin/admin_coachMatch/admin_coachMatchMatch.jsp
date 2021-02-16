@@ -9,87 +9,65 @@
 <script src="js/httpRequest.js"></script>
 <style type="text/css">
 .test-inline { display: flex;}
+.pagingSP {margin: 40px 0 0; text-align: center;}
+.pagingSP a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
-			<script>
-				
-					function show(id,str){
-					if(id ==null || id ==''){
-						id=$('#searchId').val();
-					}
-						alert(id);
-						  /*cp정의*/
-						  var cp=str;
-						  if(str==null || str == ''){
-							  cp=1;
-						  }
-						  alert(cp);
-						  var params='req_receive_id='+id+'&cp='+cp;
-						  alert(id+"/"+cp);
-							sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
-					}	  
-						
-					
-					
-					function showResult(){
-					   if(XHR.readyState==4){
-					      if(XHR.status==200){
-					         var data=XHR.responseText;
-					         data=eval('('+data+')');
-					         window.alert(data.memList.length);
-					         //리셋해주기
-					         var html='';
-					         	
-					         for(var i=0;i<data.reqList.length;i++){
-					        	 
-					        	 html+='<tr>';
-					        	 html += '<td>'+data.reqList[i].req_idx+'</td>';
-					        	 html += '<td>'+data.memList[i].mem_name+'</td>';
-					        	 html += '<td>'+data.memList[i].mem_id+'</td>';
-					        	 html += '<td>'+data.memList[i].mem_phone+'</td>';
-					        	 html += '<td>'+data.memList[i].mem_email+'</td>';
-					        	 html += '<td>'+data.reqList[i].req_date+'</td>';
-					        	 html += '<td>'+data.reqList[i].req_status+'</td>';
-					        	 html += '</tr>';
-					        	 
-					        	 
-					        	 
-					        	 /*
-					        	 $('#matchtBody').write('<tr>'+
-					        	 '<td>'+data.reqList[i].req_idx+'</td>'+
-					        	 '<td>'+data.memList[i].mem_name+'</td>'+
-					        	 '<td>'+data.memList[i].mem_id+'</td>'+
-					        	 '<td>'+data.memList[i].mem_phone+'</td>'+
-					        	 '<td>'+data.memList[i].mem_email+'</td>'+
-					        	 '<td>'+data.reqList[i].req_date+'</td>'+
-					        	 '<td>'+data.reqList[i].req_status+'</td>'+
-					        	 
-					        	 '</tr>');*/
-					        	 
-					        	 
-					        	 
-					        	 
-					        	/*document.getElementById('req_number').innerHTML=data.reqList[i].req_idx;
-					        	document.getElementById('memba_name').innerHTML=data.memList[i].mem_name;
-					        	document.getElementById('memba_id').innerHTML=data.memList[i].mem_id;
-					        	document.getElementById('memba_phone').innerHTML=data.memList[i].mem_phone;
-					        	document.getElementById('memba_email').innerHTML=data.memList[i].mem_email;
-					        	document.getElementById('req_callDate').innerHTML=data.ReqList[i].req_idx;
-					        	document.getElementById('req_statNow').innerHTML=data.ReqList[i].req_idx;
-					        	 */
-					         }
-					         $('#matchtBody').empty();
-					         $('#matchtBody').append(html);
-					         /*페이징추가*/
-				  			var cpage=data.pageStr;
-				  			$('#matchtBody').after('<div class="paging">'+cpage+'</div>');
-					      }
-					   }
-					}
-
-	</script>
+<script>
+function show(id,str){/*cp값, id값 으로 ajax 에 요청함*/
+if(id ==null || id ==''){
+	id=$('#searchId').val();
+}
+	  /*cp정의*/
+	  var cp=str;
+	  if(str==null || str == ''){
+		  cp=1;
+	  }
+	  var params='req_receive_id='+id+'&cp='+cp;
+		sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
+}	  
+			
+		
+		
+function showResult(){/*꼰트롤러에서 받은 데이터들을 가져와서 테이블,페이징 생성함(지웠다가 다시 만들고)*/
+   if(XHR.readyState==4){
+      if(XHR.status==200){
+         var data=XHR.responseText;
+         data=eval('('+data+')');
+         //리셋해주기
+         if(data.reqMemList.length<=0){
+        	$('.pagingSP').empty();
+           	$('#matchtBody').html('');
+               	$('#matchtBody').append("<tr><td colspan='7'>검색 된 게시글이 없습니다.</td></tr>");
+            }else{
+         var html='';
+         for(var i=0;i<data.reqMemList.length;i++){
+        	 
+        	 html+='<tr>';
+        	 html += '<td>'+data.reqMemList[i].req_idx+'</td>';
+        	 html += '<td>'+data.reqMemList[i].mem_name+'</td>';
+        	 html += '<td>'+data.reqMemList[i].mem_id+'</td>';
+        	 html += '<td>'+data.reqMemList[i].mem_phone+'</td>';
+        	 html += '<td>'+data.reqMemList[i].mem_email+'</td>';
+        	 html += '<td>'+data.reqMemList[i].req_date+'</td>';
+        	 html += '<td>'+data.reqMemList[i].req_status+'</td>';
+        	 html += '</tr>';
+        
+         }
+         
+         $('#matchtBody').empty();
+         $('#matchtBody').append(html);
+         /*페이징추가*/
+ 			$('.pagingSP').empty();
+ 			var cpage=data.pageStr;
+ 			$('#pagingpaging').append('<div class="pagingSP">'+cpage+"</div>");
+        }
+      }
+   }
+}
+</script>
 <style>
 		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
 		.table th{font-weight: bold; border-color:#848282;}
@@ -110,7 +88,7 @@
 						<ul class="test-inline">
 							<li>코치 검색</li>
 							<li>아이디</li>
-							<li><input type="text" id="searchId"></li>
+							<li><input type="text" id="searchId" ></li>
 							<li><input type="button" value="검색" onclick="show('','');"></li>
 						</ul>
 					</div>
@@ -137,23 +115,10 @@
 					
 		
 					<tbody id="matchtBody">
-						 <tr>
-							<td id="req_number">1</td>
-							<td id="memba_name">박수연</td>
-							<td id="memba_id">soo</td>
-							<td id="memba_phone">123456789</td>
-							<td id="memba_email">a@naver.com</td>
-							<td id="req_callDate">2021.01.21</td>
-							<td id="req_statNow">상담중</td> <!-- 대기중 상담중 결제완료-->
-						</tr> 
-						
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="7">페이징 들어갈 자리</td>
-						</tr>
-					</tfoot>
 				</table>
+				<div id="pagingpaging">
+				</div>
 				<hr>
 			</div>
 			<div><!-- 코치의 매칭된 회원 거래내역  테이블 div -->
