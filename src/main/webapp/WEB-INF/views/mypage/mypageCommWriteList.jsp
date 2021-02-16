@@ -32,6 +32,8 @@ function mypageCommWriteList() {
 		.table { border-spacing: ''; table-layout: auto; text-align: center;} 
 		.table th{font-weight: bold; border-color:#848282;}
 		.revbtn{width:72px; height: 25px; }
+		.paging {margin: 40px 0 0; text-align: center;}
+		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 		</style>		
 			<ul>
 				<li><button type="button" onclick="mypageWriteList()">F&A / 고객센터 작성글</button></li>
@@ -53,7 +55,7 @@ function mypageCommWriteList() {
 	</thead>
 	<tfoot>
 		<tr>
-			<td colspan="6"><span style="float: left;"><input type="submit" value="선택삭제" id="delbtn"></span><span>${pageStr }</span></td>
+			<td colspan="6" class="paging"><span style="float: left;"><input type="submit" value="선택삭제" id="delbtn"></span><span>${pageStr }</span></td>
 		</tr>
 	</tfoot>
 	<tbody>

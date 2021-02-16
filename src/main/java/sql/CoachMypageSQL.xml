@@ -284,7 +284,29 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		rnum between #{start} and  #{end}
 	
 	</select>
+	<select id = "coachmypageHomeGymLikeCount" parameterType="String" resultType="Integer">
+    	select count(*) from zipcok_like where like_target_id = #{value} and like_key = '홈짐'
+    </select> 
+    	<select id = "coachmypageHomeGymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
+	select * from star_review where rev_key = '홈짐' and rev_target_id = #{value} order by rev_writedate
+	</select>
+	<update id="coachmypageHomeGymStatusChangeSQL" parameterType="hashMap">
+		update homegym set hg_status = #{hg_status} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="coachmypageHomeGymAddrUpdateSQL" parameterType="hashMap">
+		update homegym set hg_faddr = #{hg_faddr}, hg_saddr = #{hg_saddr} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="coachmypageHomeGymStationUpdateSQL" parameterType="hashMap">
+		update homegym set hg_station = #{hg_station} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="coachmypageHomeGymPerson_countUpdateSQL" parameterType="hashMap">
+		update homegym set hg_person_count = #{hg_person_count} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="coachmypageHomeGymPriceUpdateSQL" parameterType="hashMap">
+		update homegym set hg_price = #{hg_price} where hg_mem_id = #{hg_mem_id}
+	</update>
 	
+
 	<select id="getCoachAccount" parameterType="HashMap"  resultType="zipcok.homegym.model.PaymentDTO">
 	select * from zipcok_payment
 	where 
@@ -293,4 +315,23 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 	hg_mem_id = #{mem_id}
 	</select>
 	
+
+	<select id="coachmypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
+		select count(*) from homegym where hg_mem_id = #{value}
+	</select>
+	<delete id="coachmypageHomeGymEqAllDeleteSQL" parameterType="String">
+		delete from homegym_equipment where eq_mem_id = #{value}
+	</delete>
+	<insert id="coachmypageHomeGymEqUpdate" parameterType="hashMap">
+		insert into homegym_equipment values(
+		eq_idx.nextval,
+		#{eq_mem_id}, #{eq_name}, #{eq_count})
+	</insert>
+	<update id="coachmypageHomeGymUseDateUpdate" parameterType="hashMap">
+		update homegym set hg_start_date = #{start_date}, hg_end_date = #{end_date}, hg_not_date = #{not_date} where hg_mem_id = #{hg_mem_id}
+	</update>
+	<update id="coachmypageHomeGymUseTimeUpdate" parameterType="hashMap">
+		update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
+	</update>
+
   </mapper>

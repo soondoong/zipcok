@@ -40,6 +40,7 @@
 			</div>
 			<div><!-- 검색결과  테이블 div -->
 			<form name="adminCommSearch" action="admin_coachMatchCommunitySubmit.do">
+			<input type="hidden" name="com_name" value="${com_name}">
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr>
@@ -54,17 +55,20 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
 						
-							<td><input type="checkbox" name="com_name" value="${commInfo.com_name }" checked></td>
-							<td>${commInfo.com_idx }</td>
-							<td>${commInfo.com_name }</td>
-							<td>${memInfo.mem_name }</td>
-							<td>${commInfo.com_mem_sum }</td>
-							<td>${commInfo.com_opendate }</td>
-							<td>2021.01.12</td>
-							<td><input type="button" value="보기"></td>
-						</tr>
+						<c:forEach var="dto" items="${commInfo}">
+							<tr>
+								<td><input type="radio" name="com_name_submit" value="${dto.com_name }"></td>
+								<td>${dto.com_idx }</td>
+								<td>${dto.com_name }</td>
+								<td>${dto.com_coach_name }</td>
+								<td>${dto.com_mem_sum }</td>
+								<td>${dto.com_opendate }</td>
+								<td>2021.01.12</td>
+								<td><input type="button" value="보기"></td>
+								
+							</tr>
+						</c:forEach>
 					</tbody>
 					<tfoot>
 						<tr>

@@ -5,7 +5,13 @@ import java.util.*;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
+
 import zipcok.homegym.model.PaymentDTO;
+
+import zipcok.coach.model.ReviewDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
+
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -37,5 +43,23 @@ public interface CoachMypageDAO {
 	public void curriUpdate(CurriDTO cdto);//커리큘럼수정
 	public void curriDelete(CurriDTO cdto);//커리큘럼 삭제
 	public List<Pd_AllDTO> CmPaymentList(HashMap<String,Object> map); //코치매칭된결제내역
+
 	public PaymentDTO getCoachAccount(String coachId,String key);//코치결제계좌dto찾기
+
+	public boolean coachmypageHomeGymCheck(String id);
+	public int coachmypageHomeGymEqAllDelete(String mem_id);
+	public int coachmypageHomeGymEqUpdate(Map<String, String> map);
+	public int coachmypageHomeGymUseDateUpdate(Map<String, Object>map);
+	public int coachmypageHomeGymUseTimeUpdate(Map<String, Object>map);
+    public HomeGymDTO coachmypageHomeGymInfo(String user_id);
+    public List<HomeGymEquipmentDTO> coachmypageHomeGymEqInfo(String user_id);
+    public List<CoachFileDTO> coachmypageHomeGymImgInfo(String user_id);
+    public int coachmypageHomeGymLikeCount(String user_id);
+    public List<ReviewDTO> coachHomeGymReview(String homegymId);
+    public int coachmypageHomeGymStautsChange(Map<String, String> map);
+    public int coachmypageHomeGymAddrUpdate(Map<String, String> map); 
+    public int coachmypageHomeGymStationUpdate(Map<String, String> map);
+    public int coachmypageHomeGymPerson_countUpdate(Map<String, Object> map);
+    public int coachmypageHomeGymPriceUpdate(Map<String, Object> map);
+
 }

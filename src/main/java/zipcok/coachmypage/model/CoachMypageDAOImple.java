@@ -9,7 +9,13 @@ import org.springframework.stereotype.Service;
 import zipcok.coach.model.CategoryDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
+
 import zipcok.homegym.model.PaymentDTO;
+
+import zipcok.coach.model.ReviewDTO;
+import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
+
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberDTO;
 
@@ -244,5 +250,79 @@ public List<Pd_AllDTO> CmPaymentList(HashMap<String, Object> map) {
 	 List<Pd_AllDTO>  list = sqlMap.selectList(	"CmPaymentList", map);
 	return list;
 }
-
+@Override
+public List<ReviewDTO> coachHomeGymReview(String homegymId) {
+	List<ReviewDTO> list = sqlMap.selectList("coachmypageHomeGymReviewSelectSQL", homegymId);
+	return list;
+}
+@Override
+public int coachmypageHomeGymAddrUpdate(Map<String, String> map) {
+	int result = sqlMap.update("coachmypageHomeGymAddrUpdateSQL", map);
+	return result;
+}
+@Override
+public boolean coachmypageHomeGymCheck(String id) {
+	int result = sqlMap.selectOne("coachmypageHomeGymCheckSQL", id);
+	return result==0?false:true;
+}
+@Override
+public int coachmypageHomeGymEqAllDelete(String mem_id) {
+	int result = sqlMap.delete("coachmypageHomeGymEqAllDeleteSQL", mem_id);
+	return result;
+}
+@Override
+public List<HomeGymEquipmentDTO> coachmypageHomeGymEqInfo(String user_id) {
+	List<HomeGymEquipmentDTO> list = sqlMap.selectList("coachmypageHomeGymEqInfoSQL", user_id);
+	return list;
+}
+@Override
+public int coachmypageHomeGymEqUpdate(Map<String, String> map) {
+	int result = sqlMap.insert("coachmypageHomeGymEqUpdate", map);
+	return result;
+}
+@Override
+public List<CoachFileDTO> coachmypageHomeGymImgInfo(String user_id) {
+	   List<CoachFileDTO> list = sqlMap.selectList("coachmypageHomeGymImgInfoSQL", user_id);
+	   return list;
+}
+@Override
+public HomeGymDTO coachmypageHomeGymInfo(String user_id) {
+	   HomeGymDTO dto = sqlMap.selectOne("coachmypageHomeGymInfoSQL", user_id);
+	   return dto;
+}
+@Override
+public int coachmypageHomeGymLikeCount(String user_id) {
+	   int count = sqlMap.selectOne("coachmypageHomeGymLikeCount", user_id);
+	   return count;
+}
+@Override
+public int coachmypageHomeGymPerson_countUpdate(Map<String, Object> map) {
+	int result = sqlMap.update("coachmypageHomeGymPerson_countUpdateSQL", map);
+	return result;
+}
+@Override
+public int coachmypageHomeGymPriceUpdate(Map<String, Object> map) {
+	int result = sqlMap.update("coachmypageHomeGymPriceUpdateSQL", map);
+	return result;
+}
+@Override
+public int coachmypageHomeGymStationUpdate(Map<String, String> map) {
+	int result = sqlMap.update("coachmypageHomeGymStationUpdateSQL", map);
+	return result;
+}
+@Override
+public int coachmypageHomeGymStautsChange(Map<String, String> map) {
+	int result = sqlMap.update("coachmypageHomeGymStatusChangeSQL", map);
+	return result;
+}
+@Override
+public int coachmypageHomeGymUseDateUpdate(Map<String, Object> map) {
+	int result = sqlMap.update("coachmypageHomeGymUseDateUpdate", map);
+	return result;
+}
+@Override
+public int coachmypageHomeGymUseTimeUpdate(Map<String, Object> map) {
+	int result = sqlMap.update("coachmypageHomeGymUseTimeUpdate", map);
+	return result;
+}
 }

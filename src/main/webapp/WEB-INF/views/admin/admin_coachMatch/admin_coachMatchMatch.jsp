@@ -102,10 +102,22 @@
 					</thead>
 					<script src="js/httpRequest.js"></script>
 					<script>
-					function show(){
-						var params='req_receive_id=son123';
-						sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
-					}
+				
+					function show(str){
+						var id = $(this).text();
+						alert(id);
+						  /*cp정의*/
+						  var cp=str;
+						  if(str==null || str == ''){
+							  cp=1;
+						  }
+						  alert(cp);
+						  var params='req_receive_id='+id+'&cp='+str;
+							sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
+					}	  
+						
+					
+					
 					function showResult(){
 					   if(XHR.readyState==4){
 					      if(XHR.status==200){
@@ -155,7 +167,9 @@
 					         }
 					         $('#matchtBody').empty();
 					         $('#matchtBody').append(html);
-					         
+					         /*페이징추가*/
+				  			var cpage=data.pageStrAjax;
+				  			$('#matchtBody').after('<div class="paging">'+cpage+'</div>');
 					      }
 					   }
 					}
@@ -225,4 +239,11 @@
          </div>
       </div>
    </div>
+   <script>
+   /*ajax로검색된 div내의 페이지를 클릭하면 호출되는 함수*/
+	  function pageclick(temp){  //temp는 cp값
+	
+		  show(temp);
+	  } 
+   </script>
 <%@include file="../../_include/footer.jsp" %>

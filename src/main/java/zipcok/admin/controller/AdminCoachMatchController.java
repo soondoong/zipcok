@@ -225,14 +225,21 @@ public class AdminCoachMatchController {
 	//코치매칭 매칭회원 목록 가져오기
 	@RequestMapping("coachMatchingMemInfo.do")
 	public ModelAndView coachMatchingInfo(
-			@RequestParam("req_receive_id")String req_receive_id) {
+			@RequestParam("req_receive_id")String req_receive_id,
+			@RequestParam(value="cp",defaultValue = "1")int cp) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
-		map.put("req_receive_id", req_receive_id);		
+		map.put("req_receive_id", req_receive_id);	
+		int totalCnt = adminCoachMatchDao.ajaxCmTotalCnt(map);
 		List<RequestFormDTO> list = adminCoachMatchDao.reqFormData(map);
-		
 		List<MemberAllDTO> memList = new ArrayList<MemberAllDTO>();
+		
+		int listSize=1;
+		int pageSize=5;
+		
+		String pageStr = zipcok.page.AjaxCoachPageModule.makePage(totalCnt, cp, listSize, pageSize);
+		
 		for(int i=0;i<list.size();i++) {
 			String mem_id = list.get(i).getReq_mem_id();
 			map2.put("mem_id", mem_id);
@@ -240,6 +247,7 @@ public class AdminCoachMatchController {
 			memList.add(dto);
 		}
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("pageStr",pageStr);
 		mav.addObject("reqList", list);
 		mav.addObject("memList",memList);
 		mav.setViewName("jsonView");
