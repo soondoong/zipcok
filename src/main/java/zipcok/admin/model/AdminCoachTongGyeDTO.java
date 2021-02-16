@@ -5,17 +5,21 @@ public class AdminCoachTongGyeDTO {
 	private String startDate;
 	private String endDate;
 	
-	private int sumAllMatch;
-	private int sumAllSell;
-	private int sumAllCancel;
-	private int sumResultSell;
+	private int sumAllMatch; //총매칭수
+	private int sumAllSell; //총매출액
+	private int sumAllCancel; //총취소액
+	private int sumResultSell; //총순수익
+	private int sumAllIngCancell; //총취소요청중액
+	
 	
 	public AdminCoachTongGyeDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
+
+
 	public AdminCoachTongGyeDTO(String startDate, String endDate, int sumAllMatch, int sumAllSell, int sumAllCancel,
-			int sumResultSell) {
+			int sumResultSell, int sumAllIngCancell) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -23,7 +27,22 @@ public class AdminCoachTongGyeDTO {
 		this.sumAllSell = sumAllSell;
 		this.sumAllCancel = sumAllCancel;
 		this.sumResultSell = sumResultSell;
+		this.sumAllIngCancell = sumAllIngCancell;
 	}
+
+
+
+	public int getSumAllIngCancell() {
+		return sumAllIngCancell;
+	}
+
+
+
+	public void setSumAllIngCancell(int sumAllIngCancell) {
+		this.sumAllIngCancell = sumAllIngCancell;
+	}
+
+
 
 	public String getStartDate() {
 		return startDate;
