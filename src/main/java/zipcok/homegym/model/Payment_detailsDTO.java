@@ -11,6 +11,7 @@ public class Payment_detailsDTO {
 	private String pd_payment_date;
 	private String pd_status;
 	private int pd_price;
+	
 	public Payment_detailsDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -74,6 +75,7 @@ public class Payment_detailsDTO {
 	public void setPd_price(int pd_price) {
 		this.pd_price = pd_price;
 	}
+	
 	public Payment_detailsDTO(int pd_idx, int pd_req_idx, String pd_key, String pd_code, String pd_target_id,
 			String pd_mem_id, String pd_method, String pd_payment_date, String pd_status, int pd_price) {
 		super();
@@ -88,5 +90,6 @@ public class Payment_detailsDTO {
 		this.pd_status = pd_status;
 		this.pd_price = pd_price;
 	}
+
 	
 }

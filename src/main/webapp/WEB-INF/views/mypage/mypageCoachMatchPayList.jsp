@@ -87,7 +87,7 @@ function mypageCoachMatchPayList(){
 				</c:if>
 			
 			</td>
-			<td><input type="button" class="revbtn"  value="결제취소"></td>
+			<td><input type="button" class="revbtn"  value="결제취소" onclick="payCancle('${p.pd_idx}','${p.pd_status }')"></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -135,6 +135,19 @@ function mypageCoachMatchPayList(){
 		
 		var params="pd_idx="+idx+"&coach_name="+name+"&catename="+cate+"&coach_id="+coachid+"&rev_idx="+revidx;
 		window.open("seeCoachReviewPopup.do?"+params, "seeCoachReviewPopup","width=450,height=470,top=100,left=500");
+	}
+	
+	
+	function payCancle(pd_idx,status){
+		if(status == '결제취소완료'){		
+			alert('이미 취소된 내역입니다.');
+		}else if(status == '취소요청중'){
+			alert('이미 요청이 전송되었습니다.');
+		}else{	
+			location.href="pdStatusChangetoCancelplz.do?pd_idx="+pd_idx;
+		}
+		
+		
 	}
 	</script>
 	   <%@include file="../_include/footer.jsp" %>

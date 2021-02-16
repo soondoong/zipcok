@@ -17,6 +17,17 @@
      mem_type='코치회원'
   	</select>
   
+  <select id="findRequestByPd_idx" parameterType="Integer" resultType="zipcok.coach.model.RequestFormDTO">
+  select rf.* from
+(select pr.* from
+(select * from zipcok_payment_details
+where 
+pd_idx = 50)a,payment_request pr
+where
+pd_req_idx = pr_idx)b,request_form rf
+where
+pr_req_idx = rf.req_idx
+  </select>
   
   
   	<select id="adminSearchCoach" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">	    
@@ -206,6 +217,14 @@
   		update zipcok_payment_details
   		set
   		pd_status='결제취소완료'
+  		where
+  		pd_idx=#{pd_idx}
+  	</update>
+  	
+  	<update id="updateStatusToCanclePlz" parameterType="Integer">
+  		update zipcok_payment_details
+  		set
+  		pd_status='취소요청중'
   		where
   		pd_idx=#{pd_idx}
   	</update>

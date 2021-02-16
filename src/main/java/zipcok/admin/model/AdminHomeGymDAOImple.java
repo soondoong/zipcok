@@ -15,6 +15,7 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	@Autowired
 	private SqlSessionTemplate sqlMap;
 	
+
 	/*-----------------홈짐관리----------------*/
 	//총게시물수
 	@Override
@@ -31,6 +32,23 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	/*-----------------홈짐관리----------------*/
 	
 	/*-----------------예약조회----------------*/
+
+	//상태조건 총수
+	@Override
+	public int adminHomeGymReservationSelectTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("adminHomeGymReservationSelectTotalCnt", map);
+		return totalCnt;
+	}
+	
+	//상태조건 검색
+	@Override
+	public List<HomeGymReservationDTO> adminHomeGymReservationSelect(HashMap<String, Object> map) {
+		List<HomeGymReservationDTO> list = sqlMap.selectList("adminHomeGymReservationSelect", map);
+		return list;
+	}
+	
+	
+
 	//예약조회 수
 	@Override
 	public int adminHomeGymReservationSearchTotalCnt(HashMap<String, Object> map) {
@@ -49,5 +67,18 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	/*-----------------예약취소관리----------------*/
 	/*-----------------예약취소관리----------------*/
 	
+	//날짜로 예약조회 수
+	@Override
+	public int adminHomeGymReservationDateTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("adminHomeGymReservationDateTotalCnt", map);
+		return totalCnt;
+	}
+	
+	//날짜로 예약조회 목록
+	@Override
+	public List<HomeGymReservationDTO> adminHomeGymReservationDate(HashMap<String, Object> map) {
+		List<HomeGymReservationDTO> list = sqlMap.selectList("adminHomeGymReservationDate", map);
+		return list;
+	}
 	
 }

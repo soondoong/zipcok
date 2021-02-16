@@ -22,16 +22,18 @@
          <h3>회원 등록 통계</h3>
          <hr>
          	<div>
+         		<form name="date" action="dd">
          		<ul class="test-inline">
          			<li>조회일</li>
-         			<li><input type="date"></li>
+         			<li><input type="date" name="start"></li>
          			<li>~</li>
-         			<li><input type="date"></li>
-         			<li><input type="button" value="오늘"></li>
+         			<li><input type="date"  name="end"></li>
+         			<li><input type="button" value="오늘" onclick="today();"></li>
          			<li><input type="button" value="일주일"></li>
          			<li><input type="button" value="한달"></li>
          		</ul>
-         		<input type="button" value="검색">
+         		<input type="submit" value="검색">
+         		</form>
          	</div>
          	<hr>
          	<div>
@@ -80,13 +82,13 @@
                   <tbody>
                      <tr>
                         <td>일반회원</td>
-                        <td>83명</td>
-                        <td>70%</td>
+                        <td>${sidCount }</td>
+                        <td>${(sidCount / (sidCount + coachIdCount)) * 100}%</td>
                      </tr>
                      <tr>
                         <td>코치회원</td>
-                        <td>20명</td>
-                        <td>30%</td>
+                        <td>${coachIdCount }</td>
+                        <td>${(coachIdCount / (sidCount + coachIdCount)) * 100}%</td>
                      </tr>
                   </tbody>
               

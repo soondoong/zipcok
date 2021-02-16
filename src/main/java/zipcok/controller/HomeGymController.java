@@ -185,7 +185,7 @@ public class HomeGymController {
 	public ModelAndView HomeGymReservationForm(HomeGymReservationDTO dto, HttpSession session) {
 		String user_id = "";
 		if(session.getAttribute("sid")!=null)user_id = (String)session.getAttribute("sid");
-		else if(session.getAttribute("coachid")!=null)user_id = (String)session.getAttribute("coachid");
+		else if(session.getAttribute("coachId")!=null)user_id = (String)session.getAttribute("coachId");
 		dto.setMem_id(user_id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reserInfo", dto);
@@ -341,14 +341,18 @@ public class HomeGymController {
 	
 	@RequestMapping("HomeGymPayListAdd.do")
 	public ModelAndView HomeGymPayListAdd(
-			Payment_detailsDTO dto,
+			HomeGymReservationDTO dto,
+			Payment_detailsDTO dto2,
 			HttpSession session) {
-		int pd_result = homegympdDAO.PaymentListAdd(dto);
+		int reser_result = homegymreserDAO.HomeGymReservationAdd(dto);
+		int max_reserIdx = homegymreserDAO.HomeGymReservationMaxIdxFind();
+		dto2.setPd_req_idx(max_reserIdx);
+		int pd_result = homegympdDAO.PaymentListAdd(dto2);
 		String goPage = "";
-		if(pd_result>0) {
+		if(reser_result>0 && pd_result>0) {
 		if(session.getAttribute("sid")!=null) {
 			goPage = "memberProfileForm.do";
-		}else if(session.getAttribute("coach")!=null) {
+		}else if(session.getAttribute("coachId")!=null) {
 			goPage = "coachMyPage.do";
 		}
 		}else {
@@ -356,6 +360,7 @@ public class HomeGymController {
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pd_result", pd_result);
+		mav.addObject("reser_result", reser_result);
 		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgPayListMsg");
 		return mav;

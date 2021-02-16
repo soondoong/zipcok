@@ -137,10 +137,15 @@ a{cursor:pointer;}
 							<li><input type="button" value="검색" id="searchPdbtn"></li>
 						</ul>
 					</div>
-					<div>
-						<p><span>총 매출:</span><b id="sumprice">0</b><span>원</span></p>
-					</div>
+					
 				</div>	
+				<div style="display:flex; justify-content:space-between;"> 
+					<h5>매칭 결제내역</h5>
+					<div style="display: flex; justify-content: flex-end;">
+					<p style="font-size:17px;"><span style="margin-right:20px;">총 거래내역:</span><b id="sumpdcnt">0</b><span>건</span></p>
+					<p style="font-size:17px;"><span style="margin:0 20px;">총 매출:</span><b id="sumprice">0</b><span>원</span></p>
+					</div>
+				</div>
 				<table  align="center" class="table table-hover" id ="pdtable">
 					<thead>
 						<tr>
@@ -198,7 +203,8 @@ a{cursor:pointer;}
 			    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 게시글이 없습니다.</td></tr>");
 			    	}else{
 						    		$('#pdTbody').html('');
-							    	var sumprice = 0;
+							    	var sumprice = 0; //총매출수
+							    	var sumpdcnt = 0; //총내역수
 										for(var i = 0; i<data.pdList.length; i++){
 											
 											$('#pdTbody').append("<tr>"+
@@ -210,11 +216,14 @@ a{cursor:pointer;}
 													"<td>"+data.pdList[i].pd_price+"</td>"+
 													"<td>"+data.pdList[i].pd_status+"</td>"+				
 													"<tr>");
-											
-											sumprice +=Number(data.pdList[i].pd_price);
+											 if(data.pdList[i].pd_status == '결제완료'){	
+												sumprice +=Number(data.pdList[i].pd_price);
+											 }
+											 sumpdcnt++;
 										}
 								
 								$('#sumprice').text(sumprice);
+								$('#sumpdcnt').text(sumpdcnt);
 							    /*페이징추가*/
 							    $('.pdpaging').html('');
 					  			var cpage=data.pageStr;
@@ -258,7 +267,8 @@ a{cursor:pointer;}
 		    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 게시글이 없습니다.</td></tr>");
 		    	}else{
 					    		$('#pdTbody').html('');
-						    	var sumprice = 0;
+					    	 	var sumprice = 0; //총매출수
+						    	var sumpdcnt = 0; //총내역수
 									for(var i = 0; i<data.pdList.length; i++){
 										
 										$('#pdTbody').append("<tr>"+
@@ -271,10 +281,14 @@ a{cursor:pointer;}
 												"<td>"+data.pdList[i].pd_status+"</td>"+				
 												"<tr>");
 										
-										sumprice +=Number(data.pdList[i].pd_price);
+										 if(data.pdList[i].pd_status == '결제완료'){	
+												sumprice +=Number(data.pdList[i].pd_price);
+											 }
+										sumpdcnt++;
 									}
 							
-							$('#sumprice').text(sumprice);
+									$('#sumprice').text(sumprice);
+									$('#sumpdcnt').text(sumpdcnt);
 						    /*페이징추가*/
 						    $('.pdpaging').html('');
 				  			var cpage=data.pageStr;
