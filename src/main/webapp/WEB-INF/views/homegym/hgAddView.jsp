@@ -372,7 +372,9 @@ textarea {resize: none;}
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">가까운 역</label>
-				<select id = "stationSelect" name="hg_station" required="required"></select>
+
+				<select id = "stationSelect" name = "hg_station" required="required"></select>
+
 			</li>
 			<li>
 				<label class="HomeGymAddLabel">오시는 길</label>
