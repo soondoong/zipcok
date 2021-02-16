@@ -104,7 +104,16 @@
   		coach_mem_id = #{coach_mem_id}
   	</update>
   	<!-- 코치 정보 관리 끝-->
-  	
+  	<!-- 코치매칭관리 시작 -->
+  	<select id="reqFormData" parameterType="HashMap" resultType="zipcok.coach.model.RequestFormDTO">
+  		select * from request_form
+  		where req_receive_id = #{req_receive_id}
+  	</select>
+  	<select id="memberData" parameterType="HashMap" resultType="zipcok.member.model.MemberAllDTO">
+  		select * from zipcok_member
+  		where mem_id = #{mem_id}
+  	</select>
+  	<!-- 코치매칭관리 끝 -->
   	<!-- 취소 환불 관리 시작-->
   	<select id="canTotalCnt" parameterType="HashMap" resultType="Integer">
   		select count(*) 

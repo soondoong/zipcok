@@ -69,7 +69,7 @@
 						<tr>
 							<td>1</td>
 							<td>구병모</td>
-							<td>qudah123</td>
+							<td><a href="javascript:show();">son123</a></td>
 							<td>123456789</td>
 							<td>a@naver.com</td>
 							<td>50</td>
@@ -101,20 +101,82 @@
 							<th>상태</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>박수연</td>
-							<td>soo</td>
-							<td>123456789</td>
-							<td>a@naver.com</td>
-							<td>2021.01.21</td>
-							<td>상담중</td> <!-- 대기중 상담중 결제완료 -->
-						</tr>
+					<script src="js/httpRequest.js"></script>
+					<script>
+					function show(){
+						var params='req_receive_id=son123';
+						sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
+					}
+					function showResult(){
+					   if(XHR.readyState==4){
+					      if(XHR.status==200){
+					         var data=XHR.responseText;
+					         data=eval('('+data+')');
+					         window.alert(data.memList.length);
+					         //리셋해주기
+					         var html='';
+					         	
+					         for(var i=0;i<data.reqList.length;i++){
+					        	 
+					        	 html+='<tr>';
+					        	 html += '<td>'+data.reqList[i].req_idx+'</td>';
+					        	 html += '<td>'+data.memList[i].mem_name+'</td>';
+					        	 html += '<td>'+data.memList[i].mem_id+'</td>';
+					        	 html += '<td>'+data.memList[i].mem_phone+'</td>';
+					        	 html += '<td>'+data.memList[i].mem_email+'</td>';
+					        	 html += '<td>'+data.reqList[i].req_date+'</td>';
+					        	 html += '<td>'+data.reqList[i].req_status+'</td>';
+					        	 html += '</tr>';
+					        	 
+					        	 
+					        	 
+					        	 /*
+					        	 $('#matchtBody').write('<tr>'+
+					        	 '<td>'+data.reqList[i].req_idx+'</td>'+
+					        	 '<td>'+data.memList[i].mem_name+'</td>'+
+					        	 '<td>'+data.memList[i].mem_id+'</td>'+
+					        	 '<td>'+data.memList[i].mem_phone+'</td>'+
+					        	 '<td>'+data.memList[i].mem_email+'</td>'+
+					        	 '<td>'+data.reqList[i].req_date+'</td>'+
+					        	 '<td>'+data.reqList[i].req_status+'</td>'+
+					        	 
+					        	 '</tr>');*/
+					        	 
+					        	 
+					        	 
+					        	 
+					        	/*document.getElementById('req_number').innerHTML=data.reqList[i].req_idx;
+					        	document.getElementById('memba_name').innerHTML=data.memList[i].mem_name;
+					        	document.getElementById('memba_id').innerHTML=data.memList[i].mem_id;
+					        	document.getElementById('memba_phone').innerHTML=data.memList[i].mem_phone;
+					        	document.getElementById('memba_email').innerHTML=data.memList[i].mem_email;
+					        	document.getElementById('req_callDate').innerHTML=data.ReqList[i].req_idx;
+					        	document.getElementById('req_statNow').innerHTML=data.ReqList[i].req_idx;
+					        	 */
+					         }
+					         $('#matchtBody').empty();
+					         $('#matchtBody').append(html);
+					         
+					      }
+					   }
+					}
+
+					</script>
+					<tbody id="matchtBody">
+						 <tr>
+							<td id="req_number">1</td>
+							<td id="memba_name">박수연</td>
+							<td id="memba_id">soo</td>
+							<td id="memba_phone">123456789</td>
+							<td id="memba_email">a@naver.com</td>
+							<td id="req_callDate">2021.01.21</td>
+							<td id="req_statNow">상담중</td> <!-- 대기중 상담중 결제완료-->
+						</tr> 
+						
 					</tbody>
 					<tfoot>
 						<tr>
-							<td colspan="8">페이징 들어갈 자리</td>
+							<td colspan="7">페이징 들어갈 자리</td>
 						</tr>
 					</tfoot>
 				</table>
