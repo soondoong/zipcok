@@ -17,6 +17,15 @@
 		</choose>
 	</select>
 	
+	<select id="adminGetCoachIdSQL" resultType="String">
+		select
+			com_coach_id
+		from
+			community
+		where
+			com_idx=#{com_idx}
+	</select>
+	
 	<select id="searchMemberSQL" resultType="zipcok.member.model.MemberDTO">
 		select 
 			* 
@@ -33,5 +42,61 @@
 			users_community 
 		where 
 			uc_comm_idx=#{uc_comm_idx}
+	</select>
+	
+	<select id="getAllBbsCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			exer_bbs 
+		where 
+			ex_comm_idx=#{ex_comm_idx}
+	</select>
+		
+	<select id="getAllRepleCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			bbs_rebbs 
+		where 
+			re_comm_idx=#{re_comm_idx}
+	</select>
+	
+	<select id="getActDateSQL" resultType="String">
+		select 
+			max(ex_writedate) 
+		from 
+			exer_bbs 
+		where 
+			ex_comm_idx=#{ex_comm_idx}
+	</select>
+	
+	<select id="getComMemSumSQL" resultType="Integer">
+		select 
+			sum(com_mem_sum) 
+		from 
+			community 
+		where 
+			com_coach_id=#{com_coach_id}
+	</select>
+	
+	<select id="getActMemSumSQL" resultType="Integer">
+		select 
+			count(distinct ex_id) 
+		from 
+			exer_bbs 
+		where 
+			ex_comm_idx=#{ex_comm_idx}
+	</select>
+		
+	<select id="getStartDateSQL" resultType="String">
+		select 
+			min(ex_writedate) 
+		from 
+			exer_bbs 
+		where 
+			ex_comm_idx=#{ex_comm_idx} 
+		and 
+			ex_id=#{ex_id} 
 	</select>
 </mapper>

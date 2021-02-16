@@ -41,6 +41,7 @@
 			<div><!-- 검색결과  테이블 div -->
 			<form name="adminCommSearch" action="admin_coachMatchCommunitySubmit.do">
 			<input type="hidden" name="com_name" value="${com_name}">
+			
 				<table border="1" cellspacing="0">
 					<thead>
 						<tr>
@@ -51,22 +52,28 @@
 							<th>소속 회원 수</th>
 							<th>개설일</th>
 							<th>최근 활동일</th>
-							<th>커뮤니티 정보보기</th>
+							<th>커뮤니티 가기</th>
 						</tr>
 					</thead>
 					<tbody>
 						
-						<c:forEach var="dto" items="${commInfo}">
+						<c:forEach var="dto" items="${commInfo}" varStatus="i">
 							<tr>
-								<td><input type="radio" name="com_name_submit" value="${dto.com_name }"></td>
+							<c:choose>
+								<c:when test="${i.index eq 0}">
+									<td><input type="radio" name="com_idx" value="${dto.com_idx }" checked="checked"></td>
+								</c:when>
+								<c:when test="${i.index ne 0}">
+									<td><input type="radio" name="com_idx" value="${dto.com_idx }"></td>
+								</c:when>
+							</c:choose>
 								<td>${dto.com_idx }</td>
 								<td>${dto.com_name }</td>
 								<td>${dto.com_coach_name }</td>
 								<td>${dto.com_mem_sum }</td>
 								<td>${dto.com_opendate }</td>
-								<td>2021.01.12</td>
-								<td><input type="button" value="보기"></td>
-								
+								<td>${dto.com_actdate }</td>
+								<td><input type="button" value="가기"></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -120,7 +127,7 @@
 							<th>휴대폰번호</th>
 							<th>이메일</th>
 							<th>소속 커뮤니티</th>
-							<th>합류일</th>
+							<th>활동 시작일</th>
 							<th>회원관리보기</th>
 						</tr>
 					</thead>
