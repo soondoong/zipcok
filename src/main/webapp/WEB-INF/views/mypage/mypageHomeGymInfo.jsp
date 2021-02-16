@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
 <%@include file="../header2.jsp"%>
 <style>
 .titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
@@ -636,7 +636,7 @@ function priceUpdateCancel(){
 								<span class = "labelName">예약 가능 날짜/불가능한 날짜</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseDateChangeForm('${hgContent.hg_start_date}','${hgContent.hg_end_date }','${hgContent.hg_not_date }');"><br>
 								<span class = "dateName" id = "reser_date">${hgContent.hg_start_date } ~ ${hgContent.hg_end_date } / ${hgContent.hg_not_date }</span><br>
 								<span class = "labelName">예약 가능 시간</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymUseTimeChangeForm(${hgContent.hg_start_time}, ${hgContent.hg_end_time });"><br>
-								<span class = "dateName" id = "reser_time">${hgContent.hg_start_time }:00 ~ ${hgContent.hg_end_time }:00</span>
+								<span class = "dateName" id = "reser_time"><c:if test = "${hgContent.hg_start_time<10 }">0</c:if>${hgContent.hg_start_time }:00 ~ <c:if test = "${hgContent.hg_end_time<10 }">0</c:if>${hgContent.hg_end_time }:00</span>
 							</div>
 							<div class = "date infoDIV" id = "date_div"></div>
 							<div class="price infoDIV">

@@ -9,8 +9,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
 window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
@@ -146,7 +144,8 @@ function reservation_ajax(){
 	var use_person_count = document.getElementById('choice_person_count').value;
 	var use_price = document.getElementById('choice_price').value;
 	var params = 'hg_mem_id='+hg_mem_id+'&reser_date='+use_date+'&reser_start_time='+use_start_time+'&reser_end_time='+use_end_time+'&reser_person_count='+use_person_count+'&reser_price='+use_price;
-	sendRequest('HomeGymReservation.do', params, reservation_callback, 'GET');
+	window.open('HomeGymReservation.do?'+params, 'reser-payForm', 'width=900, height=600, left=30%, top=30%');
+	//sendRequest('HomeGymReservation.do', params, reservation_callback, 'GET');
 }
 function reservation_callback(){
 	if(XHR.readyState==4){
