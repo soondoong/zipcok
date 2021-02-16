@@ -23,14 +23,6 @@ public class AdminStatsController {
 		return mav;
 	}
 	
-	@RequestMapping("admin_statMemberRegist.do")
-	public ModelAndView statMemberRegist() {
-		
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("admin/admin_stat/admin_statMemberRegist");
-		return mav;
-	}
-	
 	@RequestMapping("admin_statCoachRegist.do")
 	public ModelAndView statCoachRegist() {
 		
