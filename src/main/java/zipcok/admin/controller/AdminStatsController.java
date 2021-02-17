@@ -49,6 +49,7 @@ public class AdminStatsController {
 		map.put("endDate",endDate);
 		map.put("pd_key","코치");
 		
+
 		AdminCoachTongGyeDTO tonggyedto=  tonggyyedao.searchCoachTongGye(map);
 		tonggyedto.setStartDate(startDate);
 		tonggyedto.setEndDate(endDate);
@@ -77,9 +78,9 @@ public class AdminStatsController {
 		mav.setViewName("admin/admin_stat/admin_statCoachSales");
 		return mav;
 	}
-	
 
-	
+  
+  
 	/*코치매출통계-===========end=================*코치매출통계*/
 	
 
