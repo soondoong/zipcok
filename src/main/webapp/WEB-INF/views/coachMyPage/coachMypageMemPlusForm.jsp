@@ -1,16 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<%@include file="../_include/head.jsp" %>
 <body onload="selectCheck();">
 <div class="memplus_wrap">
 	<div class="memplus_title">
-		<h1>수강생 추가</h1>
+		<h4>수강생 추가</h4>
 	</div>
 	<form action="coachMyPageMemPlus.do">
 	<input type="hidden" name="uc_comm_idx" value="${uc_comm_idx }">
