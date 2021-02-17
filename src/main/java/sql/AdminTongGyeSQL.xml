@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="zipcok.admin">
+  
+  <select id="searchCoachTongGye" parameterType="HashMap" resultType="zipcok.admin.model.AdminCoachTongGyeDTO">
+select * from
+	(select count(*) as sumAllMatch from
+	(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+	from
+	zipcok_payment_details)pd
+	where
+	pd_key=#{pd_key}
+	and
+	pd_status='결제완료' 
+	and
+	pday between #{startDate} and  #{endDate} )match,
+		(select sum(pd_price) as sumAllSell from
+		(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+		from
+		zipcok_payment_details)pd
+		where
+		pd_key=#{pd_key}
+		and
+		pday between #{startDate} and  #{endDate} )mechool,
+			(select sum(pd_price) as sumAllCancel from
+			(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+			from
+			zipcok_payment_details)pd
+			where
+			pd_key=#{pd_key}
+			and
+			pd_status='결제취소완료' 
+			and
+			pday between #{startDate} and  #{endDate} )cc,
+				(select sum(pd_price) as sumResultSell from
+				(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+				from
+				zipcok_payment_details)pd
+				where
+				pd_key=#{pd_key}
+				and
+				pd_status='결제완료' 
+				and
+				pday between #{startDate} and  #{endDate} )suik,
+					(select sum(pd_price) as sumAllIngCancel from
+					(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+					from
+					zipcok_payment_details)pd
+					where
+					pd_key=#{pd_key}
+					and
+					pd_status='취소요청중' 
+					and
+					pday between #{startDate} and  #{endDate} )ccing
+
+  </select>
+  
+  <select id="graphMonthCoachSales"  parameterType="HashMap" resultType="zipcok.admin.model.GraphDTO">
+  select * from
+(select count(*) as sumAllMatch from
+(select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+from
+zipcok_payment_details)pd
+where
+pd_key=#{pd_key}
+and
+pd_status='결제완료' 
+and
+pday between #{startDate} and  #{endDate})match,
+     (select nvl(sum(pd_price),0) as sumAllSell  from
+    (select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+    from
+    zipcok_payment_details)pd
+    
+    where
+    pd_key=#{pd_key}
+    and
+    pday between #{startDate} and  #{endDate})mechool,
+      (select nvl(sum(pd_price),0) as sumResultSell from
+        (select pd_price,pd_status,pd_key,TO_CHAR(pd_payment_date,'YYYY-MM-DD') as pday
+        from
+        zipcok_payment_details)pd
+        
+        where
+        pd_key=#{pd_key}
+        and
+        pd_status='결제완료' 
+        and
+      pday between #{startDate} and  #{endDate})suik
+        
+  </select>
+  
+  
+  </mapper>
+
+
+
+
+

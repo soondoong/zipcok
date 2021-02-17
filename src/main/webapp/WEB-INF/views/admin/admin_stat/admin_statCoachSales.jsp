@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,8 +30,8 @@ a{cursor:pointer;}
    <div class="adminPage_wrap">
      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
-         <div class="adminPage_main">
-         <hr>
+         <div class="adminPage_main" style="margin-top:50px;">
+        
          <h3>코치 매출 통계</h3>
          <hr>
          	<div>
@@ -47,33 +48,38 @@ a{cursor:pointer;}
          		<input type="submit" value="검색" id="searchbtn" >
          	</form>	
          	</div>
-         	<hr>
+         
+			<hr>
         
-         <div id="myfirstchart" style="height: 350px;width:100%;" ></div>
+         	<!-- 그래프 -->
+         	<h5 style="margin-bottom:25px;">월간 수익 그래프</h5>
+         	<div id="myfirstchart" style="height: 350px;width:100%;margin-bottom:50px;" ></div>
          	
-         	<hr>
-         	<div><!-- 코치 매출 통계 테이블 div -->
+         	
+         	        <div><!-- 코치 매출 통계 테이블 div -->
          		<table  align="center" class="table table-hover">
 					<thead>
 						<tr>
 							<th>날짜</th>
 							<th>매칭 수</th>
 							<th>총 매출액</th>
-							<th>총 취소금액</th>							
+							<th>총 취소액</th>							
 							<th>총 순수익</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>2021-01-12 ~ 2021-03-12 </td>
-							<td>32</td>
-							<td>610000</td>
-							<td>610000</td>
-							<td>122000</td>
+							<td>${tonggyedto.startDate } ~ ${tonggyedto.endDate } </td>
+							<td>${tonggyedto.sumAllMatch }</td>
+							<td>${tonggyedto.sumAllSell }</td>
+							<td>${tonggyedto.sumAllCancel }</td>
+							<td>${tonggyedto.sumResultSell }</td>
 						</tr>
 					</tbody>
 				</table>
          	</div>
+         	
+         	
          </div>
       </div>
    </div>
@@ -114,11 +120,15 @@ a{cursor:pointer;}
 
   $(function(){
 	  var today = getTimeStamp() ;
-	   $( '#startDate' ).attr('min', today);
+	  // $( '#startDate' ).attr('min', today);
 	   $( '#startDate' ).val(today);
+	   $( '#endDate' ).val(today);
+	   $( '#endDate' ).attr('max', today);	
+	   $( '#startDate' ).attr('max', today);	
 	   
 		   $( '#startDate' ).on('change', function(){
-		   	$( '#endDate' ).attr('min', $( '#startDate' ).val());	
+		   	$( '#endDate' ).attr('min', $( '#startDate' ).val());
+		   	$( '#endDate' ).attr('max', today);	
 		   	$( '#endDate' ).val($( '#startDate' ).val());	
 		   });
 	   
@@ -168,26 +178,33 @@ new Morris.Line({
 			// 그래프 데이터. 각 요소가 하나의 그래프 상의 값에 해당
 		
 			  data: [
-		          {y: 1, a: 10},
-		          {y: 2, a: 20},
-		          {y: 3, a: 60},
-		          {y: 4, a: 40},
-		          {y: 5, a: 50},
-		          {y: 6, a: 60}
+		          {y: ${graphdata[0].y}, a: ${graphdata[0].sumAllMatch}, b:${graphdata[0].sumAllSell},c:${graphdata[0].sumResultSell}},
+		          {y: ${graphdata[1].y}, a: ${graphdata[1].sumAllMatch}, b:${graphdata[1].sumAllSell},c:${graphdata[1].sumResultSell}},
+		          {y: ${graphdata[2].y}, a: ${graphdata[2].sumAllMatch}, b:${graphdata[2].sumAllSell},c:${graphdata[2].sumResultSell}},
+		          {y: ${graphdata[3].y}, a: ${graphdata[3].sumAllMatch}, b:${graphdata[3].sumAllSell},c:${graphdata[3].sumResultSell}},
+		          {y: ${graphdata[4].y}, a: ${graphdata[4].sumAllMatch}, b:${graphdata[4].sumAllSell},c:${graphdata[4].sumResultSell}},
+		          {y: ${graphdata[5].y}, a: ${graphdata[5].sumAllMatch}, b:${graphdata[5].sumAllSell},c:${graphdata[5].sumResultSell}},
+		          {y: ${graphdata[6].y}, a: ${graphdata[6].sumAllMatch}, b:${graphdata[6].sumAllSell},c:${graphdata[6].sumResultSell}},
+		          {y: ${graphdata[7].y}, a: ${graphdata[7].sumAllMatch}, b:${graphdata[7].sumAllSell},c:${graphdata[7].sumResultSell}},
+		          {y: ${graphdata[8].y}, a: ${graphdata[8].sumAllMatch}, b:${graphdata[8].sumAllSell},c:${graphdata[8].sumResultSell}},
+		          {y: ${graphdata[9].y}, a: ${graphdata[9].sumAllMatch}, b:${graphdata[9].sumAllSell},c:${graphdata[9].sumResultSell}},
+		          {y: ${graphdata[10].y}, a: ${graphdata[10].sumAllMatch}, b:${graphdata[10].sumAllSell},c:${graphdata[10].sumResultSell}},
+		          {y: ${graphdata[11].y}, a: ${graphdata[11].sumAllMatch}, b:${graphdata[11].sumAllSell},c:${graphdata[11].sumResultSell}}
 		      ],
+		    
 		      // 그래프 데이터에서 x축에 해당하는 값의 이름 
 		      xkey: 'y',
 		      parseTime: false,
 		      // 그래프 데이터에서 y축에 해당하는 값의 이름
-		      ykeys: ['a'],
+		      ykeys: ['a','b','c'],
 		      xLabelFormat: function (x) {
 		          var index = parseInt(x.src.y);
 		          return monthNames[index];
 		      },
 		      xLabels: "month",
 		   // 각 값에 대해서 마우스 오버시 표시 하기 위한 레이블
-		      labels: ['매칭 수'],
-		      lineColors: ['#a0d0e0', '#3dbeee'],
+		      labels: ['매칭 수','총매출','순수익'],
+		      lineColors: ['#e19bdc', '#3dbeee','green'],
 		      hideHover: 'auto'
 
 	});
