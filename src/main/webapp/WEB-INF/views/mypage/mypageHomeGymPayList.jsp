@@ -50,6 +50,7 @@
 	width: 72px;
 	height: 25px;
 }
+
 </style>
 <script>
 	function mypageHomeGymPayList(){
@@ -139,40 +140,39 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>결제날짜</th>
-								<th>결제 홈짐명</th>
-								<th>예약날짜</th>
+								<th>결제번호</th>
+								<th>홈짐명</th>
+								<th>예약정보</th>
 								<th>금액</th>
+								<th>결제일</th>
 								<th>결제상태</th>
-								<th>후기여부</th>
-								<th>상세 주소 보기</th>
+								<th>후기</th>
+								<th>상세주소</th>
+								<th>결제 취소</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<td colspan="7" align="center">${myPayListpageStr}</td>
+								<td colspan="9" align="center">${myPayListpageStr}</td>
 							</tr>
 						</tfoot>
 						<tbody>
 							<c:if test="${empty myPayList}">
 								<tr>
-									<td colspan="7" align="center">등록된 결제내역이 없습니다.</td>
+									<td colspan="9" align="center">등록된 결제내역이 없습니다.</td>
 								</tr>
 							</c:if>
 							<c:forEach var="p" items="${myPayList }" varStatus="st">
 								<tr>
-									<td>${p.pd_payment_date }</td>
+									<td>${p.pd_idx }</td>
 									<td>${p.hg_nickname }</td>
-									<td>${p.reser_date }</td>
-									<td>${p.pd_price }원</td>
-									<td id = "pd_status"><c:if test="${p.pd_status eq '결제완료' }">
-											${p.pd_status }<br>
-											<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx });">
-										</c:if>
-										<c:if test="${p.pd_status ne '결제완료' }">
-											${p.pd_status }
-										</c:if>
+									<td>${p.reser_date }<br>
+									<c:if test = "${p.reser_start_time<10}">0</c:if>${p.reser_start_time }:00~
+									<c:if test = "${p.reser_end_time<10}">0</c:if>${p.reser_end_time }:00
 									</td>
+									<td>${p.pd_price }원</td>
+									<td>${p.pd_payment_date }</td>
+									<td id = "pd_status">${p.pd_status }</td>
 									<td><c:if test="${p.reviewCheck eq true }">
 											<input type="button" class="revbtn" value="후기 보기" onclick = "javscript:seeReview(${p.pd_idx});">
 										</c:if>
@@ -181,6 +181,11 @@
 										</c:if>
 									</td>
 									<td><input type="button" value="상세 주소 확인" onclick = "javascript:addrDetailsPopup('${p.pd_target_id}');"></td>
+									<td>									
+									<c:if test="${p.pd_status eq '결제완료' }">
+										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx });">
+									</c:if>								
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -189,17 +194,18 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>결제날짜</th>
+								<th>결제번호</th>
 								<th>예약자 명</th>
-								<th>예약날짜</th>
+								<th>예약정보</th>
 								<th>금액</th>
+								<th>결제일</th>
 								<th>결제상태</th>
 								<th>후기여부</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<td colspan="6" align="center">${homegymPayListpageStr}</td>
+								<td colspan="7" align="center">${homegymPayListpageStr}</td>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -210,10 +216,15 @@
 							</c:if>
 							<c:forEach var="pl" items="${homegymPayList }" varStatus="st">
 								<tr>
-									<td>${pl.pd_payment_date }</td>
+									<td>${pl.pd_idx }</td>
 									<td>${pl.pd_mem_id }</td>
-									<td>${pl.reser_date }</td>
+									<td>
+									${pl.reser_date }<br>
+									<c:if test = "${pl.reser_start_time<10}">0</c:if>${pl.reser_start_time }:00~
+									<c:if test = "${pl.reser_end_time<10}">0</c:if>${pl.reser_end_time }:00
+									</td>
 									<td>${pl.pd_price }원</td>
+									<td>${pl.pd_payment_date }</td>
 									<td>${pl.pd_status }</td>
 									<td><c:if test="${pl.reviewCheck eq true }">
 											<input type="button" class="revbtn" value="후기 보기" onclick = "javscript:seeReview(${pl.pd_idx});">

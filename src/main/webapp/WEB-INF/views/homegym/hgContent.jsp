@@ -149,7 +149,7 @@ function reservation_ajax(){
 	var use_person_count = document.getElementById('choice_person_count').value;
 	var use_price = document.getElementById('choice_price').value;
 	var params = 'hg_mem_id='+hg_mem_id+'&reser_date='+use_date+'&reser_start_time='+use_start_time+'&reser_end_time='+use_end_time+'&reser_person_count='+use_person_count+'&reser_price='+use_price;
-	window.open('HomeGymReservation.do?'+params, 'reser-payForm', 'width=900, height=600, left=30%, top=30%');
+	location.href = 'HomeGymReservation.do?'+params;
 }
 function reservation_callback(){
 	if(XHR.readyState==4){

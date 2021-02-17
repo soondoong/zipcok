@@ -697,6 +697,7 @@ public class MypageController {
    				boolean ck = dao.mypageHomeGymReviewCheck(list.get(i).getPd_idx());
    				list.get(i).setReviewCheck(ck);
    				list.get(i).setReser_date(list.get(i).getReser_date().substring(0,10));
+				list.get(i).setPd_payment_date(list.get(i).getPd_payment_date().substring(0,10));
    			}
    		}
    		List<Pd_HgAllDTO> list2 = dao.mypageMyPayList(map);
@@ -704,10 +705,10 @@ public class MypageController {
    			for(int i = 0 ; i < list2.size() ; i++) {
    				list2.get(i).setReser_date(list2.get(i).getReser_date().substring(0,10));
    				boolean ck = dao.mypageMyReviewCheck(list2.get(i).getPd_idx());
-   				System.out.println(ck);
    				list2.get(i).setReviewCheck(ck);
    				String hg_nickname = dao.mypageHomeGymNickname(list2.get(i).getPd_target_id());
    				list2.get(i).setHg_nickname(hg_nickname);
+				list2.get(i).setPd_payment_date(list2.get(i).getPd_payment_date().substring(0,10));
    			}
    		}
    		ModelAndView mav = new ModelAndView();
