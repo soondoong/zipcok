@@ -684,36 +684,34 @@ public class MypageController {
    		map.put("cp1", cp1);
    		map.put("cp2", cp2);
    		map.put("ls", listSize);
-   		int totalCnt1 = dao.mypageHomeGymPayListTotalCnt(map);//내 홈짐 결제 리스트 totalCnt
-   		int totalCnt2 = dao.mypageMyPayListTotalCnt(map);
+   		int mypageHomeGymPayListTotalCnt= dao.mypageHomeGymPayListTotalCnt(map);//내 홈짐 결제 리스트 totalCnt
+   		int mypageMyPayListTotalCnt = dao.mypageMyPayListTotalCnt(map);
    		String keywords = "&mem_id="+mem_id;
-   			
-   		String homegymPayListpageStr = zipcok.page.CoachMyPagePageModule1.makePage("mypageHomeGymPayList.do", totalCnt1, cp1, listSize, pageSize, keywords);
-   		
-   		String myPayListpageStr = zipcok.page.CoachMyPagePageModule2.makePage("mypageHomeGymPayList.do", totalCnt2, cp2, listSize, pageSize, keywords);
-   		List<Pd_HgAllDTO> list = dao.mypageHomeGymPayList(map);
-   		if(list!=null) {
-   			for(int i = 0; i < list.size() ; i++) {
-   				boolean ck = dao.mypageHomeGymReviewCheck(list.get(i).getPd_idx());
-   				list.get(i).setReviewCheck(ck);
-   				list.get(i).setReser_date(list.get(i).getReser_date().substring(0,10));
-				list.get(i).setPd_payment_date(list.get(i).getPd_payment_date().substring(0,10));
+   		String myPayListpageStr = zipcok.page.CoachMyPagePageModule2.makePage("mypageHomeGymPayList.do", mypageMyPayListTotalCnt, cp2, listSize, pageSize, keywords);
+   		String homegymPayListpageStr = zipcok.page.CoachMyPagePageModule1.makePage("mypageHomeGymPayList.do", mypageHomeGymPayListTotalCnt, cp1, listSize, pageSize, keywords);
+   		List<Pd_HgAllDTO> HomeGymPayList= dao.mypageHomeGymPayList(map);
+   		if(HomeGymPayList!=null) {
+   			for(int i = 0; i < HomeGymPayList.size() ; i++) {
+   				boolean ck = dao.mypageHomeGymReviewCheck(HomeGymPayList.get(i).getPd_idx());
+   				HomeGymPayList.get(i).setReviewCheck(ck);
+   				HomeGymPayList.get(i).setReser_date(HomeGymPayList.get(i).getReser_date().substring(0,10));
+   				HomeGymPayList.get(i).setPd_payment_date(HomeGymPayList.get(i).getPd_payment_date().substring(0,10));
    			}
    		}
-   		List<Pd_HgAllDTO> list2 = dao.mypageMyPayList(map);
-   		if(list2!=null) {
-   			for(int i = 0 ; i < list2.size() ; i++) {
-   				list2.get(i).setReser_date(list2.get(i).getReser_date().substring(0,10));
-   				boolean ck = dao.mypageMyReviewCheck(list2.get(i).getPd_idx());
-   				list2.get(i).setReviewCheck(ck);
-   				String hg_nickname = dao.mypageHomeGymNickname(list2.get(i).getPd_target_id());
-   				list2.get(i).setHg_nickname(hg_nickname);
-				list2.get(i).setPd_payment_date(list2.get(i).getPd_payment_date().substring(0,10));
+   		List<Pd_HgAllDTO> MyPayList = dao.mypageMyPayList(map);
+   		if(MyPayList!=null) {
+   			for(int i = 0 ; i < MyPayList.size() ; i++) {
+   				MyPayList.get(i).setReser_date(MyPayList.get(i).getReser_date().substring(0,10));
+   				boolean ck = dao.mypageMyReviewCheck(MyPayList.get(i).getPd_idx());
+   				MyPayList.get(i).setReviewCheck(ck);
+   				String hg_nickname = dao.mypageHomeGymNickname(MyPayList.get(i).getPd_target_id());
+   				MyPayList.get(i).setHg_nickname(hg_nickname);
+   				MyPayList.get(i).setPd_payment_date(MyPayList.get(i).getPd_payment_date().substring(0,10));
    			}
    		}
    		ModelAndView mav = new ModelAndView();
-   		mav.addObject("homegymPayList", list);
-   		mav.addObject("myPayList", list2);
+   		mav.addObject("homegymPayList", HomeGymPayList);
+   		mav.addObject("myPayList", MyPayList);
    		mav.addObject("homegymPayListpageStr", homegymPayListpageStr);
    		mav.addObject("myPayListpageStr", myPayListpageStr);
    		mav.setViewName("mypage/mypageHomeGymPayList");

@@ -357,19 +357,20 @@ public class HomeGymController {
 			HttpSession session) {
 		int reser_result = homegymreserDAO.HomeGymReservationAdd(dto);
 		int max_reserIdx = homegymreserDAO.HomeGymReservationMaxIdxFind();
-		String mem_id = dto.getHg_mem_id();
+		String mem_id = dto.getMem_id();
 		dto2.setPd_req_idx(max_reserIdx);
 		int pd_result = homegympdDAO.PaymentListAdd(dto2);
 		String goPage = "";
 		if(reser_result>0 && pd_result>0) {
-		if(session.getAttribute("sid")!=null) {
-			goPage = "mypageHomeGymPayList.do?mem_id="+mem_id;
-		}else if(session.getAttribute("coachId")!=null) {
-			goPage = "CmPaymentList.do?mem_id="+mem_id;
-		}
+			if(session.getAttribute("sid")!=null) {
+				goPage = "memberProfileForm.do";
+			}else if(session.getAttribute("coachId")!=null) {
+				goPage = "coachMyPage.do";
+			}
 		}else {
 			goPage = "index.do";
 		}
+		System.out.println(goPage);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("pd_result", pd_result);
 		mav.addObject("reser_result", reser_result);
