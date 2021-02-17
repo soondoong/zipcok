@@ -24,6 +24,7 @@
 			.content_view_wrap .view_info span {float: left; font-size: 12px; color: #999999;}
 			.content_view_wrap .view_info span:not(:first-child) {margin-left: 10px;}
 			.content_view_wrap .view_body {padding: 30px 20px 50px;}
+			.content_view_wrap .view_body .csImgP {text-align: center;}
 			.content_view_wrap .view_navi {border-top: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dl {position: relative; padding: 0 0 0 160px; margin: 0;}
 			.content_view_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
@@ -39,11 +40,15 @@
 			</div>
 			<div class="view_body">
 				<c:forEach var="List" items="${list}">
+				<br>
 				<div>
-				<img src="/zipcok/upload/notice/${List.zfile_upload}" style="width:80%;">
+					<p class="csImgP">
+						<img src="/zipcok/upload/notice/${List.zfile_upload}" style="width:80%;">
+					</p>
 				</div>
 				</c:forEach>
-				<div class="view_content"><textarea rows="6" cols="80" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea></div>
+				<br>
+				<div class="view_content"><textarea rows="5" cols="50" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea></div>
 			</div>
 			<div class="view_navi">
 				<dl>

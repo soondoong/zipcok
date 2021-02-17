@@ -87,10 +87,10 @@ a{cursor:pointer;}
 					</div>
 					
 					<div>
+						<h6>코치검색</h6>
 						<ul class="test-inline">
-							<li>코치 검색</li>
 							<li>아이디</li>
-							<li><input type="text" id="searchId" ></li>
+							<li><input type="text" placeholder="아이디 입력" id="searchId" ></li>
 							<li><input type="button" value="검색" onclick="show('','');"></li>
 						</ul>
 					</div>
@@ -117,6 +117,9 @@ a{cursor:pointer;}
 					
 		
 					<tbody id="matchtBody">
+						<tr>
+							<td colspan="7">검색 된 게시글이 없습니다.</td>												
+						</tr>
 					</tbody>
 				</table>
 				<div id="pagingpaging">
@@ -130,10 +133,10 @@ a{cursor:pointer;}
 				<div>
 					<h5>[코치매칭 거래내역]</h5>
 						<div>
+						<h6>코치검색</h6>
 						<ul class="test-inline">
-							<li>코치 검색</li>
 							<li>아이디</li>
-							<li><input type="text" id="searchPdId"></li>
+							<li><input type="text" placeholder="아이디 입력" id="searchPdId"></li>
 							<li><input type="button" value="검색" id="searchPdbtn"></li>
 						</ul>
 					</div>
