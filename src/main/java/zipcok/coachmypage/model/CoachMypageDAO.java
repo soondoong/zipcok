@@ -13,6 +13,7 @@ import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
+import zipcok.homegym.model.Pd_HgAllDTO;
 import zipcok.member.model.MemberDTO;
 
 public interface CoachMypageDAO {
@@ -62,7 +63,15 @@ public interface CoachMypageDAO {
     public int coachmypageHomeGymPerson_countUpdate(Map<String, Object> map);
     public int coachmypageHomeGymPriceUpdate(Map<String, Object> map);
     public int coachmypageHomeGymPayListTotalCnt(Map<String, Object> map);
-    public List<HomeGymPayListDTO> coachmypageHomeGymPayList(Map<String, Object> map);
+    public List<Pd_HgAllDTO> coachmypageHomeGymPayList(Map<String, Object> map);
     public boolean coachmypageHomeGymReviewCheck(int pd_idx);
+    public int coachmypageMyPayListTotalCnt(Map<String, Object> map);
+    public List<Pd_HgAllDTO> coachmypageMyPayList(Map<String, Object> map);
+    public boolean coachmypageMyReviewCheck(int pd_idx);
     public String coachmypageHomeGymNickname(String pd_target_id);
+    public int coachmypageHomeGymReviewAdd(ReviewDTO dto);
+    public ReviewDTO coachmypageHomeGymReviewView(int pd_idx);
+    public int coachmypagehomegympaymentCancel_payment(int pd_idx);
+    public int coachmypagehomegympaymentCancel_reservation(int reser_idx);
+    public PaymentDTO coachmypageHomeGymPaymentFind(String mem_id);
 }

@@ -14,40 +14,42 @@ function homegymAddEnter(){
 </script>
 <style>
 	.homegym_info_view {}
-	.homegym_info_view h2 {text-align: center; margin-bottom: 100px;}
+	.homegym_info_view h1 {text-align: center;}
+	.homegym_info_view h3 {text-align: center; margin-bottom: 100px;}
 	.homegym_info_view ul {}
 	.homegym_info_view ul li {display: flex; align-items: center;}
 	.homegym_info_view ul li:not(:first-child) {margin-top: 100px;}
-	.homegym_info_view ul li .visual {width: 500px; height: 364px; margin: 0 30px; background: #f7f7f7;}
-	.homegym_info_view ul li .visual img {width: 500; height: 364px;}
+	.homegym_info_view ul li .visual {width: 500px; height: 364px; margin: 0 30px; background: #f7f7f7; text-align: center;}
+	.homegym_info_view ul li .visual img {width: 500px;; height: 364px;}
 	.homegym_info_view ul li .desc {}
 	.homegym_info_view ul li .desc h3 {margin: 0;}
 	.homegym_info_view ul li .desc p {margin: 24px 0 0;}
 	.homegym_enter_bt {text-align: center;}
 	</style>
-<h1>홈짐 등록 안내</h1>
+
 <div id="container">
 	<!-- 등장 이벤트 주고싶은 element에 class : _motion
 		_left, _right, _top, _bottom, _spin
 	 -->
 	<article class="homegym_info_view">
-		<h2>부담없이 편한 장소에서 <br>운동을 시작해보세요</h2>
+		<h1>홈짐 등록 안내</h1>
+		<h3>집에 운동 기구를 가지고있나요? <br>집에서 혼자 운동하는게 지루한가요?<br>그렇다면 홈짐 등록을 해보세요.</h3>
 		<ul>
 			<li>
 				<div class="visual _motion _right">
 					<img src="img/homegym/homegym_addnotice_pic_01.jpg" >
 				</div>
 				<div class="desc _motion _right _delay300">
-					<h3>공간이 작아도 시작 할 수 있어요</h3>
-					<p>매트를 깔 수 있는 공간만 있으면<br>
-					좁은 공간에서도 가능한 수업으로 진행됩니다.</p>
+					<h4>혼자 운동하는게 지루하신가요?</h4>
+					<p>홈짐 대여를 통해<br>
+					사람들과 어울려보세요.</p>
 				</div>
 			</li>
 			<li>
 			    <div class="desc _motion _left _delay300">
-					<h3>공간이 작아도 시작 할 수 있어요</h3>
-					<p>매트를 깔 수 있는 공간만 있으면<br>
-					좁은 공간에서도 가능한 수업으로 진행됩니다.</p>
+					<h4>원하는 날짜에<br>원하는 시간동안 대여하세요.</h4>
+					<p>대여하고 싶은 기간을 정하고<br>
+					대여하고 싶은 시간대를 정할 수 있습니다.</p>
 				</div>
 				<div class="visual _motion _left">
 					<img src="img/homegym/homegym_addnotice_pic_02.jpg" >
@@ -58,9 +60,9 @@ function homegymAddEnter(){
 					<img src="img/homegym/homegym_addnotice_pic_03.jpg" >
 				</div>
 				<div class="desc _motion _right _delay300">
-					<h3>공간이 작아도 시작 할 수 있어요</h3>
-					<p>매트를 깔 수 있는 공간만 있으면<br>
-					좁은 공간에서도 가능한 수업으로 진행됩니다.</p>
+					<h4>홈짐 대여를 통해 돈을 모을 수 있습니다.</h4>
+					<p>일정 시간동안 자신의 홈짐을 공유하며<br>
+					</p>대여 비용을 통해 차근차근 돈을 모아가세요.
 				</div>
 			</li>
 		</ul>

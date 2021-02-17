@@ -14,6 +14,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,7 @@ import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
+import zipcok.homegym.model.Pd_HgAllDTO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.MypageDAO;
 
@@ -50,30 +52,45 @@ ServletContext c;
 	
 	@RequestMapping("CmHomeGymPayList.do")
 	public ModelAndView HmPaymentList(@RequestParam("mem_id")String mem_id,
-			@RequestParam(value = "cp", defaultValue = "1")int cp) {
+			@RequestParam(value = "cp1", defaultValue = "1")int cp1,
+			@RequestParam(value = "cp2", defaultValue = "1")int cp2	) {
 		int listSize=5;
 		int pageSize=5;
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mem_id", mem_id);
-		map.put("cp", cp);
+		map.put("cp1", cp1);
+		map.put("cp2", cp2);
 		map.put("ls", listSize);
-		map.put("methodKey", "mypageHomeGymPayListTotalCnt");
+		int totalCnt1 = cdao.coachmypageHomeGymPayListTotalCnt(map);//내 홈짐 결제 리스트 totalCnt
+		int totalCnt2 = cdao.coachmypageMyPayListTotalCnt(map);
+		String keywords = "&mem_id="+mem_id;
+			
+		String homegymPayListpageStr = zipcok.page.CoachMyPagePageModule1.makePage("CmHomeGymPayList.do", totalCnt1, cp1, listSize, pageSize, keywords);
 		
-		int totalCnt = cdao.coachmypageHomeGymPayListTotalCnt(map);
-		
-		String keywords = "mem_id"+mem_id;
-		
-		String pageStr = zipcok.page.CoachPageModule.makePage("CmHomeGymPayList.do", totalCnt, cp, listSize, pageSize, keywords);
-		List<HomeGymPayListDTO> list = cdao.coachmypageHomeGymPayList(map);
-		for(int i = 0 ; i < list.size() ; i++) {
-			boolean ck = cdao.coachmypageHomeGymReviewCheck(list.get(i).getPd_idx());
-			list.get(i).setReviewCheck(ck);
-			String hg_nickname = cdao.coachmypageHomeGymNickname(list.get(i).getPd_target_id());
-			list.get(i).setHg_nickname(hg_nickname);
+		String myPayListpageStr = zipcok.page.CoachMyPagePageModule2.makePage("CmHomeGymPayList.do", totalCnt2, cp2, listSize, pageSize, keywords);
+		List<Pd_HgAllDTO> list = cdao.coachmypageHomeGymPayList(map);
+		if(list!=null) {
+			for(int i = 0; i < list.size() ; i++) {
+				boolean ck = cdao.coachmypageHomeGymReviewCheck(list.get(i).getPd_idx());
+				list.get(i).setReviewCheck(ck);
+				list.get(i).setReser_date(list.get(i).getReser_date().substring(0,10));
+			}
+		}
+		List<Pd_HgAllDTO> list2 = cdao.coachmypageMyPayList(map);
+		if(list2!=null) {
+			for(int i = 0 ; i < list2.size() ; i++) {
+				list2.get(i).setReser_date(list2.get(i).getReser_date().substring(0,10));
+				boolean ck = cdao.coachmypageMyReviewCheck(list2.get(i).getPd_idx());
+				list2.get(i).setReviewCheck(ck);
+				String hg_nickname = cdao.coachmypageHomeGymNickname(list2.get(i).getPd_target_id());
+				list2.get(i).setHg_nickname(hg_nickname);
+			}
 		}
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("list", list);
-		mav.addObject("pageStr", pageStr);
+		mav.addObject("homegymPayList", list);
+		mav.addObject("myPayList", list2);
+		mav.addObject("homegymPayListpageStr", homegymPayListpageStr);
+		mav.addObject("myPayListpageStr", myPayListpageStr);
 		mav.setViewName("coachMyPage/CoachHomeGymPayList");
 		return mav;
 	}
@@ -704,14 +721,14 @@ ServletContext c;
     public ModelAndView coachmyHomeGymHavingCheck(
   		  @RequestParam("mem_id")String user_id) {
   	  boolean check = cdao.coachmypageHomeGymCheck(user_id);
-  	  String goPage = check?"coachmyHomeGymCheck.do?mem_id="+user_id:"HomeGymAdd.do";
+  	  String goPage = check?"coachmyHomeGymEnter.do?mem_id="+user_id:"HomeGymAdd.do";
   	  ModelAndView mav = new ModelAndView();
   	  mav.addObject("check", check);
   	  mav.addObject("goPage", goPage);
   	  mav.setViewName("coachMyPage/coachmypageHomeGymCheckMsg");
   	  return mav;
     }
-    @RequestMapping("/coachmyHomeGymCheck.do")
+    @RequestMapping("/coachmyHomeGymEnter.do")
     public ModelAndView coachmyHomeGymEnter(
   		  @RequestParam("mem_id")String user_id) {
   	  HomeGymDTO hgContent = cdao.coachmypageHomeGymInfo(user_id);
@@ -721,12 +738,14 @@ ServletContext c;
   	  List<CoachFileDTO> imgContent = cdao.coachmypageHomeGymImgInfo(user_id);
   	  int like_count = cdao.coachmypageHomeGymLikeCount(user_id);
   	  List<ReviewDTO> reviewContent = cdao.coachHomeGymReview(user_id);
+	  PaymentDTO paymentContent = cdao.coachmypageHomeGymPaymentFind(user_id);
   	  ModelAndView mav = new ModelAndView();
   	  mav.addObject("hgContent", hgContent);
   	  mav.addObject("eqContent", eqContent);
   	  mav.addObject("imgContent", imgContent);
   	  mav.addObject("like_count", like_count);
   	  mav.addObject("reviewContent", reviewContent);
+	  mav.addObject("paymentContent", paymentContent);
   	  mav.setViewName("coachMyPage/coachMypageHomeGymInfo");
   	  return mav;
     }
@@ -875,5 +894,57 @@ ServletContext c;
   	  mav.addObject("change_end_time", end_time);
   	  mav.setViewName("jsonView");
   	  return mav;
+    }
+    @RequestMapping("coachAddrDetailsPopup.do")
+    public ModelAndView coachmypageHomeGymaddrDetailsPopup(
+    		@RequestParam("hg_mem_id")String hg_mem_id) {
+    	HomeGymDTO dto = cdao.coachmypageHomeGymInfo(hg_mem_id);
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("homegym", dto);
+    	mav.setViewName("coachMyPage/HomegymDetailsAddrPopup");
+    	return mav;
+    }
+    @RequestMapping(value = "coachReviewWritePopup", method=RequestMethod.GET)
+    public ModelAndView coachmypageHomeGymReviewWriteForm(
+    		@RequestParam("pd_idx")int pd_idx,
+    		@RequestParam("target_id")String target_id,
+    		@RequestParam("mem_id")String mem_id) {
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("pd_idx", pd_idx);
+    	mav.addObject("target_id", target_id);
+    	mav.addObject("mem_id", mem_id);
+    	mav.setViewName("coachMyPage/coachReviewWritePopup");
+    	return mav;
+    }
+    @RequestMapping(value = "coachReviewWritePopup", method=RequestMethod.POST)
+    public ModelAndView coachmypageHomeGymReviewWrite(ReviewDTO dto) {
+    	int result = cdao.coachmypageHomeGymReviewAdd(dto);
+    	String msg = result>0?"리뷰가 성공적으로 등록되었습니다.":"리뷰 등록에 에러가 발생했습니다.";
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("msg", msg);
+    	mav.addObject("gourl", "CmHomeGymPayList.do?mem_id="+dto.getRev_mem_id());
+    	mav.setViewName("coachMyPage/coachMypagePayListMsg");
+    	return mav;
+    }
+    @RequestMapping("coachSeeHomeGymReviewPopup.do")
+    public ModelAndView coachmypageHomeGymReviewView(
+    		@RequestParam("rev_pd_idx")int rev_pd_idx) {
+    	ReviewDTO dto = cdao.coachmypageHomeGymReviewView(rev_pd_idx);
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("review", dto);
+    	mav.setViewName("coachMyPage/homegymReviewViewPopup");
+    	return mav;
+    }
+    @RequestMapping("coachmypageHomeGymPaymentCancel.do")
+    public ModelAndView coachmypageHomeGymPaymentCancel(
+    		@RequestParam("pd_idx")int pd_idx,
+    		@RequestParam("reser_idx")int reser_idx) {
+    	int payment_result = cdao.coachmypagehomegympaymentCancel_payment(pd_idx);
+    	int reservation_result = cdao.coachmypagehomegympaymentCancel_reservation(reser_idx);
+    	ModelAndView mav = new ModelAndView();
+    	mav.addObject("change_payment_result", payment_result);
+    	mav.addObject("change_reservation_result", reservation_result);
+    	mav.setViewName("jsonView");
+    	return mav;
     }
 }

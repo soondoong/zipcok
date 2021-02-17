@@ -19,7 +19,7 @@
 /*일반프로필 css*/
 .hgDIV{ margin:15px 0px; display:flex;}
 .hgDIV .hgLeftDIV {margin-right:50px;}
-.hgIMG{ height:310px; margin:15px 0px;}
+.hgIMG{ height:350px; margin:15px 0px;}
 .hgIMG .hgMainIMG {height:200px; margin-bottom: 10px;}
 .hgIMG .hgMainIMG img {width: 500px; height:200px;}
 .hgIMG .hgSubIMG {height:100px;}
@@ -28,12 +28,15 @@
 .hgLeftDIV .mapArea {height:300px;}
 .hgRightDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
 .hgRightDIV .reser_input{width: 180px;}
+.infoDIV {margin-top:10px;}
 .hgLeftDIV .infoDIV .dateName{font-size:20px;}
 .hgRightDIV .infoDIV .dateName{font-size:20px;}
 .hgLeftDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
 .hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
 .hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
 .hgRightDIV .reviewArea table{border:1px solid gray; width:600px; margin:0px auto;}
+.paymentArea {min-height: 300px;}
+.imgUpdateBtn {text-align: right;}
 .rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
 .okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
 </style>
@@ -577,6 +580,10 @@ function mypageHomeGymPriceChange_rq(){
 function priceUpdateCancel(){
 	document.getElementById('hg_price_span').innerHTML = '${hgContent.hg_price}';
 }
+function mypageHomeGymPaymentRegistForm(){
+	var mem_id = document.getElementById('hg_mem_id').value;
+	location.href = 'HomeGymPaymentAdd.do?mem_id'+mem_id;
+}
 </script>
 </head>
 <body>
@@ -596,6 +603,7 @@ function priceUpdateCancel(){
 								<span>홈짐 검색 활성화 : <input id = "hg_status" type = "checkbox" <c:if test = "${hgContent.hg_status == '1' }">checked = "checked"</c:if> onchange = "javascript:status_change();">								</span>
 							</div>
 							<div class = "hgIMG infoDIV">
+								<div class ="imgUpdateBtn"><input type = "button" value = "사진 수정" class = "rebtn"></div>
 								<div class = "hgMainIMG"><img src = "upload/homegymInfo/${imgContent[0].mfile_upload }"></div>
 								<div class = "hgSubIMG">
 								<c:forEach var = "img" items="${imgContent }">
@@ -613,6 +621,19 @@ function priceUpdateCancel(){
 									<span class = "dateName"  id = "hg_station_span">${hgContent.hg_station }</span>
 								</div>
 								<div id = "map" class = "mapArea infoDIV"></div>
+								<div class = "paymentArea infoDIV">
+								<c:if test = "${empty paymentContent }">
+									<span class = "labelName">등록된 결제 계좌가 없습니다.</span><input type = "button" class = "rebtn" value = "계좌 등록" onclick = "javascript:mypageHomeGymPaymentRegistForm()">
+								</c:if>
+								<c:if test = "${!empty paymentContent }">
+									<span class = "labelName">은행명</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPaymentUpdateForm();"><br>
+									<span class = "dataName">${paymentContent.pa_bankname }</span><br>
+									<span class = "labelName">예금주</span><br>
+									<span class = "dataName">${paymentContent.pa_username }</span><br>
+									<span class = "labelName">계좌 번호</span><br>
+									<span class = "dataName">${paymentContent.pa_no }</span>
+								</c:if>
+								</div>
 							</div>
 						</div>
 						<div class = "hgRightDIV">
@@ -642,12 +663,11 @@ function priceUpdateCancel(){
 								<span class = "dateName"  id = "hg_price_span">${hgContent.hg_price }</span>
 							</div>
 							<div class = "reviewArea">
-								<h3>이용 후기</h3>
-								<c:if test = "${empty reviewContent }">
+								<h3>이용 후기 / 평균 별점 : ${star_avg }</h3>
+								<c:if test = "${empty reviewList }">
 									<div>작성된 후기가 없습니다.</div>
 								</c:if>
 								<c:if test = "${!empty reviewContent }">
-									<div>${star_avg }</div>
 									<table>
 										<thead>
 											<tr>
@@ -659,15 +679,20 @@ function priceUpdateCancel(){
 											</tr>
 										</thead>
 										<tbody>
-										<c:forEach var = "dto" items="${reviewContent }">
-											<tr>
-												<td>${dto.rev_star }</td>
-												<td>${dto.rev_sub }</td>
-												<td>${dto.rev_cont }</td>
-												<td>${dto.rev_mem_id }</td>
-												<td>${dto.rev_writedate }</td>
-											</tr>
-										</c:forEach>
+											<c:forEach var="dto" items="${reviewContent }">
+												<tr>
+													<td style="border-top: 1px solid lightgray; padding-top: 10px;">
+														<div style="position: relative; float: left;">
+															<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
+															<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
+														</div>
+													</td>
+													<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
+													<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
+													<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
+													<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</c:if>

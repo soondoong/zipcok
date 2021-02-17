@@ -21,6 +21,7 @@ public class AdminStatsController {
 		@Autowired
 		AdminTongGyeDAO tonggyyedao;
 	
+
 	@RequestMapping("admin_statHomegymSales.do")
 	public ModelAndView statHomegymSales() {
 		
@@ -99,4 +100,5 @@ public class AdminStatsController {
 		mav.setViewName("admin/admin_stat/admin_statHomegymRegist");
 		return mav;
 	}
+
 }

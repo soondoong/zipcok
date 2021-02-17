@@ -260,6 +260,8 @@ public class HomeGymController {
 	@RequestMapping(value = "HomeGymAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymAdd(HomeGymDTO dto, String eq_name[], int eq_count[],
 			@RequestParam("upload")List<MultipartFile> list) {
+		dto.setHg_comeinfo(dto.getHg_comeinfo().replaceAll("\n", "<br>"));
+		dto.setHg_info(dto.getHg_info().replaceAll("\n", "<br>"));
 		int hg_result = homegymDAO.HomeGymAdd(dto);
 		String user_id = dto.getHg_mem_id();
 		int eq_result = 0;
@@ -288,7 +290,7 @@ public class HomeGymController {
 		int fu_result = homegymDAO.HomeGymImgUpload(fileArr);
 		ModelAndView mav = new ModelAndView();
 		String msg = hg_result>0&&eq_result>0&&fu_result>0?"홈짐 등록이 정상적으로 처리되었습니다.":"등록에 실패하였습니다.";
-		String goPage = msg.equals("홈짐 등록이 정상적으로 처리되었습니다.")?"HomeGymPaymentAdd.do":"HomeGymList.do";
+		String goPage = msg.equals("홈짐 등록이 정상적으로 처리되었습니다.")?"HomeGymPaymentAdd.do?mem_id="+user_id:"HomeGymList.do";
 		mav.addObject("msg", msg);
 		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgMsg");
@@ -317,8 +319,11 @@ public class HomeGymController {
 	}
 	
 	@RequestMapping(value = "HomeGymPaymentAdd.do", method = RequestMethod.GET)
-	public String HomeGymPaymentAddForm() {
-		return "homegym/hgPaymentAddView";
+	public ModelAndView HomeGymPaymentAddForm(@RequestParam("mem_id")String mem_id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("mem_id", mem_id);
+		mav.setViewName("homegym/hgPaymentAddView");
+		return mav;
 	}
 	@RequestMapping(value = "HomeGymPaymentAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymPaymentAdd(PaymentDTO dto,
@@ -327,7 +332,7 @@ public class HomeGymController {
 		int result = homegympayDAO.HomeGymPaymentAdd(dto);
 		ModelAndView mav = new ModelAndView();
 		String msg = result>0?"계좌가 성공적으로 등록되었습니다.":"계좌 등록에 오류가 발생하였습니다.";
-		String goPage = result>0?"index.do":"HomeGymPaymentAdd.do";
+		String goPage = result>0?"myHomeGymHavingCheck.do?mem_id="+user_id:"HomeGymPaymentAdd.do";
 		mav.addObject("msg", msg);
 		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgMsg");

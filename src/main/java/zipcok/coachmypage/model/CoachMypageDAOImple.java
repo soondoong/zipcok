@@ -17,6 +17,7 @@ import zipcok.homegym.model.HomeGymDTO;
 import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
+import zipcok.homegym.model.Pd_HgAllDTO;
 import zipcok.member.model.MemberDTO;
 
 @Service
@@ -331,25 +332,72 @@ public int coachmypageHomeGymPayListTotalCnt(Map<String, Object> map) {
 	return count==0?1:count;
 }
 @Override
-public List<HomeGymPayListDTO> coachmypageHomeGymPayList(Map<String, Object> map) {
-	int cp = (Integer)map.get("cp");
+public List<Pd_HgAllDTO> coachmypageHomeGymPayList(Map<String, Object> map) {
+	int cp = (Integer)map.get("cp1");
 	int ls = (Integer)map.get("ls");
 	int start=(cp-1)*ls+1;
 	int end=cp*ls;
 	map.put("start", start);
 	map.put("end", end);
-	List<HomeGymPayListDTO> list = sqlMap.selectList("coachmypageHomeGymPayList", map);
+	List<Pd_HgAllDTO> list = sqlMap.selectList("coachmypageHomeGymPayList", map);
 	return list;
 }
 @Override
 public boolean coachmypageHomeGymReviewCheck(int pd_idx) {
-	String ck = "";
+	int ck = 0;
 	ck = sqlMap.selectOne("coachmypageHomeGymReviewCheck", pd_idx);
-	return ck==""?false:true;
+	return ck==0?false:true;
 }
 @Override
 public String coachmypageHomeGymNickname(String pd_target_id) {
 	String hg_nickname = sqlMap.selectOne("coachmypageHomeGymNickname", pd_target_id);
 	return hg_nickname;
+}
+@Override
+public int coachmypageMyPayListTotalCnt(Map<String, Object> map) {
+	int count = sqlMap.selectOne("coachmypageMyPayListTotalCnt", map);
+	return count==0?1:count;
+}
+@Override
+public List<Pd_HgAllDTO> coachmypageMyPayList(Map<String, Object> map) {
+	int cp = (Integer)map.get("cp2");
+	int ls = (Integer)map.get("ls");
+	int start=(cp-1)*ls+1;
+	int end=cp*ls;
+	map.put("start", start);
+	map.put("end", end);
+	List<Pd_HgAllDTO> list = sqlMap.selectList("coachmypageMyPayList", map);
+	return list;
+}
+@Override
+public boolean coachmypageMyReviewCheck(int pd_idx) {
+	int ck = 0;
+	ck = sqlMap.selectOne("coachmypageMyReviewCheck", pd_idx);
+	return ck==0?false:true;
+}
+@Override
+public int coachmypageHomeGymReviewAdd(ReviewDTO dto) {
+	int result = sqlMap.insert("coachmypagePayListReviewAdd", dto);
+	return result;
+}
+@Override
+public ReviewDTO coachmypageHomeGymReviewView(int pd_idx) {
+	ReviewDTO dto = sqlMap.selectOne("coachmypagePayListReviewView", pd_idx);
+	return dto;
+}
+@Override
+public int coachmypagehomegympaymentCancel_payment(int pd_idx) {
+	int result = sqlMap.update("coachmypagePaymentCancel_payment", pd_idx);
+	return result;
+}
+@Override
+public int coachmypagehomegympaymentCancel_reservation(int reser_idx) {
+	int result = sqlMap.update("coachmypagePaymentCancel_reservation", reser_idx);
+	return result;
+}
+@Override
+public PaymentDTO coachmypageHomeGymPaymentFind(String mem_id) {
+	PaymentDTO dto = sqlMap.selectOne("coachmypagePaymentFind", mem_id);
+	return dto;
 }
 }
