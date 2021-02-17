@@ -31,8 +31,26 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	}
 	/*-----------------홈짐관리----------------*/
 	
-	/*-----------------예약조회----------------*/
+	
+	
+	
+	
+	/*-----------------예약조회 병모----------------*/
 
+	//예약조회 전체 수
+	@Override
+	public int adminHomeGymReservationAllTotalCnt(HashMap<String, Object> map) {
+		int totalCnt = sqlMap.selectOne("adminHomeGymReservationAllTotalCnt", map);
+		return totalCnt;
+	}
+	//예약조회 전체 목록
+	@Override
+	public List<HomeGymReservationDTO> adminHomeGymReservationAll(HashMap<String, Object> map) {
+		List<HomeGymReservationDTO> list = sqlMap.selectList("adminHomeGymReservationAll", map);
+		return list;
+	}
+	
+	
 	//상태조건 총수
 	@Override
 	public int adminHomeGymReservationSelectTotalCnt(HashMap<String, Object> map) {
@@ -62,10 +80,7 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 		List<HomeGymReservationDTO> list = sqlMap.selectList("adminHomeGymReservationSearch", map);
 		return list;
 	}
-	/*-----------------예약조회----------------*/
 	
-	/*-----------------예약취소관리----------------*/
-	/*-----------------예약취소관리----------------*/
 	
 	//날짜로 예약조회 수
 	@Override
@@ -80,5 +95,22 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 		List<HomeGymReservationDTO> list = sqlMap.selectList("adminHomeGymReservationDate", map);
 		return list;
 	}
+	
+	//취소승인 상태변경
+	@Override
+	public int reservationCancelStatus(String mem_id) {
+		int count = sqlMap.update("reservationCancelStatus", mem_id);
+		return count;
+	}
+	
+	//취소승은 마이페이지 결제상태변경
+	@Override
+	public int reservationCancelStatusPayment(String pd_mem_id) {
+		int count = sqlMap.update("reservationCancelStatusPayment", pd_mem_id);
+		return count;
+	}
+	
+	
+	/*-----------------예약조회 병모----------------*/
 	
 }

@@ -3,6 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="zipcok.admin">
+  
+  
 
   <!-- 홈짐관리 시작 -->
   <select id="adminHomeGymTotalCnt" parameterType="HashMap" resultType="Integer">
@@ -28,6 +30,7 @@
   		</when>
   	</choose>
   	)a
+  	
   </select>
   <select id="adminHomeGymSearch" parameterType="HashMap" resultType="zipcok.homegym.model.HomeGymDTO">
   	select * from (select rownum as rnum,a.* from (select * from homegym
@@ -57,6 +60,22 @@
   </select>
   <!-- 홈짐관리 끝 -->
 
+
+
+
+
+	<!-- 병모 -->
+	<select id="adminHomeGymReservationAllTotalCnt" parameterType="HashMap" resultType="Integer">
+ 	select count(*) from (select * from homegym_reservation)
+ 	</select>
+  
+  	<select id="adminHomeGymReservationAll" parameterType="HashMap" resultType="zipcok.homegym.model.HomeGymReservationDTO">
+	select * from
+ 	(select rownum as rnum,a.* from
+ 	(select * from homegym_reservation order by reser_idx)a)b
+  	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+  	</select>
+
   
    <select id="adminHomeGymReservationSelectTotalCnt" parameterType="HashMap" resultType="Integer">
   select count(*) from
@@ -64,9 +83,9 @@
   (select * from homegym_reservation
   where
   <choose>
-	  		<when test="reservationSelect=='--'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='전체'">reser_status like '%%'</when>
 	  		<when test="reservationSelect=='예약완료'">reser_status=#{reservationSelect}</when>
-	  		<when test="reservationSelect=='취소요청중'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약취소중'">reser_status=#{reservationSelect}</when>
 	  		<when test="reservationSelect=='예약취소완료'">reser_status=#{reservationSelect}</when>
   </choose>
   )a)b
@@ -78,9 +97,9 @@
   (select * from homegym_reservation
   where
   <choose>
-	  		<when test="reservationSelect=='--'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='전체'">reser_status like '%%'</when>
 	  		<when test="reservationSelect=='예약완료'">reser_status=#{reservationSelect}</when>
-	  		<when test="reservationSelect=='취소요청중'">reser_status=#{reservationSelect}</when>
+	  		<when test="reservationSelect=='예약취소중'">reser_status=#{reservationSelect}</when>
 	  		<when test="reservationSelect=='예약취소완료'">reser_status=#{reservationSelect}</when>
   		</choose>
   order by reser_idx)a)b
@@ -149,6 +168,16 @@
     )a)b
     where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
+	
+	<update id="reservationCancelStatus" parameterType="String">
+	update homegym_reservation set reser_status='예약취소완료' where mem_id=#{mem_id}
+	</update>
+	
+	<update id="reservationCancelStatusPayment" parameterType="String">
+	update zipcok_payment_details set pd_status='결제취소완료' where mem_id=#{mem_id}
+	</update>
+	
+	<!-- 병모 -->
   
   
   </mapper>

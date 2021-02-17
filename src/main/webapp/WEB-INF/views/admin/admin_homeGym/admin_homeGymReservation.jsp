@@ -32,12 +32,12 @@
 					</div>
 					<div>
 						<ul class="test-inline">
-							<li>상태&nbsp;</li>
+							<li>상태 보기&nbsp;</li>
 							<li>
 							<select id="reservationSelect" onchange="javascript:showList();">
-							<option <c:if test="${keyword.reservationSelect=='--'}">selected="selected"</c:if>>--</option>
+							<option <c:if test="${keyword.reservationSelect=='전체'}">selected="selected"</c:if>>전체</option>
 							<option <c:if test="${keyword.reservationSelect=='예약완료'}">selected="selected"</c:if>>예약완료</option>
-							<option <c:if test="${keyword.reservationSelect=='취소요청중'}">selected="selected"</c:if>>취소요청중</option>
+							<option <c:if test="${keyword.reservationSelect=='예약취소중'}">selected="selected"</c:if>>예약취소중</option>
 							<option <c:if test="${keyword.reservationSelect=='예약취소완료'}">selected="selected"</c:if>>예약취소완료</option>
 							</select>
 							</li>
@@ -64,6 +64,7 @@
 						<li>날짜 검색&nbsp;</li>
 						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
 						<li><input type="date" id="end_date" name="end_date" value="${keyword.keywordEnd }" required="required"></li>
+						<li><input type="submit" value="검색"></li>
 						<!-- 
 						<li><input type="date" id="start_date" name="start_date" onchange="javascript:start_change();"
 						value="${keyword.keywordStart }" required="required"></li>~
@@ -71,7 +72,7 @@
 						value="${keyword.keywordEnd }" required="required"></li>
 						 -->
 					</ul>
-					<input type="submit" value="검색">
+					
 				</form>
 				</div>
 				
@@ -105,8 +106,12 @@
 							<td>${dto.hg_mem_id }</td>
 							<td>${dto.mem_id }</td>
 							<td>${dto.reser_price }</td>
-							<td>${dto.reser_status }</td>
-							<td><input type="button" value="취소승인"></td>
+							<td id="${dto.mem_id}_reser_status">${dto.reser_status }</td>
+							<td id="${dto.mem_id}_pd_btn">
+							<c:if test="${dto.reser_status=='예약취소중'}">
+							<input type="button" value="취소승인" onclick="javascript:updateStatus('${dto.mem_id}');">
+							</c:if>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -126,5 +131,35 @@ function showList(){
 	
 	location.href='adminHomeGymReservationSelect.do?reservationSelect='+reservationSelect;
 }
+</script>
+
+<script src="js/httpRequest.js"></script>
+<script type="text/javascript">
+function updateStatus(id){
+	var result = confirm('취소요청을 승인하시겠습니까?');
+	if(result){
+		var params='mem_id='+id;
+		sendRequest('reservationUpdateStatus.do',params,showResult,'GET');
+	}
+}
+function showResult(){
+	   if(XHR.readyState==4){
+	      if(XHR.status==200){	
+	         var data=XHR.responseText;
+	         data=eval('('+data+')');
+	         var id=data.mem_id;
+	         var msg=data.result;
+	         if(msg>0){
+	        	 window.alert('결제취소가 승인되었습니다');
+	        	 document.getElementById(id+'_reser_status').innerText='예약취소완료';
+	        	 document.getElementById(id+'_pd_btn').innerHTML='';
+	         }else{
+	        	 window.alert('에베베베베베');
+	         }
+	         
+	         
+	      }
+	   }
+	}
 </script>
 <%@include file="../../_include/footer.jsp" %>

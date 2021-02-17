@@ -112,7 +112,7 @@ a{cursor:pointer;}
 							<td>${list.pd_method}</td>
 							<td id="${list.pd_idx}_pd_status">${list.pd_status}</td>
 							<td id="${list.pd_idx}_pd_btn">
-								<c:if test="${list.pd_status=='취소요청중'}">
+								<c:if test="${list.pd_status=='취소요청중'}"> 	
 									
 									<input type="button" value="취소 승인" onclick="javascript:updateStatus('${list.pd_idx}','${list.pd_req_idx}');">
 								</c:if>
