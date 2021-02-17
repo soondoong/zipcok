@@ -105,8 +105,6 @@
    
    <script>
    
-   <script>
-   
    
    /*---------------------------------------------------*/
 
@@ -138,7 +136,7 @@
 
   $(function(){
 	  var today = getTimeStamp() ;
-	   $( '#startDate' ).attr('min', today);
+	   //$( '#startDate' ).attr('min', today);
 	   $( '#startDate' ).val(today);
 	   
 		   $( '#startDate' ).on('change', function(){
