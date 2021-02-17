@@ -51,8 +51,8 @@
 						<li>날짜 검색&nbsp;</li>
 						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
 						<li><input type="date" id="end_date" name="end_date" value="${keyword.keywordEnd }" required="required"></li>
+						<li><input type="submit" value="검색"></li>
 					</ul>
-					<input type="submit" value="검색">
 				</form>
 				</div>
 				<hr>

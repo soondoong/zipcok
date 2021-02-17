@@ -95,6 +95,8 @@
 		window.open('mypagePhoneUpdateForm.do?mem_id=${sessionScope.sid}',
 				'emailUpdate', 'width=550,height=300');
 	}
+
+	
 </script>
 
 </head>

@@ -593,8 +593,8 @@ function mypageHomeGymPaymentRegistForm(){
 .ui-datepicker table {width:576px;}
 .ui-datepicker table thead {font-size:20px;}
 .ui-datepicker td span, .ui-datepicker td a {font-size:20px; }
-
 </style>
+
 	<div class="mypage_wrap">
 		<%@include file="./mypageSideMenu.jsp"%>
 		<div class="mypage_contents">
