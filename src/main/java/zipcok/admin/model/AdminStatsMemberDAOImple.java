@@ -36,5 +36,28 @@ public class AdminStatsMemberDAOImple implements AdminStatsMemberDAO {
 		int count=sqlMap.selectOne("GetMemJoinDateSQL",date);
 		return count;
 	}
+	
+	@Override
+	public int GetMemOutDateCountSum(String startDate, String endDate) {
+		Map map=new HashMap();
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		int count=sqlMap.selectOne("GetMemOutDateCountSumSQL",map);
+		return count;
+	}
+	
+	//해당 날짜 탈퇴자 수 구하기
+	@Override
+	public int GetMemOutDate(String date) {
+		int count=sqlMap.selectOne("GetMemOutDateSQL",date);
+		return count;
+	}
+	
+	//해당 날짜 코치 전환 수 구하기
+	@Override
+	public int GetCoachJoinDate(String date) {
+		int count=sqlMap.selectOne("GetCoachJoinDateSQL",date);
+		return count;
+	}
 
 }

@@ -30,9 +30,9 @@
          		<form name="date" action="admin_statMemberRegistSubmit.do">
          		<ul class="test-inline">
          			<li>조회일</li>
-         			<li><input type="date" min="" max="" id="startDate" name="startDate"></li>
+         			<li><input type="date" min="" max="" id="startDate" name="startDate" required="required"></li>
          			<li>~</li>
-         			<li><input type="date" min="" max=""  id="endDate" name="endDate"></li>
+         			<li><input type="date" min="" max=""  id="endDate" name="endDate" required="required"></li>
          			<li><input type="button" name="datebtn" value="오늘"></li>
          			<li><input type="button" name="datebtn" value="일주일"></li>
          			<li><input type="button" name="datebtn" value="한달"></li>
@@ -79,8 +79,8 @@
                <table border="1" cellspacing="0">
                   <thead>
                       <tr>
-                        <th>일반 회원 수/비율</th>
-						<th>코치 회원 수/비율</th>
+                        <th>일반 회원 수 / 비율</th>
+						<th>코치 회원 수 / 비율</th>
 						<th>총 회원 수</th>
                      </tr>
                   </thead>

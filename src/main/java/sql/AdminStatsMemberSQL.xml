@@ -11,7 +11,9 @@
 		from 
 			zipcok_member 
 		where 
-			mem_type=#{mem_type}	
+			mem_type=#{mem_type}
+		and
+			mem_out=0	
 	</select>
 	
 	<select id="GetMemJoinDateCountSumSQL" resultType="Integer">
@@ -34,6 +36,42 @@
 			zipcok_member 
 		where 
 			TO_CHAR(mem_joindate, 'YYYY-MM-DD')=#{date}
+	</select>
+	
+	<select id="GetMemOutDateCountSumSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			zipcok_member 
+		where 
+			mem_outdate 
+		between 
+			#{startDate}
+		and 
+			#{endDate}
+		and 
+			mem_out=1
+	
+	</select>
+	
+	<select id="GetMemOutDateSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			zipcok_member 
+		where 
+			mem_out=1 
+		and 
+			TO_CHAR(mem_outdate, 'YYYY-MM-DD')=#{date}
+	</select>
+	
+	<select id="GetCoachJoinDateSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			coach_regist 
+		where 
+			TO_CHAR(coach_joindate, 'YYYY-MM-DD')=#{date}
 	</select>
 
 </mapper>
