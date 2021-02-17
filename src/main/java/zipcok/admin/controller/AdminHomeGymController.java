@@ -32,6 +32,12 @@ public class AdminHomeGymController {
 		return "admin/admin_homeGym/admin_homeGymAdmin";
 	}
 	
+	@RequestMapping("admin_homeGymList.do")
+	public String adminHomeGymList() {
+		
+		return "admin/admin_homeGym/admin_homeGymList";
+	}
+	
 	//관리자 홈짐관리 리스트출력
 	@RequestMapping("adminHomeGymSearch.do")
 	public ModelAndView adminHomeGymSearch(
@@ -66,20 +72,45 @@ public class AdminHomeGymController {
 	}
 	
 	/*홈짐관리----------------------------------*/
+
 	
-	@RequestMapping("admin_homeGymList.do")
-	public String adminHomeGymList() {
-		
-		return "admin/admin_homeGym/admin_homeGymList";
-	}
 	
+	
+	
+	//////////// 예약관리 병모 /////////////
+
 	//관리자 예약조회 페이지이동
 	@RequestMapping("admin_homeGymReservation.do")
-	public String adminHomeGymReservation() {
+	public ModelAndView adminHomeGymReservation(@RequestParam(value="cp",defaultValue = "1")int cp) {
 		
-		return "admin/admin_homeGym/admin_homeGymReservation";
+		ModelAndView mav= new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	
+	    int listSize=5;
+	    int pageSize=5;
+	    int start=(cp-1)*listSize+1;
+		int end=cp*listSize;
+		map.put("start", start);
+		map.put("end", end); 
+		
+		 List<HomeGymReservationDTO> list = dao.adminHomeGymReservationAll(map);
+		 for(int i=0; i<list.size(); i++) {
+				list.get(i).setReser_date(list.get(i).getReser_date().substring(0,10));
+			}
+		 int totalCnt = dao.adminHomeGymReservationAllTotalCnt(map)==0?1:dao.adminHomeGymReservationAllTotalCnt(map);
+		 String pageStr=zipcok.page.MypagePageModule.makePage("admin_homeGymReservation.do", totalCnt, cp, listSize, pageSize);
+		    
+		 mav.addObject("pageStr", pageStr);
+		 mav.addObject("list", list);
+		
+		 mav.setViewName("admin/admin_homeGym/admin_homeGymReservation");
+		
+		 return mav;
+		
 	}
 	
+	
+		//관리자 예약조회 상태
 		@RequestMapping("adminHomeGymReservationSelect.do")
 		public ModelAndView adminHomeGymReservationSelect(
 				@RequestParam(value="reservationSelect",defaultValue = "전체")String reservationSelect,
@@ -93,8 +124,8 @@ public class AdminHomeGymController {
 			keywordMap.put("reservationSelect",reservationSelect);
 			
 			String keywords="&reservationSelect="+reservationSelect;
-		    int listSize=3;
-		    int pageSize=3;
+		    int listSize=5;
+		    int pageSize=5;
 		    int start=(cp-1)*listSize+1;
 			int end=cp*listSize;
 			map.put("reservationSelect", reservationSelect);
@@ -139,8 +170,8 @@ public class AdminHomeGymController {
 		
 		String keywords="&type="+type;
 		keywords+="&searchContent="+searchContent;
-	    int listSize=3;
-	    int pageSize=3;
+	    int listSize=5;
+	    int pageSize=5;
 	    int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
 		map.put("type", type);
@@ -180,8 +211,8 @@ public class AdminHomeGymController {
 		
 		String keywords="&start_date="+start_date;
 		keywords+="&end_date="+end_date;
-	    int listSize=3;
-	    int pageSize=3;
+	    int listSize=5;
+	    int pageSize=5;
 	    int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
 		map.put("start_date", start_date);
@@ -204,6 +235,23 @@ public class AdminHomeGymController {
 		 return mav;
 	}
 	
+	//취소승인 상태변경
+	@RequestMapping("reservationUpdateStatus.do")
+	public ModelAndView reservationCancelStatus(
+			@RequestParam("mem_id")String mem_id) {
+		
+		System.out.println(mem_id);
+		ModelAndView mav = new ModelAndView();
+		int result=dao.reservationCancelStatus(mem_id);
+		
+		mav.addObject("result",result);
+		mav.addObject("mem_id",mem_id);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	////////////예약관리 병모 /////////////
 	
 	
 	
