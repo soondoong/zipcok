@@ -225,7 +225,6 @@ function introUpdateGo(){
 //소개글수정 수정완료버튼누를때 파람넘겨주는 함수
 function introUpdateSubmitAjax(){
 	var params='coach_intro_sub='+$('#coach_intro_subtext').val()+'&coach_intro_cont='+$('#coach_intro_conttext').val()+"&coach_mem_id="+$('#coachId').val();
-	window.alert(params);
 	sendRequest('introUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
 }
 

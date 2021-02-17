@@ -64,6 +64,7 @@
                   		<td colspan="7" align="center">등록된 홈짐정보가 없습니다</td>
                   	</tr>
                   </c:if>
+                  
                   <c:forEach var="dto" items="${list}">
                      <tr>
                         <td>${dto.rnum}</td>
@@ -72,7 +73,10 @@
                         <td>${dto.hg_regist_date}</td>
                         <td>${dto.hg_price}</td>
                         <td>${dto.hg_faddr}</td>
-                        <td>${dto.hg_status}</td>
+                        <td>
+                        	<c:if test="${dto.hg_status==1}">활성</c:if>
+                        	<c:if test="${dto.hg_status==0}">비활성</c:if>
+                        </td>
                      </tr>
                   </c:forEach>
                   </tbody>

@@ -29,6 +29,7 @@
 		.white_talbe_01 {border-top: 1px solid #333333;}
 		.white_talbe_01 tbody tr th {width: 200px; padding: 10px 20px; background: #f7f7f7; border-bottom: 1px solid #dddddd;}
 		.white_talbe_01 tbody tr td {padding: 10px 20px; border-bottom: 1px solid #dddddd;}
+		.autosize { min-height: 50px;}
 	</style>
 <div class="white_talbe_01">
 <table>
@@ -49,7 +50,7 @@
 	<hr>
 	<tr>
 		<td colspan="2">
-			<textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea>
+			<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="50" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea>
 		</td>
 	</tr>
 	
@@ -69,6 +70,10 @@
 		newli.innerHTML='올릴파일:<input type="file" name="upload">';
 		wrapul.appendChild(newli);
 		
+	}
+	function resize(obj) {
+		   obj.style.height = "1px";
+		   obj.style.height = (12+obj.scrollHeight)+"px";
 	}
 </script>
 </div>

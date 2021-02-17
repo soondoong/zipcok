@@ -132,9 +132,11 @@
 					
 				<div class="table_list_bottom">
 					<div class="pagination">${pageStr}</div>
+					<c:if test="${login.mem_id!='admin'}">
 					<div class="btn_right_box">
 						<input type="submit" value="1:1 문의하기" class="btn1 c1">				
 					</div>
+					</c:if>
 				</div>
 				</form>
 			</div>

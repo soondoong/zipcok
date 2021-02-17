@@ -47,8 +47,8 @@ public class AdminHomeGymController {
 		if(searchText.equals("") || searchText.length()==0) {
 			searchText = "";
 		}
-		int listSize=1;
-	    int pageSize=3;
+		int listSize=5;
+	    int pageSize=5;
 	    int start=(cp-1)*listSize+1;
 		int end=cp*listSize;
 		

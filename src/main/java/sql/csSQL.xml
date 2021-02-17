@@ -91,18 +91,18 @@ select max(bbs_idx) from zipcok_bbs where bbs_key='고객센터'
       	 bbs_key='고객센터'
   		 and
          bbs_idx=#{bbs_idx}
-   </update>
+</update>
 
 
 <select id="csZfileSelect" parameterType="Integer" resultType="zipcok.cs.model.CsZipcokFileDTO">
-select 
-*
-from
-zipcok_file
-where
-del_yn='N'
-and
-zfile_bbs_idx=#{bbs_idx}
+	select 
+	*
+	from
+	zipcok_file
+	where
+	del_yn='N'
+	and
+	zfile_bbs_idx=#{bbs_idx}
 </select>
 <update id="cszfileDelete" parameterType="String">
 	update
@@ -142,7 +142,7 @@ bbs_rebbs_group.nextval,
 1,
 #{re_bbs_idx})
 </insert>
-<select id="csReList" resultType="zipcok.cs.model.CsReDTO">
+<select id="csReList" parameterType="Integer" resultType="zipcok.cs.model.CsReDTO">
 select
 *
 from
@@ -150,13 +150,13 @@ bbs_rebbs
 where
 re_bbs=4
 and
-re_bbs_idx=#{re_bbs_idx}
+re_group=#{value}
 </select>
-<delete id="csReDelete">
+<delete id="csReDelete" parameterType="Integer">
 delete
 from
 bbs_rebbs
 where
-re_idx=#{re_idx}
+re_idx=#{value}
 </delete>
   </mapper>
