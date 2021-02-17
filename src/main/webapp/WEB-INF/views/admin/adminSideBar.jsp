@@ -30,8 +30,8 @@
 			<li class="adminTitleLi"><b style="font-size: 22px;margin-top:20px; ">통계 관리</b></li>
 			<li name="Mng" class="active"><a href="#"><i class="bi bi-graph-up booticon"></i>매출 통계</a>
 				<ul class="submenu">
-					<li class="submenuList"><a href="admin_statHomegymSales.do">홈짐 매출 통계</a></li>
-					<li class="submenuList"><a href="admin_statCoachSales.do">코치 매출 통계</a></li>
+					<li class="submenuList"><a href="searchHomeGymTongGye.do">홈짐 매출 통계</a></li>
+					<li class="submenuList"><a href="searchCoachTongGye.do">코치 매출 통계</a></li>
 				</ul>
 			</li>
 			<li name="Mng" class="active" ><a href="#"><i class="bi bi-journal-arrow-up booticon"></i>등록자 통계</a>
