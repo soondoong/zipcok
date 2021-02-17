@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
@@ -47,8 +47,6 @@
 			dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
 			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 			showMonthAfterYear: true,
-			changeMonth:true,
-			changeYear:true,
 			yearSuffix:'년'
 		});
 	});
@@ -79,6 +77,10 @@
 		
 		var eq_name = document.getElementById('eq_name_temp').value; 
 		var eq_count = document.getElementById('eq_count_temp').value;
+		if(document.getElementById(eq_name)){
+			window.alert('이미 등록한 운동기구입니다.');
+			return;
+		}
 		var eq_div = document.createElement('div');
 		eq_div.setAttribute('id', count);
 		eq_div.setAttribute('class', 'eq_add_list');
@@ -88,6 +90,7 @@
 		eq_name_check.setAttribute('type', 'checkbox');
 		eq_name_check.setAttribute('name', 'eq_name');
 		eq_name_check.setAttribute('value', eq_name);
+		eq_name_check.setAttribute('id', eq_name);
 		eq_name_check.setAttribute('checked', true);
 		eq_name_check.setAttribute('style', 'display:none;')
 		var eq_count_check = document.createElement('input');
@@ -123,6 +126,12 @@
 		window.open('HomeGymAddrPopup.do', 'addrPopup', 'width=300, height=400, left=30%, top=30%');
 	}
 	function addSubmit() {
+	    var hg_station = $("select[name=hg_station]").val();
+	    window.alert(hg_station);
+	    if(!hg_station){
+	    	window.alert('선택한 역 정보를 확인해주세요.');
+	    	return;
+	    }
 		var nicknameCheck = document.getElementById('nickname_overlap').value;
 		if(nicknameCheck=='0'){
 			window.alert('닉네임 중복 체크를 해주세요.');
@@ -135,7 +144,6 @@
 
 	    var fileCheck = document.getElementsByName("upload");
 	    for(var i = 0 ; i < fileCheck.length; i++){
-	    	window.alert(fileCheck[i].value);
 	    	if(!fileCheck[i].value){
 	    		window.alert('첨부하려는 파일을 다시 확인해주세요.');
 	    		return;
@@ -309,14 +317,14 @@
 .homegymAddArea .HomeGymAddLabel {width: 200px; height:40px; line-height:40px; text-align: right; vertical-align: center;}
 textarea {resize: none;}
 .homegymAddArea #nicknameCheckText {text-align: center;}
-#date_div {width:800px; height:300; z-index: 1; margin-bottom: 30px;}
-.ui-datepicker {width:800px; height:300px; top:30px; z-index: 2; }
-.ui-datepicker .ui-datepicker-title {line-height: 41px; vertical-align: middle; }
-.ui-datepicker select.ui-datepicker-year {width:25%;}
-.ui-datepicker select.ui-datepicker-month {width:25%;}
-.ui-datepicker td {height:40px;}
-.ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {height:35px; }
-#block_data_div{ position: absolute; height:300px; width : 800px; }
+#date_div {width:650px; height:350px; z-index: 1; margin-bottom: 30px;}
+.ui-datepicker {width:40em;}
+.ui-datepicker .ui-datepicker-title {font-size: 30px;}
+.ui-datepicker table {width:600px;}
+.ui-datepicker table thead {font-size:20px;}
+.ui-datepicker td span, .ui-datepicker td a {font-size:20px; }
+
+#block_data_div{ position: absolute; height:280px; width : 620px; margin-top:70px;}
 .homegymAddArea #HomeGymAddImgDiv {margin-top: 20px;}
 .homegymAddArea {width: 50%; margin:auto; }
 .homegymAddArea .commonInfo {margin: 10px auto;}
@@ -335,7 +343,7 @@ textarea {resize: none;}
 .homegymAddArea .dateInfo {margin-bottom: 30px; }
 .homegymAddArea .dateInfo th {width: 200px;}
 .homegymAddArea .button_div {text-align: center; margin: 30px 0px;}
-
+li {margin-bottom: 10px;}
 #map {position:absolute; width: 400px; height: 200px; top:100%; display:none;}
 </style>
 <div class = "homegymAddArea">
@@ -373,7 +381,9 @@ textarea {resize: none;}
 			<li>
 				<label class="HomeGymAddLabel">가까운 역</label>
 
-				<select id = "stationSelect" name ="hg_station" required="required"></select>
+				<select id = "stationSelect" name ="hg_station" required="required">
+					<option value = "" selected="selected">주소 검색을 먼저 해주세요.</option>
+				</select>
 
 			</li>
 			<li>
@@ -396,15 +406,15 @@ textarea {resize: none;}
 			<li>
 				<label class="HomeGymAddLabel">보유 운동 기구</label>
 				<select	name="eq_name_temp" id = "eq_name_temp">
-						<option value="armcurl">암 컬</option>
-						<option value="chestpress">체스트 프레스</option>
-						<option value="dumbbell">덤벨</option>
-						<option value="halfract">하프 렉</option>
-						<option value="latpulldown">렛 풀 다운</option>
-						<option value="legcurl">레그 컬</option>
-						<option value="smithmachine">스미스머신</option>
-						<option value="pullup">풀업</option>
-						<option value="running">런닝머신</option>
+						<option value="암 컬">암 컬</option>
+						<option value="체스트 프레스">체스트 프레스</option>
+						<option value="덤벨">덤벨</option>
+						<option value="하프 랙">하프 랙</option>
+						<option value="렛 풀 다운">렛 풀 다운</option>
+						<option value="레그 컬">레그 컬</option>
+						<option value="스미스 머신">스미스 머신</option>
+						<option value="풀업">풀업</option>
+						<option value="런닝머신">런닝머신</option>
 				</select>
 			</li>
 			<li>
@@ -428,7 +438,7 @@ textarea {resize: none;}
 		</ul>
 		<h5>소개 사진 등록</h5>
 		<ul class = "imgInfo">
-			<li><label class="HomeGymAddLabel">사진 등록하기</label></li>
+			<li><label>사진 등록하기</label></li>
 			<li id = "imgItem"><input type="file" name="upload"></li>
 			<li>
 				<div id="HomeGymAddImgDiv">
@@ -468,9 +478,6 @@ textarea {resize: none;}
 		<ul class = "timeInfo">
 			<li>
 			<label>예약 가능 시간</label>
-			</li>
-			<li>
-			<label class= "HomeGymAddLabel"></label>
 			<select name="hg_start_time" id = "start_time">
 					<option value="-">시간을 선택해주세요</option>
 					<option value="0">00:00</option>

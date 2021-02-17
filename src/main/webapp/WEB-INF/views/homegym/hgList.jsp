@@ -85,11 +85,6 @@ function sendOption(){
 	document.getElementById('option_fm').submit();
 }
 function ContentEnter(id){
-	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
-		window.alert('로그인이 필요한 페이지 입니다.');
-		location.href='loginForm.do';
-		return;
-	}
 	location.href = 'HomeGymContent.do?hg_mem_id='+id;
 }
 function ajaxLike(userid, targetid){
@@ -155,7 +150,7 @@ function ajaxUnLike_rq(){
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist {display:flex; height:100px; vertical-align: middle;}
 
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_eqlist .eqdiv { margin-right: 10px; background-color: #cccccc; margin-top:10px; padding:5px; height: 30px; border-radius: 8px;}
-.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:600px; top: -95px; height:35px; width:150px; text-align:right; }
+.homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:600px; top: -95px; height:35px; width:180px; text-align:right; }
 
 </style>
 	<!-- 상단 조건바 -->
@@ -202,15 +197,15 @@ function ajaxUnLike_rq(){
 				<hr>
 				<div id = "eq_list" class="eq_list">
 					<h6>기구</h6>
-					<label><input type = "checkbox" name = "left_option_eq" value = "armcurl" id = "armcurl" onclick = "javascript:sendOption();"><span>암 컬</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "chestpress" id = "chestpress" onclick = "javascript:sendOption();"><span>체스트 프레스</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "dumbbell" id = "dumbbell" onclick = "javascript:sendOption();"><span>덤벨</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "halfract" id = "halfract" onclick = "javascript:sendOption();"><span>하프 렉</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "latpulldown" id = "latpulldown" onclick = "javascript:sendOption();"><span>렛 풀 다운</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "legcurl" id = "legcurl" onclick = "javascript:sendOption();"><span>레그 컬</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "smithmachine" id = "smithmachine" onclick = "javascript:sendOption();"><span>스미스머신</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "pullup" id = "pullup" onclick = "javascript:sendOption();"><span>풀 업</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "running" id = "running" onclick = "javascript:sendOption();"><span>런닝머신</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "암 컬" id = "암 컬" onclick = "javascript:sendOption();"><span>암 컬</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "체스트 프레스" id = "체스트 프레스" onclick = "javascript:sendOption();"><span>체스트 프레스</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨" id = "덤벨" onclick = "javascript:sendOption();"><span>덤벨</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "하프 렉" id = "하프 렉" onclick = "javascript:sendOption();"><span>하프 렉</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "렛 풀 다운" id = "렛 풀 다운" onclick = "javascript:sendOption();"><span>렛 풀 다운</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "레그 컬" id = "레그 컬" onclick = "javascript:sendOption();"><span>레그 컬</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "스미스 머신" id = "스미스 머신" onclick = "javascript:sendOption();"><span>스미스 머신</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "풀 업" id = "풀 업" onclick = "javascript:sendOption();"><span>풀 업</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "런닝머신" id = "런닝머신" onclick = "javascript:sendOption();"><span>런닝머신</span></label>
 				</div>
 				<hr>
 				<h6>가격</h6>
@@ -277,7 +272,7 @@ function ajaxUnLike_rq(){
 										
 									</div>
 									<div class = "homegym_search_result_list_item_content_price">
-										가격 : ${dto.hg_price }<br>
+										시간 당 ${dto.hg_price }원
 									</div>	
 								</div>
 							</div>

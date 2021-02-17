@@ -103,6 +103,11 @@ function person_count_price_result(){
 	recent_price.innerText = recent_price.innerText * person_count;
 }
 function reservation(){
+	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
+		window.alert('로그인이 필요한 페이지 입니다.');
+		location.href='loginForm.do';
+		return;
+	}
 	var use_date = document.getElementById('choice_date').value;
 	var use_start_time = document.getElementById('choice_start_time').value
 	var use_end_time = document.getElementById('choice_end_time').value;
@@ -145,7 +150,6 @@ function reservation_ajax(){
 	var use_price = document.getElementById('choice_price').value;
 	var params = 'hg_mem_id='+hg_mem_id+'&reser_date='+use_date+'&reser_start_time='+use_start_time+'&reser_end_time='+use_end_time+'&reser_person_count='+use_person_count+'&reser_price='+use_price;
 	window.open('HomeGymReservation.do?'+params, 'reser-payForm', 'width=900, height=600, left=30%, top=30%');
-	//sendRequest('HomeGymReservation.do', params, reservation_callback, 'GET');
 }
 function reservation_callback(){
 	if(XHR.readyState==4){
@@ -236,9 +240,9 @@ function ajaxUnLike_rq(){
 .bottom_contentArea .reserNoticeArea table {width:1200px; border:3px double gray; border-radius: 6px;}
 .bottom_contentArea .reserNoticeArea table th {width:300px; vertical-align: top;}
 .bottom_contentArea .reserNoticeArea h3 {text-align:center;}
-.bottom_contentArea .mapArea {text-align:center; width:800px; height:300px; margin:0px auto;}
-.bottom_contentArea .reviewArea {text-align:center;}
-.bottom_contentArea .reviewArea table {width:1200px; height: 300px;}
+.bottom_contentArea .mapArea {text-align:center; width:800px; height:400px; margin:0px auto;}
+.bottom_contentArea .reviewArea {text-align:center; min-height: 400px; }
+.bottom_contentArea .reviewArea table {width:1200px;}
 
 </style>
 <div class = "top_info">
@@ -341,13 +345,12 @@ function ajaxUnLike_rq(){
 		<h3>지도</h3>
 		<div id="map" style="width:50%;height:350px;"></div>
 	</div>
-	<div id = "reviewArea">
-		<h3>이용 후기</h3>
+	<div class = "reviewArea">
+		<h3>이용 후기 / 평균 별점 : ${star_avg }</h3>
 		<c:if test = "${empty reviewList }">
 			<div>작성된 후기가 없습니다.</div>
 		</c:if>
 		<c:if test = "${!empty reviewList }">
-			<div>${star_avg }</div>
 			<table>
 				<thead>
 					<tr>
@@ -359,15 +362,20 @@ function ajaxUnLike_rq(){
 					</tr>
 				</thead>
 				<tbody>
-			<c:forEach var = "dto" items="${reviewList }">
-					<tr>
-						<td>${dto.rev_star }</td>
-						<td>${dto.rev_sub }</td>
-						<td>${dto.rev_cont }</td>
-						<td>${dto.rev_mem_id }</td>
-						<td>${dto.rev_writedate }</td>
-					</tr>
-			</c:forEach>
+					<c:forEach var="dto" items="${reviewList }">
+						<tr>
+							<td style="border-top: 1px solid lightgray; padding-top: 10px;">
+								<div style="position: relative; float: left;">
+									<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
+									<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
+								</div>
+							</td>
+							<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
+							<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
+							<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
+							<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</c:if>

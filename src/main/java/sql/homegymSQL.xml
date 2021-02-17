@@ -145,10 +145,10 @@
 		select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value}
 	</select>
 	<select id = "homegymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
-	select * from star_review where rev_key = '회원이홈짐' and rev_target_id = #{value} order by rev_writedate
+	select * from star_review where rev_key = '홈짐' and rev_target_id = #{value} order by rev_writedate
 	</select>
 	<select id = "hgReviewStarAvg" parameterType = "String" resultType="Double">
-		select round(nvl(avg(rev_star),0),2) from star_review where rev_key = '회원이홈짐' and rev_target_id = #{value}
+		select round(nvl(avg(rev_star),0),2) from star_review where rev_key = '홈짐' and rev_target_id = #{value}
 	</select>
 	<select id="homegymCheckSQL" parameterType="String" resultType="Integer">
 	select count(*) from homegym where hg_mem_id = #{value}

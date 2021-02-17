@@ -11,7 +11,7 @@ function paymentAddCheck(check){
 	}else if(check==false){
 		var check_confirm = confirm('나중에 계좌를 등록하시겠습니까?')
 		if(check_confirm){
-			location.href = 'index.do';
+			location.href = 'myHomeGymHavingCheck.do?mem_id=${mem_id}';
 		}
 	}
 }
@@ -24,7 +24,7 @@ function paymentAddCheck(check){
 	<h1>홈짐 결제 계좌 등록</h1>
 	<div class = "payment_info">
 		<form id = "paymentAddForm" action = "HomeGymPaymentAdd.do" method = "post">
-		<input type = "hidden" name = "hg_mem_id" value = "${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }">
+		<input type = "hidden" name = "hg_mem_id" value = "${mem_id }">
 			<ul>
 				<li>은행 명</li>
 				<li><input type = "text" name = "pa_bankname" placeholder="은행 명을 입력해주세요." required="required"></li>
