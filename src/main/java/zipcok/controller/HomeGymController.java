@@ -327,12 +327,18 @@ public class HomeGymController {
 	}
 	@RequestMapping(value = "HomeGymPaymentAdd.do", method = RequestMethod.POST)
 	public ModelAndView HomeGymPaymentAdd(PaymentDTO dto,
-			@RequestParam("hg_mem_id")String user_id) {
+			@RequestParam("hg_mem_id")String user_id,
+			HttpSession session) {
 		dto.setHg_mem_id(user_id);
 		int result = homegympayDAO.HomeGymPaymentAdd(dto);
 		ModelAndView mav = new ModelAndView();
 		String msg = result>0?"계좌가 성공적으로 등록되었습니다.":"계좌 등록에 오류가 발생하였습니다.";
-		String goPage = result>0?"myHomeGymHavingCheck.do?mem_id="+user_id:"HomeGymPaymentAdd.do";
+		String goPage = "";
+		if(session.getAttribute("sid")!=null) {
+			goPage = "myHomeGymHavingCheck.do?mem_id="+user_id;
+		}else if(session.getAttribute("coachId")!=null) {
+			goPage = "coachmyHomeGymHavingCheck.do?mem_id"+user_id;
+		}
 		mav.addObject("msg", msg);
 		mav.addObject("goPage", goPage);
 		mav.setViewName("homegym/hgMsg");
@@ -351,14 +357,15 @@ public class HomeGymController {
 			HttpSession session) {
 		int reser_result = homegymreserDAO.HomeGymReservationAdd(dto);
 		int max_reserIdx = homegymreserDAO.HomeGymReservationMaxIdxFind();
+		String mem_id = dto.getHg_mem_id();
 		dto2.setPd_req_idx(max_reserIdx);
 		int pd_result = homegympdDAO.PaymentListAdd(dto2);
 		String goPage = "";
 		if(reser_result>0 && pd_result>0) {
 		if(session.getAttribute("sid")!=null) {
-			goPage = "memberProfileForm.do";
+			goPage = "mypageHomeGymPayList.do?mem_id="+mem_id;
 		}else if(session.getAttribute("coachId")!=null) {
-			goPage = "coachMyPage.do";
+			goPage = "CmPaymentList.do?mem_id="+mem_id;
 		}
 		}else {
 			goPage = "index.do";

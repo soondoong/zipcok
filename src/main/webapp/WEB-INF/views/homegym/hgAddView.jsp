@@ -9,7 +9,12 @@
 <c:if test = "${hg_check }">
 	<script>
 		window.alert('등록된 홈짐 정보가 있습니다.');
-		location.href='myHomeGymCheck.do?mem_id=${sessionScope.sid==null?sessionScope.coachid:sessionScope.sid }';
+		if('${sessionScope.sid}'!=''){
+			location.href='myHomeGymEnter.do?mem_id=${sessionScope.sid }';
+		}else if('${sessionScope.coachId}'!=''){
+			location.href='coachmyHomeGymEnter.do?mem_id=${sessionScope.coachId }';
+		}
+		
 	</script>
 </c:if>
 <script>

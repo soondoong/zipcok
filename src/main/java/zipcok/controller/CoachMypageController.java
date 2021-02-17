@@ -74,6 +74,7 @@ ServletContext c;
 				boolean ck = cdao.coachmypageHomeGymReviewCheck(list.get(i).getPd_idx());
 				list.get(i).setReviewCheck(ck);
 				list.get(i).setReser_date(list.get(i).getReser_date().substring(0,10));
+				list.get(i).setPd_payment_date(list.get(i).getPd_payment_date().substring(0,10));
 			}
 		}
 		List<Pd_HgAllDTO> list2 = cdao.coachmypageMyPayList(map);
@@ -84,6 +85,7 @@ ServletContext c;
 				list2.get(i).setReviewCheck(ck);
 				String hg_nickname = cdao.coachmypageHomeGymNickname(list2.get(i).getPd_target_id());
 				list2.get(i).setHg_nickname(hg_nickname);
+				list2.get(i).setPd_payment_date(list2.get(i).getPd_payment_date().substring(0,10));
 			}
 		}
 		ModelAndView mav = new ModelAndView();

@@ -1,45 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp"%>
 <link href="assets/css/mypage.css" rel="stylesheet">
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
-<%@include file="../header2.jsp"%>
-<style>
-.titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
-.titlee:before {content: "";display: inline-block;background-color: #257cda;width: 11px;height: 41px;}
-.titlee hr {border-top: 1px solid #d1d1d4;margin-bottom: 30px;}
-.homegym_main { padding: 10px 0 0 60px;}
-.homegym_main .profileIMG {overflow: hidden; width: 100px; height: 75px; margin: 0 auto 50px;}
-.homegym_main .profileIMG img {width:75px; height:75px;}
-.homegym_main .profile_info {padding: 0 0 0 100px;}
-/*일반프로필 css*/
-.hgDIV{ margin:15px 0px; display:flex;}
-.hgDIV .hgLeftDIV {margin-right:50px;}
-.hgIMG{ height:350px; margin:15px 0px;}
-.hgIMG .hgMainIMG {height:200px; margin-bottom: 10px;}
-.hgIMG .hgMainIMG img {width: 500px; height:200px;}
-.hgIMG .hgSubIMG {height:100px;}
-.hgIMG .hgSubIMG img {width: 100px; height:100px;}
-.hgLeftDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
-.hgLeftDIV .mapArea {height:300px;}
-.hgRightDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
-.hgRightDIV .reser_input{width: 180px;}
-.infoDIV {margin-top:10px;}
-.hgLeftDIV .infoDIV .dateName{font-size:20px;}
-.hgRightDIV .infoDIV .dateName{font-size:20px;}
-.hgLeftDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
-.hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
-.hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
-.hgRightDIV .reviewArea table{border:1px solid gray; width:600px; margin:0px auto;}
-.paymentArea {min-height: 300px;}
-.imgUpdateBtn {text-align: right;}
-.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
-.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
-</style>
 <script src="https://kit.fontawesome.com/802041d611.js"	crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -585,8 +549,45 @@ function mypageHomeGymPaymentRegistForm(){
 	location.href = 'HomeGymPaymentAdd.do?mem_id'+mem_id;
 }
 </script>
-</head>
-<body>
+<style>
+.titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
+.titlee:before {content: "";display: inline-block;background-color: #257cda;width: 11px;height: 41px;}
+.titlee hr {border-top: 1px solid #d1d1d4;margin-bottom: 30px;}
+.homegym_main { padding: 10px 0 0 60px;}
+.homegym_main .profileIMG {overflow: hidden; width: 100px; height: 75px; margin: 0 auto 50px;}
+.homegym_main .profileIMG img {width:75px; height:75px;}
+.homegym_main .profile_info {padding: 0 0 0 100px;}
+/*일반프로필 css*/
+.hgDIV{ margin:15px 0px; display:flex;}
+.hgDIV .hgLeftDIV {margin-right:50px;}
+.hgIMG{ height:350px; margin:15px 0px;}
+.hgIMG .hgMainIMG {height:200px; margin-bottom: 10px;}
+.hgIMG .hgMainIMG img {width: 500px; height:200px;}
+.hgIMG .hgSubIMG {height:100px;}
+.hgIMG .hgSubIMG img {width: 100px; height:100px;}
+.hgLeftDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
+.hgLeftDIV .mapArea {height:300px;}
+.hgRightDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
+.hgRightDIV .reser_input{width: 180px;}
+.infoDIV {margin-top:10px;}
+.hgLeftDIV .infoDIV .dateName{font-size:20px;}
+.hgRightDIV .infoDIV .dateName{font-size:20px;}
+.hgLeftDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
+.hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
+.hgRightDIV .infoDIV .labelName{font-size:25px; font-weight: 550; padding-right: 50px;}
+.hgRightDIV .reviewArea table{border:1px solid gray; width:600px; margin:0px auto;}
+.paymentArea {min-height: 300px;}
+.imgUpdateBtn {text-align: right;}
+.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
+.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
+#date_div {width:600px; height:350px; z-index: 1; margin-bottom: 30px;}
+.ui-datepicker {width:38em;}
+.ui-datepicker .ui-datepicker-title {font-size: 25px;}
+.ui-datepicker table {width:576px;}
+.ui-datepicker table thead {font-size:20px;}
+.ui-datepicker td span, .ui-datepicker td a {font-size:20px; }
+
+</style>
 	<div class="mypage_wrap">
 		<%@include file="./coachMypageSideMenu.jsp"%>
 		<div class="mypage_contents">
@@ -704,7 +705,4 @@ function mypageHomeGymPaymentRegistForm(){
 			<!--nomalAllWrap-->
 		</div>
 	</div>
-
-	<%@include file="../_include/footer.jsp"%>
-</body>
-</html>
+<%@include file="../_include/footer.jsp"%>

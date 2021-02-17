@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
+<%@include file="../header2.jsp" %>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 window.addEventListener('load', function() {
@@ -33,11 +34,10 @@ function leadingZeros(n, digits) {
 
 function pg_check(){
 	var pg_choice_method = $('input:radio[name="pd_method"]:checked').val();
-	 window.alert('메서드로 들어온 정보는 : '+pg_choice_method);
 	IMP.request_pay({
 	    pg : 'kakaopay', // version 1.1.0부터 지원.
 	    cid : 'A52CY',
-	    pay_method : pg_choice_method,
+	    pay_method : 'card',
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '주문명:결제테스트',
 	    amount : ${reserInfo.reser_price},
@@ -65,10 +65,12 @@ function pg_check(){
 }
 </script>
 <style>
-.reserpaymentDiv {width: 850px; margin:0px auto; border:1px solid gray; border-radius: 8px;}
+.reserpaymentDiv {width: 850px; margin:60px auto; border:1px solid gray; border-radius: 8px; padding:40px;}
 .reserpaymentDiv .reserInfo {width: 850px;}
-.reserpaymentDiv .reserInfo h6 {margin-bottom: 20px;}
+.reserpaymentDiv .reserInfo h6 {margin-top: 30px;}
+.paymentInfo {margin-top:20px;}
 .payment_method {font-size:20px;}
+.payment_method h5 {margin: 20px 0px;}
 .payment_btn {text-align: center;}
 </style>
 <div class = "reserpaymentDiv">
@@ -94,19 +96,20 @@ function pg_check(){
 		<h3>결제 페이지</h3>
 		<div class = "payment_method">
 			<h5>결제 수단</h5>
-			<input type = "radio" name = "pd_method" checked="checked" value = "card">신용카드
-			<input type = "radio" name = "pd_method" value = "trans">실시간 계좌 이체
-			<input type = "radio" name = "pd_method" value = "vbank">가상 계좌<br>
-			<input type = "radio" name = "pd_method" value = "phone">폰 뱅킹
-			<input type = "radio" name = "pd_method" value = "samsung">삼성페이<br>
-			<input type = "radio" name = "pd_method" value = "kpay">K_Pay
-			<input type = "radio" name = "pd_method" value = "cultureland">문화상품권
-			<input type = "radio" name = "pd_method" value = "smartculture">스마트상품권
-			<input type = "radio" name = "pd_method" value = "happymoney">해피머니 문화상품권
-			<input type = "radio" name = "pd_method" value = "booknlife">도서 상품권
+			<input type = "radio" name = "pd_method" checked="checked" value = "신용카드">신용카드
+			<input type = "radio" name = "pd_method" value = "실시간 계좌 이체">실시간 계좌 이체
+			<input type = "radio" name = "pd_method" value = "가상 계좌">가상 계좌<hr>
+			<input type = "radio" name = "pd_method" value = "폰 뱅킹">폰 뱅킹
+			<input type = "radio" name = "pd_method" value = "삼성페이">삼성페이
+			<input type = "radio" name = "pd_method" value = "kpay">K_Pay<hr>
+			<input type = "radio" name = "pd_method" value = "문화상품권">문화상품권
+			<input type = "radio" name = "pd_method" value = "스마트상품권">스마트상품권
+			<input type = "radio" name = "pd_method" value = "해피머니 문화상품권">해피머니 문화상품권
+			<input type = "radio" name = "pd_method" value = "도서 상품권">도서 상품권
 		</div>
 		<div class = "payment_btn">
 		<input type = "button" value = "결제하기" class = "btn btn-primary btn-lg sbtn" onclick = "javascript:pg_check();">
 		</div>
 	</div>
 </div>
+<%@include file="../_include/footer.jsp" %>
