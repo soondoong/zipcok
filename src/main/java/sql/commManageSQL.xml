@@ -15,7 +15,7 @@
 	select * from 
 			payment_request
 	where
-			pr_receiver=#{pr_receiver}
+			pr_sender=#{pr_receiver}
 	and
 			pr_status='결제완료'
 </select>

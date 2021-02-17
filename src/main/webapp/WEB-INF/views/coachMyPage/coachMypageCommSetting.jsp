@@ -16,19 +16,26 @@ function memplus(uc_comm_idx){
 </script>
 	
 <%@include file="../header2.jsp"%>
+<style>
+.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+.table th{font-weight: bold; border-color:#848282;}
+.revbtn{width:72px; height: 25px; }
+.table a,.table a:hover,.table a:link{color:blue;}
+h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 32px; }
+h2{font-weight: 550; color:#12151d; margin-bottom:40px;}
+hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
+.mypage_comm_table .commList {text-align: center;}
+.mypage_comm_table .commList thead {background-color: grey;}
+</style>
 <div class="mypage_wrap">
 <%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
-		<div class="mypage_main">
+		<div class="mypage_main paymentMain">
 		<br>
 			 	
-			<h4>커뮤니티 설정</h4>
+			<h2>&nbsp;커뮤니티 설정</h2>
 			<div class="mypage_comm_table">
-				
-			<style>
-			.mypage_comm_table .commList {text-align: center;}
-			.mypage_comm_table .commList thead {background-color: grey;}
-			</style>
+
 					
 				<%-- <h6>커뮤니티 이름</h6>
 				<table border="1" cellspacing="0" class="commList">
@@ -67,8 +74,12 @@ function memplus(uc_comm_idx){
 			.mypage_comm_table .commList thead {background-color: grey;}
 			</style>
 					
-				<h6>수강생 관리</h6> <input type="button" value="수강생 추가" onclick="memplus(${uc_comm_idx})">
-				<table border="1" cellspacing="0" class="commList">
+				<h5 style="font-weight: 600;">수강생 관리</h5> 
+				
+				<input type="button" value="수강생 추가" class="btn btn-primary btn-sm" 
+				 style="display: block; float:right;padding:7px 10px;" onclick="memplus(${uc_comm_idx})">
+				 
+				<table class="table table-hover" class="commList">
 				<thead>
 					<tr>
 						<th>No.</th>
