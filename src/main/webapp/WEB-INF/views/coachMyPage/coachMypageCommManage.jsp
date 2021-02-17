@@ -46,7 +46,7 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 							<th>No.</th>
 						<th>수강생 이름</th>
 						<th>결제 상태</th>
-						<th>과정 진행률</th>
+						<th>결제일자</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -59,10 +59,10 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 					</c:if>
 					<c:forEach var="dto" items="${paymentlist}">
 					<tr>
-						<td>${dto.pr_idx }</td>
-						<td>${dto.pr_sender }</td>
-						<td>${dto.pr_status }</td>
-						<td>${dto.pr_end }</td>
+						<td>${dto.pd_idx }</td>
+						<td>${dto.pd_mem_id }</td>
+						<td>${dto.pd_status }</td>
+						<td>${dto.pd_payment_date }</td>
 					</tr>
 				</c:forEach>
 				</tbody>

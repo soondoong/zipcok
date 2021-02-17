@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import zipcok.member.model.MemberDTO;
 import zipcok.cpayment.model.Payment_RequestDTO;
+import zipcok.homegym.model.Payment_detailsDTO;
 
 @Service
 public class CommManageDAOImple implements CommManageDAO {
@@ -20,15 +21,15 @@ public class CommManageDAOImple implements CommManageDAO {
 	
 	//결제한 수강생 내역 가져오기
 	@Override
-	public List<Payment_RequestDTO> paymentList(String pr_receiver) {
-		List<Payment_RequestDTO> list=sqlMap.selectList("paymentListSQL",pr_receiver);
+	public List<Payment_detailsDTO> paymentList(String pd_target_id) {
+		List<Payment_detailsDTO> list=sqlMap.selectList("paymentListSQL",pd_target_id);
 		return list;
 	}
 	
 	//결제 완료한 수강생 내역 가져오기
 	@Override
-	public List<Payment_RequestDTO> paymentList_finish(String pr_receiver) {
-		List<Payment_RequestDTO> list=sqlMap.selectList("paymentList_finishSQL",pr_receiver);
+	public List<Payment_detailsDTO> paymentList_finish(String pd_target_id) {
+		List<Payment_detailsDTO> list=sqlMap.selectList("paymentList_finishSQL",pd_target_id);
 		return list;
 	}
 	

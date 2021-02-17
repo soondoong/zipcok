@@ -115,12 +115,6 @@ public class AdminStatsController {
 		return mav;
 	}
 	
-	@RequestMapping("admin_statHomegymRegist.do")
-	public ModelAndView statHomeGymRegist() {
-		
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("admin/admin_stat/admin_statHomegymRegist");
-		return mav;
-	}
+	
 
 }

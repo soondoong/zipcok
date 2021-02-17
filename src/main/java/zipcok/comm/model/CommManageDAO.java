@@ -6,11 +6,12 @@ import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.comm.model.CommunityDTO;
 import zipcok.comm.model.Users_communityDTO;
 import zipcok.member.model.MemberDTO;
+import zipcok.homegym.model.Payment_detailsDTO;
 
 public interface CommManageDAO {
 	
-	public List<Payment_RequestDTO> paymentList(String pr_receiver); //결제한 수강생 내역 가져오기
-	public List<Payment_RequestDTO> paymentList_finish(String pr_receiver);
+	public List<Payment_detailsDTO> paymentList(String pd_target_id); //결제한 수강생 내역 가져오기
+	public List<Payment_detailsDTO> paymentList_finish(String pd_target_id);
 	public List<CommunityDTO> manageCommList(String com_coach_id);//개설 커뮤니티 정보 가져오기
 	public int manageCommPlus(String com_coach_id,String com_name);//커뮤니티 개설하기
 	public List<Users_communityDTO> commUsersList(int uc_comm_idx);//커뮤니티 소속 회원들 이름 리스트 만들기
