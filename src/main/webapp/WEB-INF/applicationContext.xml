@@ -7,8 +7,8 @@
    <!-- mybatis config 1.dataSource-->
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
       <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@javayong.tplinkdns.com:9001:orcl"/>
-      <property name="username" value="project04"/>
+      <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/>
+      <property name="username" value="scott"/>
       <property name="password" value="1234"/>
    </bean>
    

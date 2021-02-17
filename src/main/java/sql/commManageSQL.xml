@@ -4,20 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="zipcok.comm">
 
-<select id="paymentListSQL" parameterType="String" resultType="zipcok.cpayment.model.Payment_RequestDTO">
+<select id="paymentListSQL" parameterType="String" resultType="zipcok.homegym.model.Payment_detailsDTO">
 	select * from 
-			payment_request
+			zipcok_payment_details
 	where
-			pr_receiver=#{pr_receiver}
+			pd_target_id=#{pd_target_id}
 </select>
 
-<select id="paymentList_finishSQL" parameterType="String" resultType="zipcok.cpayment.model.Payment_RequestDTO">
+<select id="paymentList_finishSQL" parameterType="String" resultType="zipcok.homegym.model.Payment_detailsDTO">
 	select * from 
-			payment_request
+			zipcok_payment_details
 	where
-			pr_sender=#{pr_receiver}
+			pd_target_id=#{pd_target_id}
 	and
-			pr_status='결제완료'
+			pd_status='결제완료'
 </select>
 
 <select id="manageCommListSQL" parameterType="String" resultType="zipcok.comm.model.CommunityDTO">
