@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="zipcok.admin">
+
+	<select id="GetNewHomeGymCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			homegym 
+		where 
+			TO_CHAR(hg_regist_date, 'YYYY-MM-DD')=#{date}
+	</select>
+	
+	<select id="GetStatusOnHomeGymCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			homegym 
+		where 
+			TO_CHAR(hg_regist_date, 'YYYY-MM-DD')=#{date} 
+		and 
+			hg_status=1
+	</select>
+	
+	<select id="GetPaymentHomegymCountSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			zipcok_payment_details 
+		where 
+			TO_CHAR(pd_payment_date, 'YYYY-MM-DD')=#{date} 
+		and 
+			pd_key='홈짐'
+	</select>
+</mapper>

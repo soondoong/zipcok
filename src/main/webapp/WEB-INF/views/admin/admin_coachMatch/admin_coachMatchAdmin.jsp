@@ -72,16 +72,18 @@
 							</tr>
 						</c:forEach>
 						<c:if test="${empty List}">
-						<tr>
-							<td colspan="7">등록된 코치가 없습니다</td>
-						</tr>
+							<tr>
+								<td colspan="7" align="center">등록된 코치가 없습니다</td>
+							</tr>
 						</c:if>
 						</tbody>
+						<c:if test="${!empty List}">
 						<tfoot>
 							<tr>
 								<td colspan="7" align="center">${pageStr }</td>
 							</tr>
 						</tfoot>
+						</c:if>
 					</table>
 				</div>
 				<div id="coachProfileLayer"><!-- 코치의 세부정보 부분 div -->

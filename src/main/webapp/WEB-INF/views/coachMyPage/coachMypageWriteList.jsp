@@ -23,7 +23,6 @@ function coachMypageCommWriteList() {
 	<%@include file="./coachMypageSideMenu.jsp"%>
 	<div class="mypage_contents">
          <div class="mypage_main writeMain">
-	<br>
 	<div id="toggle_tab" class="tab_style_01 mb50">
 		<style>
 		.writeMain{width:1000px;}

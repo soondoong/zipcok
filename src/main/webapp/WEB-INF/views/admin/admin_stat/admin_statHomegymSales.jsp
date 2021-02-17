@@ -30,22 +30,22 @@ a{cursor:pointer;}
    <div class="adminPage_wrap">
      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
-         <div class="adminPage_main" style="margin-top:50px;">
+         <div class="adminPage_main" >
         
          <h3>홈짐 매출 통계</h3>
-         <hr>
+        
          	<div>
          	<form action="searchHomeGymTongGye.do">
          		<ul class="test-inline">
-         			<li>조회일</li>
+         			<li class="checkdate">조회일</li>
          			<li><input type="date" min="" max="" id="startDate" name="startDate"></li>
          			<li>~</li>
          			<li><input type="date" min="" max=""  id="endDate" name="endDate"> </li>
-         			<li><input type="button" name="datebtn" value="오늘"></li>
-         			<li><input type="button"  name="datebtn" value="일주일"></li>
-         			<li><input type="button"  name="datebtn"  value="한달"></li>
+         			<li><input type="button" name="datebtn" class="datebtn" value="오늘"></li>
+         			<li><input type="button"  name="datebtn" class="datebtn" value="일주일"></li>
+         			<li><input type="button"  name="datebtn" class="datebtn"  value="한달"></li>
          		</ul>
-         		<input type="submit" value="검색" id="searchbtn" >
+         		<input type="submit" value="검색" id="searchbtn" class="btn btn-primary" >
          	</form>	
          	</div>
          

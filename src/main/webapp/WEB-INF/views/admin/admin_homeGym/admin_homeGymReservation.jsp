@@ -150,9 +150,8 @@ function showResult(){
 	         var id=data.mem_id;
 	         var msg=data.result;
 	         if(msg>0){
-	        	 window.alert('결제취소가 승인되었습니다');
-	        	 document.getElementById(id+'_reser_status').innerText='예약취소완료';
-	        	 document.getElementById(id+'_pd_btn').innerHTML='';
+	        	window.alert('결제취소가 승인되었습니다');
+				window.location.reload();
 	         }else{
 	        	 window.alert('에베베베베베');
 	         }

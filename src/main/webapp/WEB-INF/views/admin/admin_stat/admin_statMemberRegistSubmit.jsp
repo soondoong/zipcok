@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,8 +109,10 @@
                   </thead>
                   <tbody>
                      <tr>
-                        <td>${sidCount } / ${(sidCount / (sidCount + coachIdCount)) * 100}%</td>
-                        <td>${coachIdCount } / ${(coachIdCount / (sidCount + coachIdCount)) * 100}%</td>
+                     	<fmt:parseNumber var="sidavg" integerOnly= "true" value="${(sidCount / (sidCount + coachIdCount)) * 100}" />
+                     	<fmt:parseNumber var="coachIdavg" integerOnly= "true" value="${(coachIdCount / (sidCount + coachIdCount)) * 100}" />
+                        <td>${sidCount } / ${sidavg}%</td>
+                        <td>${coachIdCount } / ${coachIdavg}%</td>
                         <td>${sidCount + coachIdCount}</td>
                      </tr>
                   </tbody>

@@ -71,6 +71,7 @@ function showResult(){/*꼰트롤러에서 받은 데이터들을 가져와서 �
 <style>
 .table { border-spacing: ''; table-layout: auto; text-align: center;} 
 .table th{font-weight: bold; border-color:#848282;}
+h3{margin-bottom:30px;}
 a{cursor:pointer;}
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
@@ -83,14 +84,14 @@ a{cursor:pointer;}
 			<div><!-- 검색하는 부분 div -->
 				<form action="#">
 					<div>
-						<h5>[코치매칭 내역 관리]</h5>
+						<h3 style="font-weight: bold">[코치매칭 내역 관리]</h3>
 					</div>
 					
 					<div>
+						<h6>코치검색</h6>
 						<ul class="test-inline">
-							<li>코치 검색</li>
 							<li>아이디</li>
-							<li><input type="text" id="searchId" ></li>
+							<li><input type="text" placeholder="아이디 입력" id="searchId" ></li>
 							<li><input type="button" value="검색" onclick="show('','');"></li>
 						</ul>
 					</div>
@@ -100,7 +101,7 @@ a{cursor:pointer;}
 			
 			<div><!-- 코치의 매칭된 회원내역  테이블 div -->
 				<div>
-					<h5>회원 상담내역</h5>
+					<h5 >회원 상담내역</h5>
 				</div>
 				<table  align="center" class="table table-hover" >
 					<thead>
@@ -117,6 +118,9 @@ a{cursor:pointer;}
 					
 		
 					<tbody id="matchtBody">
+						<tr>
+							<td colspan="7">검색 된 게시글이 없습니다.</td>												
+						</tr>
 					</tbody>
 				</table>
 				<div id="pagingpaging">
@@ -128,12 +132,12 @@ a{cursor:pointer;}
 			
 			
 				<div>
-					<h5>[코치매칭 거래내역]</h5>
+					<h3  style="font-weight: bold">[코치매칭 거래내역]</h3>
 						<div>
+						<h6>코치검색</h6>
 						<ul class="test-inline">
-							<li>코치 검색</li>
 							<li>아이디</li>
-							<li><input type="text" id="searchPdId"></li>
+							<li><input type="text" placeholder="아이디 입력" id="searchPdId"></li>
 							<li><input type="button" value="검색" id="searchPdbtn"></li>
 						</ul>
 					</div>

@@ -60,12 +60,13 @@
 			.content_view_wrap .view_info span {float: left; font-size: 12px; color: #999999;}
 			.content_view_wrap .view_info span:not(:first-child) {margin-left: 10px;}
 			.content_view_wrap .view_body {padding: 30px 20px 50px;}
+			.content_view_wrap .view_body .csImgP {text-align: center;}
 			.content_view_wrap .view_navi {border-top: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dl {position: relative; padding: 0 0 0 160px; margin: 0;}
 			.content_view_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dd {margin: 0; padding: 0 20px; line-height: 40px; border-bottom: 1px solid #dddddd;}
 			.view body {padding: 30px 20px 50px;}
-			.autosize { min-height: 60px; }
+			.autosize { height: 200px;}
 		</style>
 		<article class="content_view_wrap">
 			<div class="view_head">
@@ -77,12 +78,16 @@
 			</div>
 			<div class="view_body">
 				<c:forEach var="zfileList" items="${csFileList}">
+				<br>
 					<div>
-						<img src="/zipcok/upload/cs/${zfileList.zfile_upload}">
+						<p class="csImgP">
+							<img src="/zipcok/upload/cs/${zfileList.zfile_upload}">
+						</p>
 					</div>
 				</c:forEach>
+				<br>
 				<div class="view_content">
-					<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="30" placeholder="내용을 입력해주세요" readonly="readonly" style="white-space: pre-line;">${dto.bbs_content}</textarea>
+					<textarea class="autosize" placeholder="내용을 입력해주세요" readonly="readonly" rows="6" cols="50" style="white-space: pre-line;">${dto.bbs_content}</textarea>
 				</div>
 			</div>
 		<hr>
@@ -96,12 +101,13 @@
 						</div>
 					</div>
 					<div id="reWriteView" style="display: none;">
+						<br>
 						<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="30" style="white-space: pre-line;" id="re_content" name="re_content"></textarea>
-							<div class="table_list_bottom">
-								<div class="btn_right_box">
-									<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
-								</div>
+						<div class="table_list_bottom">
+							<div class="btn_right_box">
+								<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
 							</div>
+						</div>
 					</div>
 				</div>
 			</c:if>
