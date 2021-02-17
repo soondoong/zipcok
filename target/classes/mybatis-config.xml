@@ -22,9 +22,8 @@
     <mapper resource="sql/AdminCoachMatchSQL.xml"/>
     <mapper resource="sql/AdminCommSQL.xml"/>
 
-    <mapper resource="sql/AdminHomeGymSQL.xml"/>
-
     <mapper resource="sql/AdminStatsMemberSQL.xml"/>
+    <mapper resource="sql/AdminHomeGymSQL.xml"/>
 
 
     

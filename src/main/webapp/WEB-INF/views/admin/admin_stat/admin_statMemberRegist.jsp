@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
+<!-- 차트용 cdn -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+ <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <style type="text/css">
 .test-inline {
    display: inline-flex;
@@ -25,12 +30,12 @@
          		<form name="date" action="dd">
          		<ul class="test-inline">
          			<li>조회일</li>
-         			<li><input type="date" name="start"></li>
+         			<li><input type="date" min="" max="" id="startDate" name="startDate"></li>
          			<li>~</li>
-         			<li><input type="date"  name="end"></li>
-         			<li><input type="button" value="오늘" onclick="today();"></li>
-         			<li><input type="button" value="일주일"></li>
-         			<li><input type="button" value="한달"></li>
+         			<li><input type="date" min="" max=""  id="endDate" name="endDate"></li>
+         			<li><input type="button" name="datebtn" value="오늘"></li>
+         			<li><input type="button" name="datebtn" value="일주일"></li>
+         			<li><input type="button" name="datebtn" value="한달"></li>
          		</ul>
          		<input type="submit" value="검색">
          		</form>
@@ -97,4 +102,83 @@
          </div>
       </div>
    </div>
+   
+   <script>
+   
+   
+   /*---------------------------------------------------*/
+
+   /*yyyy-mm-dd 포맷날짜가져오기*/
+
+
+   function getTimeStamp() {
+
+       var d = new Date();
+       var s =
+           leadingZeros(d.getFullYear(), 4) + '-' +
+           leadingZeros(d.getMonth() + 1, 2) + '-' +
+           leadingZeros(d.getDate(), 2);
+
+       return s;
+   }
+
+   function leadingZeros(n, digits) {
+
+       var zero = '';
+       n = n.toString();
+
+       if (n.length < digits) {
+           for (i = 0; i < digits - n.length; i++)
+               zero += '0';
+       }
+       return zero + n;
+   }
+
+  $(function(){
+	  var today = getTimeStamp() ;
+	   //$( '#startDate' ).attr('min', today);
+	   $( '#startDate' ).val(today);
+	   
+		   $( '#startDate' ).on('change', function(){
+		   	$( '#endDate' ).attr('min', $( '#startDate' ).val());	
+		   	$( '#endDate' ).val($( '#startDate' ).val());	
+		   });
+	   
+	   
+	   $("input[name='datebtn']").on('click',function(){
+		   var btnval= $(this).val();
+		 if( btnval == '오늘'){
+			   $( '#startDate' ).val(today);
+			   	$( '#endDate' ).val($( '#startDate' ).val());	
+		 }else if(btnval =='일주일'){
+			   var d = new Date($( '#endDate' ).val());
+		       var s =
+		           leadingZeros(d.getFullYear(), 4) + '-' +
+		           leadingZeros(d.getMonth() + 1, 2) + '-' +
+		           leadingZeros(d.getDate()-7, 2);
+			 	
+			 	$( '#endDate' ).val(today);	
+			 	 $( '#startDate' ).val(s);
+		 }else if( btnval =='한달'){
+			  var d = new Date($( '#endDate' ).val());
+		       var s =
+		           leadingZeros(d.getFullYear(), 4) + '-' +
+		           leadingZeros(d.getMonth() , 2) + '-' +
+		           leadingZeros(d.getDate(), 2);
+			 	
+			 	$( '#endDate' ).val(today);	
+			 	 $( '#startDate' ).val(s);
+			 
+			 
+		 }
+	   });
+	   
+	   
+  }) ;
+
+
+   /*-----------------------------------------------------*/
+
+   </script>
+
 <%@include file="../../_include/footer.jsp" %>

@@ -16,7 +16,7 @@ public class AdminStatsMemberRegistController {
 	
 	//회원 등록 통계 화면 진입
 	@RequestMapping("admin_statMemberRegist.do")
-	public ModelAndView statMemberRegist() {
+	public ModelAndView adminStatMemberRegist() {
 		//일반회원, 코치회원 비율
 		int sidCount=adminStatsMemberdao.GetMemTypeCount("일반회원");
 		int coachIdCount=adminStatsMemberdao.GetMemTypeCount("코치회원");
