@@ -55,27 +55,28 @@ function delimg(id,idx){
 
 			<table>
 				<tr>
-					<th>카테고리 유형</th>
-					<td><select name="bbs_category">
-							<option>홈짐</option>
-							<option>코치 매칭</option>
-							<option>결제</option>
-							<option>기타</option>
-					</select></td>
+					<th>카테고리 유형
+						<select name="bbs_category">
+								<option>홈짐</option>
+								<option>코치 매칭</option>
+								<option>결제</option>
+								<option>기타</option>
+						</select>
+					</th>
 				</tr>
 		
 				<tr>
-					<th>제목</th>
-
-					<td><input type="text" name="bbs_subject"
-						value="${dto.bbs_subject}"></td>
+					<th>제목
+						<input type="text" name="bbs_subject" value="${dto.bbs_subject}">
+					</th>
 				</tr>
 					<hr>
 				<tr>
-					<td colspan="3"><textarea rows="6" cols="70" name="bbs_content" placeholder="내용을 입력해주세요"
-							style="white-space: pre-line; width: 600px; height: 200px;">${dto.bbs_content } </textarea></td>
+					<td><textarea rows="6" cols="50" name="bbs_content" placeholder="내용을 입력해주세요"
+							style="white-space: pre-line; height: 200px;" >${dto.bbs_content } </textarea></td>
 				</tr>
 			</table>
+				<hr>
 				<div class="form-group">
 					<label>사진등록</label>
 					<ul id="fileUl">

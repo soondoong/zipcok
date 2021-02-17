@@ -137,7 +137,7 @@ public class CsController {
 				System.out.println("사진등록성공");
 			}
 			
-			String msg=result>0?"문의가 등록되었습니다!":"등록 실패했습니다";
+			String msg=result>0?"문의가 등록되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg",msg);
 			mav.addObject("gopage","csList.do");
@@ -259,7 +259,7 @@ public class CsController {
 			
 			dto.setRe_bbs_idx(bbs_idx);
 			int result=csDao.csReWrite(dto);
-			String msg=result>0?"답변이 성공적으로 작성되었습니다":"답변 작성 실패!";
+			String msg=result>0?"답변이 성공적으로 등록되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);
 			mav.addObject("gopage", "csContent.do?bbs_idx="+bbs_idx);
@@ -272,7 +272,7 @@ public class CsController {
 		public ModelAndView csReDelete(int re_idx,int bbs_idx) {
 			int result=csDao.csReDelete(re_idx);
 			
-			String msg=result>0?"답변이 성공적으로 삭제되었습니다":"답변 삭제 실패";
+			String msg=result>0?"답변이 성공적으로 삭제되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);
 			mav.addObject("gopage","csContent.do?bbs_idx="+bbs_idx);
