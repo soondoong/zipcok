@@ -6,6 +6,7 @@
 <%@include file="../header2.jsp" %>
 
 <c:set var="dto" value="${dto}"/>
+<c:set var="dto2" value="${dto2}"/>
 <c:choose>
 	<c:when test="${empty sessionScope.sid && empty sessionScope.coachId }">
 		<script>
@@ -37,6 +38,10 @@
 	   var url='csReDelete.do?re_idx='+re_idx+'&bbs_idx='+bbs_idx;
 	   location.href=url;
    }
+   function resize(obj) {
+	   obj.style.height = "1px";
+	   obj.style.height = (12+obj.scrollHeight)+"px";
+	}
    </script>
    <div id="container">
 	<div class="page_top_visual">
@@ -60,6 +65,7 @@
 			.content_view_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dd {margin: 0; padding: 0 20px; line-height: 40px; border-bottom: 1px solid #dddddd;}
 			.view body {padding: 30px 20px 50px;}
+			.autosize { min-height: 60px; }
 		</style>
 		<article class="content_view_wrap">
 			<div class="view_head">
@@ -71,15 +77,57 @@
 			</div>
 			<div class="view_body">
 				<c:forEach var="zfileList" items="${csFileList}">
-				<div>
-				<img src="/zipcok/upload/cs/${zfileList.zfile_upload}">
-				</div>
+					<div>
+						<img src="/zipcok/upload/cs/${zfileList.zfile_upload}">
+					</div>
 				</c:forEach>
 				<div class="view_content">
-					<textarea rows="6" cols="80" placeholder="내용을 입력해주세요" readonly="readonly" style="white-space: pre-line; height: 300px;">${dto.bbs_content}</textarea>
+					<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="30" placeholder="내용을 입력해주세요" readonly="readonly" style="white-space: pre-line;">${dto.bbs_content}</textarea>
 				</div>
 			</div>
-		
+		<hr>
+		<c:if test="${empty dto2}">
+			<c:if test="${login.mem_id=='admin'}">
+				<div class="view_body">
+					<div class="table_list_bottom">
+						<div class="btn_right_box">
+							<hr>
+							<input type="button" class="btn1 c1" value="답변달기" onclick="rewriteview()">
+						</div>
+					</div>
+					<div id="reWriteView" style="display: none;">
+						<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="30" style="white-space: pre-line;" id="re_content" name="re_content"></textarea>
+							<div class="table_list_bottom">
+								<div class="btn_right_box">
+									<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
+								</div>
+							</div>
+					</div>
+				</div>
+			</c:if>
+		</c:if>
+		<c:if test="${!empty dto2}">
+			<div class="view_body">
+				<div class="view_content">
+					<div>
+						<h5>문의글에 대한 답변입니다</h5><br>
+					</div>
+					<span>작성자 : ${dto2.re_id}</span>
+					<span>작성일 : ${dto2.re_writedate}</span>
+				</div>
+				<div>
+					<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="3" cols="30" style="white-space: pre-line;" readonly="readonly">${dto2.re_content}</textarea>
+				</div>
+			</div>
+				<c:if test="${login.mem_id=='admin'}">
+					<div class="table_list_bottom">
+						<div class="btn_right_box">
+							<input type="button" class="btn1 c1" value="답변 삭제" onclick="csReDelete(${dto2.re_idx},${dto.bbs_idx})">
+						</div>
+					</div>
+				<hr>
+				</c:if>
+		</c:if>
 		</article>
 		
 		<div class="table_list_bottom">
@@ -91,28 +139,6 @@
 				<a href="csUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
 			</div>
 		</div>
-		<hr>
-		<c:if test="${empty dto2}">
-			<c:if test="${login.mem_id=='admin'}">
-				<div>
-					<div><input type="button" value="답변달기" onclick="rewriteview()"></div>
-					<div id="reWriteView" style="display: none;"><textarea rows="6" cols="80" style="height: 300px;" id="re_content" name="re_content"></textarea>
-					<div><input type="button" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})"></div></div>
-					
-					
-				</div>
-			</c:if>
-		</c:if>
-		<c:if test="${!empty dto2}">
-			<div>
-				<span>작성자 : ${dto2.re_id}</span>
-				<span>작성일 : ${dto2.re_writedate}</span>
-			</div>
-			<div><textarea rows="6" cols="80" readonly="readonly">${dto2.re_content}</textarea></div>
-			<c:if test="${login.mem_id=='admin'}">
-			<div><input type="button" value="답변 삭제" onclick="csReDelete(${dto2.re_idx},${dto.bbs_idx})"></div>
-			</c:if>
-		</c:if>
 	</div>
 </div>
 

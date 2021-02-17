@@ -17,13 +17,13 @@
 	  	<when test="searchType=='아이디'">
 		  	<choose>
 		  		<when test="searchText==''">where hg_mem_id like '%%'</when>
-		  		<when test="searchText!=''">where hg_mem_id = #{searchText}</when>
+		  		<when test="searchText!=''">where hg_mem_id like '%${searchText}%'</when>
 		  	</choose>
 	  	</when>
 	  	<when test="searchType=='닉네임'">
 	  		<choose>
 		  		<when test="searchText==''">where hg_nickname like '%%'</when>
-		  		<when test="searchText!=''">where hg_nickname = #{searchText}</when>
+		  		<when test="searchText!=''">where hg_nickname like '%${searchText}%'</when>
 		  	</choose>
   		</when>
   	</choose>
@@ -41,13 +41,13 @@
 	  	<when test="searchType=='아이디'">
 		  	<choose>
 		  		<when test="searchText==''">where hg_mem_id like '%%'</when>
-		  		<when test="searchText!=''">where hg_mem_id = #{searchText}</when>
+		  		<when test="searchText!=''">where hg_mem_id like '%${searchText}%'</when>
 		  	</choose>
 	  	</when>
 	  	<when test="searchType=='닉네임'">
 	  		<choose>
 		  		<when test="searchText==''">where hg_nickname like '%%'</when>
-		  		<when test="searchText!=''">where hg_nickname = #{searchText}</when>
+		  		<when test="searchText!=''">where hg_nickname like '%${searchText}%'</when>
 		  	</choose>
   		</when>
   	</choose>

@@ -90,7 +90,7 @@ a{cursor:pointer;}
 							<th>결제일</th>
 							<th>결제방법</th>
 							<th>상태</th>
-							<th>결제취소하기</th>
+							<th>결제취소승인</th>
 						</tr>
 					</thead>
 					<tbody>

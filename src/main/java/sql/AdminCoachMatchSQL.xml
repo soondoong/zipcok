@@ -40,19 +40,19 @@ pr_req_idx = rf.req_idx
 	  	<when test="choice=='번호'">
 		  	<choose>
 		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0 and</when>
-		  		<when test="searchText!=''">mem_idx = #{searchText} and</when>
+		  		<when test="searchText!=''">mem_idx like '%${searchText}' and</when>
 		  	</choose>
 	  	</when>
 	  	<when test="choice=='id'">
 	  		<choose>
 		  		<when test="searchText==''">mem_id like '%%' and</when>
-		  		<when test="searchText!=''">mem_id=#{searchText} and</when>
+		  		<when test="searchText!=''">mem_id like '%${searchText}%' and</when>
 		  	</choose>
   		</when>
 	  	<when test="choice=='이름'">
 	  		<choose>
 		  		<when test="searchText==''">mem_name like '%%' and</when>
-		  		<when test="searchText!=''">mem_name=#{searchText} and</when>
+		  		<when test="searchText!=''">mem_name like '%${searchText}%' and</when>
 		  	</choose>
 	  	</when>
   	</choose>
@@ -176,13 +176,13 @@ pr_req_idx = rf.req_idx
 		  	<when test="searchCon=='코치아이디'">
 		  		<choose>
 			  		<when test="searchT==''">and pd_target_id like '%%'</when>
-			  		<when test="searchT!=''">and pd_target_id = #{searchT}</when>
+			  		<when test="searchT!=''">and pd_target_id like '%${searchT}%'</when>
 		  		</choose>
 		  	</when>
 		  	<when test="searchCon=='회원아이디'">
 		  		<choose>
 			  		<when test="searchT==''">and pd_mem_id like '%%'</when>
-			  		<when test="searchT!=''">and pd_mem_id=#{searchT}</when>
+			  		<when test="searchT!=''">and pd_mem_id like '%${searchT}%'</when>
 		  		</choose>
 		  	</when>
      	</choose>
@@ -198,13 +198,13 @@ pr_req_idx = rf.req_idx
 		  	<when test="searchCon=='코치아이디'">
 		  		<choose>
 			  		<when test="searchT==''">and pd_target_id like '%%'</when>
-			  		<when test="searchT!=''">and pd_target_id = #{searchT}</when>
+			  		<when test="searchT!=''">and pd_target_id like '%${searchT}%'</when>
 		  		</choose>
 		  	</when>
 		  	<when test="searchCon=='회원아이디'">
 		  		<choose>
 			  		<when test="searchT==''">and pd_mem_id like '%%'</when>
-			  		<when test="searchT!=''">and pd_mem_id=#{searchT}</when>
+			  		<when test="searchT!=''">and pd_mem_id like '%${searchT}%'</when>
 		  		</choose>
 		  	</when>
      	</choose>
