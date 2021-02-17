@@ -18,6 +18,7 @@
 .table th{font-weight: bold; border-color:#848282;}
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+
 </style>
 
 	<div class="adminPage_wrap">
@@ -31,8 +32,7 @@
 				<div>
 					<form action="adminMemberListAction.do">
 						<ul class="test-inline">
-							<li>조건 검색&nbsp;&nbsp;&nbsp;</li>
-							<li>등급 : </li>
+							<li class="srchtitle">검색 조건</li>
 							<li>
 							<select name="type">
 							<option <c:if test="${keyword.keywordType=='전체'}">selected="selected"</c:if>>전체</option>
@@ -41,7 +41,7 @@
 							</select>
 							</li>
 							<li><input type="text" placeholder="고객명" name="name"></li>
-							<li><input type="submit" value="검색"></li>
+							<li><input type="submit" value="검색" id="searchbtn" class="btn btn-primary"></li>
 						</ul>
 					</form>
 				</div>
@@ -101,11 +101,11 @@
 						<table>
 						<tbody>
 							<tr>
-								<td>회원번호<input type="text" name="mem_idx" id="idxTd" readonly="readonly" style="background-color : lightgray;" ></td>
+								<td class="leftmem_td">회원번호<input type="text" name="mem_idx" id="idxTd" readonly="readonly" style="background-color : lightgray;" ></td>
 								<td>아이디<input type="text" name="mem_id" id="idTd" readonly="readonly" style="background-color : lightgray;"></td>
 							</tr>
 							<tr>
-								<td>
+								<td class="leftmem_td">
 								비밀번호<input type="password" name="mem_pwd" id="pwdTd" readonly="readonly" style="background-color : lightgray;">
 								<p class="updateGoGoPwd" id="pwdUpdateP"></p>
 								</td>
@@ -115,7 +115,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="leftmem_td">
 								이메일<input type="text" name="mem_email" id="emailTd" readonly="readonly" style="background-color : lightgray;">
 								<p class="updateGoGoEmail" id="emailUpdateP"></p>
 								</td>
@@ -125,7 +125,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="leftmem_td">
 								주소<input type="text" name="mem_addr" id="addrTd" readonly="readonly" style="background-color : lightgray;">
 								<input type="hidden" name="mem_addrH" id="addrTdH">
 								<input type="hidden" name="mem_zipcode" id="zipcodeTd">
@@ -225,17 +225,17 @@ function showResult(){
 					document.getElementById('addrUpdateP').innerHTML="<input type='button' value='수정'  name='btnaddrgogo' onclick='adminAddrUpdateForm();''>";
 					document.getElementById('typeUpdateP').innerHTML="<input type='button' value='수정'  name='btntypegogo' onclick='typeUpdateGoGo();''>";
 					$("#pwdTd").attr("readonly",true);
-					$('#pwdTd').css('background-color', 'lightgray');
+					$('#pwdTd').css('background-color', '#eeeff0');
 					$("#nameTd").attr("readonly",true);
-					$('#nameTd').css('background-color', 'lightgray');
+					$('#nameTd').css('background-color', '#eeeff0');
 					$("#phoneTd").attr("readonly",true);
-					$('#phoneTd').css('background-color', 'lightgray');
+					$('#phoneTd').css('background-color', '#eeeff0');
 					$("#emailTd").attr("readonly",true);
-					$('#emailTd').css('background-color', 'lightgray');
+					$('#emailTd').css('background-color', '#eeeff0');
 					$("#addrTd").attr("readonly",true);
-					$('#addrTd').css('background-color', 'lightgray');
+					$('#addrTd').css('background-color', '#eeeff0');
 					$("#typeTd").attr("disabled",true);
-					$('#typeTd').css('background-color', 'lightgray');
+					$('#typeTd').css('background-color', '#eeeff0');
 					
 		}
 	}

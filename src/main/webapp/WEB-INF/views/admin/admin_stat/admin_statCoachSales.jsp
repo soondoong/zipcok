@@ -45,14 +45,14 @@ a{cursor:pointer;}
          			<li><input type="button"  name="datebtn" class="datebtn" value="일주일"></li>
          			<li><input type="button"  name="datebtn"  class="datebtn" value="한달"></li>
          		</ul>
-         		<input type="submit" value="검색" id="searchbtn" >
+         		<input type="submit" value="검색" id="searchbtn"  class="btn btn-primary">
          	</form>	
          	</div>
          
 			<hr>
         
          	<!-- 그래프 -->
-         	<h5 style="margin-bottom:25px;">월간 수익 그래프</h5>
+         	<h5 style="margin-bottom:25px;">월간 수익 그래프</h5><span>(단위 만원)</span>
          	<div id="myfirstchart" style="height: 350px;width:100%;margin-bottom:50px;" ></div>
          	
          	
@@ -84,12 +84,19 @@ a{cursor:pointer;}
       </div>
    </div>
    
-   
-   
+
    
 <script>
-     
-     
+/*=========Morris Chart============*/
+var morrisData = []; // 데이터를 담을 배열 
+<c:forEach var = "dto" items="${ graphdata}" varStatus="s"> 
+	var allsell =	Math.floor(${dto.sumAllSell} /10000);
+	var resultsell =Math.floor(	${dto.sumResultSell} /10000);
+	//alert(allsell);
+	morrisData.push({'y':${dto.y}, 'a':${dto.sumAllMatch} ,'b':allsell ,'c':resultsell }); 
+</c:forEach>
+    
+/*=========Morris Chart============*/    
    /*---------------------------------------------------*/
 
    /*yyyy-mm-dd 포맷날짜가져오기*/
@@ -166,31 +173,17 @@ a{cursor:pointer;}
 
 
    /*-----------------------------------------------------*/
-
-   </script>
-   <script>
+ 
    const monthNames = ["", "1월", "2월", "3월", "4월", "5월", "6월",
        "7월", "8월", "9월", "10월", "11월", "12월"
    ];
+   
 new Morris.Line({
 			// 그래프를 표시 하기 위한 객체의 ID
 			  element: 'myfirstchart',
 			// 그래프 데이터. 각 요소가 하나의 그래프 상의 값에 해당
 		
-			  data: [
-		          {y: ${graphdata[0].y}, a: ${graphdata[0].sumAllMatch}, b:${graphdata[0].sumAllSell},c:${graphdata[0].sumResultSell}},
-		          {y: ${graphdata[1].y}, a: ${graphdata[1].sumAllMatch}, b:${graphdata[1].sumAllSell},c:${graphdata[1].sumResultSell}},
-		          {y: ${graphdata[2].y}, a: ${graphdata[2].sumAllMatch}, b:${graphdata[2].sumAllSell},c:${graphdata[2].sumResultSell}},
-		          {y: ${graphdata[3].y}, a: ${graphdata[3].sumAllMatch}, b:${graphdata[3].sumAllSell},c:${graphdata[3].sumResultSell}},
-		          {y: ${graphdata[4].y}, a: ${graphdata[4].sumAllMatch}, b:${graphdata[4].sumAllSell},c:${graphdata[4].sumResultSell}},
-		          {y: ${graphdata[5].y}, a: ${graphdata[5].sumAllMatch}, b:${graphdata[5].sumAllSell},c:${graphdata[5].sumResultSell}},
-		          {y: ${graphdata[6].y}, a: ${graphdata[6].sumAllMatch}, b:${graphdata[6].sumAllSell},c:${graphdata[6].sumResultSell}},
-		          {y: ${graphdata[7].y}, a: ${graphdata[7].sumAllMatch}, b:${graphdata[7].sumAllSell},c:${graphdata[7].sumResultSell}},
-		          {y: ${graphdata[8].y}, a: ${graphdata[8].sumAllMatch}, b:${graphdata[8].sumAllSell},c:${graphdata[8].sumResultSell}},
-		          {y: ${graphdata[9].y}, a: ${graphdata[9].sumAllMatch}, b:${graphdata[9].sumAllSell},c:${graphdata[9].sumResultSell}},
-		          {y: ${graphdata[10].y}, a: ${graphdata[10].sumAllMatch}, b:${graphdata[10].sumAllSell},c:${graphdata[10].sumResultSell}},
-		          {y: ${graphdata[11].y}, a: ${graphdata[11].sumAllMatch}, b:${graphdata[11].sumAllSell},c:${graphdata[11].sumResultSell}}
-		      ],
+			  data: morrisData,
 		    
 		      // 그래프 데이터에서 x축에 해당하는 값의 이름 
 		      xkey: 'y',
@@ -203,7 +196,7 @@ new Morris.Line({
 		      },
 		      xLabels: "month",
 		   // 각 값에 대해서 마우스 오버시 표시 하기 위한 레이블
-		      labels: ['매칭 수','총매출','순수익'],
+		   labels: ['거래 수(건)','총매출(만원)','순수익(만원)'],
 		      lineColors: ['#e19bdc', '#3dbeee','green'],
 		      hideHover: 'auto'
 

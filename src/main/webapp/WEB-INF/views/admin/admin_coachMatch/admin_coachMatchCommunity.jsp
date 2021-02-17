@@ -15,12 +15,19 @@
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+<style>
+.table { border-spacing: ''; table-layout: auto; text-align: center; margin-bottom:70px;} 
+.table th{font-weight: bold; border-color:#848282;}
+a{cursor:pointer;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+</style>
    <div class="adminPage_wrap">
    <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          	<div>
-				<h5>[커뮤니티 관리]</h5>
+				<h3>커뮤니티 관리</h3>
 			</div>
 			<div>
 				<form name="adminCommSearchList" action="admin_coachMatchCommunityList.do">
@@ -28,7 +35,7 @@
 						<li>커뮤니티 검색</li>
 						<li><select><option>커뮤니티 이름</option></select></li>
 						<li><input type="text" name="com_name"></li>
-						<li><input type="submit" value="검색하기"></li>
+						<li><input type="submit" value="검색하기" id="searchbtn" class="btn btn-primary"></li>
 					</ul>
 				</form>
 			</div>
@@ -37,7 +44,7 @@
 				</ul>
 			</div>
 			<div><!-- 검색결과  테이블 div -->
-				<table border="1" cellspacing="0">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>코드</th>
@@ -61,7 +68,7 @@
 				<div>
 					<h5>커뮤니티 코치정보</h5>
 				</div>
-				<table border="1" cellspacing="0">
+				<table  class="table table-hover">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -86,7 +93,7 @@
 				<div>
 					<h5>커뮤니티 회원정보</h5>
 				</div>
-				<table border="1" cellspacing="0">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -111,7 +118,7 @@
 				<div>
 					<h5>커뮤니티 게시판정보</h5>
 				</div>
-				<table border="1" cellspacing="0">
+				<table  class="table table-hover">
 					<thead>
 						<tr>
 							<th>게시판</th>

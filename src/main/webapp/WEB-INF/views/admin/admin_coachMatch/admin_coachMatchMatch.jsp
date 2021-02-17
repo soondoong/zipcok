@@ -84,15 +84,15 @@ a{cursor:pointer;}
 			<div><!-- 검색하는 부분 div -->
 				<form action="#">
 					<div>
-						<h3 style="font-weight: bold">[코치매칭 내역 관리]</h3>
+						<h3 >코치매칭 상담내역 관리</h3>
 					</div>
 					
 					<div>
-						<h6>코치검색</h6>
+						
 						<ul class="test-inline">
-							<li>아이디</li>
+							<li class="srchtitle">코치아이디</li>
 							<li><input type="text" placeholder="아이디 입력" id="searchId" ></li>
-							<li><input type="button" value="검색" onclick="show('','');"></li>
+							<li><input type="button" value="검색" onclick="show('','');"  id="searchbtn" class="btn btn-primary"></li>
 						</ul>
 					</div>
 				</form>
@@ -132,13 +132,13 @@ a{cursor:pointer;}
 			
 			
 				<div>
-					<h3  style="font-weight: bold">[코치매칭 거래내역]</h3>
+					<h3 style="margin-top:50px;">코치매칭 거래내역</h3>
 						<div>
-						<h6>코치검색</h6>
+						
 						<ul class="test-inline">
-							<li>아이디</li>
+							<li class="srchtitle">코치아이디</li>
 							<li><input type="text" placeholder="아이디 입력" id="searchPdId"></li>
-							<li><input type="button" value="검색" id="searchPdbtn"></li>
+							<li><input type="button" value="검색" id="searchPdbtn"  class="btn btn-primary"></li>
 						</ul>
 					</div>
 					
