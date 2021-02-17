@@ -76,10 +76,10 @@ a{cursor:pointer;}
 					</div>
 				</form>
 			</div>
-			<hr>
+			
 			<div><!-- 코치의 취소 내역  테이블 div -->
 				
-				<table   align="center" class="table table-hover" >
+				<table   align="center" class="table table-hover" style="margin-top:30px;" >
 					<thead>
 						<tr>
 							<th>결제번호</th>

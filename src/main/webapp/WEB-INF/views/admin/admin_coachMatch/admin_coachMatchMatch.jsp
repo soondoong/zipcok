@@ -25,6 +25,7 @@ if(id ==null || id ==''){
 	  if(str==null || str == ''){
 		  cp=1;
 	  }
+
 	  var params='req_receive_id='+id+'&cp='+cp;
 		sendRequest('coachMatchingMemInfo.do',params,showResult,'GET');
 }	  

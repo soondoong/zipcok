@@ -271,12 +271,14 @@ public class AdminCoachMatchController {
 	//코치매칭 매칭회원 목록 가져오기
 	@RequestMapping("coachMatchingMemInfo.do")
 	public ModelAndView coachMatchingInfo(
-			@RequestParam("req_receive_id")String req_receive_id,
+			@RequestParam(value="req_receive_id")String req_receive_id,
 			@RequestParam(value="cp",defaultValue = "1")int cp) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-				
-		int listSize=2;
+		if(req_receive_id.equals("") || req_receive_id == null) {
+			req_receive_id ="전체";
+		}
+		int listSize=4;
 		int pageSize=5;
 		int start=(cp-1)*listSize+1;
 		int end=cp*listSize;

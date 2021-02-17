@@ -87,7 +87,7 @@ function mypageCoachMatchPayList(){
 				</c:if>
 			
 			</td>
-			<td><input type="button" class="revbtn"  value="결제취소" onclick="payCancle('${p.pd_idx}','${p.pd_status }')"></td>
+			<td><input type="button" class="revbtn"  value="결제취소" onclick="payCancle('${p.pd_idx}','${p.pd_status }','${p.pr_start }')"></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -138,14 +138,39 @@ function mypageCoachMatchPayList(){
 	}
 	
 	
-	function payCancle(pd_idx,status){
-		if(status == '결제취소완료'){		
-			alert('이미 취소된 내역입니다.');
-		}else if(status == '취소요청중'){
-			alert('이미 요청이 전송되었습니다.');
-		}else{	
-			location.href="pdStatusChangetoCancelplz.do?pd_idx="+pd_idx;
-		}
+	function payCancle(pd_idx,status,startdate){
+		//첫번째 조건-서비스종료일이 지낫는지
+		var d = new Date();		 
+	    var year = d.getFullYear(); //년도
+	    var month = d.getMonth()+1; //월
+	    var day = d.getDate(); //일
+	 	
+	    if ((day+"").length < 2) {       // 일이 한자리 수인 경우 앞에 0을 붙여주기 위해
+	        day = "0" + day;
+	    }	 
+	    var getToday = year+"-"+month+"-"+day; // 오늘 날짜 (2021-02-07)
+		
+	    var startdate2 = new Date(startdate);
+		var todaydate= new Date(getToday);
+		
+		
+				if(status == '결제취소완료'){		
+					alert('이미 취소된 내역입니다.');
+				}else if(status == '취소요청중'){
+					alert('이미 요청이 전송되었습니다.');
+				}else{	
+					
+					//오늘이 서비스시작일 이전이여야 취소가능
+					if(startdate2 > todaydate){
+						var result=confirm("결제를 취소하시겠습니까?");
+						
+						if(result)location.href="pdStatusChangetoCancelplz.do?pd_idx="+pd_idx;
+					}else{
+						alert("서비스가 시작된 이후에는 결제를 취소하실 수 없습니다. \n 고객센터로 문의해주세요.");
+					}
+					
+				
+				}
 		
 		
 	}
