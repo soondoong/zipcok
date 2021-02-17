@@ -63,15 +63,33 @@ public class AdminStatsMemberRegistController {
 			dateJoinCount.add(adminStatsMemberdao.GetMemJoinDate(datelist.get(i)));
 		}
 
-		//기간 사이 총 가입자 수 구하기
-		int mem_joindatecountsum=adminStatsMemberdao.GetMemJoinDateCountSum(startDate, endDate);
+		//기간 사이 일반 가입자 수 구하기
+		//int mem_joindatecountsum=adminStatsMemberdao.GetMemJoinDateCountSum(startDate, endDate);
+		
+		//날짜별로 탈퇴 회원 수 구하기
+		List<Integer> dateOutCount=new ArrayList<Integer>();
+		for(int i=0;i<datelist.size();i++) {
+			dateOutCount.add(adminStatsMemberdao.GetMemOutDate(datelist.get(i)));
+		}
+		
+		//기간 사이 탈퇴 회원 수 구하기
+		//int mem_outdatecountsum=adminStatsMemberdao.GetMemOutDateCountSum(startDate, endDate);
+		
+		//날짜별로 코치 전환 수 구하기
+		List<Integer> coachJoinCount=new ArrayList<Integer>();
+		for(int i=0;i<datelist.size();i++) {
+			coachJoinCount.add(adminStatsMemberdao.GetCoachJoinDate(datelist.get(i)));
+		}
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("sidCount", sidCount);//일반멤버 회원수
 		mav.addObject("coachIdCount", coachIdCount);//코치멤버 회원수
 		mav.addObject("datelist", datelist);//시작날짜 ~ 끝날짜 리스트
 		mav.addObject("dateJoinCount", dateJoinCount);//날짜별 회원 가입 수
-		mav.addObject("mem_joindatecountsum", mem_joindatecountsum);//기간 사이 총 가입자 수
+		mav.addObject("dateOutCount", dateOutCount);//날짜별 탈퇴 가입 수
+		mav.addObject("coachJoinCount", coachJoinCount);//날짜별 코치 전환 수
+		//mav.addObject("mem_outdatecountsum", mem_outdatecountsum);//기간 사이 총 탈퇴 수
+		//mav.addObject("mem_joindatecountsum", mem_joindatecountsum);//기간 사이 총 가입자 수
 		mav.setViewName("admin/admin_stat/admin_statMemberRegistSubmit");
 		return mav;
 	}

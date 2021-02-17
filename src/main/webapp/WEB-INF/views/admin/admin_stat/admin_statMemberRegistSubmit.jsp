@@ -30,9 +30,9 @@
          		<form name="date" action="admin_statMemberRegistSubmit.do">
          		<ul class="test-inline">
          			<li>조회일</li>
-         			<li><input type="date" min="" max="" id="startDate" name="startDate"></li>
+         			<li><input type="date" min="" max="" id="startDate" name="startDate" required="required"></li>
          			<li>~</li>
-         			<li><input type="date" min="" max=""  id="endDate" name="endDate"></li>
+         			<li><input type="date" min="" max=""  id="endDate" name="endDate" required="required"></li>
          			<li><input type="button" name="datebtn" value="오늘"></li>
          			<li><input type="button" name="datebtn" value="일주일"></li>
          			<li><input type="button" name="datebtn" value="한달"></li>
@@ -56,24 +56,41 @@
 						</tr>
 					</thead>
 					<tbody>
+						<c:set var="mem_joindatecountsum" value="0" />
+						<c:set var="mem_outdatecountsum" value="0" />
+						<c:set var="coachJoinCountsum" value="0" />
 						<c:forEach var="date" items="${datelist }" varStatus="i">
 							<tr>
 								<td>${i.current }</td>
-									<c:forEach var="date" items="${dateJoinCount }" varStatus="j">
+									<!-- 일반회원 신규등록 수 -->
+									<c:forEach var="joindate" items="${dateJoinCount }" varStatus="j">
 										<c:if test="${i.index eq j.index }">
 												<td>${j.current }</td>
+										<c:set var="mem_joindatecountsum" value="${mem_joindatecountsum + j.current}"/>
 										</c:if>
 									</c:forEach>
-								<td>??</td>
-								<td>??</td>
+									<!-- 코치회원 전환 수 -->
+									<c:forEach var="coachjoindate" items="${coachJoinCount }" varStatus="h">
+										<c:if test="${i.index eq h.index }">
+												<td>${h.current }</td>
+										<c:set var="coachJoinCountsum" value="${coachJoinCountsum + h.current}"/>
+										</c:if>
+									</c:forEach>
+									<!-- 탈퇴한 회원 수 -->
+									<c:forEach var="outdate" items="${dateOutCount }" varStatus="o">
+										<c:if test="${i.index eq o.index }">
+												<td>${o.current }</td>
+										<c:set var="mem_outdatecountsum" value="${mem_outdatecountsum + o.current}"/>
+										</c:if>
+									</c:forEach>					
 						</c:forEach>				
 					</tbody>
 					<tfoot>
 						<tr>
 							<td>합계</td>
 							<td>${mem_joindatecountsum}</td>
-							<td>??</td>
-							<td>??</td>
+							<td>${coachJoinCountsum }</td>
+							<td>${mem_outdatecountsum}</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -84,8 +101,8 @@
                <table border="1" cellspacing="0">
                   <thead>
                      <tr>
-                        <th>일반 회원 수/비율</th>
-						<th>코치 회원 수/비율</th>
+                        <th>일반 회원 수 / 비율</th>
+						<th>코치 회원 수 / 비율</th>
 						<th>총 회원 수</th>
                      </tr>
                   </thead>
