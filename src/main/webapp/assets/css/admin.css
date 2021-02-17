@@ -3,9 +3,15 @@
 .adminPage_sidebar ul{ color: white; text-align: left;}
 .adminTitleLi{padding:30px 0; text-align: center; }
 .adminPage_wrap .adminpage_contents {flex: 1 1 auto; padding: 30px;}
+.adminPage_wrap h3{margin-bottom:30px; font-weight:500;}
+.adminPage_wrap h2{margin-bottom:30px; font-weight: 500;}
+.adminPage_wrap .datebtn{width:63px; height: 36px; }
+.adminPage_wrap #searchbtn{width:100px; height: 36px; }
+.adminPage_wrap .checkdate{font-size: 18px; margin-right:20px; }
 
 
-.adminPage_wrap .adminPage_main{width: 100%;}
+
+.adminPage_wrap .adminPage_main{width: 100%; padding:40px;}
 
 
 /* define a fixed width for the entire menu */
