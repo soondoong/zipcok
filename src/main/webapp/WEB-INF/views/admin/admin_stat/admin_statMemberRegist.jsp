@@ -27,7 +27,7 @@
          <h3>회원 등록 통계</h3>
          <hr>
          	<div>
-         		<form name="date" action="dd">
+         		<form name="date" action="admin_statMemberRegistSubmit.do">
          		<ul class="test-inline">
          			<li>조회일</li>
          			<li><input type="date" min="" max="" id="startDate" name="startDate"></li>
@@ -50,25 +50,25 @@
 					<thead>
 						<tr>
 							<th>날짜</th>
-							<th>총 회원수</th>
-							<th>등록한 회원 수</th>
+							<th>일반회원 신규등록 수</th>
+							<th>코치회원 전환 수</th>
 							<th>탈퇴한 회원 수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>2021-01-12</td>
-							<td>132313</td>
-							<td>5111</td>
-							<td>탈퇴한 회원 수</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td>합계</td>
-							<td>132313</td>
-							<td>5111</td>
-							<td>회원 비율</td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</tr>
 					</tfoot>
 				</table>
@@ -78,22 +78,17 @@
             <div><!-- 회원목록부분 테이블 div -->
                <table border="1" cellspacing="0">
                   <thead>
-                     <tr>
-                        <th>회원 등급</th>
-                        <th>회원 수</th>
-                        <th>비율</th>
+                      <tr>
+                        <th>일반 회원 수/비율</th>
+						<th>코치 회원 수/비율</th>
+						<th>총 회원 수</th>
                      </tr>
                   </thead>
                   <tbody>
                      <tr>
-                        <td>일반회원</td>
-                        <td>${sidCount }</td>
-                        <td>${(sidCount / (sidCount + coachIdCount)) * 100}%</td>
-                     </tr>
-                     <tr>
-                        <td>코치회원</td>
-                        <td>${coachIdCount }</td>
-                        <td>${(coachIdCount / (sidCount + coachIdCount)) * 100}%</td>
+                        <td>${sidCount } / ${(sidCount / (sidCount + coachIdCount)) * 100}%</td>
+                        <td>${coachIdCount } / ${(coachIdCount / (sidCount + coachIdCount)) * 100}%</td>
+                        <td>${sidCount + coachIdCount}</td>
                      </tr>
                   </tbody>
               
