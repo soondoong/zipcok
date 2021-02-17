@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
+<link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css'>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
@@ -73,11 +74,28 @@ window.addEventListener('load', function() {
 	    map.setCenter(coords);
 	} 
 	}); 
+	
+	$(function() {
+		$('#date_input').datepicker({
+			dateFormat: 'yy-mm-dd',
+			prevText: '이전 달',
+			nextText: '다음 달',
+			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+			dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+			showMonthAfterYear: true,
+			minDate: ${hgContent.hg_start_date},
+			maxDate: ${hgContent.hg_end_date},
+			yearSuffix:'년'
+		});
+	});
 });
 
 function end_time_click(){
 	var start_time = document.getElementById('choice_start_time').value;
-	if(start_time == '-'){
+	if(start_time == ''){
 		window.alert('시작 시간을 먼저 선택해주세요');
 		return;
 	}
@@ -98,9 +116,14 @@ function time_price_result(){
 	recent_price.innerText = homegym_price * reservation_time * person_count;
 }
 function person_count_price_result(){
+	var homegym_price = ${hgContent.hg_price};
+	var start_time = document.getElementById('choice_start_time').value;
+	var end_time = document.getElementById('choice_end_time').value;
+	var reservation_time = end_time - start_time;
 	var person_count = document.getElementById('choice_person_count').value;
 	var recent_price = document.getElementById('expect_price');
-	recent_price.innerText = recent_price.innerText * person_count;
+
+	recent_price.innerText = homegym_price * person_count * reservation_time;
 }
 function reservation(){
 	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
@@ -268,7 +291,8 @@ function ajaxUnLike_rq(){
 		<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
 		<ul id = "reservationInfo">
 			<li>이용 일자</li>
-			<li><input id = "choice_date" name = "reser_date" type = "date"></li>
+			<li><input type = "text" id = "date_input">
+			<input id = "choice_date" name = "reser_date" type = "date"></li>
 			<li>이용 시간</li>
 			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
 				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:time_price_result();"><option value = "">종료 시간</option></select></li>

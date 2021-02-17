@@ -553,7 +553,7 @@ function priceUpdateCancel(){
 }
 function mypageHomeGymPaymentRegistForm(){
 	var mem_id = document.getElementById('hg_mem_id').value;
-	location.href = 'HomeGymPaymentAdd.do?mem_id'+mem_id;
+	location.href = 'HomeGymPaymentAdd.do?mem_id='+mem_id;
 }
 </script>
 <style>
