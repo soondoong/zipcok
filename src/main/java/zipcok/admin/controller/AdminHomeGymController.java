@@ -240,10 +240,11 @@ public class AdminHomeGymController {
 	public ModelAndView reservationCancelStatus(
 			@RequestParam("mem_id")String mem_id) {
 		
-		System.out.println(mem_id);
 		ModelAndView mav = new ModelAndView();
 		int result=dao.reservationCancelStatus(mem_id);
+		int result2=dao.reservationCancelStatusPayment(mem_id);
 		
+		mav.addObject("result2",result2);
 		mav.addObject("result",result);
 		mav.addObject("mem_id",mem_id);
 		mav.setViewName("jsonView");
