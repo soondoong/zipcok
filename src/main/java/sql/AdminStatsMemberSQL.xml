@@ -13,6 +13,28 @@
 		where 
 			mem_type=#{mem_type}	
 	</select>
+	
+	<select id="GetMemJoinDateCountSumSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			zipcok_member 
+		where 
+			mem_joindate 
+		between 
+			#{startDate}
+		and 
+			#{endDate}
+	</select>
+	
+	<select id="GetMemJoinDateSQL" resultType="Integer">
+		select 
+			count(*) 
+		from 
+			zipcok_member 
+		where 
+			TO_CHAR(mem_joindate, 'YYYY-MM-DD')=#{date}
+	</select>
 
 </mapper>
 
