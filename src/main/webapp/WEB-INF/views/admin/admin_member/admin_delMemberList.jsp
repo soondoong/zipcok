@@ -87,9 +87,18 @@
 							</c:forEach>
 						</tbody>
 						<tfoot>
+						<c:if test="${empty list}">
+							<tr>
+								<td colspan="5" class="paging">
+								
+								</td>
+							</tr>
+							</c:if>
+							<c:if test="${!empty list}">
 							<tr>
 								<td colspan="5" class="paging">${pageStr }</td>
 							</tr>
+						</c:if>
 						</tfoot>
 					</table>
 				</div>
