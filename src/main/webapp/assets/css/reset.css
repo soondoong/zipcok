@@ -19,7 +19,7 @@ th, td {vertical-align: middle;}
 strong {font-weight: 700;}
 
 h1,h2,h3,h4,h5{ font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
-
+pre{ font-family: 'Noto Sans KR', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.5; white-space:pre-wrap;}
 /* input */
 input[type=date],
 input[type=datetime-local],

@@ -49,7 +49,7 @@ coach_mem_id)lk
 where
 aa.coach_mem_id=lk.coach_mem_id
 and
-rnum <![CDATA[<]]>10
+rnum <![CDATA[<]]>6
 
 </select>
 	

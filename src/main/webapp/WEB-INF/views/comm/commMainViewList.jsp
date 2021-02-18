@@ -23,7 +23,7 @@
 			 background-image: url("img/coach/2000w.jpg");
 			background-size:cover;}
 			.ddd{width: 100%; height:100%; margin:0 auto; padding:50px; text-align: center;background-color: rgba(0 , 0 ,100, 0.4);}
-
+			.text_info{font-size: 20px; color:#e6e9f5; text-align: center; line-height: 1.5;}
 	</style>	
 
 <div class="community_wrap">
@@ -33,8 +33,8 @@
 	<div class="ddd">	
 		<c:if test="${empty commInfo}">
 			<h1>소속 커뮤니티가 없습니다!</h1>
-			코치라면 커뮤니티를 생성하세요!
-			일반 회원이라면 코치 매칭을 통해 알맞은 커뮤니티를 찾아보세요!
+			<p class="text_info">코치라면 커뮤니티를 생성하세요!<br>
+			일반 회원이라면 코치 매칭을 통해 알맞은 커뮤니티를 찾아보세요!</p>
 		</c:if>
 			
 		<c:if test="${!empty commInfo}">

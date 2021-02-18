@@ -140,7 +140,7 @@ $(document).ready(function(){
 												<p><span class='mprtitle'>서비스 시작일</span><span>${msgdto.msg_file_path}</span></p>
 												<p><span class='mprtitle'>서비스 종료일</span><span>${msgdto.receiver_user_name}</span></p><hr>
 												<p  class='mprtitle'>서비스 상세설명</p>
-												<p>${msgdto.msg_content}</p>								
+												<p><pre>${msgdto.msg_content}</pre></p>								
 												<p><input type='button' value='결제요청서 삭제하기' onclick="deltoPay('${msgdto.msg_idx}')" class='btn btn-danger delbtn'></p>															
 									 	   </div>
 										</div>
@@ -167,7 +167,7 @@ $(document).ready(function(){
 										 <div>${msgdto.user_name}</div>
 						    </div>
 							<div class = 'ContentWrap' >
-								 <div class = 'cont mymsg' > ${msgdto.msg_content }</div>
+								 <div class = 'cont mymsg' ><pre> ${msgdto.msg_content }</pre></div>
 								 <div class="sendtime" > ${msgdto.msg_sendtime }</div>
 							 </div>		
 						</div>										
@@ -261,7 +261,7 @@ $(document).ready(function(){
 				  <hr>
 				  <div class="onelineInfo">
 				  		<p class="title">한 줄 소개</p>
-					  	<p>${coachdto.coach_intro_sub }</p>				
+					  	<p><pre>${coachdto.coach_intro_sub }</pre></p>				
 		   		 </div>
 		   		   <div class="serviceInfo">
 				  		<p class="title">기본정보</p>
@@ -292,7 +292,7 @@ $(document).ready(function(){
 				  <hr>
 				  <div class="onelineInfo">
 				  		<p class="title">문의 내용</p>
-					  	<p>${reqdto.req_cont }</p>				
+					  	<p><pre>${reqdto.req_cont }</pre></p>				
 		   		 </div>
  	
 		  </c:if>
@@ -614,7 +614,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 	 
 	 $("#chatMessageArea").append("<div class='OnechatfromMe'>"+
 				"<div class = 'ContentWrap' >"+
-				 "<div class = 'cont mymsg' >"+msg+"</div>"+
+				 "<div class = 'cont mymsg' ><pre>"+msg+"</pre></div>"+
 				 "<div class='sendtime' > "+t+"</div>"+
 			 "</div>"+		 
 			" <div class='chatimgdiv' >"+
@@ -645,7 +645,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 		     "<div>"+otherid+"</div>"+
 	   " </div>"+
 		"<div class = 'ContentWrap' >"+
-			 "<div class = 'cont mymsg' >"+msg+"</div>"+
+			 "<div class = 'cont mymsg' ><pre>"+msg+"<pre></div>"+
 			 "<div class='sendtime' >"+t+"</div>"+
 		 "</div>"+	
 	"</div>");		
@@ -678,7 +678,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 시작일</span><span>"+start+"</span></p>"+
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
-										"<p>"+cont+"</p>"+									
+										"<p><pre>"+cont+"</pre></p>"+									
 										"<p><input type='button' value='결제요청서 삭제하기' class='btn btn-danger delbtn'></p>"+									
 									
  					 		"</div>"+
@@ -721,7 +721,7 @@ function appendMyMessage(msg) {  //내메세지는 오른쪽
 										"<p><span class='mprtitle'>서비스 시작일</span><span>"+start+"</span></p>"+
 										"<p><span class='mprtitle'>서비스 종료일</span><span>"+end+"</span></p><hr>"+
 										"<p  class='mprtitle'>서비스 상세설명</p>"+
-										"<p>"+cont+"</p>"+									
+										"<p><pre>"+cont+"</pre></p>"+									
 										"<p><input type='button' value='결제하러가기' class='btn btn-primary gotopaybtn' onclick='gotoPay("+msgidx+")'></p>"+									
 									
  					 		"</div>"+

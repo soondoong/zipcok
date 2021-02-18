@@ -133,7 +133,7 @@ $(function(){
 						<li>은행 명</li>
 						<li><input type = "text" name = "pa_bankname" placeholder="은행 명을 입력해주세요." required="required"></li>
 						<li>계좌 번호</li>
-						<li><input type = "text" name = "pa_no" placeholder="'-' 없이 번호만 입력해주세요." required="required"></li>
+						<li><input type = "text" name = "pa_no" placeholder="'-' 없이 번호만 입력해주세요."  maxlength='14' required="required"></li>
 						<li>예금주 명</li>
 						<li><input type = "text" name = "pa_username" placeholder="계좌의 예금 주 이름을 입력해주세요." required="required"></li>
 					</ul>
@@ -143,7 +143,7 @@ $(function(){
 		<!-- 결제계좌등록 -->
 	<div class="form-group">
 		<label>소개글 제목</label>
-		<input type="text" class="form-control" id="coach_intro_sub" name="coach_intro_sub">
+		<input type="text" class="form-control" id="coach_intro_sub"  maxlength='15' name="coach_intro_sub">
 		<label>소개글</label> 
 		<textarea rows="10" cols="10" class="form-control" 
 		id="coach_intro_cont" name="coach_intro_cont"></textarea>

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="venobox/venobox.css" type="text/css" media="screen" />
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
@@ -22,22 +21,19 @@ padding:50px 100px 0px 100px;
 width: 1200px;
 margin:0 auto;
 }
-.imgcoachtable{
-width: 1000px;
-margin:60px 0px;
-}
-.maintd img{
- max-width: 100%;
-  width: 500px;
-  height: 700px;
+
+.pimg{
+width: 100%;
+
+height: 100%;
   object-fit: cover;
 
 }
 
-.smalltd img{
- max-width: 100%;
- width: 300px;
- height: 200px;
+.cimg{
+ width: 100%;
+
+ height:100%;
 object-fit: cover;
 
 }
@@ -63,6 +59,7 @@ width:400px;
 height:550px;
 display: none;
 }
+pre{font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
 </style>
 <%@include file="../header2.jsp" %>
 <c:set var="dto" value="${resultMap.coachDTO }"/>
@@ -166,29 +163,24 @@ $(document).ready(function(){
 
 		
 		<!-- 코치사진영역 -->		
-			<table class="imgcoachtable" >
-			<tr>
-				<td rowspan="3" class="maintd" style="width:50%;">
-				<a class="venobox" data-gall="myGallery"
-				href="/zipcok/upload/member/${dto.mfile_upload }"><img src="/zipcok/upload/member/${dto.mfile_upload }"></a></td>
-				<td class="smalltd img1">
-				<a class="venobox"  data-gall="myGallery"
-				href="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"><img src="/zipcok/upload/coach/${empty file[0].mfile_upload?'noimage.png': file[0].mfile_upload }"></a></td>	
-				<td class="smalltd img2">
-				<a class="venobox"  data-gall="myGallery"
-				href="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png': file[0].mfile_upload }"><img src="/zipcok/upload/coach/${empty file[1].mfile_upload?'noimage.png' : file[1].mfile_upload }"></a></td>		
-			</tr>
+			<div style="display:flex;  justify-content: center; width:810px; height: 600px;margin-bottom:50px;">
+					<div   style="width:400px; height: 100%;   margin-right:10px;" >
+						<a class="venobox" data-gall="myGallery"
+						href="/zipcok/upload/member/${dto.mfile_upload }"><img src="/zipcok/upload/member/${dto.mfile_upload }" class="pimg"></a>
+					</div>
+				<div  style="width:400px; height: 100%; display:flex;flex-wrap:wrap;align-content: flex-start;">
+				<c:forEach var="f" items="${file }">
+					<div style="width:200px;height: 200px;">
+					<a class="venobox"  data-gall="myGallery"
+					href="/zipcok/upload/coach/${empty f.mfile_upload?'noimage.png': f.mfile_upload }"><img src="/zipcok/upload/coach/${empty f.mfile_upload?'noimage.png' : f.mfile_upload }"  class="cimg"></a>	
+					</div>
+				
+				</c:forEach>
+				</div>	
+			</div>
 			
-			<tr>
-			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[2].mfile_upload?'noimage.png' : file[2].mfile_upload }"></td>	
-			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[3].mfile_upload?'noimage.png' : file[3].mfile_upload }"></td>		
-			</tr>
 			
-			<tr>
-			<td class="smalltd img1"><img src="/zipcok/upload/coach/${empty file[4].mfile_upload?'noimage.png' : file[4].mfile_upload }"></td>	
-			<td class="smalltd img2"><img src="/zipcok/upload/coach/${empty file[5].mfile_upload?'noimage.png' : file[5].mfile_upload }"></td>		
-			</tr>
-			</table>
+			
 		<!-- 코치사진영역 -->
 		
 		<!-- 코치소개 영역 -->		
@@ -209,7 +201,7 @@ $(document).ready(function(){
 			<br>
 			<br><br>
 			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">소개</span>
-			<p>${dto.coach_intro_cont }</p>
+			<p><pre><c:out value="${dto.coach_intro_cont }" /></pre></p>
 			<br>
 			
 			<!-- 커리큘럼영역 -->

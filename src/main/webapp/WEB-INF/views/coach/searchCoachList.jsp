@@ -29,7 +29,7 @@
 		.result_contents_wrap .contentsWrap .oneperson {float: left; width: 240px; margin: 0 30px 30px 0; }
 		.result_contents_wrap .contentsWrap .oneperson .image-container {display: flex;overflow: hidden; justify-content: center; border-radius:7px 7px 0 0; align-items: center; width: 238px; height: 260px; background: center center no-repeat; background-size: cover !important; cursor: pointer;}
 		.result_contents_wrap .contentsWrap .oneperson .image-container img {width:250px;height:270px;object-fit: cover; border-radius:7px 7px 0 0;}
-		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;border-bottom: 1px solid #dddddd;border-left: 1px solid #dddddd;border-right: 1px solid #dddddd; border-radius: 0 0 7px 7px;}
+		.result_contents_wrap .contentsWrap .oneperson .desc {padding: 10px; background: white;height:120px;   border-bottom: 1px solid #dddddd;border-left: 1px solid #dddddd;border-right: 1px solid #dddddd; border-radius: 0 0 7px 7px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .member {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .greet {margin-bottom: 8px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade {overflow: hidden;}
@@ -37,7 +37,7 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star {float: left; margin-right: 5px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .star img {height: 20px;}
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
-		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;}
+		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;  text-shadow: 1px 1px 4px #8495a4; }
 		.likeafter{color : #FF6682; }
 		
 	
