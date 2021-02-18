@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css'>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
@@ -74,25 +71,47 @@ window.addEventListener('load', function() {
 	    map.setCenter(coords);
 	} 
 	}); 
-	
-	$(function() {
-		$('#date_input').datepicker({
-			dateFormat: 'yy-mm-dd',
-			prevText: '이전 달',
-			nextText: '다음 달',
-			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-			dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-			dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-			dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-			showMonthAfterYear: true,
-			minDate: ${hgContent.hg_start_date},
-			maxDate: ${hgContent.hg_end_date},
-			yearSuffix:'년'
-		});
-	});
+
+	jQuery.browser = {};
+	(function () {
+	    jQuery.browser.msie = false;
+	    jQuery.browser.version = 0;
+	    if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+	        jQuery.browser.msie = true;
+	        jQuery.browser.version = RegExp.$1;
+	    }
+	})();
 });
 
+$(function() {
+	var start_date = '${hgContent.hg_start_date}'.substring(0,10);
+	var end_date = '${hgContent.hg_end_date}'.substring(0,10);
+	$('#choice_date').datepicker({
+		dateFormat: 'yy-mm-dd',
+		prevText: '이전 달',
+		nextText: '다음 달',
+		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		showMonthAfterYear: true,
+		beforeShowDay: function(date){
+			var result = '${hgContent.hg_not_date}';
+			var noWeekend = jQuery.datepicker.noWeekends(date);
+			if(result=='없음'){
+				return [true];
+			}else if(result=='평일'){
+				return noWeekend[0] ? [false]:[true];
+			}else if(result=='주말'){
+				return noWeekend[0] ? [true]:noWeekend;
+			}
+		},
+		minDate: start_date,
+		maxDate: end_date,
+		yearSuffix:'년'
+	});
+});
 function end_time_click(){
 	var start_time = document.getElementById('choice_start_time').value;
 	if(start_time == ''){
@@ -129,6 +148,10 @@ function reservation(){
 	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
 		window.alert('로그인이 필요한 페이지 입니다.');
 		location.href='loginForm.do';
+		return;
+	}
+	if('${login.mem_id}'=='${hgContent.hg_mem_id}'){
+		window.alert('자신의 홈짐은 예약하실 수 없습니다.');
 		return;
 	}
 	var use_date = document.getElementById('choice_date').value;
@@ -247,7 +270,7 @@ function ajaxUnLike_rq(){
 .top_contentArea .top_contentArea_reservationArea {width: 700px; height:500px; font-size:20px;}
 .top_contentArea .top_contentArea_reservationArea li {height:40px;}
 .top_contentArea .top_contentArea_reservationArea select {width:240px;}
-.top_contentArea .top_contentArea_reservationArea input[type=date] {width:240px;}
+.top_contentArea .top_contentArea_reservationArea input[type=text] {width:263px;}
 .top_contentArea .top_contentArea_reservationArea .expect_price_span {color:red;}
 .top_contentArea .top_contentArea_reservationArea #reservationInfo_click{ display:none;}
 .bottom_contentArea {width:1200px; margin:0px auto;}
@@ -291,8 +314,7 @@ function ajaxUnLike_rq(){
 		<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
 		<ul id = "reservationInfo">
 			<li>이용 일자</li>
-			<li><input type = "text" id = "date_input">
-			<input id = "choice_date" name = "reser_date" type = "date"></li>
+			<li><input type = "text" id = "choice_date" name = "reser_date" class = "date_input" placeholder="예약 날짜를 선택해주세요"></li>
 			<li>이용 시간</li>
 			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
 				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:time_price_result();"><option value = "">종료 시간</option></select></li>
@@ -331,7 +353,7 @@ function ajaxUnLike_rq(){
 		<div class = "eqlistArea_list">
 		<c:forEach var = "eqDTO" items = "${eqContent }">
 			<div class = "eqList">
-				<img src = "img/homegym/homegym_content_${eqDTO.eq_name }.jpg">
+				<p>기구 아이콘 들어갈 영역</p>
 				<hr>
 				<p>${eqDTO.eq_name }</p>
 				<p>${eqDTO.eq_count}</p>

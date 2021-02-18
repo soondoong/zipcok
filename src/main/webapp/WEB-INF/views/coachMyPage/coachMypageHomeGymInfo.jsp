@@ -548,6 +548,9 @@ function mypageHomeGymPaymentRegistForm(){
 	var mem_id = document.getElementById('hg_mem_id').value;
 	location.href = 'HomeGymPaymentAdd.do?mem_id='+mem_id;
 }
+function coachmypageHomeGymPaymentUpdatePopup(){
+	window.open('')
+}
 </script>
 <style>
 .titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
@@ -622,19 +625,6 @@ function mypageHomeGymPaymentRegistForm(){
 									<span class = "dateName"  id = "hg_station_span">${hgContent.hg_station }</span>
 								</div>
 								<div id = "map" class = "mapArea infoDIV"></div>
-								<div class = "paymentArea infoDIV">
-								<c:if test = "${empty paymentContent }">
-									<span class = "labelName">등록된 결제 계좌가 없습니다.</span><input type = "button" class = "rebtn" value = "계좌 등록" onclick = "javascript:mypageHomeGymPaymentRegistForm()">
-								</c:if>
-								<c:if test = "${!empty paymentContent }">
-									<span class = "labelName">은행명</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPaymentUpdateForm();"><br>
-									<span class = "dataName">${paymentContent.pa_bankname }</span><br>
-									<span class = "labelName">예금주</span><br>
-									<span class = "dataName">${paymentContent.pa_username }</span><br>
-									<span class = "labelName">계좌 번호</span><br>
-									<span class = "dataName">${paymentContent.pa_no }</span>
-								</c:if>
-								</div>
 							</div>
 						</div>
 						<div class = "hgRightDIV">
@@ -663,41 +653,19 @@ function mypageHomeGymPaymentRegistForm(){
 								<span class = "labelName">대여 비용</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPriceChangeForm();"><br>
 								<span class = "dateName"  id = "hg_price_span">${hgContent.hg_price }</span>
 							</div>
-							<div class = "reviewArea">
-								<h3>이용 후기 / 평균 별점 : ${star_avg }</h3>
-								<c:if test = "${empty reviewList }">
-									<div>작성된 후기가 없습니다.</div>
+							<div class = "paymentArea infoDIV">
+								<c:if test = "${empty paymentContent }">
+									<span class = "labelName">등록된 결제 계좌가 없습니다.</span><input type = "button" class = "rebtn" value = "계좌 등록" onclick = "javascript:mypageHomeGymPaymentRegistForm()">
 								</c:if>
-								<c:if test = "${!empty reviewContent }">
-									<table>
-										<thead>
-											<tr>
-												<th>별점</th>
-												<th>제목</th>
-												<th>내용</th>
-												<th>작성자</th>
-												<th>작성 날짜</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="dto" items="${reviewContent }">
-												<tr>
-													<td style="border-top: 1px solid lightgray; padding-top: 10px;">
-														<div style="position: relative; float: left;">
-															<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
-															<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
-														</div>
-													</td>
-													<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
-													<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
-													<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
-													<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
+								<c:if test = "${!empty paymentContent }">
+									<span class = "labelName">은행명</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:coachmypageHomeGymPaymentUpdatePopup();"><br>
+									<span class = "dataName">${paymentContent.pa_bankname }</span><br>
+									<span class = "labelName">예금주</span><br>
+									<span class = "dataName">${paymentContent.pa_username }</span><br>
+									<span class = "labelName">계좌 번호</span><br>
+									<span class = "dataName">${paymentContent.pa_no }</span>
 								</c:if>
-							</div>
+								</div>
 						</div>
 					</div>
 				</div>

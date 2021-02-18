@@ -50,6 +50,9 @@
 	width: 72px;
 	height: 25px;
 }
+.mypage_main_paging {margin: 40px 0 0; text-align: center;}
+.mypage_main_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.mypage_main_paging a:not(:first-child) {margin-left: 5px;}
 </style>
 <script>
 	function coachmypageHomeGymPayList() {
@@ -152,7 +155,7 @@
 						</thead>
 						<tfoot>
 							<tr>
-								<td colspan="9" align="center">${myPayListpageStr}</td>
+								<td colspan="9" align="center" class = "mypage_main_paging">${myPayListpageStr}</td>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -205,7 +208,7 @@
 						</thead>
 						<tfoot>
 							<tr>
-								<td colspan="7" align="center">${homegymPayListpageStr}</td>
+								<td colspan="7" align="center" class = "mypage_main_paging">${homegymPayListpageStr}</td>
 							</tr>
 						</tfoot>
 						<tbody>
