@@ -229,6 +229,7 @@ public class CsController {
 			
 			List<CsZipcokFileDTO> list=csDao.CsZfileSelect(bbs_idx);
 			CsReDTO dto2=csDao.csReList(bbs_idx);
+			
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("csFileList",list);
 			mav.addObject("dto",dto);
@@ -258,6 +259,7 @@ public class CsController {
 			
 			
 			dto.setRe_bbs_idx(bbs_idx);
+			dto.setRe_content(dto.getRe_content().replaceAll("\r\n", "<br>"));
 			int result=csDao.csReWrite(dto);
 			String msg=result>0?"답변이 성공적으로 등록되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();

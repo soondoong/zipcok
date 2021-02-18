@@ -133,7 +133,7 @@
 						<tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<th colspan="5">등록된 문의가 없습니다.</th>
+									<th colspan="5" align="center">등록된 문의가 없습니다.</th>
 								</tr>
 							</c:if>
 							<c:if test="${!empty list }">
@@ -155,11 +155,13 @@
 				</div>
 					
 				<div class="table_list_bottom">
-					<div class="pagination">${pageStr}</div>
+						<c:if test="${!empty list }">
+							<div class="pagination">${pageStr}</div>
+						</c:if>
 					<c:if test="${login.mem_id!='admin'}">
-					<div class="btn_right_box">
-						<input type="submit" value="1:1 문의하기" class="btn1 c1">				
-					</div>
+						<div class="btn_right_box">
+							<input type="submit" value="1:1 문의하기" class="btn1 c1">				
+						</div>
 					</c:if>
 				</div>
 				</form>
