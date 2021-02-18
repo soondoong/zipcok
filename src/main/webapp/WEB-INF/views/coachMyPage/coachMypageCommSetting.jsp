@@ -104,8 +104,17 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 				</c:forEach>
 				</tbody>
 			</table>
+			<input type="button" value="뒤로 가기" class="btn btn-primary btn-sm" 
+				 style="display: block; float:left; padding:7px 10px;" onclick="location.href='coachMyPageCommManage.do'">
 			</div>
+			
+			<div class="mypage_comm_table">
+				<br><br><br>
+				<h5 style="font-weight: 600;">커뮤니티 삭제</h5> 
 				
+				<input type="button" value="커뮤니티 삭제" class="btn btn-primary btn-sm" 
+				 style="display: block; float:left; padding:7px 10px;" onclick="location.href='coachMyPageDel.do?uc_comm_idx=${uc_comm_idx}'">
+			</div>	
 				
 		 </div>
 	</div>

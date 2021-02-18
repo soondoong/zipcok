@@ -96,6 +96,27 @@
 	where
 		com_idx=#{com_idx}
 </update>
-	
 
+<delete id="commDelSQL">
+	delete from
+		community
+	where
+		com_idx=#{com_idx}
+</delete>
+	
+<delete id="commDel2SQL">
+	delete from
+		users_community
+	where
+		uc_comm_idx=#{uc_comm_idx}
+</delete>
+
+<select id="getCommMemSQL" resultType="String">
+select 
+	uc_mem_id 
+from 
+	users_community 
+where 
+	uc_comm_idx=#{uc_comm_idx}
+</select>
 </mapper>

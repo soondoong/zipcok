@@ -95,5 +95,26 @@ public class CommManageDAOImple implements CommManageDAO {
 		int result=sqlMap.update("commMemSumPlusSQL",com_idx);
 		return result;
 	}
+	
+	//커뮤니티 삭제
+	@Override
+	public int commDel(int com_idx) {
+		int result=sqlMap.delete("commDelSQL",com_idx);
+		return result;
+	}
+	
+	//커뮤니티 삭제2
+	@Override
+	public int commDel2(int uc_comm_idx) {
+		int result=sqlMap.delete("commDel2SQL",uc_comm_idx);
+		return result;
+	}
+	
+	////idx로 커뮤니티 소속 회원들 아이디 뽑아오기
+	@Override
+	public List<String> getCommMem(int uc_comm_idx) {
+		List<String> CommMem=sqlMap.selectList("getCommMemSQL",uc_comm_idx);
+		return CommMem;
+	}
 
 }

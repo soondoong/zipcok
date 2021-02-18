@@ -20,5 +20,7 @@ public interface CommManageDAO {
 	public String getCommName(int uc_comm_idx);//커뮤니티 이름 찾기
 	public int commMemPlus(String uc_mem_id, int uc_comm_idx, String com_name);//수강생 추가
 	public int commMemSumPlus(int com_idx);//총 수강생 수 더하기
-
+	public int commDel(int com_idx);//커뮤니티 삭제
+	public int commDel2(int uc_comm_idx);//커뮤니티 삭제2
+	public List<String> getCommMem(int uc_comm_idx);//idx로 커뮤니티 소속 회원들 아이디 뽑아오기
 }

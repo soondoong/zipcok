@@ -88,16 +88,42 @@ public class CommManageController {
 	//수강생 추가
 	@RequestMapping("coachMyPageMemPlus.do")
 	public ModelAndView coachMyPagememPlus(String uc_mem_id, int uc_comm_idx) {
-		String com_name=commManageDao.getCommName(uc_comm_idx);
-		int result=commManageDao.commMemPlus(uc_mem_id, uc_comm_idx, com_name);
-		int sum=commManageDao.commMemSumPlus(uc_comm_idx);
+		ModelAndView mav=new ModelAndView();
+		//idx로 커뮤니티 소속 회원들 아이디 뽑아오기
+		List<String> commMem=commManageDao.getCommMem(uc_comm_idx);
+		for(int i=0;i<commMem.size();i++) {
+			if(uc_mem_id.equals(commMem.get(i))) {
+				String msg="이미 커뮤니티에 소속된 회원입니다.";
+				mav.addObject("msg", msg);
+				mav.setViewName("comm/commManageMsg");
+				return mav;
+			}
+		}
+		
+		String com_name=commManageDao.getCommName(uc_comm_idx);//커뮤니티 이름 찾기
+		int result=commManageDao.commMemPlus(uc_mem_id, uc_comm_idx, com_name);//수강생 추가
+		int sum=commManageDao.commMemSumPlus(uc_comm_idx);//총 수강생 수 더하기
 		String msg=result>0?"수강생 추가가 완료되었습니다.":"수강생 추가 실패!";
 		
-		ModelAndView mav=new ModelAndView();
+		
 		mav.addObject("msg", msg);
 		mav.setViewName("comm/commManageMsg");
 		return mav;
 		
+	}
+	
+	//커뮤니티 삭제
+	@RequestMapping("coachMyPageDel.do")
+	public ModelAndView coachMyPageDel(int uc_comm_idx) {
+		int result=commManageDao.commDel(uc_comm_idx);
+		int result2=commManageDao.commDel2(uc_comm_idx);
+		String msg=result>0?"커뮤니티가 삭제되었습니다.":"글쓰기 실패!";
+		
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg", msg);
+		mav.addObject("gopage", "coachMyPageCommManage.do");
+		mav.setViewName("comm/commManageMsg");
+		return mav;
 	}
 
 }
