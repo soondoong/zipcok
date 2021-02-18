@@ -13,6 +13,19 @@
 	display: inline-flex;
 }
 </style>
+<script>
+function placeholder(){
+	var selectOptionC = document.getElementById('selectOptionC').value;
+	if(selectOptionC!='전체'){
+		var searchTextPlaceholder = document.getElementById('searchTextPlaceholder');
+		searchTextPlaceholder.removeAttribute('placeholder');
+	}else if(selectOptionC=='전체'){
+		var searchTextPlaceholder = document.getElementById('searchTextPlaceholder');
+		searchTextPlaceholder.setAttribute('placeholder','id 입력');
+	}
+	
+}
+</script>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
@@ -28,7 +41,7 @@
 					<ul class="test_inline">
 						<li>코치 검색</li>
 						<li>
-							<select name="choice">
+							<select id="selectOptionC" onchange="javascript:placeholder();" name="choice">
 								<option <c:if test="${selectoption=='전체'}">selected="selected"</c:if> >전체</option>
 								<option <c:if test="${selectoption=='번호'}">selected="selected"</c:if> >번호</option>
 								<option <c:if test="${selectoption=='id'}">selected="selected"</c:if> >id</option>
@@ -36,7 +49,9 @@
 							</select>
 						</li>
 						<li><input type="radio" name="mem_gender" value="남">남자 <input type="radio" name="mem_gender" value="여">여자</li>
-						<li><input type="text" name="searchText"></li>
+						
+						<li><input type="text" id="searchTextPlaceholder" name="searchText" placeholder="id 입력"></li>
+						
 						<li><input type="submit"  value="검색"></li>
 					</ul>
 					</form>
@@ -90,11 +105,11 @@
 				<div>
 					<ul class="test_inline">
 						<li><img alt="profileImg" src="img/notice/01.png" style="width:30px; height:30px;"></li>
-						<li><h2>코치이름</h2></li>
+						<li id="coachNameLi"></li>
 						<li>
 							<ul>
-								<li><input type="text" id="coach_joindatetext" readonly="readonly"></li>
-								<li><input type="text" id="coach_changetext" readonly="readonly"></li>
+								<li>코치 등록일:<input type="text" id="coach_joindatetext" readonly="readonly"></li>
+								<li>최근 수정일:<input type="text" id="coach_changetext" readonly="readonly"></li>
 							</ul>
 						</li>
 					</ul>
@@ -196,6 +211,7 @@ function showResult(){
          document.getElementById('coach_mattext').value=data.coachdto.coach_mat;
          document.getElementById('coach_ex_typetext').value=data.coachdto.coach_ex_type;
          document.getElementById('coach_yeartext').value=data.coachdto.coach_year;
+         document.getElementById('coachNameLi').innerHTML="<h5>"+data.dto3.mem_name+"</h5>";
          document.getElementById('introUpdateP').innerHTML="<input type='button' value='소개글 수정' name='introReset' onclick='javascript:introUpdateGo();'>";
          document.getElementById('matUpdateP').innerHTML="<input type='button' value='준비물 수정' name='matReset' onclick='javascript:matUpdateGo();'>";
          document.getElementById('extypeUpdateP').innerHTML="<input type='button' value='강의유형 수정' name='extypeReset' onclick='javascript:extypeUpdateGo();'>";
