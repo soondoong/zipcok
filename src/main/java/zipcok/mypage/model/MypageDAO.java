@@ -30,7 +30,8 @@ public interface MypageDAO {
    public int mypageCommWriteDelete(String checkArr);//커뮤니티 작성글 삭제
    public int mypageCommWriteDeleteRebbs(String checkArr);//커뮤니티 작성글 댓글삭제
    public int mypageHomeGymLikeListTotalCnt(String mem_id);
-   public List mypageHomeGymLikeList(int cp, int ls, String mem_id);
+   public List<LikeDTO> mypageHomeGymLikeList(int cp, int ls, String mem_id);
+   public List<CoachFileDTO> HomeGymLikeTargetProfile(HashMap<String, Object> map);
    public int mypageCoachMatchLikeListTotalCnt(String mem_id);
    public List mypageCoachMatchLikeList(int cp, int ls, String mem_id);
    public CoachFileDTO moFindProfileDTO(String id); //프로필파일수정

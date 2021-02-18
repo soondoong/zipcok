@@ -28,6 +28,7 @@ import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.PaymentDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.homegym.model.Pd_HgAllDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDAO;
 import zipcok.member.model.MemberDTO;
 import zipcok.mypage.model.LikeDTO;
@@ -419,21 +420,43 @@ public class MypageController {
       int listSize=5;
       int pageSize=5;
       String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
-      List list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
+      List<LikeDTO> list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
+      
+      List<MemberAllDTO> memarr = new ArrayList<MemberAllDTO>();
+      
+      for(LikeDTO likedto : list) {
+    	  
+    	  MemberAllDTO dto = new MemberAllDTO();
+    	  dto = dao.memberAllProfile(likedto.getLike_target_id());
+    	  memarr.add(dto);
+    	 
+      }
+    
+      
+		/*
+		 * List<CoachFileDTO> list2 = new ArrayList<CoachFileDTO>(); HashMap<String,
+		 * Object> map = new HashMap<String, Object>(); for(int i=0; i<list.size(); i++)
+		 * { String id=list.get(i).getLike_target_id(); System.out.println(id);
+		 * map.put("like_target_id", id); list2= dao.HomeGymLikeTargetProfile(map);
+		 * 
+		 * }
+		 */
+      
+
       ModelAndView mav = new ModelAndView();
+      mav.addObject("memarr", memarr);
       mav.addObject("list", list);
       mav.addObject("pageStr", pageStr);
       mav.setViewName("mypage/mypageHomeGymLikeList");
-
       
       return mav;
    }
    
+
       //마이페이지 코치매칭 좋아요 목록
       @RequestMapping("/mypageCoachMatchLikeList.do")
       public ModelAndView mypageCoachMatchLikeList(HttpSession session,
             @RequestParam(value = "cp", defaultValue = "1")int cp) {
-         System.out.println("코치좋아요목록");
          int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
          int listSize=5;
          int pageSize=5;

@@ -171,17 +171,24 @@ public class MypageDAOImple implements MypageDAO {
    
    //홈짐 좋아요 목록
    @Override
-   public List mypageHomeGymLikeList(int cp, int ls, String mem_id) {
+   public List<LikeDTO> mypageHomeGymLikeList(int cp, int ls, String mem_id) {
       int start=(cp-1)*ls+1;
       int end=cp*ls;
       Map map=new HashedMap();
       map.put("mem_id", mem_id);
       map.put("start", start);
       map.put("end", end);
-      List list = sqlMap.selectList("mypageHomeGymLikeList", map);
+      List<LikeDTO> list = sqlMap.selectList("mypageHomeGymLikeList", map);
       
       return list;
    }
+   
+   //홈짐 좋아요받은 사람 프로필
+   @Override
+	public List<CoachFileDTO> HomeGymLikeTargetProfile(HashMap<String, Object> map) {
+	   List<CoachFileDTO> list = sqlMap.selectOne("HomeGymLikeTargetProfile", map);
+		return list;
+	}
    
       //코치매칭 좋아요 총 수
       @Override

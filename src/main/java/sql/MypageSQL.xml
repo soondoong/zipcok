@@ -150,6 +150,13 @@ mfile_key='회원프로필'
        where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
     </select>
     
+    <!-- 홈짐 좋아요받은 사람 프로필가져오기 -->
+    <select id="HomeGymLikeTargetProfile" parameterType="HashMap" resultType="zipcok.coach.model.CoachFileDTO">
+    select * from member_file where mfile_mem_id=#{like_target_id} and mfile_key = '홈짐'
+    </select>
+    
+    
+    
     <!-- 코치매칭 좋아요 총 수 -->
     <select id="mypageCoachMatchLikeListTotalCnt" resultType="Integer">
       select count(*) from
