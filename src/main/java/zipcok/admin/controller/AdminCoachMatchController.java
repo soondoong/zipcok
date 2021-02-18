@@ -22,7 +22,8 @@ import zipcok.admin.model.PyoAdDTO;
 import zipcok.coach.model.CoachDAO;
 
 import zipcok.admin.model.ReqFormMemberDTO;
-
+import zipcok.chat.model.ChatDAO;
+import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
@@ -42,6 +43,9 @@ public class AdminCoachMatchController {
 	private CoachMypageDAO coachmpdao;
 	@Autowired
 	private MypageDAO myPagedao;
+	@Autowired
+	private ChatDAO chatdao;
+	
 	//코치매칭 코치관리 페이지이동
 	@RequestMapping("admin_coachMatchAdmin.do")
 	public ModelAndView coachMatchAdmin() {
@@ -81,6 +85,36 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
+	
+	
+	/*코치채팅방 메시지내역불러오기*/
+	@RequestMapping("searchMessages.do")
+	public ModelAndView searchMessages(@RequestParam("req_idx")int req_idx,
+			@RequestParam(value ="sunseo", defaultValue = "최신순")String sunseo,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		ModelAndView mav=new ModelAndView();
+		
+		int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("req_idx",req_idx);
+	      map.put("sunseo",sunseo);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+	      map.put("methodKey","searchMessagesTotal");
+	  	/*페이지설정*/
+			int totalCnt=coachdao.getTotalCnt(map);
+		//req_idx 로 채팅방메시지전부찾기
+		List<MessageDTO> msglist= adminCoachMatchDao.searchAllMessagesByReqIdx(map);
+	
+		String pageStr=zipcok.page.AjaxPagingModuleSY.makePage(totalCnt, cp, listSize, pageSize,"msgpageclick");
+		 
+
+		mav.addObject("MsgList", msglist);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 	
 	//코치검색했을 때 나오는 리스트

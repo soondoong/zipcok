@@ -46,15 +46,15 @@ function showResult(){/*꼰트롤러에서 받은 데이터들을 가져와서 �
          var html='';
          for(var i=0;i<data.reqMemList.length;i++){
         	 
-        	 html+='<tr>';
-        	 html += '<td>'+data.reqMemList[i].req_idx+'</td>';
-        	 html += '<td>'+data.reqMemList[i].mem_name+'</td>';
-        	 html += '<td>'+data.reqMemList[i].mem_id+'</td>';
-        	 html += '<td>'+data.reqMemList[i].mem_phone+'</td>';
-        	 html += '<td>'+data.reqMemList[i].mem_email+'</td>';
-        	 html += '<td>'+data.reqMemList[i].req_date+'</td>';
-        	 html += '<td>'+data.reqMemList[i].req_status+'</td>';
-        	 html += '</tr>';
+        	 html+="<tr>";
+        	 html += "<td><a href='#' onclick='chating("+data.reqMemList[i].req_idx+")'>"+data.reqMemList[i].req_idx+"</a></td>";
+        	 html += "<td>"+data.reqMemList[i].mem_name+"</td>";
+        	 html += "<td>"+data.reqMemList[i].mem_id+"</td>";
+        	 html += "<td>"+data.reqMemList[i].mem_phone+"</td>";
+        	 html += "<td>"+data.reqMemList[i].mem_email+"</td>";
+        	 html += "<td>"+data.reqMemList[i].req_date+"</td>";
+        	 html += "<td>"+data.reqMemList[i].req_status+"</td>";
+        	 html += "</tr>";
         
          }
          
@@ -107,7 +107,7 @@ a{cursor:pointer;}
 				<table  align="center" class="table table-hover" >
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>요청서번호</th>
 							<th>이름</th>
 							<th>아이디</th>
 							<th>휴대폰번호</th>
@@ -133,34 +133,30 @@ a{cursor:pointer;}
 			
 			
 				<div>
-					<h3 style="margin-top:50px;">코치매칭 거래내역</h3>
-						<div>
-						
-						<ul class="test-inline">
-							<li class="srchtitle">코치아이디</li>
-							<li><input type="text" placeholder="아이디 입력" id="searchPdId"></li>
-							<li><input type="button" value="검색" id="searchPdbtn"  class="btn btn-primary"></li>
-						</ul>
-					</div>
-					
+					<h3 style="margin-top:50px;">채팅방 메세지내역</h3>
+			
 				</div>	
-				<div style="display:flex; justify-content:space-between;"> 
-					<h5>매칭 결제내역</h5>
+				<div style="display:flex; justify-content:space-between; align-items: middle;"> 
+					<h5>채팅방 번호:&nbsp;<span id="chatnum"></span></h5>
+					<h5>상담요청서 번호:&nbsp;<span id="reqnum"></span></h5>
 					<div style="display: flex; justify-content: flex-end;">
-					<p style="font-size:17px;"><span style="margin-right:20px;">총 거래내역:</span><b id="sumpdcnt">0</b><span>건</span></p>
-					<p style="font-size:17px;"><span style="margin:0 20px;">총 매출:</span><b id="sumprice">0</b><span>원</span></p>
+					<p style="font-size:17px;"><span style="margin-right:20px;">총 메시지:</span><b id="summsg">0</b><span>건</span></p>
+					<p style="font-size:17px;"><span style="margin:0 20px;">총 결제요청서:</span><b id="sumpdcnt">0</b><span>건</span></p>
+					<select name="sunseo" style="width:150px; margin:0 0 15px 15px;"onchange="sunseoChange()">
+							<option>최신순
+							<option>오래된순
+						</select>
 					</div>
 				</div>
 				<table  align="center" class="table table-hover" id ="pdtable">
 					<thead>
 						<tr>
-							<th>결제번호</th>
-							<th>이름</th>
-							<th>아이디</th>
-							<th>결제일</th>
-							<th>결제방법</th>
-							<th>결제금액(원)</th>
-							<th>상태</th>
+							<th>메시지번호</th>
+							<th>보낸이아이디</th>
+							<th>받는이아이디</th>
+							<th>내용</th>
+							<th>전송일</th>
+							<th>타입</th>
 						</tr>
 					</thead>
 					<tbody id="pdTbody">
@@ -175,125 +171,70 @@ a{cursor:pointer;}
       </div>
    </div>
    <script>
-   /*ajax로검색된 div내의 페이지를 클릭하면 호출되는 함수*/
-	  function pageclick(temp){  //temp는 cp값
-		var id=$('#searchId').val();
-		  show(id,temp);
-	  } 
-   
-   /*수연기능*/
-   
-     function Pdpageclick(temp){  //temp는 cp값
-	
-		  var id=$('#searchPdId').val();
 
-			$.ajax({
-			    type : 'post',
-			    url : 'searchPdByid.do',
-			    data :{
-
-	                'mem_id' : id,
-	            		'cp':temp
-
-	         },
-
-			    contentType : "application/x-www-form-urlencoded; charset=utf-8",
-			    dataType : "json",
-			    error: function(xhr, status, error){
-			        alert(error);
-			    },
-			    success : function(data){  
-			    	if(data.pdList.length<=0){
-			    		$('#pdTbody').html('');
-			    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 게시글이 없습니다.</td></tr>");
-			    	}else{
-						    		$('#pdTbody').html('');
-							    	var sumprice = 0; //총매출수
-							    	var sumpdcnt = 0; //총내역수
-										for(var i = 0; i<data.pdList.length; i++){
-											
-											$('#pdTbody').append("<tr>"+
-													"<td>"+data.pdList[i].pd_idx+"</td>"+
-													"<td>"+data.pdList[i].mem_name+"</td>"+
-													"<td>"+data.pdList[i].pd_mem_id+"</td>"+
-													"<td>"+data.pdList[i].pd_payment_date+"</td>"+
-													"<td>"+data.pdList[i].pd_method+"</td>"+
-													"<td>"+data.pdList[i].pd_price+"</td>"+
-													"<td>"+data.pdList[i].pd_status+"</td>"+				
-													"<tr>");
-											 if(data.pdList[i].pd_status == '결제완료'){	
-												sumprice +=Number(data.pdList[i].pd_price);
-											 }
-											 sumpdcnt++;
-										}
-								
-								$('#sumprice').text(sumprice);
-								$('#sumpdcnt').text(sumpdcnt);
-							    /*페이징추가*/
-							    $('.pdpaging').html('');
-					  			var cpage=data.pageStr;
-					  			$('#pdtable').after('<div class="paging pdpaging">'+cpage+'</div>');
-						      
-							        
-			    	}
-			    	
-			    
-			    }
-		
-
-			});
-		   
-		  
-	  } 
+   function sunseoChange(){
+	   
+	   var reqidx = $('#reqnum').text();
+	   chating(reqidx);
+   }
    
    
-   /*페이지에서검색시*/
-   $('#searchPdbtn').on('click',function(){
-	  var id=$('#searchPdId').val();
+   
+   
+   
+   
+   
+   
+   
+   
+   /*요청서번호 클릭시*/
+   function chating(reqidx){
+	   var sunseo = $("select[name='sunseo']").val() ;
 
-		$.ajax({
+	   $.ajax({
 		    type : 'post',
-		    url : 'searchPdByid.do',
+		    url : 'searchMessages.do',
 		    data :{
 
-                'mem_id' : id
-            
+               'req_idx' : reqidx,
+               'sunseo' : sunseo
+           
 
-         },
+        },
 
 		    contentType : "application/x-www-form-urlencoded; charset=utf-8",
 		    dataType : "json",
 		    error: function(xhr, status, error){
-		        alert(error);
+		      
 		    },
 		    success : function(data){  
-		    	if(data.pdList.length<=0){
+		    	if(data.MsgList.length<=0){
 		    		$('#pdTbody').html('');
-		    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 게시글이 없습니다.</td></tr>");
+		    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 메시지가 없습니다.</td></tr>");
 		    	}else{
 					    		$('#pdTbody').html('');
-					    	 	var sumprice = 0; //총매출수
-						    	var sumpdcnt = 0; //총내역수
-									for(var i = 0; i<data.pdList.length; i++){
+					    		$('#chatnum').text(data.MsgList[0].msg_croom_idx);
+					    		$('#reqnum').text(data.MsgList[0].msg_req_idx); 
+					    	 	var summsg = 0; //총 메시지 수
+						    	var sumpdcnt = 0; //총결제요청서 수
+									for(var i = 0; i<data.MsgList.length; i++){
 										
 										$('#pdTbody').append("<tr>"+
-												"<td>"+data.pdList[i].pd_idx+"</td>"+
-												"<td>"+data.pdList[i].mem_name+"</td>"+
-												"<td>"+data.pdList[i].pd_mem_id+"</td>"+
-												"<td>"+data.pdList[i].pd_payment_date+"</td>"+
-												"<td>"+data.pdList[i].pd_method+"</td>"+
-												"<td>"+data.pdList[i].pd_price+"</td>"+
-												"<td>"+data.pdList[i].pd_status+"</td>"+				
+												"<td>"+data.MsgList[i].msg_idx+"</td>"+
+												"<td>"+data.MsgList[i].msg_sender+"</td>"+
+												"<td>"+data.MsgList[i].msg_receiver+"</td>"+
+												"<td>"+data.MsgList[i].msg_content+"</td>"+
+												"<td>"+data.MsgList[i].msg_sendtime+"</td>"+
+												"<td>"+data.MsgList[i].msg_type+"</td>"+
 												"<tr>");
-										
-										 if(data.pdList[i].pd_status == '결제완료'){	
-												sumprice +=Number(data.pdList[i].pd_price);
-											 }
-										sumpdcnt++;
+											summsg ++;
+											if(data.MsgList[i].msg_type=='결제요청서'){
+												sumpdcnt++;
+											}
 									}
 							
-									$('#sumprice').text(sumprice);
-									$('#sumpdcnt').text(sumpdcnt);
+							$('#summsg').text(summsg);
+							$('#sumpdcnt').text(sumpdcnt);
 						    /*페이징추가*/
 						    $('.pdpaging').html('');
 				  			var cpage=data.pageStr;
@@ -308,8 +249,86 @@ a{cursor:pointer;}
 
 		});
 	   
-   })
+	   
+   }
    
    
+   
+   
+   
+   function msgpageclick(temp){  //temp는 cp값
+		
+	   var sunseo = $("select[name='sunseo']").val() ;
+	   var reqidx = $('#reqnum').text();
+		
+		
+	   $.ajax({
+		    type : 'post',
+		    url : 'searchMessages.do',
+		    data :{
+
+              'req_idx' : reqidx,
+              'sunseo' : sunseo,
+          		'cp' : temp
+
+       },
+
+		    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		    dataType : "json",
+		    error: function(xhr, status, error){
+		      
+		    },
+		    success : function(data){  
+		    	if(data.MsgList.length<=0){
+		    		$('#pdTbody').html('');
+		    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 메시지가 없습니다.</td></tr>");
+		    	}else{
+					    		$('#pdTbody').html('');
+					    		$('#chatnum').text(data.MsgList[0].msg_croom_idx);
+					    		$('#reqnum').text(data.MsgList[0].msg_req_idx); 
+					    	 	var summsg = 0; //총 메시지 수
+						    	var sumpdcnt = 0; //총결제요청서 수
+									for(var i = 0; i<data.MsgList.length; i++){
+										
+										$('#pdTbody').append("<tr>"+
+												"<td>"+data.MsgList[i].msg_idx+"</td>"+
+												"<td>"+data.MsgList[i].msg_sender+"</td>"+
+												"<td>"+data.MsgList[i].msg_receiver+"</td>"+
+												"<td>"+data.MsgList[i].msg_content+"</td>"+
+												"<td>"+data.MsgList[i].msg_sendtime+"</td>"+
+												"<td>"+data.MsgList[i].msg_type+"</td>"+
+												"<tr>");
+											summsg ++;
+											if(data.MsgList[i].msg_type=='결제요청서'){
+												sumpdcnt++;
+											}
+									}
+							
+							$('#summsg').text(summsg);
+							$('#sumpdcnt').text(sumpdcnt);
+						    /*페이징추가*/
+						    $('.pdpaging').html('');
+				  			var cpage=data.pageStr;
+				  			$('#pdtable').after('<div class="paging pdpaging">'+cpage+'</div>');
+					      
+						        
+		    	}
+		    	
+		    
+		    }
+	
+
+		});
+		   
+		  
+ } 
+   
+   
+   
+   
+   
+   
+   
+
    </script>
 <%@include file="../../_include/footer.jsp" %>

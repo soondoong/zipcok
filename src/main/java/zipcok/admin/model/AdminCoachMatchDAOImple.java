@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.member.model.MemberAllDTO;
@@ -149,5 +150,22 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 	public RequestFormDTO findRequestByPd_idx(int pd_idx) {
 		 RequestFormDTO dto=sqlMap.selectOne("findRequestByPd_idx", pd_idx);
 		return dto;
+	}
+	
+	
+	
+	/*req_idx 로 채팅방정보다가져오기*/
+	@Override
+	public List<MessageDTO> searchAllMessagesByReqIdx(HashMap<String,Object> map) {
+		int cp = (int)map.get("cp");
+		int ls = (int)map.get("ls");
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		map.put("start",start);
+		map.put("end",end);
+		
+		 List<MessageDTO> list =sqlMap.selectList("searchMessages", map);
+		return list;
 	}
 }

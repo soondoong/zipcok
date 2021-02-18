@@ -278,4 +278,35 @@ pr_req_idx = rf.req_idx
   		pd_idx=#{pd_idx}
   	</update>
   	<!-- 취소 환불 관리 끝-->
+  	
+  	
+  	
+  	
+  	
+  	<select id="searchMessages" parameterType="HashMap" resultType="zipcok.chat.model.MessageDTO">
+  	select * from
+(select rownum as rnum,a.* from
+(select * from message where msg_req_idx = #{req_idx}
+order by msg_sendtime 
+<choose>
+ 		<when test="sunseo=='최신순'"> desc</when>
+ 		<when test="sunseo =='오래된순'"> asc</when>
+</choose>
+)a)b
+where
+rnum between #{start} and #{end}
+  	</select>
+  	
+  	<select id="searchMessagesTotalCnt" parameterType="HashMap" resultType="Integer">
+  	select count(*) from
+ message
+  where msg_req_idx = #{req_idx}
+order by msg_sendtime
+<choose>
+ 		<when test="sunseo=='최신순'"> desc</when>
+ 		<when test="sunseo =='오래된순'"> asc</when>
+</choose>
+  	</select>
+  	
+  	
   </mapper>
