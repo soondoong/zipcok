@@ -16,6 +16,18 @@
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 </style>
+<script>
+function onchangePlaceholder(){
+	var searchTypeC = document.getElementById('searchTypeC').value;
+	if(searchTypeC != '전체'){
+		var searchTypePlaceholder = document.getElementById('searchTextC');
+		searchTypePlaceholder.removeAttribute('placeholder');
+	}else if(searchTypeC == '전체'){
+		var searchTypePlaceholder = document.getElementById('searchTextC');
+		searchTypePlaceholder.setAttribute('placeholder','홈짐 이름');
+	}
+}
+</script>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
@@ -28,13 +40,13 @@
             <form action="adminHomeGymSearch.do">
                   <ul class="test-inline">
                      <li>
-                     	<select name="searchType">
+                     	<select id="searchTypeC" name="searchType" onchange="javascript:onchangePlaceholder();">
                      		<option <c:if test="${searchType=='전체'}">selected="selected"</c:if> >전체</option>
                      		<option <c:if test="${searchType=='아이디'}">selected="selected"</c:if> >아이디</option>
                      		<option <c:if test="${searchType=='닉네임'}">selected="selected"</c:if> >닉네임</option>
                      	</select>
                      </li>
-                     <li><input type="text" name="searchText" placeholder="홈짐이름"></li>
+                     <li><input type="text" id="searchTextC" name="searchText" placeholder="홈짐이름"></li>
                      <li><input type="submit" value="검색"></li>
                   </ul>
             </form>
