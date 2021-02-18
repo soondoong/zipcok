@@ -24,6 +24,7 @@
 			.community_wrap .community_list .com_top h1{color: white;}
 			.community_wrap .community_list .com_top h3{color: white;}
 			.community_wrap .community_list .com_top .comm_menu{float: right;}
+			.community_wrap .community_list .com_top .comm_menu span{display: -webkit-inline-box;}
 			
 			.community_wrap .community_list .bbs .exrecontent {text-indent: 20px;}
 			.community_wrap .community_list .bbs .coachCnt {background-color: #E5E5FF;}
@@ -35,7 +36,7 @@
 			<div class="com_top">
 				<h1>일일 운동 게시판</h1>
 				<h3>코치 : ${coach_name} 코치</h3>
-				<div class="comm_menu"><span><h3>커뮤니티 메인</h3> | <h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
+				<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">커뮤니티 메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
 			</div>
 			<table class="bbs">
 				<thead>
