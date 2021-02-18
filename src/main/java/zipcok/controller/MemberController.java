@@ -126,10 +126,12 @@ public class MemberController {
            if(result>1) {
          	  msg="회원가입 성공! 환영합니다~";
          	  mav.addObject("msg", msg);
+         	  mav.addObject("gourl", "loginForm.do");
               mav.setViewName("member/memberMsg");
            }else {
          	  msg="회원가입 실패! 정보를 확인해주세요~";
          	  mav.addObject("msg", msg);
+         	  mav.addObject("gourl", "loginForm.do");
               mav.setViewName("member/memberMsg");
            }
     

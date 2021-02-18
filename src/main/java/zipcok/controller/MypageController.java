@@ -417,8 +417,8 @@ public class MypageController {
          @RequestParam(value = "cp", defaultValue = "1")int cp) {
       
       int totalCnt=dao.mypageHomeGymLikeListTotalCnt((String)session.getAttribute("sid"));
-      int listSize=5;
-      int pageSize=5;
+      int listSize=3;
+      int pageSize=3;
       String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
       List<LikeDTO> list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
       
@@ -432,16 +432,6 @@ public class MypageController {
     	 
       }
     
-      
-		/*
-		 * List<CoachFileDTO> list2 = new ArrayList<CoachFileDTO>(); HashMap<String,
-		 * Object> map = new HashMap<String, Object>(); for(int i=0; i<list.size(); i++)
-		 * { String id=list.get(i).getLike_target_id(); System.out.println(id);
-		 * map.put("like_target_id", id); list2= dao.HomeGymLikeTargetProfile(map);
-		 * 
-		 * }
-		 */
-      
 
       ModelAndView mav = new ModelAndView();
       mav.addObject("memarr", memarr);
@@ -457,18 +447,31 @@ public class MypageController {
       @RequestMapping("/mypageCoachMatchLikeList.do")
       public ModelAndView mypageCoachMatchLikeList(HttpSession session,
             @RequestParam(value = "cp", defaultValue = "1")int cp) {
-         int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
-         int listSize=5;
-         int pageSize=5;
-         String pageStr2=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
-         List list2=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
-         ModelAndView mav = new ModelAndView();
-         mav.addObject("list2", list2);
-         mav.addObject("pageStr2", pageStr2);
-         mav.setViewName("mypage/mypageCoachMatchLikeList");
+    	  
+    	  int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
+          int listSize=3;
+          int pageSize=3;
+          String pageStr=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
+          List<LikeDTO> list=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));
+          
+          List<MemberAllDTO> memarr = new ArrayList<MemberAllDTO>();
+          
+          for(LikeDTO likedto : list) {
+        	  
+        	  MemberAllDTO dto = new MemberAllDTO();
+        	  dto = dao.memberAllProfile(likedto.getLike_target_id());
+        	  memarr.add(dto);
+        	 
+          }
+        
 
-         
-         return mav;
+          ModelAndView mav = new ModelAndView();
+          mav.addObject("memarr", memarr);
+          mav.addObject("list", list);
+          mav.addObject("pageStr", pageStr);
+          mav.setViewName("mypage/mypageCoachMatchLikeList");
+          
+          return mav;
       }
       
       //회원탈퇴 폼

@@ -18,7 +18,9 @@ import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.homegym.model.Pd_HgAllDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.LikeDTO;
 
 @Service
 public class CoachMypageDAOImple implements CoachMypageDAO {
@@ -88,7 +90,7 @@ public CoachFileDTO findProfileDTO(String id) {
 	return dto;
 }
 	
-	
+	//홈짐 좋아요 
 	@Override
 	public int coachMypageHomeGymLikeListTotalCnt(String mem_id) {
 		int count=sqlMap.selectOne("coachMypageHomeGymLikeListTotalCnt", mem_id);
@@ -96,7 +98,7 @@ public CoachFileDTO findProfileDTO(String id) {
 	}
 	
 	@Override
-	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id) {
+	public List<LikeDTO> coachMypageHomeGymLikeList(int cp, int ls, String mem_id) {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
 		Map map=new HashedMap();
@@ -107,6 +109,15 @@ public CoachFileDTO findProfileDTO(String id) {
 		
 		return list;
 	}
+	
+	@Override
+	public MemberAllDTO memberAllProfile2(String mem_id) {
+		
+		MemberAllDTO dto= sqlMap.selectOne("memberAllProfile2", mem_id);
+	      
+	    return dto;
+	}
+	
 	
 	//F&A 고객센터 작성글 총 수
 	@Override

@@ -112,6 +112,18 @@ rnum between #{start} and #{end}
 	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	 </select>	
 	 
+	<select id="memberAllProfile2" parameterType="String" resultType="zipcok.member.model.MemberAllDTO">
+  	select z.* ,mfile_upload
+	from 
+	zipcok_member z,member_file m
+	where 
+	mem_id=#{mem_id}
+	and
+	mfile_mem_id=#{mem_id}
+	and
+	mfile_key='회원프로필'
+   </select>
+	 
 	 <!-- F&A/고객센터 총 개시글 수 -->
 	<select id="coachMypageWriteListTotalCnt" resultType="Integer">
 		select count(*) from

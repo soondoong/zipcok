@@ -14,7 +14,9 @@ import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.homegym.model.Pd_HgAllDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.LikeDTO;
 
 public interface CoachMypageDAO {
 	
@@ -22,7 +24,8 @@ public interface CoachMypageDAO {
 	public int requestStatusChange(int req_idx) ; //상담요청서 상태변경
 	public int reqStatusChangetoOk(int req_idx,String status); //상담요청서 상태변경
 	public int coachMypageHomeGymLikeListTotalCnt(String mem_id);
-	public List coachMypageHomeGymLikeList(int cp, int ls, String mem_id);
+	public List<LikeDTO> coachMypageHomeGymLikeList(int cp, int ls, String mem_id);
+	public MemberAllDTO memberAllProfile2(String mem_id);
 	public int coachMypageWriteListTotalCnt(String mem_id);//작성글 수
 	public List coachMypageWriteList(int cp, int ls, String mem_id);//작성글 목록
 	public int coachMypageWriteDelete(String checkArr);//작성글 삭제

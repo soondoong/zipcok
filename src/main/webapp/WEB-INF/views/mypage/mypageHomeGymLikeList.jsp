@@ -21,8 +21,8 @@
    <%@include file="../header2.jsp"%>
    <style>
       .mypage_main {width: 600px; padding: 10px 0 0 60px;}
-	.mypage_main .likeprofileIMG {overflow: hidden; width: 200px; height: 200px; border-radius: 50%; margin: 0 auto 50px;}
-	.mypage_main .likeprofileIMG img {width:200px; height:200px; object-fit: cover;}
+	.mypage_main .likeprofileIMG {overflow: hidden; width: 300px; height: 300px; border-radius: 50%; margin: 0 auto 50px;}
+	.mypage_main .likeprofileIMG img {width:300px; height:300px; object-fit: cover; margin-bottom : 20px;}
 	.mypage_main .profile_info {padding: 0 0 0 100px;}
       .mypage_main .tab_style_01 {}
       .mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
@@ -34,7 +34,7 @@
     
       .likekeybtn{min-width:900px;}
       .alllikecontent_wrap{min-width:900px;}
-      .likepersonAllWrap{display:flex; }
+      .likepersonAllWrap{display:flex; place-content: center;}
       </style>     
    <div class="mypage_wrap">
    <%@include file="./mypageSideMenu.jsp"%>
@@ -56,12 +56,14 @@
     					<div>좋아요를 눌러보아요~</div>
     				</c:if>
     				<c:forEach var="dto" items="${list }" varStatus="status">
+    				<div  style="text-align: center;">
     					<div class="likeprofileIMG">
     					<img src="/zipcok/upload/member/${memarr[status.index].mfile_upload}">
     					</div>
-    					<div>타겟: ${dto.like_target_id}</div>
-    				</c:forEach>
+    					<h5>${dto.like_target_id}</h5>
+    				</div>	
     					
+    				</c:forEach> 
     				</div>
     				<div class="paging">${pageStr }</div>
     		</div>
