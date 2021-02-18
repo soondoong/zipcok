@@ -555,9 +555,6 @@ function mypageHomeGymPaymentRegistForm(){
 	var mem_id = document.getElementById('hg_mem_id').value;
 	location.href = 'HomeGymPaymentAdd.do?mem_id='+mem_id;
 }
-function mypageHomeGymPaymentUpdatePopup(){
-	location.href 
-}
 </script>
 <style>
 .titlee {color: #12151d;margin-bottom: 20px;}

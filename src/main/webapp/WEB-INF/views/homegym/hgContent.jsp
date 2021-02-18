@@ -262,8 +262,8 @@ function ajaxUnLike_rq(){
 }
 </script>
 <style>
-.top_info{background-color:#0099ff; width:1600px; height:75px; color: white; margin-bottom: 20px; padding-left: 40px; padding-top: 10px;}
-.top_info .top_info_like {position: relative; left:-25px; top:-60px; z-index: 1; }
+.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 100px; padding-top: 10px;}
+.top_info .top_info_like {position: relative; left:-55px; top:-60px; z-index: 1; }
 .top_contentArea {width:1600px; height:500px; display:flex; margin:auto;}
 .top_contentArea .top_contentArea_img_slide_single {width:700px; height: 350px; margin: 30px auto 1px; overflow: hidden;}
 .top_contentArea .top_contentArea_img_slide_single img {width: 100%;	min-height: 100%;}
@@ -287,8 +287,13 @@ function ajaxUnLike_rq(){
 .bottom_contentArea .reserNoticeArea table th {width:300px; vertical-align: top;}
 .bottom_contentArea .reserNoticeArea h3 {text-align:center;}
 .bottom_contentArea .mapArea {text-align:center; width:800px; height:400px; margin:0px auto;}
-.bottom_contentArea .reviewArea {text-align:center; min-height: 400px; }
-.bottom_contentArea .reviewArea table {width:1200px;}
+.bottom_contentArea .reviewArea {text-align:center; margin-bottom: 30px;}
+.bottom_contentArea .reviewArea table {width:1200px; min-height: 300px;}
+.bottom_contentArea .reviewArea .contetn_reivew_paging {margin: 40px 0 0; text-align: center;}
+.bottom_contentArea .reviewArea .contetn_reivew_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
+.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
+.likeafter{color : #FF6682; }
 
 </style>
 <div class = "top_info">
@@ -393,38 +398,45 @@ function ajaxUnLike_rq(){
 	</div>
 	<div class = "reviewArea">
 		<h3>이용 후기 / 평균 별점 : ${star_avg }</h3>
-		<c:if test = "${empty reviewList }">
-			<div>작성된 후기가 없습니다.</div>
-		</c:if>
-		<c:if test = "${!empty reviewList }">
-			<table>
-				<thead>
+		<table>
+			<thead>
+				<tr>
+					<th>별점</th>
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th>작성 날짜</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan = "5" class = "contetn_reivew_paging">${pageStr }</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<c:if test = "${empty reviewList }">
 					<tr>
-						<th>별점</th>
-						<th>제목</th>
-						<th>내용</th>
-						<th>작성자</th>
-						<th>작성 날짜</th>
+						<td colspan = "5">
+							등록된 리뷰가 없습니다.
+						</td>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="dto" items="${reviewList }">
-						<tr>
-							<td style="border-top: 1px solid lightgray; padding-top: 10px;">
-								<div style="position: relative; float: left;">
-									<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
-									<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
-								</div>
-							</td>
-							<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
-							<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
-							<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
-							<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</c:if>
+				</c:if>
+				<c:forEach var="dto" items="${reviewList }">
+					<tr>
+						<td style="border-top: 1px solid lightgray; padding-top: 10px;">
+							<div style="position: relative; float: left;">
+								<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
+								<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
+							</div>
+						</td>
+						<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
+						<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
+						<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
+						<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </div>
 <%@include file="../_include/footer.jsp" %>

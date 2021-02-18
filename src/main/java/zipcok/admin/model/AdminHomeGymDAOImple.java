@@ -6,8 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymDTO;
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymReservationDTO;
+import zipcok.homegym.model.PaymentDTO;
 
 @Service
 public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
@@ -112,5 +115,36 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	
 	
 	/*-----------------예약조회 병모----------------*/
-	
+	/////////////병길///////////////////
+	@Override
+	public List<HomeGymEquipmentDTO> adminHomeGymEquipmentInfo(String hg_mem_id) {
+		List<HomeGymEquipmentDTO> list = sqlMap.selectList("adminHomeGymEqList", hg_mem_id);
+		return list;
+	}
+	@Override
+	public HomeGymDTO adminHomeGymInfo(String hg_mem_id) {
+		HomeGymDTO dto = sqlMap.selectOne("adminHomeGym", hg_mem_id);
+		return dto;
+	}
+	@Override
+	public int adminHomeGymMemberIdx(String hg_mem_id) {
+		int result = sqlMap.selectOne("adminHomeGymMemberIdx", hg_mem_id);
+		return result;
+	}
+	@Override
+	public PaymentDTO adminHomeGymPaymentInfo(String hg_mem_id) {
+		PaymentDTO dto = sqlMap.selectOne("adminHomeGymPayment", hg_mem_id);
+		return dto;
+	}
+	@Override
+	public List<ReviewDTO> adminHomeGymReviewInfo(Map<String, Object> map) {
+		List<ReviewDTO> list = sqlMap.selectList("adminHomeGymReview", map);
+		return list;
+	}
+	@Override
+	public int adminHomeGymReviewTotalCnt(String hg_mem_id) {
+		int result = sqlMap.selectOne("adminHomeGymReviewTotalCnt", hg_mem_id);
+		return result>0?1:result;
+	}
+	/////////////////////병길///////////////
 }

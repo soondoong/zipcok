@@ -74,8 +74,8 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		return result;
 	}
 	@Override
-	public List<ReviewDTO> HomeGymReview(String homegymId) {
-		List<ReviewDTO> list = sqlMap.selectList("homegymReviewSelectSQL", homegymId);
+	public List<ReviewDTO> HomeGymReview(Map<String, Object> map) {
+		List<ReviewDTO> list = sqlMap.selectList("homegymReviewSelectSQL", map);
 		return list;
 	}
 	@Override
@@ -103,5 +103,9 @@ public class HomeGymDAOImple implements HomeGymDAO {
 		double result =  sqlMap.selectOne("hgReviewStarAvg", homegymId);
 		return result;
 	}
-	
+	@Override
+	public int HomeGYmReviewtotalCnt(String homegymId) {
+		int result = sqlMap.selectOne("homegymReviewTotalCnt", homegymId);
+		return result==0?1:result;
+	}
 }
