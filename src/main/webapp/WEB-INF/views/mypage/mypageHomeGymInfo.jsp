@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp"%>
 <link href="assets/css/mypage.css" rel="stylesheet">
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
+
+
 <script src="https://kit.fontawesome.com/802041d611.js"	crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -8,14 +8,14 @@
 		insert into homegym values(
 		#{hg_mem_id}, #{hg_nickname},
 		#{hg_person_count}, #{hg_price},
-		#{hg_info}, '1', #{hg_faddr},
+		#{hg_info}, '0', #{hg_faddr},
 		#{hg_saddr}, #{hg_station}, #{hg_comeinfo},
 		to_date(#{hg_start_date},'yyyy-mm-dd'),
 		to_date(#{hg_end_date},'yyyy-mm-dd'),
 		#{hg_not_date},
 		#{hg_start_time},
 		#{hg_end_time},
-		sysdate, sysdate, '1')
+		sysdate, sysdate, '0')
 	</insert>
 	<insert id="hgEqAddSQL"
 		parameterType="zipcok.homegym.model.HomeGymEquipmentDTO">

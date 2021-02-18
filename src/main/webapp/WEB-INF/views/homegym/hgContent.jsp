@@ -3,6 +3,8 @@
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
@@ -83,183 +85,212 @@ window.addEventListener('load', function() {
 	})();
 });
 
-$(function() {
-	var start_date = '${hgContent.hg_start_date}'.substring(0,10);
-	var end_date = '${hgContent.hg_end_date}'.substring(0,10);
-	$('#choice_date').datepicker({
-		dateFormat: 'yy-mm-dd',
-		prevText: '이전 달',
-		nextText: '다음 달',
-		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-		dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-		dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		showMonthAfterYear: true,
-		beforeShowDay: function(date){
-			var result = '${hgContent.hg_not_date}';
-			var noWeekend = jQuery.datepicker.noWeekends(date);
-			if(result=='없음'){
-				return [true];
-			}else if(result=='평일'){
-				return noWeekend[0] ? [false]:[true];
-			}else if(result=='주말'){
-				return noWeekend[0] ? [true]:noWeekend;
-			}
-		},
-		minDate: start_date,
-		maxDate: end_date,
-		yearSuffix:'년'
+$('.slider-for').slick();
+$('.slider-nav').slick();
+
+	$(function() {
+		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
+		var end_date = '${hgContent.hg_end_date}'.substring(0, 10);
+		$('#choice_date').datepicker(
+				{
+					dateFormat : 'yy-mm-dd',
+					prevText : '이전 달',
+					nextText : '다음 달',
+					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',
+							'8월', '9월', '10월', '11월', '12월' ],
+					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
+							'7월', '8월', '9월', '10월', '11월', '12월' ],
+					dayNames : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesShort : [ '일', '월', '화', '수', '목', '금', '토' ],
+					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
+					showMonthAfterYear : true,
+					beforeShowDay : function(date) {
+						var result = '${hgContent.hg_not_date}';
+						var noWeekend = jQuery.datepicker.noWeekends(date);
+						if (result == '없음') {
+							return [ true ];
+						} else if (result == '평일') {
+							return noWeekend[0] ? [ false ] : [ true ];
+						} else if (result == '주말') {
+							return noWeekend[0] ? [ true ] : noWeekend;
+						}
+					},
+					minDate : start_date,
+					maxDate : end_date,
+					yearSuffix : '년'
+				});
 	});
-});
-function end_time_click(){
-	var start_time = document.getElementById('choice_start_time').value;
-	if(start_time == ''){
-		window.alert('시작 시간을 먼저 선택해주세요');
-		return;
-	}
-}
-function time_price_result(){
-	var homegym_price = ${hgContent.hg_price};
-	var start_time = document.getElementById('choice_start_time').value;
-	var end_time = document.getElementById('choice_end_time').value;
-	var person_count = document.getElementById('choice_person_count').value;
-	var reservation_time = end_time - start_time;
-	if(reservation_time<1){
-		window.alert('종료 시간은 시작시간보다 커여합니다.');
-		document.getElementById('choice_end_time')[0].selected = true;
-		return;
-	}
-
-	var recent_price = document.getElementById('expect_price');
-	recent_price.innerText = homegym_price * reservation_time * person_count;
-}
-function person_count_price_result(){
-	var homegym_price = ${hgContent.hg_price};
-	var start_time = document.getElementById('choice_start_time').value;
-	var end_time = document.getElementById('choice_end_time').value;
-	var reservation_time = end_time - start_time;
-	var person_count = document.getElementById('choice_person_count').value;
-	var recent_price = document.getElementById('expect_price');
-
-	recent_price.innerText = homegym_price * person_count * reservation_time;
-}
-function reservation(){
-	if('${sessionScope.sid}'=='' && '${sessionScope.coachId}'==''){
-		window.alert('로그인이 필요한 페이지 입니다.');
-		location.href='loginForm.do';
-		return;
-	}
-	if('${login.mem_id}'=='${hgContent.hg_mem_id}'){
-		window.alert('자신의 홈짐은 예약하실 수 없습니다.');
-		return;
-	}
-	var use_date = document.getElementById('choice_date').value;
-	var use_start_time = document.getElementById('choice_start_time').value
-	var use_end_time = document.getElementById('choice_end_time').value;
-	var use_person_count = document.getElementById('choice_person_count').value;
-	var use_price = document.getElementById('expect_price').innerText;
-	var use_time = use_end_time - use_start_time;
-	if(use_date == '' || use_start_time == '' || use_end_time ==''){
-		window.alert('옵션을 확인해주세요.');
-		return;
-	}
-	var start_ex = use_start_time;
-	var end_ex = use_end_time;
-	if(use_start_time < 10){
-		start_ex = '0'+use_start_time;
-	}
-	if(use_end_time < 10){
-		end_ex = '0'+use_end_time;
-	}
-	start_ex +=':00';
-	end_ex +=':00';
-	
-	document.getElementById('reservationInfo').style.display = 'none';
-	document.getElementById('reservationInfo_click').style.display = 'block';
-	
-	document.getElementById('use_date').innerHTML=use_date;
-	document.getElementById('use_time').innerHTML=start_ex+'-'+end_ex+'/'+use_time+'시간';
-	document.getElementById('use_person_count').innerHTML=use_person_count;
-	document.getElementById('use_price').innerHTML=use_price+'<input type = "hidden" name = "reser_price" id = "choice_price" value = "'+use_price+'">';
-}
-function reservation_back_click(){
-	document.getElementById('reservationInfo').style.display = 'block';
-	document.getElementById('reservationInfo_click').style.display = 'none';
-}
-function reservation_ajax(){
-	var hg_mem_id = document.getElementById('hg_mem_id').value;
-	var use_date = document.getElementById('choice_date').value;
-	var use_start_time = document.getElementById('choice_start_time').value
-	var use_end_time = document.getElementById('choice_end_time').value;
-	var use_person_count = document.getElementById('choice_person_count').value;
-	var use_price = document.getElementById('choice_price').value;
-	var params = 'hg_mem_id='+hg_mem_id+'&reser_date='+use_date+'&reser_start_time='+use_start_time+'&reser_end_time='+use_end_time+'&reser_person_count='+use_person_count+'&reser_price='+use_price;
-	location.href = 'HomeGymReservation.do?'+params;
-}
-function reservation_callback(){
-	if(XHR.readyState==4){
-		if(XHR.status==200){
-			var data=XHR.responseText;
-  			data=eval('('+data+')');
-  			var msg = data.msg;
-  			var check = data.check;
-  			var idx = data.this_idx;
-  			if(check){
-  				location.href = 'HomeGymPayPage.do?reser_idx='+idx;
-  			}
+	function end_time_click() {
+		var start_time = document.getElementById('choice_start_time').value;
+		if (start_time == '') {
+			window.alert('시작 시간을 먼저 선택해주세요');
+			return;
 		}
 	}
-}
-$(document).on('click','.ia', function() {
-	var userid='${login.mem_id}';
-		if(userid ==null || userid == ''){ //비로그인시
-			alert('회원만 가능한 서비스입니다');
-		}else{ //로그인시				
-			var targetid= $(this).attr('id');	
-			//alert(targetid);	
-		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
-	             $(this).removeClass("toggleStyle");
-	             $(this).html('<i class="far fa-heart likeicon"></i>');
-	             ajaxUnLike(userid,targetid);	     
-	         }else{ //좋아요햇을시
-	        	 
-	             $(this).addClass("toggleStyle");
-	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
-	            
-	        	ajaxLike(userid,targetid);	           
-	             //좋아요하면 insert 취소하면 delete            
-	             
-	         }			 	
-		}	
-});
+	function time_price_result() {
+		var homegym_price = $
+		{
+			hgContent.hg_price
+		}
+		;
+		var start_time = document.getElementById('choice_start_time').value;
+		var end_time = document.getElementById('choice_end_time').value;
+		var person_count = document.getElementById('choice_person_count').value;
+		var reservation_time = end_time - start_time;
+		if (reservation_time < 1) {
+			window.alert('종료 시간은 시작시간보다 커여합니다.');
+			document.getElementById('choice_end_time')[0].selected = true;
+			return;
+		}
 
-function ajaxLike(userid, targetid){
-	var params = 'user_id='+userid+'&target_id='+targetid;
-	sendRequest('HomegymLikeOn.do', params, ajaxLike_rq, 'GET');
-}
-function ajaxUnLike(userid, targetid){
-	var params = 'user_id='+userid+'&target_id='+targetid;
-	sendRequest('HomegymLikeOff.do', params, ajaxUnLike_rq, 'GET');
-}
-function ajaxLike_rq(){
-  	if(XHR.readyState==4){
-  			if(XHR.status==200){
-  				var data=XHR.responseText;
-  				data=eval('('+data+')');
-  			    alert("좋아요 목록에 추가되었습니다");	
-  			}
-  	}
-}
-function ajaxUnLike_rq(){
-  	if(XHR.readyState==4){
-  			if(XHR.status==200){
-  				var data=XHR.responseText;
-  				data=eval('('+data+')');
-  			    alert("좋아요 목록에서 삭제되었습니다");	
-  			}
-  	}
-}
+		var recent_price = document.getElementById('expect_price');
+		recent_price.innerText = homegym_price * reservation_time
+				* person_count;
+	}
+	function person_count_price_result() {
+		var homegym_price = $
+		{
+			hgContent.hg_price
+		}
+		;
+		var start_time = document.getElementById('choice_start_time').value;
+		var end_time = document.getElementById('choice_end_time').value;
+		var reservation_time = end_time - start_time;
+		var person_count = document.getElementById('choice_person_count').value;
+		var recent_price = document.getElementById('expect_price');
+
+		recent_price.innerText = homegym_price * person_count
+				* reservation_time;
+	}
+	function reservation() {
+		if ('${sessionScope.sid}' == '' && '${sessionScope.coachId}' == '') {
+			window.alert('로그인이 필요한 페이지 입니다.');
+			location.href = 'loginForm.do';
+			return;
+		}
+		if ('${login.mem_id}' == '${hgContent.hg_mem_id}') {
+			window.alert('자신의 홈짐은 예약하실 수 없습니다.');
+			return;
+		}
+		var use_date = document.getElementById('choice_date').value;
+		var use_start_time = document.getElementById('choice_start_time').value
+		var use_end_time = document.getElementById('choice_end_time').value;
+		var use_person_count = document.getElementById('choice_person_count').value;
+		var use_price = document.getElementById('expect_price').innerText;
+		var use_time = use_end_time - use_start_time;
+		if (use_date == '' || use_start_time == '' || use_end_time == '') {
+			window.alert('옵션을 확인해주세요.');
+			return;
+		}
+		var start_ex = use_start_time;
+		var end_ex = use_end_time;
+		if (use_start_time < 10) {
+			start_ex = '0' + use_start_time;
+		}
+		if (use_end_time < 10) {
+			end_ex = '0' + use_end_time;
+		}
+		start_ex += ':00';
+		end_ex += ':00';
+
+		document.getElementById('reservationInfo').style.display = 'none';
+		document.getElementById('reservationInfo_click').style.display = 'block';
+
+		document.getElementById('use_date').innerHTML = use_date;
+		document.getElementById('use_time').innerHTML = start_ex + '-' + end_ex
+				+ '/' + use_time + '시간';
+		document.getElementById('use_person_count').innerHTML = use_person_count;
+		document.getElementById('use_price').innerHTML = use_price
+				+ '<input type = "hidden" name = "reser_price" id = "choice_price" value = "'+use_price+'">';
+	}
+	function reservation_back_click() {
+		document.getElementById('reservationInfo').style.display = 'block';
+		document.getElementById('reservationInfo_click').style.display = 'none';
+	}
+	function reservation_ajax() {
+		var hg_mem_id = document.getElementById('hg_mem_id').value;
+		var use_date = document.getElementById('choice_date').value;
+		var use_start_time = document.getElementById('choice_start_time').value
+		var use_end_time = document.getElementById('choice_end_time').value;
+		var use_person_count = document.getElementById('choice_person_count').value;
+		var use_price = document.getElementById('choice_price').value;
+		var params = 'hg_mem_id=' + hg_mem_id + '&reser_date=' + use_date
+				+ '&reser_start_time=' + use_start_time + '&reser_end_time='
+				+ use_end_time + '&reser_person_count=' + use_person_count
+				+ '&reser_price=' + use_price;
+		location.href = 'HomeGymReservation.do?' + params;
+	}
+	function reservation_callback() {
+		if (XHR.readyState == 4) {
+			if (XHR.status == 200) {
+				var data = XHR.responseText;
+				data = eval('(' + data + ')');
+				var msg = data.msg;
+				var check = data.check;
+				var idx = data.this_idx;
+				if (check) {
+					location.href = 'HomeGymPayPage.do?reser_idx=' + idx;
+				}
+			}
+		}
+	}
+	$(document)
+			.on(
+					'click',
+					'.ia',
+					function() {
+						var userid = '${login.mem_id}';
+						if (userid == null || userid == '') { //비로그인시
+							alert('회원만 가능한 서비스입니다');
+						} else { //로그인시				
+							var targetid = $(this).attr('id');
+							//alert(targetid);	
+							if ($(this).hasClass("toggleStyle")) { //좋아요취소시
+								$(this).removeClass("toggleStyle");
+								$(this)
+										.html(
+												'<i class="far fa-heart likeicon"></i>');
+								ajaxUnLike(userid, targetid);
+							} else { //좋아요햇을시
+
+								$(this).addClass("toggleStyle");
+								$(this)
+										.html(
+												'<i class="fas fa-heart likeicon likeafter"></i>');
+
+								ajaxLike(userid, targetid);
+								//좋아요하면 insert 취소하면 delete            
+
+							}
+						}
+					});
+
+	function ajaxLike(userid, targetid) {
+		var params = 'user_id=' + userid + '&target_id=' + targetid;
+		sendRequest('HomegymLikeOn.do', params, ajaxLike_rq, 'GET');
+	}
+	function ajaxUnLike(userid, targetid) {
+		var params = 'user_id=' + userid + '&target_id=' + targetid;
+		sendRequest('HomegymLikeOff.do', params, ajaxUnLike_rq, 'GET');
+	}
+	function ajaxLike_rq() {
+		if (XHR.readyState == 4) {
+			if (XHR.status == 200) {
+				var data = XHR.responseText;
+				data = eval('(' + data + ')');
+				alert("좋아요 목록에 추가되었습니다");
+			}
+		}
+	}
+	function ajaxUnLike_rq() {
+		if (XHR.readyState == 4) {
+			if (XHR.status == 200) {
+				var data = XHR.responseText;
+				data = eval('(' + data + ')');
+				alert("좋아요 목록에서 삭제되었습니다");
+			}
+		}
+	}
 </script>
 <style>
 .top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 100px; padding-top: 10px;}
@@ -294,7 +325,8 @@ function ajaxUnLike_rq(){
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
 .likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
-
+.slider-for img {width:300px; height: 150px;}
+.slider-nav img {width:300px; height: 150px;}
 </style>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
@@ -309,9 +341,14 @@ function ajaxUnLike_rq(){
 	</div>
 </div>
 <div class = "top_contentArea">
-	<div class = "top_contentArea_img_slide_single">
+	<div class = "slider-for">
 		<c:forEach var = "img" items = "${imgContent }">
-		<div class = "item"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
+		<div><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
+		</c:forEach>
+	</div>
+	<div class = "slider-nav">
+		<c:forEach var = "img" items = "${imgContent }">
+		<div><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
 		</c:forEach>
 	</div>
 	<div class = "top_contentArea_reservationArea">
