@@ -246,7 +246,7 @@ public class CoachDAOImple implements CoachDAO {
 		//5단계.후기가져오기
 			HashMap<String, Object> reviewmap = new HashMap<String, Object>();
 			 reviewmap.put("id", id);
-			 reviewmap.put("reviewKey","회원이코치");
+			 reviewmap.put("reviewKey","코치");
 		
 			 List<ReviewDTO> reviewList= sqlMap.selectList("selectStarReview", reviewmap);
 			 System.out.println("후기몇개?"+reviewList.size());

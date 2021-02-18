@@ -40,9 +40,9 @@ a{cursor:pointer;}
     <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
-         	<div><!-- 검색하는 부분 div -->
+         	<div><!-- 검색하는 부분 div --> 
 					<div>
-						<h5>[결제 관리]</h5>
+						<h3>결제 관리</h3>
 					</div>
 					<div>
 						<ul class="test-inline">
@@ -71,15 +71,15 @@ a{cursor:pointer;}
 								</select>
 							</li>
 							<li><input type="text" name="searchT"></li>
-							<li><input type="submit" value="검색"></li>
+							<li><input type="submit" value="검색" id="searchbtn" class="btn btn-primary"></li>
 						</ul>
 					</div>
 				</form>
 			</div>
-			<hr>
+			
 			<div><!-- 코치의 취소 내역  테이블 div -->
 				
-				<table   align="center" class="table table-hover" >
+				<table   align="center" class="table table-hover" style="margin-top:30px;" >
 					<thead>
 						<tr>
 							<th>결제번호</th>

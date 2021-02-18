@@ -263,4 +263,5 @@ $(function(){
 </form>
 </article>
 </body>
+  <%@include file="../_include/footer.jsp" %>
 </html>

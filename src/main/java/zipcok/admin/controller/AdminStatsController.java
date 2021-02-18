@@ -2,6 +2,7 @@ package zipcok.admin.controller;
 
 import java.util.HashMap;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.*;
 
@@ -63,7 +63,20 @@ public class AdminStatsController {
 		map.put("graphKey", "month");
 		List<GraphDTO> list=  tonggyyedao.graphMonthCoachSales(map);
 		
-
+		
+		
+		//json화
+		ArrayList jarr = new ArrayList();
+		for( GraphDTO dto : list) {
+			Gson gson=new Gson();
+			String json = gson.toJson(dto);
+			System.out.println(json);
+			jarr.add(json);
+		}
+	
+		
+		mav.addObject("jsonarr",jarr);
+		
 		mav.addObject("graphdata", list);
 		mav.setViewName("admin/admin_stat/admin_statCoachSales");
 		return mav;

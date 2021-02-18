@@ -13,7 +13,7 @@
 .mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
 font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
 #file{display:none;}
-.titlee{font-weight: 550; color:#12151d; margin-bottom:20px;}
+.titlee{ color:#12151d; margin-bottom:20px;}
 .titlee:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
 .titlee hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 

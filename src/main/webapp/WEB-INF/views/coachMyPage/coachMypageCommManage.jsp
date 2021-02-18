@@ -19,7 +19,7 @@ function commplus(){
 .revbtn{width:72px; height: 25px; }
 .table a,.table a:hover,.table a:link{color:blue;}
 h3:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 32px; }
-h3{font-weight: 550; color:#12151d; margin-bottom:24px;}
+h3{ color:#12151d; margin-bottom:24px;}
 hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 
 </style>

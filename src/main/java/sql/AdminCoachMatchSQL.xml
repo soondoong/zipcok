@@ -157,8 +157,14 @@ pr_req_idx = rf.req_idx
   		select  count(*) from
 		(select * from
 		request_form,zipcok_member
-		where
-		req_receive_id = #{req_receive_id}
+		where 
+		req_receive_id
+		<if test="req_receive_id == '전체'">
+		like '%%'
+		</if>
+		<if test="req_receive_id != '전체'">
+		 = #{req_receive_id}
+		</if>
 		and
 		req_mem_id =mem_id)a
   	</select>
@@ -167,8 +173,14 @@ pr_req_idx = rf.req_idx
 		(select rownum as rnum, a.* from
 		(select * from
 		request_form,zipcok_member
-		where
-		req_receive_id = #{req_receive_id}
+			where 
+		req_receive_id
+		<if test="req_receive_id == '전체'">
+		like '%%'
+		</if>
+		<if test="req_receive_id != '전체'">
+		 = #{req_receive_id}
+		</if>
 		and
 		req_mem_id =mem_id)a)b
 		where

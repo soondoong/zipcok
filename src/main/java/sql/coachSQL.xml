@@ -24,7 +24,7 @@ group by c.coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+) 
 and
-rev_key = '회원이코치'
+rev_key = '코치'
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -132,7 +132,7 @@ group by coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+)
 and
-rev_key = '회원이코치'
+rev_key = '코치'
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 
@@ -205,7 +205,7 @@ group by coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+)
 and
-rev_key = '회원이코치'
+rev_key = '코치'
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -285,7 +285,7 @@ group by coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+)
 and
-rev_key = '회원이코치'
+rev_key = '코치'
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where
@@ -339,7 +339,7 @@ group by coach_mem_id)a left outer join star_review
 on
 a.coach_mem_id = rev_target_id(+)
 and
-rev_key = '회원이코치'
+rev_key = '코치'
 group by
 a.coach_mem_id)b, coach_regist cr,member_file mf,zipcok_member zm
 where

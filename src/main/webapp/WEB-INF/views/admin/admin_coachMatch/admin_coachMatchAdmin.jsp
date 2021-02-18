@@ -29,6 +29,13 @@ function placeholder(){
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+<style>
+.table { border-spacing: ''; table-layout: auto; text-align: center; margin-bottom:70px;} 
+.table th{font-weight: bold; border-color:#848282;}
+a{cursor:pointer;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+</style>
 	<div class="adminPage_wrap">
 		<%@include file="../adminSideBar.jsp"%>
 		<div class="container adminPage_contents">
@@ -39,7 +46,7 @@ function placeholder(){
 				<div>
 					<form action="admin_coachMatchAdminSearch.do">
 					<ul class="test_inline">
-						<li>코치 검색</li>
+						<li class="srchtitle">검색 조건</li>
 						<li>
 							<select id="selectOptionC" onchange="javascript:placeholder();" name="choice">
 								<option <c:if test="${selectoption=='전체'}">selected="selected"</c:if> >전체</option>
@@ -48,16 +55,16 @@ function placeholder(){
 								<option <c:if test="${selectoption=='이름'}">selected="selected"</c:if> >이름</option>
 							</select>
 						</li>
-						<li><input type="radio" name="mem_gender" value="남">남자 <input type="radio" name="mem_gender" value="여">여자</li>
-						
+
+						<li class="coach_li_radio"><input type="radio" name="mem_gender" value="남" class="coach_radiobtn">남자 <input type="radio" name="mem_gender" class="coach_radiobtn" value="여">여자</li>
 						<li><input type="text" id="searchTextPlaceholder" name="searchText" placeholder="id 입력"></li>
-						
-						<li><input type="submit"  value="검색"></li>
+						<li><input type="submit"  value="검색"   id="searchbtn" class="btn btn-primary" ></li>
+
 					</ul>
 					</form>
 				</div>
 				<div><!--  테이블 div -->
-					<table border="1" cellspacing="0">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>회원번호</th>
@@ -95,97 +102,95 @@ function placeholder(){
 						<c:if test="${!empty List}">
 						<tfoot>
 							<tr>
-								<td colspan="7" align="center">${pageStr }</td>
+								<td colspan="7" align="center" class="paging">${pageStr }</td>
 							</tr>
 						</tfoot>
 						</c:if>
 					</table>
 				</div>
-				<div id="coachProfileLayer"><!-- 코치의 세부정보 부분 div -->
-				<div>
-					<ul class="test_inline">
-						<li><img alt="profileImg" src="img/notice/01.png" style="width:30px; height:30px;"></li>
-						<li id="coachNameLi"></li>
-						<li>
-							<ul>
-								<li>코치 등록일:<input type="text" id="coach_joindatetext" readonly="readonly"></li>
-								<li>최근 수정일:<input type="text" id="coach_changetext" readonly="readonly"></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+
+				<h3>코치정보</h3>	
+
 				<form id="coachUpdateForm">
-					<ul>
-						<li>
-							<h5>활동지역</h5>
-							
-							<ul>
-								<li><input type="text" id="coach_floctext" readonly="readonly"></li>
-							</ul>	
-							<p id="flocUpdateP" class="flocUpdatePClass"></p>
-						</li>
-						<li>
-							<h5>소개글</h5>
-							
-							<ul>
-								<li><input type="text" id="coach_intro_subtext" class="coach_intro_subtextClass" name="coach_intro_sub" readonly="readonly"></li>
-								<li><input type="text" id="coach_intro_conttext" class="coach_intro_conttextClass" name="coach_intro_cont" readonly="readonly"></li>
-							</ul>
-							<p id="introUpdateP" class="introUpdatePClass"></p>
-						</li>
-						<li>
-							<h5>카테고리</h5>
-							
-							<ul>
-								<li>필라테스 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
-								<li>요가 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
-								<li>헬스 <a href="#">커리큘럼 작성</a> <a href="#">미리보기</a></li>
-							</ul>
+				<div id="coachProfileLayer"><!-- 코치의 세부정보 부분 div -->
+				
+				<table  class="coach_adminTable">
+					<tr>					
+						<td>
+							<label  class="coach_subtitle" >이름</label >
+							<input type="text"  id="coachNameLi" readonly="readonly">
+						</td>
+						<td>
+							<label  class="coach_subtitle">회원가입일</label >
+							<input type="text" id="coach_joindatetext" readonly="readonly">
+						</td>
+					</tr>
+				
+					<tr>
+						<td >
+							<label  class="coach_subtitle">활동지역</label >
+							<input type="text" id="coach_floctext" readonly="readonly">
+							<label  id="flocUpdateP" class="flocUpdatePClass"></label >
+						</td>
+						<td >
+							<label  class="coach_subtitle">코치전환일</label >
+							<input type="text" id="coach_changetext" readonly="readonly">
+						</td>
+					</tr>
+				
+						<tr>
+						<td colspan="2">
+								<label  class="coach_subtitle">소개글</label >
+								<input type="text" id="coach_intro_subtext" class="coach_intro_subtextClass" name="coach_intro_sub" readonly="readonly">
+								<input type="text" id="coach_intro_conttext" style="height: 150px " class="coach_intro_conttextClass" name="coach_intro_cont" readonly="readonly">
+								<p id="introUpdateP" class="introUpdatePClass"></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<td >
+							<label  class="coach_subtitle">카테고리</label >
+							<input type="text" id="coach_floctext" readonly="readonly">
 							<input type="button" value="카테고리 수정">
-						</li>
-						<li>
-							<h5>준비물</h5>
-							
-							<ul>
-								<li><input type="text" id="coach_mattext" readonly="readonly"></li>
-							</ul>
+						</td>
+						<td >
+							<label  class="coach_subtitle">준비물</label >
+							<input type="text" id="coach_mattext" readonly="readonly">
 							<p id="matUpdateP" class="matUpdatePClass"></p>
-						</li>
-						<li>
-							<h5>강의유형</h5>
-							
-							<ul>
-								<li><input type="text" id="coach_ex_typetext" readonly="readonly"></li>
-							</ul>
+						</td>
+					</tr>
+					
+					<tr>
+						<td >
+							<label  class="coach_subtitle">수업유형</label >
+							<input type="text" id="coach_ex_typetext" readonly="readonly">
 							<p id="extypeUpdateP" class="extypeUpdatePClass"></p>
-						</li>
-						<li>
-							<h5>경력</h5>
-							<ul>
-								<li><input type="number" min="0" max="100" id="coach_yeartext" readonly="readonly"></li>
-							</ul>
+						</td>
+						<td >
+							<label  class="coach_subtitle">경력</label >
+							<input type="number" min="0" max="100" id="coach_yeartext" readonly="readonly">
 							<p id="yearUpdateP" class="yearUpdatePClass"></p>
-						</li>
-						<li>
-							<h5>코치 소개 사진</h5>
+						</td>
+					</tr>
+					
+					<tr>
+						<td  colspan="2">
+							<label  class="coach_subtitle">코치 소개 사진</label >
 							<ul class="test_inline">
 								<li><input type="button" value="수정하기"></li>
 								<li><input type="button" value="사진추가"></li>
 							</ul>
-						</li>
-						<li>
-							<ul class="test_inline">
-								<li>사진</li>
-								<li>사진</li>
-								<li>사진</li>
-								<li>사진</li>
-								<li>사진</li>
-							</ul>
-						</li>
-					</ul>
+						</td>
+			
+					</tr>
+					
+					
+				</table>
+				
 
-					</form>
+					
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -211,7 +216,7 @@ function showResult(){
          document.getElementById('coach_mattext').value=data.coachdto.coach_mat;
          document.getElementById('coach_ex_typetext').value=data.coachdto.coach_ex_type;
          document.getElementById('coach_yeartext').value=data.coachdto.coach_year;
-         document.getElementById('coachNameLi').innerHTML="<h5>"+data.dto3.mem_name+"</h5>";
+         document.getElementById('coachNameLi').value=data.dto3.mem_name;
          document.getElementById('introUpdateP').innerHTML="<input type='button' value='소개글 수정' name='introReset' onclick='javascript:introUpdateGo();'>";
          document.getElementById('matUpdateP').innerHTML="<input type='button' value='준비물 수정' name='matReset' onclick='javascript:matUpdateGo();'>";
          document.getElementById('extypeUpdateP').innerHTML="<input type='button' value='강의유형 수정' name='extypeReset' onclick='javascript:extypeUpdateGo();'>";

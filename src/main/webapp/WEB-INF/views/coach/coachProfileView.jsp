@@ -193,7 +193,7 @@ $(document).ready(function(){
 		
 		<!-- 코치소개 영역 -->		
 			<div>
-			<span style="font-size:2rem; font-weight: 600;">${dto.mem_name}코치</span>	 
+			<span style="font-size:2rem; font-weight: 500;font-family: 'Spoqa Han Sans Neo', 'sans-serif';">${dto.mem_name}코치</span>	 
 			<span style="font-size:1.3rem; font-weight: 300;"><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>	
 			</div>
 			
@@ -201,7 +201,7 @@ $(document).ready(function(){
 			<h1>${dto.coach_intro_sub }</h1>
 			<br><br>
 			
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">활동지역</span>
+			<span style="font-size:1.3rem; font-weight: 500;font-family: 'Spoqa Han Sans Neo', 'sans-serif';margin:0 60px 0 0;">활동지역</span>
 			<span>${dto.coach_floc }</span>
 			<br>
 			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">강의유형</span>
@@ -314,4 +314,5 @@ function lengthLimit(){
 
 </script>
 </body>
+  <%@include file="../_include/footer.jsp" %>
 </html>

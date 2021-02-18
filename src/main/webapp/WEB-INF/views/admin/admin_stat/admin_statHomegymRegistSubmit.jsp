@@ -15,12 +15,21 @@
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
+<style>
+.table { border-spacing: ''; table-layout: auto; text-align: center; margin-bottom:70px;} 
+.table th{font-weight: bold; border-color:#848282;}
+a{cursor:pointer;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+</style>
    <div class="adminPage_wrap">
      <%@include file="../adminSideBar.jsp"%>
       <div class="container adminPage_contents">
          <div class="adminPage_main">
-         <hr>
-         <h3>홈짐 등록 통계</h3> 
+
+        
+         <h3>홈짐 등록 통계</h3>
+
          <hr>
          	<div>
          	<form name="date" action="admin_statHomegymRegistSubmit.do">
@@ -29,11 +38,11 @@
          			<li><input type="date" min="" max="" id="startDate" name="startDate" required="required"></li>
          			<li>~</li>
          			<li><input type="date" min="" max=""  id="endDate" name="endDate" required="required"></li>
-         			<li><input type="button" name="datebtn" value="오늘"></li>
-         			<li><input type="button" name="datebtn" value="일주일"></li>
-         			<li><input type="button" name="datebtn" value="한달"></li>
+         			<li><input type="button" name="datebtn"  class="datebtn" value="오늘"></li>
+         			<li><input type="button" name="datebtn" class="datebtn" value="일주일"></li>
+         			<li><input type="button" name="datebtn" class="datebtn"  value="한달"></li>
          		</ul>
-         		<input type="submit" value="검색">
+         		<input type="submit" value="검색" id="searchbtn" class="btn btn-primary" >
          	</form>
          	</div>
          	<hr>
@@ -42,7 +51,7 @@
          	</div>
          	<hr>
          	<div><!-- 코치 매출 통계 테이블 div -->
-         		<table border="1" cellspacing="0">
+         		<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>날짜</th>
@@ -82,7 +91,7 @@
 						</c:forEach>	
 					</tbody>
 					<tfoot>
-						<tr>
+						<tr class="table-info">
 							<td>합계</td>
 							<td>${datejoindatesum}</td>
 							<td>${dateStatusOnsum}</td>
@@ -128,11 +137,15 @@
 
   $(function(){
 	  var today = getTimeStamp() ;
-	   //$( '#startDate' ).attr('min', today);
+	  // $( '#startDate' ).attr('min', today);
 	   $( '#startDate' ).val(today);
+	   $( '#endDate' ).val(today);
+	   $( '#endDate' ).attr('max', today);	
+	   $( '#startDate' ).attr('max', today);	
 	   
 		   $( '#startDate' ).on('change', function(){
-		   	$( '#endDate' ).attr('min', $( '#startDate' ).val());	
+		   	$( '#endDate' ).attr('min', $( '#startDate' ).val());
+		   	$( '#endDate' ).attr('max', today);	
 		   	$( '#endDate' ).val($( '#startDate' ).val());	
 		   });
 	   

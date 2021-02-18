@@ -26,7 +26,7 @@
 }
 
 .titlee {
-	font-weight: 550;
+	
 	color: #12151d;
 	margin-bottom: 20px;
 }

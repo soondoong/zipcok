@@ -31,7 +31,7 @@
 				<div>
 					<form action="adminDelMemberListAction.do">
 						<ul class="test-inline">
-							<li>조건 검색&nbsp;</li>
+							<li class="srchtitle">검색 조건</li>
 							<li>
 							<select name="type">
 									<option <c:if test="${keyword.keywordType=='전체'}">selected="selected"</c:if>>전체</option>
@@ -40,7 +40,7 @@
 							</select>
 							</li>
 							<li><input type="text" name="searchContent" placeholder="내용을 입력해주세요."></li>
-							<li><input type="submit" value="검색"></li>
+							<li><input type="submit" value="검색" id="searchbtn" class="btn btn-primary"></li>
 						</ul>
 					</form>
 				</div>
@@ -48,10 +48,10 @@
 				<div>
 				<form action="adminDelMemberDate.do">
 					<ul class="test-inline">
-						<li>날짜 검색&nbsp;</li>
+						<li class="srchtitle">날짜 검색</li>
 						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
 						<li><input type="date" id="end_date" name="end_date" value="${keyword.keywordEnd }" required="required"></li>
-						<li><input type="submit" value="검색"></li>
+						<li><input type="submit" value="검색" id="searchbtn" class="btn btn-primary"></li>
 					</ul>
 				</form>
 				</div>

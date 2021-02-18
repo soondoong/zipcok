@@ -18,7 +18,7 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 		
 		.result_contents_wrap {  max-width:1490px;padding:30px; margin: 0 auto;}		
 		.result_contents_wrap h3:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
-		.result_contents_wrap h3{font-weight: 550; color:#12151d; margin-top:20px;}
+		.result_contents_wrap h3{ color:#12151d; margin-top:20px;}
 		
 		.result_contents_wrap .contentsWrap {flex: 1 1 auto; padding: 30px; max-width:1400px;}		
 		.result_contents_wrap .contentsWrap .listWrap,.listWrap2 {overflow: hidden; margin: 0 -30px -30px 0;}
