@@ -122,7 +122,7 @@ a{cursor:pointer;}
 					</tbody>
 				</table>
 				<div class="paging">
-	               <c:if test="${!empty pageStr }">
+	               <c:if test="${!empty paymentlist }">
 	               ${pageStr}
 	               </c:if>
 	           </div>

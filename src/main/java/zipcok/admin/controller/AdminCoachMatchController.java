@@ -139,10 +139,11 @@ public class AdminCoachMatchController {
 		PyoAdDTO dto2=adminCoachMatchDao.adminToCharDate(coach_mem_id);
 		
 		CoachDTO dto=adminCoachMatchDao.adminCoachProfile(coach_mem_id);
-		
+		MemberAllDTO dto3=adminCoachMatchDao.coachNameCall(coach_mem_id);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("dto2",dto2);
 		mav.addObject("coachdto",dto);
+		mav.addObject("dto3",dto3);
 		mav.setViewName("jsonView");
 		return mav;
 	}

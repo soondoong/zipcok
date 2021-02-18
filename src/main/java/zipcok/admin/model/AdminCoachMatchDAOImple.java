@@ -48,7 +48,12 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 		return dto2;
 	}
 	
-	
+	//코치아이디로 멤버테이블에서 코치이름 가져오기
+	@Override
+	public MemberAllDTO coachNameCall(String id) {
+		MemberAllDTO dto=sqlMap.selectOne("adminCoachNameCall",id);
+		return dto;
+	}
 	//활동지역 수정
 	@Override
 	public int adminCoachFlocUpdate(HashMap<String, Object> map) {

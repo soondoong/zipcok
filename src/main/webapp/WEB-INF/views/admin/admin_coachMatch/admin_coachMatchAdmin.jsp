@@ -13,6 +13,19 @@
 	display: inline-flex;
 }
 </style>
+<script>
+function placeholder(){
+	var selectOptionC = document.getElementById('selectOptionC').value;
+	if(selectOptionC!='전체'){
+		var searchTextPlaceholder = document.getElementById('searchTextPlaceholder');
+		searchTextPlaceholder.removeAttribute('placeholder');
+	}else if(selectOptionC=='전체'){
+		var searchTextPlaceholder = document.getElementById('searchTextPlaceholder');
+		searchTextPlaceholder.setAttribute('placeholder','id 입력');
+	}
+	
+}
+</script>
 </head>
 <body>
 <%@include file="../../header2.jsp" %>
@@ -35,16 +48,18 @@ a{cursor:pointer;}
 					<ul class="test_inline">
 						<li class="srchtitle">검색 조건</li>
 						<li>
-							<select name="choice">
+							<select id="selectOptionC" onchange="javascript:placeholder();" name="choice">
 								<option <c:if test="${selectoption=='전체'}">selected="selected"</c:if> >전체</option>
 								<option <c:if test="${selectoption=='번호'}">selected="selected"</c:if> >번호</option>
 								<option <c:if test="${selectoption=='id'}">selected="selected"</c:if> >id</option>
 								<option <c:if test="${selectoption=='이름'}">selected="selected"</c:if> >이름</option>
 							</select>
 						</li>
+
 						<li class="coach_li_radio"><input type="radio" name="mem_gender" value="남" class="coach_radiobtn">남자 <input type="radio" name="mem_gender" class="coach_radiobtn" value="여">여자</li>
-						<li><input type="text" name="searchText"></li>
+						<li><input type="text" id="searchTextPlaceholder" name="searchText" placeholder="id 입력"></li>
 						<li><input type="submit"  value="검색"   id="searchbtn" class="btn btn-primary" ></li>
+
 					</ul>
 					</form>
 				</div>
@@ -93,15 +108,17 @@ a{cursor:pointer;}
 						</c:if>
 					</table>
 				</div>
+
 				<h3>코치정보</h3>	
+
 				<form id="coachUpdateForm">
 				<div id="coachProfileLayer"><!-- 코치의 세부정보 부분 div -->
 				
 				<table  class="coach_adminTable">
 					<tr>					
 						<td>
-							<label  class="coach_subtitle">이름</label >
-							<input type="text" id="coach_name" readonly="readonly">
+							<label  class="coach_subtitle" >이름</label >
+							<input type="text"  id="coachNameLi" readonly="readonly">
 						</td>
 						<td>
 							<label  class="coach_subtitle">회원가입일</label >
@@ -199,6 +216,7 @@ function showResult(){
          document.getElementById('coach_mattext').value=data.coachdto.coach_mat;
          document.getElementById('coach_ex_typetext').value=data.coachdto.coach_ex_type;
          document.getElementById('coach_yeartext').value=data.coachdto.coach_year;
+         document.getElementById('coachNameLi').value=data.dto3.mem_name;
          document.getElementById('introUpdateP').innerHTML="<input type='button' value='소개글 수정' name='introReset' onclick='javascript:introUpdateGo();'>";
          document.getElementById('matUpdateP').innerHTML="<input type='button' value='준비물 수정' name='matReset' onclick='javascript:matUpdateGo();'>";
          document.getElementById('extypeUpdateP').innerHTML="<input type='button' value='강의유형 수정' name='extypeReset' onclick='javascript:extypeUpdateGo();'>";

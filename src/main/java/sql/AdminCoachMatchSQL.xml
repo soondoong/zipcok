@@ -5,16 +5,42 @@
   <mapper namespace="zipcok.admin">
   <!-- 코치 정보 관리 시작-->
   	<select id="cTotalCnt" parameterType="HashMap" resultType="Integer">
-  	select count(*) from
+  	select count(*) from (select * from
     zipcok_member
   	where
      <choose>
-	    <when test="choice=='전체'"></when>
-	  	<when test="choice=='번호'">mem_idx = #{searchText}and mem_gender=#{mem_gender} and</when>
-	  	<when test="choice=='id'">mem_id=#{searchText}and mem_gender=#{mem_gender} and</when>
-	  	<when test="choice=='이름'">mem_name=#{searchText}and mem_gender=#{mem_gender} and</when>
-     </choose>
+	  	<when test="selectoption=='전체'">
+	  		<choose>
+		  		<when test="searchText==''">mem_id like '%%' and</when>
+		  		<when test="searchText!=''">mem_id like '%${searchText}%' and</when>
+		  	</choose>
+	  	</when>
+	  	<when test="selectoption=='번호'">
+		  	<choose>
+		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0 and</when>
+		  		<when test="searchText!=''">mem_idx like '%${searchText}' and</when>
+		  	</choose>
+	  	</when>
+	  	<when test="selectoption=='id'">
+	  		<choose>
+		  		<when test="searchText==''">mem_id like '%%' and</when>
+		  		<when test="searchText!=''">mem_id like '%${searchText}%' and</when>
+		  	</choose>
+  		</when>
+	  	<when test="selectoption=='이름'">
+	  		<choose>
+		  		<when test="searchText==''">mem_name like '%%' and</when>
+		  		<when test="searchText!=''">mem_name like '%${searchText}%' and</when>
+		  	</choose>
+	  	</when>
+  	</choose>
+  	 
+  	<choose>
+	  	<when test="mem_gender==''">mem_gender like '%%' and</when>
+	  	<when test="mem_gender!=''">mem_gender=#{mem_gender} and</when>
+  	</choose>
      mem_type='코치회원'
+     )a
   	</select>
   
   <select id="findRequestByPd_idx" parameterType="Integer" resultType="zipcok.coach.model.RequestFormDTO">
@@ -36,20 +62,25 @@ pr_req_idx = rf.req_idx
     (select * from zipcok_member
      where
   	<choose>
-	  	<when test="choice=='전체'"></when>
-	  	<when test="choice=='번호'">
+	  	<when test="selectoption=='전체'">
+	  		<choose>
+		  		<when test="searchText==''">mem_id like '%%' and</when>
+		  		<when test="searchText!=''">mem_id like '%${searchText}%' and</when>
+		  	</choose>
+	  	</when>
+	  	<when test="selectoption=='번호'">
 		  	<choose>
 		  		<when test="searchText==''">mem_idx<![CDATA[>]]>0 and</when>
 		  		<when test="searchText!=''">mem_idx like '%${searchText}' and</when>
 		  	</choose>
 	  	</when>
-	  	<when test="choice=='id'">
+	  	<when test="selectoption=='id'">
 	  		<choose>
 		  		<when test="searchText==''">mem_id like '%%' and</when>
 		  		<when test="searchText!=''">mem_id like '%${searchText}%' and</when>
 		  	</choose>
   		</when>
-	  	<when test="choice=='이름'">
+	  	<when test="selectoption=='이름'">
 	  		<choose>
 		  		<when test="searchText==''">mem_name like '%%' and</when>
 		  		<when test="searchText!=''">mem_name like '%${searchText}%' and</when>
@@ -81,7 +112,13 @@ pr_req_idx = rf.req_idx
   		 where
   		  coach_mem_id = #{value}
   	</select>
-  	
+  	<!-- 코치이름 가져오기 -->
+  	<select id="adminCoachNameCall" parameterType="String" resultType="zipcok.member.model.MemberAllDTO">
+  		select * from zipcok_member
+  		where
+  		mem_id=#{value}
+  	</select>
+  	<!-- 코치이름 가져오기 -->
   	<update id="adminCoachIntroUpdate" parameterType="HashMap">
   		update coach_regist set
   		coach_intro_sub=#{coach_intro_sub},
@@ -198,7 +235,7 @@ pr_req_idx = rf.req_idx
 		  		</choose>
 		  	</when>
      	</choose>
-     	)
+     	)a
   	</select>
   	
   	
