@@ -14,6 +14,7 @@
 }
 </style>
 <script>
+/* selectBox onchange 될 때 플레이스홀더 값 변경하는 함수*/
 function placeholder(){
 	var selectOptionC = document.getElementById('selectOptionC').value;
 	if(selectOptionC!='전체'){
@@ -111,86 +112,81 @@ a{cursor:pointer;}
 
 				<h3>코치정보</h3>	
 
-				<form id="coachUpdateForm">
-				<div id="coachProfileLayer"><!-- 코치의 세부정보 부분 div -->
 				
-				<table  class="coach_adminTable">
-					<tr>					
-						<td>
-							<label  class="coach_subtitle" >이름</label >
-							<input type="text"  id="coachNameLi" readonly="readonly">
-						</td>
-						<td>
-							<label  class="coach_subtitle">회원가입일</label >
-							<input type="text" id="coach_joindatetext" readonly="readonly">
-						</td>
-					</tr>
-				
-					<tr>
-						<td >
-							<label  class="coach_subtitle">활동지역</label >
-							<input type="text" id="coach_floctext" readonly="readonly">
-							<label  id="flocUpdateP" class="flocUpdatePClass"></label >
-						</td>
-						<td >
-							<label  class="coach_subtitle">코치전환일</label >
-							<input type="text" id="coach_changetext" readonly="readonly">
-						</td>
-					</tr>
-				
-						<tr>
-						<td colspan="2">
-								<label  class="coach_subtitle">소개글</label >
-								<input type="text" id="coach_intro_subtext" class="coach_intro_subtextClass" name="coach_intro_sub" readonly="readonly">
-								<input type="text" id="coach_intro_conttext" style="height: 150px " class="coach_intro_conttextClass" name="coach_intro_cont" readonly="readonly">
-								<p id="introUpdateP" class="introUpdatePClass"></p>
-						</td>
-					</tr>
-					
-					<tr>
-						<td >
-							<label  class="coach_subtitle">카테고리</label >
-							<input type="text" id="coach_floctext" readonly="readonly">
-							<input type="button" value="카테고리 수정">
-						</td>
-						<td >
-							<label  class="coach_subtitle">준비물</label >
-							<input type="text" id="coach_mattext" readonly="readonly">
-							<p id="matUpdateP" class="matUpdatePClass"></p>
-						</td>
-					</tr>
-					
-					<tr>
-						<td >
-							<label  class="coach_subtitle">수업유형</label >
-							<input type="text" id="coach_ex_typetext" readonly="readonly">
-							<p id="extypeUpdateP" class="extypeUpdatePClass"></p>
-						</td>
-						<td >
-							<label  class="coach_subtitle">경력</label >
-							<input type="number" min="0" max="100" id="coach_yeartext" readonly="readonly">
-							<p id="yearUpdateP" class="yearUpdatePClass"></p>
-						</td>
-					</tr>
-					
-					<tr>
-						<td  colspan="2">
-							<label  class="coach_subtitle">코치 소개 사진</label >
-							<ul class="test_inline">
-								<li><input type="button" value="수정하기"></li>
-								<li><input type="button" value="사진추가"></li>
-							</ul>
-						</td>
-			
-					</tr>
-					
-					
-				</table>
+					<div id="contentLayer"><!-- 코치의 세부정보 부분 div -->
+						<form id="coachUpdateForm">
+							<table  class="coach_adminTable">
+								<tr>					
+									<td>
+										이름<input type="text"  id="coachNameLi" readonly="readonly">
+									</td>
+									<td>
+										회원가입일<input type="text" id="coach_joindatetext" readonly="readonly">
+									</td>
+								</tr>
+								<tr>
+									<td>
+										활동지역<input type="text" id="coach_floctext" readonly="readonly">
+										<p id="flocUpdateP" class="flocUpdatePClass"></p>
+									</td>
+									<td >
+										코치전환일<input type="text" id="coach_changetext" readonly="readonly">
+										<p id="coachChangeP" class="coachChangePClass"></p>
+									</td>
+								</tr>
+							
+								<tr>
+									<td colspan="2">
+											<label  class="coach_subtitle">소개글</label >
+											<input type="text" id="coach_intro_subtext" class="coach_intro_subtextClass" name="coach_intro_sub" readonly="readonly">
+											<input type="text" id="coach_intro_conttext" style="height: 150px " class="coach_intro_conttextClass" name="coach_intro_cont" readonly="readonly">
+											<p id="introUpdateP" class="introUpdatePClass"></p>
+									</td>
+								</tr>
+								<tr>
+									<td >
+										카테고리<input type="text" id="coach_category" readonly="readonly">
+										<input type="button" value="카테고리 수정">
+									</td>
+									<td >
+										준비물<input type="text" id="coach_mattext" readonly="readonly">
+										<p id="matUpdateP" class="matUpdatePClass"></p>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>
+										수업유형<input type="text" id="coach_ex_typetext" readonly="readonly">
+										<p id="extypeUpdateP" class="extypeUpdatePClass"></p>
+									</td>
+									<td >
+										경력<input type="number" min="0" max="100" id="coach_yeartext" readonly="readonly">
+										<p id="yearUpdateP" class="yearUpdatePClass"></p>
+									</td>
+								</tr>
+								<tr>
+									<td  colspan="2">
+										<label  class="coach_subtitle">코치 소개 사진</label >
+										<ul class="test_inline">
+											<li><input type="button" value="수정하기"></li>
+											<li><input type="button" value="사진추가"></li>
+										</ul>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
 				
 
-					
-				</div>
-				</form>
+
+
+
+
+
+
+
+
+				
 			</div>
 		</div>
 	</div>
@@ -206,7 +202,7 @@ function showResult(){
       if(XHR.status==200){
          var data=XHR.responseText;
          data=eval('('+data+')');
-         var coachProfileDiv=document.getElementById('coachProfileLayer');
+         var coachProfileDiv=document.getElementById('contentLayer');
          coachProfileDiv.style.display='';
          document.getElementById('coach_joindatetext').value=data.dto2.joindate;
          document.getElementById('coach_changetext').value=data.dto2.change;

@@ -106,7 +106,7 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 							<c:forEach var="dto2" items="${commlist}">
 							<tr>
 								<td>${dto2.com_idx}</td>
-								<td>${dto2.com_name}</td>
+								<td><a href="commMain.do?com_idx=${dto2.com_idx }">${dto2.com_name}</a></td>
 								<td>${dto2.com_mem_sum}</td>
 								<td>${dto2.com_opendate}</td>
 								<td><a href="coachMyPageCommSetting.do?uc_comm_idx=${dto2.com_idx}">[설정]</a></td>

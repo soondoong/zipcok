@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@include file="../_include/head.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="css/comm/commDailyWriteLayout.css">
+
 <script>
 	//사진파일계속추가
 	function plus(){
@@ -34,11 +36,22 @@
 		.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
 		.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
 		.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
+		
+		.community_wrap #contents {padding:0 0 0;}
+		.community_wrap #contents .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+		.community_wrap #contents .com_top h1{color: white;}
+		.community_wrap #contents .com_top h3{color: white;}
+		.community_wrap #contents .com_top .comm_menu{float: right;}
 </style>
 
 <div class="community_wrap">
-	<%@include file="./commSideMenu.jsp" %>
+	
 	<div id="contents">
+	<div class="com_top">
+		<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
+		<h3>코치 : ${coach_name} 코치</h3>
+		<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
+	</div>
 		<form name="dailyUpdate" action="commDailyUpdate.do" method="post">
 		<input type="hidden" name="ex_idx" value="${dto.ex_idx}">
 		

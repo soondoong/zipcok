@@ -14,13 +14,17 @@
 
 	<style>
 			.community_wrap {display: flex; min-height: calc(100vh - 92px);}
-			.community_wrap .community_sidebar {flex: 0 0 250px; background-color: #ccc;}
+			.community_wrap .community_sidebar {flex: 0 0 250px; background-color: #46a4da;}
 			.community_wrap .community_sidebar ul {padding: 0; margin:  0;}
-			.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
-			.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
+			.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: white; padding: 8px 15px 8px 15px; font-weight: bold;}
+			.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: #0e77b8; color: #fff;}
 			.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
 			.community_wrap .com_main {display: block;}
-			.community_wrap .com_main .com_top {background-color: #ccc; height: 150px; padding: 15px;}
+			.community_wrap .com_main .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+			.community_wrap .com_main .com_top h1{color: white;}
+			.community_wrap .com_main .com_top h3{color: white;}
+			.community_wrap .com_main .com_top .comm_menu{float: right;}
+			
 			.cal_top{text-align: center; font-size: 30px;}
 			.cal{text-align: center;}
 			
@@ -51,13 +55,15 @@
 	</style>	
 
 	<div class="community_wrap">
-	<%@include file="./commSideMenu.jsp" %>
+	
 		<div class="com_main">
 			<div class="com_top">
-			<h1>${com_name}</h1>
-			<h3>코치 : ${coach_name} 코치</h3>
-			<c:set var="dto" value="${recentCnt}" />
+				<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
+				<h3>코치 : ${coach_name} 코치</h3>
+				<c:set var="dto" value="${recentCnt}" />
+				<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
 			</div>
+			
 			
 			
 			<!-- <div class="calendar">
@@ -304,7 +310,7 @@
 				</div>
 			</div>
 		</div>
-
-
-</body>
-</html>
+	</div>
+		
+		</body>
+		 <%@include file="../_include/footer.jsp" %>

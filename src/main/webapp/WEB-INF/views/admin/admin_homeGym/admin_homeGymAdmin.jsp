@@ -31,6 +31,7 @@
 }
 </style>
 <script>
+
 function homegymInfoView(hg_mem_id){
 	var params = 'hg_mem_id='+hg_mem_id;
 	sendRequest('adminHomeGymInfoAjax.do',params, homegymInfoView_rq, 'GET');
@@ -212,5 +213,6 @@ function homegymInfoView_rq(){
 			</div>
 		</div>
 	</div>
+
 
 	<%@include file="../../_include/footer.jsp"%>
