@@ -3,7 +3,7 @@
     
     <c:set var="sumReview" value="${resultMap.reviewList.size()}"/>
     
-		<p style="font-size:1.9rem; font-weight: 600;">회원님들의 후기</p>
+		<p style="font-size:1.9rem; font-weight: 500;font-family: 'Spoqa Han Sans Neo', 'sans-serif';">회원님들의 후기</p>
 		<p><span><img src="img/coach/star/star5.jpg" style="width:90px; margin:0 20px 0 0;">(후기 ${sumReview})</span></p>
 			
 			<c:if test="${empty review}">

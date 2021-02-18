@@ -13,7 +13,7 @@
 .requestroomDiv{ display:flex; max-width: 1000px;}
 .requestroomDiv .reqwrap{ min-width:800px; justify-content: center; padding:40px 0 100px 80px;}
 .requestroomDiv .reqwrap h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
-.requestroomDiv .reqwrap h2{font-weight: 550; color:#12151d; margin-bottom:20px;}
+.requestroomDiv .reqwrap h2{color:#12151d; margin-bottom:20px;}
 .requestroomDiv .reqwrap hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 .requestroomDiv .reqwrap .noreq{margin:50px 0 70px 300px;}
 .paging {margin: 40px 0 0; text-align: center;}

@@ -13,7 +13,7 @@
 .chatroomDiv .chattt{ width:inherit;  justify-content: center; padding:40px 0 100px 80px;}
 .chatroomDiv .chattt .chats .onechat{  display:flex; justify-content:space-between; height:160px;   cursor:pointer; border-top:4px solid #257cda; border-bottom:1px solid #e5e6e8; margin:0 0 10px 0; box-shadow: 5px 5px 5px #e5e6e8; }
 .chatroomDiv .chattt .zipcoktalk:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
-.chatroomDiv .chattt .zipcoktalk{font-weight: 550; color:#12151d; margin-bottom:20px;}
+.chatroomDiv .chattt .zipcoktalk{color:#12151d; margin-bottom:20px;}
 .chatroomDiv .chattt hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 .onechat .chatprofile{padding:10px;}
 .onechat .chatprofile img{width:120px; height: 120px; object-fit: cover; padding:10px; border-radius:50%; }

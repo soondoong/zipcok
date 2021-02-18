@@ -557,7 +557,7 @@ function mypageHomeGymPaymentRegistForm(){
 }
 </script>
 <style>
-.titlee {font-weight: 550;color: #12151d;margin-bottom: 20px;}
+.titlee {color: #12151d;margin-bottom: 20px;}
 .titlee:before {content: "";display: inline-block;background-color: #257cda;width: 11px;height: 41px;}
 .titlee hr {border-top: 1px solid #d1d1d4;margin-bottom: 30px;}
 .homegym_main { padding: 10px 0 0 60px;}

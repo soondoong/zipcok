@@ -84,7 +84,7 @@
 <c:set var="mdto" value="${mdto }"></c:set>
 <c:set var="catelist" value="${catelist }"/>
 	<style>
-	.ptitle{font-size:20px; font-weight: 550;margin:0 0 10px 0; display: inline-block;}
+	.ptitle{font-size:20px; margin:0 0 10px 0; display: inline-block;}
 	.coachdetails{margin:60px 0 0 30px;}
 	.rebtn{width:50px; margin:4px 0 0 10px; height:40px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
 	.crebtn{margin: 4px 0 0 30px;}
