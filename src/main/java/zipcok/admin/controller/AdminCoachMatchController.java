@@ -27,6 +27,7 @@ import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -55,7 +56,7 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
-	
+	//이기능안쓰기로함
 	@RequestMapping("searchPdByid.do")
 	public ModelAndView searchPdByid(@RequestParam("mem_id")String mem_id,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
@@ -115,6 +116,59 @@ public class AdminCoachMatchController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	
+	
+	/*관리자가 메시지 제어하기*/
+	@RequestMapping("messageManage.do")
+	public ModelAndView messageManage(@RequestParam("type")String type,
+			@RequestParam("msg_idx")int msg_idx) {
+		ModelAndView mav=new ModelAndView();
+		 HashMap<String,Object> map = new HashMap<String, Object>();
+	      String newcont="관리자에 의해 내용이 삭제되었습니다.";
+		if(type.equals("텍스트")) {
+			map.put("msg_idx",msg_idx);
+		    map.put("type",type);
+		    map.put("newcontent",newcont);
+		    int count =  adminCoachMatchDao.MessagesManage(map);
+		    String msg =count>0?"메시지를 수정처리하였습니다.":"메시지수정실패";
+		    String okcheck = count>0?"성공":"실패";
+		    mav.addObject("okcheck", okcheck);
+		    mav.addObject("msg", msg);
+			mav.setViewName("jsonView");
+		
+		}else {
+			//결제요청서 상태가 상담중일때만 가능
+				map.put("msg_idx",msg_idx);
+			    map.put("type",type);
+			    map.put("newcontent",newcont);
+				Payment_RequestDTO prdto = adminCoachMatchDao.findPaymentReqByMsgIdx(map);
+				if(prdto.getPr_status().equals("상담중")) {
+					
+				   int count = adminCoachMatchDao.MessagesManage(map);
+				   count+= adminCoachMatchDao.MessagesPaymentReqManage(map);
+				    String msg =count>0?"메시지와 요청서를 수정처리하였습니다.":"메시지수정실패";
+				    String okcheck = count>0?"성공":"실패";
+				    mav.addObject("okcheck", okcheck);
+				    mav.addObject("msg", msg);
+					mav.setViewName("jsonView");
+					
+				}else {
+				   
+				    mav.addObject("okcheck", "실패");
+				    mav.addObject("msg", "결제완료된 요청서는 처리할수없습니다.");
+					mav.setViewName("jsonView");
+					
+				}
+			
+			
+			
+		}
+	
+		return mav;  
+	}
+	
+	
 	
 	
 	//코치검색했을 때 나오는 리스트

@@ -11,6 +11,7 @@
 .test-inline { display: flex;}
 .pagingSP {margin: 40px 0 0; text-align: center;}
 .pagingSP a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.msgcont a,.msgcont a:link{color:red;}
 </style>
 </head>
 <body>
@@ -172,6 +173,20 @@ a{cursor:pointer;}
    </div>
    <script>
 
+   
+   /*승표꺼*/
+    /*ajax로검색된 div내의 페이지를 클릭하면 호출되는 함수*/
+     function pageclick(temp){  //temp는 cp값
+      var id=$('#searchId').val();
+        show(id,temp);
+     } 
+   
+   
+   
+   
+   /*수연꺼*/
+   
+   
    function sunseoChange(){
 	   
 	   var reqidx = $('#reqnum').text();
@@ -179,26 +194,21 @@ a{cursor:pointer;}
    }
    
    
-   
-   
-   
-   
-   
-   
-   
-   
-   /*요청서번호 클릭시*/
-   function chating(reqidx){
+   /*요청서번호 클릭시 ajax로 메세지조회*/
+   function chating(reqidx,temp){
 	   var sunseo = $("select[name='sunseo']").val() ;
 
+	   if(temp == null || temp ==''){
+		   temp=1;
+	   }
 	   $.ajax({
 		    type : 'post',
 		    url : 'searchMessages.do',
 		    data :{
 
                'req_idx' : reqidx,
-               'sunseo' : sunseo
-           
+               'sunseo' : sunseo,
+           		'cp' : temp
 
         },
 
@@ -223,7 +233,7 @@ a{cursor:pointer;}
 												"<td>"+data.MsgList[i].msg_idx+"</td>"+
 												"<td>"+data.MsgList[i].msg_sender+"</td>"+
 												"<td>"+data.MsgList[i].msg_receiver+"</td>"+
-												"<td>"+data.MsgList[i].msg_content+"</td>"+
+												"<td class='msgcont'><a href='#' onclick=\"MsgContChange('"+data.MsgList[i].msg_type+"',"+data.MsgList[i].msg_idx+")\">"+data.MsgList[i].msg_content+"</a></td>"+
 												"<td>"+data.MsgList[i].msg_sendtime+"</td>"+
 												"<td>"+data.MsgList[i].msg_type+"</td>"+
 												"<tr>");
@@ -255,79 +265,59 @@ a{cursor:pointer;}
    
    
    
-   
+   /*페이지클릭시*/
    function msgpageclick(temp){  //temp는 cp값
 		
-	   var sunseo = $("select[name='sunseo']").val() ;
 	   var reqidx = $('#reqnum').text();
 		
-		
-	   $.ajax({
-		    type : 'post',
-		    url : 'searchMessages.do',
-		    data :{
-
-              'req_idx' : reqidx,
-              'sunseo' : sunseo,
-          		'cp' : temp
-
-       },
-
-		    contentType : "application/x-www-form-urlencoded; charset=utf-8",
-		    dataType : "json",
-		    error: function(xhr, status, error){
-		      
-		    },
-		    success : function(data){  
-		    	if(data.MsgList.length<=0){
-		    		$('#pdTbody').html('');
-		    			$('#pdTbody').append("<tr><td colspan='7'>검색 된 메시지가 없습니다.</td></tr>");
-		    	}else{
-					    		$('#pdTbody').html('');
-					    		$('#chatnum').text(data.MsgList[0].msg_croom_idx);
-					    		$('#reqnum').text(data.MsgList[0].msg_req_idx); 
-					    	 	var summsg = 0; //총 메시지 수
-						    	var sumpdcnt = 0; //총결제요청서 수
-									for(var i = 0; i<data.MsgList.length; i++){
-										
-										$('#pdTbody').append("<tr>"+
-												"<td>"+data.MsgList[i].msg_idx+"</td>"+
-												"<td>"+data.MsgList[i].msg_sender+"</td>"+
-												"<td>"+data.MsgList[i].msg_receiver+"</td>"+
-												"<td>"+data.MsgList[i].msg_content+"</td>"+
-												"<td>"+data.MsgList[i].msg_sendtime+"</td>"+
-												"<td>"+data.MsgList[i].msg_type+"</td>"+
-												"<tr>");
-											summsg ++;
-											if(data.MsgList[i].msg_type=='결제요청서'){
-												sumpdcnt++;
-											}
-									}
-							
-							$('#summsg').text(summsg);
-							$('#sumpdcnt').text(sumpdcnt);
-						    /*페이징추가*/
-						    $('.pdpaging').html('');
-				  			var cpage=data.pageStr;
-				  			$('#pdtable').after('<div class="paging pdpaging">'+cpage+'</div>');
-					      
-						        
-		    	}
-		    	
-		    
-		    }
-	
-
-		});
-		   
+	   chating(reqidx,temp);
 		  
  } 
    
    
+  /*부적절한 메세지 삭제*/
+  function MsgContChange(type,msg_idx){
+	 var result = confirm('부적절한 메시지로 내용을 삭제하시겠습니까?');
+			//결제요청서는 결제요청서도 지워줘야함
+			if(result){
+					  messageManage(type,msg_idx);
+			 }
+	
+  }
    
    
-   
-   
+  /*메시지관리자가 제어하기*/
+   function messageManage(type,msg_idx){
+				   $.ajax({
+					    type : 'post',
+					    url : 'messageManage.do',
+					    data :{
+			
+			              'type' : type,
+			              'msg_idx' : msg_idx
+			
+			       },
+			
+					    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					    dataType : "json",
+					    error: function(xhr, status, error){
+					      
+					    },
+					    success : function(data){  
+					    	alert(data.msg);
+								if(data.okcheck =='성공'){
+									  var reqidx = $('#reqnum').text();
+									  chating(reqidx);
+								}       
+						    
+					    	
+					    
+					    }
+				
+			
+					});
+				  
+  }
    
 
    </script>

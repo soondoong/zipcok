@@ -277,8 +277,31 @@ pr_req_idx = rf.req_idx
   		where
   		pd_idx=#{pd_idx}
   	</update>
+  	
+  	
+  	<update id="MessagesManage" parameterType="HashMap"  >
+  	update message
+  	set msg_content = #{newcontent}
+  	where
+  	msg_idx = #{msg_idx}
+  	
+	</update>
+	
+
+	<delete id="MessagesPaymentReqManage" parameterType="HashMap"  >
+	delete payment_request
+	where
+	pr_msg_idx = #{msg_idx}
+	</delete>
   	<!-- 취소 환불 관리 끝-->
   	
+  	
+  	<select id="findPaymentReqByMsgIdx" parameterType="HashMap" resultType="zipcok.cpayment.model.Payment_RequestDTO" >
+  	select * from 
+  	payment_request
+  	where
+  	pr_msg_idx = #{msg_idx}
+  	</select>
   	
   	
   	

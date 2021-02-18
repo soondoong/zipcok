@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.MemberAllDTO;
 
 @Service
@@ -168,4 +169,27 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 		 List<MessageDTO> list =sqlMap.selectList("searchMessages", map);
 		return list;
 	}
+	
+	
+	/*관리자가 메세지내용바꾸기*/
+	@Override
+	public int MessagesManage(HashMap<String, Object> map) {
+		int count =sqlMap.update("MessagesManage",map);
+		return count;
+	}
+	
+	/*관리자가 결제요청서 내용바꾸기*/
+	@Override
+	public int MessagesPaymentReqManage(HashMap<String, Object> map) {
+		//메시지는 위에서 바꾸고 여기선 삭제해주자
+		int count =sqlMap.delete("MessagesPaymentReqManage",map);
+		return count;
+	}
+	
+	@Override
+	public Payment_RequestDTO findPaymentReqByMsgIdx(HashMap<String, Object> map) {
+		Payment_RequestDTO dto = sqlMap.selectOne("findPaymentReqByMsgIdx",map);
+		return dto;
+	}
+	
 }
