@@ -20,7 +20,7 @@
       <div class="container adminPage_contents">
          <div class="adminPage_main">
          <hr>
-         <h3>홈짐 등록 통계</h3>
+         <h3>홈짐 등록 통계</h3> 
          <hr>
          	<div>
          	<form name="date" action="admin_statHomegymRegistSubmit.do">
