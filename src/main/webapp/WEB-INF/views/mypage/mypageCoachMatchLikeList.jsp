@@ -19,13 +19,11 @@ function mypageCoachMatchLikeList(){
 </head>
 <body>
    <%@include file="../header2.jsp"%>
-   <div class="mypage_wrap">
-   <%@include file="./mypageSideMenu.jsp"%>
-   <div class="mypage_contents">
-         <div class="mypage_main LikePageMainSize">
-      <br>
-      <div id="toggle_tab" class="tab_style_01 mb50">
-      <style>
+   <style>
+      .mypage_main {width: 600px; padding: 10px 0 0 60px;}
+	.mypage_main .likeprofileIMG {overflow: hidden; width: 300px; height: 300px; border-radius: 50%; margin: 0 auto 50px;}
+	.mypage_main .likeprofileIMG img {width:300px; height:300px; object-fit: cover; margin-bottom : 20px;}
+	.mypage_main .profile_info {padding: 0 0 0 100px;}
       .mypage_main .tab_style_01 {}
       .mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
       .mypage_main .tab_style_01 li {flex: 1 1 auto;}
@@ -33,45 +31,40 @@ function mypageCoachMatchLikeList(){
       .mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
       .paging {margin: 40px 0 0; text-align: center;}
 		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
-      
-      </style>      
-         <ul>
-            <li><button type="button" onclick="mypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
-            <li class="on"><button type="button" onclick="mypageCoachMatchLikeList()">코치매칭 좋아요 목록</button></li>
-         </ul>
-      </div>
-      <div class="mypage_main_table">
-      <table>
-         <tbody>
-         <c:if test="${empty list2 }">
-         <tr>
-            <td>
-               좋아요를 눌러보아요~
-            </td>
-         </tr>
-         </c:if>
-         
-         <c:forEach var="dto2" items="${list2 }">
-               <tr>
-                  <td><img src="img/coach/noimg.png" width="150px"></td>
-                  <td>
-                  <label><b>좋아요 받은 코치 아이디 : ${dto2.like_target_id}</b></label>
-                  <br>
-                  <label>좋아요 누른 사용자 아이디 : ${dto2.like_mem_id }</label>
-                  <br>
-                  <label>좋아요 구분 : ${dto2.like_key }</label>
-                  </td>
-                  <td style="padding-top: 0; text-align: right;" valign="bottom"><label>좋아요 누른 날짜 : ${dto2.like_date }</label></td>
-               </tr>
-               </c:forEach>
-         </tbody>
-         <tfoot>
-         <tr>
-         <td colspan="3" class="paging">${pageStr2 }</td>
-         </tr>
-         </tfoot>
-      </table>
-      </div>
+    
+      .likekeybtn{min-width:900px;}
+      .alllikecontent_wrap{min-width:900px;}
+      .likepersonAllWrap{display:flex; place-content: center;}
+      </style>     
+   <div class="mypage_wrap">
+   <%@include file="./mypageSideMenu.jsp"%>
+   <div class="mypage_contents">
+         <div class="mypage_main LikePageMainSize">
+              	<div class="alllikecontent_wrap">
+       			<div id="toggle_tab" class="tab_style_01 mb50 likekeybtn">
+			         <ul>
+			            <li><button type="button" onclick="mypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
+			            <li class="on"><button type="button" onclick="mypageCoachMatchLikeList()">코치매칭 좋아요 목록</button></li>
+			         </ul>
+      			</div>
+    
+    
+    				<div class="likepersonAllWrap">
+    				<c:if test="${empty list }">
+    					<div>좋아요를 눌러보아요~</div>
+    				</c:if>
+    				<c:forEach var="dto" items="${list }" varStatus="status">
+    				<div  style="text-align: center;">
+    					<div class="likeprofileIMG">
+    					<img src="/zipcok/upload/member/${memarr[status.index].mfile_upload}">
+    					</div>
+    					<h5>${dto.like_target_id}</h5>
+    				</div>	
+    					
+    				</c:forEach> 
+    				</div>
+    				<div class="paging">${pageStr }</div>
+    		</div>
       </div>
       </div>
    </div>

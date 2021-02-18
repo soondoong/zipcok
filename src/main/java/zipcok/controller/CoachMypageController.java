@@ -31,7 +31,9 @@ import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.homegym.model.HomeGymPayListDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.homegym.model.Pd_HgAllDTO;
+import zipcok.member.model.MemberAllDTO;
 import zipcok.member.model.MemberDTO;
+import zipcok.mypage.model.LikeDTO;
 import zipcok.mypage.model.MypageDAO;
 
 
@@ -267,8 +269,18 @@ ServletContext c;
 			int listSize=3;
 			int pageSize=3;
 			String pageStr=zipcok.page.MypagePageModule.makePage("coachMypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
-			List list=cdao.coachMypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("coachId"));
+			List<LikeDTO> list=cdao.coachMypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("coachId"));
+			List<MemberAllDTO> memarr = new ArrayList<MemberAllDTO>();
+			for(LikeDTO likedto : list) {
+		    	  
+		    	  MemberAllDTO dto = new MemberAllDTO();
+		    	  dto = cdao.memberAllProfile2(likedto.getLike_target_id());
+		    	  memarr.add(dto);
+		    	 
+		      }
+			
 			ModelAndView mav = new ModelAndView();
+			mav.addObject("memarr", memarr);
 			mav.addObject("list", list);
 			mav.addObject("pageStr", pageStr);
 			mav.setViewName("coachMyPage/coachMypageHomeGymLikeList");
