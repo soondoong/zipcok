@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.MemberAllDTO;
 
 public interface AdminCoachMatchDAO {
@@ -31,4 +33,9 @@ public interface AdminCoachMatchDAO {
 	public int adminCoachPlzCancelUpdateStatus(int pd_idx);//마이페이지 취소요청중으로 수정해주기
 	public RequestFormDTO findRequestByPd_idx(int pd_idx);//결제내역서 idx로 상담요청서찾기
 	public MemberAllDTO coachNameCall(String id);//코치아이디로 코치이름 가져오기
+	
+	public List<MessageDTO> searchAllMessagesByReqIdx(HashMap<String,Object> map); //req_idx로 채팅방정보다가져오기
+	public int MessagesManage(HashMap<String,Object> map); //메세지내용 바꾸기
+	public int MessagesPaymentReqManage(HashMap<String,Object> map); //결제요청서와 메세지내용 바꾸기
+	public Payment_RequestDTO findPaymentReqByMsgIdx(HashMap<String,Object> map); //msg_idx로 결제요청서 정보찾기
 }

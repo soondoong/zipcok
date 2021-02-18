@@ -277,5 +277,59 @@ pr_req_idx = rf.req_idx
   		where
   		pd_idx=#{pd_idx}
   	</update>
+  	
+  	
+  	<update id="MessagesManage" parameterType="HashMap"  >
+  	update message
+  	set msg_content = #{newcontent}
+  	where
+  	msg_idx = #{msg_idx}
+  	
+	</update>
+	
+
+	<delete id="MessagesPaymentReqManage" parameterType="HashMap"  >
+	delete payment_request
+	where
+	pr_msg_idx = #{msg_idx}
+	</delete>
   	<!-- 취소 환불 관리 끝-->
+  	
+  	
+  	<select id="findPaymentReqByMsgIdx" parameterType="HashMap" resultType="zipcok.cpayment.model.Payment_RequestDTO" >
+  	select * from 
+  	payment_request
+  	where
+  	pr_msg_idx = #{msg_idx}
+  	</select>
+  	
+  	
+  	
+  	
+  	<select id="searchMessages" parameterType="HashMap" resultType="zipcok.chat.model.MessageDTO">
+  	select * from
+(select rownum as rnum,a.* from
+(select * from message where msg_req_idx = #{req_idx}
+order by msg_sendtime 
+<choose>
+ 		<when test="sunseo=='최신순'"> desc</when>
+ 		<when test="sunseo =='오래된순'"> asc</when>
+</choose>
+)a)b
+where
+rnum between #{start} and #{end}
+  	</select>
+  	
+  	<select id="searchMessagesTotalCnt" parameterType="HashMap" resultType="Integer">
+  	select count(*) from
+ message
+  where msg_req_idx = #{req_idx}
+order by msg_sendtime
+<choose>
+ 		<when test="sunseo=='최신순'"> desc</when>
+ 		<when test="sunseo =='오래된순'"> asc</when>
+</choose>
+  	</select>
+  	
+  	
   </mapper>

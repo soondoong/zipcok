@@ -22,10 +22,12 @@ import zipcok.admin.model.PyoAdDTO;
 import zipcok.coach.model.CoachDAO;
 
 import zipcok.admin.model.ReqFormMemberDTO;
-
+import zipcok.chat.model.ChatDAO;
+import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
 import zipcok.coachmypage.model.CoachMypageDAO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.homegym.model.Pd_AllDTO;
 import zipcok.member.model.MemberAllDTO;
 import zipcok.mypage.model.MypageDAO;
@@ -42,6 +44,9 @@ public class AdminCoachMatchController {
 	private CoachMypageDAO coachmpdao;
 	@Autowired
 	private MypageDAO myPagedao;
+	@Autowired
+	private ChatDAO chatdao;
+	
 	//코치매칭 코치관리 페이지이동
 	@RequestMapping("admin_coachMatchAdmin.do")
 	public ModelAndView coachMatchAdmin() {
@@ -51,7 +56,7 @@ public class AdminCoachMatchController {
 		return mav;
 	}
 	
-	
+	//이기능안쓰기로함
 	@RequestMapping("searchPdByid.do")
 	public ModelAndView searchPdByid(@RequestParam("mem_id")String mem_id,
 			@RequestParam(value="cp", defaultValue = "1")int cp) {
@@ -80,6 +85,89 @@ public class AdminCoachMatchController {
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	
+	
+	
+	/*코치채팅방 메시지내역불러오기*/
+	@RequestMapping("searchMessages.do")
+	public ModelAndView searchMessages(@RequestParam("req_idx")int req_idx,
+			@RequestParam(value ="sunseo", defaultValue = "최신순")String sunseo,
+			@RequestParam(value="cp", defaultValue = "1")int cp) {
+		ModelAndView mav=new ModelAndView();
+		
+		int listSize=5;
+		int pageSize=5;
+	      HashMap<String,Object> map = new HashMap<String, Object>();
+	      map.put("req_idx",req_idx);
+	      map.put("sunseo",sunseo);
+	      map.put("cp",cp);
+	      map.put("ls",listSize);
+	      map.put("methodKey","searchMessagesTotal");
+	  	/*페이지설정*/
+			int totalCnt=coachdao.getTotalCnt(map);
+		//req_idx 로 채팅방메시지전부찾기
+		List<MessageDTO> msglist= adminCoachMatchDao.searchAllMessagesByReqIdx(map);
+	
+		String pageStr=zipcok.page.AjaxPagingModuleSY.makePage(totalCnt, cp, listSize, pageSize,"msgpageclick");
+		 
+
+		mav.addObject("MsgList", msglist);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	
+	/*관리자가 메시지 제어하기*/
+	@RequestMapping("messageManage.do")
+	public ModelAndView messageManage(@RequestParam("type")String type,
+			@RequestParam("msg_idx")int msg_idx) {
+		ModelAndView mav=new ModelAndView();
+		 HashMap<String,Object> map = new HashMap<String, Object>();
+	      String newcont="관리자에 의해 내용이 삭제되었습니다.";
+		if(type.equals("텍스트")) {
+			map.put("msg_idx",msg_idx);
+		    map.put("type",type);
+		    map.put("newcontent",newcont);
+		    int count =  adminCoachMatchDao.MessagesManage(map);
+		    String msg =count>0?"메시지를 수정처리하였습니다.":"메시지수정실패";
+		    String okcheck = count>0?"성공":"실패";
+		    mav.addObject("okcheck", okcheck);
+		    mav.addObject("msg", msg);
+			mav.setViewName("jsonView");
+		
+		}else {
+			//결제요청서 상태가 상담중일때만 가능
+				map.put("msg_idx",msg_idx);
+			    map.put("type",type);
+			    map.put("newcontent",newcont);
+				Payment_RequestDTO prdto = adminCoachMatchDao.findPaymentReqByMsgIdx(map);
+				if(prdto.getPr_status().equals("상담중")) {
+					
+				   int count = adminCoachMatchDao.MessagesManage(map);
+				   count+= adminCoachMatchDao.MessagesPaymentReqManage(map);
+				    String msg =count>0?"메시지와 요청서를 수정처리하였습니다.":"메시지수정실패";
+				    String okcheck = count>0?"성공":"실패";
+				    mav.addObject("okcheck", okcheck);
+				    mav.addObject("msg", msg);
+					mav.setViewName("jsonView");
+					
+				}else {
+				   
+				    mav.addObject("okcheck", "실패");
+				    mav.addObject("msg", "결제완료된 요청서는 처리할수없습니다.");
+					mav.setViewName("jsonView");
+					
+				}
+			
+			
+			
+		}
+	
+		return mav;  
+	}
+	
 	
 	
 	

@@ -8,8 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import zipcok.chat.model.MessageDTO;
 import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.RequestFormDTO;
+import zipcok.cpayment.model.Payment_RequestDTO;
 import zipcok.member.model.MemberAllDTO;
 
 @Service
@@ -150,4 +152,44 @@ public class AdminCoachMatchDAOImple implements AdminCoachMatchDAO {
 		 RequestFormDTO dto=sqlMap.selectOne("findRequestByPd_idx", pd_idx);
 		return dto;
 	}
+	
+	
+	
+	/*req_idx 로 채팅방정보다가져오기*/
+	@Override
+	public List<MessageDTO> searchAllMessagesByReqIdx(HashMap<String,Object> map) {
+		int cp = (int)map.get("cp");
+		int ls = (int)map.get("ls");
+		int start=(cp-1)*ls+1;
+		int end=cp*ls;
+		
+		map.put("start",start);
+		map.put("end",end);
+		
+		 List<MessageDTO> list =sqlMap.selectList("searchMessages", map);
+		return list;
+	}
+	
+	
+	/*관리자가 메세지내용바꾸기*/
+	@Override
+	public int MessagesManage(HashMap<String, Object> map) {
+		int count =sqlMap.update("MessagesManage",map);
+		return count;
+	}
+	
+	/*관리자가 결제요청서 내용바꾸기*/
+	@Override
+	public int MessagesPaymentReqManage(HashMap<String, Object> map) {
+		//메시지는 위에서 바꾸고 여기선 삭제해주자
+		int count =sqlMap.delete("MessagesPaymentReqManage",map);
+		return count;
+	}
+	
+	@Override
+	public Payment_RequestDTO findPaymentReqByMsgIdx(HashMap<String, Object> map) {
+		Payment_RequestDTO dto = sqlMap.selectOne("findPaymentReqByMsgIdx",map);
+		return dto;
+	}
+	
 }
