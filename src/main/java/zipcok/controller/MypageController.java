@@ -417,7 +417,7 @@ public class MypageController {
          @RequestParam(value = "cp", defaultValue = "1")int cp) {
       
       int totalCnt=dao.mypageHomeGymLikeListTotalCnt((String)session.getAttribute("sid"));
-      int listSize=3;
+      int listSize=4;
       int pageSize=3;
       String pageStr=zipcok.page.MypagePageModule.makePage("mypageHomeGymLikeList.do", totalCnt, cp, listSize, pageSize);
       List<LikeDTO> list=dao.mypageHomeGymLikeList(cp, listSize, (String)session.getAttribute("sid"));
@@ -449,7 +449,7 @@ public class MypageController {
             @RequestParam(value = "cp", defaultValue = "1")int cp) {
     	  
     	  int totalCnt=dao.mypageCoachMatchLikeListTotalCnt((String)session.getAttribute("sid"));
-          int listSize=3;
+          int listSize=4;
           int pageSize=3;
           String pageStr=zipcok.page.MypagePageModule.makePage("mypageCoachMatchLikeList.do", totalCnt, cp, listSize, pageSize);
           List<LikeDTO> list=dao.mypageCoachMatchLikeList(cp, listSize, (String)session.getAttribute("sid"));

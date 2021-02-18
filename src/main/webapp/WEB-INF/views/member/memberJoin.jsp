@@ -120,6 +120,15 @@ $(document).ready(function() {
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
         
+         
+         /*폰인증조건-수연*/
+         if($('#mem_phone').is('[readonly]')){
+         		return true;
+         }else{
+        	 alert("휴대폰 본인인증을 진행해주세요");
+        	 return false;
+         }
+         
 
          if (idJ.test($('#mem_id').val())) {
             inval_Arr[0] = true;   
@@ -494,13 +503,13 @@ function showResult(){
                <div class="eheck_font" id="phone_check"></div>
                   <input type="button" class="btn btn-default"
                   style="background-color: #257cda; color: white; line-height: 1.20;"
-                  value="인증번호전송"><br>
+                  value="인증번호전송" onclick="sendphone()"><br>
                   
                   <input class="form-control" style="width: 40%; display: inline;"
                   placeholder="인증번호" name="mem_phoneOk" id="mem_phoneOk" type="text">
                   <input type="button" class="btn btn-default"
                   style="background-color: #257cda; color: white; line-height: 1.20;"
-                  value="인증">
+                  id="checkBtn" value="인증하기">
             </div>
 
 
@@ -527,7 +536,37 @@ function showResult(){
       </form>
    </article>
    </div>
-   <br><br>
+<script>
+function sendphone(){
+	 var phoneNumber = $('#mem_phone').val();
+	
+	var sendData =	 {"phoneNumber" : phoneNumber };
+	 // alert('문자보낼게' ); 	    
+	    	$.ajax({
+	        	
+	            url :"sendSms.do",
+	            type :"POST",
+	            data :sendData,
+	            success : function(data) {
+	            	   $('#checkBtn').click(function(){
+	                        if($.trim(data) ==$('#mem_phoneOk').val()){
+	                           alert('인증에 성공하였습니다.' );
+	                           $('#mem_phone').attr('readonly',true);
+	                        }else{
+	                      	  alert('인증실패');	
+	                        }	     
+	                      });
+	    				},
+	           error: function(data) { 
+	            	alert('error');
+	            }
+
+	        });
+	    			
+}	
+
+
+</script>
     <%@include file="../_include/footer.jsp" %>
 </body>
 </html>

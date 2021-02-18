@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../_include/head.jsp" %>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -40,6 +36,18 @@ function popupClose(){
 				return false;
 			}
 
+		     
+	         /*폰인증조건-수연*/
+	         if($('#mem_phone').is('[readonly]')){
+	         		return true;
+	         }else{
+	        	 alert("휴대폰 본인인증을 진행해주세요");
+	        	 return false;
+	         }
+			
+			
+			
+			
 		});
 
 		// 휴대전화
@@ -60,7 +68,7 @@ function popupClose(){
 		<form action="mypagePhonUpdate.do">
 			<h4>전화번호 변경</h4>
 			<hr>
-			<div class="col-sm-3 col-md-offset-3">
+			<div class="col-sm-8">
 
 				<div class="form-group">
 					<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label><br> <input
@@ -69,16 +77,16 @@ function popupClose(){
 					<div class="eheck_font" id="phone_check">
 						<input type="button" class="btn btn-default"
 							style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-							value="인증번호전송"><br> <input class="form-control"
+							value="인증번호전송" onclick="sendphone()"><br> <input class="form-control"
 							style="width: 40%; display: inline;" placeholder="인증번호"
 							name="mem_phoneOk" id="mem_phoneOk" type="text"> <input
 							type="button" class="btn btn-default"
 							style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-							value="인증">
+							 id="checkBtn" value="인증하기">
 					</div>
 
 
-					<div class="form-group text-center">
+					<div class="form-group mt-5">
 						<button type="submit" class="btn btn-primary">변경하기</button>
 						<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 					</div>
@@ -86,5 +94,38 @@ function popupClose(){
 			</div>
 		</form>
 	</article>
+	
+	
+	<script>
+function sendphone(){
+	 var phoneNumber = $('#mem_phone').val();
+	
+	var sendData =	 {"phoneNumber" : phoneNumber };
+	 // alert('문자보낼게' ); 	    
+	    	$.ajax({
+	        	
+	            url :"sendSms.do",
+	            type :"POST",
+	            data :sendData,
+	            success : function(data) {
+	            	   $('#checkBtn').click(function(){
+	                        if($.trim(data) ==$('#mem_phoneOk').val()){
+	                           alert('인증에 성공하였습니다.' );
+	                           $('#mem_phone').attr('readonly',true);
+	                        }else{
+	                      	  alert('인증실패');	
+	                        }	     
+	                      });
+	    				},
+	           error: function(data) { 
+	            	alert('error');
+	            }
+
+	        });
+	    			
+}	
+
+
+</script>
 </body>
 </html>

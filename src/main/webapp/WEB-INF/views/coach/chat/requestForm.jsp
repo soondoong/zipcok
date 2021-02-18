@@ -4,8 +4,8 @@
 
 .showdiv{
 position:relative; 
-width:inherit;
-height:inherit;
+width:400px;
+height:450px;
 z-index:100;
 background-color:white;
 }
@@ -18,7 +18,9 @@ padding:0;
 top:-23px;
 left:340px;
 }
-
+textarea{
+height:100px;
+}
 </style> 
 
 
@@ -60,12 +62,12 @@ left:340px;
 	            
 	            <div>
 	           <label>문의 내용을 간단히 적어주세요(최대 60자)</label>
-	           	<textarea rows="5" cols="30" id="requestText" 
+	           	<textarea rows="5" cols="50" id="requestText" 
 	           	onkeyup="lengthLimit();" name="req_cont" required="required"></textarea>
 	            </div>
 	            
 	             <div >
-	            	<input type="submit" class="btn btn-primary"  value="요청서 전송하기">
+	            	<input type="submit" class="btn btn-primary" style="width:100%;" value="요청서 전송하기">
 	             </div>
 			  	</div>	 			
 		    </div>

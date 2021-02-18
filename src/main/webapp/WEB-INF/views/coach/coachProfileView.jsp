@@ -56,7 +56,7 @@ padding:0 10px 0 10px;
 top:100px;
 left:30%;
 width:400px;
-height:550px;
+height:600px;
 display: none;
 }
 pre{font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
@@ -73,10 +73,10 @@ pre{font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
 			
 			
 			<!-- 견적요청 div -->
-			<div class="card" id="sidebox" >
-			<div class="card-body"> 
+			<div class="card" id="sidebox"  style="width:270px; height: 180px;">
+			<div class="card-body" > 
 		 	 <p class="card-text">${dto.mem_name} 코치님에게 상담을 요청하여 서비스를 이용해보세요!</p>
-			<input type="button" class="btn btn-primary" value="상담요청하기" 
+			<input type="button" class="btn btn-primary" style="width:100%;margin-top:20px;" value="상담요청하기" 
 			onclick="${empty sessionScope.coachId ?'showForm()':'cantDo()' }">
 			</div>
 			</div>
@@ -97,6 +97,7 @@ pre{font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
 function showForm(){
 	
 	$('.requestDiv').css('display','block');
+	
 }	
 
 function close(){
@@ -182,33 +183,37 @@ $(document).ready(function(){
 			
 			
 		<!-- 코치사진영역 -->
-		
+		<style>
+		.starIMG{width:55px; display:inline-block;}
+		.nameTitle{font-size:1.3rem; font-weight: 500; font-family: 'Spoqa Han Sans Neo', 'sans-serif';margin:0 60px 0 0;}
+		.nameText{font-size:1.2rem;  font-family: 'Spoqa Han Sans Neo', 'sans-serif'; }
+		</style>
 		<!-- 코치소개 영역 -->		
 			<div>
 			<span style="font-size:2rem; font-weight: 500;font-family: 'Spoqa Han Sans Neo', 'sans-serif';">${dto.mem_name}코치</span>	 
-			<span style="font-size:1.3rem; font-weight: 300;"><img src="img/coach/star.png" class="starIMG">${dto.avg }</span>	
+			<div style=" display:inline-block; margin-top:10px;"><img src="img/coach/star.png" class="starIMG" ><span style="font-size:1.6rem; font-weight: 300;">${dto.avg }</span></div>	
 			</div>
 			
 			<div>
 			<h1>${dto.coach_intro_sub }</h1>
 			<br><br>
 			
-			<span style="font-size:1.3rem; font-weight: 500;font-family: 'Spoqa Han Sans Neo', 'sans-serif';margin:0 60px 0 0;">활동지역</span>
-			<span>${dto.coach_floc }</span>
+			<span class="nameTitle">활동지역</span>
+			<span class="nameText">${dto.coach_floc }</span>
 			<br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">강의유형</span>
-			<span>${dto.coach_ex_type}</span>
+			<span class="nameTitle">강의유형</span>
+			<span  class="nameText">${dto.coach_ex_type}</span>
 			<br>
 			<br><br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">소개</span>
-			<p><pre><c:out value="${dto.coach_intro_cont }" /></pre></p>
+			<span class="nameTitle">소개</span>
+			<p><pre  class="nameText"><c:out value="${dto.coach_intro_cont }" /></pre></p>
 			<br>
 			
 			<!-- 커리큘럼영역 -->
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">커리큘럼</span>
+			<span class="nameTitle" >커리큘럼</span>
 			
 			<c:if test="${empty curri}">
-			<div>등록 된 커리큘럼이 없습니다.</div>
+			<div  class="nameText" style="margin-top:15px;">등록 된 커리큘럼이 없습니다.</div>
 			</c:if>
 			
 			 
@@ -248,8 +253,8 @@ $(document).ready(function(){
 			
 			
 			<br>
-			<span style="font-size:1.3rem; font-weight: 500;margin:0 60px 0 0;">준비물</span>
-			<p>${dto.coach_mat }</p>
+			<span class="nameTitle" >준비물</span>
+			<p class="nameText"  style="margin-top:15px;">${dto.coach_mat }</p>
 			<br>
 			
 			</div>
@@ -257,12 +262,12 @@ $(document).ready(function(){
 			
 		<!-- 코치소개 영역 -->		
 		
-		
+			<div style="margin-bottom:70px;">
 			<!-- 후기테이블 영역 -->
 			<%@include file="./reviewView.jsp" %>
 						
 			<!-- 후기테이블 영역 -->	
-			
+			</div>
 		
 	</article>
 </section>

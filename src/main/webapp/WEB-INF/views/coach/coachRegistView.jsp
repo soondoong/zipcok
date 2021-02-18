@@ -93,6 +93,7 @@ $(function(){
 	<style>
 		.payment_container {margin:40px auto; vertical-align: middle;}
 		.accountAddBTN{background-color:#007BFF; border:0px; width:100px; padding:10px; border-radius: 5px; color:white;}
+		input::placeholder { font-style: italic; font-size:13px;}
 	</style>
  <c:choose>
          <c:when test = "${empty sessionScope.sid && empty sessionScope.coachId }">
@@ -143,7 +144,7 @@ $(function(){
 		<!-- 결제계좌등록 -->
 	<div class="form-group">
 		<label>소개글 제목</label>
-		<input type="text" class="form-control" id="coach_intro_sub"  maxlength='15' name="coach_intro_sub">
+		<input type="text" class="form-control" id="coach_intro_sub"  maxlength='15' placeholder="타이틀을 적어주세요(15자)" name="coach_intro_sub">
 		<label>소개글</label> 
 		<textarea rows="10" cols="10" class="form-control" 
 		id="coach_intro_cont" name="coach_intro_cont"></textarea>
@@ -162,7 +163,7 @@ $(function(){
 	</div>
 
 	<div class="form-group">
-		<input class="form-control" placeholder="상세주소"
+		<input class="form-control" placeholder="활동가능한 장소를 적어주세요"
 			name="coach_sloc" id="coach_sloc" type="text" />
 	</div>
 

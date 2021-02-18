@@ -36,6 +36,8 @@ function placeholder(){
 a{cursor:pointer;}
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+
+.cmtablea,.cmtablea:link{color:blue;}
 </style>
 	<div class="adminPage_wrap">
 		<%@include file="../adminSideBar.jsp"%>
@@ -58,14 +60,14 @@ a{cursor:pointer;}
 						</li>
 
 						<li class="coach_li_radio"><input type="radio" name="mem_gender" value="남" class="coach_radiobtn">남자 <input type="radio" name="mem_gender" class="coach_radiobtn" value="여">여자</li>
-						<li><input type="text" id="searchTextPlaceholder" name="searchText" placeholder="id 입력"></li>
+						<li><input type="text" id="searchTextPlaceholder" name="searchText" placeholder="아이디 입력"></li>
 						<li><input type="submit"  value="검색"   id="searchbtn" class="btn btn-primary" ></li>
 
 					</ul>
 					</form>
 				</div>
 				<div><!--  테이블 div -->
-					<table class="table table-hover">
+					<table class="table table-hover ">
 						<thead>
 							<tr>
 								<th>회원번호</th>
@@ -85,7 +87,7 @@ a{cursor:pointer;}
 								<td>${dto.mem_name}</td>
 							
 								<td>
-								<a href="javascript:show('${dto.mem_id}')">${dto.mem_id}</a>
+								<a class="cmtablea" href="javascript:show('${dto.mem_id}')">${dto.mem_id}</a>
 								<input type = "hidden" id="coachId" name="coachidText" value = "${dto.mem_id }">
 								</td>
 								<td>${dto.mem_phone}</td>

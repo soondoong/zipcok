@@ -21,8 +21,8 @@
    <%@include file="../header2.jsp"%>
    <style>
       .mypage_main {width: 600px; padding: 10px 0 0 60px;}
-	.mypage_main .likeprofileIMG {overflow: hidden; width: 300px; height: 300px; border-radius: 50%; margin: 0 auto 50px;}
-	.mypage_main .likeprofileIMG img {width:300px; height:300px; object-fit: cover; margin-bottom : 20px;}
+		.mypage_main .likeprofileIMG {overflow: hidden;  width: 170px; height: 170px; border-radius: 50%; margin-bottom:20px;}
+	.mypage_main .likeprofileIMG img {width:170px; height:170px; object-fit: cover;}
 	.mypage_main .profile_info {padding: 0 0 0 100px;}
       .mypage_main .tab_style_01 {}
       .mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
@@ -53,10 +53,10 @@
     
     				<div class="likepersonAllWrap">
     				<c:if test="${empty list }">
-    					<div>좋아요를 눌러보아요~</div>
+    					<div>검색된 좋아요 내역이 없습니다.</div>
     				</c:if>
     				<c:forEach var="dto" items="${list }" varStatus="status">
-    				<div  style="text-align: center;">
+    				<div   style="text-align: center; padding:20px;">
     					<div class="likeprofileIMG">
     					<img src="/zipcok/upload/member/${memarr[status.index].mfile_upload}">
     					</div>

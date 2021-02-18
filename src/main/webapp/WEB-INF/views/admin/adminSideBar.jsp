@@ -37,7 +37,6 @@
 			<li name="Mng" class="active" ><a href="#"><i class="bi bi-journal-arrow-up booticon"></i>등록자 통계</a>
 				<ul class="submenu" >
 					<li class="submenuList"><a href="admin_statMemberRegist.do">회원 등록 통계</a></li>
-					<li class="submenuList"><a href="admin_statCoachRegist.do">코치 등록 통계</a></li>
 					<li class="submenuList"><a href="admin_statHomegymRegist.do">홈짐 등록 통계</a></li>
 				</ul>
 			</li>
