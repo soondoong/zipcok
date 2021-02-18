@@ -23,21 +23,25 @@
 		.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
 		.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
 		.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
+		
+		.community_wrap #contents {padding:0 0 0;}
+		.community_wrap #contents .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+		.community_wrap #contents .com_top h1{color: white;}
+		.community_wrap #contents .com_top h3{color: white;}
+		.community_wrap #contents .com_top .comm_menu{float: right;}
 </style>
 
 <div class="community_wrap">
-	<%@include file="./commSideMenu.jsp"%>
-	<!-- <div id="container" style="z-index: -1">
-		<div class="page_top_visual">
-			<div class="common_page_title">
-				<h2 class="page_title">일일 운동 게시판</h2>
-				<p class="page_text">오늘의 운동을 기록하세요.</p>
-			</div>
-		</div>
-	</div> -->
+
 	<div id="contents">
+	<div class="com_top">
+		<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
+		<h3>코치 : ${coach_name} 코치</h3>
+		<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
+	</div>
 		<form name="dailyWrite" action="commDailyWrite.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="ex_comm_idx" value="${com_idx}">
+		
 		<style>
 			.white_talbe_01 {border-top: 1px solid #333333;}
 			.white_talbe_01 tbody tr th {width: 200px; padding: 10px 20px; background: #f7f7f7; border-bottom: 1px solid #dddddd;}

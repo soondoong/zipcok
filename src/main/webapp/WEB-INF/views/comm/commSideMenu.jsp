@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<link rel="stylesheet" type="text/css" href="css/comm/commDailySideMenuLayout.css">
+
 <%-- <c:set var="com_idx" value="${comminfo.com_idx}"></c:set>
 <c:set var="com_coach_id" value="${comminfo.com_coach_id}"></c:set>
 <c:set var="com_name" value="${comminfo.com_name}"></c:set>

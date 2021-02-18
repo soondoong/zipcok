@@ -34,6 +34,11 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		
 		.community_wrap .community_contents {flex: 1 1 auto; padding: 30px;}
 		
+		.community_wrap .com_content .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+		.community_wrap .com_content .com_top h1{color: white;}
+		.community_wrap .com_content .com_top h3{color: white;}
+		.community_wrap .com_content .com_top .comm_menu{float: right;}
+	
 		.community_daily_summary {width: 100%; border-top: 1px solid #dddddd;}
 		.community_daily_summary tbody tr th {background: #f7f7f7; padding: 10px; border-bottom: 1px solid #dddddd;}
 		.community_daily_summary tbody tr td {padding: 10px; border-bottom: 1px solid #dddddd;}
@@ -53,7 +58,14 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		</script>
 	</c:if> --%>
 	<div class="community_wrap">
-		<%@include file="./commSideMenu.jsp"%>
+		<div class="com_content">
+			<div class="com_top">
+				<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
+				<h3>코치 : ${coach_name} 코치</h3>
+				
+				<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
+			</div>
+		
 
 		<div class="community_contents">
 			<h1>일일 운동 게시판 글보기</h1>
@@ -270,5 +282,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
          	</div> 
 		</div>
 	</div>
-</body>
+	</div>
+</body> 
+<%@include file="../_include/footer.jsp" %>
 </html>
