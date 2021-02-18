@@ -85,13 +85,12 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 						<th>No.</th>
 						<th>수강생 이름</th>
 						<th>계정</th>
-						<th>커뮤니티 활성화</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:if test="${empty commlist}">
 						<tr>
-							<td colspan="4" align="center">
+							<td colspan="3" align="center">
 								소속된 수강생이 없습니다.
 							</td>
 						</tr>
@@ -101,7 +100,6 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 						<td>${i.index+1}</td>
 						<td>${dto2.uc_mem_name }</td>
 						<td>${dto2.uc_mem_id }</td>
-						<td>${dto2.uc_status }</td>
 					</tr>
 				</c:forEach>
 				</tbody>

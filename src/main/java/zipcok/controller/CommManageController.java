@@ -46,7 +46,7 @@ public class CommManageController {
 	@RequestMapping("coachMyPageCommPlus.do")
 	public ModelAndView coachMyPageCommPlus(String com_coach_id, String com_name) {
 		int result=commManageDao.manageCommPlus(com_coach_id,com_name);
-		String msg=result>0?"커뮤니티 개설 성공! 커뮤니티 관리 페이지에서 활성화해주세요!":"글쓰기 실패!";
+		String msg=result>0?"커뮤니티 개설 성공!":"글쓰기 실패!";
 		
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("msg", msg);
