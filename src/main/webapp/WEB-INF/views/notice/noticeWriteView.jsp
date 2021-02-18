@@ -8,7 +8,7 @@
 	<div class="page_top_visual">
 		<div class="common_page_title">
 			<h2 class="page_title">공지사항</h2>
-			<p class="page_text">자주 묻는 질문과 교객센터입니다.</p>
+			<p class="page_text">새로운 소식을 전해드립니다</p>
 		</div>
 	</div>
 	<div id="contents">
