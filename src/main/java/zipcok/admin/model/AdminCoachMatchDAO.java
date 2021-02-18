@@ -30,4 +30,5 @@ public interface AdminCoachMatchDAO {
 	public int adminCoachCancelUpdateStatus(int pd_idx);//환불승인버튼누르면 수정해주기
 	public int adminCoachPlzCancelUpdateStatus(int pd_idx);//마이페이지 취소요청중으로 수정해주기
 	public RequestFormDTO findRequestByPd_idx(int pd_idx);//결제내역서 idx로 상담요청서찾기
+	public MemberAllDTO coachNameCall(String id);//코치아이디로 코치이름 가져오기
 }
