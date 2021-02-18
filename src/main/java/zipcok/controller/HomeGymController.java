@@ -146,13 +146,14 @@ public class HomeGymController {
 	
 	@RequestMapping("HomeGymContent.do")
 	public ModelAndView HomeGymContent(
+			@RequestParam(value = "cp", defaultValue = "1")int cp,
 			@RequestParam(value = "hg_mem_id")String homegymId,
 			HttpSession session) {
 		HomeGymDTO hgContent = homegymDAO.HomeGymContent(homegymId);
 		hgContent.setHg_faddr(hgContent.getHg_faddr().substring(0, hgContent.getHg_faddr().indexOf("구")+1));
 		List<HomeGymEquipmentDTO> eqContent = homegymeqDAO.HomeGymEquipmentContent(homegymId);
 		List<CoachFileDTO> imgContent = homegymDAO.HomeGymImageContent(homegymId);
-		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(homegymId);
+
 		Map<String, String> like_option = new HashMap<String, String>();
 		int like_result = 0;
 		if((String)session.getAttribute("sid")!=null) {
@@ -169,12 +170,26 @@ public class HomeGymController {
 			like_option.put("like_target_id", target_id);
 			like_result = homegymDAO.HomeGymLikeSelect(like_option);
 		}
+		int listSize = 5;
+		int pageSize = 5;
+		String keyword = "&hg_mem_id="+homegymId;
 		double star_avg = homegymDAO.HomeGymReviewStarAvg(homegymId);
+		System.out.println(homegymId);
+		int totalCnt = homegymDAO.HomeGYmReviewtotalCnt(homegymId);
+		Map<String, Object> review_option = new HashMap<String, Object>();
+		review_option.put("hg_mem_id", homegymId);
+		int start = (cp-1)*listSize +1;
+		int end = cp*listSize;
+		review_option.put("start", start);
+		review_option.put("end", end);
+		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(review_option);
+		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymContent.do", totalCnt, cp, listSize, pageSize, keyword);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);
 		mav.addObject("eqContent", eqContent);
 		mav.addObject("imgContent", imgContent);
 		mav.addObject("reviewList", reviewList);
+		mav.addObject("pageStr", pageStr);
 		mav.addObject("like_result", like_result);
 		mav.addObject("star_avg", star_avg);
 		mav.setViewName("homegym/hgContent");

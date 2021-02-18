@@ -178,6 +178,25 @@
 	</update>
 	
 	<!-- 병모 -->
-  
-  
+	
+	
+	
+  	<select id="adminHomeGymEqList" parameterType="String" resultType="zipcok.homegym.model.HomeGymEquipmentDTO">
+  		select * from homegym_equipment where eq_mem_id = #{value}
+  	</select>
+  	<select id="adminHomeGym" parameterType="String" resultType="zipcok.homegym.model.HomeGymDTO">
+  		select * from homegym where hg_mem_id = #{value}
+  	</select>
+  	<select id="adminHomeGymMemberIdx" parameterType="String" resultType="Integer">
+  		select mem_idx from zipcok_member where mem_id = #{value}
+  	</select>
+  	<select id="adminHomeGymPayment" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
+  		select * from zipcok_payment where hg_mem_id = #{value}
+  	</select>  
+  	<select id="adminHomeGymReview" parameterType="hashMap" resultType="zipcok.coach.model.ReviewDTO">
+  		select * from (select rownum as rnum, a.* from(select * from star_review where rev_target_id = #{hg_mem_id})a)b where rnum between #{start} and #{end}
+  	</select>
+  	<select id="adminHomeGymReviewTotalCnt" parameterType="String" resultType="Integer">
+  		select count(*) from star_review where rev_target_id = #{value}
+  	</select>
   </mapper>

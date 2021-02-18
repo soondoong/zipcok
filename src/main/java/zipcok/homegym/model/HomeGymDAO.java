@@ -17,10 +17,11 @@ public interface HomeGymDAO {
 	public String HomeGymAddPrice();
 	public HomeGymDTO HomeGymContent(String homegymId);
 	public List<CoachFileDTO> HomeGymImageContent(String homegymId);
-	public List<ReviewDTO> HomeGymReview(String homegymId);
+	public List<ReviewDTO> HomeGymReview(Map<String, Object> map);
 	public String HomeGymIdImgSelect(String homegymId);
 	public int HomeGymLikeSelect(Map<String, String> map);
 	public int HomeGymLikeInsert(Map<String, String> map);
 	public int HomeGymLikeDelete(Map<String, String> map);
 	public double HomeGymReviewStarAvg(String homegymId);
+	public int HomeGYmReviewtotalCnt(String homegymId);
 }

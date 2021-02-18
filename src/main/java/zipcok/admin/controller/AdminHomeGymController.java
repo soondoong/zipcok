@@ -3,6 +3,7 @@ package zipcok.admin.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import zipcok.admin.model.AdminHomeGymDAO;
 
 import zipcok.homegym.model.HomeGymDTO;
-
+import zipcok.homegym.model.HomeGymEquipmentDTO;
 import zipcok.admin.model.AdminPaymentDetailsDTO;
-
+import zipcok.coach.model.ReviewDTO;
 import zipcok.homegym.model.HomeGymReservationDTO;
+import zipcok.homegym.model.PaymentDTO;
 import zipcok.member.model.MemberDTO;
 
 @Controller
@@ -262,4 +264,35 @@ public class AdminHomeGymController {
 		
 		return "admin/admin_homeGym/admin_homeGymReserveCancel";
 	}
+	/////////////////병길///////////////
+	@RequestMapping("adminHomeGymInfoAjax.do")
+	public ModelAndView HomegymInfo(@RequestParam("hg_mem_id")String hg_mem_id,
+			@RequestParam(value = "cp", defaultValue = "1")int cp) {
+		Map<String, Object> review_option = new HashMap<String, Object>();
+		review_option.put("hg_mem_id" , hg_mem_id);
+		int listSize = 5;
+		int pageSize = 5;
+		int start = (cp-1)*listSize + 1;
+		int end = cp * listSize;
+		review_option.put("start", start);
+		review_option.put("end", end);
+		HomeGymDTO hgContent = dao.adminHomeGymInfo(hg_mem_id);
+		int memberIdx = dao.adminHomeGymMemberIdx(hg_mem_id);
+		List<HomeGymEquipmentDTO> eqContent = dao.adminHomeGymEquipmentInfo(hg_mem_id);
+		PaymentDTO payContent = dao.adminHomeGymPaymentInfo(hg_mem_id);
+		List<ReviewDTO> reviewContent = dao.adminHomeGymReviewInfo(review_option);
+		int totalCnt = dao.adminHomeGymReviewTotalCnt(hg_mem_id);
+		String keywords = "&hg_mem_id="+hg_mem_id;
+		String pageStr = zipcok.page.HomeGymPageModule.makePage("adminHomeGymInfoAjax.do", totalCnt, cp, listSize, pageSize, keywords);
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("hgContent", hgContent);
+		mav.addObject("memberIdx", memberIdx);
+		mav.addObject("eqContent", eqContent);
+		mav.addObject("payContent", payContent);
+		mav.addObject("reviewContent", reviewContent);
+		mav.addObject("pageStr", pageStr);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	//////////////병길////////////////////
 }
