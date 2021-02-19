@@ -90,11 +90,14 @@
 						<tr>
 							<td colspan="3"><textarea cols="120" rows="10" name="ex_content" placeholder="내용을 입력해주세요" style="height: 300px; white-space: pre-line;" required="required"></textarea></td>
 						</tr>
-						<tr>
-							<td colspan="3" style="text-align: right"><input type="reset" value="다시 작성"  class="btn1 c1"><input type="submit" value="글쓰기"  class="btn1 c1"></td>
-						</tr>
 					</tbody>
 				</table>
+				<div class="writebtn" style="float: right; margin: 10px;">
+					<ul>
+						<li style="float: left;"><input type="reset" value="다시 작성"  class="btn1 c1"></li>
+						<li><input type="submit" value="글쓰기"  class="btn1 c1"></li>
+					</ul>
+				</div>
 					<div class="form-group">
 						<label>사진등록</label>
 					<ul id="fileUl">
