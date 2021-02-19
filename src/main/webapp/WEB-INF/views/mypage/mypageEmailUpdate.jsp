@@ -60,7 +60,7 @@ $(document).ready(function() {
 			<h4>이메일 변경</h4>
 			<hr>
 
-			<div class="col-sm-3 col-md-offset-3">
+			<div class="col-sm-8">
 
 				<div class="form-group">
 					<label for="mem_email">변경할 이메일 주소</label> <input type="email"
@@ -69,12 +69,14 @@ $(document).ready(function() {
 					<div class="eheck_font" id="email_check"></div>
 				</div>
 
-				<div class="form-group text-center">
-					<button type="submit" class="btn btn-primary">변경하기</button>
-					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
+				<div class="form-group mt-5">
+					<button type="submit" class="btn btn-primary" style="background-color: cornflowerblue; color: white; line-height: 1.20;">변경하기</button>
+					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()" style="background-color: cornflowerblue; color: white; line-height: 1.20;">
 				</div>
 			</div>
 		</form>
 	</article>
+	
+	
 </body>
 </html>

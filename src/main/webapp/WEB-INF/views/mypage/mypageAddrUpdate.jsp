@@ -6,14 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.member-join-container{
+.member-profile-container{
    width:100%;
    display:flex;
    flex-direction:column;
    align-items:center;
    margin-top: 21px;
 }
-.member-join-button-wrap button{
+.member-profile-button-wrap button{
    width: 250px;
    height :48px;
    font-size: 18px;
@@ -115,8 +115,7 @@ function execPostCode() {
 <body>
 	<article>
 		<form action="mypageAddrUpdate.do">
-		<div class="member-join-container">
-			
+		<div class="member-profile-container">
 			<hr>
 			<div class="col-sm-3 col-md-offset-3">
 			<h4>주소변경</h4>
