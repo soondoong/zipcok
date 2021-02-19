@@ -11,7 +11,7 @@ tmp/
 *.bak
 *.swp
 *~.nib
-*.properties
+.properties
 .settings
 .loadpath
 .recommenders

@@ -11,24 +11,20 @@
 <link href="assets/css/admin.css" rel="stylesheet">
 <script src = "js/httpRequest.js"></script>
 <style type="text/css">
-.test-inline {
-	display: inline-flex;
-}
+.table { border-spacing: ''; table-layout: auto; text-align: center; margin-bottom:70px;} 
+.table th{font-weight: bold; border-color:#848282;}
+a{cursor:pointer;}
+.paging {margin: 40px 0 0; text-align: center;}
+.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 
-.paging {
-	margin: 40px 0 0;
-	text-align: center;
-}
-
-.paging a {
-	display: inline-block;
-	background: #f7f7f7;
-	text-align: center;
-	width: 30px;
-	height: 30px;
-	font-size: 14px;
-	line-height: 30px;
-}
+.cmtablea,.cmtablea:link{color:blue;}
+.surgestForm select {width:195px; margin-right:10px;}
+.surgestForm input[type=text] {width:195px; margin-right:10px;}
+.test-inline{display: inline-flex;}
+.infoTable {font-size:15px;}
+.infoTable td, th{width:100px; }
+.price{width:80px;}
+.addr{width:230px;}
 </style>
 <script>
 
@@ -45,29 +41,87 @@ function homegymInfoView_rq(){
 			var memberInfo = data.memberIdx;
 			var equipmentInfo = data.eqContent;
 			var paymentInfo = data.payContent;
-			var reviewInfo = data.reviewContent;
-			var pageStr = data.pageStr;
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
-			document.getElementById().innerText = 
+			var starAvg = data.starAvg;
+			document.getElementById('memberIdx').innerText = memberInfo;
+			document.getElementById('homegymId').innerText = homegymInfo.hg_mem_id;
+			document.getElementById('homegymNickname').innerText = homegymInfo.hg_nickname;
+			document.getElementById('homegymDate').innerText = homegymInfo.hg_regist_date;
+			document.getElementById('homegymAddr').innerText = homegymInfo.hg_faddr + " " + homegymInfo.hg_saddr;
+			var list = '';
+			document.getElementById('homegymEqlist').innerHTML = '';
+			for(var i = 0 ; i < equipmentInfo.length; i++){
+				var eqItem = equipmentInfo[i];
+				list += eqItem.eq_name + ' : ' + eqItem.eq_count + '<br>';
+			}
+			document.getElementById('homegymEqlist').innerHTML = list;	
+			document.getElementById('bank_name').innerText = paymentInfo.pa_bankname;
+			document.getElementById('bank_username').innerText = paymentInfo.pa_username;
+			document.getElementById('bank_no').innerText = paymentInfo.pa_no;
+			document.getElementById('homegymStarAvg').innerText = starAvg;
+		
+			if(homegymInfo.hg_status=='1'){
+				if(homegymInfo.hg_approved_check=='1'){
+					var approved_check = document.createElement('input');
+					approved_check.setAttribute('id', 'approved_status');
+					approved_check.setAttribute('type', 'checkbox');
+					approved_check.setAttribute('checked', true);	
+					approved_check.setAttribute('onchange', 'javascript:homegymApprovedCheckChange("'+homegymInfo.hg_mem_id+'");');
+					while ( document.getElementById('homegymApproved_check').hasChildNodes() ) { document.getElementById('homegymApproved_check').removeChild( document.getElementById('homegymApproved_check').firstChild ); }
+					document.getElementById('homegymApproved_check').appendChild(approved_check); 
+				}else if(homegymInfo.hg_approved_check=='0'){
+					var approved_check = document.createElement('input');
+					approved_check.setAttribute('id', 'approved_status');
+					approved_check.setAttribute('type', 'checkbox');
+					approved_check.setAttribute('onchange', 'javascript:homegymApprovedCheckChange("'+homegymInfo.hg_mem_id+'");');
+					while ( document.getElementById('homegymApproved_check').hasChildNodes() ) { document.getElementById('homegymApproved_check').removeChild( document.getElementById('homegymApproved_check').firstChild ); }
+					document.getElementById('homegymApproved_check').appendChild(approved_check); 
+				}
+
+			}else if(homegymInfo.hg_status=='0'){
+				document.getElementById('homegymApproved_check').innerText = '홈짐이 활성화 되지 않음';
+			}
+			/*
+			var delete_homegym = document.createElement('input');
+			delete_homegym.setAttribute('type', 'button');
+			delete_homegym.setAttribute('value', '활동 정지'');
+			delete_homegym.setAttribute('onclick', 'javacript:homegymDelete('+homegymInfo.hg_mem_id+');');
+			while ( document.getElementById('homegymDeleteBtn').hasChildNodes() ) { document.getElementById('homegymDeleteBtn').removeChild( document.getElementById('homegymDeleteBtn').firstChild ); }
+			document.getElementById('homegymDeleteBtn').appendChild(delete_homegym);*/
 		}
 	}
 }
+function homegymApprovedCheckChange(hg_mem_id){
+	var status = document.getElementById('approved_status').checked;
+	var status_param = status==true?'1':'0';
+	var params = 'hg_mem_id='+hg_mem_id+'&hg_approved_check='+status_param;
+	window.alert('test');
+	sendRequest('changeApprovedStatus.do', params, homegymApprovedCheckChange_rq, 'GET');
+}
+function homegymApprovedCheckChange_rq(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data = XHR.responseText;
+			data=eval('('+data+')');
+			var status = data.hg_status;
+			var hg_mem_id = data.hg_mem_id;
+			var hg_approvedCheck = data.hg_approved_check;
+			if(status>0){
+				window.alert('홈짐 정보가 변경되었습니다.');
+				var status = document.getElementById(hg_mem_id+'_check');
+				if(hg_approvedCheck=='1'){
+					status.innerText = '활성화';
+				}else if(hg_approvedCheck=='0'){
+					status.innerText = '승인요청중';
+				}
+			}
+		}
+	}
+}
+/*
+function homegymDelete(hg_mem_id){
+	
+}
+*/
 </script>
 
 </head>
@@ -78,7 +132,7 @@ function homegymInfoView_rq(){
 		<div class="container adminPage_contents">
 			<div class="adminPage_main">
 				<h3>홈짐 조회</h3>
-				<form action="adminHomeGymSearch.do">
+				<form action="adminHomeGymSearch.do" class = "surgestForm">
 					<ul class="test-inline">
 						<li><select name="searchType">
 								<option
@@ -89,7 +143,7 @@ function homegymInfoView_rq(){
 									<c:if test="${searchType=='닉네임'}">selected="selected"</c:if>>닉네임</option>
 						</select></li>
 						<li><input type="text" name="searchText" placeholder="홈짐이름"></li>
-						<li><input type="submit" value="검색"></li>
+						<li><input type="submit" value="검색" class="btn btn-primary"></li>
 					</ul>
 				</form>
 				<div>
@@ -99,15 +153,15 @@ function homegymInfoView_rq(){
 				</div>
 				<div>
 					<!-- 회원목록부분 테이블 div -->
-					<table border="1">
+					<table class = "table table-hover">
 						<thead>
 							<tr>
 								<th>번호</th>
-								<th>홈짐이름</th>
-								<th>공유자아이디</th>
+								<th>홈짐 이름</th>
+								<th>공유자 아이디</th>
 								<th>등록일</th>
-								<th>정보수정일</th>
-								<th>결제계좌정보</th>
+								<th>가격</th>
+								<th>주소</th>
 								<th>상태</th>
 							</tr>
 						</thead>
@@ -123,10 +177,13 @@ function homegymInfoView_rq(){
 									<td>${dto.hg_nickname}</td>
 									<td><a onclick = "javascript:homegymInfoView('${dto.hg_mem_id}')">${dto.hg_mem_id}</a></td>
 									<td>${dto.hg_regist_date}</td>
-									<td>${dto.hg_price}</td>
-									<td>${dto.hg_faddr}</td>
-									<td><c:if test="${dto.hg_status==1}">활성</c:if> <c:if
-											test="${dto.hg_status==0}">비활성</c:if></td>
+									<td class = "price">${dto.hg_price}</td>
+									<td class = "addr">${dto.hg_faddr}</td>
+									<td id = "${dto.hg_mem_id }_check">
+									<c:if test="${dto.hg_status==1 && dto.hg_approved_check==1}">활성</c:if>
+									<c:if test="${dto.hg_status==1 && dto.hg_approved_check==0 }">승인 요청중</c:if>
+									<c:if test="${dto.hg_status==0}">비활성</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -137,79 +194,56 @@ function homegymInfoView_rq(){
 						</c:if>
 					</div>
 				</div>
-				<h3>홈짐 정보 관리</h3>
-				<table>
+				<h3>홈짐 정보 관리</h3>	
+				<table class = "table table-hover infotable">
 					<tr>
-						<th>회원 번호</th>
-						<td id = "memberIdx"></td>
+						<th colspan = "2">회원 번호</th>
+						<td id = "memberIdx" colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>아이디</th>
-						<td id = "homegymId"></td>
+						<th colspan = "2">아이디</th>
+						<td id = "homegymId" colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>닉네임</th>
-						<td id = "homegymNickname"></td>
+						<th colspan = "2">닉네임</th>
+						<td id = "homegymNickname" colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>홈짐 등록일</th>
-						<td id = "homegymDate"></td>
+						<th colspan = "2">홈짐 등록일</th>
+						<td id = "homegymDate" colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>주소</th>
-						<td id = "homegymAddr"></td>
+						<th colspan = "2">주소</th>
+						<td id = "homegymAddr" colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>보유 기구</th>
+						<th colspan = "2">보유 기구</th>
+						<td colspan = "3"></td>
 					</tr>
 					<tr>
-						<th>결제 계좌 정보</th>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td colspan = "2"></td>
+						<td id = "homegymEqlist" colspan = "2" style = "text-align: left;"></td>
+						<td colspan = "1"></td>
 					</tr>
 					<tr>
-						<th>평점</th>
-						<td></td>
+						<th colspan = "2">결제 계좌 정보</th>
+						<td id = "bank_name"></td>
+						<td id = "bank_username"></td>
+						<td id = "bank_no"></td>
 					</tr>
 					<tr>
-						<th>상태</th>
-						<td></td>
+						<th colspan = "2">평점</th>
+						<td id = "homegymStarAvg" colspan = "3"></td>
 					</tr>
+					<tr>
+						<th colspan = "2">등록 여부</th>
+						<td id = "homegymApproved_check" colspan = "3"></td>
+					</tr>
+					<!-- <tr>
+						<th>활동 정지</th>
+						<td id = "homegymDeleteBtn"></td>
+					</tr> -->
 				</table>
-				<h4>홈짐 등록 승인<input type = "checkbox"></h4>
-				<input type = "button" value = "홈짐 삭제">
-				<div>
-					<!-- 회원목록부분 테이블 div -->
-					<h3>홈짐 후기 관리</h3>
-					<table border="1" cellspacing="0">
-						<thead>
-							<tr>
-								<th>번호</th>
-								<th>예약자</th>
-								<th>등록일</th>
-								<th>평점</th>
-								<th>내용</th>
-								<th>관리</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>김둘리</td>
-								<td>2021.02.22</td>
-								<td>3.8</td>
-								<td><input type="button" value="보기"></td>
-								<td><input type="button" value="삭제"></td>
-							</tr>
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="6" align="center">페이징 들어갈 자리</td>
-							</tr>
-						</tfoot>
-					</table>
-				</div>
 			</div>
 		</div>
 	</div>

@@ -5,7 +5,7 @@
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -83,10 +83,14 @@ window.addEventListener('load', function() {
 	        jQuery.browser.version = RegExp.$1;
 	    }
 	})();
-});
+	
+	currentSlide(1);
+	
+	
 
-$('.slider-for').slick();
-$('.slider-nav').slick();
+});
+var slideIndex = 1;
+showSlides(slideIndex);
 
 	$(function() {
 		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
@@ -244,6 +248,10 @@ $('.slider-nav').slick();
 							alert('회원만 가능한 서비스입니다');
 						} else { //로그인시				
 							var targetid = $(this).attr('id');
+							if(userid==targetid){
+								window.alert('자기 자신은 좋아요를 클릭하실 수 없습니다.' );
+								return;
+							}
 							//alert(targetid);	
 							if ($(this).hasClass("toggleStyle")) { //좋아요취소시
 								$(this).removeClass("toggleStyle");
@@ -291,6 +299,29 @@ $('.slider-nav').slick();
 			}
 		}
 	}
+	function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		}
+
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		}
+
+		function showSlides(n) {
+		  var i;
+		  var slides = document.getElementsByClassName("mySlides");
+		  var dots = document.getElementsByClassName("dot");
+		  if (n > slides.length) {slideIndex = 1}    
+		  if (n < 1) {slideIndex = slides.length}
+		  for (i = 0; i < slides.length; i++) {
+		      slides[i].style.display = "none";  
+		  }
+		  for (i = 0; i < dots.length; i++) {
+		      dots[i].className = dots[i].className.replace(" active", "");
+		  }
+		  slides[slideIndex-1].style.display = "block";  
+		  dots[slideIndex-1].className += " active";
+		}
 </script>
 <style>
 .top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 100px; padding-top: 10px;}
@@ -325,9 +356,69 @@ $('.slider-nav').slick();
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
 .likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
-.slider-for img {width:300px; height: 150px;}
-.slider-nav img {width:300px; height: 150px;}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width:100%;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+.slideshow-container img {width:600px; height:300px;}
 </style>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
 	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
@@ -341,16 +432,21 @@ $('.slider-nav').slick();
 	</div>
 </div>
 <div class = "top_contentArea">
-	<div class = "slider-for">
+	<div class = "slideshow-container">
 		<c:forEach var = "img" items = "${imgContent }">
-		<div><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
+		<div class = "mySlides fade"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
 		</c:forEach>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+		<div style="text-align:center">
+			<span class="dot" onclick="currentSlide(1)"></span> 
+			<span class="dot" onclick="currentSlide(2)"></span> 
+			<span class="dot" onclick="currentSlide(3)"></span> 
+			<span class="dot" onclick="currentSlide(4)"></span> 
+	 		<span class="dot" onclick="currentSlide(5)"></span> 
+		</div>
 	</div>
-	<div class = "slider-nav">
-		<c:forEach var = "img" items = "${imgContent }">
-		<div><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
-		</c:forEach>
-	</div>
+
 	<div class = "top_contentArea_reservationArea">
 		<p>${hgContent.hg_nickname }님의 홈짐</p>
 		<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">

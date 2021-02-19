@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
-<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/httpRequest.js"></script>
-<script src = "	
-http://openapi.seoul.go.kr:8088/sample/xml/SearchSTNBySubwayLineInfo/1/5/"></script>
+
 <script>
 window.addEventListener('load', function() {
 	var today = getTimeStamp();
@@ -29,29 +25,35 @@ window.addEventListener('load', function() {
 	}
 });
 
-$(document).on('click','.ia', function() {
-	var userid='${login.mem_id}';
-		if(userid ==null || userid == ''){ //비로그인시
-			alert('회원만 가능한 서비스입니다');
-		}else{ //로그인시				
-			var targetid= $(this).attr('id');	
-			//alert(targetid);	
-		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
-	             $(this).removeClass("toggleStyle");
-	             $(this).html('<i class="far fa-heart likeicon"></i>');
-	             ajaxUnLike(userid,targetid);	     
-	         }else{ //좋아요햇을시
-	        	 
-	             $(this).addClass("toggleStyle");
-	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
-	            
-	        	ajaxLike(userid,targetid);	           
-	             //좋아요하면 insert 취소하면 delete            
-	             
-	         }			 	
-		}	
+$(function(){
+	$('.ia').on('click', function() {
+		var userid='${login.mem_id}';
+			if(userid ==null || userid == ''){ //비로그인시
+				alert('회원만 가능한 서비스입니다');
+			}else{ //로그인시				
+				var targetid= $(this).attr('id');	
+				if(userid==targetid){
+					window.alert('자기 자신은 좋아요를 클릭하실 수 없습니다.');
+					return;
+				}
+				//alert(targetid);	
+			  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+		             $(this).removeClass("toggleStyle");
+		             $(this).html('<i class="far fa-heart likeicon"></i>');
+		             ajaxUnLike(userid,targetid);	     
+		         }else{ //좋아요햇을시
+		        	 
+		             $(this).addClass("toggleStyle");
+		             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+		            
+		        	ajaxLike(userid,targetid);	           
+		             //좋아요하면 insert 취소하면 delete            
+		             
+		         }			 	
+			}	
+	}); 
 });
-
+ 
 function getTimeStamp() {
 
     var d = new Date();
@@ -161,6 +163,9 @@ function ajaxUnLike_rq(){
 		.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 20px;}
 		.zipcok_sub{font-size: 20px; width:250px;}	
 </style>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
+
 	<!-- 상단 조건바 -->
 	<form id = "option_fm" action = "HomeGymList.do" method = "post">
 	<div class="top_search_wrap">
@@ -170,7 +175,7 @@ function ajaxUnLike_rq(){
 		</div>
 		<div class="top_search_inner">
 			<select name="top_option_location" onchange="javascript:sendOption();">
-				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected</c:if>>----</option>
+				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected</c:if>>전체</option>
 				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected</c:if>>강남구</option>
 				<option value="강동구" <c:if test="${keywordMap.location=='강동구'}">selected</c:if>>강동구</option>
 				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected</c:if>>강북구</option>

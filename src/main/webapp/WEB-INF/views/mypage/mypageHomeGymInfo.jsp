@@ -87,6 +87,11 @@ function disableSomeDay(date){
 	}
 }
 function status_change(){
+	if(!document.getElementById('banknameSpan')){
+		window.alert('계좌를 등록한 뒤에 활성화 할 수 있습니다.');
+		document.getElementById('hg_status').checked = false;
+		return;
+	}
 	var status = document.getElementById('hg_status').checked;
 	var hg_mem_id = document.getElementById('hg_mem_id').value;
 	var status_param = status==true?'1':'0';
@@ -658,7 +663,7 @@ function mypageHomeGymPaymentRegistForm(){
 								<span class = "labelName">대여 비용</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:mypageHomeGymPriceChangeForm();"><br>
 								<span class = "dateName"  id = "hg_price_span">${hgContent.hg_price }</span>
 							</div>
-															<div class = "paymentArea infoDIV">
+							<div class = "paymentArea infoDIV">
 								<c:if test = "${empty paymentContent }">
 									<span class = "labelName">등록된 결제 계좌가 없습니다.</span><input type = "button" class = "rebtn" value = "계좌 등록" onclick = "javascript:mypageHomeGymPaymentRegistForm()">
 								</c:if>
