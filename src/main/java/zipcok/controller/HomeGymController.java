@@ -261,9 +261,9 @@ public class HomeGymController {
 	
 	@RequestMapping(value = "avgPrice.do")
 	public ModelAndView HomeGymAvgPrice() {
-		int result = 0;
+		Double result = 0.0;
 		if(homegymDAO.HomeGymAddPrice()!=null) {
-			result = Integer.parseInt(homegymDAO.HomeGymAddPrice());
+			result = homegymDAO.HomeGymAddPrice();
 		}
 		
 		ModelAndView mav = new ModelAndView();
