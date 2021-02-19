@@ -97,6 +97,14 @@
     	<when test="type=='전체'">
      	   mem_id like '%%' and
   	 	</when>
+  	 	<!--
+  	 	<choose>
+    	<when test="searchContent!=''">
+  	 	 mem_name like '%${searchContent}%' or  mem_id like '%${searchContent}%'
+  	 		</when>
+		</choose>
+		and
+  	 	-->
    	 	<when test="type=='회원이름'">
    	    	mem_name like '%${searchContent}%' and
    		</when>

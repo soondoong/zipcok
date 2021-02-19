@@ -21,11 +21,7 @@
 	.mypage_main .likeprofileIMG {overflow: hidden; width: 300px; height: 300px; border-radius: 50%; margin: 0 auto 50px;}
 	.mypage_main .likeprofileIMG img {width:300px; height:300px; object-fit: cover; margin-bottom : 20px;}
 	.mypage_main .profile_info {padding: 0 0 0 100px;}
-      .mypage_main .tab_style_01 {}
-      .mypage_main .tab_style_01 ul {display: flex; border-bottom: 2px solid #006be0;}
-      .mypage_main .tab_style_01 li {flex: 1 1 auto;}
-      .mypage_main .tab_style_01 li button {display: block; width: 100%; background: #f7f7f7; line-height: 40px; text-align: center; border: none;}
-      .mypage_main .tab_style_01 li.on button {background: #006be0; color: #ffffff;}
+
       .paging {margin: 40px 0 0; text-align: center;}
 		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
     
@@ -40,11 +36,7 @@
          <div class="mypage_main LikePageMainSize ">
          
 		<div class="alllikecontent_wrap">
-			<div id="toggle_tab" class="tab_style_01 mb50 likekeybtn">
-			         <ul>
-			            <li><button type="button" onclick="coachMypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
-			         </ul>
-      			</div>
+
 
     				<div class="likepersonAllWrap">
     				
