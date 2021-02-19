@@ -42,7 +42,6 @@ window.addEventListener('load', function() {
 		person_count_option.innerText = i;
 		document.getElementById('choice_person_count').appendChild(person_count_option);
 	}
-	
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -83,17 +82,13 @@ window.addEventListener('load', function() {
 	        jQuery.browser.version = RegExp.$1;
 	    }
 	})();
-	
-	currentSlide(1);
-	var slideIndex = 1;
-	showSlides(slideIndex);
-	
-
 });
 
 
 	$(function() {
 		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
+		var start = new Date(start_date);
+		window.alert(start);
 		var end_date = '${hgContent.hg_end_date}'.substring(0, 10);
 		$('#choice_date').datepicker(
 				{
@@ -291,29 +286,6 @@ window.addEventListener('load', function() {
 			}
 		}
 	}
-	function plusSlides(n) {
-		  showSlides(slideIndex += n);
-		}
-
-		function currentSlide(n) {
-		  showSlides(slideIndex = n);
-		}
-
-		function showSlides(n) {
-		  var i;
-		  var slides = document.getElementsByClassName("mySlides");
-		  var dots = document.getElementsByClassName("dot");
-		  if (n > slides.length) {slideIndex = 1}    
-		  if (n < 1) {slideIndex = slides.length}
-		  for (i = 0; i < slides.length; i++) {
-		      slides[i].style.display = "none";  
-		  }
-		  for (i = 0; i < dots.length; i++) {
-		      dots[i].className = dots[i].className.replace(" active", "");
-		  }
-		  slides[slideIndex-1].style.display = "block";  
-		  dots[slideIndex-1].className += " active";
-		}
 </script>
 <style>
 .top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 100px; padding-top: 10px;}
@@ -424,20 +396,29 @@ img {vertical-align: middle;}
 	</div>
 </div>
 <div class = "top_contentArea">
-	<div class = "slideshow-container">
-		<c:forEach var = "img" items = "${imgContent }">
-		<div class = "mySlides fade"><img src = "upload/homegymInfo/${img.mfile_upload }"></div>
-		</c:forEach>
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-		<div style="text-align:center">
-			<span class="dot" onclick="currentSlide(1)"></span> 
-			<span class="dot" onclick="currentSlide(2)"></span> 
-			<span class="dot" onclick="currentSlide(3)"></span> 
-			<span class="dot" onclick="currentSlide(4)"></span> 
-	 		<span class="dot" onclick="currentSlide(5)"></span> 
-		</div>
-	</div>
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+  <c:forEach var = "dto2" items = "${imgContent }" varStatus="i">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i.index }" <c:if test = "${i.index==0 }">class="active" aria-current="true" aria-label="Slide ${i.count }"</c:if>></button>
+  </c:forEach>
+  </div>
+  <div class="carousel-inner">
+  <c:forEach var = "dto" items = "${imgContent }">
+    <div class="carousel-item active">
+      <img src="img/homegymInfo/${dto.mfile_upload }" class="d-block w-100" alt="...">
+    </div>
+   </c:forEach>
+  </div>
+ 
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
 	<div class = "top_contentArea_reservationArea">
 		<p>${hgContent.hg_nickname }님의 홈짐</p>
