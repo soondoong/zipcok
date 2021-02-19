@@ -84,6 +84,10 @@ function disableSomeDay(date){
 	}
 }
 function status_change(){
+	window.alert('계좌를 등록한 뒤에 활성화 할 수 있습니다.');
+	document.getElementById('hg_status').checked = false;
+	return;
+}
 	var status = document.getElementById('hg_status').checked;
 	var hg_mem_id = document.getElementById('hg_mem_id').value;
 	var status_param = status==true?'1':'0';

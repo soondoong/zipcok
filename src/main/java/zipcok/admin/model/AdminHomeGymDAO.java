@@ -31,7 +31,7 @@ public interface AdminHomeGymDAO {
 	public int adminHomeGymMemberIdx(String hg_mem_id);
 	public List<HomeGymEquipmentDTO> adminHomeGymEquipmentInfo(String hg_mem_id);
 	public PaymentDTO adminHomeGymPaymentInfo(String hg_mem_id);
-	public List<ReviewDTO> adminHomeGymReviewInfo(Map<String, Object> map);
-	public int adminHomeGymReviewTotalCnt(String hg_mem_id);
+	public Double adminHomeGYmStarAvg(String hg_mem_id);
+	public int adminHomeGymApprovedChange(Map<String, Object> map);
 	///////////////////병길////////////////////
 }

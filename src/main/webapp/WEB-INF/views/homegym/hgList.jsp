@@ -4,11 +4,7 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
-<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/httpRequest.js"></script>
-<script src = "	
-http://openapi.seoul.go.kr:8088/sample/xml/SearchSTNBySubwayLineInfo/1/5/"></script>
+
 <script>
 window.addEventListener('load', function() {
 	var today = getTimeStamp();
@@ -28,29 +24,35 @@ window.addEventListener('load', function() {
 		}
 	}
 });
-
-$(document).on('click','.ia', function() {
-	var userid='${login.mem_id}';
-		if(userid ==null || userid == ''){ //비로그인시
-			alert('회원만 가능한 서비스입니다');
-		}else{ //로그인시				
-			var targetid= $(this).attr('id');	
-			//alert(targetid);	
-		  if($(this).hasClass("toggleStyle")){ //좋아요취소시
-	             $(this).removeClass("toggleStyle");
-	             $(this).html('<i class="far fa-heart likeicon"></i>');
-	             ajaxUnLike(userid,targetid);	     
-	         }else{ //좋아요햇을시
-	        	 
-	             $(this).addClass("toggleStyle");
-	             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
-	            
-	        	ajaxLike(userid,targetid);	           
-	             //좋아요하면 insert 취소하면 delete            
-	             
-	         }			 	
-		}	
+$(function(){
+	$('.ia').on('click', function() {
+		var userid='${login.mem_id}';
+			if(userid ==null || userid == ''){ //비로그인시
+				alert('회원만 가능한 서비스입니다');
+			}else{ //로그인시				
+				var targetid= $(this).attr('id');	
+				if(userid==targetid){
+					window.alert('자기 자신은 좋아요를 클릭하실 수 없습니다.');
+					return;
+				}
+				//alert(targetid);	
+			  if($(this).hasClass("toggleStyle")){ //좋아요취소시
+		             $(this).removeClass("toggleStyle");
+		             $(this).html('<i class="far fa-heart likeicon"></i>');
+		             ajaxUnLike(userid,targetid);	     
+		         }else{ //좋아요햇을시
+		        	 
+		             $(this).addClass("toggleStyle");
+		             $(this).html('<i class="fas fa-heart likeicon likeafter"></i>');
+		            
+		        	ajaxLike(userid,targetid);	           
+		             //좋아요하면 insert 취소하면 delete            
+		             
+		         }			 	
+			}	
+	}); 
 });
+ 
 
 function getTimeStamp() {
 
@@ -118,14 +120,13 @@ function ajaxUnLike_rq(){
 <style>
 .eq_options {border:1px solid black;font-size: 20px;border-radius: 8px;width:200px;height:30px;}
 .ListItem{border:1px solid black;}
-.top_search_wrap {background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1);	
-		text-align: center; padding: 70px 0;border-radius: 0 0 30px 30px;}
+.top_search_wrap {padding: 100px 0;background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1); text-align: center;}
 .top_search_wrap .top_search_inner {display: inline-block;}
-.top_search_wrap select {width: 200px; height:50px; margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
-.top_search_wrap input[type=date] {width: 200px; height:50px; margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
+.top_search_wrap select {width: 200px; height: 40px;}
+.top_search_wrap input[type=date] {width: 200px; height: 40px;}
 .top_search_wrap input[type=submit] {width: 150px; height: 40px;}
 .homegym_wrap {display: flex;}
-.homegym_wrap .homegym_search_wrap {flex: 0 0 300px; }
+.homegym_wrap .homegym_search_wrap {flex: 0 0 300px;}
 .homegym_wrap .homegym_search_wrap .left_option {padding: 30px;}
 .homegym_wrap .homegym_search_wrap .left_option select {width:80%;}
 .homegym_wrap .homegym_search_wrap .left_option .left_option_person_count_label {height:40px; line-height:40px; vertical-align: middle;}
@@ -154,22 +155,15 @@ function ajaxUnLike_rq(){
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_item .homegym_search_result_list_item_content .homegym_search_result_list_item_content_price {font-size:25px; font-weight:600; position: relative; left:600px; top: -95px; height:35px; width:180px; text-align:right; }
 .likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
-
-.topHgTitle{ display:flex; justify-content:center; height: 70px;color:white; text-align: left; margin-bottom:15px;}
-.topHgTitle .zipcok{font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
-.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 10px;}
-.zipcok_sub{font-size: 20px; width:260px;}
 </style>
+<script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 	<!-- 상단 조건바 -->
 	<form id = "option_fm" action = "HomeGymList.do" method = "post">
 	<div class="top_search_wrap">
-		<div class="topHgTitle">
-			<p class="zipcok">집콕헬스</p>
-			<p class="zipcok_sub">이제는 홈짐도 공유하는 시대!<br>국내최초 홈짐 매칭 플랫폼</p>
-		</div>
 		<div class="top_search_inner">
 			<select name="top_option_location" onchange="javascript:sendOption();">
-				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected</c:if>>----</option>
+				<option value="전체" <c:if test="${keywordMap.location=='전체'}">selected</c:if>>전체</option>
 				<option value="강남구" <c:if test="${keywordMap.location=='강남구'}">selected</c:if>>강남구</option>
 				<option value="강동구" <c:if test="${keywordMap.location=='강동구'}">selected</c:if>>강동구</option>
 				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected</c:if>>강북구</option>
