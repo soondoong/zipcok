@@ -122,12 +122,12 @@ $(document).ready(function() {
         
          
          /*폰인증조건-수연*/
- /*        if($('#mem_phone').is('[readonly]')){
+        if($('#mem_phone').is('[readonly]')){
          		return true;
          }else{
         	 alert("휴대폰 본인인증을 진행해주세요");
         	 return false;
-         }*/
+         }
          
 
          if (idJ.test($('#mem_id').val())) {
@@ -538,6 +538,7 @@ function showResult(){
    </div>
 <script>
 function sendphone(){
+	alert('인증번호를 요청하였습니다 잠시만기다려주세요');
 	 var phoneNumber = $('#mem_phone').val();
 	
 	var sendData =	 {"phoneNumber" : phoneNumber };

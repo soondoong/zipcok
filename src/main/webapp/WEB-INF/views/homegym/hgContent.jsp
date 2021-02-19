@@ -85,12 +85,12 @@ window.addEventListener('load', function() {
 	})();
 	
 	currentSlide(1);
-	
+	var slideIndex = 1;
+	showSlides(slideIndex);
 	
 
 });
-var slideIndex = 1;
-showSlides(slideIndex);
+
 
 	$(function() {
 		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
@@ -132,11 +132,7 @@ showSlides(slideIndex);
 		}
 	}
 	function time_price_result() {
-		var homegym_price = $
-		{
-			hgContent.hg_price
-		}
-		;
+		var homegym_price = ${hgContent.hg_price}	;
 		var start_time = document.getElementById('choice_start_time').value;
 		var end_time = document.getElementById('choice_end_time').value;
 		var person_count = document.getElementById('choice_person_count').value;
