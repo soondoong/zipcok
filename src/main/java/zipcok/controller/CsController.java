@@ -254,12 +254,12 @@ public class CsController {
 		
 		//고객센터 게시판 답변작성
 		@RequestMapping("csReWrite.do")
-		public ModelAndView csReWrite(
-				@RequestParam("bbs_idx")int bbs_idx, CsReDTO dto) {
+		public ModelAndView csReWrite( CsReDTO dto,
+				@RequestParam("bbs_idx")int bbs_idx,
+				@RequestParam("re_content") String re_content) {
 			
 			
 			dto.setRe_bbs_idx(bbs_idx);
-			dto.setRe_content(dto.getRe_content().replaceAll("\r\n", "<br>"));
 			int result=csDao.csReWrite(dto);
 			String msg=result>0?"답변이 성공적으로 등록되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();
