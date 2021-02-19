@@ -32,5 +32,6 @@ public interface ExBbsDAO {
 	public int dailyGetLev(int re_idx);//부모댓글 레벨구하기
 	public void dailyReUpdate(int ex_idx, int re_sunbun);//댓글 순서 업데이트
 	public int dailyReReWrite(ExReBbsDTO dto);//대댓글 쓰기
+	public String exerBbsGetName(String mem_id);//아이디로 이름 조회
 
 }

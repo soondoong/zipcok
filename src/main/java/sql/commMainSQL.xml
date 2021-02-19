@@ -15,11 +15,11 @@
 	
 	<select id="normalcommListSQL" resultType="Integer">
 		select
-			uc_idx
+			uc_comm_idx
 		from
 			users_community
 		where
-			uc_mem_id=#{mem_id}		
+			uc_mem_id=#{mem_id}
 	</select> 
 	
 	<select id="commListSQL" resultType="zipcok.comm.model.CommunityDTO">

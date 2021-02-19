@@ -146,6 +146,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				.reply_wrap .comment_area .reply_confirm {width: 80px; height: 30px; border: 1px solid #333333;}
 			</style>
 			<!--  댓글 시작 -->
+			<hr>
 			<div class="reply_wrap">
 				<h4 class="reply_count">총 댓글 수 ${dto.ex_recnt}개</h4>
 				<form name="replyform" action="commDailyReWrite.do">
@@ -163,7 +164,20 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 					<c:choose>
 						<c:when test="${dto2.re_lev eq '1' }">
 							<div class="reply_item"><!-- 1depth 댓글 -->
-								<div class="reply_writer">${dto2.re_id}</div>
+								<div class="reply_writer">${dto2.re_id}
+									<c:choose>
+										<c:when test="${mem_name eq coach_name }"> <!-- 코치글일때 -->
+											<c:if test="${dto2.re_id eq coach_name}"><!-- 글쓴이가 코치일때 -->
+												(코치)
+											</c:if>
+										</c:when>
+										<c:when test="${mem_name ne com_coach_id }"><!-- 일반글일때 -->
+											<c:if test="${dto2.re_id eq mem_name}"><!-- 글쓴이일때 -->
+												(글쓴이)
+											</c:if>
+										</c:when>
+									</c:choose>
+								</div>
 								<div class="reply">${dto2.re_content}</div>
 								<div class="reply_btns">
 									<button type="button" class="reply_comment" onclick="$(this).parents('.reply_item').next().toggle();">답글</button>
@@ -174,7 +188,20 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						</c:when>
 						<c:when test="${dto2.re_lev eq '2' }">
 							<div class="reply_item depth2"><!-- 2depth 댓글일때 depth2 클래스만 추가 -->
-								<div class="reply_writer">${dto2.re_id}</div>
+								<div class="reply_writer">${dto2.re_id}
+									<c:choose>
+										<c:when test="${mem_name eq coach_name }"> <!-- 코치글일때 -->
+											<c:if test="${dto2.re_id eq coach_name}"><!-- 글쓴이가 코치일때 -->
+												(코치)
+											</c:if>
+										</c:when>
+										<c:when test="${mem_name ne com_coach_id }"><!-- 일반글일때 -->
+											<c:if test="${dto2.re_id eq mem_name}"><!-- 글쓴이일때 -->
+												(글쓴이)
+											</c:if>
+										</c:when>
+									</c:choose>
+								</div>
 								<div class="reply">${dto2.re_content}</div>
 								<div class="reply_btns">
 									<button type="button" class="reply_delete" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</button>
@@ -200,7 +227,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						<li><input type="button" value="댓글달기" class="btn1 c1" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
 					</ul>
 					</div>
-					
+					<hr>
 					
 					
 					

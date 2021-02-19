@@ -224,5 +224,12 @@ public class ExBbsDAOImple implements ExBbsDAO {
 		int count=sqlMap.insert("dailyReReWriteSQL",dto);
 		return count;
 	}
+	
+	//아이디로 이름 조회
+	@Override
+	public String exerBbsGetName(String mem_id) {
+		String result=sqlMap.selectOne("exerBbsGetNameSQL",mem_id);
+		return result;
+	}
 
 }
