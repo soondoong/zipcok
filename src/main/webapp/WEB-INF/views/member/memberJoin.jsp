@@ -74,48 +74,25 @@ $(document).ready(function() {
          
           } else { 
              show();
-          } /*else if($('#mem_id').val()!=''){
-             
-            var mem_id=$('#mem_id').val();
-              $.ajax({
-                  async : true,
-                   type : 'POST',
-                   data : mem_id, //mem_id라는 이름으로 mem_id라는 데이터를 @WebServlet("/idConfirm.do")에 보내겠다
-                   url : 'idConfirm.do',
-                     dateType: 'json',
-                     contentType: "application/json; charset=UTF-8",
-                     success : function(data) {
-
-          if(data.cnt > 0){
-             $('#id_check').text('중복된 아이디 입니다.');
-                   $('#id_check').css('color', 'red');
-                   $("#usercheck").attr("disabled", true);
-          }else{
-             if(idJ.test(mem_id)){
-                $('#id_check').text('사용가능한 아이디 입니다.');
-                $('#id_check').css('color', 'blue');
-                $("#usercheck").attr("disabled", false);
-             }
-             else if(mem_id==''){
-             $('#id_check').text('아이디를 입력해주세요.');
-                   $('#id_check').css('color', 'red');
-                   $("#usercheck").attr("disabled", true);
-             }
-             else{
-                $('#id_check').text("아이디는 소문자와 숫자 4~12자리만 가능합니다.");
-                $('#id_check').css('color', 'red');
-                $("#usercheck").attr("disabled", true);
-             }
           }
+	});
+	
+	
+	$("#mem_email").blur(function() {
+	       if($('#mem_email').val()==''){
+	          $('#email_check').text('이메일을 입력하세요.');
+	          $('#email_check').css('color', 'red');                     
+	   
+	          }else { 
+	             showTwo();
+	          }
+	});
 
-        }
 
-             });//ajax/// 
-          }//else if */
-      
- });//blur
-
-
+	
+	
+	
+	
  
      $('form').on('submit',function(){
          var inval_Arr = new Array(8).fill(false);
@@ -408,6 +385,37 @@ function showResult(){
       }
    }
 }
+
+
+/*2021-02-19 이메일중복체크 추가*/
+function showTwo(){
+	   var mem_email=document.memberJoin.mem_email.value;
+	   var params='mem_email='+mem_email;
+	   sendRequest('emailConfirm.do',params,showResultTwo,'GET');
+	}
+	function showResultTwo(){
+	   if(XHR.readyState==4){
+	      if(XHR.status==200){
+	         var data2=XHR.responseText;
+	         data2=eval('('+data2+')');
+	         var result2=data2.result2;
+	         
+	         var msg='';
+	         
+	         if(result2 >0){
+	            msg='중복된 이메일입니다.';
+	            $('#email_check').text(msg);
+	            $('#email_check').css('color', 'red');
+	         }else{
+	            msg='사용가능한 이메일입니다.';
+	            $('#email_check').text(msg);
+	            $('#email_check').css('color', 'blue');
+	         }
+	           
+	      }
+	   }
+	}
+
 </script>
 
 
@@ -468,6 +476,8 @@ function showResult(){
                <label for="mem_email" style="color: #257cda;">이메일 주소</label> <input type="email"
                   class="form-control" id="mem_email" name="mem_email"
                   placeholder="이메일">
+                  
+                  <span id="emailCheckMsg"></span>
                <div class="eheck_font" id="email_check"></div>
             </div>
 

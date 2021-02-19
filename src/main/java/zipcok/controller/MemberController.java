@@ -342,4 +342,15 @@ public class MemberController {
       return mav;
    }
    
+   @RequestMapping("/emailConfirm.do")
+   public ModelAndView emailConfirm(@RequestParam("mem_email") String mem_email) {
+      
+      int result2 = mdao.emailConfirm(mem_email);
+      ModelAndView mav = new ModelAndView();
+      
+      mav.addObject("result2", result2);
+      mav.setViewName("jsonView");
+      return mav;
+   }
+   
 }
