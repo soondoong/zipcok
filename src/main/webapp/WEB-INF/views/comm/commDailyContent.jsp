@@ -25,7 +25,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 	<%@include file="../header2.jsp"%>
 	
 	<style>
-		.community_wrap {display: flex; min-height: calc(100vh - 92px);}
+		.community_wrap {min-height: calc(100vh - 92px);}
 		.community_wrap .community_sidebar {flex: 0 0 250px; background-color: #ccc;}
 		.community_wrap .community_sidebar ul {padding: 0; margin:  0;}
 		.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
@@ -34,10 +34,11 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		
 		.community_wrap .community_contents {flex: 1 1 auto; padding: 30px;}
 		
-		.community_wrap .com_content .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
-		.community_wrap .com_content .com_top h1{color: white;}
-		.community_wrap .com_content .com_top h3{color: white;}
-		.community_wrap .com_content .com_top .comm_menu{float: right;}
+		.community_wrap .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+		.community_wrap .com_top h1{color: white;}
+		.community_wrap .com_top h3{color: white;}
+		.community_wrap .com_top .comm_menu{float: right;}
+		.community_wrap .com_top .comm_menu span{display: -webkit-inline-box;}
 	
 		.community_daily_summary {width: 100%; border-top: 1px solid #dddddd;}
 		.community_daily_summary tbody tr th {background: #f7f7f7; padding: 10px; border-bottom: 1px solid #dddddd;}
@@ -58,13 +59,13 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		</script>
 	</c:if> --%>
 	<div class="community_wrap">
-		<div class="com_content">
-			<div class="com_top">
-				<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
-				<h3>코치 : ${coach_name} 코치</h3>
-				
-				<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
-			</div>
+		<div class="com_top">
+			<h1>일일 운동 게시판</h1>
+			<h3>코치 : ${coach_name} 코치</h3>
+			<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">커뮤니티 메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
+		</div>
+		<div class="container " style="margin-top: 5px;">
+			
 		
 
 		<div class="community_contents">
@@ -196,7 +197,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 					<ul class="replewrite">
 						<li><input type="hidden" name="re_id" id="re_id" value="${sessionScope.sname}" readonly>
 						<input type="text" name="re_content" id="re_content" required="required"></li>
-						<li><input type="button" value="댓글달기" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
+						<li><input type="button" value="댓글달기" class="btn1 c1" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
 					</ul>
 					</div>
 					
@@ -248,14 +249,17 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				</form>
 			</div>
 			<!-- 댓글 종료 -->
-			<table>
-				<tr>
-					<td><input type="button" value="삭제" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'"></td>
-					<td><input type="button" value="수정" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'"></td>
-					<td><input type="button" value="목록보기" onclick="location.href='commDailyList.do'"></td>
-					<td><input type="button" value="운동하기" onclick="location.href='commDailyWrite.do'"></td>
-				</tr>
-			</table>
+			<div class="contentbtn" style="margin-bottom: 80px;">
+				<ul style="display: inline-flex; float: right;">
+					<li><input type="button" value="삭제" class="btn1 c1" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'">
+					<li>&nbsp;&nbsp;</li>
+					<li><input type="button" value="수정" class="btn1 c1" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'">
+					<li>&nbsp;&nbsp;</li>
+					<li><input type="button" value="목록보기" class="btn1 c1" onclick="location.href='commDailyList.do'">
+					<li>&nbsp;&nbsp;</li>
+					<li><input type="button" value="운동하기" class="btn1 c1" onclick="location.href='commDailyWrite.do'">
+				</ul>
+			</div>
 			<div class="view_navi">
 	            <dl>
 	               <dt>이전 글</dt>

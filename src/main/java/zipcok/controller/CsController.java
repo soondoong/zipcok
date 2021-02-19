@@ -255,8 +255,7 @@ public class CsController {
 		//고객센터 게시판 답변작성
 		@RequestMapping("csReWrite.do")
 		public ModelAndView csReWrite( CsReDTO dto,
-				@RequestParam("bbs_idx")int bbs_idx,
-				@RequestParam("re_content") String re_content) {
+				@RequestParam("bbs_idx")int bbs_idx) {
 			
 			
 			dto.setRe_bbs_idx(bbs_idx);

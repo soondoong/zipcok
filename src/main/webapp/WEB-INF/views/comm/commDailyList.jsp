@@ -44,12 +44,12 @@
 			<table class="bbs">
 				<thead>
 						<tr>
-							<th>글 번호</th>
-							<th>작성일</th>
+							<th style="width: 10%;">글 번호</th>
+							<th style="width: 10%;">작성일</th>
 							<th>제목</th>
-							<th>운동명</th>
-							<th>작성자</th>
-							<th>조회수</th>
+							<th style="width: 15%;">운동명</th>
+							<th style="width: 7%;">작성자</th>
+							<th style="width: 7%;">조회수</th>
 						</tr>
 					</thead>
 					<tfoot>
