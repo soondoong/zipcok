@@ -156,10 +156,10 @@ function ajaxUnLike_rq(){
 .likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
 
-.topHgTitle{ display:flex; justify-content:center; height: 70px;color:white; text-align: left; margin-bottom:15px;}
-.topHgTitle .zipcok{font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
-.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 10px;}
-.zipcok_sub{font-size: 20px; width:260px;}
+		.topHgTitle{ display:flex; justify-content:center; height: 70px;color:white; text-align: left; margin-bottom:15px;}
+		.topHgTitle .zipcok{font-size: 40px;width:200px; font-weight:500;  font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
+		.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 20px;}
+		.zipcok_sub{font-size: 20px; width:250px;}	
 </style>
 	<!-- 상단 조건바 -->
 	<form id = "option_fm" action = "HomeGymList.do" method = "post">

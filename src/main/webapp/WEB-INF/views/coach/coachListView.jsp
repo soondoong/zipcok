@@ -41,9 +41,9 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 		.nomalpaging a:not(:first-child) {margin-left: 5px;}
 				
 		.topHgTitle{ display:flex; justify-content:center; height: 70px;color:white; text-align: left; margin-bottom:15px;}
-		.topHgTitle .zipcok{font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
-		.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 10px;}
-		.zipcok_sub{font-size: 20px; width:350px;}
+		.topHgTitle .zipcok{font-size: 40px;width:200px; font-weight:500;  font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
+		.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 20px;}
+		.zipcok_sub{font-size: 20px; width:350px;}	
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>

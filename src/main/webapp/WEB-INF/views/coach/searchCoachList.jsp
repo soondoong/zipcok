@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <style>
 		.topSearchWrap {background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1);	
-		text-align: center; padding: 90px 0; border-radius: 0 0 30px 30px;}
+		text-align: center; padding: 70px 0; border-radius: 0 0 30px 30px;}
 		.topSearchWrap .searchDiv {display: inline-block;}
 		.topSearchWrap .searchDiv > * {float: left;}
 		.topSearchWrap .searchDiv select {width: 200px; height:50px;  margin-right: 10px; box-shadow: 3px 3px 5px #1f47a2;}
@@ -39,12 +39,17 @@
 		.result_contents_wrap .contentsWrap .oneperson .desc .grade .join {float: left;}
 		.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white; margin: 10px 0 0 200px;  text-shadow: 1px 1px 4px #8495a4; }
 		.likeafter{color : #FF6682; }
-		
+		.fp{font-size: 17px; font-weight: 600;}
 	
 		.nomalpaging,.paging {margin: 40px 0 0; text-align: center;}
 		.nomalpaging a,.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 		.nomalpaging a:not(:first-child),.paging a:not(:first-child) {margin-left: 5px;}
-				
+		
+		
+		.topHgTitle{ display:flex; justify-content:center; height: 70px;color:white; text-align: left; margin-bottom:15px;}
+		.topHgTitle .zipcok{font-size: 40px;width:200px; font-weight:500;  font-family: 'Spoqa Han Sans Neo', 'sans-serif';}
+		.topHgTitle .zipcok:after{content:'|' ; font-size: 35px;width:182px;font-family: 'Spoqa Han Sans Neo', 'sans-serif'; margin:0 20px;}
+		.zipcok_sub{font-size: 20px; width:350px;}		
 </style>
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -57,6 +62,13 @@
 <form name="fm" action="searchCoach.do">
 <input type="hidden" name="sid" value="${sessionScope.sid }">
 	<div class="topSearchWrap">
+	
+		<div class="topHgTitle">
+			<p class="zipcok">집콕헬스</p>
+			<p class="zipcok_sub">대면,비대면 수업 모두 가능!<br>주변의 고수들과 함께 운동해보세요</p>
+		</div>
+		
+		
 		<div class="searchDiv">
 		 	<select id="location" name="location">
 		 		<option <c:if test="${keyword.location=='전체지역'}">selected="selected"</c:if>>전체지역</option>
@@ -139,8 +151,8 @@
 	
 	<div class="contentsWrap">
 		<div class="hgroup">
-			<h3>검색된 리스트</h3>
-			<h5 class="h5search">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h5>
+			<h2 style="color:#363737;">검색된 리스트</h2>
+			<h4 class="h5search" style="color:#363737;">${keyword.location}&nbsp;&gt;&nbsp;${keyword.extype }&nbsp;&gt;&nbsp;${keyword.category }</h4>
 		</div>
 		
 		<div class="secondWrap">
