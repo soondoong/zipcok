@@ -407,6 +407,6 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		update homegym_reservation set reser_status = '예약취소중' where reser_idx = #{value}
 	</update>
 	<select id="coachmypagePaymentFind" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
-		select * from zipcok_payment where hg_mem_id = #{value}
+		select * from zipcok_payment where hg_mem_id = #{value} and pa_key = '코치'
 	</select>
   </mapper>
