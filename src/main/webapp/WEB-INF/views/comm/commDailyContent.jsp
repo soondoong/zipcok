@@ -72,9 +72,11 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 			<h1>일일 운동 게시판 글보기</h1>
 			<table class="community_daily_summary">
 				<colgroup>
-					<col style="width: 25%;" />
-					<col style="width: 25%;" />
-					<col style="width: 25%;" />
+					<col style="width: 10%;" />
+					<col style="width: 50%;" />
+					<col style="width: 10%;" />
+					<col style="width: 10%;" />
+					<col style="width: 10%;" />
 					<col style="width: auto;" />
 				</colgroup>
 				<tbody>
@@ -83,24 +85,24 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 						<td>${dto.ex_subject}(${dto.ex_recnt})</td>
 						<th>조회수</th>
 						<td>${dto.ex_readnum}</td>
-					</tr>
-					<tr>
 						<th>작성날짜</th>
 						<td>${dto.ex_writedate}</td>
+					</tr>
+					<tr>
 						<th>작성자</th>
 						<td>${dto.ex_id}</td>
-					</tr>
+					
 					<%-- <tr>
 						<th>파일</th>
 						<c:forEach var="filelist" items="${filelist}">
 						<td><img src="/zipcok/upload/comm/${filelist.bfile_rename}"></td>
 						</c:forEach>
 					</tr> --%>	
-					<tr>
+					
 						<th>오늘의 운동</th>
 						<td>${dto.ex_name}</td>
-						<th>오늘의 소비 칼로리</th>
-						<td>${dto.ex_cal}</td>
+						<th>오늘의 <br>소비 칼로리</th>
+						<td>${dto.ex_cal}cal</td>
 					</tr>
 				</tbody>
 			</table>

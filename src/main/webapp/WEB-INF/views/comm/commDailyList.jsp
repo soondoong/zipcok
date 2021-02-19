@@ -26,9 +26,9 @@
 			.community_wrap .community_list .com_top .comm_menu{float: right;}
 			.community_wrap .community_list .com_top .comm_menu span{display: -webkit-inline-box;}
 			
-			.community_wrap .community_list .bbs{margin:0 auto;}
+			.community_wrap .community_list .bbs{margin:0 auto; border-top:0px;}
 			.community_wrap .community_list .bbs .exrecontent {text-indent: 20px;}
-			.community_wrap .community_list .bbs .coachCnt {background-color: #E5E5FF;}
+			.community_wrap .community_list .bbs .coachCnt {background-color: #3b4c6f; color:white;}
 			.container{marign:0 auto; padding:60px 0;}
 	</style>
 	
@@ -41,8 +41,8 @@
 				<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">커뮤니티 메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
 			</div>
 		<div class="container ">
-			<table class="bbs">
-				<thead>
+			<table class="table" align="center">
+				<thead align="center"  style="background-color: #3b4c6f; color:white;">
 						<tr>
 							<th style="width: 10%;">글 번호</th>
 							<th style="width: 10%;">작성일</th>
@@ -58,7 +58,7 @@
 							<td><input id="button" type="button" onclick="location.href='commDailyWrite.do'" value="글쓰기" style="display:none;"></td>
 						</tr>
 					</tfoot>
-					<tbody>
+					<tbody align="center">
 						<c:if test="${empty list}">
 							<tr>
 								<td colspan="6" align="center">
@@ -68,7 +68,7 @@
 						</c:if>
 						<c:forEach var="dto" items="${list}" begin="0" end="0">
 							<c:if test="${dto.ex_id eq com_coach_id}">
-								<tr class="coachCnt">
+								<tr class="coachCnt" style="background-color: #fff8e3;">
 									<td>오늘의 운동</td>
 										<c:url var="contentUrl" value="commDailyList.do">
 											<c:param name="idx">${dto.ex_idx}</c:param>
@@ -78,7 +78,7 @@
 										<c:choose>
 											<c:when test="${recnt=='(0)'}">${recnt=""} </c:when>
 										</c:choose>
-									<td class="coach"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
+									<td class="coach"  align="left"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
 									<td>${dto.ex_name}/${dto.ex_cal}cal</td>
 									<td class="coachid">${dto.ex_id}</td>
 									<td>${dto.ex_readnum}</td>
@@ -99,10 +99,10 @@
 										</c:choose>
 									<c:choose>
 										<c:when test="${dto.ex_lev eq 1 }">
-											<td class="coach"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
+											<td class="coach"  align="left"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
 										</c:when>
 										<c:when test="${dto.ex_lev eq 2 }">
-											<td class="exrecontent"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
+											<td class="exrecontent"  align="left"><a href="commDailyContent.do?ex_idx=${dto.ex_idx}">[${dto.ex_head}] ${dto.ex_subject}${recnt}</a></td>
 										</c:when>
 									</c:choose>
 									

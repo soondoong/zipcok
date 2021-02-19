@@ -3,6 +3,7 @@ package zipcok.coachmypage.model;
 import java.util.*;
 
 import zipcok.coach.model.CategoryDTO;
+import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 
@@ -78,4 +79,11 @@ public interface CoachMypageDAO {
     public int coachmypagehomegympaymentCancel_payment(int pd_idx);
     public int coachmypagehomegympaymentCancel_reservation(int reser_idx);
     public PaymentDTO coachmypageHomeGymPaymentFind(String mem_id);
+    
+    
+    /*paymentDTO로 결제계좌정보 수정*/
+    public int accountUpdate(PaymentDTO dto);
+    /*코치활동주소 변경*/
+	public int coachAddrUpdate(CoachDTO dto);
+  
 }
