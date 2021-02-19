@@ -389,7 +389,7 @@ ServletContext c;
 				mav.addObject("gourl", "coachMyPage.do");
 				mav.setViewName("coachMyPage/coachMypageMsg");
 			}else {
-				mav.addObject("msg", "잘못된 정보입니다.");
+				mav.addObject("msg", "비밀번호가 불일치 다시시도해주세요.");
 				mav.addObject("gourl", "coachMyPage.do");
 				mav.setViewName("coachMyPage/coachMypageMsg");
 			}
@@ -436,10 +436,17 @@ ServletContext c;
 			
 			ModelAndView mav= new ModelAndView();
 			dto.setMem_id((String)session.getAttribute("coachId"));
-			int result = cdao.coachMypageEmailUpdate(dto);
-			String msg=result>0?"이메일 변경 성공!":"이메일 변경 실패!";
-			mav.addObject("msg", msg);
-			mav.addObject("gourl", "coachMyPage.do");
+			int count=cdao.coachMypageEmailConfirm(mem_email);
+			
+			if(count>0) {
+		    	  mav.addObject("msg", "사용중인 이메일입니다 다시 시도해주세요~");
+		          mav.addObject("gourl", "coachMyPage.do");
+		      }else {
+		    	  int result = cdao.coachMypageEmailUpdate(dto);
+		    	  mav.addObject("gourl", "coachMyPage.do");
+		    	  mav.addObject("msg", "이메일 변경 성공!");
+		      }
+
 			mav.setViewName("coachMyPage/coachMypagePopupMsg");
 			return mav;
 			

@@ -75,6 +75,10 @@ mfile_key='회원프로필'
          where mem_id=#{mem_id}
    </update>
    
+   
+   <select id="mypageEmailConfirm" resultType="String" parameterType="String">
+   select mem_email from zipcok_member where mem_email = #{value}
+   </select>
    <update id="mypageEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
       update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
    </update>

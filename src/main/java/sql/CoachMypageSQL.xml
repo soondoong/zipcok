@@ -182,6 +182,11 @@ rnum between #{start} and #{end}
 			where mem_id=#{mem_id}
 	</update>
 	
+	
+	
+	<select id="coachMypageEmailConfirm" resultType="String" parameterType="String">
+   select mem_email from zipcok_member where mem_email = #{value}
+   </select>
 	<update id="coachMypageEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
 		update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
 	</update>

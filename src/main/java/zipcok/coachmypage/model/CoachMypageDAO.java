@@ -35,6 +35,7 @@ public interface CoachMypageDAO {
 	public MemberDTO coachMypageProfile(String mem_id);
 	public int coachMypagePwdUpdate(MemberDTO dto);
 	public int coachMypageAddrUpdate(MemberDTO dto);
+	public int coachMypageEmailConfirm(String mem_email);
 	public int coachMypageEmailUpdate(MemberDTO dto);
 	public int coachMypagePhoneUpdate(MemberDTO dto);
 	public CoachFileDTO findProfileDTO(String id); //프로필파일수정
