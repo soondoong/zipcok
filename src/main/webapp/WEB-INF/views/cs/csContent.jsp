@@ -30,7 +30,12 @@
 	   document.getElementById('reWriteView').style.display='';
    }
    function csReWrite(idx){
-	   var re_content=document.getElementById('re_content').value;
+	  /* var str = $("#re_content").val();
+
+		str = str.replace('/(?:\r\n|\r|\n)/g', '<br>');
+
+		$("#re_content").html(str);*/
+		var re_content = $('#re_content').val();
 	   var url='csReWrite.do?bbs_idx='+idx+'&re_content='+re_content;
 	   location.href=url;
    }
@@ -64,7 +69,6 @@
 			.content_view_wrap .view_navi dt {position: absolute; top: 0; left: 0; width: 160px; padding: 0 20px; line-height: 40px; background: #f7f7f7;  border-bottom: 1px solid #dddddd;}
 			.content_view_wrap .view_navi dd {margin: 0; padding: 0 20px; line-height: 40px; border-bottom: 1px solid #dddddd;}
 			.view body {padding: 30px 20px 50px;}
-			.taPreLine {min-height:100px; white-space: pre-line;}
 		</style>
 		<article class="content_view_wrap">
 			<div class="view_head">
@@ -91,23 +95,23 @@
 		<hr>
 		<c:if test="${empty dto2}">
 			<c:if test="${login.mem_id=='admin'}">
-				<div class="view_body">
+			<div class="view_body">
+				<div class="table_list_bottom">
+					<div class="btn_right_box">
+						<hr>
+						<input type="button" class="btn1 c1" value="답변달기" onclick="rewriteview()">
+					</div>
+				</div>
+				<div id="reWriteView" style="display: none;">
+					<br>
+						<textarea wrap="hard" rows="6" cols="50" id="re_content" style="height: 300px;" name="re_content"></textarea>
 					<div class="table_list_bottom">
 						<div class="btn_right_box">
-							<hr>
-							<input type="button" class="btn1 c1" value="답변달기" onclick="rewriteview()">
-						</div>
-					</div>
-					<div id="reWriteView" style="display: none;">
-						<br>
-							<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="6" cols="50" class="taPreLine" id="re_content" name="re_content" style="height: 300px;" ></textarea>
-						<div class="table_list_bottom">
-							<div class="btn_right_box">
-								<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
-							</div>
+							<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
 						</div>
 					</div>
 				</div>
+			</div>
 			</c:if>
 		</c:if>
 		<c:if test="${!empty dto2}">
@@ -118,7 +122,7 @@
 					</div>
 					<span>작성자 : ${dto2.re_id}</span>
 					<span>작성일 : ${dto2.re_writedate}</span>
-					<textarea rows="4" cols="50" id="textareaA" class="taPreLine" readonly="readonly">${dto2.re_content}</textarea>
+					<div style="white-space: pre-wrap">${dto2.re_content}</div>
 				</div>
 				
 			</div>
@@ -137,15 +141,10 @@ function resize(obj) {
 	   obj.style.height = "1px";
 	   obj.style.height = (12+obj.scrollHeight)+"px";
 }
-$(document).ready(function(){
-	var str = $("#textareaA").val();
 
-	str = str.replace(/(?:\r\n|\r|\n)/g, '<br>');
-
-	$("#textareaA").html(str);
+	
 	 
 
-});
 
 
 </script>
