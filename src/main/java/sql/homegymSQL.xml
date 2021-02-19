@@ -45,9 +45,8 @@
 		#{hg_nickname}
 	</select>
 
-	<select id="hgAvgPriceSQL" resultType="String">
-		select avg(hg_price) from
-		homegym
+	<select id="hgAvgPriceSQL" resultType="Double">
+		select round(avg(hg_price),2) from homegym	
 	</select>
 
 	<select id="hgListSQL" parameterType="hashMap"
