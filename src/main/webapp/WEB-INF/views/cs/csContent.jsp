@@ -30,19 +30,20 @@
 	   document.getElementById('reWriteView').style.display='';
    }
    function csReWrite(idx){
-	  /* var str = $("#re_content").val();
+	     /* var str = $("#re_content").val();
 
-		str = str.replace('/(?:\r\n|\r|\n)/g', '<br>');
+	      str = str.replace('/(?:\r\n|\r|\n)/g', '<br>');
 
-		$("#re_content").html(str);*/
-		var re_content = $('#re_content').val();
-	   var url='csReWrite.do?bbs_idx='+idx+'&re_content='+re_content;
-	   location.href=url;
-   }
-   function csReDelete(re_idx,bbs_idx){
-	   var url='csReDelete.do?re_idx='+re_idx+'&bbs_idx='+bbs_idx;
-	   location.href=url;
-   }
+	      $("#re_content").html(str);*/
+	      var re_content = $('#re_content').val();
+	      re_content = re_content.replaceAll('\n', '<br>');
+	      var url='csReWrite.do?bbs_idx='+idx+'&re_content='+re_content;
+	      location.href=url;
+	   }
+	   function csReDelete(re_idx,bbs_idx){
+	      var url='csReDelete.do?re_idx='+re_idx+'&bbs_idx='+bbs_idx;
+	      location.href=url;
+	   }
 	
  
    </script>
@@ -72,7 +73,7 @@
 		</style>
 		<article class="content_view_wrap">
 			<div class="view_head">
-				<h1 class="view_title">${dto.bbs_subject}</h1>
+				<h1 class="view_title">Q . ${dto.bbs_subject}</h1>
 				<div class="view_info">
 					<span>조회수 : ${dto.bbs_readnum}</span>
 					<span>작성일 : ${dto.bbs_writedate}</span>
@@ -104,7 +105,7 @@
 				</div>
 				<div id="reWriteView" style="display: none;">
 					<br>
-						<textarea wrap="hard" rows="6" cols="50" id="re_content" style="height: 300px;" name="re_content"></textarea>
+						<textarea wrap="hard" rows="6"  cols="50" id="re_content" style="height: 300px;" name="re_content"></textarea>
 					<div class="table_list_bottom">
 						<div class="btn_right_box">
 							<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
@@ -118,11 +119,12 @@
 			<div class="view_body">
 				<div class="view_content">
 					<div>
-						<h5>문의글에 대한 답변입니다</h5><br>
+						<h5>A . 문의글에 대한 답변입니다</h5><br>
 					</div>
 					<span>작성자 : ${dto2.re_id}</span>
 					<span>작성일 : ${dto2.re_writedate}</span>
-					<div style="white-space: pre-wrap">${dto2.re_content}</div>
+					
+					<div style="white-space: pre-wrap"><br>${dto2.re_content}</div>
 				</div>
 				
 			</div>
