@@ -63,6 +63,7 @@
 		
 		<div class="white_talbe_01">
 			<table>
+			<tbody>
 				<tr>
 					<td>제목</td>
 					<td colspan="2"><input type="text" name="ex_subject" value="${dto.ex_subject}"></td>
@@ -83,6 +84,7 @@
 					<td><input type="reset" value="처음부터 쓰기"></td>
 					<td><input type="submit" value="수정"></td>
 				</tr>
+				</tbody>
 			</table>
 				<div class="form-group">
 					<div id="fileList">
