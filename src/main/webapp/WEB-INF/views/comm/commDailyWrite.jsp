@@ -17,28 +17,29 @@
 <%@include file="../header2.jsp"%>
 
 <style>
-		.community_wrap {display: flex; min-height: calc(100vh - 92px);}
+		.community_wrap {min-height: calc(100vh - 92px);}
 		.community_wrap .community_sidebar {flex: 0 0 250px; background-color: #ccc;}
 		.community_wrap .community_sidebar ul {padding: 0; margin:  0;}
 		.community_wrap .community_sidebar ul li.sidemenuli a {display: block; color: #000; padding: 8px 15px 8px 15px; font-weight: bold;}
 		.community_wrap .community_sidebar ul li.sidemenuli a.comm {background-color: tomato; color: #fff;}
 		.community_wrap .community_sidebar ul li.sidemenuli a:hover:not(.comm) {background-color: #333; color: #fff;}
 		
-		.community_wrap #contents {padding:0 0 0;}
-		.community_wrap #contents .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
-		.community_wrap #contents .com_top h1{color: white;}
-		.community_wrap #contents .com_top h3{color: white;}
-		.community_wrap #contents .com_top .comm_menu{float: right;}
+		.community_wrap {padding:0 0 0;}
+		.community_wrap .com_top {background-color: #46a4da; height: 170px; padding: 15px;}
+		.community_wrap .com_top h1{color: white;}
+		.community_wrap .com_top h3{color: white;}
+		.community_wrap .com_top .comm_menu{float: right;}
+		.community_wrap .com_top .comm_menu span{display: -webkit-inline-box;}
 </style>
 
 <div class="community_wrap">
-
-	<div id="contents">
 	<div class="com_top">
-		<h1><a class="comm" href="commMain.do?com_idx=${com_idx }">${com_name}</a></h1>
+		<h1>일일 운동 게시판</h1>
 		<h3>코치 : ${coach_name} 코치</h3>
-		<div class="comm_menu"><h3><a href="commDailyList.do">일일 운동 게시판</a></h3></div>
+		<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">커뮤니티 메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
 	</div>
+	<div class="container " style="margin-top: 5px;">
+	
 		<form name="dailyWrite" action="commDailyWrite.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="ex_comm_idx" value="${com_idx}">
 		
@@ -95,6 +96,7 @@
 				<div class="writebtn" style="float: right; margin: 10px;">
 					<ul style="display: inline-flex; margin: 10px;">
 						<li style="float: left;"><input type="reset" value="다시 작성"  class="btn1 c1"></li>
+						<li>&nbsp;&nbsp;</li>
 						<li><input type="submit" value="글쓰기"  class="btn1 c1"></li>
 					</ul>
 				</div>
