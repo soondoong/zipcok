@@ -80,10 +80,12 @@
 			<div class="btn_left_box">
 				<a href="noticeList.do" class="btn1 c2">목록보기</a>
 			</div>
-			<div class="btn_right_box">
-				<a href="noticeDelete.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">삭제하기</a>
-				<a href="noticeUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
-			</div>
+			<c:if test="${login.mem_id=='admin'}">
+				<div class="btn_right_box">
+					<a href="noticeDelete.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">삭제하기</a>
+					<a href="noticeUpdateView.do?bbs_idx=${dto.bbs_idx}" class="btn1 c1">수정하기</a>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </div>
