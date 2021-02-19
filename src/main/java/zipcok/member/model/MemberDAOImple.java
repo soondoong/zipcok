@@ -73,5 +73,13 @@ public class MemberDAOImple implements MemberDAO {
       return str==null?0:1;
    }
    
+   @Override
+	public int emailConfirm(String mem_email) {
+	   String str = sqlMap.selectOne("emailConfirm", mem_email);
+	   return str==null?0:1;
+	}
+   
+   
+   
 }
 

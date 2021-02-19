@@ -5,6 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.member-join-container{
+   width:100%;
+   display:flex;
+   flex-direction:column;
+   align-items:center;
+   margin-top: 21px;
+}
+.member-join-button-wrap button{
+   width: 250px;
+   height :48px;
+   font-size: 18px;
+   background: #257cda;
+   color: white;
+   border: solid 1px #257cda;
+   border-radius: 5px;
+   margin : 15px 0 15px 0;
+}
+</style>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -96,10 +115,11 @@ function execPostCode() {
 <body>
 	<article>
 		<form action="mypageAddrUpdate.do">
-			<h4>주소변경</h4>
+		<div class="member-join-container">
+			
 			<hr>
 			<div class="col-sm-3 col-md-offset-3">
-			
+			<h4>주소변경</h4>
 				<div class="form-group">
 					<input class="form-control" style="width: 40%; display: inline;"
 						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
@@ -127,6 +147,7 @@ function execPostCode() {
 					<button type="submit" class="btn btn-primary">변경하기</button>
 					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
 				</div>
+			</div>
 			</div>
 		</form>
 	</article>

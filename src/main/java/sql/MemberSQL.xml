@@ -71,6 +71,9 @@
       select mem_id from zipcok_member where mem_id = #{value} 
    </select>
 
+   <select id="emailConfirm" resultType="String" parameterType="String">
+      select mem_email from zipcok_member where mem_email = #{value} 
+   </select>
    
    
 </mapper>
