@@ -660,7 +660,7 @@ function mypageHomeGymPaymentRegistForm(){
 									<span class = "labelName">등록된 결제 계좌가 없습니다.</span><input type = "button" class = "rebtn" value = "계좌 등록" onclick = "javascript:mypageHomeGymPaymentRegistForm()">
 								</c:if>
 								<c:if test = "${!empty paymentContent }">
-									<span class = "labelName">은행명</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:coachmypageHomeGymPaymentUpdatePopup();"><br>
+									<span class = "labelName" id = "banknameSpan">은행명</span><input type = "button" value = "수정" class = "rebtn" onclick = "javascript:coachmypageHomeGymPaymentUpdatePopup();"><br>
 									<span class = "dataName">${paymentContent.pa_bankname }</span><br>
 									<span class = "labelName">예금주</span><br>
 									<span class = "dataName">${paymentContent.pa_username }</span><br>

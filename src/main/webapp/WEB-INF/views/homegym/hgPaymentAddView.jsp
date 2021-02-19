@@ -6,15 +6,19 @@
 <script>
 function paymentAddCheck(check){
 
-	if(check==true){
-		document.getElementById('paymentAddForm').submit();
-	}else if(check==false){
-		var check_confirm = confirm('나중에 계좌를 등록하시겠습니까?')
-		if(check_confirm){
-			location.href = 'myHomeGymHavingCheck.do?mem_id=${mem_id}';
-		}
+	   if(check==true){
+	      document.getElementById('paymentAddForm').submit();
+	   }else if(check==false){
+	      var check_confirm = confirm('나중에 계좌를 등록하시겠습니까?')
+	      if(check_confirm){
+	         if('${sessionScope.sid}'!=''){
+	            location.href = 'myHomeGymHavingCheck.do?mem_id=${mem_id}';            
+	         }else if('${sessionScope.coachId}'!=''){
+	            location.href = 'coachmyHomeGymHavingCheck.do?mem_id=${mem_id}';   
+	         }
+	      }
+	   }
 	}
-}
 </script>
 <style>
 .payment_container {width:600px; height:400px; margin:100px auto; vertical-align: middle;}

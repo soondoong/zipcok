@@ -7,15 +7,19 @@
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
 <script src="js/httpRequest.js"></script>
+
+</head>
+<body>
+<%@include file="../../header2.jsp" %>
 <style type="text/css">
 .test-inline { display: flex;}
 .pagingSP {margin: 40px 0 0; text-align: center;}
 .pagingSP a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
-.msgcont a,.msgcont a:link{color:red;}
+.msgcont a,.msgcont a:link{color:blue;}
+
+	.hgaaaa,.hgaaaa:link{color:blue;}
+
 </style>
-</head>
-<body>
-<%@include file="../../header2.jsp" %>
 <script>
 function show(id,str){/*cp값, id값 으로 ajax 에 요청함*/
 if(id ==null || id ==''){
@@ -48,7 +52,7 @@ function showResult(){/*꼰트롤러에서 받은 데이터들을 가져와서 �
          for(var i=0;i<data.reqMemList.length;i++){
         	 
         	 html+="<tr>";
-        	 html += "<td><a href='#' onclick='chating("+data.reqMemList[i].req_idx+")'>"+data.reqMemList[i].req_idx+"</a></td>";
+        	 html += "<td><a class='hgaaaa' href='#' onclick='chating("+data.reqMemList[i].req_idx+")'>"+data.reqMemList[i].req_idx+"</a></td>";
         	 html += "<td>"+data.reqMemList[i].mem_name+"</td>";
         	 html += "<td>"+data.reqMemList[i].mem_id+"</td>";
         	 html += "<td>"+data.reqMemList[i].mem_phone+"</td>";
@@ -233,7 +237,7 @@ a{cursor:pointer;}
 												"<td>"+data.MsgList[i].msg_idx+"</td>"+
 												"<td>"+data.MsgList[i].msg_sender+"</td>"+
 												"<td>"+data.MsgList[i].msg_receiver+"</td>"+
-												"<td class='msgcont'><a href='#' onclick=\"MsgContChange('"+data.MsgList[i].msg_type+"',"+data.MsgList[i].msg_idx+")\">"+data.MsgList[i].msg_content+"</a></td>"+
+												"<td class='msgcont'><a  class='hgaaaa' href='#' onclick=\"MsgContChange('"+data.MsgList[i].msg_type+"',"+data.MsgList[i].msg_idx+")\">"+data.MsgList[i].msg_content+"</a></td>"+
 												"<td>"+data.MsgList[i].msg_sendtime+"</td>"+
 												"<td>"+data.MsgList[i].msg_type+"</td>"+
 												"<tr>");

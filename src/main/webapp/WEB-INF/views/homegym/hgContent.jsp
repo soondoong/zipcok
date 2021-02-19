@@ -148,11 +148,7 @@ window.addEventListener('load', function() {
 				* person_count;
 	}
 	function person_count_price_result() {
-		var homegym_price = $
-		{
-			hgContent.hg_price
-		}
-		;
+		var homegym_price = '${hgContent.hg_price}';
 		var start_time = document.getElementById('choice_start_time').value;
 		var end_time = document.getElementById('choice_end_time').value;
 		var reservation_time = end_time - start_time;

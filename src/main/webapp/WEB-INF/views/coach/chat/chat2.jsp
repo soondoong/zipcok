@@ -290,6 +290,10 @@ $(document).ready(function(){
 						 </div>						 
 				  </div>
 				  <hr>
+				   <div class="onelineInfo">
+				  		<p class="title">희망 시작일</p>
+					  	<p><pre>${reqdto.req_start_date}</pre></p>				
+		   		 </div>
 				  <div class="onelineInfo">
 				  		<p class="title">문의 내용</p>
 					  	<p><pre>${reqdto.req_cont }</pre></p>				

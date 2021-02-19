@@ -94,7 +94,6 @@ function homegymApprovedCheckChange(hg_mem_id){
 	var status = document.getElementById('approved_status').checked;
 	var status_param = status==true?'1':'0';
 	var params = 'hg_mem_id='+hg_mem_id+'&hg_approved_check='+status_param;
-	window.alert('test');
 	sendRequest('changeApprovedStatus.do', params, homegymApprovedCheckChange_rq, 'GET');
 }
 function homegymApprovedCheckChange_rq(){
@@ -127,6 +126,9 @@ function homegymDelete(hg_mem_id){
 </head>
 <body>
 	<%@include file="../../header2.jsp"%>
+	<style>
+	.hgaaaa,.hgaaaa:link{color:blue;}
+	</style>
 	<div class="adminPage_wrap">
 		<%@include file="../adminSideBar.jsp"%>
 		<div class="container adminPage_contents">
@@ -175,7 +177,7 @@ function homegymDelete(hg_mem_id){
 								<tr>
 									<td>${dto.rnum}</td>
 									<td>${dto.hg_nickname}</td>
-									<td><a onclick = "javascript:homegymInfoView('${dto.hg_mem_id}')">${dto.hg_mem_id}</a></td>
+									<td><a  class="hgaaaa" onclick = "javascript:homegymInfoView('${dto.hg_mem_id}')">${dto.hg_mem_id}</a></td>
 									<td>${dto.hg_regist_date}</td>
 									<td class = "price">${dto.hg_price}</td>
 									<td class = "addr">${dto.hg_faddr}</td>

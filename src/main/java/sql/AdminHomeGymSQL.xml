@@ -191,7 +191,7 @@
   		select mem_idx from zipcok_member where mem_id = #{value}
   	</select>
   	<select id="adminHomeGymPayment" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
-  		select * from zipcok_payment where hg_mem_id = #{value}
+  		select * from zipcok_payment where hg_mem_id = #{value} and pa_key = '홈짐'
   	</select>  
   	<select id = "adminHomeGYmStarAvg" parameterType="String" resultType="Double">
   		select round(nvl(avg(rev_star),0),2) from star_review where rev_key = '홈짐' and rev_target_id = #{value}

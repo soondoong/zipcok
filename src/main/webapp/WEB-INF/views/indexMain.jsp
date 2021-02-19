@@ -44,6 +44,8 @@
 			<img src="img/main/main1.png"  >
 			<img src="img/main/main4.png" >
 			<img src="img/main/lp_category_card_gray3x.png" >
+			<img src="img/main/lp_category_card_gray3x.png" >
+			<img src="img/main/lp_category_card_ivory3x.png" >
 		</div>
 	</section>
 <%@include file="_include/footer.jsp" %>
