@@ -201,6 +201,8 @@ public class CommDailyController {
 		int rnum=exBbsDao.findRownum(ex_idx,ex_comm_idx);
 		ExBbsDTO prev=exBbsDao.dailyPrevNext(rnum-1,ex_comm_idx);
 		ExBbsDTO next=exBbsDao.dailyPrevNext(rnum+1,ex_comm_idx);
+		
+		String mem_name=exBbsDao.exerBbsGetName(dto.getEx_id());
 
 	
 		ModelAndView mav=new ModelAndView();
@@ -210,6 +212,7 @@ public class CommDailyController {
 		mav.addObject("list", list);
 		mav.addObject("recnt", recnt);
 		mav.addObject("filelist", filelist);
+		mav.addObject("mem_name", mem_name);
 		mav.setViewName("comm/commDailyContent");
 		return mav;
 	}

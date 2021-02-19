@@ -312,6 +312,14 @@
 			
 	</select>
 	
+	<select id="exerBbsGetNameSQL" resultType="String">
+		select
+			mem_name
+		from
+			zipcok_member
+		where
+			mem_id=#{mem_id}
+	</select>
 	
 	
 </mapper>
