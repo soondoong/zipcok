@@ -93,7 +93,7 @@
 					</tbody>
 				</table>
 				<div class="writebtn" style="float: right; margin: 10px;">
-					<ul>
+					<ul style="display: inline-flex; margin: 10px;">
 						<li style="float: left;"><input type="reset" value="다시 작성"  class="btn1 c1"></li>
 						<li><input type="submit" value="글쓰기"  class="btn1 c1"></li>
 					</ul>
