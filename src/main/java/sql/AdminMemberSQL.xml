@@ -95,23 +95,19 @@
 	where
 	<choose>
     	<when test="type=='전체'">
-     	   mem_id like '%%' and
+    		<choose>
+    			<when test="searchContent==''">mem_id like '%%'</when>
+    			<when test="searchContent!=''">mem_id like '%${searchContent}%'</when>
+    		</choose>
   	 	</when>
-  	 	<!--
-  	 	<choose>
-    	<when test="searchContent!=''">
-  	 	 mem_name like '%${searchContent}%' or  mem_id like '%${searchContent}%'
-  	 		</when>
-		</choose>
-		and
-  	 	-->
    	 	<when test="type=='회원이름'">
-   	    	mem_name like '%${searchContent}%' and
+   	    	mem_name like '%${searchContent}%'
    		</when>
     	<when test="type=='회원아이디'">
-        	mem_id like '%${searchContent}%' and
+        	mem_id like '%${searchContent}%'
     	</when>
 	</choose>
+	and
 	mem_out=1
     )a)b
     
@@ -126,15 +122,19 @@
 	where
 	<choose>
     	<when test="type=='전체'">
-     	   mem_id like '%%' and
+    		<choose>
+    			<when test="searchContent==''">mem_id like '%%'</when>
+    			<when test="searchContent!=''">mem_id like '%${searchContent}%'</when>
+    		</choose>
   	 	</when>
    	 	<when test="type=='회원이름'">
-   	    	mem_name like '%${searchContent}%' and
+   	    	mem_name like '%${searchContent}%'
    		</when>
     	<when test="type=='회원아이디'">
-        	mem_id like '%${searchContent}%' and
+        	mem_id like '%${searchContent}%'
     	</when>
 	</choose>
+	and
 	mem_out=1
     order by mem_idx
  	)a)b

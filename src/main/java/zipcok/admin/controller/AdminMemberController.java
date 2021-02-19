@@ -260,9 +260,6 @@ public class AdminMemberController {
 			@RequestParam(value = "type", defaultValue = "전체" ) String type,
 			@RequestParam(value = "cp", defaultValue = "1")int cp) {
 		
-		if(searchContent.equals("") || searchContent.length()==0) {
-			searchContent = "noInputMsg";
-		}
 	
 		ModelAndView mav=new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
