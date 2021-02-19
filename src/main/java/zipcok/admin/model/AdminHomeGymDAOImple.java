@@ -137,14 +137,14 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 		return dto;
 	}
 	@Override
-	public List<ReviewDTO> adminHomeGymReviewInfo(Map<String, Object> map) {
-		List<ReviewDTO> list = sqlMap.selectList("adminHomeGymReview", map);
-		return list;
+	public Double adminHomeGYmStarAvg(String hg_mem_id) {
+		double starAvg = sqlMap.selectOne("adminHomeGYmStarAvg", hg_mem_id);
+		return starAvg;
 	}
 	@Override
-	public int adminHomeGymReviewTotalCnt(String hg_mem_id) {
-		int result = sqlMap.selectOne("adminHomeGymReviewTotalCnt", hg_mem_id);
-		return result>0?1:result;
+	public int adminHomeGymApprovedChange(Map<String, Object> map) {
+		int result = sqlMap.update("adminHomeGymApprovedChangeSQL", map);
+		return result;
 	}
 	/////////////////////병길///////////////
 }

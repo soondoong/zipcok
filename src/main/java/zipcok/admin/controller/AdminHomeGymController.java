@@ -268,31 +268,35 @@ public class AdminHomeGymController {
 	@RequestMapping("adminHomeGymInfoAjax.do")
 	public ModelAndView HomegymInfo(@RequestParam("hg_mem_id")String hg_mem_id,
 			@RequestParam(value = "cp", defaultValue = "1")int cp) {
-		Map<String, Object> review_option = new HashMap<String, Object>();
-		review_option.put("hg_mem_id" , hg_mem_id);
-		int listSize = 5;
-		int pageSize = 5;
-		int start = (cp-1)*listSize + 1;
-		int end = cp * listSize;
-		review_option.put("start", start);
-		review_option.put("end", end);
 		HomeGymDTO hgContent = dao.adminHomeGymInfo(hg_mem_id);
 		int memberIdx = dao.adminHomeGymMemberIdx(hg_mem_id);
 		List<HomeGymEquipmentDTO> eqContent = dao.adminHomeGymEquipmentInfo(hg_mem_id);
 		PaymentDTO payContent = dao.adminHomeGymPaymentInfo(hg_mem_id);
-		List<ReviewDTO> reviewContent = dao.adminHomeGymReviewInfo(review_option);
-		int totalCnt = dao.adminHomeGymReviewTotalCnt(hg_mem_id);
-		String keywords = "&hg_mem_id="+hg_mem_id;
-		String pageStr = zipcok.page.HomeGymPageModule.makePage("adminHomeGymInfoAjax.do", totalCnt, cp, listSize, pageSize, keywords);
+		Double starAvg = dao.adminHomeGYmStarAvg(hg_mem_id);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);
 		mav.addObject("memberIdx", memberIdx);
 		mav.addObject("eqContent", eqContent);
 		mav.addObject("payContent", payContent);
-		mav.addObject("reviewContent", reviewContent);
-		mav.addObject("pageStr", pageStr);
+		mav.addObject("starAvg", starAvg);
 		mav.setViewName("jsonView");
 		return mav;
 	}
+	@RequestMapping("changeApprovedStatus")
+	public ModelAndView homegymApprovedChange(
+  		  @RequestParam("hg_approved_check")String hg_approved_check,
+  		  @RequestParam("hg_mem_id")String hg_mem_id ) {
+  	  Map<String, Object> map = new HashMap<String, Object>();
+  	  map.put("hg_approved_check", hg_approved_check);
+  	  map.put("hg_mem_id", hg_mem_id);
+  	  
+  	  int result = dao.adminHomeGymApprovedChange(map);
+  	  ModelAndView mav = new ModelAndView();
+  	  mav.addObject("hg_mem_id",hg_mem_id);
+  	  mav.addObject("hg_approved_check",hg_approved_check);
+  	  mav.addObject("hg_status", result);
+  	  mav.setViewName("jsonView");
+  	  return mav;
+    }
 	//////////////병길////////////////////
 }

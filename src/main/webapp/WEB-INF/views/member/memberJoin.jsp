@@ -122,12 +122,12 @@ $(document).ready(function() {
         
          
          /*폰인증조건-수연*/
-         if($('#mem_phone').is('[readonly]')){
+ /*        if($('#mem_phone').is('[readonly]')){
          		return true;
          }else{
         	 alert("휴대폰 본인인증을 진행해주세요");
         	 return false;
-         }
+         }*/
          
 
          if (idJ.test($('#mem_id').val())) {

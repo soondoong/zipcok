@@ -98,11 +98,28 @@
 		var params="rev_pd_idx="+pd_idx;
 		window.open("coachSeeHomeGymReviewPopup.do?"+params, "seeHomeGymReviewPopup","width=450,height=470,top=100,left=500");
 	}
-	function paymentCancel(pd_idx, reser_idx){
-		var check = window.confirm('결제를 취소하시겠습니까?');
-		if(check){
-			var params = 'pd_idx='+pd_idx+'&reser_idx='+reser_idx;
-			sendRequest('coachmypageHomeGymPaymentCancel.do', params, paymentCancel_rq, 'GET');
+	function paymentCancel(pd_idx, reser_idx,status, startdate){
+		//첫번째 조건-서비스종료일이 지낫는지
+		var d = new Date();
+		var year = d.getFullYear(); //년도
+		var month = d.getMonth()+1; //월
+		var day = d.getDate(); //일
+		if ((day+"").length < 2) {       // 일이 한자리 수인 경우 앞에 0을 붙여주기 위해
+				day = "0" + day;
+	       }
+		var getToday = year+"-"+month+"-"+day; // 오늘 날짜 (2021-02-07)
+		var startdate2 = new Date(startdate);
+		var todaydate= new Date(getToday);
+		if(startdate2 > todaydate){
+			var check = window.confirm('결제를 취소하시겠습니까?');
+			if(check){
+				var params = 'pd_idx='+pd_idx+'&reser_idx='+reser_idx;
+				sendRequest('coachmypageHomeGymPaymentCancel.do', params, paymentCancel_rq, 'GET');
+			}else{
+				window.alert('취소하였습니다.');
+			}
+		}else{
+			window.alert('예약 날짜 이후에는 결제 내역을 취소할 수 없습니다.\n자세한 내용은 고객센터로 부탁드립니다. ');
 		}
 	}
 	function paymentCancel_rq(){
@@ -185,7 +202,7 @@
 									<td><input type="button" value="상세 주소 확인" onclick = "javascript:addrDetailsPopup('${p.pd_target_id}');"></td>
 									<td>									
 									<c:if test="${p.pd_status eq '결제완료' }">
-										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx });">
+										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx }, '${p.pd_status }','${p.reser_date }');">
 									</c:if>								
 									</td>
 								</tr>
