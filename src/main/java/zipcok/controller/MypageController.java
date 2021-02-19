@@ -164,11 +164,11 @@ public class MypageController {
          mav.addObject("mem_id", mem_id);
          mav.addObject("msg", "비밀번호 수정 완료!");
          mav.addObject("gourl", "memberProfileForm.do");
-         mav.setViewName("mypage/mypageMsg");
+         mav.setViewName("mypage/mypagePopupMsg");
       }else {
-         mav.addObject("msg", "잘못된 정보입니다 고객센터에 문의해주세요.");
+         mav.addObject("msg", "비밀번호가 일치하지않습니다.");
          mav.addObject("gourl", "memberProfileForm.do");
-         mav.setViewName("mypage/mypageMsg");
+         mav.setViewName("mypage/mypagePopupMsg");
       }
       return mav;
    }
@@ -213,10 +213,15 @@ public class MypageController {
       
       ModelAndView mav= new ModelAndView();
       dto.setMem_id((String)session.getAttribute("sid"));
-      int result = dao.mypageEmailUpdate(dto);
-      String msg=result>0?"이메일 변경 성공!":"이메일 변경 실패!";
-      mav.addObject("msg", msg);
-      mav.addObject("gourl", "memberProfileForm.do");
+      int count=dao.mypageEmailConfirm(mem_email);
+      if(count>0) {
+    	  mav.addObject("msg", "사용중인 이메일입니다 다시 시도해주세요~");
+          mav.addObject("gourl", "memberProfileForm.do");
+      }else {
+    	  int result = dao.mypageEmailUpdate(dto);
+    	  mav.addObject("gourl", "memberProfileForm.do");
+    	  mav.addObject("msg", "이메일 변경 성공!");
+      }
       mav.setViewName("mypage/mypagePopupMsg");
       return mav;
       
@@ -230,7 +235,7 @@ public class MypageController {
    
    
    //전화번호 변경
-   @RequestMapping("/mypagePhonUpdate.do")
+   @RequestMapping("/mypagePhoneUpdate.do")
    public ModelAndView mypagePhoneUpdate(
          MemberDTO dto,
          HttpSession session,

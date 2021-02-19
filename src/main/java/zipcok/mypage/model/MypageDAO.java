@@ -20,6 +20,7 @@ public interface MypageDAO {
    public CoachFileDTO memberProfilePhoto(String mem_id);
    public int mypagePwdUpdate(MemberDTO dto);
    public int mypageAddrUpdate(MemberDTO dto);
+   public int mypageEmailConfirm(String mem_email);
    public int mypageEmailUpdate(MemberDTO dto);
    public int mypagePhoneUpdate(MemberDTO dto);
    public int mypageWriteListTotalCnt(String mem_id);//작성글 수

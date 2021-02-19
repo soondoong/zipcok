@@ -195,6 +195,12 @@ public CoachFileDTO findProfileDTO(String id) {
 		return count;
 	}
 	
+	
+	@Override
+	public int coachMypageEmailConfirm(String mem_email) {
+		String str = sqlMap.selectOne("coachMypageEmailConfirm", mem_email);
+		return str==null?0:1;
+	}
 	@Override
 	public int coachMypageEmailUpdate(MemberDTO dto) {
 		int count = sqlMap.update("coachMypageEmailUpdate", dto);

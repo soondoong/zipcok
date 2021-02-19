@@ -87,6 +87,12 @@ public class MypageDAOImple implements MypageDAO {
       return count;
    }
    
+   
+   @Override
+	public int mypageEmailConfirm(String mem_email) {
+		String str = sqlMap.selectOne("mypageEmailConfirm", mem_email);
+		return str==null?0:1;
+	}
    @Override
    public int mypageEmailUpdate(MemberDTO dto) {
       int count = sqlMap.update("mypageEmailUpdate", dto);
