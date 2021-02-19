@@ -136,7 +136,8 @@ function ajaxUnLike_rq(){
 .homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
 
 .homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
-
+.homegym_search_result h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
+.homegym_search_result h2{ color:#12151d; margin-top:20px;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging {margin: 40px 0 0; text-align: center;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 .homegym_wrap .homegym_search_result_list .homegym_search_result_list_paging a:not(:first-child) {margin-left: 5px;}
@@ -243,7 +244,7 @@ function ajaxUnLike_rq(){
 			</div>
 		</div>
 		<div class="homegym_search_result">
-			<h1>어떤 홈짐을 찾고 계신가요?</h1>
+			<h2 style="margin:30px 0px;">&nbsp;어떤 홈짐을 찾고 계신가요?</h2>
 			<div class="homegym_search_result_list">
 				<hr>
 				<c:set var="HomeGymList" value="${HomeGymList }" />

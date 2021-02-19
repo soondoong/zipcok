@@ -17,8 +17,8 @@
 	 <!-- End Hero -->
 	 
 	<section>
-		<div style="width:100%; height: 420px; padding:100px 150px;">
-			<strong style="font-size:23px; color:#efd0a9;">EVERYDAY HAPPY</strong>
+		<div style="width:100%; height: 450px; padding:120px 150px;">
+			<strong style="font-size:23px; color:#3c7ab9;">EVERYDAY HAPPY</strong>
 			<h2 style="margin-top:15px;line-height: 1.4;">다양한 카테고리의 운동을<br>
 			원하는 수업형태의 클래스로 만나보세요!</h2>
 			<p style="color:#b6b8c3;margin-top:20px;">필라테스, 맨몸운동, 요가 등 다양한 분야의 코치들과<br>
@@ -30,16 +30,16 @@
 	
 	<style>
 	.eximgdiv{ display: flex; overflow: hidden;}
-	.eximgdiv img{width:306px;}
+	.eximgdiv img{width:290px;}
 	</style>
 	
 		<section >
 		<div  class="eximgdiv">
-			<img src="img/main/lp_category_card_black3x.png" >
+			<img src="img/main/main4.png" >
 			<img src="img/main/lp_category_card_gray3x.png" >
 			<img src="img/main/lp_category_card_ivory3x.png" >
-			<img src="img/main/lp_category_card_red3x.png"  >
-			<img src="img/main/lp_category_card_black3x.png" >
+			<img src="img/main/main1.png"  >
+			<img src="img/main/main4.png" >
 			<img src="img/main/lp_category_card_gray3x.png" >
 		</div>
 	</section>
