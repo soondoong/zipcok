@@ -7,8 +7,109 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
+<script>
+/*주소*/
+function addrshowPopup(hasFilter) {
+	const popup = document.querySelector('#popup');
+  
+  if (hasFilter) {
+  	popup.classList.add('has-filter');
+  } else {
+  	popup.classList.remove('has-filter');
+  }
+  
+  popup.classList.remove('hide');
+}
+
+function addrclosePopup() {
+	const popup = document.querySelector('#popup');
+  popup.classList.add('hide');
+}
+
+/*이메일*/
+function emailshowPopup(hasFilter) {
+	const popup = document.querySelector('#popup2');
+  
+  if (hasFilter) {
+  	popup.classList.add('has-filter');
+  } else {
+  	popup.classList.remove('has-filter');
+  }
+  
+  popup.classList.remove('hide2');
+}
+
+function addrclosePopup() {
+	const popup = document.querySelector('#popup2');
+  popup.classList.add('hide2');
+}
+</script>
+
 
 <style>
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+
+
+
+#popup2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup2.hide2 {
+  display: none;
+}
+
+#popup2.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup2 .content2 {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+
+/**/
 .mypage_contents .reupload {
 	position: relative;
 	top: -77px;
@@ -77,6 +178,7 @@
 }
 </style>
 
+
 <script src="https://kit.fontawesome.com/802041d611.js"
 	crossorigin="anonymous"></script>
 <script>
@@ -93,7 +195,7 @@
 	}
 	function mypagePhoneUpdate() {
 		window.open('mypagePhoneUpdateForm.do?mem_id=${sessionScope.sid}',
-				'emailUpdate', 'width=550,height=300');
+				'phoneUpdate', 'width=550,height=300');
 	}
 
 	
@@ -109,6 +211,7 @@
 		<div class="mypage_contents">
 			<div class="mypage_main">
 				<div class="nomalAllWrap">
+
 					<h2 class="titlee">&nbsp;기본 프로필</h2>
 					<hr>
 
@@ -165,7 +268,7 @@
 								value="수정" class="rebtn" onclick="mypagePwdUpdate()">
 						</div>
 						<div>
-							<span>주소</span><input type="button" value="수정" class="rebtn" onclick="mypageAddrUpdate()">
+							<span>주소</span><input type="button" value="수정" class="rebtn" onclick="addrshowPopup(false)">
 							<p>${dto.mem_addr }<br>${dto.mem_detailaddr }</p>
 							<input type="hidden" name="mem_zipcode" value="${dto.mem_zipcode }">
 							<input type="hidden" name="mem_addr" value="${dto.mem_addr }">
@@ -174,8 +277,8 @@
 						</div>
 						<div>
 							<span>이메일</span>${dto.mem_email } <input type="hidden"
-								name="mem_email" value="${dto.mem_email }"><input
-								type="button" value="수정" class="rebtn" onclick="mypageEmailUpdate()">
+								name="mem_email" value="${dto.mem_email }">
+								<input type="button" value="수정" class="rebtn" onclick="emailshowPopup(false)">
 						</div>
 						<div>
 							<span>전화번호</span>${dto.mem_phone } <input type="hidden"
@@ -190,9 +293,179 @@
 
 				</div>
 			</div>
-			<!--nomalAllWrap-->
 		</div>
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+<!-- 주소변경 팝업 테스트 -->
+<div id="popup" class="hide">
+  <div class="content">
+    <article>
+		<form action="mypageAddrUpdate.do">
+		<div class="member-profile-container">
+			
+			<div class="col-sm-20 col-md-offset-3">
+			<h4>주소변경</h4>
+			<hr>
+				<div class="form-group">
+					<input class="form-control" style="width: 40%; display: inline;"
+						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
+						readonly="readonly">
+					<button type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						onclick="execPostCode();">
+						<i class="fa fa-search"></i> 우편번호 찾기
+					</button>
+				</div>
+
+
+				<div class="form-group">
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
+						name="mem_addr" id="mem_addr" type="text" readonly="readonly" />
+				</div>
+
+
+				<div class="form-group">
+					<input class="form-control" placeholder="상세주소"
+						name="mem_detailaddr" id="mem_detailaddr" type="text" />
+				</div>
+
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="button" class="btn btn-primary" onclick="addrclosePopup()">닫기</button>
+				</div>
+			</div>
+			</div>
+		</form>
+	</article>
+    
+  </div>
+</div>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- daum 도로명주소 찾기 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script type="text/javascript">
+var address = $('#mem_detailaddr');
+
+$(document).ready(function() {
+   var address = $('#mem_detailaddr');
+   
+ 
+     $('form').on('submit',function(){
+         var inval_Arr = new Array(8).fill(false);
+       
+         //주소확인
+         if(address.val() == ''){
+            inval_Arr[7] = false;
+            alert('주소를 확인하세요.');
+            return false;
+         }else
+            inval_Arr[7] = true;
+      
+       });
+
+});
+
+//우편번호 찾기 버튼 클릭시 발생 이벤트
+function execPostCode() {
+     new daum.Postcode({
+         oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+            if(fullRoadAddr !== ''){
+                fullRoadAddr += extraRoadAddr;
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            console.log(data.zonecode);
+            console.log(fullRoadAddr);
+         /*      var a = console.log(data.zonecode);
+            var b = console.log(fullRoadAddr);
+            
+            if(a == null || b = null){
+               alert("주소를 확인하세요.");
+               return false;
+            }   */
+            
+            
+            $("[name=mem_zipcode]").val(data.zonecode);
+            $("[name=mem_addr]").val(fullRoadAddr);
+            
+            document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('mem_addr').value = fullRoadAddr;
+
+            //document.getElementById('mem_detailaddr').value = data.jibunAddress; 
+        }
+     }).open();
+ }
+</script>
+
+
+
+<!-- 휴대전화 테스트 -->
+<div id="popup2" class="hide2">
+  <div class="content2">
+    <article>
+		<form action="mypagePhonUpdate.do">
+			<h4>전화번호 변경</h4>
+			<hr>
+			<div class="col-sm-8">
+
+				<div class="form-group">
+					<label for="mem_phone">휴대폰 번호('-'없이 번호만 입력해주세요)</label><br> <input
+						type="tel" class="form-control" id="mem_phone" name="mem_phone"
+						placeholder="Phone Number">
+					<div class="eheck_font" id="phone_check">
+						<input type="button" class="btn btn-default"
+							style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+							value="인증번호전송" onclick="sendphone()"><br> <input class="form-control"
+							style="width: 40%; display: inline;" placeholder="인증번호"
+							name="mem_phoneOk" id="mem_phoneOk" type="text"> <input
+							type="button" class="btn btn-default"
+							style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+							 id="checkBtn" value="인증하기">
+					</div>
+
+
+					<div class="form-group mt-5">
+						<button type="submit" class="btn btn-primary">변경하기</button>
+						<button type="button" class="btn btn-primary" onclick="emailclosePopup()">닫기</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</article>
+  </div>
+</div>
+
+
 	<%@include file="../_include/footer.jsp"%>
 </body>
 </html>
