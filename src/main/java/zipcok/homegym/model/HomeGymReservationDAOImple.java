@@ -30,4 +30,10 @@ public class HomeGymReservationDAOImple implements HomeGymReservationDAO {
 		HomeGymReservationDTO dto = sqlMap.selectOne("hgReservationSelectSQL", reser_idx);
 		return dto;
 	}
+	@Override
+	public String reserDateFind(int reser_idx) {
+		String reser_date = sqlMap.selectOne("hgReserDateFind", reser_idx);
+		reser_date = reser_date.substring(0,10);
+		return reser_date;
+	}
 }

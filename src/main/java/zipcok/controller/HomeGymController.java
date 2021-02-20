@@ -183,6 +183,10 @@ public class HomeGymController {
 		review_option.put("start", start);
 		review_option.put("end", end);
 		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(review_option);
+		for(int i = 0 ; i < reviewList.size(); i++) {
+			String reser_date = homegymreserDAO.reserDateFind(homegympdDAO.ReserIdxFind(reviewList.get(i).getRev_pd_idx()));
+			reviewList.get(i).setReser_date(reser_date);
+		}
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymContent.do", totalCnt, cp, listSize, pageSize, keyword);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("hgContent", hgContent);

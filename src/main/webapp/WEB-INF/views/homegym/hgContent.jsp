@@ -309,23 +309,26 @@ window.addEventListener('load', function() {
 	});
 </script>
 <style>
-.top_info{background-color:#0099ff; width:100%; height:100px; color: white; margin-bottom: 20px; padding-left: 100px;}
-.top_info .top_info_like {position: absolute; left:35px; top:115px; z-index: 1; width:20px; height:20px;}
-.top_contentArea {width:1400px; height:550px; margin:50px 100px 0px 100px;}
+.top_info{height:100px; margin:50px 100px 20px 100px; display: flex;}
+.top_info .top_info_left {background-color:#0099ff; width:90px; height:90px; color: white; margin-bottom: 20px; padding:10px; z-index: 99;}
+.top_info .top_info_left h3{margin:0px auto;}
+.top_info .top_info_right {margin-left: 50px; margin-top:10px;}
+.top_info .top_info_left img {width:70px; height:20px;}
+.top_contentArea {width:1000px; height:550px; margin:50px 100px 0px 200px;}
 .top_contentArea .top_contentImg {width:900px; height:500px;}
 .top_contentArea .top_contentImg .carousel-item img {width:900px; height:500px; object-fit:fill;}
-.top_contentArea .remoteArea {width: 500px; height:500px; font-size:20px; position: absolute; top:240px; right:80px;}
+.top_contentArea .remoteArea {width: 400px; height:500px; font-size:20px; position: absolute; top:150px; right:50px;}
 .top_contentArea .remoteArea li {height:40px;}
-.top_contentArea .remoteArea select {width:240px;}
-.top_contentArea .remoteArea .reser_select {width:200px; font-size:15px;}
+.top_contentArea .remoteArea select {width:150px;}
+.top_contentArea .remoteArea .reser_select {width:150px; font-size:15px;}
 .top_contentArea .remoteArea input[type=text] {width:263px;}
 .top_contentArea .remoteArea .expect_price_span {color:red;}
 .top_contentArea .remoteArea #reservationInfo_click{ display:none;}	
-.bottom_contentArea {width:900px; margin:50px 100px 0px 100px;}
+.top_contentArea .remoteArea .card .card-title {font-size: 30px; font-weight: 600;}
+.top_contentArea .remoteArea .card .card-body .likeArea {margin-left: 20px; margin-top:10px;}
+.bottom_contentArea {width:1000px; margin:50px 100px 0px 100px;}
 .bottom_contentArea .hgContent p {font-size: 15px;}
 .bottom_contentArea .hgContent label {color:red; }
-.bottom_contentArea .eqlistArea {text-align: center;}
-.bottom_contentArea .eqlistArea h {text-align: center;}
 .bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px; justify-content: space-around;}
 .bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px;}
 .bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 15px; font-weight: 200;}
@@ -333,45 +336,41 @@ window.addEventListener('load', function() {
 .bottom_contentArea .reserNoticeArea table {border:3px double gray; border-radius: 6px;}
 .bottom_contentArea .reserNoticeArea table th {width:150px; vertical-align: top; border:3px double gray; border-radius: 6px;}
 .bottom_contentArea .reserNoticeArea table td {border:3px double gray; border-radius: 6px;}
-.bottom_contentArea .reserNoticeArea h3 {text-align:center;}
-.bottom_contentArea .mapArea {text-align:center; width:900px; height:450px; margin-bottom: 50px;}
+.bottom_contentArea .mapArea {width:900px; height:450px; margin-bottom: 50px;}
 .bottom_contentArea .mapArea #map {margin:0px auto;}
-.bottom_contentArea .reviewArea {text-align:center; margin-bottom:30px;}
+.bottom_contentArea .reviewArea {margin-bottom:30px;}
 .bottom_contentArea .reviewArea table { min-height: 300px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging {margin: 40px 0 0; text-align: center;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
-.likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
+.likeicon{ font-size:25px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
 </style>
 
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <div class = "top_info">
-	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
-	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
-	<h5>평점 : ${star_avg }</h5>
+	<div class = "top_info_left">
+	<h3>${star_avg }</h3>
 	<c:if test = "${star_avg>=0 && star_avg<=1 }">
-	<img src = "img/coach/star/star1.jpg">
+	<img src = "img/coach/star/pngstar1.png">
 	</c:if>
 	<c:if test = "${star_avg>1 && star_avg<=2 }">
-	<img src = "img/coach/star/star2.jpg">
+	<img src = "img/coach/star/pngstar2.png">
 	</c:if>
 	<c:if test = "${star_avg>3 && star_avg<=4 }">
-	<img src = "img/coach/star/star3.jpg">
+	<img src = "img/coach/star/pngstar3.png">
 	</c:if>
 	<c:if test = "${star_avg>4 && star_avg<=5 }">
-	<img src = "img/coach/star/star4.jpg">
+	<img src = "img/coach/star/pngstar4.png">
 	</c:if>
 	<c:if test = "${star_avg>5 }">
-	<img src = "img/coach/star/star5.jpg">
+	<img src = "img/coach/star/pngstar5.png">
 	</c:if>
-	<div class = "top_info_like">
-		<c:if test="${like_result ==0 }">
-			<a href="#" class="ia" id="${ hgContent.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
-		</c:if>
-		<c:if test="${like_result ==1 }">
-			<a href="#" class="ia toggleStyle" id="${ hgContent.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
-		</c:if>	
+	</div>
+	
+	<div class = "top_info_right">
+		<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
+		<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
 	</div>
 </div>
 <div class = "top_contentArea">
@@ -402,7 +401,15 @@ window.addEventListener('load', function() {
 	<div class = "remoteArea" id = "sidebox">
 		<div class="card">
 			<div class="card-body">
-				<h5 class="card-title">${hgContent.hg_nickname }님의 홈짐</h5>
+				<label class="card-title">${hgContent.hg_nickname }님의 홈짐</label>
+				<span class = "likeArea">
+					<c:if test="${like_result ==0 }">
+						<a href="#" class="ia" id="${ hgContent.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
+					</c:if>
+					<c:if test="${like_result ==1 }">
+						<a href="#" class="ia toggleStyle" id="${ hgContent.hg_mem_id }"><i class="fas fa-heart likeicon likeafter"></i></a>						
+					</c:if>	
+				</span>
 				<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
 				<div class = "card-text">
 					<ul id = "reservationInfo">
@@ -457,6 +464,7 @@ window.addEventListener('load', function() {
 			</div>
 		</c:forEach>
 		</div>
+		<hr>
 	</div>
 	<div class = "reserNoticeArea">
 		<h3>예약 시 주의사항</h3>
@@ -491,52 +499,46 @@ window.addEventListener('load', function() {
 				</td>
 			</tr>
 		</table>
+		<hr>
 	</div>
 	<div class = "mapArea">
-		<h3>지도</h3>
+		<h3>오시는 길</h3>
 		<div id="map"></div>
 	</div>
+	<hr>
 	<div class = "reviewArea">
 		<h3>이용 후기</h3>
-		<table>
-			<thead>
-				<tr>
-					<th>별점</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>작성자</th>
-					<th>작성 날짜</th>
-				</tr>
-			</thead>
-			<tfoot>
-				<tr>
-					<td colspan = "5" class = "contetn_reivew_paging">${pageStr }</td>
-				</tr>
-			</tfoot>
+		<c:if test="${empty reviewList}">
+		<div>작성 된 후기가 없습니다.</div>
+		</c:if>
+		<c:if test="${!empty reviewList}">
+		<table  width="900px" cellspacing="0" class="mt-3">
 			<tbody>
-				<c:if test = "${empty reviewList }">
-					<tr>
-						<td colspan = "5">
-							등록된 리뷰가 없습니다.
-						</td>
-					</tr>
-				</c:if>
-				<c:forEach var="dto" items="${reviewList }">
-					<tr>
-						<td style="border-top: 1px solid lightgray; padding-top: 10px;">
-							<div style="position: relative; float: left;">
-								<img src="img/coach/noimg.png" style="width: 50px; margin-right: 10px;">
-								<span><img src="img/coach/star/star${dto.rev_star }.jpg" style="width: 80px; margin: 0 20px 0 0;"></span>
-							</div>
-						</td>
-						<td><span style="font-size: 1rem; font-weight: 500;">${dto.rev_sub }</span></td>
-						<td><p style="font-size: 0.9rem;">${dto.rev_cont }</p></td>
-						<td><p style="font-size: 1.2rem; font-weight: 600; margin: 0 0 0 10px;">${dto.rev_mem_id }</p></td>
-						<td><span style="font-size: 0.9rem;">${dto.rev_writedate}</span></td>
-					</tr>
+				<c:forEach var="r" items="${ reviewList }">
+				<tr>
+				<td style="border-top:1px solid lightgray; padding-top:10px;">
+				
+				<div>
+				<div style="position:relative; float:left;"><img src="img/coach/noimg.png" style="width:50px; margin-right:10px;"></div>
+				<p style="font-size:1.2rem; font-weight:600; margin:0 0 0 10px;">${r.rev_mem_id }</p>
+				<span><img src="img/coach/star/star${r.rev_star }.jpg" style="width:80px; margin:0 20px 0 0;"></span>
+				<span style="font-size:0.9rem;">${r.rev_writedate}</span>
+				</div>
+	
+				</td>
+				</tr>
+			
+				<tr>
+				<td><span style="font-size:1rem; font-weight:500;">${r.rev_sub }</span></td>
+				</tr>
+				<tr>
+				<td><p style="font-size:0.9rem;">${r.rev_cont }</p></td>
+				</tr>
+				
 				</c:forEach>
 			</tbody>
 		</table>
+		</c:if>
 	</div>
 </div>
 <%@include file="../_include/footer.jsp" %>
