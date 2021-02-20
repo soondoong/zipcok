@@ -413,12 +413,27 @@ ServletContext c;
 			ModelAndView mav = new ModelAndView();
 			dto.setMem_id((String)session.getAttribute("coachId"));
 			int result = cdao.coachMypageAddrUpdate(dto);
-			String msg=result>0?"주소변경 성공!":"주소변경 실패!";
+			String msg=result>0?"주소가 변경되었습니다":"주소변경 실패!";
 			mav.addObject("msg", msg);
 			mav.addObject("gourl", "coachMyPage.do");
 			mav.setViewName("coachMyPage/coachMypagePopupMsg");
 			return mav;
 		}
+		
+		//코치활동주소 변경
+		@RequestMapping("coachAddrUpdate.do")
+		public ModelAndView coachAddrUpdate(CoachDTO dto,
+				HttpSession session) {
+			ModelAndView mav = new ModelAndView();
+			dto.setCoach_mem_id((String)session.getAttribute("coachId"));
+			int result = cdao.coachAddrUpdate(dto);
+			String msg=result>0?"주소가 변경되었습니다":"주소변경 실패!";
+			mav.addObject("msg", msg);
+			mav.addObject("gourl", "coachMyPage.do");
+			mav.setViewName("coachMyPage/coachMypagePopupMsg");
+			return mav;
+		}
+		
 		
 		@RequestMapping("/coachMypageEmailUpdateForm.do")
 		public String coachMypageEmailUpdateForm() {
@@ -735,6 +750,29 @@ ServletContext c;
 	    mav.setViewName("coachMyPage/coachMypagePopupMsg");
 		return mav;
 	}
+	
+	
+	/*결제계좌정보 수정하기Ajax*/
+	@RequestMapping("accountUpdate.do")
+	public ModelAndView accountUpdate(PaymentDTO paymentdto) {
+		
+		int count =cdao.accountUpdate(paymentdto);
+		
+		
+		String msg=count>0?"계좌정보를 수정하였습니다":"정보수정실패";
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("msg",msg);
+
+		
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

@@ -9,69 +9,6 @@
 <link href="assets/css/mypage.css" rel="stylesheet">
 
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
-<style>
-.mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
-font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
-#file{display:none;}
-.titlee{ color:#12151d; margin-bottom:20px;}
-.titlee:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
-.titlee hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
-
-/*일반프로필 css*/
-.pfDIV{ height:360px; margin-top:30px;}
-.nomalInfo{ padding: 0 0 50px 40px;}
-.nomalInfo div{width: 500px; padding: 15px 0; font-size: 19px; border-bottom:1px solid #e4e4e4;}
-.nomalInfo div span{ font-weight: 550; padding-right: 50px;}
-.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
-.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
-/*코치프로필 css*/
-.coachInfo{width:500px;flex-direction: row; margin-left:100px;}
-/*커리큘럼css*/
-    .nocurriWrap{display:flex; width:400px; margin-top:20px;}
-	.catenameDiv .catename{font-size:17px;font-weight: bold;} 
-	.currimore{cursor: pointer;margin-right: 10px;}
-	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
-	.showinputs{display:none;}
-	.showinputs input{ width: 300px;}
-	.showinputs textarea{ width: 300px; height: 100px;}
-    .showinputs ol,.showinputs li{ list-style: decimal;width: 300px; }
-    .showinputs li{ margin-top:15px;}
-    .plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:5px 0 0 5px; cursor: pointer;}
-	.minusbtn{font-size:21px; margin-left:3px; color:#ce0c0c;}
-	.plusbtn span{font-size:15px;  }
-	.currititle{display:inline-block;}
-	.curriesInputAll{display:block; border:0px;  border-radius: 5px; padding: 0 15px; width: 300px; font-weight: 400; font-size: 14px;}
-	.curriOneDIV .curri_name_input{margin:13px 0 12px 0; font-size: 17px; font-weight:bold; }
-	.curriOneDIV .curri_content_input{margin:0 0 25px 0; font-size: 14px; width: 300px; }
-</style>
-
-<!-- 병모 팝업 수정css -->
-<style>
-#popup { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
-#popup.hide { display: none; }
-#popup.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-#popup .content { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
-
-
-#popup2 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
-#popup2.hide2 { display: none; }
-#popup2.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-#popup2 .content2 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
-
-
-#popup3 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
-#popup3.hide3 { display: none; }
-#popup3.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-#popup3 .content3 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
-
-
-#popup4 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
-#popup4.hide4 { display: none; }
-#popup4.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-#popup4 .content4 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
-</style>
-<!-- 병모 팝업 수정css 끝-->
-
 <!-- 병모 팝업 수정 함수 -->
 <script>
 /*주소*/
@@ -87,10 +24,31 @@ function addrshowPopup(hasFilter) {
   popup.classList.remove('hide');
 }
 
+
 function addrclosePopup() {
 	const popup = document.querySelector('#popup');
   popup.classList.add('hide');
 }
+
+
+/*주소 (코치버전)*/
+function addrshowPopupCoach(hasFilter) {
+		const popup = document.querySelector('#popupCoach');
+		  
+		  if (hasFilter) {
+		  	popup.classList.add('has-filter');
+		  } else {
+		  	popup.classList.remove('has-filter');
+		  }
+		  
+		  popup.classList.remove('hide');
+}
+
+function addrclosePopupCoach() {
+	const popup = document.querySelector('#popupCoach');
+  popup.classList.add('hide');
+}
+
 
 /*이메일*/
 function phoneshowPopup(hasFilter) {
@@ -155,6 +113,76 @@ function emailclosePopup() {
 </head>
 <body>
 <%@include file="../header2.jsp"%>
+<style>
+.mypage_contents .reupload{position: relative; top:-77px; left:359px; background-color: #b7b7b7; 
+font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%;}
+#file{display:none;}
+.titlee{ color:#12151d; margin-bottom:20px;}
+.titlee:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
+.titlee hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
+
+/*일반프로필 css*/
+.pfDIV{ height:360px; margin-top:30px;}
+.nomalInfo{ padding: 0 0 50px 40px;}
+.nomalInfo div{width: 500px; padding: 15px 0; font-size: 19px; border-bottom:1px solid #e4e4e4;}
+.nomalInfo div span{ font-weight: 550; padding-right: 50px;}
+.rebtn{width:50px; margin:4px 0 0 10px; height:20px; font-size: 12px; border: 0px; border-radius: 5px; background-color: #e4e4e4;}
+.okbtn{width: 100px; margin:0; height: 30px; font-weight:bold; font-size:15px;  border: 0px; border-radius: 5px; color:white;background-color:#257cd6;}
+/*코치프로필 css*/
+.coachInfo{width:500px;flex-direction: row; margin-left:100px;}
+/*커리큘럼css*/
+    .nocurriWrap{display:flex; width:400px; margin-top:20px;}
+	.catenameDiv .catename{font-size:17px;font-weight: bold;} 
+	.currimore{cursor: pointer;margin-right: 10px;}
+	.currimore .curriP {padding-left:20px;font-size:18px;color:#20208a;}
+	.showinputs{display:none;}
+	.showinputs input{ width: 300px;}
+	.showinputs textarea{ width: 300px; height: 100px;}
+    .showinputs ol,.showinputs li{ list-style: decimal;width: 300px; }
+    .showinputs li{ margin-top:15px;}
+    .plusbtn,.minusbtn{font-size:20px; color: #257cd6; margin:5px 0 0 5px; cursor: pointer;}
+	.minusbtn{font-size:21px; margin-left:3px; color:#ce0c0c;}
+	.plusbtn span{font-size:15px;  }
+	.currititle{display:inline-block;}
+	.curriesInputAll{display:block; border:0px;  border-radius: 5px; padding: 0 15px; width: 300px; font-weight: 400; font-size: 14px;}
+	.curriOneDIV .curri_name_input{margin:13px 0 12px 0; font-size: 17px; font-weight:bold; }
+	.curriOneDIV .curri_content_input{margin:0 0 25px 0; font-size: 14px; width: 300px; }
+
+/*readonly수정되는 인풋들*/
+
+input[type="text"]:not(.cnginputs),textarea:not(.cnginputs){background-color:  white; border:0px;}
+/*코치소개사진*/
+.lastimgDiv{ color:#12151d; margin-bottom:20px;}
+.lastimgDiv:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
+.coachmypage_main hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
+/* 병모 팝업 수정css */
+
+#popup,#popupCoach { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
+#popup.hide,#popupCoach.hide { display: none; }
+#popup.has-filter,#popupCoach.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+#popup .content,#popupCoach .content { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
+
+
+#popup2 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
+#popup2.hide2 { display: none; }
+#popup2.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+#popup2 .content2 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
+
+
+#popup3 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
+#popup3.hide3 { display: none; }
+#popup3.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+#popup3 .content3 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
+
+
+#popup4 { display: flex; justify-content: center; align-items: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, .7);z-index: 1; }
+#popup4.hide4 { display: none; }
+#popup4.has-filter { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+#popup4 .content4 { padding: 20px; background: #fff; border-radius: 5px; box-shadow: 1px 1px 3px rgba(0, 0, 0, .3); width : 550px; }
+</style>
+<!-- 병모 팝업 수정css 끝-->
+
+
 
 <c:set var="dto" value="${resultMap.coachDTO }"/>
 <c:set var="file" value="${resultMap.coachFileList }"/>
@@ -167,8 +195,8 @@ function emailclosePopup() {
 <div class="mypage_wrap">	
 <%@include file="./coachMypageSideMenu.jsp"%>
 <!-- 프로필 본문-->
-
-<div class="mypage_contents">	
+<div class="mypage_contents">
+<div >	
 	<div class="mypage_main coachmypage_main">		
 	<div class="nomalAllWrap">
 		<h2  class="titlee">&nbsp;기본 프로필</h2>
@@ -257,7 +285,7 @@ function emailclosePopup() {
 						readonly="readonly">
 					<button type="button" class="btn btn-default"
 						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						onclick="execPostCode();">
+						onclick="execPostCode('일반');">
 						<i class="fa fa-search"></i> 우편번호 찾기
 					</button>
 				</div>
@@ -285,6 +313,58 @@ function emailclosePopup() {
     
   </div>
 </div>
+<!-- 병모주소변경팝업 -->
+
+<!-- 코치주소변경팝업 -->
+<div id="popupCoach" class="hide">
+  <div class="content">
+    <article>
+		<form id="addrForm" action="coachAddrUpdate.do">
+		<div class="member-profile-container">
+			
+			<div class="col-sm-20 col-md-offset-3">
+			<h4>주소변경</h4>
+			<hr>
+				<div class="form-group">
+					<input class="form-control" style="width: 40%; display: inline;"
+						placeholder="우편번호" name="mem_zipcode" id="mem_zipcode" type="text"
+						readonly="readonly">
+					<button type="button" class="btn btn-default"
+						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+						onclick="execPostCode('코치');">
+						<i class="fa fa-search"></i> 우편번호 찾기
+					</button>
+				</div>
+
+
+				<div class="form-group">
+					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
+						name="coach_floc" id="coach_floc" type="text" readonly="readonly" />
+				</div>
+
+
+				<div class="form-group">
+					<input class="form-control" placeholder="상세주소"
+						name="coach_sloc" id=coach_sloc type="text" required="required" />
+				</div>
+				<br>
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-primary">변경하기</button>
+					<button type="button" class="btn btn-primary" onclick="addrclosePopupCoach()">닫기</button>
+				</div>
+			</div>
+			</div>
+		</form>
+	</article>
+    
+  </div>
+</div>
+<!-- 코치주소 변경팝업 -->
+
+
+
+
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- daum 도로명주소 찾기 api -->
@@ -313,7 +393,7 @@ $(document).ready(function() {
 });
 
 //우편번호 찾기 버튼 클릭시 발생 이벤트
-function execPostCode() {
+function execPostCode(key) {
      new daum.Postcode({
          oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -352,12 +432,23 @@ function execPostCode() {
                return false;
             }   */
             
-            
-            $("[name=mem_zipcode]").val(data.zonecode);
-            $("[name=mem_addr]").val(fullRoadAddr);
-            
-            document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('mem_addr').value = fullRoadAddr;
+            if(key =='일반'){
+                
+                $("[name=mem_zipcode]").val(data.zonecode);
+                $("[name=mem_addr]").val(fullRoadAddr);
+                           
+                document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('mem_addr').value = fullRoadAddr;
+            }else{
+                
+                $("[name=mem_zipcode]").val(data.zonecode);
+                $("[name=coach_floc]").val(fullRoadAddr);
+                           
+                document.getElementById('mem_zipcode').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('coach_floc').value = fullRoadAddr;
+            }
+       
+          
 
             //document.getElementById('mem_detailaddr').value = data.jibunAddress; 
         }
@@ -672,17 +763,23 @@ function showTwo(){
 	<style>
 	.ptitle{font-size:20px; font-weight: 550;margin:0 0 10px 0; display: inline-block;}
 	.coachdetails{margin:30px 0 0 30px;}
-	.crebtn{margin: 4px 0 0 30px;}
+	.crebtn{margin: 4px 0 0 30px; }
+	.upokbtn{width:60px;}
 	.currititle{font-size:18px; font-weight: 400;}
+	.acc{width: auto;}
+	.bankname{width: 40px;}
 	</style>				
 						
 			<div class="coachdetails">
 					<div>
-						<p class="ptitle">결제계좌정보</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
-						<p>${accdto.pa_bankname }&nbsp;${accdto.pa_no }&nbsp;${accdto.pa_username }</p>
+						<p class="ptitle">결제계좌정보</p><span class="accspan"><input type="button"value="수정" class="rebtn crebtn" onclick="accountUpdate()"></span>
+						<p style="display: flex;">
+						<input type="text"  class="bankname acc"  value="${accdto.pa_bankname }"  placeholder="은행 명을 입력해주세요."maxlength='5'  readonly="readonly">
+						<input type="text" class="banknum acc"    value="${accdto.pa_no }"  placeholder="'-' 없이 번호만 입력해주세요."  maxlength='14'  readonly="readonly">
+						<input type="text" class="accname acc"    value="${accdto.pa_username }"placeholder="계좌의 예금 주 이름을 입력해주세요."  maxlength='6' readonly="readonly"></p>
 					</div>
 					<div>
-						<p class="ptitle">활동지역</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
+						<p class="ptitle">활동지역</p><input type="button"value="수정" class="rebtn" onclick="addrshowPopupCoach(false)">
 						<p>${dto.coach_floc }</p>
 					</div>
 					
@@ -692,12 +789,12 @@ function showTwo(){
 					</div>	
 					
 					<div style="margin-top:30px;">
-						<p class="ptitle">소개글 제목</p><span class="subspan"><input type="button"value="수정" class="rebtn crebtn" onclick="subrewrite()"></span>
-						<p><input type="text" id="sub" value="${dto.coach_intro_sub }" readonly="readonly"></p>
+						<p class="ptitle">소개글 제목</p><span class="contspan"><input type="button"value="수정" class="rebtn crebtn" onclick="introContUpdate()"></span>
+						<p><input type="text" id="sub"  value="${dto.coach_intro_sub }" maxlength='15'  readonly="readonly"></p>
 					</div>
 					<div  style="margin-top:30px;">
-						<p class="ptitle">소개글</p><input type="button"value="수정" class="rebtn crebtn" onclick="">
-						<p>${dto.coach_intro_cont }</p>			
+						<p class="ptitle">소개글</p>
+						<textarea  id="coach_intro_cont" style="height: 100px;"   readonly="readonly">${dto.coach_intro_cont }</textarea>		
 					</div>	
 									
 					<div style="margin-top:30px;">	 
@@ -740,27 +837,27 @@ function showTwo(){
 								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
 								<input type="hidden" name="curri_catename" value="${c.cate_name }">
 								<input type="hidden" name="curri_order" value="1">
-								<input type="text" name="curri_name" id="${c.cate_name }11" placeholder="운동제목" 
+								<input type="text" class="cnginputs" name="curri_name" id="${c.cate_name }11" placeholder="운동제목" 
 								value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(0).curri_name:twoList.get(0).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }12" placeholder="간단한 설명을 적어주세요(최대100자)">
+								<textarea name="curri_content" class="cnginputs"  id="${c.cate_name }12" placeholder="간단한 설명을 적어주세요(최대100자)">
 								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(0).curri_content:twoList.get(0).curri_content}</textarea>
 							
 							<li>
 								<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
 								<input type="hidden" name="curri_catename" value="${c.cate_name }">
 								<input type="hidden" name="curri_order" value="2">	
-								<input type="text" name="curri_name" id="${c.cate_name }21" placeholder="운동제목"
+								<input type="text"  class="cnginputs" name="curri_name" id="${c.cate_name }21" placeholder="운동제목"
 								value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(1).curri_name:twoList.get(1).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }22"placeholder="간단한 설명을 적어주세요(최대100자)">
+								<textarea name="curri_content"class="cnginputs"  id="${c.cate_name }22"placeholder="간단한 설명을 적어주세요(최대100자)">
 								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(1).curri_content:twoList.get(1).curri_content}</textarea>
 						    </li>	
 						    <li>	
 						    	<input type="hidden" name="curri_mem_id" value="${login.mem_id }">
 						    	<input type="hidden" name="curri_catename" value="${c.cate_name }">
 								<input type="hidden" name="curri_order" value="3">
-						    	<input type="text" name="curri_name" id="${c.cate_name }31" placeholder="운동제목"
+						    	<input type="text" name="curri_name" class="cnginputs" id="${c.cate_name }31" placeholder="운동제목"
 						    	value="${c.cate_name eq oneList.get(0).curri_catename?oneList.get(2).curri_name:twoList.get(2).curri_name}"><br>
-								<textarea name="curri_content"  id="${c.cate_name }32" placeholder="간단한 설명을 적어주세요(최대100자)">
+								<textarea name="curri_content"  class="cnginputs" id="${c.cate_name }32" placeholder="간단한 설명을 적어주세요(최대100자)">
 								${c.cate_name eq oneList.get(0).curri_catename?oneList.get(2).curri_content:twoList.get(2).curri_content}</textarea>
 							</li>	
 						</ol>	
@@ -779,8 +876,8 @@ function showTwo(){
 </div>	<!-- 커리큘럼영역 -->	
 							
 						<div style="margin-top:30px;">
-							<p class="ptitle">준비물</p>
-							<p>${dto.coach_mat }</p>
+							<p class="ptitle">준비물</p><span class="matspan"><input type="button"value="수정" class="rebtn crebtn" onclick="matUpdateGo()"></span>
+							<p><input type="text" id= "mat" value="${dto.coach_mat }" readonly="readonly"></p>
 						</div>		
 						
 						
@@ -789,12 +886,111 @@ function showTwo(){
 <!-- 코치소개 영역 끝 -->	
 			
 		</div><!-- mypage_main -->
-	</div><!-- mypage_contents -->	
-</div>
-<!-- 프로필 본문-->	
-
+	</div><!-- mypage_contents 일반,코치묶음-->	
+		<!-- 코치사진수정 -->
+			<div class="coachmypage_main" style="display: block; width:1200px;">
+				<h3 class="lastimgDiv">&nbsp;코치 소개 사진</h3>
+				<hr>
+				<c:if test="${empty resultMap.coachFileList }">
+					<p>등록 된 사진이 없습니다.</p>
+				</c:if>
+				<div>
+				<c:forEach var ="f" items="${resultMap.coachFileList }">
+				
+					<img src = "/zipcok/upload/coach/${f.mfile_upload }" style="width:160px; height: 120px; object-fit:cover; margin:20px 5px;">
+					
+					
+				</c:forEach>
+				</div>
+			</div>
+			
+			
+</div><!-- 본문묶음 -->	
+				
 	
+</div><!-- 사이드메뉴바 최종div-->	
+
+
+
+
+
+
+
+
+
+<script src="js/httpRequest.js"></script>
 <script>
+/*코치수정 ajax*/
+
+function showResultIntroAjax(){
+	if(XHR.readyState==4){
+		if(XHR.status==200){
+			var data=XHR.responseText;
+			data=eval('('+data+')');
+			alert(data.msg);
+			location.href="coachMyPage.do?id=${sessionScope.coachId }";			
+		}
+	}
+}
+
+
+ 
+ 
+/*결제계좌수정*/
+function accountUpdate(){
+	$('.bankname').attr('readonly',false);
+	$('.banknum').attr('readonly',false);
+	$('.accname').attr('readonly',false);
+	$('.acc').addClass('cnginputs');
+	
+	$('.accspan').html("<input type='button'  value='수정완료'  onclick='accountUpdateSubmitAjax()' class='rebtn crebtn upokbtn' >");
+}
+//결제계좌수정 수정완료버튼누를때 파람넘겨주는 함수
+function accountUpdateSubmitAjax(){
+	var params='pa_bankname='+$('.bankname').val()+'&pa_no='+$('.banknum').val()+"&pa_username="+$('.accname').val()+'&hg_mem_id=${sessionScope.coachId }'+'&pa_key=코치';
+	sendRequest('accountUpdate.do',params,showResultIntroAjax,'GET');
+}
+
+ 
+ 
+/*소개글제목내용수정*/
+ function introContUpdate(){
+	$('#sub').attr('readonly',false);
+	$('#coach_intro_cont').attr('readonly',false);
+	$('#sub').attr('class','cnginputs');
+	$('#coach_intro_cont').attr('class','cnginputs');
+	
+	
+	$('.contspan').html("<input type='button'  value='수정완료'  onclick='introUpdateSubmitAjax()' class='rebtn crebtn upokbtn' >");
+}
+//소개글수정 수정완료버튼누를때 파람넘겨주는 함수
+ function introUpdateSubmitAjax(){
+ 	var params='coach_intro_sub='+$('#sub').val()+'&coach_intro_cont='+$('#coach_intro_cont').val()+"&coach_mem_id=${sessionScope.coachId }";
+ 	sendRequest('introUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+ }
+ 
+//준비물수정 버튼누를때 수정완료버튼 생기고 리드온리 풀리는 함수
+ function matUpdateGo(){
+ 	$('#mat').attr('readonly',false);
+ 	$('#mat').addClass('cnginputs');
+ 	$('.matspan').html("<input type='button' value='수정완료' onclick='matUpdateSubmitAjax();' class='rebtn crebtn upokbtn' >");
+ }
+ //준비물수정 수정버튼 누를때 파람넘겨주는 함수
+ function matUpdateSubmitAjax(){
+ 	var params = 'coach_mat='+$('#mat').val()+'&coach_mem_id=${sessionScope.coachId }';
+ 	sendRequest('matUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+ }
+ 
+//활동지역 수정버튼누를때 팝업창 열기
+ function flocUpdateGo(){
+		var id = '${sessionScope.coachId }';
+		window.open('flocUpdatePopup.do?coachidText='+id,'floc','width=550,height=300');
+	}
+ 
+ 
+ 
+
+/*커리큘럼 삭제*/
 function thisCurriDelete(str){
 	var result=confirm('등록하신 커리큘럼을 삭제하시겠습니까?');
 	if(result){
@@ -805,20 +1001,20 @@ function thisCurriDelete(str){
 
 /*카테고리수정*/
 function cateUpdate(){
-	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=200, top=100, width=400, height=200');	
+	window.open('categoryUpdate.do?mem_id=${login.mem_id}','cateUpdate','left=200, top=100, width=450, height=260');	
 }
-$(function () { 
+ 
 function subrewrite(){
 	$('#sub').attr('readonly',false);
 	$('.subspan').html('');
-	$('.subspan').html("<input type='button'   value='수정완료' class='rebtn crebtn' >");
+	$('.subspan').html("<input type='button'  value='수정완료' class='rebtn crebtn upokbtn' >");
 	
 	
 }
 function gosubmit() {
 	$('#폼아이이넣엉').attr("action", "어쩌구.do").submit();
-};
-});
+}
+
 
 /*프사수정=============*/
 $(function () { //사진수정버튼

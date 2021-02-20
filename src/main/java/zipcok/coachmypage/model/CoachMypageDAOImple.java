@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Service;
 
 import zipcok.coach.model.CategoryDTO;
+import zipcok.coach.model.CoachDTO;
 import zipcok.coach.model.CoachFileDTO;
 import zipcok.coach.model.CurriDTO;
 
@@ -416,5 +417,18 @@ public int coachmypagehomegympaymentCancel_reservation(int reser_idx) {
 public PaymentDTO coachmypageHomeGymPaymentFind(String mem_id) {
 	PaymentDTO dto = sqlMap.selectOne("coachmypagePaymentFind", mem_id);
 	return dto;
+}
+
+/*paymentDTO로 결제계좌정보 수정*/
+@Override
+public int accountUpdate(PaymentDTO dto) {
+	int count = sqlMap.update("accountUpdate",dto);
+	return count;
+}
+/*코치 활동지역주소 수정*/
+@Override
+public int coachAddrUpdate(CoachDTO dto) {
+	int count = sqlMap.update("coachAddrUpdate",dto);
+	return count;
 }
 }

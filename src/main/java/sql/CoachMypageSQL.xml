@@ -414,4 +414,31 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 	<select id="coachmypagePaymentFind" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
 		select * from zipcok_payment where hg_mem_id = #{value} and pa_key = '코치'
 	</select>
+	
+	
+	
+	<update id="accountUpdate" parameterType="zipcok.homegym.model.PaymentDTO">
+		update zipcok_payment
+		 set
+			pa_bankname=#{pa_bankname},
+			pa_no=#{pa_no},
+			pa_username=#{pa_username}
+			where 
+			hg_mem_id=#{hg_mem_id}
+			and
+			pa_key = #{ pa_key }
+	</update>
+	
+	
+	<update id="coachAddrUpdate" parameterType="zipcok.coach.model.CoachDTO">
+		update coach_regist
+		 set
+			coach_floc=#{coach_floc},
+			coach_sloc=#{coach_sloc}
+			
+			where 
+			coach_mem_id=#{coach_mem_id}
+		
+	</update>
+	
   </mapper>

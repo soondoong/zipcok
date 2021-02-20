@@ -148,7 +148,7 @@ a{cursor:pointer;}
 								<tr>
 									<td >
 										카테고리<input type="text" id="coach_category" readonly="readonly">
-										<input type="button" value="카테고리 수정">
+										<p id="categoryP"></p>
 									</td>
 									<td >
 										준비물<input type="text" id="coach_mattext" readonly="readonly">
@@ -220,6 +220,10 @@ function showResult(){
          document.getElementById('extypeUpdateP').innerHTML="<input type='button' value='강의유형 수정' name='extypeReset' onclick='javascript:extypeUpdateGo();'>";
          document.getElementById('yearUpdateP').innerHTML="<input type='button' value='경력 수정' name='yearReset' onclick='javascript:yearUpdateGo();'>";
          document.getElementById('flocUpdateP').innerHTML="<input type='button' value='활동지역 수정' name='flocReset' onclick='javascript:flocUpdateGo();'>";
+       /*수연추가카테고리*/
+       	$('#coach_category').val(data.coachmap.coachDTO.cate_name);
+       	$('#categoryP').html("<input type='button' value='카테고리 수정'  onclick=\"cateUpdatePopup('"+data.dto3.mem_id+"')\">");
+         
          $('#coach_intro_subtext').attr("readonly",true);
          $('#coach_intro_conttext').attr("readonly",true);
          $('#coach_mattext').attr("readonly",true);
@@ -241,12 +245,22 @@ function introUpdateGo(){
 	$('#coach_intro_subtext').attr('readonly',false);
 	$('#coach_intro_conttext').attr('readonly',false);
 	$('#introUpdateP').html('');
-	$('#introUpdateP').html("<input type='button' value='수정완료' onclick='javascript:introUpdateSubmitAjax();' name='btnintrogo'>");
+	$('#introUpdateP').html("<input type='button' value='수정완료' onclick='introUpdateSubmitAjax()' name='btnintrogo'>");
 }
 //소개글수정 수정완료버튼누를때 파람넘겨주는 함수
 function introUpdateSubmitAjax(){
 	var params='coach_intro_sub='+$('#coach_intro_subtext').val()+'&coach_intro_cont='+$('#coach_intro_conttext').val()+"&coach_mem_id="+$('#coachId').val();
 	sendRequest('introUpdateSubmitAjax.do',params,showResultIntroAjax,'GET');
+}
+////////수연 카테고리수정/////
+function cateUpdateGo(){
+
+	$('#categoryP').html('');
+	$('#categoryP').html("<input type='button' value='수정완료' onclick='javascript:cateUpdatePopup();' name='btnintrogo'>");
+
+}
+function cateUpdatePopup(id){
+	window.open('categoryUpdate.do?mem_id='+id,'cateUpdate','left=200, top=100, width=450, height=260');	
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
