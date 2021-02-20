@@ -203,6 +203,7 @@ function ajaxUnLike_rq(){
 				<option value="영등포구" <c:if test="${keywordMap.location=='중랑구'}">selected</c:if>>중랑구</option>
 			</select>
 			<input type="date" name="top_option_date" id = "choice_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
+			<input type="submit" value = "검색">
 		</div>
 	</div>
 	<div class="homegym_wrap">
@@ -216,7 +217,10 @@ function ajaxUnLike_rq(){
 					<h6>기구</h6>
 					<label><input type = "checkbox" name = "left_option_eq" value = "암 컬" id = "암 컬" onclick = "javascript:sendOption();"><span>암 컬</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "체스트 프레스" id = "체스트 프레스" onclick = "javascript:sendOption();"><span>체스트 프레스</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨" id = "덤벨" onclick = "javascript:sendOption();"><span>덤벨</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 1kg" id = "덤벨1k" onclick = "javascript:sendOption();"><span>덤벨 1kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 3kg" id = "덤벨3k" onclick = "javascript:sendOption();"><span>덤벨 3kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 5kg" id = "덤벨5k" onclick = "javascript:sendOption();"><span>덤벨 5kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 10kg" id = "덤벨10k" onclick = "javascript:sendOption();"><span>덤벨 10kg</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "하프 렉" id = "하프 렉" onclick = "javascript:sendOption();"><span>하프 렉</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "렛 풀 다운" id = "렛 풀 다운" onclick = "javascript:sendOption();"><span>렛 풀 다운</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "레그 컬" id = "레그 컬" onclick = "javascript:sendOption();"><span>레그 컬</span></label>

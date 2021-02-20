@@ -742,7 +742,7 @@ ServletContext c;
     public ModelAndView coachmyHomeGymHavingCheck(
   		  @RequestParam("mem_id")String user_id) {
   	  boolean check = cdao.coachmypageHomeGymCheck(user_id);
-  	  String goPage = check?"coachmyHomeGymEnter.do?mem_id="+user_id:"HomeGymAdd.do";
+  	  String goPage = check?"coachmyHomeGymEnter.do?mem_id="+user_id:"/coachMyPage.do";
   	  ModelAndView mav = new ModelAndView();
   	  mav.addObject("check", check);
   	  mav.addObject("goPage", goPage);
