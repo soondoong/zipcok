@@ -18,9 +18,14 @@
 <%@include file="../header2.jsp"%>
  <style>
       .mypage_main {width: 600px; padding: 10px 0 0 60px;}
-		.mypage_main .likeprofileIMG {overflow: hidden;  width: 170px; height: 170px; border-radius: 50%; margin-bottom:20px;}
+	.mypage_main .likeprofileIMG {overflow: hidden;  width: 170px; height: 170px; border-radius: 50%; margin-bottom:20px;}
 	.mypage_main .likeprofileIMG img {width:170px; height:170px; object-fit: cover;}
 	.mypage_main .profile_info {padding: 0 0 0 100px;}
+	.mypage_main .tab_style_01 {}
+      .mypage_main .tab_style_01 ul {display: flex; background-color : #006BE0;}
+      .mypage_main .tab_style_01 li {flex: 1 1 auto;}
+      .mypage_main .tab_style_01 li button {display: block; width: 100%; background-color : #006BE0; line-height: 40px; text-align: center; border: none; color : white;}
+      .mypage_main .tab_style_01 li.on button {background-color : #006BE0; color: #ffffff;}
 
       .paging {margin: 40px 0 0; text-align: center;}
 		.paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
@@ -35,13 +40,16 @@
 	<div class="mypage_contents">
          <div class="mypage_main LikePageMainSize ">
          
-		<div class="alllikecontent_wrap">
-
-
-    				<div class="likepersonAllWrap">
-    				
+			<div class="alllikecontent_wrap">
+				<div id="toggle_tab" class="tab_style_01 mb50 likekeybtn">
+			         <ul>
+			            <li><button type="button" onclick="coachMypageHomeGymLikeList()">홈짐 좋아요 목록</button></li>
+			         </ul>
+      			</div>
+      			
+    			<div class="likepersonAllWrap">
     				<c:if test="${empty list }">
-    					<div>검색된 좋아요 내역이 없습니다.</div>
+    					<div style="text-align: center;">검색된 좋아요 내역이 없습니다.</div>
     				</c:if>
     				<c:forEach var="dto" items="${list }" varStatus="status">
     				<div  style="text-align: center; padding:20px;">

@@ -101,10 +101,10 @@
     		</choose>
   	 	</when>
    	 	<when test="type=='회원이름'">
-   	    	mem_name like '%${searchContent}%'
+   	    	mem_name = #{searchContent}
    		</when>
     	<when test="type=='회원아이디'">
-        	mem_id like '%${searchContent}%'
+        	mem_id = #{searchContent}
     	</when>
 	</choose>
 	and
@@ -128,10 +128,10 @@
     		</choose>
   	 	</when>
    	 	<when test="type=='회원이름'">
-   	    	mem_name like '%${searchContent}%'
+   	    	mem_name = #{searchContent}
    		</when>
     	<when test="type=='회원아이디'">
-        	mem_id like '%${searchContent}%'
+        	mem_id = #{searchContent}
     	</when>
 	</choose>
 	and
@@ -148,20 +148,15 @@
 	
 	<select id="adminDelMemberDateTotalCnt" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
 	select count(*) from
-    (select rownum as rnum,a.* from
-    (select * from zipcok_member
-	where mem_out=1 and
-    mem_outdate between #{start_date} and #{end_date}
-    )a)b
+    (select * from zipcok_member where
+    mem_outdate between #{start_date} and #{end_date} and mem_out=1)
 	</select>
 	
 	<select id="adminDelMemberDate" parameterType="HashMap" resultType="zipcok.member.model.MemberDTO">
 	select * from
-    (select rownum as rnum,a.* from
-    (select * from zipcok_member
-	where mem_out=1 and
-    mem_outdate between #{start_date} and #{end_date}
-    )a)b
+	(select rownum as rnum, a.* from
+	(select * from zipcok_member where
+    mem_outdate between #{start_date} and #{end_date} and mem_out=1)a)b
     where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
 

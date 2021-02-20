@@ -298,6 +298,9 @@ public class AdminMemberController {
 			@RequestParam("end_date")String end_date,
 			@RequestParam(value = "cp", defaultValue = "1")int cp) {
 		
+		System.out.println(start_date);
+		System.out.println(end_date);
+		
 		ModelAndView mav=new ModelAndView();
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HashMap<String, Object> keywordMap = new HashMap<String, Object>();
