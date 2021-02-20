@@ -514,4 +514,15 @@ and
 like_key = '코치'
 </delete>
 
+
+<delete id="deleteCoachImgOne" parameterType="String">
+	delete from member_file
+		where
+		mfile_upload = #{mfile_upload}
+		and
+		mfile_key = '코치'
+</delete>
+
+
+
  </mapper>

@@ -319,4 +319,19 @@ public int deleteLike(LikeDTO dto) {
 		int count =sqlMap.insert("coachAccountAdd",dto);
 		return count;
 	}
+	
+	/*코치사진하나 삭제*/
+	@Override
+	public int deleteCoachImgOne(HashMap<String, Object> map) {
+		int count = sqlMap.delete("deleteCoachImgOne", map.get("upload"));
+		return count;
+	}
+	/*코치사진하나 넣기*/
+	@Override
+	public int insertCoachImgOne(CoachFileDTO dto) {
+		int count = sqlMap.insert("insertCoachInfoFile",dto);
+		return count;
+	}
+	
+	
 }

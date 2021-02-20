@@ -1006,4 +1006,68 @@ ServletContext c;
     	mav.setViewName("jsonView");
     	return mav;
     }
+    
+    
+    /*코치사진수정하기 삭제버튼ajax*/
+    @RequestMapping("CoachImagesUpdateDel.do")
+    public ModelAndView CoachImagesUpdateDel(@RequestParam("upload")String upload) {
+    
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+    	map.put("upload", upload); //삭제할파일이름
+    	
+    	int count =dao.deleteCoachImgOne(map); //잇던거지우고 용도:db
+		String msg=count>0?"프로필 사진이 변경되었습니다" :"변경실패";
+		System.out.println(msg);
+		if(count>0) { //기존진짜파일 폴더내에서삭제하기
+			 File file = new File(c.getRealPath("/upload/coach/")+upload);
+			 if (file.exists()){
+				 
+				 if (file.delete()){
+				        System.out.println("파일을 삭제 성공");
+				      //파일 삭제 실패시
+				      }else{
+				        System.out.println("파일 삭제 실패");
+				      }				
+			 }else {
+				 System.out.println("경로에파일없음");
+			 }
+		}
+			
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("jsonView");
+			return mav;
+    }
+    
+    
+    /*코치사진수정하기 추가버튼ajax*/
+    @RequestMapping("CoachImagesUpdateInsert.do")
+    public ModelAndView CoachImagesUpdateInsert(@RequestParam("coachimgupload") MultipartFile upload,HttpSession session) {
+    	/*파일복사및저장하기*/			
+		System.out.println("사진원본이름:"+upload.getOriginalFilename());
+		String mfile_path=c.getRealPath("/upload/coach/"); //저장되는 경로
+		String mfile_upload=copyInto( upload, mfile_path);	//파일저장후 새로운이름생성됨
+		String mfile_orig=upload.getOriginalFilename(); //파일원본명
+		String mfile_key="코치"; //파일저장 구분키
+		String mfile_mem_id=(String)session.getAttribute("coachId");
+		int mfile_size=(int)upload.getSize();
+        String mfile_type=upload.getContentType();
+		CoachFileDTO cdto=new CoachFileDTO(0, mfile_key, mfile_mem_id, mfile_upload, mfile_size, mfile_orig, mfile_path, mfile_type);	
+
+		
+    	HashMap<String, Object> map = new HashMap<String, Object>();
+		
+    	
+		int count =dao.insertCoachImgOne(cdto); //다시만들어 용도:db
+		System.out.println("ajax사진추가:"+count);
+		
+			
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("jsonView");
+			return mav;
+    }
+    
+    
+    
+    
+    
 }

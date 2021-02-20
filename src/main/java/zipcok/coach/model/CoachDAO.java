@@ -17,7 +17,7 @@ public interface CoachDAO {
 	public int getTotalCnt(HashMap map);
 	public int getAjaxTotalCnt(HashMap<String,Object> map);
 	public int coachJoin( HashMap<String, Object> map);
-	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr);
+	public int coachInfoFileUpload(ArrayList<CoachFileDTO> fileArr); //코치사진등록
 	public ArrayList<CategoryDTO> findCategory(String id);
 	public HashMap<String,Object> coachProfile(String id);
 	public int sendRequestForm(RequestFormDTO dto);
@@ -28,4 +28,8 @@ public interface CoachDAO {
 	public int deleteLike(LikeDTO dto);//좋아요 삭제
 	
 	public int coachAccountAdd(PaymentDTO dto); //결제계좌등록
+	
+	public int deleteCoachImgOne(HashMap<String, Object> map); //코치사진하나지우기
+	public int insertCoachImgOne(CoachFileDTO dto); //코치사진하나넣기
+
 }

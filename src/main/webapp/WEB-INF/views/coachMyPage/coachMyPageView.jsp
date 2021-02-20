@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mypage.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"> 
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <!-- 병모 팝업 수정 함수 -->
 <script>
@@ -150,7 +150,7 @@ font-size:23px; text-align: center; padding:12px;color:white; border-radius: 50%
 
 /*readonly수정되는 인풋들*/
 
-input[type="text"]:not(.cnginputs),textarea:not(.cnginputs){background-color:  white; border:0px;}
+.coachInfo input[type="text"]:not(.cnginputs),textarea:not(.cnginputs){background-color:  white; border:0px;}
 /*코치소개사진*/
 .lastimgDiv{ color:#12151d; margin-bottom:20px;}
 .lastimgDiv:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
@@ -891,14 +891,20 @@ function showTwo(){
 			<div class="coachmypage_main" style="display: block; width:1200px;">
 				<h3 class="lastimgDiv">&nbsp;코치 소개 사진</h3>
 				<hr>
+				<div style="margin-bottom:15px;">
+				<form id="coachInfoImgForm">
+					<a href="#" id="btn-upload" style="font-size:18px;"><span  style="margin-right:15px;">사진추가하기</span><i class="bi bi-plus-square-fill"></i></a>
+						<input type="file"  name="coachimgupload"  id="coachInfoFile"accept="image/gif, image/jpeg, image/png" style="display:none;">
+				</form>		
+				</div>
 				<c:if test="${empty resultMap.coachFileList }">
 					<p>등록 된 사진이 없습니다.</p>
 				</c:if>
-				<div>
+				<div style="">
 				<c:forEach var ="f" items="${resultMap.coachFileList }">
 				
 					<img src = "/zipcok/upload/coach/${f.mfile_upload }" style="width:160px; height: 120px; object-fit:cover; margin:20px 5px;">
-					
+					<a href="#" onclick="coachImgDelete('${f.mfile_upload }')" ><i class="bi bi-dash-square-dotted" style="font-size:20px;"></i></a>
 					
 				</c:forEach>
 				</div>
@@ -920,6 +926,75 @@ function showTwo(){
 
 <script src="js/httpRequest.js"></script>
 <script>
+/*코치사진 추가*/
+$(function(){
+		$('#btn-upload').click(function (e) {
+		e.preventDefault();
+		$('#coachInfoFile').click();
+			});
+
+		
+		 $("#coachInfoFile").change(function(e){
+			 	 var form = $('#coachInfoImgForm')[0];
+			    var formData = new FormData(form);
+
+			  $.ajax({
+				    type : 'post',
+				    enctype: 'multipart/form-data',
+				    url : 'CoachImagesUpdateInsert.do',
+				    data :formData,
+		
+				    contentType : false,
+				    processData:false,
+				    error: function(xhr, status, error){
+				      alert('err');
+				    },
+				    success : function(data){  
+				    	
+						
+					    location.reload();
+				    	
+				    
+				    }
+			
+		
+				});
+			 
+			 
+		 });
+ 
+	
+});
+
+function coachImgDelete(imgname) {
+	
+		 $.ajax({
+			    type : 'post',
+			    url : 'CoachImagesUpdateDel.do',
+			    data :{
+			    	
+			    	"upload":imgname
+			    },
+			    contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			    dataType : "json",
+			    error: function(xhr, status, error){
+			      alert('err');
+			    },
+			    success : function(data){  
+			    	
+					
+				    location.reload();
+			    	
+			    
+			    }
+		
+	
+			});
+		
+	}
+
+
+
 /*코치수정 ajax*/
 
 function showResultIntroAjax(){
