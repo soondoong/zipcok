@@ -46,7 +46,7 @@
 				</div>
 
 				<div>
-				<form action="adminDelMemberDate.do">
+				<form action="#">
 					<ul class="test-inline">
 						<li class="srchtitle">날짜 검색</li>
 						<li><input type="date" id="start_date" name="start_date" value="${keyword.keywordStart }" required="required"></li>~
