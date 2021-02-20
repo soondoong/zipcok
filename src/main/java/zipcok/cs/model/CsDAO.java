@@ -7,7 +7,7 @@ public interface CsDAO {
 
 	public int getTotalCnt(); //총게시물 수
 	
-	public List csAllList(int cp,int ls); //리스트
+	public List<CsDTO> csAllList(int cp,int ls); //리스트
 	
 	public int csWrite(CsDTO dto);//게시물등록
 	
@@ -35,6 +35,11 @@ public interface CsDAO {
 	
 	public CsReDTO csReList(int re_bbs_idx);//고객센터 답변가져오기
 	
+	public int csReExist(int bbs_idx);//고객센터 답변유무 확인
+	
 
 	public int csReDelete(int re_idx);//고객센터 답변 지우기
+
+	
+
 }

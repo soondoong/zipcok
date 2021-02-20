@@ -28,7 +28,7 @@ public class CsDAOImple implements CsDAO {
 	}
 	
 	@Override
-	public List csAllList(int cp, int ls) {
+	public List<CsDTO> csAllList(int cp, int ls) {
 		int start=(cp-1)*ls+1;
 		int end=cp*ls;
 		Map map=new HashedMap();
@@ -126,10 +126,19 @@ public class CsDAOImple implements CsDAO {
 		CsReDTO dto=sqlMap.selectOne("csReList",re_bbs_idx);
 		return dto;
 	}
+	
+	@Override
+	public int csReExist(int bbs_idx) {
+		int count = sqlMap.selectOne("selectReExist",bbs_idx);
+		return count;
+	}
+	
 	//고객센터 답변 지우기
 	@Override
 	public int csReDelete(int re_idx) {
 		int count=sqlMap.delete("csReDelete",re_idx);
 		return count;
 	}
+	
+
 }

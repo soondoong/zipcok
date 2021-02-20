@@ -142,6 +142,7 @@ bbs_rebbs_group.nextval,
 1,
 #{re_bbs_idx})
 </insert>
+
 <select id="csReList" parameterType="Integer" resultType="zipcok.cs.model.CsReDTO">
 select
 *
@@ -151,6 +152,11 @@ where
 re_bbs=4
 and
 re_group=#{value}
+</select>
+<select id="selectReExist" parameterType="Integer" resultType="Integer">
+	select count(*) from bbs_rebbs
+	where
+	re_group = #{value}
 </select>
 <delete id="csReDelete" parameterType="Integer">
 delete

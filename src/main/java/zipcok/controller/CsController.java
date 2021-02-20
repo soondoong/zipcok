@@ -53,7 +53,13 @@ public class CsController {
 		int pageSize=10;
 		String pageStr=zipcok.page.PageModule.makePage("csList.do", totalCnt, cp, listSize, pageSize);
 		
-		List list = csDao.csAllList(cp, listSize);
+		List<CsDTO> list = csDao.csAllList(cp, listSize);
+		for(int i = 0; i<list.size();i++) {
+			int temp = list.get(i).getBbs_idx();
+			list.get(i).setReExist(csDao.csReExist(temp));
+		}
+		
+		
 		ModelAndView mav=new ModelAndView();
 		
 		mav.addObject("pageStr",pageStr);
@@ -260,6 +266,7 @@ public class CsController {
 			
 			dto.setRe_bbs_idx(bbs_idx);
 			int result=csDao.csReWrite(dto);
+			
 			String msg=result>0?"답변이 성공적으로 등록되었습니다":"알 수 없는 오류";
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("msg", msg);
