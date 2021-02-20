@@ -115,17 +115,18 @@
 				<div class="table_list_01">
 					<table>
 						<colgroup>
-							<col style="width: 100px;">
+							<col style="width: 10%;">
+							<col style="width: 15%;">
 							<col style="width: auto;">
-							<col style="width: 100px;">
-							<col style="width: 100px;">
-							<col style="width: 100px;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
+							<col style="width: 13%;">
 						</colgroup>
 						<thead>
 							<tr>
 								<th>글번호</th>
-								<th>제목</th>
 								<th>답변</th>
+								<th>제목</th>
 								<th>id</th>
 								<th>조회수</th>
 								<th>작성일</th>
@@ -134,25 +135,25 @@
 						<tbody>
 							<c:if test="${empty list}">
 								<tr>
-									<th colspan="5" align="center">등록된 문의가 없습니다.</th>
+									<th colspan="6" style="text-align : center;">등록된 문의가 없습니다.</th>
 								</tr>
 							</c:if>
 							<c:if test="${!empty list }">
 								<c:forEach var="dto" items="${list}">
 									<tr>
 										<td>${dto.bbs_idx }</td>
-										<c:url var="contentUrl" value="csContent.do">
-											<c:param name="bbs_idx">${dto.bbs_idx}</c:param>
-										</c:url>
-											<td>
-											<a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a>
-											</td>
 										<c:if test="${dto.reExist!=0}">
-											<td style="color: blue;">[답변완료]</td>
+											<td style="color: #006be0;">[답변완료]</td>
 										</c:if>
 										<c:if test="${dto.reExist==0}">
 											<td>[답변대기중]</td>
 										</c:if>
+										<c:url var="contentUrl" value="csContent.do">
+											<c:param name="bbs_idx">${dto.bbs_idx}</c:param>
+										</c:url>
+											<td style="text-align : left;">
+												<a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a>
+											</td>
 										<td>${dto.bbs_mem_id}</td>
 										<td>${dto.bbs_readnum}</td>
 										<td>${dto.bbs_writedate}</td>
