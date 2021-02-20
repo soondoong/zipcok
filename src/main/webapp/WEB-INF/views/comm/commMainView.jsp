@@ -146,14 +146,14 @@
 								<td class="today">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}">
-												<c:if test="${datetest eq dto4}">
-												 운동함
-												</c:if>
-											</c:forEach>
 									</div>
 									<div class="date">
 										${dateList.date}
+										<c:forEach var="dto4" items="${getDayGroup}">
+												<c:if test="${datetest eq dto4}">
+												 <img src="assets/img/check.png" style="width: 50px; height: 50px; position: absolute; margin: 46px -10px 1px;">
+												</c:if>
+											</c:forEach>
 									</div>
 									<div class="todayContent">
 										<c:choose>
@@ -175,15 +175,15 @@
 								<td class="sat_day">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}">
-												<c:if test="${datetest eq dto4}">
-												 운동함
-												</c:if>
-											</c:forEach>
 									</div>
 									
 									<div class="sat">
 										${dateList.date}
+										<c:forEach var="dto4" items="${getDayGroup}">
+												<c:if test="${datetest eq dto4}">
+												 <img src="assets/img/check.png" style="width: 50px; height: 50px; position: absolute; margin: 46px -10px 1px;">
+												</c:if>
+											</c:forEach>
 									</div>
 									<div>
 										<c:choose>
@@ -207,15 +207,16 @@
 									<td class="sun_day">
 										<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}">
-												<c:if test="${datetest eq dto4}">
-												 운동함
-												</c:if>
-											</c:forEach>
+											
 										</div>
 										
 										<div class="sun">
 											${dateList.date}
+											<c:forEach var="dto4" items="${getDayGroup}">
+												<c:if test="${datetest eq dto4}">
+												 <img src="assets/img/check.png" style="width: 50px; height: 50px; position: absolute; margin: 46px -10px 1px;">
+												</c:if>
+											</c:forEach>
 										</div>
 										
 										<div>
@@ -239,14 +240,14 @@
 									<td class="today">
 										<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}">
-												<c:if test="${datetest eq dto4}">
-												 운동함
-												</c:if>
-											</c:forEach>
 										</div>
 										<div class="date">
 											${dateList.date}
+											<c:forEach var="dto4" items="${getDayGroup}">
+												<c:if test="${datetest eq dto4}">
+												 <img src="assets/img/check.png" style="width: 50px; height: 50px; position: absolute; margin: 46px -10px 1px;">
+												</c:if>
+											</c:forEach>
 										</div>
 										<div>
 											<c:choose>
@@ -267,14 +268,14 @@
 								<td class="normal_day">
 									<div>
 										<c:set var="datetest" value="${dateList.year}-${monthtest}-${dateList.date}" />
-											<c:forEach var="dto4" items="${getDayGroup}">
-												<c:if test="${datetest eq dto4}">
-												 운동함
-												</c:if>
-											</c:forEach>
 									</div>
 									<div class="date">
 										${dateList.date}
+										<c:forEach var="dto4" items="${getDayGroup}">
+												<c:if test="${datetest eq dto4}">
+												 <img src="assets/img/check.png" style="width: 50px; height: 50px; position: absolute; margin: 46px -10px 1px;">
+												</c:if>
+											</c:forEach>
 									</div>
 									<div>
 										<c:choose>
