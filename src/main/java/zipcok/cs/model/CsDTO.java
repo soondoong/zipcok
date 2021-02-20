@@ -14,11 +14,13 @@ public class CsDTO {
 	private int bbs_ref;
 	private int bbs_lev;
 	private int bbs_sunbun;
+	private int reExist;
 	public CsDTO() {
 		super();
 	}
 	public CsDTO(int bbs_idx, String bbs_key, String bbs_category, String bbs_subject, String bbs_content,
-			String bbs_mem_id, int bbs_readnum, Date bbs_writedate, int bbs_ref, int bbs_lev, int bbs_sunbun) {
+			String bbs_mem_id, int bbs_readnum, Date bbs_writedate, int bbs_ref, int bbs_lev, int bbs_sunbun,
+			int reExist) {
 		super();
 		this.bbs_idx = bbs_idx;
 		this.bbs_key = bbs_key;
@@ -31,6 +33,7 @@ public class CsDTO {
 		this.bbs_ref = bbs_ref;
 		this.bbs_lev = bbs_lev;
 		this.bbs_sunbun = bbs_sunbun;
+		this.reExist = reExist;
 	}
 	public int getBbs_idx() {
 		return bbs_idx;
@@ -98,6 +101,13 @@ public class CsDTO {
 	public void setBbs_sunbun(int bbs_sunbun) {
 		this.bbs_sunbun = bbs_sunbun;
 	}
+	public int getReExist() {
+		return reExist;
+	}
+	public void setReExist(int reExist) {
+		this.reExist = reExist;
+	}
+	
 	
 	
 }

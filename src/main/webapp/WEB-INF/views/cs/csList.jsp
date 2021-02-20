@@ -125,6 +125,7 @@
 							<tr>
 								<th>글번호</th>
 								<th>제목</th>
+								<th>답변</th>
 								<th>id</th>
 								<th>조회수</th>
 								<th>작성일</th>
@@ -143,7 +144,15 @@
 										<c:url var="contentUrl" value="csContent.do">
 											<c:param name="bbs_idx">${dto.bbs_idx}</c:param>
 										</c:url>
-										<td><a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a></td>
+											<td>
+											<a href="${contentUrl}">[${dto.bbs_category}]${dto.bbs_subject}</a>
+											</td>
+										<c:if test="${dto.reExist!=0}">
+											<td style="color: blue;">[답변완료]</td>
+										</c:if>
+										<c:if test="${dto.reExist==0}">
+											<td>[답변대기중]</td>
+										</c:if>
 										<td>${dto.bbs_mem_id}</td>
 										<td>${dto.bbs_readnum}</td>
 										<td>${dto.bbs_writedate}</td>

@@ -76,7 +76,7 @@
 					<tbody>
 						<c:if test="${empty list}">
 						<tr>
-							<th colspan="5">등록된 공지사항이 없습니다.</th>
+							<th colspan="5" align="center">등록된 공지사항이 없습니다.</th>
 						</tr>
 						</c:if>
 						<c:if test="${!empty list }">
