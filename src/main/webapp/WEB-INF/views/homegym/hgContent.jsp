@@ -3,12 +3,11 @@
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script>
 window.addEventListener('load', function() {
 	var start_date = '${hgContent.hg_start_date}';
@@ -48,8 +47,8 @@ window.addEventListener('load', function() {
 	    draggable: false,
 	    level: 4 // 지도의 확대 레벨
 	};  
-	mapContainer.style.width = '800px';
-	mapContainer.style.height = '300px';
+	mapContainer.style.width = '900px';
+	mapContainer.style.height = '400px';
 	//지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 
 	
@@ -87,8 +86,6 @@ window.addEventListener('load', function() {
 
 	$(function() {
 		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
-		var start = new Date(start_date);
-		window.alert(start);
 		var end_date = '${hgContent.hg_end_date}'.substring(0, 10);
 		$('#choice_date').datepicker(
 				{
@@ -286,106 +283,88 @@ window.addEventListener('load', function() {
 			}
 		}
 	}
+	$(document).ready(function() {
+		
+		// 기존 css에서 div 위치(top)값을 가져와 저장한다.
+		var floatPosition = parseInt($("#sidebox").css('top'));
+		// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+		$(window).scroll(function() {
+			// 현재 스크롤 위치를 가져온다.
+			var scrollTop = $(window).scrollTop();
+			var newPosition = scrollTop + floatPosition + "px";
+
+			
+			 $("#sidebox").css('top', newPosition);
+		
+
+			 
+				/* 애니메이션
+			$("#sidebox").stop().animate({
+				"top" : newPosition
+			}, 500);	 */
+
+		}).scroll();
+
+	});
 </script>
 <style>
-.top_info{background-color:#0099ff; width:100%; height:75px; color: white; margin-bottom: 20px; padding-left: 100px; padding-top: 10px;}
-.top_info .top_info_like {position: relative; left:-55px; top:-60px; z-index: 1; }
-.top_contentArea {width:1600px; height:500px; display:flex; margin:auto;}
-.top_contentArea .top_contentArea_img_slide_single {width:700px; height: 350px; margin: 30px auto 1px; overflow: hidden;}
-.top_contentArea .top_contentArea_img_slide_single img {width: 100%;	min-height: 100%;}
-.top_contentArea .top_contentArea_reservationArea {width: 700px; height:500px; font-size:20px;}
-.top_contentArea .top_contentArea_reservationArea li {height:40px;}
-.top_contentArea .top_contentArea_reservationArea select {width:240px;}
-.top_contentArea .top_contentArea_reservationArea input[type=text] {width:263px;}
-.top_contentArea .top_contentArea_reservationArea .expect_price_span {color:red;}
-.top_contentArea .top_contentArea_reservationArea #reservationInfo_click{ display:none;}
-.bottom_contentArea {width:1200px; margin:0px auto;}
-.bottom_contentArea .hgContent p {font-size: 20px;}
+.top_info{background-color:#0099ff; width:100%; height:100px; color: white; margin-bottom: 20px; padding-left: 100px;}
+.top_info .top_info_like {position: absolute; left:35px; top:115px; z-index: 1; width:20px; height:20px;}
+.top_contentArea {width:1400px; height:550px; margin:50px 100px 0px 100px;}
+.top_contentArea .top_contentImg {width:900px; height:500px;}
+.top_contentArea .top_contentImg .carousel-item img {width:900px; height:500px; object-fit:fill;}
+.top_contentArea .remoteArea {width: 500px; height:500px; font-size:20px; position: absolute; top:240px; right:80px;}
+.top_contentArea .remoteArea li {height:40px;}
+.top_contentArea .remoteArea select {width:240px;}
+.top_contentArea .remoteArea .reser_select {width:200px; font-size:15px;}
+.top_contentArea .remoteArea input[type=text] {width:263px;}
+.top_contentArea .remoteArea .expect_price_span {color:red;}
+.top_contentArea .remoteArea #reservationInfo_click{ display:none;}	
+.bottom_contentArea {width:900px; margin:50px 100px 0px 100px;}
+.bottom_contentArea .hgContent p {font-size: 15px;}
 .bottom_contentArea .hgContent label {color:red; }
 .bottom_contentArea .eqlistArea {text-align: center;}
 .bottom_contentArea .eqlistArea h {text-align: center;}
-.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px;}
-.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px; margin-right: 5px;}
-.bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 25px; font-weight: 300;}
-.bottom_contentArea .eqlistArea .eqlistArea_list img {width:200px; height:100px;}
+.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px; justify-content: space-around;}
+.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px;}
+.bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 15px; font-weight: 200;}
 .bottom_contentArea .reserNoticeArea {font-size:20px;}
-.bottom_contentArea .reserNoticeArea table {width:1200px; border:3px double gray; border-radius: 6px;}
-.bottom_contentArea .reserNoticeArea table th {width:300px; vertical-align: top;}
+.bottom_contentArea .reserNoticeArea table {border:3px double gray; border-radius: 6px;}
+.bottom_contentArea .reserNoticeArea table th {width:150px; vertical-align: top; border:3px double gray; border-radius: 6px;}
+.bottom_contentArea .reserNoticeArea table td {border:3px double gray; border-radius: 6px;}
 .bottom_contentArea .reserNoticeArea h3 {text-align:center;}
-.bottom_contentArea .mapArea {text-align:center; width:800px; height:400px; margin:0px auto;}
-.bottom_contentArea .reviewArea {text-align:center; margin-bottom: 30px;}
-.bottom_contentArea .reviewArea table {width:1200px; min-height: 300px;}
+.bottom_contentArea .mapArea {text-align:center; width:900px; height:450px; margin-bottom: 50px;}
+.bottom_contentArea .mapArea #map {margin:0px auto;}
+.bottom_contentArea .reviewArea {text-align:center; margin-bottom:30px;}
+.bottom_contentArea .reviewArea table { min-height: 300px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging {margin: 40px 0 0; text-align: center;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
 .likeicon{ font-size:27px;font-weight:100;position: absolute;color:white;}
 .likeafter{color : #FF6682; }
-.mySlides {display: none}
-img {vertical-align: middle;}
-
-/* Slideshow container */
-.slideshow-container {
-  max-width:100%;
-  position: relative;
-  margin: auto;
-}
-
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 40px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-  background-color: rgba(0,0,0,0.3);
-}
-
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
-
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
-.slideshow-container img {width:600px; height:300px;}
 </style>
+
 <script src="https://kit.fontawesome.com/802041d611.js" crossorigin="anonymous"></script>
 <div class = "top_info">
 	<h4>${hgContent.hg_nickname } 님의 홈짐</h4>
 	<h5>${hgContent.hg_faddr }/${hgContent.hg_station }</h5>
+	<h5>평점 : ${star_avg }</h5>
+	<c:if test = "${star_avg>=0 && star_avg<=1 }">
+	<img src = "img/coach/star/star1.jpg">
+	</c:if>
+	<c:if test = "${star_avg>1 && star_avg<=2 }">
+	<img src = "img/coach/star/star2.jpg">
+	</c:if>
+	<c:if test = "${star_avg>3 && star_avg<=4 }">
+	<img src = "img/coach/star/star3.jpg">
+	</c:if>
+	<c:if test = "${star_avg>4 && star_avg<=5 }">
+	<img src = "img/coach/star/star4.jpg">
+	</c:if>
+	<c:if test = "${star_avg>5 }">
+	<img src = "img/coach/star/star5.jpg">
+	</c:if>
 	<div class = "top_info_like">
 		<c:if test="${like_result ==0 }">
 			<a href="#" class="ia" id="${ hgContent.hg_mem_id }"><i class="far fa-heart likeicon"></i></a>						
@@ -396,61 +375,68 @@ img {vertical-align: middle;}
 	</div>
 </div>
 <div class = "top_contentArea">
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-  <c:forEach var = "dto2" items = "${imgContent }" varStatus="i">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i.index }" <c:if test = "${i.index==0 }">class="active" aria-current="true" aria-label="Slide ${i.count }"</c:if>></button>
-  </c:forEach>
-  </div>
-  <div class="carousel-inner">
-  <c:forEach var = "dto" items = "${imgContent }">
-    <div class="carousel-item active">
-      <img src="img/homegymInfo/${dto.mfile_upload }" class="d-block w-100" alt="...">
-    </div>
-   </c:forEach>
-  </div>
- 
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-	<div class = "top_contentArea_reservationArea">
-		<p>${hgContent.hg_nickname }님의 홈짐</p>
-		<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
-		<ul id = "reservationInfo">
-			<li>이용 일자</li>
-			<li><input type = "text" id = "choice_date" name = "reser_date" class = "date_input" placeholder="예약 날짜를 선택해주세요"></li>
-			<li>이용 시간</li>
-			<li><select id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
-				<select id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:time_price_result();"><option value = "">종료 시간</option></select></li>
-			<li>이용 인원</li>
-			<li><select id = "choice_person_count" name = "reser_person_count" onchange = "javscript:person_count_price_result();"></select></li>
-			<li>결제 예상 금액</li>
-			<li><span class = "expect_price_span"><label id = "expect_price">${hgContent.hg_price }</label>원</span></li>
-			<li><input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
-		</ul>
-		<ul id = "reservationInfo_click">
-			<li>이용 일자</li>
-			<li id = "use_date"></li>
-			<li>이용 시간</li>
-			<li id = "use_time"></li>
-			<li>이용 인원</li>
-			<li id = "use_person_count"></li>
-			<li>결제 예상 금액</li>
-			<li><span class = "expect_price_span"><label id = "use_price"></label>원</span></li>
-			<li>
-			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약하기" onclick = "javascript:reservation_ajax();">
-			<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "돌아가기" onclick = "javascript:reservation_back_click();">
-			</li>
-		</ul>
+	<div class = "top_contentImg">
+		<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-indicators">
+				<c:forEach items = "${imgContent }" varStatus="i">
+				<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i.index }" aria-label="Slide ${i.count }" <c:if test = '${i.index==0 }'>class="active" aria-current="true"</c:if>></button>
+				</c:forEach>
+			</div>
+			<div class="carousel-inner">
+				<c:forEach var = "img" items = "${imgContent }" varStatus="x">
+				<div class="carousel-item <c:if test = '${x.index==0 }'>active</c:if>">
+					<img src="upload/homegymInfo/${img.mfile_upload }" class="d-block w-100">
+				</div>
+				</c:forEach>
+	  		</div>
+	  		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+	    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    		<span class="visually-hidden">Previous</span>
+	  		</button>
+	  		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+	    		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    		<span class="visually-hidden">Next</span>
+	  		</button>
+		</div>
+	</div>
+	<div class = "remoteArea" id = "sidebox">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">${hgContent.hg_nickname }님의 홈짐</h5>
+				<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
+				<div class = "card-text">
+					<ul id = "reservationInfo">
+						<li>이용 일자</li>
+						<li><input type = "text" id = "choice_date" name = "reser_date" class = "date_input" placeholder="예약 날짜를 선택해주세요"></li>
+						<li>이용 시간</li>
+						<li><select class = "reser_select" id = "choice_start_time" name = "reser_start_time"><option value = "">시작 시간</option></select>-
+							<select class = "reser_select" id = "choice_end_time" name = "reser_end_time" onclick = "javascript:end_time_click();" onchange = "javscript:time_price_result();"><option value = "">종료 시간</option></select></li>
+						<li>이용 인원</li>
+						<li><select id = "choice_person_count" name = "reser_person_count" onchange = "javscript:person_count_price_result();"></select></li>
+						<li>결제 예상 금액</li>
+						<li><span class = "expect_price_span"><label id = "expect_price">${hgContent.hg_price }</label>원</span></li>
+						<li><input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약 상세 보기" onclick = "javascript:reservation();"></li>
+					</ul>
+					<ul id = "reservationInfo_click">
+						<li>이용 일자</li>
+						<li id = "use_date"></li>
+						<li>이용 시간</li>
+						<li id = "use_time"></li>
+						<li>이용 인원</li>
+						<li id = "use_person_count"></li>
+						<li>결제 예상 금액</li>
+						<li><span class = "expect_price_span"><label id = "use_price"></label>원</span></li>
+						<li>
+						<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "예약하기" onclick = "javascript:reservation_ajax();">
+						<input type = "button" class = "btn btn-primary btn-lg sbtn" value = "돌아가기" onclick = "javascript:reservation_back_click();">
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+
 <div class = "bottom_contentArea">
 	<div class = "hgContent">
 		<h3>홈짐 소개</h3>
@@ -479,31 +465,39 @@ img {vertical-align: middle;}
 				<th>주의사항</th>
 				<td>
 				<p>
-				예약 방식에는 (i) 신청과 동시에 예약확정&바로결제 유형, (ii) 공유자 예약 승인 후 결제 유형, (iii) 공유쟈 예약 승인 유형이 있습니다.<br>
-				이 중 공유자 예약 승인 유형의 홈짐은 “회사”에서 게스트가 예약만 할 수 있도록 지원할 뿐이므로 대금 지불 등 구체적인 절차는 게스트회원이 해당 호스트회원과 직접 연락하여 처리하여야 하고, 본 정책이 적용되지 않습니다.</p>
+				실내 흡연 금지<br>
+				건물 내외 벽에 무단으로 유인물 부착 금지<br>
+				건물 내 음식물 반입 금지<br>
+				각종 충전기 및 젠더 제공<br>
+				개인 수건 지참
+				</p>
 				</td>
 			</tr>
 			<tr>
 				<th>예약정책</th>
 				<td>
 				<p>
-				1) 스페이스클라우드의 최저결제금액은 1,000원 입니다. 단, 부분 환불시 부분 환불 요율에 따라 1,000원 미만 500원 이상의 결제가 가능합니다.<br>
-				2) 5,000원 미만의 금액에 대해서는 전체 취소, 전체 환불만 가능합니다.
+				전액 선납시 예약 확정<br>
+				선납 불가시 카드 게런티 작성(신청접수 후 48H 이내 게런티 미회신 시<br>가예약 자동 취소<br>
+				결제 링크(카드결제/계좌이체/카카오페이), 방문 현금 결제
 				</p>
 				</td>
 			</tr>
 			<tr>
 				<th>취소/환불 정책</th>
-				<td>주의사항 내용</td>
+				<td>
+				예약 후~사용 5일전 : 전액 반환<br>
+				사용 4일전 ~ 예약 당일 : 총 합계 금액의 100% 부과
+				</td>
 			</tr>
 		</table>
 	</div>
 	<div class = "mapArea">
 		<h3>지도</h3>
-		<div id="map" style="width:50%;height:350px;"></div>
+		<div id="map"></div>
 	</div>
 	<div class = "reviewArea">
-		<h3>이용 후기 / 평균 별점 : ${star_avg }</h3>
+		<h3>이용 후기</h3>
 		<table>
 			<thead>
 				<tr>

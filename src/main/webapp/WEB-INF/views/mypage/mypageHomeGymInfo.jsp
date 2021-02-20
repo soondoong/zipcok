@@ -3,13 +3,14 @@
 <%@include file="../header2.jsp"%>
 <link href="assets/css/mypage.css" rel="stylesheet">
 <link href="css/jqueryui/jquery-ui.css" rel="stylesheet">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 <script src="https://kit.fontawesome.com/802041d611.js"	crossorigin="anonymous"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6f0e5f2abca3d4fd875382e01cfd5ab6&libraries=services"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/httpRequest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script>
 var count = 100;
 window.addEventListener('load', function() {
@@ -568,16 +569,14 @@ function mypageHomeGymPaymentRegistForm(){
 .titlee hr {border-top: 1px solid #d1d1d4;margin-bottom: 30px;}
 .homegym_main { padding: 10px 0 0 60px;}
 .homegym_main .profileIMG {overflow: hidden; width: 100px; height: 75px; margin: 0 auto 50px;}
-.homegym_main .profileIMG img {width:75px; height:75px;}
 .homegym_main .profile_info {padding: 0 0 0 100px;}
 /*일반프로필 css*/
 .hgDIV{ margin:15px 0px; display:flex;}
 .hgDIV .hgLeftDIV {margin-right:50px;}
 .hgIMG{ height:350px; margin:15px 0px;}
-.hgIMG .hgMainIMG {height:200px; margin-bottom: 10px;}
-.hgIMG .hgMainIMG img {width: 500px; height:200px;}
-.hgIMG .hgSubIMG {height:100px;}
-.hgIMG .hgSubIMG img {width: 100px; height:100px;}
+.hgIMG .imgUpdateBtn {margin:20px 0px;}
+.hgIMG .hgMainIMG {width:600px; height:350px;}
+.hgIMG .hgMainIMG .carousel-item img {width:600px; height:300px; object-fit:fill;}
 .hgLeftDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
 .hgLeftDIV .mapArea {height:300px;}
 .hgRightDIV .infoDIV{width: 600px; border-bottom:1px solid #e4e4e4;}
@@ -614,15 +613,36 @@ function mypageHomeGymPaymentRegistForm(){
 								<h3>${hgContent.hg_nickname } 님의 홈짐</h3>
 								<input type = "hidden" id = "hg_mem_id" value = "${hgContent.hg_mem_id }">
 								<h6>좋아요 수 : ${like_count }</h6>
-								<span>홈짐 검색 활성화 : <input id = "hg_status" type = "checkbox" <c:if test = "${hgContent.hg_status == '1' }">checked = "checked"</c:if> onchange = "javascript:status_change();"></span>
+								<div class="form-check form-switch">
+								  <input class="form-check-input" type="checkbox" id="hg_status" onchange = "javascript:status_change();" <c:if test = "${hgContent.hg_status == '1' }">checked = "checked"</c:if>>
+								  <label class="form-check-label" for="hg_status">홈짐 활성화</label>
+								</div>
 							</div>
 							<div class = "hgIMG infoDIV">
 								<div class ="imgUpdateBtn"><input type = "button" value = "사진 수정" class = "rebtn"></div>
-								<div class = "hgMainIMG"><img src = "upload/homegymInfo/${imgContent[0].mfile_upload }"></div>
-								<div class = "hgSubIMG">
-								<c:forEach var = "img" items="${imgContent }">
-									<img src = "upload/homegymInfo/${img.mfile_upload }">
-								</c:forEach>
+								<div class = "hgMainIMG">
+									<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+										<div class="carousel-indicators">
+											<c:forEach items = "${imgContent }" varStatus="i">
+											<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i.index }" aria-label="Slide ${i.count }" <c:if test = '${i.index==0 }'>class="active" aria-current="true"</c:if>></button>
+											</c:forEach>
+										</div>
+										<div class="carousel-inner">
+											<c:forEach var = "img" items = "${imgContent }" varStatus="x">
+											<div class="carousel-item <c:if test = '${x.index==0 }'>active</c:if>">
+												<img src="upload/homegymInfo/${img.mfile_upload }" class="d-block w-100">
+											</div>
+											</c:forEach>
+								  		</div>
+								  		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+								    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								    		<span class="visually-hidden">Previous</span>
+								  		</button>
+								  		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+								    		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								    		<span class="visually-hidden">Next</span>
+								  		</button>
+									</div>
 								</div>
 							</div>
 							<div class="normalInfo">

@@ -413,7 +413,10 @@ li {margin-bottom: 10px;}
 				<select	name="eq_name_temp" id = "eq_name_temp">
 						<option value="암 컬">암 컬</option>
 						<option value="체스트 프레스">체스트 프레스</option>
-						<option value="덤벨">덤벨</option>
+						<option value="덤벨 1kg">덤벨 1kg</option>
+						<option value="덤벨 3kg">덤벨 3kg</option>
+						<option value="덤벨 5kg">덤벨 5kg</option>
+						<option value="덤벨 10kg">덤벨 10kg</option>
 						<option value="하프 랙">하프 랙</option>
 						<option value="렛 풀 다운">렛 풀 다운</option>
 						<option value="레그 컬">레그 컬</option>
