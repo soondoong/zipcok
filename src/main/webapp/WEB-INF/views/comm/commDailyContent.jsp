@@ -280,6 +280,8 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				<ul style="display: inline-flex; float: right;">
 					<li><input type="button" value="삭제" class="btn1 c1" onclick="location.href='commDailyDelete.do?ex_idx=${dto.ex_idx}&coach_id=${sessionScope.com_coach_id}'">
 					<li>&nbsp;&nbsp;</li>
+					
+					<c:if test="${sid==dto2.re_id }"></c:if>
 					<li><input type="button" value="수정" class="btn1 c1" onclick="location.href='commDailyUpdate.do?ex_idx=${dto.ex_idx}'">
 					<li>&nbsp;&nbsp;</li>
 					<li><input type="button" value="목록보기" class="btn1 c1" onclick="location.href='commDailyList.do'">
