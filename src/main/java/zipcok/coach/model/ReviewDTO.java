@@ -15,7 +15,9 @@ public class ReviewDTO {
 	private Date rev_rewritedate;    
 	private int rev_pd_idx;    
 	
-	
+	//////병길 필요//////
+	private String reser_date;
+	////////////////////
 	public ReviewDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -119,8 +121,16 @@ public class ReviewDTO {
 	public void setRev_pd_idx(int rev_pd_idx) {
 		this.rev_pd_idx = rev_pd_idx;
 	}
+	//////병길 필요/////////
+	public String getReser_date() {
+		return reser_date;
+	}
 
 
+	public void setReser_date(String reser_date) {
+		this.reser_date = reser_date;
+	}
+	///////////////////////
 	public ReviewDTO(int rev_idx, String rev_key, String rev_mem_id, String rev_target_id, int rev_star, String rev_sub,
 			String rev_cont, Date rev_writedate, Date rev_rewritedate, int rev_pd_idx) {
 		super();
@@ -135,11 +145,21 @@ public class ReviewDTO {
 		this.rev_rewritedate = rev_rewritedate;
 		this.rev_pd_idx = rev_pd_idx;
 	}
-
-	
-
-
-	
-	
-	
+	////////병길 필요////////
+	public ReviewDTO(int rev_idx, String rev_key, String rev_mem_id, String rev_target_id, int rev_star, String rev_sub,
+			String rev_cont, Date rev_writedate, Date rev_rewritedate, int rev_pd_idx, String reser_date) {
+		super();
+		this.rev_idx = rev_idx;
+		this.rev_key = rev_key;
+		this.rev_mem_id = rev_mem_id;
+		this.rev_target_id = rev_target_id;
+		this.rev_star = rev_star;
+		this.rev_sub = rev_sub;
+		this.rev_cont = rev_cont;
+		this.rev_writedate = rev_writedate;
+		this.rev_rewritedate = rev_rewritedate;
+		this.rev_pd_idx = rev_pd_idx;
+		this.reser_date = reser_date;
+	}
+	////////////////////////
 }

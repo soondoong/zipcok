@@ -25,5 +25,9 @@ public class Payment_detailsDAOImple implements Payment_detailsDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	@Override
+	public int ReserIdxFind(int pd_idx) {
+		int reser_idx = sqlMap.selectOne("PaymentReserIdxFind", pd_idx);
+		return reser_idx;
+	}
 }
