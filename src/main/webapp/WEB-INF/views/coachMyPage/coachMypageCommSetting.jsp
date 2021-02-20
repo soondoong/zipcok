@@ -17,7 +17,7 @@ function memplus(uc_comm_idx){
 	
 <%@include file="../header2.jsp"%>
 <style>
-.table { border-spacing: ''; table-layout: auto; text-align: center;} 
+.table { border-spacing: ''; table-layout: auto; text-align: center; border-bottom: 2px solid #dee2e6;} 
 .table th{font-weight: bold; border-color:#848282;}
 .revbtn{width:72px; height: 25px; }
 .table a,.table a:hover,.table a:link{color:blue;}
@@ -75,10 +75,12 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 			</style>
 					
 				<h5 style="font-weight: 600;">수강생 관리</h5> 
+				<div style="display:flex; justify-content: flex-end;">
+				<a href="#" onclick="memplus(${uc_comm_idx})" style=" font-size: 18px; font-weight: bold; padding: 4px;">수강생 추가</a>
+				<a href="#" onclick="memplus(${uc_comm_idx})"><img src="assets/img/plus.png" style="width: 30px; height: 15px; margin: 10px -3px 0px;"></a>
+				</div>
 				
-				<input type="button" value="수강생 추가" class="btn btn-primary btn-sm" 
-				 style="display: block; float:right;padding:7px 10px;" onclick="memplus(${uc_comm_idx})">
-				 
+				
 				<table class="table table-hover" class="commList">
 				<thead>
 					<tr>
@@ -104,16 +106,10 @@ hr{border-top:1px solid #d1d1d4;margin-bottom: 30px;}
 				</c:forEach>
 				</tbody>
 			</table>
-			<input type="button" value="뒤로 가기" class="btn btn-primary btn-sm" 
-				 style="display: block; float:left; padding:7px 10px;" onclick="location.href='coachMyPageCommManage.do'">
 			</div>
 			
 			<div class="mypage_comm_table">
-				<br><br><br>
-				<h5 style="font-weight: 600;">커뮤니티 삭제</h5> 
-				
-				<input type="button" value="커뮤니티 삭제" class="btn btn-primary btn-sm" 
-				 style="display: block; float:left; padding:7px 10px;" onclick="location.href='coachMyPageDel.do?uc_comm_idx=${uc_comm_idx}'">
+				<input type="button" value="목록으로 가기" class="btn1 c1" onclick="location.href='coachMyPageCommManage.do'">
 			</div>	
 				
 		 </div>

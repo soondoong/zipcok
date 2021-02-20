@@ -62,7 +62,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 		<div class="com_top">
 			<h1>일일 운동 게시판</h1>
 			<h3>코치 : ${coach_name} 코치</h3>
-			<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">커뮤니티 메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
+			<div class="comm_menu"><span><h3><a href="commMain.do?com_idx=${com_idx }">메인</a></h3>&nbsp;<h3>|</h3>&nbsp;<h3><a href="commDailyList.do">일일 운동 게시판</a></h3></span></div>
 		</div>
 		<div class="container " style="margin-top: 5px;">
 			
@@ -141,7 +141,7 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 				.reply_wrap .reply_item .reply {margin-top: 10px; font-size: 14px;}
 				.reply_wrap .reply_item .reply_btns {margin-top: 10px;}
 				.reply_wrap .reply_item .reply_btns button {width: 80px; height: 30px;}
-				.reply_wrap .reply_item .reply_btns button.reply_comment {border: 1px solid #333333;}
+				.reply_wrap .reply_item .reply_btns button.reply_comment {background: none!important; border: none; padding: 0!important; /*optional*/ cursor: pointer;}
 				.reply_wrap .reply_item .reply_btns button.reply_delete {border: none; background: #e92727; color: #ffffff;}
 				.reply_wrap .comment_area {margin-top: 10px; padding-top: 10px; border-top: 1px solid #cccccc;}
 				.reply_wrap .comment_area textarea {height: 80px; border: 1px solid #cccccc; margin-bottom: 10px;}
@@ -181,10 +181,11 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 									</c:choose>
 								</div>
 								<div class="reply">${dto2.re_content}</div>
-								<div class="reply_btns">
-									<button type="button" class="reply_comment" onclick="$(this).parents('.reply_item').next().toggle();">답글</button>
+								<div class="reply_btns" style="color: grey;">
+									${dto2.re_writedate }
+									<a href="javascript:void(0);" onclick="$(this).parents('.reply_item').next().toggle();">답글</a>
 									<!-- 작성자와 아이디 일치 확인 -->
-										<button type="button" class="reply_delete" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</button>
+										<a href="javascript:void(0);" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</a>
 								</div>
 							</div>
 						</c:when>
@@ -205,8 +206,9 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 									</c:choose>
 								</div>
 								<div class="reply">${dto2.re_content}</div>
-								<div class="reply_btns">
-									<button type="button" class="reply_delete" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</button>
+								<div class="reply_btns" style="color: grey;">
+									${dto2.re_writedate }
+									<a href="javascript:void(0);" onclick="location.href='commDailyReDelete.do?re_lev=${dto2.re_lev}&re_idx=${dto2.re_idx}&re_group=${dto2.re_group}&ex_idx=${dto2.re_bbs_idx}'">삭제</a>
 								</div>
 							</div>
 						</c:when>
@@ -226,11 +228,13 @@ function bbsRereWrite(re_group,re_bbs_idx,index){
 					<ul class="replewrite">
 						<li><input type="hidden" name="re_id" id="re_id" value="${sessionScope.sname}" readonly>
 						<input type="text" name="re_content" id="re_content" required="required"></li>
-						<li><input type="button" value="댓글달기" class="btn1 c1" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
+						<li><input type="button" value="댓글달기" class="btn1 c1" style="float:right;" onclick="bbsReWrite(${re_idx},${ex_idx})"></li>
 					</ul>
 					</div>
+					<br>
 					<hr>
-					
+					<br>
+					<br>
 					
 					
 					<%-- <c:forEach var="dto2" items="${list}" varStatus="i">
