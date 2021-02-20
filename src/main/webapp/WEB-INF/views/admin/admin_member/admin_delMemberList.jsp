@@ -7,20 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
-<script>
-/* selectBox onchange 될 때 플레이스홀더 값 변경하는 함수*/
-function placeholderGo(){
-	var selectOptionGo = document.getElementById('selectOptionGo').value;
-	if(selectOptionGo!='전체'){
-		var searchContentP = document.getElementById('searchContentP');
-		searchContentP.setAttribute('placeholder','내용을 입력해주세요.');
-	}else if(selectOptionGo=='전체'){
-		var searchContentP = document.getElementById('searchContentP');
-		searchContentP.setAttribute('placeholder','탈퇴회원ID 입력');
-	}
-	
-}
-</script>
 </head>
 <body>
 	<%@include file="../../header2.jsp"%>
@@ -47,13 +33,13 @@ function placeholderGo(){
 						<ul class="test-inline">
 							<li class="srchtitle">검색 조건</li>
 							<li>
-							<select id="selectOptionGo" name="type" onchange="javascript:placeholderGo();">
+							<select id="selectOptionGo" name="type">
 									<option <c:if test="${keyword.keywordType=='전체'}">selected="selected"</c:if>>전체</option>
 									<option <c:if test="${keyword.keywordType=='회원이름'}">selected="selected"</c:if>>회원이름</option>
 									<option <c:if test="${keyword.keywordType=='회원아이디'}">selected="selected"</c:if>>회원아이디</option>
 							</select>
 							</li>
-							<li><input type="text" id="searchContentP" name="searchContent" placeholder="탈퇴회원 ID"></li>
+							<li><input type="text" id="searchContentP" name="searchContent" placeholder="내용을 입력해주세요."></li>
 							<li><input type="submit" value="검색" id="searchbtn" class="btn btn-primary"></li>
 						</ul>
 					</form>

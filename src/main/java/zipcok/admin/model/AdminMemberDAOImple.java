@@ -88,7 +88,7 @@ public class AdminMemberDAOImple implements AdminMemberDAO {
 	//관리자 탈퇴회원 총 수
 	@Override
 	public int adminDelMemberDateTotalCnt(HashMap<String, Object> map) {
-		int totalCnt = sqlMap.selectOne("adminDelMemberTotalCnt", map);
+		int totalCnt = sqlMap.selectOne("adminDelMemberDateTotalCnt", map);
 		return totalCnt;
 	}
 	//관리자 탈퇴회원 날짜 조건검색

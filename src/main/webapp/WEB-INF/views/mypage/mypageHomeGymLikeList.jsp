@@ -53,10 +53,10 @@
     
     				<div class="likepersonAllWrap">
     				<c:if test="${empty list }">
-    					<div>검색된 좋아요 내역이 없습니다.</div>
+    					<div style="text-align: center;">검색된 좋아요 내역이 없습니다.</div>
     				</c:if>
     				<c:forEach var="dto" items="${list }" varStatus="status">
-    				<div   style="text-align: center; padding:20px;">
+    				<div style="text-align: center; padding:20px;">
     					<div class="likeprofileIMG">
     					<img src="/zipcok/upload/member/${memarr[status.index].mfile_upload}">
     					</div>
