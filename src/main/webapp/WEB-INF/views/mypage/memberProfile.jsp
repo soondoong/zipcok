@@ -251,10 +251,10 @@ function emailclosePopup() {
 						<div>
 							<span>비밀번호</span>****<input type="hidden" name="mem_pwd"
 								value="${dto.mem_pwd }"><input type="button"
-								value="수정" class="rebtn" onclick="pwdshowPopup(false)">
+								value="수정" class="rebtn" onclick="pwdshowPopup(true)">
 						</div>
 						<div>
-							<span>주소</span><input type="button" value="수정" class="rebtn" onclick="addrshowPopup(false)">
+							<span>주소</span><input type="button" value="수정" class="rebtn" onclick="addrshowPopup(true)">
 							<p>${dto.mem_addr }<br>${dto.mem_detailaddr }</p>
 							<input type="hidden" name="mem_zipcode" value="${dto.mem_zipcode }">
 							<input type="hidden" name="mem_addr" value="${dto.mem_addr }">
@@ -264,12 +264,12 @@ function emailclosePopup() {
 						<div>
 							<span>이메일</span>${dto.mem_email } <input type="hidden"
 								name="mem_email" value="${dto.mem_email }">
-								<input type="button" value="수정" class="rebtn" onclick="emailshowPopup(false)">
+								<input type="button" value="수정" class="rebtn" onclick="emailshowPopup(true)">
 						</div>
 						<div>
 							<span>전화번호</span>${dto.mem_phone } <input type="hidden"
 								name="mem_phone" value="${dto.mem_phone }"><input
-								type="button" value="수정" class="rebtn" onclick="phoneshowPopup(false)">
+								type="button" value="수정" class="rebtn" onclick="phoneshowPopup(true)">
 						</div>
 						<div style="text-align: right;">
 							<a href="#">[회원탈퇴]</a>
@@ -319,7 +319,7 @@ function emailclosePopup() {
 
 				<div class="form-group">
 					<input class="form-control" placeholder="상세주소"
-						name="mem_detailaddr" id="mem_detailaddr" type="text" />
+						name="mem_detailaddr" id="mem_detailaddr" type="text" required="required"/>
 				</div>
 				<br>
 				<div class="form-group text-center">
@@ -535,7 +535,7 @@ function sendphone(){
 				<div class="form-group">
 					<label for="pw">새 비밀번호</label> <input type="password"
 						class="form-control" id="mem_pwd" name="mem_pwd"
-						placeholder="PASSWORD">
+						placeholder="PASSWORD" required="required">
 					<div class="eheck_font" id="pw_check"></div>
 				</div>
 
@@ -543,7 +543,7 @@ function sendphone(){
 				<div class="form-group">
 					<label for="pw2">새 비밀번호 확인</label> <input type="password"
 						class="form-control" id="mem_pwd2" name="mem_pwd2"
-						placeholder="Confirm Password">
+						placeholder="Confirm Password" required="required">
 					<div class="eheck_font" id="pw2_check"></div>
 				</div>
 				<br>
@@ -621,7 +621,7 @@ $(document).ready(function() {
 				<div class="form-group">
 					<label for="mem_email">변경할 이메일 주소</label> <input type="email"
 						class="form-control" id="mem_email" name="mem_email"
-						placeholder="E-mail">
+						placeholder="E-mail" required="required">
 					
                <div class="eheck_font" id="email_check"></div>
 				</div>

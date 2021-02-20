@@ -460,7 +460,7 @@ ServletContext c;
 		
 		
 		//전화번호 변경
-		@RequestMapping("/coachMypagePhonUpdate.do")
+		@RequestMapping("/coachMypagePhoneUpdate.do")
 		public ModelAndView coachMypagePhoneUpdate(
 				MemberDTO dto,
 				HttpSession session,

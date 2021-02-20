@@ -209,11 +209,11 @@ function emailclosePopup() {
 		
 		<div>		
 			<span>비밀번호</span>****<input type="hidden" name="mem_pwd"value="${mdto.mem_pwd }">
-			<input type="button" value="수정"  class="rebtn" onclick="pwdshowPopup(false)">
+			<input type="button" value="수정"  class="rebtn" onclick="pwdshowPopup(true)">
 		</div>
 		 
 		<div>		
-			<span>주소</span><input type="button"value="수정" class="rebtn" onclick="addrshowPopup(false)">
+			<span>주소</span><input type="button"value="수정" class="rebtn" onclick="addrshowPopup(true)">
 			<p>${mdto.mem_addr } <br>${mdto.mem_detailaddr }</p>
 				<input type="hidden" name="mem_zipcode" value="${mdto.mem_zipcode }">
 				<input type="hidden" name="mem_addr" value="${mdto.mem_addr }">
@@ -224,12 +224,12 @@ function emailclosePopup() {
 		
 		<div>		
 			<span>이메일</span>${mdto.mem_email } <input type="hidden"
-				name="mem_email" value="${mdto.mem_email }"> <input type="button" value="수정" class="rebtn" onclick="emailshowPopup(false)">
+				name="mem_email" value="${mdto.mem_email }"> <input type="button" value="수정" class="rebtn" onclick="emailshowPopup(true)">
 		</div>
 		
 		<div>			
 			<span>전화번호</span>${mdto.mem_phone } <input type="hidden"
-				name="mem_phone" value="${mdto.mem_phone }"><input type="button" value="수정"  class="rebtn" onclick="phoneshowPopup(false)">
+				name="mem_phone" value="${mdto.mem_phone }"><input type="button" value="수정"  class="rebtn" onclick="phoneshowPopup(true)">
 		</div>
 		
 		<div style="text-align: right;">
