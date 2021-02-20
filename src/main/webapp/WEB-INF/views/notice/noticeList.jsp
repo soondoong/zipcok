@@ -75,9 +75,9 @@
 					</thead>
 					<tbody>
 						<c:if test="${empty list}">
-						<tr>
-							<th colspan="5" align="center">등록된 공지사항이 없습니다.</th>
-						</tr>
+							<tr>
+								<th colspan="5" style="text-align : center;">등록된 공지사항이 없습니다.</th>
+							</tr>
 						</c:if>
 						<c:if test="${!empty list }">
 						<c:forEach var="dto" items="${list}">
@@ -98,7 +98,9 @@
 			</div>
 			
 			<div class="table_list_bottom">
-				<div class="pagination">${pageStr}</div>
+				<c:if test="${!empty list }">
+					<div class="pagination">${pageStr}</div>
+				</c:if>
 					<c:if test="${login.mem_id=='admin'}">
 						<div class="btn_right_box">
 							<input type="submit" value="글쓰기" class="btn1 c1">				

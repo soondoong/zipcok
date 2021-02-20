@@ -253,12 +253,15 @@ public class AdminCoachMatchController {
 		mav.setViewName("admin/admin_coachMatch/adminAddrUpdate");
 		return mav;
 	}
+	
+	
 	//코치프로필 활동지역 실제 수정하기
 	@RequestMapping("flocUpdate.do")
 	public ModelAndView adminFlocUpdate(
 			@RequestParam("coach_floc")String coach_floc,
 			@RequestParam("coach_sloc")String coach_sloc,
 			@RequestParam("coach_mem_id")String coach_mem_id) {
+
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("coach_floc", coach_floc);

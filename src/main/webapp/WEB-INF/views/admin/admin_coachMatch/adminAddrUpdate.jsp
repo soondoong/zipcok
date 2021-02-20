@@ -93,40 +93,41 @@ function formSubmit(){
 	window.self.close();
 }
 </script>
-
 </head>
 <body>
 	<article>
 		<form id = "addrForm" action="flocUpdate.do">
-			<h4>주소변경</h4>
-			<hr>
-			<div class="col-sm-3 col-md-offset-3">
-			
-				<div class="form-group">
+			<div class="content">
+				<h4>주소변경</h4>
+				<hr>
+				<div class="col-sm-3 col-md-offset-3">
 				
-					<button type="button" class="btn btn-default"
-						style="background-color: cornflowerblue; color: white; line-height: 1.20;"
-						onclick="execPostCode();">
-						<i class="fa fa-search"></i> 주소찾기
-					</button>
-				</div>
-
-
-				<div class="form-group">
-					<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
-						name="coach_floc" id="coach_floc" type="text" readonly="readonly" />
-				</div>
-
-
-				<div class="form-group">
-					<input class="form-control" required="required" placeholder="상세주소"
-						name="coach_sloc" id="coach_sloc" type="text" />
-				</div>
-				<input type="hidden" name="coach_mem_id" value="${coach_mem_id}">
-
-				<div class="form-group text-center">
-					<button type="button" class="btn btn-primary" onclick = "javascript:formSubmit();">변경하기</button>
-					<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
+					<div class="form-group">
+					
+						<button type="button" class="btn btn-default"
+							style="background-color: cornflowerblue; color: white; line-height: 1.20;"
+							onclick="execPostCode();">
+							<i class="fa fa-search"></i> 주소찾기
+						</button>
+					</div>
+	
+	
+					<div class="form-group">
+						<input class="form-control" style="top: 5px;" placeholder="도로명 주소"
+							name="coach_floc" id="coach_floc" type="text" readonly="readonly" />
+					</div>
+	
+	
+					<div class="form-group">
+						<input class="form-control" required="required" placeholder="상세주소"
+							name="coach_sloc" id="coach_sloc" type="text" />
+					</div>
+					<input type="hidden" name="coach_mem_id" value="${coach_mem_id}">
+	
+					<div class="form-group text-center">
+						<button type="button" class="btn btn-primary" onclick = "javascript:formSubmit();">변경하기</button>
+						<input type="button" class="btn btn-primary" value="취소"  onclick="popupClose()">
+					</div>
 				</div>
 			</div>
 		</form>
