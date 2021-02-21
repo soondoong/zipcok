@@ -216,4 +216,7 @@
 	<select id="PaymentReserIdxFind" parameterType="Integer" resultType="Integer">
 		select pd_req_idx from zipcok_payment_details where pd_idx = #{value}
 	</select>
+	<select id = "hgReserDateFind" parameterType = "Integer" resultType="String">
+		select reser_date from homegym_reservation where reser_idx = #{value}
+	</select>
 </mapper>

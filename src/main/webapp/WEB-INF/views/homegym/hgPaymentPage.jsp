@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <%@include file="../_include/head.jsp" %>
 <%@include file="../header2.jsp" %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">  
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
 window.addEventListener('load', function() {
@@ -15,10 +16,6 @@ window.addEventListener('load', function() {
         leadingZeros(d.getMonth() + 1, 2) + '-' +
         leadingZeros(d.getDate(), 2);
     document.getElementById('reser_date').value = s;
-        s += leadingZeros(d.getHours(), 2) +
-        leadingZeros(d.getMinutes(), 2) +
-        leadingZeros(d.getSeconds(), 2);
-     document.getElementById('sysdate').innerText = s;
 });
 function leadingZeros(n, digits) {
 
@@ -65,51 +62,89 @@ function pg_check(){
 }
 </script>
 <style>
-.reserpaymentDiv {width: 850px; margin:60px auto; border:1px solid gray; border-radius: 8px; padding:40px;}
-.reserpaymentDiv .reserInfo {width: 850px;}
-.reserpaymentDiv .reserInfo h6 {margin-top: 30px;}
-.paymentInfo {margin-top:20px;}
-.payment_method {font-size:20px;}
-.payment_method h5 {margin: 20px 0px;}
-.payment_btn {text-align: center;}
+.container{ display:  flex; justify-content:  center; padding:50px;}
+.payAllWrap { padding:50px;}
+.topInfoDIV{width: 100%; height: 130px; background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0f7de1);	}
+.topInfoDIV:before{   
+position: relative;
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 27px solid transparent;
+    border-right: 27px solid transparent;
+    border-top: 32px solid #0875d6;
+    left: 50%;
+    top: 114%;
+    z-index: -1;
+    margin-left: -15px;
+}
+.topInfoDIV h3{  color:white;margin: 30px 0px 30px 302px;}
+.booticon{font-size: 46px; color:white; position: relative; top:-20px; }
+hr{margin-bottom:40px;}
+.hpdTitle{font-size: 20px; font-weight:600; color:#324068; margin-right:30px;}
+.hpdText{font-size: 17px;position: relative; top:6px; }
+.prices{font-size: 25px; }
+.prices2{font-size: 26px;}
+.payAllWrap p{height: 30px;}
+input[name = "pd_method"]{ 
+width:20px; height: 20px;
+font-size: 15px; margin-right:15px;
+}
+.paymethod{font-size: 17px;}
+.btn{display: block; width: 100%; height: 53px;}
+.OKbtn{ margin:40px 0 10px 0;}
+.returnbtn{ }
 </style>
-<div class = "reserpaymentDiv">
-	<div class= "reserInfo">
-	<h3>결제 정보</h3>
-	<h6>에약자 아이디 : ${reserInfo.mem_id }</h6>
-	<input type = "hidden" id = "mem_id" value = '${reserInfo.mem_id }'>
-	<h6>대여자 아이디 : ${reserInfo.hg_mem_id }</h6>
-	<input type = "hidden" id = "target_id" value = '${reserInfo.hg_mem_id }'>
-	<h6>예약 일자 : ${reserInfo.reser_date }</h6>
-	<input type = "hidden" id = "reser_date" value = '${reserInfo.reser_date }'>
-	<h6>예약 시간 : <c:if test = "${reserInfo.reser_start_time<10 }">0</c:if>${reserInfo.reser_start_time }:00 ~ <c:if test = "${reserInfo.reser_end_time<10 }">0</c:if>${reserInfo.reser_end_time }:00</h6>
-	<input type = "hidden" id = "reser_start_time" value = '${reserInfo.reser_start_time }'>
-	<input type = "hidden" id = "reser_end_time" value = '${reserInfo.reser_end_time }'>	
-	<h6>에약자 수 : ${reserInfo.reser_person_count }</h6>
-	<input type = "hidden" id = "reser_person_count" value = '${reserInfo.reser_person_count }'>
-	<h6>에약 접수 날짜 : <label id = "sysdate"></label></h6>
-	<input type = "hidden" id = "reser_date">
-	<h6>예약 대금 : ${reserInfo.reser_price }</h6>
-	<input type = "hidden" id = "reser_price" value = "${reserInfo.reser_price }">
+<div class= "topInfoDIV">
+	<h3><i class="bi bi-credit-card booticon"></i>&nbsp;&nbsp;&nbsp;결제 정보를 확인해주세요&nbsp;&nbsp;!</h3>
+</div>
+<div class = "container">
+	<div class = "payAllWrap card">
+	<h3 style="margin-bottom:20px;">결제세부 정보</h3>
+	<hr>
+	<div>
+		<p><span class = "hpdTitle">대여자 홈짐 아이디</span><span class = "hpdText">${reserInfo.hg_mem_id }</span></p>
+		<div style = "display:flex;">
+			<p style = "margin-right:40px;"><span class ="hpdTitle">예약자 아이디</span><span class = "hpdText">${reserInfo.mem_id }</span></p>
+		</div>
+		<div style = "display:flex;">
+			<p style = "margin-right:40px;"><span class ="hpdTitle">예약 일자</span><span class = "hpdText">${reserInfo.reser_date }</span></p>
+		</div>
+		<div style = "display:flex;">
+			<p><span class ="hpdTitle">예약 시작 시간</span>
+			<span class = "hpdText"><c:if test = "${reserInfo.reser_start_time<10 }">0</c:if>${reserInfo.reser_start_time }:00</span></p>
+		</div>
+		<div style = "display:flex;">
+			<p><span class ="hpdTitle">예약 종료 시간</span>
+			<span class = "hpdText"><c:if test = "${reserInfo.reser_end_time<10 }">0</c:if>${reserInfo.reser_end_time }:00</span></p>
+		</div>
+		<div style = "display:flex;">
+			<p style = "margin-right:40px;"><span class ="hpdTitle">예약 인원</span><span class = "hpdText">${reserInfo.reser_person_count }</span></p>
+		</div>
 	</div>
-	<div class = "paymentInfo">
-		<h3>결제 페이지</h3>
-		<div class = "payment_method">
-			<h5>결제 수단</h5>
-			<input type = "radio" name = "pd_method" checked="checked" value = "신용카드">신용카드
-			<input type = "radio" name = "pd_method" value = "실시간 계좌 이체">실시간 계좌 이체
-			<input type = "radio" name = "pd_method" value = "가상 계좌">가상 계좌<hr>
-			<input type = "radio" name = "pd_method" value = "폰 뱅킹">폰 뱅킹
-			<input type = "radio" name = "pd_method" value = "삼성페이">삼성페이
-			<input type = "radio" name = "pd_method" value = "kpay">K_Pay<hr>
-			<input type = "radio" name = "pd_method" value = "문화상품권">문화상품권
-			<input type = "radio" name = "pd_method" value = "스마트상품권">스마트상품권
-			<input type = "radio" name = "pd_method" value = "해피머니 문화상품권">해피머니 문화상품권
-			<input type = "radio" name = "pd_method" value = "도서 상품권">도서 상품권
-		</div>
-		<div class = "payment_btn">
-		<input type = "button" value = "결제하기" class = "btn btn-primary btn-lg sbtn" onclick = "javascript:pg_check();">
-		</div>
+	<hr>
+	<p><span class = "hpdTitle prices">결제예상 금액</span>&nbsp;<span class = "hpdText prices2">${reserInfo.reser_price }&nbsp;원</span></p>
+
+	<hr style = "border-top:3px solid #d1d5dc; margin-top:24px;">
+	
+	<p class = "hpdTitle">결제 방법</p>
+	<div>
+		<input type = "radio" name = "pd_method" checked ="checked" value = "카카오페이"><span class = "paymethod">카카오페이</span>
+		<input type = "radio" name = "pd_method" value = "신용카드"><span class = "paymethod">신용카드</span>
+		<input type = "radio" name = "pd_method" value = "실시간 계좌 이체"><span class = "paymethod">실시간 계좌 이체</span>
+		<input type = "radio" name = "pd_method" value = "폰 뱅킹"><span class = "paymethod">폰 뱅킹</span>
+		<input type = "radio" name = "pd_method" value = "삼성페이"><span class = "paymethod">삼성페이</span>
+	</div>
+	<input type = "button" value = "결제하기" class = "btn btn-primary btn-lg sbtn" style = "margin-top:50px;" onclick = "javascript:pg_check();">
+	<input type = "button" value = "돌아가기" class = "btn btn=secondary returnbtn">
 	</div>
 </div>
+<input type = "hidden" id = "mem_id" value = '${reserInfo.mem_id }'>
+<input type = "hidden" id = "target_id" value = '${reserInfo.hg_mem_id }'>
+<input type = "hidden" id = "reser_date" value = '${reserInfo.reser_date }'>
+<input type = "hidden" id = "reser_start_time" value = '${reserInfo.reser_start_time }'>
+<input type = "hidden" id = "reser_end_time" value = '${reserInfo.reser_end_time }'>	
+<input type = "hidden" id = "reser_person_count" value = '${reserInfo.reser_person_count }'>
+<input type = "hidden" id = "reser_date">
+<input type = "hidden" id = "reser_price" value = "${reserInfo.reser_price }">
 <%@include file="../_include/footer.jsp" %>

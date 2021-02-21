@@ -174,7 +174,6 @@ public class HomeGymController {
 		int pageSize = 5;
 		String keyword = "&hg_mem_id="+homegymId;
 		double star_avg = homegymDAO.HomeGymReviewStarAvg(homegymId);
-		System.out.println(homegymId);
 		int totalCnt = homegymDAO.HomeGYmReviewtotalCnt(homegymId);
 		Map<String, Object> review_option = new HashMap<String, Object>();
 		review_option.put("hg_mem_id", homegymId);
@@ -184,8 +183,10 @@ public class HomeGymController {
 		review_option.put("end", end);
 		List<ReviewDTO> reviewList = homegymDAO.HomeGymReview(review_option);
 		for(int i = 0 ; i < reviewList.size(); i++) {
-			String reser_date = homegymreserDAO.reserDateFind(homegympdDAO.ReserIdxFind(reviewList.get(i).getRev_pd_idx()));
-			reviewList.get(i).setReser_date(reser_date);
+			int FindRev_pd_idx = reviewList.get(i).getRev_pd_idx();
+			int FindReser_idx = homegympdDAO.ReserIdxFind(FindRev_pd_idx);
+			String FindReser_date = homegymreserDAO.reserDateFind(FindReser_idx);
+			reviewList.get(i).setReser_date(FindReser_date);
 		}
 		String pageStr = zipcok.page.HomeGymPageModule.makePage("HomeGymContent.do", totalCnt, cp, listSize, pageSize, keyword);
 		ModelAndView mav = new ModelAndView();

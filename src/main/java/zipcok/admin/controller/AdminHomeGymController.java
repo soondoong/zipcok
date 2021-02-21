@@ -240,15 +240,15 @@ public class AdminHomeGymController {
 	//취소승인 상태변경
 	@RequestMapping("reservationUpdateStatus.do")
 	public ModelAndView reservationCancelStatus(
-			@RequestParam("mem_id")String mem_id) {
+			@RequestParam("reser_idx")int reser_idx) {
 		
 		ModelAndView mav = new ModelAndView();
-		int result=dao.reservationCancelStatus(mem_id);
-		int result2=dao.reservationCancelStatusPayment(mem_id);
+		int result=dao.reservationCancelStatus(reser_idx);
+		int result2=dao.reservationCancelStatusPayment(reser_idx);
 		
 		mav.addObject("result2",result2);
 		mav.addObject("result",result);
-		mav.addObject("mem_id",mem_id);
+		mav.addObject("mem_id",reser_idx);
 		mav.setViewName("jsonView");
 		return mav;
 	}

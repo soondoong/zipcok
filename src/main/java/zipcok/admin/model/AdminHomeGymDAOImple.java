@@ -101,15 +101,15 @@ public class AdminHomeGymDAOImple implements AdminHomeGymDAO {
 	
 	//취소승인 상태변경
 	@Override
-	public int reservationCancelStatus(String mem_id) {
-		int count = sqlMap.update("reservationCancelStatus", mem_id);
+	public int reservationCancelStatus(int reser_idx) {
+		int count = sqlMap.update("reservationCancelStatus", reser_idx);
 		return count;
 	}
 	
 	//취소승은 마이페이지 결제상태변경
 	@Override
-	public int reservationCancelStatusPayment(String pd_mem_id) {
-		int count = sqlMap.update("reservationCancelStatusPayment", pd_mem_id);
+	public int reservationCancelStatusPayment(int reser_idx) {
+		int count = sqlMap.update("reservationCancelStatusPayment", reser_idx);
 		return count;
 	}
 	
