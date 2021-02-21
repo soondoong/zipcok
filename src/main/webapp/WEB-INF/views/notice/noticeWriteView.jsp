@@ -36,11 +36,11 @@
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="bbs_subject"></td>
+						<td><input type="text" name="bbs_subject" required="required"></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td><textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea></td>
+						<td><textarea rows="6" cols="80" name="bbs_content" placeholder="내용을 입력해주세요" required="required" style="height: 300px;"></textarea></td>
 					</tr>
 				</tbody>
 			</table>
