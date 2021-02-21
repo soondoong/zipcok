@@ -9,7 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/admin.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 <script src = "js/httpRequest.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <style type="text/css">
 .table { border-spacing: ''; table-layout: auto; text-align: center; margin-bottom:70px;} 
 .table th{font-weight: bold; border-color:#848282;}
@@ -22,7 +24,7 @@ a{cursor:pointer;}
 .surgestForm input[type=text] {width:195px; margin-right:10px;}
 .test-inline{display: inline-flex;}
 .infoTable {font-size:15px;}
-.infoTable td, th{width:100px; }
+.infoTable td, th{width:100px;}
 .price{width:80px;}
 .addr{width:230px;}
 </style>
@@ -60,23 +62,20 @@ function homegymInfoView_rq(){
 			document.getElementById('homegymStarAvg').innerText = starAvg;
 		
 			if(homegymInfo.hg_status=='1'){
+				var approved_check = document.createElement('input');
+				approved_check.setAttribute('id', 'approved_status');
+				approved_check.setAttribute('class', 'form-check-input')
+				approved_check.setAttribute('type', 'checkbox');
+				approved_check.setAttribute('onchange', 'javascript:homegymApprovedCheckChange("'+homegymInfo.hg_mem_id+'");');
+				while ( document.getElementById('homegymApproved_check').hasChildNodes() ) { document.getElementById('homegymApproved_check').removeChild( document.getElementById('homegymApproved_check').firstChild ); }
 				if(homegymInfo.hg_approved_check=='1'){
-					var approved_check = document.createElement('input');
-					approved_check.setAttribute('id', 'approved_status');
-					approved_check.setAttribute('type', 'checkbox');
-					approved_check.setAttribute('checked', true);	
-					approved_check.setAttribute('onchange', 'javascript:homegymApprovedCheckChange("'+homegymInfo.hg_mem_id+'");');
-					while ( document.getElementById('homegymApproved_check').hasChildNodes() ) { document.getElementById('homegymApproved_check').removeChild( document.getElementById('homegymApproved_check').firstChild ); }
-					document.getElementById('homegymApproved_check').appendChild(approved_check); 
-				}else if(homegymInfo.hg_approved_check=='0'){
-					var approved_check = document.createElement('input');
-					approved_check.setAttribute('id', 'approved_status');
-					approved_check.setAttribute('type', 'checkbox');
-					approved_check.setAttribute('onchange', 'javascript:homegymApprovedCheckChange("'+homegymInfo.hg_mem_id+'");');
-					while ( document.getElementById('homegymApproved_check').hasChildNodes() ) { document.getElementById('homegymApproved_check').removeChild( document.getElementById('homegymApproved_check').firstChild ); }
-					document.getElementById('homegymApproved_check').appendChild(approved_check); 
+					approved_check.setAttribute('checked', true);
 				}
-
+				document.getElementById('homegymApproved_check').appendChild(approved_check);
+				var approved_label = document.createElement('label');
+				approved_label.setAttribute('class', 'form-check--label');
+				approved_label.setAttribute('for', 'approved_status');
+				document.getElementById('homegymApproved_check').appendChild(approved_label);
 			}else if(homegymInfo.hg_status=='0'){
 				document.getElementById('homegymApproved_check').innerText = '홈짐이 활성화 되지 않음';
 			}
@@ -239,7 +238,8 @@ function homegymDelete(hg_mem_id){
 					</tr>
 					<tr>
 						<th colspan = "2">등록 여부</th>
-						<td id = "homegymApproved_check" colspan = "3"></td>
+						<td id = "homegymApproved_check" class="form-check form-switch" colspan = "1"></td>
+						<td colspan = "2"></td>
 					</tr>
 					<!-- <tr>
 						<th>활동 정지</th>

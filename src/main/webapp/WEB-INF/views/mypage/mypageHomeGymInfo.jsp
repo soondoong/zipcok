@@ -104,9 +104,14 @@ function status_change_rq(){
 		if(XHR.status==200){
 			var data = XHR.responseText;
 			data=eval('('+data+')');
+			var result = data.result;
 			var status = data.hg_status;
-			if(status>0){
-				window.alert('홈짐 정보가 변경되었습니다.');
+			if(result>0){
+				if(status=='1'){
+					window.alert('활성화 요청중입니다.\n 관리자 승인 시 검색 리스트에서 활성화 됩니다.')
+				}else if(status=='0'){
+					window.alert('비활성화 되었습니다.');
+				}
 			}
 		}
 	}
