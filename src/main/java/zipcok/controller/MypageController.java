@@ -749,7 +749,7 @@ public class MypageController {
    		mav.setViewName("mypage/mypageHomeGymPayList");
         return mav;
       }
-      //////////////////////////////////////////////////////////////////////
+  
       @RequestMapping("mypageAddrDetailsPopup.do")
       public ModelAndView mypageHomeGymaddrDetailsPopup(
       		@RequestParam("hg_mem_id")String hg_mem_id) {
@@ -759,37 +759,43 @@ public class MypageController {
       	mav.setViewName("coachMyPage/HomegymDetailsAddrPopup");
       	return mav;
       }
-      @RequestMapping(value = "mypageReviewWritePopup", method=RequestMethod.GET)
-      public ModelAndView mypageHomeGymReviewWriteForm(
-      		@RequestParam("pd_idx")int pd_idx,
-      		@RequestParam("target_id")String target_id,
-      		@RequestParam("mem_id")String mem_id) {
-      	ModelAndView mav = new ModelAndView();
-      	mav.addObject("pd_idx", pd_idx);
-      	mav.addObject("target_id", target_id);
-      	mav.addObject("mem_id", mem_id);
-      	mav.setViewName("coachMyPage/coachReviewWritePopup");
-      	return mav;
+      //////////////////////////////////////////////////////////////////////
+      /*홈짐 후기작성용 팝업창이동*/
+      @RequestMapping("HomegymReviewWritePopup.do")
+      public ModelAndView  HomegymReviewWritePopup (@RequestParam("pd_idx")int pd_idx,
+   		   @RequestParam("target_id")String target_id,
+   		   @RequestParam("mem_id")String mem_id) {
+   	   ModelAndView mav= new ModelAndView();
+   	   mav.addObject("pd_idx", pd_idx);
+   	   mav.addObject("target_id", target_id);
+   	   mav.addObject("mem_id", mem_id);
+   	   mav.setViewName("mypage/mypageReviewWritePopup");
+   	   return mav;
       }
-      @RequestMapping(value = "mypageReviewWritePopup", method=RequestMethod.POST)
-      public ModelAndView mypageHomeGymReviewWrite(ReviewDTO dto) {
-      	int result = dao.mypageHomeGymReviewAdd(dto);
-      	String msg = result>0?"리뷰가 성공적으로 등록되었습니다.":"리뷰 등록에 에러가 발생했습니다.";
-      	ModelAndView mav = new ModelAndView();
-      	mav.addObject("msg", msg);
-      	mav.addObject("gourl", "mypageHomeGymPayList.do?mem_id="+dto.getRev_mem_id());
-      	mav.setViewName("coachMyPage/coachMypagePayListMsg");
-      	return mav;
+      /*홈짐 후기작성하기*/
+      @RequestMapping("HomegymStarReviewAdd.do")
+      public ModelAndView HomegymStarReviewAdd(ReviewDTO rdto) {
+       int result=dao.mypageHomeGymReviewAdd(rdto);
+       
+   	   String msg=result>0?"후기가 등록되었습니다":"후기등록 실패";
+   	   ModelAndView mav=new ModelAndView();
+   	   mav.addObject("msg", msg);
+   	   mav.addObject("gourl", "mypageHomeGymPayList.do?mem_id="+rdto.getRev_mem_id());
+   	   mav.setViewName("mypage/mypagePopupMsg");
+   	   return mav;
       }
-      @RequestMapping("mypageSeeHomeGymReviewPopup.do")
-      public ModelAndView mypageHomeGymReviewView(
-      		@RequestParam("rev_pd_idx")int rev_pd_idx) {
-      	ReviewDTO dto = dao.mypageHomeGymReviewView(rev_pd_idx);
-      	ModelAndView mav = new ModelAndView();
-      	mav.addObject("review", dto);
-      	mav.setViewName("coachMyPage/homegymReviewViewPopup");
-      	return mav;
+      
+
+      /*홈짐 후기작성한거 보기*/
+     @RequestMapping("seeHomegymReviewPopup.do")
+      public ModelAndView seeHomegymReviewPopup(@RequestParam("pd_idx")int pd_idx) {
+   	   ModelAndView mav= new ModelAndView();
+   	   	ReviewDTO revdto= dao.homegymReview(pd_idx);
+   	   mav.addObject("revdto", revdto);
+   	   mav.setViewName("mypage/homegymReviewViewPopup");
+   	   return mav;
       }
+     //////////////////////////////////////////////////////////////////////
       @RequestMapping("mypageHomeGymPaymentCancel.do")
       public ModelAndView mypageHomeGymPaymentCancel(
       		@RequestParam("pd_idx")int pd_idx,

@@ -81,7 +81,7 @@
 		if(todaydate>enddate){ //날짜비교
 				if(status == '결제완료'){
 					var params="pd_idx="+idx+"&target_id="+target_id+"&mem_id="+mem_id;
-					window.open("mypageReviewWritePopup.do?"+params, "mypageReviewWritePopup","width=450,height=470,top=100,left=500");
+					window.open("HomegymReviewWritePopup.do?"+params, "HomegymReviewWritePopup","width=450,height=470,top=100,left=500");
 					return;
 				}else if(status == '취소요청중'){ 
 					window.alert('취소 요청중인 결제 내역입니다.');
@@ -95,15 +95,33 @@
 		}
 	}
 	function seeReview(pd_idx){
-		var params="rev_pd_idx="+pd_idx;
-		window.open("mypageSeeHomeGymReviewPopup.do?"+params, "seeHomeGymReviewPopup","width=450,height=470,top=100,left=500");
+		var params="pd_idx="+pd_idx;
+		window.open("seeHomegymReviewPopup.do?"+params, "seeHomeGymReviewPopup","width=450,height=470,top=100,left=500");
 	}
-	function paymentCancel(pd_idx, reser_idx){
-		var check = window.confirm('결제를 취소하시겠습니까?');
-		if(check){
-			var params = 'pd_idx='+pd_idx+'&reser_idx='+reser_idx;
-			sendRequest('mypageHomeGymPaymentCancel.do', params, paymentCancel_rq, 'GET');
+	function paymentCancel(pd_idx, reser_idx,reser_date){
+		//첫번째 조건-서비스종료일이 지낫는지
+		var d = new Date();		 
+	    var year = d.getFullYear(); //년도
+	    var month = d.getMonth()+1; //월
+	    var day = d.getDate(); //일
+	 	
+	    if ((day+"").length < 2) {       // 일이 한자리 수인 경우 앞에 0을 붙여주기 위해
+	        day = "0" + day;
+	    }	 
+	    var getToday = year+"-"+month+"-"+day; // 오늘 날짜 (2021-02-07)
+		
+	    var startdate2 = new Date(reser_date);
+		var todaydate= new Date(getToday);
+		if(startdate2>todaydate){
+			var check = window.confirm('결제를 취소하시겠습니까?');
+			if(check){
+				var params = 'pd_idx='+pd_idx+'&reser_idx='+reser_idx;
+				sendRequest('mypageHomeGymPaymentCancel.do', params, paymentCancel_rq, 'GET');
+			}	
+		}else{
+			window.alert('예약 날짜 이후에는 결제를 취소하실 수 없습니다. \n 고객센터로 문의해주세요.');
 		}
+		
 	}
 	function paymentCancel_rq(){
 		if(XHR.readyState==4){
@@ -185,7 +203,7 @@
 									<td><input type="button" value="상세 주소 확인" onclick = "javascript:addrDetailsPopup('${p.pd_target_id}');"></td>
 									<td>									
 									<c:if test="${p.pd_status eq '결제완료' }">
-										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx });">
+										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx }, '${p.reser_date }');">
 									</c:if>								
 									</td>
 								</tr>

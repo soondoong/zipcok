@@ -446,4 +446,9 @@ public class MypageDAOImple implements MypageDAO {
 			PaymentDTO dto = sqlMap.selectOne("mypagePaymentFind", mem_id);
 			return dto;
 		}
+	@Override
+		public ReviewDTO homegymReview(int pd_idx) {
+			ReviewDTO dto = sqlMap.selectOne("homegymReviewOne", pd_idx);
+			return dto;
+		}
 }

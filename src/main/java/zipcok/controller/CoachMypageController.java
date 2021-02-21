@@ -964,7 +964,8 @@ ServletContext c;
     	mav.setViewName("coachMyPage/HomegymDetailsAddrPopup");
     	return mav;
     }
-    @RequestMapping(value = "coachReviewWritePopup", method=RequestMethod.GET)
+    /**코치 마이 페이지 홈짐 리뷰 작성 폼 이동*/
+    @RequestMapping(value = "coachHomegymReviewWritePopup.do", method=RequestMethod.GET)
     public ModelAndView coachmypageHomeGymReviewWriteForm(
     		@RequestParam("pd_idx")int pd_idx,
     		@RequestParam("target_id")String target_id,
@@ -976,7 +977,8 @@ ServletContext c;
     	mav.setViewName("coachMyPage/coachReviewWritePopup");
     	return mav;
     }
-    @RequestMapping(value = "coachReviewWritePopup", method=RequestMethod.POST)
+    /**코치 마이 페이지 홈짐 리뷰 작성*/
+    @RequestMapping(value = "coachHomegymReviewWritePopup.do", method=RequestMethod.POST)
     public ModelAndView coachmypageHomeGymReviewWrite(ReviewDTO dto) {
     	int result = cdao.coachmypageHomeGymReviewAdd(dto);
     	String msg = result>0?"리뷰가 성공적으로 등록되었습니다.":"리뷰 등록에 에러가 발생했습니다.";

@@ -81,7 +81,7 @@
 		if(todaydate>enddate){ //날짜비교
 				if(status == '결제완료'){
 					var params="pd_idx="+idx+"&target_id="+target_id+"&mem_id="+mem_id;
-					window.open("coachReviewWritePopup.do?"+params, "coachReviewWritePopup","width=450,height=470,top=100,left=500");
+					window.open("coachHomegymReviewWritePopup.do?"+params, "coachReviewWritePopup","width=450,height=470,top=100,left=500");
 					return;
 				}else if(status == '취소요청중'){ 
 					window.alert('취소 요청중인 결제 내역입니다.');
@@ -98,7 +98,7 @@
 		var params="rev_pd_idx="+pd_idx;
 		window.open("coachSeeHomeGymReviewPopup.do?"+params, "seeHomeGymReviewPopup","width=450,height=470,top=100,left=500");
 	}
-	function paymentCancel(pd_idx, reser_idx,status, startdate){
+	function paymentCancel(pd_idx, reser_idx, startdate){
 		//첫번째 조건-서비스종료일이 지낫는지
 		var d = new Date();
 		var year = d.getFullYear(); //년도
@@ -202,7 +202,7 @@
 									<td><input type="button" value="상세 주소 확인" onclick = "javascript:addrDetailsPopup('${p.pd_target_id}');"></td>
 									<td>									
 									<c:if test="${p.pd_status eq '결제완료' }">
-										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx }, '${p.pd_status }','${p.reser_date }');">
+										<input type="button" class="revbtn" value="결제취소" onclick = "javascript:paymentCancel(${p.pd_idx}, ${p.reser_idx },'${p.reser_date }');">
 									</c:if>								
 									</td>
 								</tr>
