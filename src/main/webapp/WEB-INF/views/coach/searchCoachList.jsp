@@ -117,7 +117,7 @@
 		 		<option <c:if test="${keyword.category=='다이어트'}">selected="selected"</c:if>>다이어트</option>
 		 	</select>
 		 	
-		 			 <button type="submit" class="btn btn-primary btn-lg sbtn">검색하기</button>
+		 			 <button type="submit" class="btn btn-primary sbtn" style="width:140px; height: 46px;">검색하기</button>
 		</div>
 	</div>
 </form>

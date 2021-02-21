@@ -52,7 +52,7 @@ function showResult(){/*꼰트롤러에서 받은 데이터들을 가져와서 �
          for(var i=0;i<data.reqMemList.length;i++){
         	 
         	 html+="<tr>";
-        	 html += "<td><a class='hgaaaa' href='#' onclick='chating("+data.reqMemList[i].req_idx+")'>"+data.reqMemList[i].req_idx+"</a></td>";
+        	 html += "<td><a class='hgaaaa' style='color:blue;' href='#' onclick='chating("+data.reqMemList[i].req_idx+")'>"+data.reqMemList[i].req_idx+"</a></td>";
         	 html += "<td>"+data.reqMemList[i].mem_name+"</td>";
         	 html += "<td>"+data.reqMemList[i].mem_id+"</td>";
         	 html += "<td>"+data.reqMemList[i].mem_phone+"</td>";
@@ -81,6 +81,7 @@ h3{margin-bottom:30px;}
 a{cursor:pointer;}
 .paging {margin: 40px 0 0; text-align: center;}
 .paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+
 </style>		
 		
    <div class="adminPage_wrap">
@@ -112,7 +113,7 @@ a{cursor:pointer;}
 				<table  align="center" class="table table-hover" >
 					<thead>
 						<tr>
-							<th>요청서번호</th>
+							<th class="threq_idx">요청서번호</th>
 							<th>이름</th>
 							<th>아이디</th>
 							<th>휴대폰번호</th>

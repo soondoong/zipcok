@@ -105,7 +105,7 @@ background-image: linear-gradient(to top, #006be0, #0070e1, #0074e1, #0579e1, #0
 		 		<option>요가</option>
 		 		<option>다이어트</option>
 		 	</select>
-		 <button type="submit" class="btn btn-primary btn-lg sbtn">검색하기</button>
+		 <button type="submit" class="btn btn-primary sbtn"  style="width:140px; height: 46px;">검색하기</button>
 		</div>
 </div>
 </form>

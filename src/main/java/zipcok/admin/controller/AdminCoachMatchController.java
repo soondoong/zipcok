@@ -497,16 +497,16 @@ public class AdminCoachMatchController {
 	
 	
 
-	 /*마이페이지!!!!결제내역서 상태정보 취소완료로바꾸기-수연*/
-	@RequestMapping("pdStatusChangetoCancelplz")
+	 /*마이페이지!!!!결제내역서 상태정보 취소요청중으로바꾸기-수연*/
+	@RequestMapping("pdStatusChangetoCancelplz.do")
 	public ModelAndView pdStatusChangetoCancelplz(
 			@RequestParam("pd_idx")int pd_idx,HttpSession session) {
 		//결제내역서상태바꿔주기
 		
-		int result=adminCoachMatchDao.adminCoachPlzCancelUpdateStatus(pd_idx);
+		int result=adminCoachMatchDao.adminCoachPlzCancelUpdateStatus(pd_idx); //결제내역서를 취소요청중으로
 		RequestFormDTO reqdto= adminCoachMatchDao.findRequestByPd_idx(pd_idx);
 		int reqcount=coachmpdao.reqStatusChangetoOk(reqdto.getReq_idx(),"취소요청중");//상담요청서상태를 결제완료로 바꿔주기
-		 System.out.println("상담요청서상태결제취소완료로:"+reqcount);
+		 System.out.println("상담요청서 취소요청중으로:"+reqcount);
 		ModelAndView mav=new ModelAndView();
 		String msg=reqcount>0?"결제취소가 요청되었습니다.":"취소요청실패";
 		mav.addObject("msg", msg);
@@ -515,6 +515,26 @@ public class AdminCoachMatchController {
 
 		return mav;
 	}
+	
+		/*마이페이지!!!!결제내역서 상태정보 취소요청중으로바꾸기-수연
+		@RequestMapping("pdStatusChangetoCancelplz.do")
+		public ModelAndView pdStatusChangetoCancelplz(
+				@RequestParam("pd_idx")int pd_idx,HttpSession session) {
+			//결제내역서상태바꿔주기
+			
+			int result=adminCoachMatchDao.adminCoachPlzCancelUpdateStatus(pd_idx); //결제내역서를 취소요청중으로
+			RequestFormDTO reqdto= adminCoachMatchDao.findRequestByPd_idx(pd_idx);
+			int reqcount=coachmpdao.reqStatusChangetoOk(reqdto.getReq_idx(),"취소요청중");//상담요청서상태를 결제완료로 바꿔주기
+			 System.out.println("상담요청서상태결제취소완료로:"+reqcount);
+			ModelAndView mav=new ModelAndView();
+			String msg=reqcount>0?"결제취소가 요청되었습니다.":"취소요청실패";
+			mav.addObject("msg", msg);
+			mav.addObject("gopage", "mypageCoachMatchPayList.do?mem_id="+(String)session.getAttribute("sid"));
+			mav.setViewName("coach/joinMsg");
+
+			return mav;
+		}*/
+		
 	
 	
 	///////////////////////////////////////

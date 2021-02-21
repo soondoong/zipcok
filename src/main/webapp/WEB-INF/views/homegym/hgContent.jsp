@@ -355,8 +355,8 @@ window.addEventListener('load', function() {
 .bottom_contentArea {width:1000px; margin:50px 100px 0px 100px;}
 .bottom_contentArea .hgContent p {font-size: 15px;}
 .bottom_contentArea .hgContent label {color:red; }
-.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px; justify-content: space-around;}
-.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px;}
+.bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px; }
+.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{ min-width:80px; margin:0 20px; padding:10px; border:1px solid gray; border-radius: 8px;}
 .bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 15px; font-weight: 200;}
 .bottom_contentArea .reserNoticeArea {font-size:20px;}
 .bottom_contentArea .reserNoticeArea table {border:3px double gray; border-radius: 6px;}
@@ -473,29 +473,31 @@ window.addEventListener('load', function() {
 		</div>
 	</div>
 </div>
-
+<style>
+.cont_titles:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }
+.cont_titles{color:#12151d; margin-top:20px;  margin-bottom: 30px;}
+</style>
 <div class = "bottom_contentArea">
 	<div class = "hgContent">
-		<h3>홈짐 소개</h3>
-		<p>${hgContent.hg_info }</p>
+		<h3 class="cont_titles">&nbsp;&nbsp;홈짐 소개</h3>
+		<p style="height: 80px;">${hgContent.hg_info }</p>
 		<hr>
 		<h3>이용 요금(1시간 당) : <label>${hgContent.hg_price } 원</label></h3>
 		<hr>
 	</div>
 	<div class ="eqlistArea">
-		<h3>보유 운동 기구</h3>
+		<h3 style="margin-bottom:30px;">보유 운동 기구</h3>
 		<div class = "eqlistArea_list">
 		<c:forEach var = "eqDTO" items = "${eqContent }">
 			<div class = "eqList">
-				<p>${eqDTO.eq_name }</p>
-				<p>${eqDTO.eq_count}</p>
+				<span>${eqDTO.eq_name }</span><span style="margin:0 15px;">|</span><span>${eqDTO.eq_count}</span>
 			</div>
 		</c:forEach>
 		</div>
 		<hr>
 	</div>
 	<div class = "reserNoticeArea">
-		<h3>예약 시 주의사항</h3>
+		<h3 class="cont_titles">&nbsp;&nbsp;예약 시 주의사항</h3>
 		<table> 
 			<tr>
 				<th>주의사항</th>
@@ -530,12 +532,12 @@ window.addEventListener('load', function() {
 		<hr>
 	</div>
 	<div class = "mapArea">
-		<h3>오시는 길</h3>
+		<h3 class="cont_titles">&nbsp;&nbsp;오시는 길</h3>
 		<div id="map"></div>
 	</div>
 	<hr>
 	<div class = "reviewArea">
-		<h3>이용 후기</h3>
+		<h3 class="cont_titles">&nbsp;&nbsp;이용 후기</h3>
 		<c:if test="${empty reviewList}">
 		<div>작성 된 후기가 없습니다.</div>
 		</c:if>

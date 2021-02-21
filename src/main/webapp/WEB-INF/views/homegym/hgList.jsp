@@ -136,6 +136,7 @@ function ajaxUnLike_rq(){
 .homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox] {position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;}
 .homegym_wrap .homegym_search_wrap .eq_list label span:before {display: block; content: ''; position: absolute; top: 4px; left: 0; width: 16px; height: 16px; background: #ffffff; border: 1px solid #333333;}
 .homegym_wrap .homegym_search_wrap .eq_list label input[type=checkbox]:checked + span:before {background: #333333;}
+.sbtn { box-shadow: 3px 3px 5px #1f47a2; }
 
 .homegym_wrap .homegym_search_result {flex: 1 1 auto; padding: 30px;}
 .homegym_search_result h2:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
@@ -203,7 +204,7 @@ function ajaxUnLike_rq(){
 				<option value="영등포구" <c:if test="${keywordMap.location=='중랑구'}">selected</c:if>>중랑구</option>
 			</select>
 			<input type="date" name="top_option_date" id = "choice_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
-			<input type="submit" value = "검색">
+			<input type="submit" value = "검색하기" class="btn btn-primary sbtn" style="width:140px; height: 46px;">
 		</div>
 	</div>
 	<div class="homegym_wrap">
