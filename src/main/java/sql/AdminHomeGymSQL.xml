@@ -169,12 +169,12 @@
     where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
 	</select>
 	
-	<update id="reservationCancelStatus" parameterType="String">
-	update homegym_reservation set reser_status='예약취소완료' where mem_id=#{mem_id}
+	<update id="reservationCancelStatus" parameterType="Integer">
+	update homegym_reservation set reser_status='예약취소완료' where reser_idx = #{value}
 	</update>
 	
-	<update id="reservationCancelStatusPayment" parameterType="String">
-	update zipcok_payment_details set pd_status='결제취소완료' where pd_mem_id=#{mem_id}
+	<update id="reservationCancelStatusPayment" parameterType="Integer">
+	update zipcok_payment_details set pd_status='결제취소완료' where pd_req_idx=#{value}
 	</update>
 	
 	<!-- 병모 -->

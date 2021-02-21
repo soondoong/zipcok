@@ -87,6 +87,7 @@ window.addEventListener('load', function() {
 	$(function() {
 		var start_date = '${hgContent.hg_start_date}'.substring(0, 10);
 		var end_date = '${hgContent.hg_end_date}'.substring(0, 10);
+		start_date = getTimeStamp(start_date);
 		$('#choice_date').datepicker(
 				{
 					dateFormat : 'yy-mm-dd',
@@ -116,6 +117,31 @@ window.addEventListener('load', function() {
 					yearSuffix : '년'
 				});
 	});
+	function getTimeStamp(start_date) {
+
+	    var d = new Date();
+	    var s =
+	        leadingZeros(d.getFullYear(), 4) + '-' +
+	        leadingZeros(d.getMonth() + 1, 2) + '-' +
+	        leadingZeros(d.getDate(), 2);
+
+	    return s;
+	   	window.alert(s);
+	   	window.alert(start_date);
+	}
+
+	function leadingZeros(n, digits) {
+
+	    var zero = '';
+	    n = n.toString();
+
+	    if (n.length < digits) {
+	        for (i = 0; i < digits - n.length; i++)
+	            zero += '0';
+	    }
+	    return zero + n;
+	}
+	
 	function end_time_click() {
 		var start_time = document.getElementById('choice_start_time').value;
 		if (start_time == '') {
@@ -340,6 +366,10 @@ window.addEventListener('load', function() {
 .bottom_contentArea .mapArea #map {margin:0px auto;}
 .bottom_contentArea .reviewArea {margin-bottom:30px;}
 .bottom_contentArea .reviewArea table { min-height: 300px;}
+.bottom_contentArea .reviewArea table tfoot tr td {text-align: center;}
+.bottom_contentArea .reviewArea .use_date {text-align: right;}
+.bottom_contentArea .reviewArea table tfoot tr td a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
+.bottom_contentArea .reviewArea table tfoot tr td a:not(:first-child) {margin-left: 5px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging {margin: 40px 0 0; text-align: center;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
@@ -457,8 +487,6 @@ window.addEventListener('load', function() {
 		<div class = "eqlistArea_list">
 		<c:forEach var = "eqDTO" items = "${eqContent }">
 			<div class = "eqList">
-				<p>기구 아이콘 들어갈 영역</p>
-				<hr>
 				<p>${eqDTO.eq_name }</p>
 				<p>${eqDTO.eq_count}</p>
 			</div>
@@ -513,6 +541,9 @@ window.addEventListener('load', function() {
 		</c:if>
 		<c:if test="${!empty reviewList}">
 		<table  width="900px" cellspacing="0" class="mt-3">
+			<tfoot>
+				<tr><td colspan = "2">${pageStr }</td></tr>
+			</tfoot>
 			<tbody>
 				<c:forEach var="r" items="${ reviewList }">
 				<tr>
@@ -526,13 +557,14 @@ window.addEventListener('load', function() {
 				</div>
 	
 				</td>
+				<td style="border-top:1px solid lightgray; padding-top:10px;" class = "use_date">이용 날짜 : ${r.reser_date }</td>
 				</tr>
 			
 				<tr>
-				<td><span style="font-size:1rem; font-weight:500;">${r.rev_sub }</span></td>
+				<td colspan = "2"><span style="font-size:1rem; font-weight:500;">${r.rev_sub }</span></td>
 				</tr>
 				<tr>
-				<td><p style="font-size:0.9rem;">${r.rev_cont }</p></td>
+				<td colspan = "2"><p style="font-size:0.9rem;">${r.rev_cont }</p></td>
 				</tr>
 				
 				</c:forEach>

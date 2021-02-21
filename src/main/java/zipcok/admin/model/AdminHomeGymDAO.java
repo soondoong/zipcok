@@ -18,8 +18,8 @@ public interface AdminHomeGymDAO {
 	public List<HomeGymReservationDTO> adminHomeGymReservationSearch(HashMap<String, Object> map);
 	public int adminHomeGymReservationDateTotalCnt(HashMap<String, Object> map);
 	public List<HomeGymReservationDTO> adminHomeGymReservationDate(HashMap<String, Object> map);
-	public int reservationCancelStatus(String mem_id);//취소승인 상태변경
-	public int reservationCancelStatusPayment(String pd_mem_id);//취소승인 마이페이지 상태변경
+	public int reservationCancelStatus(int reser_idx);//취소승인 상태변경
+	public int reservationCancelStatusPayment(int reser_idx);//취소승인 마이페이지 상태변경
 	//////////////////병모 /////////////////////
 	
 	

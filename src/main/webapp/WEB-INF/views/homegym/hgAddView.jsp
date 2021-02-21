@@ -132,7 +132,6 @@
 	}
 	function addSubmit() {
 	    var hg_station = $("select[name=hg_station]").val();
-	    window.alert(hg_station);
 	    if(!hg_station){
 	    	window.alert('선택한 역 정보를 확인해주세요.');
 	    	return;

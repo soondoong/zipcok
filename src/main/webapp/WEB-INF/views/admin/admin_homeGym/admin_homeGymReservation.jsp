@@ -109,7 +109,7 @@
 							<td id="${dto.mem_id}_reser_status">${dto.reser_status }</td>
 							<td id="${dto.mem_id}_pd_btn">
 							<c:if test="${dto.reser_status=='예약취소중'}">
-							<input type="button" value="취소승인" onclick="javascript:updateStatus('${dto.mem_id}');">
+							<input type="button" value="취소승인" onclick="javascript:updateStatus(${dto.reser_idx});">
 							</c:if>
 							</td>
 						</tr>
@@ -144,10 +144,10 @@ function showList(){
 
 <script src="js/httpRequest.js"></script>
 <script type="text/javascript">
-function updateStatus(id){
+function updateStatus(reser_idx){
 	var result = confirm('취소요청을 승인하시겠습니까?');
 	if(result){
-		var params='mem_id='+id;
+		var params='reser_idx='+reser_idx;
 		sendRequest('reservationUpdateStatus.do',params,showResult,'GET');
 	}
 }
