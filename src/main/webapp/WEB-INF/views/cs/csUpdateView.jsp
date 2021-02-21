@@ -67,12 +67,12 @@ function delimg(id,idx){
 		
 				<tr>
 					<th>제목
-						<input type="text" name="bbs_subject" value="${dto.bbs_subject}">
+						<input type="text" name="bbs_subject" required="required" value="${dto.bbs_subject}">
 					</th>
 				</tr>
 					<hr>
 				<tr>
-					<td><textarea rows="6" cols="50" name="bbs_content" placeholder="내용을 입력해주세요"
+					<td><textarea rows="6" cols="50" required="required" name="bbs_content" placeholder="내용을 입력해주세요"
 							style="white-space: pre-line; height: 200px;" >${dto.bbs_content } </textarea></td>
 				</tr>
 			</table>

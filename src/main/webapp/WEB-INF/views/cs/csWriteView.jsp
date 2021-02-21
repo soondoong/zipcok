@@ -45,12 +45,12 @@
 
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="bbs_subject"></td>
+		<td><input type="text" name="bbs_subject" required="required"></td>
 	</tr>
 	<hr>
 	<tr>
 		<td colspan="2">
-			<textarea class="autosize" onkeydown="resize(this)" onkeyup="resize(this)" rows="6" cols="50" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea>
+			<textarea class="autosize" onkeydown="resize(this)" required="required" onkeyup="resize(this)" rows="6" cols="50" name="bbs_content" placeholder="내용을 입력해주세요" style="height: 300px;"></textarea>
 		</td>
 	</tr>
 	

@@ -105,7 +105,7 @@
 				</div>
 				<div id="reWriteView" style="display: none;">
 					<br>
-						<textarea wrap="hard" rows="6"  cols="50" id="re_content" style="height: 300px;" name="re_content"></textarea>
+						<textarea wrap="hard" rows="6"  cols="50" id="re_content" required="required" style="height: 300px;" name="re_content"></textarea>
 					<div class="table_list_bottom">
 						<div class="btn_right_box">
 							<input type="button" class="btn1 c1" value="답변등록하기" onclick="csReWrite(${dto.bbs_idx})">
