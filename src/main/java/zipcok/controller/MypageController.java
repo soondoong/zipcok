@@ -564,7 +564,8 @@ public class MypageController {
     	  map.put("hg_mem_id", hg_mem_id);
     	  int result = dao.mypageHomeGymStautsChange(map);
     	  ModelAndView mav = new ModelAndView();
-    	  mav.addObject("hg_status", result);
+    	  mav.addObject("result", result);
+    	  mav.addObject("hg_status", hg_status);
     	  mav.setViewName("jsonView");
     	  return mav;
       }
