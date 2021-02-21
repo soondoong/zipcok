@@ -353,15 +353,17 @@ window.addEventListener('load', function() {
 .top_contentArea .remoteArea .card .card-title {font-size: 30px; font-weight: 600;}
 .top_contentArea .remoteArea .card .card-body .likeArea {margin-left: 20px; margin-top:10px;}
 .bottom_contentArea {width:1000px; margin:50px 100px 0px 100px;}
+.bottom_contentArea h3 {margin-bottom: 10px;}
 .bottom_contentArea .hgContent p {font-size: 15px;}
 .bottom_contentArea .hgContent label {color:red; }
 .bottom_contentArea .eqlistArea .eqlistArea_list{display:flex; text-align: center; margin-bottom: 50px; justify-content: space-around;}
-.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px;}
+.bottom_contentArea .eqlistArea .eqlistArea_list .eqList{border:1px solid gray; border-radius: 8px; width: 150px;}
 .bottom_contentArea .eqlistArea .eqlistArea_list p {font-size: 15px; font-weight: 200;}
 .bottom_contentArea .reserNoticeArea {font-size:20px;}
-.bottom_contentArea .reserNoticeArea table {border:3px double gray; border-radius: 6px;}
-.bottom_contentArea .reserNoticeArea table th {width:150px; vertical-align: top; border:3px double gray; border-radius: 6px;}
-.bottom_contentArea .reserNoticeArea table td {border:3px double gray; border-radius: 6px;}
+.bottom_contentArea .reserNoticeArea table {margin-left:20px;}
+.bottom_contentArea .reserNoticeArea table th {width:200px; vertical-align: top; font-weight: bolder;}
+.bottom_contentArea .reserNoticeArea table th i{margin-top:6px; margin-right:10px; color: blue;}
+.bottom_contentArea .reserNoticeArea table td {font-size: 16px; line-height: 32px;}
 .bottom_contentArea .mapArea {width:900px; height:450px; margin-bottom: 50px;}
 .bottom_contentArea .mapArea #map {margin:0px auto;}
 .bottom_contentArea .reviewArea {margin-bottom:30px;}
@@ -485,7 +487,7 @@ window.addEventListener('load', function() {
 	<div class ="eqlistArea">
 		<h3>보유 운동 기구</h3>
 		<div class = "eqlistArea_list">
-		<c:forEach var = "eqDTO" items = "${eqContent }">
+		<c:forEach var = "eqDTO" items = "${eqContent }" varStatus="i">
 			<div class = "eqList">
 				<p>${eqDTO.eq_name }</p>
 				<p>${eqDTO.eq_count}</p>
@@ -498,7 +500,7 @@ window.addEventListener('load', function() {
 		<h3>예약 시 주의사항</h3>
 		<table> 
 			<tr>
-				<th>주의사항</th>
+				<th><i class="fas fa-exclamation-circle"></i>주의사항</th>
 				<td>
 				<p>
 				실내 흡연 금지<br>
@@ -510,17 +512,17 @@ window.addEventListener('load', function() {
 				</td>
 			</tr>
 			<tr>
-				<th>예약정책</th>
+				<th><i class="fas fa-exclamation-circle"></i>예약정책</th>
 				<td>
 				<p>
 				전액 선납시 예약 확정<br>
-				선납 불가시 카드 게런티 작성(신청접수 후 48H 이내 게런티 미회신 시<br>가예약 자동 취소<br>
+				선납 불가시 카드 게런티 작성(신청접수 후 48H 이내 게런티 미회신 시 가예약 자동 취소)<br>
 				결제 링크(카드결제/계좌이체/카카오페이), 방문 현금 결제
 				</p>
 				</td>
 			</tr>
 			<tr>
-				<th>취소/환불 정책</th>
+				<th><i class="fas fa-exclamation-circle"></i>취소/환불 정책</th>
 				<td>
 				예약 후~사용 5일전 : 전액 반환<br>
 				사용 4일전 ~ 예약 당일 : 총 합계 금액의 100% 부과

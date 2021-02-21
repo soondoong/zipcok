@@ -181,26 +181,26 @@ function ajaxUnLike_rq(){
 				<option value="강북구" <c:if test="${keywordMap.location=='강북구'}">selected</c:if>>강북구</option>
 				<option value="강서구" <c:if test="${keywordMap.location=='강서구'}">selected</c:if>>강서구</option>
 				<option value="관악구" <c:if test="${keywordMap.location=='관악구'}">selected</c:if>>관악구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='광진구'}">selected</c:if>>광진구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='구로구'}">selected</c:if>>구로구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='금천구'}">selected</c:if>>금천구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='노원구'}">selected</c:if>>노원구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='도봉구'}">selected</c:if>>도봉구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='동대문구'}">selected</c:if>>동대문구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='동작구'}">selected</c:if>>동작구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='마포구'}">selected</c:if>>마포구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='서대문구'}">selected</c:if>>서대문구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='서초구'}">selected</c:if>>서초구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='성동구'}">selected</c:if>>성동구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='성북구'}">selected</c:if>>성북구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='송파구'}">selected</c:if>>송파구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='양천구'}">selected</c:if>>양천구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='용산구'}">selected</c:if>>용산구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='은평구'}">selected</c:if>>은평구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='종로구'}">selected</c:if>>종로구</option>
-				<option value="관악구" <c:if test="${keywordMap.location=='중구'}">selected</c:if>>중구</option>
-				<option value="영등포구" <c:if test="${keywordMap.location=='중랑구'}">selected</c:if>>중랑구</option>
+				<option value="광진구" <c:if test="${keywordMap.location=='광진구'}">selected</c:if>>광진구</option>
+				<option value="구로구" <c:if test="${keywordMap.location=='구로구'}">selected</c:if>>구로구</option>
+				<option value="금천구" <c:if test="${keywordMap.location=='금천구'}">selected</c:if>>금천구</option>
+				<option value="노원구" <c:if test="${keywordMap.location=='노원구'}">selected</c:if>>노원구</option>
+				<option value="도봉구" <c:if test="${keywordMap.location=='도봉구'}">selected</c:if>>도봉구</option>
+				<option value="동대문구" <c:if test="${keywordMap.location=='동대문구'}">selected</c:if>>동대문구</option>
+				<option value="동작구" <c:if test="${keywordMap.location=='동작구'}">selected</c:if>>동작구</option>
+				<option value="마포구" <c:if test="${keywordMap.location=='마포구'}">selected</c:if>>마포구</option>
+				<option value="서대문구" <c:if test="${keywordMap.location=='서대문구'}">selected</c:if>>서대문구</option>
+				<option value="서초구" <c:if test="${keywordMap.location=='서초구'}">selected</c:if>>서초구</option>
+				<option value="성동구" <c:if test="${keywordMap.location=='성동구'}">selected</c:if>>성동구</option>
+				<option value="성북구" <c:if test="${keywordMap.location=='성북구'}">selected</c:if>>성북구</option>
+				<option value="송파구" <c:if test="${keywordMap.location=='송파구'}">selected</c:if>>송파구</option>
+				<option value="양천구" <c:if test="${keywordMap.location=='양천구'}">selected</c:if>>양천구</option>
+				<option value="영등포구" <c:if test="${keywordMap.location=='영등포구'}">selected</c:if>>영등포구</option>
+				<option value="용산구" <c:if test="${keywordMap.location=='용산구'}">selected</c:if>>용산구</option>
+				<option value="은평구" <c:if test="${keywordMap.location=='은평구'}">selected</c:if>>은평구</option>
+				<option value="종로구" <c:if test="${keywordMap.location=='종로구'}">selected</c:if>>종로구</option>
+				<option value="중구" <c:if test="${keywordMap.location=='중구'}">selected</c:if>>중구</option>
+				<option value="중랑구" <c:if test="${keywordMap.location=='중랑구'}">selected</c:if>>중랑구</option>
 			</select>
 			<input type="date" name="top_option_date" id = "choice_date" value="${keywordMap.date }" onchange="javascript:sendOption();">
 			<input type="submit" value = "검색">
@@ -217,10 +217,10 @@ function ajaxUnLike_rq(){
 					<h6>기구</h6>
 					<label><input type = "checkbox" name = "left_option_eq" value = "암 컬" id = "암 컬" onclick = "javascript:sendOption();"><span>암 컬</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "체스트 프레스" id = "체스트 프레스" onclick = "javascript:sendOption();"><span>체스트 프레스</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 1kg" id = "덤벨1k" onclick = "javascript:sendOption();"><span>덤벨 1kg</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 3kg" id = "덤벨3k" onclick = "javascript:sendOption();"><span>덤벨 3kg</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 5kg" id = "덤벨5k" onclick = "javascript:sendOption();"><span>덤벨 5kg</span></label>
-					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 10kg" id = "덤벨10k" onclick = "javascript:sendOption();"><span>덤벨 10kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 1kg" id = "덤벨 1kg" onclick = "javascript:sendOption();"><span>덤벨 1kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 3kg" id = "덤벨 3kg" onclick = "javascript:sendOption();"><span>덤벨 3kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 5kg" id = "덤벨 5kg" onclick = "javascript:sendOption();"><span>덤벨 5kg</span></label>
+					<label><input type = "checkbox" name = "left_option_eq" value = "덤벨 10kg" id = "덤벨 10kg" onclick = "javascript:sendOption();"><span>덤벨 10kg</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "하프 렉" id = "하프 렉" onclick = "javascript:sendOption();"><span>하프 렉</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "렛 풀 다운" id = "렛 풀 다운" onclick = "javascript:sendOption();"><span>렛 풀 다운</span></label>
 					<label><input type = "checkbox" name = "left_option_eq" value = "레그 컬" id = "레그 컬" onclick = "javascript:sendOption();"><span>레그 컬</span></label>
