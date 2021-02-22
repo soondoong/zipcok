@@ -3,4 +3,6 @@
 <script>
 window.alert('${msg}');
 location.href='${gourl}';
+window.self.close();
+opener.location.reload();
 </script>
