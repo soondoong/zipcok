@@ -46,102 +46,102 @@ rnum between #{start} and #{end}
  </select>
  
  <delete id="requestDelete">
-		delete from
-			request_form
-		where
-			req_idx = #{req_idx}
-	</delete>
-	
-	<update id="requestStatusChange">
-	update request_form
-	set
-	req_status = '상담중'
-	where req_idx = #{req_idx}
-	</update>
-	
-	<update id="reqStatusChangetoOk" parameterType="HashMap">
-	update request_form
-	set
-	req_status = #{status}
-	where req_idx = #{req_idx}
-	</update>
-	
-	<delete id="DelCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO"> 
-	delete from member_file
+      delete from
+         request_form
+      where
+         req_idx = #{req_idx}
+   </delete>
+   
+   <update id="requestStatusChange">
+   update request_form
+   set
+   req_status = '상담중'
+   where req_idx = #{req_idx}
+   </update>
+   
+   <update id="reqStatusChangetoOk" parameterType="HashMap">
+   update request_form
+   set
+   req_status = #{status}
+   where req_idx = #{req_idx}
+   </update>
+   
+   <delete id="DelCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO"> 
+   delete from member_file
     where
     mfile_mem_id = #{mfile_mem_id}
      and
      mfile_key = '회원프로필'
-	</delete>
-	
-	<insert id="insertCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO">
-	insert into 
-	 member_file
-	values(
-	member_file_mfile_idx.nextval,
-	#{mfile_key},
-	#{mfile_mem_id},
-	#{mfile_upload},
-	#{mfile_size},
-	#{mfile_orig},
-	#{mfile_path},
-	#{mfile_type}
-	)
-	</insert>
-	
-	<select id="findFileDTO" resultType="zipcok.coach.model.CoachFileDTO">
-	 select * from member_file
-	 where 
-	 mfile_mem_id = #{id}
-	 and
-	 mfile_key = '회원프로필'
-	</select>
-	
-	<!-- 홈짐 좋아요 총 수 -->
-	 <select id="coachMypageHomeGymLikeListTotalCnt" resultType="Integer">
-		select count(*) from
-	 	(select rownum as rnum,a.* from
-	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='홈짐' order by like_idx desc)a)b
-	</select>
-	
-	 <!-- 홈짐 좋아요 목록 -->
-	 <select id="coachMypageHomeGymLikeList"  resultType="zipcok.mypage.model.LikeDTO">
-	 	select * from
-	 	(select rownum as rnum,a.* from
-	 	(select * from zipcok_like where like_mem_id=#{mem_id} and like_key='홈짐' order by like_idx desc)a)b
-	 	where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
-	 </select>	
-	 
-	<select id="memberAllProfile2" parameterType="String" resultType="zipcok.member.model.MemberAllDTO">
-  	select z.* ,mfile_upload
-	from 
-	zipcok_member z,member_file m
-	where 
-	mem_id=#{mem_id}
-	and
-	mfile_mem_id=#{mem_id}
-	and
-	mfile_key='회원프로필'
+   </delete>
+   
+   <insert id="insertCmpProfileImg" parameterType="zipcok.coach.model.CoachFileDTO">
+   insert into 
+    member_file
+   values(
+   member_file_mfile_idx.nextval,
+   #{mfile_key},
+   #{mfile_mem_id},
+   #{mfile_upload},
+   #{mfile_size},
+   #{mfile_orig},
+   #{mfile_path},
+   #{mfile_type}
+   )
+   </insert>
+   
+   <select id="findFileDTO" resultType="zipcok.coach.model.CoachFileDTO">
+    select * from member_file
+    where 
+    mfile_mem_id = #{id}
+    and
+    mfile_key = '회원프로필'
    </select>
-	 
-	 <!-- F&A/고객센터 총 개시글 수 -->
-	<select id="coachMypageWriteListTotalCnt" resultType="Integer">
-		select count(*) from
-	 	(select rownum as rnum,a.* from
-	 	(select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc)a)b
-	</select>
-	
-	<!-- F&A/고객센터 글목록 -->
-	<select id="coachMypageWriteList"  resultType="zipcok.cs.model.CsDTO">
-		select * from
-		(select rownum as rnum,a.* from
-		(select * from zipcok_bbs where bbs_mem_id=#{mem_id} and bbs_key='고객센터' order by bbs_idx desc) a) b
-		where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
-	</select>
-	
-	<!-- 작성글 삭제 -->
+   
+   <!-- 홈짐 좋아요 총 수 -->
+    <select id="coachMypageHomeGymLikeListTotalCnt" resultType="Integer">
+      select count(*) from
+       (select rownum as rnum,a.* from
+       (select * from zipcok_like where like_mem_id=#{mem_id} and like_key='홈짐' order by like_idx desc)a)b
+   </select>
+   
+    <!-- 홈짐 좋아요 목록 -->
+    <select id="coachMypageHomeGymLikeList"  resultType="zipcok.mypage.model.LikeDTO">
+       select * from
+       (select rownum as rnum,a.* from
+       (select * from zipcok_like where like_mem_id=#{mem_id} and like_key='홈짐' order by like_idx desc)a)b
+       where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+    </select>   
+    
+   <select id="memberAllProfile2" parameterType="String" resultType="zipcok.member.model.MemberAllDTO">
+     select z.* ,mfile_upload
+   from 
+   zipcok_member z,member_file m
+   where 
+   mem_id=#{mem_id}
+   and
+   mfile_mem_id=#{mem_id}
+   and
+   mfile_key='회원프로필'
+   </select>
+    
+    <!-- F&A/고객센터 총 개시글 수 -->
+   <select id="coachMypageWriteListTotalCnt" resultType="Integer">
+      select count(*) from
+       (select rownum as rnum,a.* from
+       (select * from zipcok_bbs where bbs_mem_id=#{mem_id} order by bbs_idx desc)a)b
+   </select>
+   
+   <!-- F&A/고객센터 글목록 -->
+   <select id="coachMypageWriteList"  resultType="zipcok.cs.model.CsDTO">
+      select * from
+      (select rownum as rnum,a.* from
+      (select * from zipcok_bbs where bbs_mem_id=#{mem_id} and bbs_key='고객센터' order by bbs_idx desc) a) b
+      where rnum<![CDATA[>=]]>#{start} and rnum<![CDATA[<=]]>#{end}
+   </select>
+   
+   <!-- 작성글 삭제 -->
    <delete id="coachMypageWriteDelete" parameterType="String">
-   	delete from zipcok_bbs where bbs_idx=#{checkRow}
+      delete from zipcok_bbs where bbs_idx=#{checkRow}
    </delete>
    
    
@@ -161,284 +161,284 @@ rnum between #{start} and #{end}
    
    <!-- 커뮤니티 글삭제 -->
    <delete id="coachMypageCommWriteDelete" parameterType="String">
-   	delete from exer_bbs where ex_group=#{ex_group}
+      delete from exer_bbs where ex_group=#{ex_group}
    </delete>
    
-	
-	<!-- 코치마이페이지 일반프로필 -->
-	<select id="coachMypageProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">
-	select * from zipcok_member where mem_id=#{mem_id}
-	</select>
-	
-	<update id="coachMypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
-		update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
-	</update>
-	
-	<update id="coachMypageAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
-		update zipcok_member set
-			mem_zipcode=#{mem_zipcode},
-			mem_addr=#{mem_addr},
-			mem_detailaddr=#{mem_detailaddr}
-			where mem_id=#{mem_id}
-	</update>
-	
-	
-	
-	<select id="coachMypageEmailConfirm" resultType="String" parameterType="String">
+   
+   <!-- 코치마이페이지 일반프로필 -->
+   <select id="coachMypageProfile" parameterType="String" resultType="zipcok.member.model.MemberDTO">
+   select * from zipcok_member where mem_id=#{mem_id}
+   </select>
+   
+   <update id="coachMypagePwdUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_pwd=#{mem_pwd} where mem_id=#{mem_id}
+   </update>
+   
+   <update id="coachMypageAddrUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set
+         mem_zipcode=#{mem_zipcode},
+         mem_addr=#{mem_addr},
+         mem_detailaddr=#{mem_detailaddr}
+         where mem_id=#{mem_id}
+   </update>
+   
+   
+   
+   <select id="coachMypageEmailConfirm" resultType="String" parameterType="String">
    select mem_email from zipcok_member where mem_email = #{value}
    </select>
-	<update id="coachMypageEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
-		update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
-	</update>
-	
-	<update id="coachMypagePhoneUpdate" parameterType="zipcok.member.model.MemberDTO">
-		update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
-	</update>
-	
-  		<delete id="deleteCategories"  parameterType="HashMap" >
-	 delete from
-	  coach_category
-	  where
-	  cate_name= #{cate_name}
-	  and
-	  cate_mem_id=#{cate_mem_id}
-	</delete>
-	
-	<insert id="insertCategory" parameterType="zipcok.coach.model.CategoryDTO">
-	insert into 
-	 coach_category
-	values(
-	coach_category_cate_idx.nextval,
-	#{cate_mem_id},
-	#{cate_name}
-	)
-	
-	</insert>
-		
-	<delete id="deleteCurri"  parameterType="zipcok.coach.model.CurriDTO">
-	delete from coach_curriculum
-	where
-	curri_mem_id =#{curri_mem_id}
-	and
-	curri_catename=#{curri_catename}
-	</delete>
-	
-	<insert id="curriInsert" parameterType="zipcok.coach.model.CurriDTO">
-		insert into  coach_curriculum
-		values(
-			coach_curriculum_curri_idx.nextval,
-			#{curri_mem_id},
-			#{curri_catename},
-			#{curri_order},
-			#{curri_name},
-			#{curri_content}
-		)	
-	</insert>
-	
-	<update id="curriUpdate" parameterType="zipcok.coach.model.CurriDTO">
-		update  coach_curriculum
-		set
-			curri_name =#{curri_name},
-			curri_content =#{curri_content}
-		where
-			curri_mem_id=#{curri_mem_id}
-			and
-			curri_catename =	#{curri_catename}
-			and
-			curri_order =#{curri_order}		
-	</update>
-	
-	<select id="CmPaymentListTotalCnt" parameterType="HashMap" resultType="Integer">
-			select count(*) from
-	(select * from
-	
-	(select * from
-	zipcok_payment_details
-	where 
-	pd_target_id = #{mem_id})pd,
-	
-	(select m.mem_id,m.mem_name,catename
-	from
-	(select req_receive_id,req_mem_id,req_category as catename
+   <update id="coachMypageEmailUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_email=#{mem_email} where mem_id=#{mem_id}
+   </update>
+   
+   <update id="coachMypagePhoneUpdate" parameterType="zipcok.member.model.MemberDTO">
+      update zipcok_member set mem_phone=#{mem_phone} where mem_id=#{mem_id}
+   </update>
+   
+        <delete id="deleteCategories"  parameterType="HashMap" >
+    delete from
+     coach_category
+     where
+     cate_name= #{cate_name}
+     and
+     cate_mem_id=#{cate_mem_id}
+   </delete>
+   
+   <insert id="insertCategory" parameterType="zipcok.coach.model.CategoryDTO">
+   insert into 
+    coach_category
+   values(
+   coach_category_cate_idx.nextval,
+   #{cate_mem_id},
+   #{cate_name}
+   )
+   
+   </insert>
+      
+   <delete id="deleteCurri"  parameterType="zipcok.coach.model.CurriDTO">
+   delete from coach_curriculum
+   where
+   curri_mem_id =#{curri_mem_id}
+   and
+   curri_catename=#{curri_catename}
+   </delete>
+   
+   <insert id="curriInsert" parameterType="zipcok.coach.model.CurriDTO">
+      insert into  coach_curriculum
+      values(
+         coach_curriculum_curri_idx.nextval,
+         #{curri_mem_id},
+         #{curri_catename},
+         #{curri_order},
+         #{curri_name},
+         #{curri_content}
+      )   
+   </insert>
+   
+   <update id="curriUpdate" parameterType="zipcok.coach.model.CurriDTO">
+      update  coach_curriculum
+      set
+         curri_name =#{curri_name},
+         curri_content =#{curri_content}
+      where
+         curri_mem_id=#{curri_mem_id}
+         and
+         curri_catename =   #{curri_catename}
+         and
+         curri_order =#{curri_order}      
+   </update>
+   
+   <select id="CmPaymentListTotalCnt" parameterType="HashMap" resultType="Integer">
+         select count(*) from
+   (select * from
+   
+   (select * from
+   zipcok_payment_details
+   where 
+   pd_target_id = #{mem_id})pd,
+   
+   (select m.mem_id,m.mem_name,catename
+   from
+   (select req_receive_id,req_mem_id,req_category as catename
 from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
-	where
-		ct.req_mem_id = m.mem_id)nameinfo,
-	payment_request pr
-	
-	where
-		pd.pd_mem_id = nameinfo.mem_id
-		and
-		pd.pd_req_idx = pr.pr_idx
-		order by pd.pd_payment_date desc)aaa
-	
-	</select>
-	
-		<select id="CmPaymentList" parameterType="HashMap" resultType="zipcok.homegym.model.Pd_AllDTO">
-	select * from
-	(select rownum as rnum,aaa.*  from
-	
-	(select * from
-	
-	(select * from
-	zipcok_payment_details
-	where 
-	pd_target_id = #{mem_id})pd,
-	
-	(select m.mem_id,m.mem_name,catename
-	from
-	(select req_receive_id,req_mem_id,req_category as catename
+   where
+      ct.req_mem_id = m.mem_id)nameinfo,
+   payment_request pr
+   
+   where
+      pd.pd_mem_id = nameinfo.mem_id
+      and
+      pd.pd_req_idx = pr.pr_idx
+      order by pd.pd_payment_date desc)aaa
+   
+   </select>
+   
+      <select id="CmPaymentList" parameterType="HashMap" resultType="zipcok.homegym.model.Pd_AllDTO">
+   select * from
+   (select rownum as rnum,aaa.*  from
+   
+   (select * from
+   
+   (select * from
+   zipcok_payment_details
+   where 
+   pd_target_id = #{mem_id})pd,
+   
+   (select m.mem_id,m.mem_name,catename
+   from
+   (select req_receive_id,req_mem_id,req_category as catename
 from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name from zipcok_member)m
-	where
-	ct.req_mem_id= m.mem_id)nameinfo,
-	payment_request pr
-	
-	where
-		pd.pd_mem_id = nameinfo.mem_id
-		and
-		pd.pd_req_idx = pr.pr_idx
-		order by pd.pd_payment_date desc)aaa)sunbun
-		where
-		rnum between #{start} and  #{end}
-	
-	</select>
-	<select id="coachmypageHomeGymInfoSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymDTO">
-    	select * from homegym where hg_mem_id = #{value}
+   where
+   ct.req_mem_id= m.mem_id)nameinfo,
+   payment_request pr
+   
+   where
+      pd.pd_mem_id = nameinfo.mem_id
+      and
+      pd.pd_req_idx = pr.pr_idx
+      order by pd.pd_payment_date desc)aaa)sunbun
+      where
+      rnum between #{start} and  #{end}
+   
+   </select>
+   <select id="coachmypageHomeGymInfoSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymDTO">
+       select * from homegym where hg_mem_id = #{value}
     </select>
     <select id="coachmypageHomeGymEqInfoSQL" parameterType="String" resultType="zipcok.homegym.model.HomeGymEquipmentDTO">
-		select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
-	</select>
-	<select id="coachmypageHomeGymImgInfoSQL" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
-		select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value} order by mfile_idx
-	</select>
-	<select id = "coachmypageHomeGymLikeCount" parameterType="String" resultType="Integer">
-    	select count(*) from zipcok_like where like_target_id = #{value} and like_key = '홈짐'
+      select * from homegym_equipment where eq_mem_id = #{value} order by eq_name
+   </select>
+   <select id="coachmypageHomeGymImgInfoSQL" parameterType="String" resultType="zipcok.coach.model.CoachFileDTO">
+      select * from member_file where mfile_key = '홈짐' and mfile_mem_id = #{value} order by mfile_idx
+   </select>
+   <select id = "coachmypageHomeGymLikeCount" parameterType="String" resultType="Integer">
+       select count(*) from zipcok_like where like_target_id = #{value} and like_key = '홈짐'
     </select> 
-    	<select id = "coachmypageHomeGymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
-	select * from star_review where rev_key = '홈짐' and rev_target_id = #{value} order by rev_writedate
-	</select>
-	<update id="coachmypageHomeGymStatusChangeSQL" parameterType="hashMap">
-		update homegym set hg_status = #{hg_status} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<update id="coachmypageHomeGymAddrUpdateSQL" parameterType="hashMap">
-		update homegym set hg_faddr = #{hg_faddr}, hg_saddr = #{hg_saddr} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<update id="coachmypageHomeGymStationUpdateSQL" parameterType="hashMap">
-		update homegym set hg_station = #{hg_station} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<update id="coachmypageHomeGymPerson_countUpdateSQL" parameterType="hashMap">
-		update homegym set hg_person_count = #{hg_person_count} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<update id="coachmypageHomeGymPriceUpdateSQL" parameterType="hashMap">
-		update homegym set hg_price = #{hg_price} where hg_mem_id = #{hg_mem_id}
-	</update>
-	
+       <select id = "coachmypageHomeGymReviewSelectSQL" parameterType="String" resultType="zipcok.coach.model.ReviewDTO">
+   select * from star_review where rev_key = '홈짐' and rev_target_id = #{value} order by rev_writedate
+   </select>
+   <update id="coachmypageHomeGymStatusChangeSQL" parameterType="hashMap">
+      update homegym set hg_status = #{hg_status} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <update id="coachmypageHomeGymAddrUpdateSQL" parameterType="hashMap">
+      update homegym set hg_faddr = #{hg_faddr}, hg_saddr = #{hg_saddr} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <update id="coachmypageHomeGymStationUpdateSQL" parameterType="hashMap">
+      update homegym set hg_station = #{hg_station} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <update id="coachmypageHomeGymPerson_countUpdateSQL" parameterType="hashMap">
+      update homegym set hg_person_count = #{hg_person_count} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <update id="coachmypageHomeGymPriceUpdateSQL" parameterType="hashMap">
+      update homegym set hg_price = #{hg_price} where hg_mem_id = #{hg_mem_id}
+   </update>
+   
 
-	<select id="getCoachAccount" parameterType="HashMap"  resultType="zipcok.homegym.model.PaymentDTO">
-	select * from zipcok_payment
-	where 
-	pa_key = #{key}
-	and
-	hg_mem_id = #{mem_id}
-	</select>
-	
+   <select id="getCoachAccount" parameterType="HashMap"  resultType="zipcok.homegym.model.PaymentDTO">
+   select * from zipcok_payment
+   where 
+   pa_key = #{key}
+   and
+   hg_mem_id = #{mem_id}
+   </select>
+   
 
-	<select id="coachmypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
-		select count(*) from homegym where hg_mem_id = #{value}
-	</select>
-	<delete id="coachmypageHomeGymEqAllDeleteSQL" parameterType="String">
-		delete from homegym_equipment where eq_mem_id = #{value}
-	</delete>
-	<insert id="coachmypageHomeGymEqUpdate" parameterType="hashMap">
-		insert into homegym_equipment values(
-		eq_idx.nextval,
-		#{eq_mem_id}, #{eq_name}, #{eq_count})
-	</insert>
-	<update id="coachmypageHomeGymUseDateUpdate" parameterType="hashMap">
-		update homegym set hg_start_date = #{start_date}, hg_end_date = #{end_date}, hg_not_date = #{not_date} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<update id="coachmypageHomeGymUseTimeUpdate" parameterType="hashMap">
-		update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
-	</update>
-	<select id="coachmypageHomeGymPayListTotalCnt" parameterType="hashMap" resultType="Integer">
-		select count(*) from zipcok_payment_details where pd_key = '홈짐' and pd_target_id = #{mem_id}
-	</select>
-	<select id ="coachmypageHomeGymPayList" parameterType="hashMap" resultType="zipcok.homegym.model.Pd_HgAllDTO">
-		select * from(
-		select rownum as rnum, a.* from(
-		select * from zipcok_payment_details pd, homegym_reservation r
-		where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_target_id = #{mem_id})a)b
-		where rnum between #{start} and #{end} order by pd_payment_date desc
-	</select>
-	<select id ="coachmypageHomeGymReviewCheck" parameterType="Integer" resultType = "Integer">
-		select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
-	</select>
-	<select id="coachmypageMyPayListTotalCnt" parameterType="hashMap" resultType="Integer">
-		select count(*) from zipcok_payment_details where pd_key = '홈짐' and pd_mem_id = #{mem_id}
-	</select>
-	<select id ="coachmypageMyPayList" parameterType="hashMap" resultType="zipcok.homegym.model.Pd_HgAllDTO">
-		select * from(
-		select rownum as rnum, a.* from(
-		select * from zipcok_payment_details pd, homegym_reservation r
-		where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_mem_id = #{mem_id})a)b
-		where rnum between #{start} and #{end} order by pd_payment_date desc
-	</select>
-	<select id ="coachmypageMyReviewCheck" parameterType="Integer" resultType = "Integer">
-		select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
-	</select>
-	<select id="coachmypageHomeGymNickname" parameterType="String" resultType="String">
-		select hg_nickname from homegym where hg_mem_id = #{value}
-	</select>
-	<insert id="coachmypagePayListReviewAdd" parameterType="zipcok.coach.model.ReviewDTO">
-		insert star_review values(
-		star_review_idx.nextval,
-		'홈짐',
-		#{rev_mem_id},
-		#{rev_target_id},
-		#{rev_star},
-		#{rev_sub},
-		#{rev_cont},
-		sysdate,
-		sysdate,
-		#{rev_pd_idx}
-		)
-	</insert>
-	<select id = "coachmypagePayListReviewView" parameterType="Integer" resultType = "zipcok.coach.model.ReviewDTO">
-		select * from star_review where rev_pd_idx = #{value}
-	</select>
-	<update id="coachmypagePaymentCancel_payment" parameterType="Integer">
-		update zipcok_payment_details set pd_status = '취소요청중' where pd_idx = #{value}
-	</update>
-	<update id="coachmypagePaymentCancel_reservation" parameterType="Integer">
-		update homegym_reservation set reser_status = '예약취소중' where reser_idx = #{value}
-	</update>
-	<select id="coachmypagePaymentFind" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
-		select * from zipcok_payment where hg_mem_id = #{value} and pa_key = '코치'
-	</select>
-	
-	
-	
-	<update id="accountUpdate" parameterType="zipcok.homegym.model.PaymentDTO">
-		update zipcok_payment
-		 set
-			pa_bankname=#{pa_bankname},
-			pa_no=#{pa_no},
-			pa_username=#{pa_username}
-			where 
-			hg_mem_id=#{hg_mem_id}
-			and
-			pa_key = #{ pa_key }
-	</update>
-	
-	
-	<update id="coachAddrUpdate" parameterType="zipcok.coach.model.CoachDTO">
-		update coach_regist
-		 set
-			coach_floc=#{coach_floc},
-			coach_sloc=#{coach_sloc}
-			
-			where 
-			coach_mem_id=#{coach_mem_id}
-		
-	</update>
-	
+   <select id="coachmypageHomeGymCheckSQL" parameterType="String" resultType="Integer">
+      select count(*) from homegym where hg_mem_id = #{value}
+   </select>
+   <delete id="coachmypageHomeGymEqAllDeleteSQL" parameterType="String">
+      delete from homegym_equipment where eq_mem_id = #{value}
+   </delete>
+   <insert id="coachmypageHomeGymEqUpdate" parameterType="hashMap">
+      insert into homegym_equipment values(
+      eq_idx.nextval,
+      #{eq_mem_id}, #{eq_name}, #{eq_count})
+   </insert>
+   <update id="coachmypageHomeGymUseDateUpdate" parameterType="hashMap">
+      update homegym set hg_start_date = #{start_date}, hg_end_date = #{end_date}, hg_not_date = #{not_date} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <update id="coachmypageHomeGymUseTimeUpdate" parameterType="hashMap">
+      update homegym set hg_start_time = #{start_time}, hg_end_time = #{end_time} where hg_mem_id = #{hg_mem_id}
+   </update>
+   <select id="coachmypageHomeGymPayListTotalCnt" parameterType="hashMap" resultType="Integer">
+      select count(*) from zipcok_payment_details where pd_key = '홈짐' and pd_target_id = #{mem_id}
+   </select>
+   <select id ="coachmypageHomeGymPayList" parameterType="hashMap" resultType="zipcok.homegym.model.Pd_HgAllDTO">
+      select * from(
+      select rownum as rnum, a.* from(
+      select * from zipcok_payment_details pd, homegym_reservation r
+      where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_target_id = #{mem_id})a)b
+      where rnum between #{start} and #{end} order by pd_payment_date desc
+   </select>
+   <select id ="coachmypageHomeGymReviewCheck" parameterType="Integer" resultType = "Integer">
+      select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
+   </select>
+   <select id="coachmypageMyPayListTotalCnt" parameterType="hashMap" resultType="Integer">
+      select count(*) from zipcok_payment_details where pd_key = '홈짐' and pd_mem_id = #{mem_id}
+   </select>
+   <select id ="coachmypageMyPayList" parameterType="hashMap" resultType="zipcok.homegym.model.Pd_HgAllDTO">
+      select * from(
+      select rownum as rnum, a.* from(
+      select * from zipcok_payment_details pd, homegym_reservation r
+      where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_mem_id = #{mem_id})a)b
+      where rnum between #{start} and #{end} order by pd_payment_date desc
+   </select>
+   <select id ="coachmypageMyReviewCheck" parameterType="Integer" resultType = "Integer">
+      select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
+   </select>
+   <select id="coachmypageHomeGymNickname" parameterType="String" resultType="String">
+      select hg_nickname from homegym where hg_mem_id = #{value}
+   </select>
+   <insert id="coachmypagePayListReviewAdd" parameterType="zipcok.coach.model.ReviewDTO">
+      insert into star_review values(
+      star_review_idx.nextval,
+      '홈짐',
+      #{rev_mem_id},
+      #{rev_target_id},
+      #{rev_star},
+      #{rev_sub},
+      #{rev_cont},
+      sysdate,
+      sysdate,
+      #{rev_pd_idx}
+      )
+   </insert>
+   <select id = "coachmypagePayListReviewView" parameterType="Integer" resultType = "zipcok.coach.model.ReviewDTO">
+      select * from star_review where rev_pd_idx = #{value}
+   </select>
+   <update id="coachmypagePaymentCancel_payment" parameterType="Integer">
+      update zipcok_payment_details set pd_status = '취소요청중' where pd_idx = #{value}
+   </update>
+   <update id="coachmypagePaymentCancel_reservation" parameterType="Integer">
+      update homegym_reservation set reser_status = '예약취소중' where reser_idx = #{value}
+   </update>
+   <select id="coachmypagePaymentFind" parameterType="String" resultType="zipcok.homegym.model.PaymentDTO">
+      select * from zipcok_payment where hg_mem_id = #{value} and pa_key = '코치'
+   </select>
+   
+   
+   
+   <update id="accountUpdate" parameterType="zipcok.homegym.model.PaymentDTO">
+      update zipcok_payment
+       set
+         pa_bankname=#{pa_bankname},
+         pa_no=#{pa_no},
+         pa_username=#{pa_username}
+         where 
+         hg_mem_id=#{hg_mem_id}
+         and
+         pa_key = #{ pa_key }
+   </update>
+   
+   
+   <update id="coachAddrUpdate" parameterType="zipcok.coach.model.CoachDTO">
+      update coach_regist
+       set
+         coach_floc=#{coach_floc},
+         coach_sloc=#{coach_sloc}
+         
+         where 
+         coach_mem_id=#{coach_mem_id}
+      
+   </update>
+   
   </mapper>

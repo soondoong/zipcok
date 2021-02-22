@@ -103,7 +103,7 @@
 		var d = new Date();
 		var year = d.getFullYear(); //년도
 		var month = d.getMonth()+1; //월
-		var day = d.getDate(); //일
+		var day = d.getDate()+1; //일
 		if ((day+"").length < 2) {       // 일이 한자리 수인 경우 앞에 0을 붙여주기 위해
 				day = "0" + day;
 	       }
