@@ -90,6 +90,7 @@
         ) c
         where
         rnum between ${start} and ${end}
+        order by hg_regist_date desc
 	</select>
 	
 	<select id = "totalCntSQL" parameterType="hashMap" resultType="Integer">
@@ -129,7 +130,7 @@
         hg_approved_check = '1'
 		and
 		hg_status = '1'
-        ) c
+        ) c order by hg_regist_date desc
 	</select>
 	<select id="userEquipmentListSQL" parameterType="String" resultType = "zipcok.homegym.model.HomeGymEquipmentDTO">
 	select * from homegym_equipment where eq_mem_id = #{value} order by eq_name

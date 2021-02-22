@@ -367,7 +367,7 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		select rownum as rnum, a.* from(
 		select * from zipcok_payment_details pd, homegym_reservation r
 		where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_target_id = #{mem_id})a)b
-		where rnum between #{start} and #{end}
+		where rnum between #{start} and #{end} order by pd_payment_date desc
 	</select>
 	<select id ="coachmypageHomeGymReviewCheck" parameterType="Integer" resultType = "Integer">
 		select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}
@@ -380,7 +380,7 @@ from request_form where req_receive_id =  #{mem_id})ct,(select mem_id,mem_name f
 		select rownum as rnum, a.* from(
 		select * from zipcok_payment_details pd, homegym_reservation r
 		where pd.pd_req_idx = r.reser_idx and pd_key = '홈짐' and pd_mem_id = #{mem_id})a)b
-		where rnum between #{start} and #{end}
+		where rnum between #{start} and #{end} order by pd_payment_date desc
 	</select>
 	<select id ="coachmypageMyReviewCheck" parameterType="Integer" resultType = "Integer">
 		select count(*) from star_review where rev_key = '홈짐' and rev_pd_idx = #{value}

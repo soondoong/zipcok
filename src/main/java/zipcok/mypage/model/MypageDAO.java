@@ -76,5 +76,6 @@ public interface MypageDAO {
   public int mypagehomegympaymentCancel_payment(int pd_idx);
   public int mypagehomegympaymentCancel_reservation(int reser_idx);
   public PaymentDTO mypageHomeGymPaymentFind(String mem_id);
+  public ReviewDTO homegymReview(int pd_idx);
 
 }

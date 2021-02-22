@@ -375,7 +375,7 @@ window.addEventListener('load', function() {
 .bottom_contentArea .reviewArea .contetn_reivew_paging {margin: 40px 0 0; text-align: center;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a {display: inline-block; background: #f7f7f7; text-align: center; width: 30px; height: 30px; font-size: 14px; line-height: 30px;}
 .bottom_contentArea .reviewArea .contetn_reivew_paging a:not(:first-child) {margin-left: 5px;}
-.likeicon{ font-size:25px;font-weight:100;position: absolute;color:white;}
+.likeicon{ font-size:25px;font-weight:100;position: absolute;color:#dc3545;}
 .likeafter{color : #FF6682; }
 .cont_title:before{ content:""; display:inline-block; background-color:#257cda; width:11px; height: 41px; }	
 .cont_title{ color:#12151d; margin-top:20px; magin-bottom:30px;}
